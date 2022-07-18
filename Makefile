@@ -2,7 +2,7 @@ PROJECT_NAME := vercel Package
 
 SHELL            := /bin/bash
 PACK             := vercel
-ORG              := pulumi
+ORG              := omercnet
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
 NODE_MODULE_NAME := @pulumi/${PACK}
 TF_NAME          := ${PACK}
