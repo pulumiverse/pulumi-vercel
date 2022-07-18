@@ -23,7 +23,7 @@ import (
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/vercel/terraform-provider-vercel/vercel"
+	vercel "github.com/vercel/terraform-provider-vercel/vercel"
 )
 
 // all of the token components used below.
