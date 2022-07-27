@@ -1,11 +1,11 @@
 archives:
   - id: archive
-    name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
+    name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
 before:
   hooks:
     - make tfgen
 builds:
-  - binary: provider-resource-vercel
+  - binary: pulumi-resource-vercel
     dir: provider
     env:
       - CGO_ENABLED=0
@@ -26,4 +26,4 @@ release:
   disable: false
   prerelease: auto
 snapshot:
-  name_template: '{{ .Tag }}-SNAPSHOT'
+  name_template: "{{ .Tag }}-SNAPSHOT"
