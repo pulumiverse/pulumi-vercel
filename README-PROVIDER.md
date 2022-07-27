@@ -1,6 +1,6 @@
 # Foo Resource Provider
 
-The Foo Resource Provider lets you manage [Foo](http://example.com) resources.
+The Foo Resource Provider lets you manage [Vercel](http://vercel.com) resources.
 
 ## Installing
 
@@ -11,13 +11,13 @@ This package is available for several languages/platforms:
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumi/foo
+npm install @omercnet/pulumi-vercel
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumi/foo
+yarn add @omercnet/pulumi-vercel
 ```
 
 ### Python
@@ -25,7 +25,7 @@ yarn add @pulumi/foo
 To use from Python, install using `pip`:
 
 ```bash
-pip install pulumi_foo
+pip install pulumi_vercel
 ```
 
 ### Go

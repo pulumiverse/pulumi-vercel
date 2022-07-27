@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:generate go run ./generate.go
-
 package main
 
 import (
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
-	xyz "github.com/pulumi/pulumi-xyz/provider"
-	"github.com/pulumi/pulumi-xyz/provider/pkg/version"
+	vercel "github.com/omercnet/pulumi-vercel/provider"
+	"github.com/omercnet/pulumi-vercel/provider/pkg/version"
+	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfgen"
 )
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("xyz", version.Version, xyz.Provider(), pulumiSchema)
+	tfgen.Main("vercel", version.Version, vercel.Provider())
 }

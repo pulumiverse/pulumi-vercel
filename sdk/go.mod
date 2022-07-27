@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz/sdk
+module github.com/omercnet/pulumi-vercel/sdk
 
 go 1.18
 
