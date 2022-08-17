@@ -9,8 +9,8 @@ replace (
 )
 
 require (
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.26.1
-	github.com/pulumi/pulumi/sdk/v3 v3.37.2
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.28.0
+	github.com/pulumi/pulumi/sdk/v3 v3.38.0
 	github.com/vercel/terraform-provider-vercel v0.6.2
 )
 
@@ -39,6 +39,8 @@ require (
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
+	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-cidr v1.1.0 // indirect
@@ -79,6 +81,9 @@ require (
 	github.com/ettle/strcase v0.1.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/gedex/inflector v0.0.0-20170307190818-16278e9db813 // indirect
+	github.com/go-git/gcfg v1.5.0 // indirect
+	github.com/go-git/go-billy/v5 v5.3.1 // indirect
+	github.com/go-git/go-git/v5 v5.4.2 // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
@@ -164,9 +169,9 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/posener/complete v1.2.3 // indirect
-	github.com/pulumi/pulumi-java/pkg v0.5.2 // indirect
-	github.com/pulumi/pulumi-yaml v0.5.3 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.37.0 // indirect
+	github.com/pulumi/pulumi-java/pkg v0.5.3 // indirect
+	github.com/pulumi/pulumi-yaml v0.5.4 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.38.0 // indirect
 	github.com/pulumi/terraform-diff-reader v0.0.0-20201211191010-ad4715e9285e // indirect
 	github.com/rivo/uniseg v0.3.0 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
