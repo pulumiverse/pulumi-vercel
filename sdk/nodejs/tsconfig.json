@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "outDir": "bin",
+        "target": "es2016",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "declaration": true,
+        "sourceMap": true,
+        "stripInternal": true,
+        "experimentalDecorators": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true
+    },
+    "files": [
+        "alias.ts",
+        "config/index.ts",
+        "config/vars.ts",
+        "deployment.ts",
+        "dnsRecord.ts",
+        "getAlias.ts",
+        "getFile.ts",
+        "getPrebuiltProject.ts",
+        "getProject.ts",
+        "getProjectDirectory.ts",
+        "index.ts",
+        "project.ts",
+        "projectDomain.ts",
+        "projectEnvironmentVariable.ts",
+        "provider.ts",
+        "sharedEnvironmentVariable.ts",
+        "types/index.ts",
+        "types/input.ts",
+        "types/output.ts",
+        "utilities.ts"
+    ]
+}

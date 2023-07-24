@@ -15,12 +15,11 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfgen"
 	vercel "github.com/omercnet/pulumi-vercel/provider"
-	"github.com/omercnet/pulumi-vercel/provider/pkg/version"
+	"github.com/pulumi/pulumi-terraform-bridge/pf/tfgen"
 )
 
 func main() {
 	// Modify the path to point to the new provider
-	tfgen.Main("vercel", version.Version, vercel.Provider())
+	tfgen.Main("vercel", vercel.Provider())
 }
