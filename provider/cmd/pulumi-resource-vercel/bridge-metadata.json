@@ -1,20 +1,308 @@
 {
-    "name": "vercel",
-    "displayName": "Vercel",
+    "attribution": "This Pulumi package is based on the [`vercel` Terraform Provider](https://github.com/vercel/terraform-provider-vercel).",
+    "config": {
+        "variables": {
+            "apiToken": {
+                "type": "string",
+                "description": "The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens\ncan be created from your [Vercel settings](https://vercel.com/account/tokens).\n",
+                "secret": true
+            },
+            "team": {
+                "type": "string",
+                "description": "The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug\nand ID are both available from the Team Settings page in the Vercel dashboard.\n"
+            }
+        }
+    },
     "description": "A Pulumi package for creating and managing vercel cloud resources.",
+    "displayName": "Vercel",
+    "functions": {
+        "vercel:index/getAlias:getAlias": {
+            "description": "Provides information about an existing Alias resource.\n\nAn Alias allows a `vercel.Deployment` to be accessed through a different URL.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getAlias.\n",
+                "properties": {
+                    "alias": {
+                        "type": "string",
+                        "description": "The Alias or Alias ID to be retrieved.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "alias"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAlias.\n",
+                "properties": {
+                    "alias": {
+                        "type": "string",
+                        "description": "The Alias or Alias ID to be retrieved.\n"
+                    },
+                    "deploymentId": {
+                        "type": "string",
+                        "description": "The ID of the Deployment the Alias is associated with.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "alias",
+                    "deploymentId",
+                    "id",
+                    "teamId"
+                ]
+            }
+        },
+        "vercel:index/getFile:getFile": {
+            "description": "Provides information about a file on disk.\n\nThis will read a single file, providing metadata for use with a `vercel.Deployment`.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst exampleFile = vercel.getFile({\n    path: \"index.html\",\n});\nconst exampleProject = vercel.getProject({\n    name: \"my-project\",\n});\nconst exampleDeployment = new vercel.Deployment(\"exampleDeployment\", {\n    projectId: exampleProject.then(exampleProject =\u003e exampleProject.id),\n    files: exampleFile.then(exampleFile =\u003e exampleFile.file),\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample_file = vercel.get_file(path=\"index.html\")\nexample_project = vercel.get_project(name=\"my-project\")\nexample_deployment = vercel.Deployment(\"exampleDeployment\",\n    project_id=example_project.id,\n    files=example_file.file)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleFile = Vercel.GetFile.Invoke(new()\n    {\n        Path = \"index.html\",\n    });\n\n    var exampleProject = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"my-project\",\n    });\n\n    var exampleDeployment = new Vercel.Deployment(\"exampleDeployment\", new()\n    {\n        ProjectId = exampleProject.Apply(getProjectResult =\u003e getProjectResult.Id),\n        Files = exampleFile.Apply(getFileResult =\u003e getFileResult.File),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/omercnet/pulumi-vercel/sdk/go/vercel\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleFile, err := vercel.GetFile(ctx, \u0026vercel.GetFileArgs{\n\t\t\tPath: \"index.html\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\texampleProject, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"my-project\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewDeployment(ctx, \"exampleDeployment\", \u0026vercel.DeploymentArgs{\n\t\t\tProjectId: *pulumi.String(exampleProject.Id),\n\t\t\tFiles:     interface{}(exampleFile.File),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetFileArgs;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport com.pulumi.vercel.Deployment;\nimport com.pulumi.vercel.DeploymentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleFile = VercelFunctions.getFile(GetFileArgs.builder()\n            .path(\"index.html\")\n            .build());\n\n        final var exampleProject = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"my-project\")\n            .build());\n\n        var exampleDeployment = new Deployment(\"exampleDeployment\", DeploymentArgs.builder()        \n            .projectId(exampleProject.applyValue(getProjectResult -\u003e getProjectResult.id()))\n            .files(exampleFile.applyValue(getFileResult -\u003e getFileResult.file()))\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleDeployment:\n    type: vercel:Deployment\n    properties:\n      projectId: ${exampleProject.id}\n      files: ${exampleFile.file}\nvariables:\n  exampleFile:\n    fn::invoke:\n      Function: vercel:getFile\n      Arguments:\n        path: index.html\n  exampleProject:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: my-project\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getFile.\n",
+                "properties": {
+                    "path": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "path"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getFile.\n",
+                "properties": {
+                    "file": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "path": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file",
+                    "id",
+                    "path"
+                ]
+            }
+        },
+        "vercel:index/getPrebuiltProject:getPrebuiltProject": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getPrebuiltProject.\n",
+                "properties": {
+                    "path": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "path"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getPrebuiltProject.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "output": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.\n"
+                    },
+                    "path": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "output",
+                    "path"
+                ]
+            }
+        },
+        "vercel:index/getProject:getProject": {
+            "description": "Provides information about an existing project within Vercel.\n\nA Project groups deployments and custom domains. To deploy on Vercel, you need a Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst foo = vercel.getProject({\n    name: \"my-existing-project\",\n});\nexport const projectId = foo.then(foo =\u003e foo.id);\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nfoo = vercel.get_project(name=\"my-existing-project\")\npulumi.export(\"projectId\", foo.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var foo = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"my-existing-project\",\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"projectId\"] = foo.Apply(getProjectResult =\u003e getProjectResult.Id),\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/omercnet/pulumi-vercel/sdk/go/vercel\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tfoo, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"my-existing-project\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"projectId\", foo.Id)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var foo = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"my-existing-project\")\n            .build());\n\n        ctx.export(\"projectId\", foo.applyValue(getProjectResult -\u003e getProjectResult.id()));\n    }\n}\n```\n```yaml\nvariables:\n  foo:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: my-existing-project\noutputs:\n  # Outputs prj_xxxxxx\n  projectId: ${foo.id}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getProject.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project.\n"
+                    },
+                    "passwordProtection": {
+                        "$ref": "#/types/vercel:index/getProjectPasswordProtection:getProjectPasswordProtection",
+                        "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProject.\n",
+                "properties": {
+                    "buildCommand": {
+                        "type": "string",
+                        "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
+                    },
+                    "devCommand": {
+                        "type": "string",
+                        "description": "The dev command for this project. If omitted, this value will be automatically detected.\n"
+                    },
+                    "environments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/getProjectEnvironment:getProjectEnvironment"
+                        },
+                        "description": "A list of environment variables that should be configured for the project.\n"
+                    },
+                    "framework": {
+                        "type": "string",
+                        "description": "The framework that is being used for this project. If omitted, no framework is selected.\n"
+                    },
+                    "gitRepository": {
+                        "$ref": "#/types/vercel:index/getProjectGitRepository:getProjectGitRepository",
+                        "description": "The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "ignoreCommand": {
+                        "type": "string",
+                        "description": "When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.\n"
+                    },
+                    "installCommand": {
+                        "type": "string",
+                        "description": "The install command for this project. If omitted, this value will be automatically detected.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project.\n"
+                    },
+                    "outputDirectory": {
+                        "type": "string",
+                        "description": "The output directory of the project. When null is used this value will be automatically detected.\n"
+                    },
+                    "passwordProtection": {
+                        "$ref": "#/types/vercel:index/getProjectPasswordProtection:getProjectPasswordProtection",
+                        "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
+                    },
+                    "publicSource": {
+                        "type": "boolean",
+                        "description": "Specifies whether the source code and logs of the deployments for this project should be public or not.\n"
+                    },
+                    "rootDirectory": {
+                        "type": "string",
+                        "description": "The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.\n"
+                    },
+                    "serverlessFunctionRegion": {
+                        "type": "string",
+                        "description": "The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "vercelAuthentication": {
+                        "$ref": "#/types/vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication",
+                        "description": "Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "buildCommand",
+                    "devCommand",
+                    "environments",
+                    "framework",
+                    "gitRepository",
+                    "id",
+                    "ignoreCommand",
+                    "installCommand",
+                    "name",
+                    "outputDirectory",
+                    "publicSource",
+                    "rootDirectory",
+                    "serverlessFunctionRegion",
+                    "teamId",
+                    "vercelAuthentication"
+                ]
+            }
+        },
+        "vercel:index/getProjectDirectory:getProjectDirectory": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getProjectDirectory.\n",
+                "properties": {
+                    "path": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "path"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProjectDirectory.\n",
+                "properties": {
+                    "files": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "path": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "files",
+                    "id",
+                    "path"
+                ]
+            }
+        }
+    },
+    "homepage": "https://www.pulumi.com",
     "keywords": [
         "pulumi",
         "vercel",
         "category/cloud"
     ],
-    "homepage": "https://www.pulumi.com",
-    "license": "Apache-2.0",
-    "attribution": "This Pulumi package is based on the [`vercel` Terraform Provider](https://github.com/vercel/terraform-provider-vercel).",
-    "repository": "https://github.com/omercnet/pulumi-vercel",
-    "publisher": "Omer Cohen",
-    "meta": {
-        "moduleFormat": "(.*)(?:/[^/]*)"
-    },
     "language": {
         "csharp": {
             "compatibility": "tfbridge20",
@@ -51,289 +339,11 @@
             }
         }
     },
-    "config": {
-        "variables": {
-            "apiToken": {
-                "type": "string",
-                "description": "The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens\ncan be created from your [Vercel settings](https://vercel.com/account/tokens).\n",
-                "secret": true
-            },
-            "team": {
-                "type": "string",
-                "description": "The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug\nand ID are both available from the Team Settings page in the Vercel dashboard.\n"
-            }
-        }
+    "license": "Apache-2.0",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
     },
-    "types": {
-        "vercel:index/DeploymentProjectSettings:DeploymentProjectSettings": {
-            "properties": {
-                "buildCommand": {
-                    "type": "string",
-                    "description": "The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.\n"
-                },
-                "framework": {
-                    "type": "string",
-                    "description": "The framework that is being used for this deployment. If omitted, no framework is selected.\n"
-                },
-                "installCommand": {
-                    "type": "string",
-                    "description": "The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.\n"
-                },
-                "outputDirectory": {
-                    "type": "string",
-                    "description": "The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.\n"
-                },
-                "rootDirectory": {
-                    "type": "string",
-                    "description": "The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.\n"
-                }
-            },
-            "type": "object"
-        },
-        "vercel:index/DnsRecordSrv:DnsRecordSrv": {
-            "properties": {
-                "port": {
-                    "type": "integer",
-                    "description": "The TCP or UDP port on which the service is to be found.\n"
-                },
-                "priority": {
-                    "type": "integer",
-                    "description": "The priority of the target host, lower value means more preferred.\n"
-                },
-                "target": {
-                    "type": "string",
-                    "description": "The canonical hostname of the machine providing the service, ending in a dot.\n"
-                },
-                "weight": {
-                    "type": "integer",
-                    "description": "A relative weight for records with the same priority, higher value means higher chance of getting picked.\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "port",
-                "priority",
-                "target",
-                "weight"
-            ]
-        },
-        "vercel:index/ProjectEnvironment:ProjectEnvironment": {
-            "properties": {
-                "gitBranch": {
-                    "type": "string",
-                    "description": "The git branch of the Environment Variable.\n"
-                },
-                "id": {
-                    "type": "string",
-                    "description": "The ID of the Environment Variable.\n"
-                },
-                "key": {
-                    "type": "string",
-                    "description": "The name of the Environment Variable.\n"
-                },
-                "targets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.\n"
-                },
-                "value": {
-                    "type": "string",
-                    "description": "The value of the Environment Variable.\n",
-                    "secret": true
-                }
-            },
-            "type": "object",
-            "required": [
-                "key",
-                "targets",
-                "value"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "id",
-                        "key",
-                        "targets",
-                        "value"
-                    ]
-                }
-            }
-        },
-        "vercel:index/ProjectGitRepository:ProjectGitRepository": {
-            "properties": {
-                "productionBranch": {
-                    "type": "string",
-                    "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
-                },
-                "repo": {
-                    "type": "string",
-                    "description": "The name of the git repository. For example: `vercel/next.js`.\n"
-                },
-                "type": {
-                    "type": "string",
-                    "description": "The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "repo",
-                "type"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "productionBranch",
-                        "repo",
-                        "type"
-                    ]
-                }
-            }
-        },
-        "vercel:index/ProjectPasswordProtection:ProjectPasswordProtection": {
-            "properties": {
-                "password": {
-                    "type": "string",
-                    "description": "The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.\n",
-                    "secret": true
-                },
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "password"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "password",
-                        "protectProduction"
-                    ]
-                }
-            }
-        },
-        "vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication": {
-            "properties": {
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "protectProduction"
-                    ]
-                }
-            }
-        },
-        "vercel:index/getProjectEnvironment:getProjectEnvironment": {
-            "properties": {
-                "gitBranch": {
-                    "type": "string",
-                    "description": "The git branch of the environment variable.\n"
-                },
-                "id": {
-                    "type": "string",
-                    "description": "The ID of the environment variable\n"
-                },
-                "key": {
-                    "type": "string",
-                    "description": "The name of the environment variable.\n"
-                },
-                "targets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.\n"
-                },
-                "value": {
-                    "type": "string",
-                    "description": "The value of the environment variable.\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "gitBranch",
-                "id",
-                "key",
-                "targets",
-                "value"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "vercel:index/getProjectGitRepository:getProjectGitRepository": {
-            "properties": {
-                "productionBranch": {
-                    "type": "string",
-                    "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
-                },
-                "repo": {
-                    "type": "string",
-                    "description": "The name of the git repository. For example: `vercel/next.js`.\n"
-                },
-                "type": {
-                    "type": "string",
-                    "description": "The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "productionBranch",
-                "repo",
-                "type"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "vercel:index/getProjectPasswordProtection:getProjectPasswordProtection": {
-            "properties": {
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "protectProduction"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
-        "vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication": {
-            "properties": {
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
-                }
-            },
-            "type": "object",
-            "required": [
-                "protectProduction"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        }
-    },
+    "name": "vercel",
     "provider": {
         "description": "The provider type for the vercel package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
         "properties": {
@@ -359,6 +369,132 @@
             }
         }
     },
+    "publisher": "Omer Cohen",
+    "renames": {
+        "resources": {
+            "vercel:index/alias:Alias": "vercel_alias",
+            "vercel:index/deployment:Deployment": "vercel_deployment",
+            "vercel:index/dnsRecord:DnsRecord": "vercel_dns_record",
+            "vercel:index/project:Project": "vercel_project",
+            "vercel:index/projectDomain:ProjectDomain": "vercel_project_domain",
+            "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable": "vercel_project_environment_variable",
+            "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": "vercel_shared_environment_variable"
+        },
+        "functions": {
+            "vercel:index/getAlias:getAlias": "vercel_alias",
+            "vercel:index/getFile:getFile": "vercel_file",
+            "vercel:index/getPrebuiltProject:getPrebuiltProject": "vercel_prebuilt_project",
+            "vercel:index/getProject:getProject": "vercel_project",
+            "vercel:index/getProjectDirectory:getProjectDirectory": "vercel_project_directory"
+        },
+        "renamedProperties": {
+            "vercel:index/DeploymentProjectSettings:DeploymentProjectSettings": {
+                "buildCommand": "build_command",
+                "installCommand": "install_command",
+                "outputDirectory": "output_directory",
+                "rootDirectory": "root_directory"
+            },
+            "vercel:index/ProjectEnvironment:ProjectEnvironment": {
+                "gitBranch": "git_branch",
+                "targets": "target"
+            },
+            "vercel:index/ProjectGitRepository:ProjectGitRepository": {
+                "productionBranch": "production_branch"
+            },
+            "vercel:index/ProjectPasswordProtection:ProjectPasswordProtection": {
+                "protectProduction": "protect_production"
+            },
+            "vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication": {
+                "protectProduction": "protect_production"
+            },
+            "vercel:index/alias:Alias": {
+                "deploymentId": "deployment_id",
+                "teamId": "team_id"
+            },
+            "vercel:index/deployment:Deployment": {
+                "deleteOnDestroy": "delete_on_destroy",
+                "pathPrefix": "path_prefix",
+                "projectId": "project_id",
+                "projectSettings": "project_settings",
+                "teamId": "team_id"
+            },
+            "vercel:index/dnsRecord:DnsRecord": {
+                "mxPriority": "mx_priority",
+                "teamId": "team_id"
+            },
+            "vercel:index/getAlias:getAlias": {
+                "deploymentId": "deployment_id",
+                "teamId": "team_id"
+            },
+            "vercel:index/getProject:getProject": {
+                "buildCommand": "build_command",
+                "devCommand": "dev_command",
+                "environments": "environment",
+                "gitRepository": "git_repository",
+                "ignoreCommand": "ignore_command",
+                "installCommand": "install_command",
+                "outputDirectory": "output_directory",
+                "passwordProtection": "password_protection",
+                "publicSource": "public_source",
+                "rootDirectory": "root_directory",
+                "serverlessFunctionRegion": "serverless_function_region",
+                "teamId": "team_id",
+                "vercelAuthentication": "vercel_authentication"
+            },
+            "vercel:index/getProjectEnvironment:getProjectEnvironment": {
+                "gitBranch": "git_branch",
+                "targets": "target"
+            },
+            "vercel:index/getProjectGitRepository:getProjectGitRepository": {
+                "productionBranch": "production_branch"
+            },
+            "vercel:index/getProjectPasswordProtection:getProjectPasswordProtection": {
+                "protectProduction": "protect_production"
+            },
+            "vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication": {
+                "protectProduction": "protect_production"
+            },
+            "vercel:index/project:Project": {
+                "buildCommand": "build_command",
+                "devCommand": "dev_command",
+                "environments": "environment",
+                "gitRepository": "git_repository",
+                "ignoreCommand": "ignore_command",
+                "installCommand": "install_command",
+                "outputDirectory": "output_directory",
+                "passwordProtection": "password_protection",
+                "publicSource": "public_source",
+                "rootDirectory": "root_directory",
+                "serverlessFunctionRegion": "serverless_function_region",
+                "teamId": "team_id",
+                "vercelAuthentication": "vercel_authentication"
+            },
+            "vercel:index/projectDomain:ProjectDomain": {
+                "gitBranch": "git_branch",
+                "projectId": "project_id",
+                "redirectStatusCode": "redirect_status_code",
+                "teamId": "team_id"
+            },
+            "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable": {
+                "gitBranch": "git_branch",
+                "projectId": "project_id",
+                "targets": "target",
+                "teamId": "team_id"
+            },
+            "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": {
+                "projectIds": "project_ids",
+                "targets": "target",
+                "teamId": "team_id"
+            },
+            "vercel:index:Provider": {
+                "apiToken": "api_token"
+            }
+        },
+        "renamedConfigProperties": {
+            "apiToken": "api_token"
+        }
+    },
+    "repository": "https://github.com/omercnet/pulumi-vercel",
     "resources": {
         "vercel:index/alias:Alias": {
             "description": "Provides an Alias resource.\n\nAn Alias allows a `vercel.Deployment` to be accessed through a different URL.\n",
@@ -1242,286 +1378,275 @@
             }
         }
     },
-    "functions": {
-        "vercel:index/getAlias:getAlias": {
-            "description": "Provides information about an existing Alias resource.\n\nAn Alias allows a `vercel.Deployment` to be accessed through a different URL.\n",
-            "inputs": {
-                "description": "A collection of arguments for invoking getAlias.\n",
-                "properties": {
-                    "alias": {
-                        "type": "string",
-                        "description": "The Alias or Alias ID to be retrieved.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    }
+    "types": {
+        "vercel:index/DeploymentProjectSettings:DeploymentProjectSettings": {
+            "properties": {
+                "buildCommand": {
+                    "type": "string",
+                    "description": "The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.\n"
                 },
-                "type": "object",
-                "required": [
-                    "alias"
-                ]
+                "framework": {
+                    "type": "string",
+                    "description": "The framework that is being used for this deployment. If omitted, no framework is selected.\n"
+                },
+                "installCommand": {
+                    "type": "string",
+                    "description": "The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.\n"
+                },
+                "outputDirectory": {
+                    "type": "string",
+                    "description": "The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.\n"
+                },
+                "rootDirectory": {
+                    "type": "string",
+                    "description": "The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.\n"
+                }
             },
-            "outputs": {
-                "description": "A collection of values returned by getAlias.\n",
-                "properties": {
-                    "alias": {
-                        "type": "string",
-                        "description": "The Alias or Alias ID to be retrieved.\n"
-                    },
-                    "deploymentId": {
-                        "type": "string",
-                        "description": "The ID of the Deployment the Alias is associated with.\n"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this resource.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    }
+            "type": "object"
+        },
+        "vercel:index/DnsRecordSrv:DnsRecordSrv": {
+            "properties": {
+                "port": {
+                    "type": "integer",
+                    "description": "The TCP or UDP port on which the service is to be found.\n"
                 },
-                "type": "object",
-                "required": [
-                    "alias",
-                    "deploymentId",
-                    "id",
-                    "teamId"
-                ]
+                "priority": {
+                    "type": "integer",
+                    "description": "The priority of the target host, lower value means more preferred.\n"
+                },
+                "target": {
+                    "type": "string",
+                    "description": "The canonical hostname of the machine providing the service, ending in a dot.\n"
+                },
+                "weight": {
+                    "type": "integer",
+                    "description": "A relative weight for records with the same priority, higher value means higher chance of getting picked.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "port",
+                "priority",
+                "target",
+                "weight"
+            ]
+        },
+        "vercel:index/ProjectEnvironment:ProjectEnvironment": {
+            "properties": {
+                "gitBranch": {
+                    "type": "string",
+                    "description": "The git branch of the Environment Variable.\n"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the Environment Variable.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The name of the Environment Variable.\n"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value of the Environment Variable.\n",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "key",
+                "targets",
+                "value"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "id",
+                        "key",
+                        "targets",
+                        "value"
+                    ]
+                }
             }
         },
-        "vercel:index/getFile:getFile": {
-            "description": "Provides information about a file on disk.\n\nThis will read a single file, providing metadata for use with a `vercel.Deployment`.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst exampleFile = vercel.getFile({\n    path: \"index.html\",\n});\nconst exampleProject = vercel.getProject({\n    name: \"my-project\",\n});\nconst exampleDeployment = new vercel.Deployment(\"exampleDeployment\", {\n    projectId: exampleProject.then(exampleProject =\u003e exampleProject.id),\n    files: exampleFile.then(exampleFile =\u003e exampleFile.file),\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample_file = vercel.get_file(path=\"index.html\")\nexample_project = vercel.get_project(name=\"my-project\")\nexample_deployment = vercel.Deployment(\"exampleDeployment\",\n    project_id=example_project.id,\n    files=example_file.file)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleFile = Vercel.GetFile.Invoke(new()\n    {\n        Path = \"index.html\",\n    });\n\n    var exampleProject = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"my-project\",\n    });\n\n    var exampleDeployment = new Vercel.Deployment(\"exampleDeployment\", new()\n    {\n        ProjectId = exampleProject.Apply(getProjectResult =\u003e getProjectResult.Id),\n        Files = exampleFile.Apply(getFileResult =\u003e getFileResult.File),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/omercnet/pulumi-vercel/sdk/go/vercel\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleFile, err := vercel.GetFile(ctx, \u0026vercel.GetFileArgs{\n\t\t\tPath: \"index.html\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\texampleProject, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"my-project\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewDeployment(ctx, \"exampleDeployment\", \u0026vercel.DeploymentArgs{\n\t\t\tProjectId: *pulumi.String(exampleProject.Id),\n\t\t\tFiles:     interface{}(exampleFile.File),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetFileArgs;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport com.pulumi.vercel.Deployment;\nimport com.pulumi.vercel.DeploymentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleFile = VercelFunctions.getFile(GetFileArgs.builder()\n            .path(\"index.html\")\n            .build());\n\n        final var exampleProject = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"my-project\")\n            .build());\n\n        var exampleDeployment = new Deployment(\"exampleDeployment\", DeploymentArgs.builder()        \n            .projectId(exampleProject.applyValue(getProjectResult -\u003e getProjectResult.id()))\n            .files(exampleFile.applyValue(getFileResult -\u003e getFileResult.file()))\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleDeployment:\n    type: vercel:Deployment\n    properties:\n      projectId: ${exampleProject.id}\n      files: ${exampleFile.file}\nvariables:\n  exampleFile:\n    fn::invoke:\n      Function: vercel:getFile\n      Arguments:\n        path: index.html\n  exampleProject:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: my-project\n```\n{{% /example %}}\n{{% /examples %}}",
-            "inputs": {
-                "description": "A collection of arguments for invoking getFile.\n",
-                "properties": {
-                    "path": {
-                        "type": "string"
-                    }
+        "vercel:index/ProjectGitRepository:ProjectGitRepository": {
+            "properties": {
+                "productionBranch": {
+                    "type": "string",
+                    "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
                 },
-                "type": "object",
-                "required": [
-                    "path"
-                ]
+                "repo": {
+                    "type": "string",
+                    "description": "The name of the git repository. For example: `vercel/next.js`.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.\n"
+                }
             },
-            "outputs": {
-                "description": "A collection of values returned by getFile.\n",
-                "properties": {
-                    "file": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "description": "A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.\n"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this resource.\n"
-                    },
-                    "path": {
-                        "type": "string"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "file",
-                    "id",
-                    "path"
-                ]
+            "type": "object",
+            "required": [
+                "repo",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "productionBranch",
+                        "repo",
+                        "type"
+                    ]
+                }
             }
         },
-        "vercel:index/getPrebuiltProject:getPrebuiltProject": {
-            "inputs": {
-                "description": "A collection of arguments for invoking getPrebuiltProject.\n",
-                "properties": {
-                    "path": {
-                        "type": "string"
-                    }
+        "vercel:index/ProjectPasswordProtection:ProjectPasswordProtection": {
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "description": "The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.\n",
+                    "secret": true
                 },
-                "type": "object",
-                "required": [
-                    "path"
-                ]
+                "protectProduction": {
+                    "type": "boolean",
+                    "description": "If true, production deployments will also be protected\n"
+                }
             },
-            "outputs": {
-                "description": "A collection of values returned by getPrebuiltProject.\n",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this resource.\n"
-                    },
-                    "output": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "description": "A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.\n"
-                    },
-                    "path": {
-                        "type": "string"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "id",
-                    "output",
-                    "path"
-                ]
+            "type": "object",
+            "required": [
+                "password"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "password",
+                        "protectProduction"
+                    ]
+                }
             }
         },
-        "vercel:index/getProject:getProject": {
-            "description": "Provides information about an existing project within Vercel.\n\nA Project groups deployments and custom domains. To deploy on Vercel, you need a Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst foo = vercel.getProject({\n    name: \"my-existing-project\",\n});\nexport const projectId = foo.then(foo =\u003e foo.id);\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nfoo = vercel.get_project(name=\"my-existing-project\")\npulumi.export(\"projectId\", foo.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var foo = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"my-existing-project\",\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"projectId\"] = foo.Apply(getProjectResult =\u003e getProjectResult.Id),\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/omercnet/pulumi-vercel/sdk/go/vercel\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tfoo, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"my-existing-project\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"projectId\", foo.Id)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var foo = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"my-existing-project\")\n            .build());\n\n        ctx.export(\"projectId\", foo.applyValue(getProjectResult -\u003e getProjectResult.id()));\n    }\n}\n```\n```yaml\nvariables:\n  foo:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: my-existing-project\noutputs:\n  # Outputs prj_xxxxxx\n  projectId: ${foo.id}\n```\n{{% /example %}}\n{{% /examples %}}",
-            "inputs": {
-                "description": "A collection of arguments for invoking getProject.\n",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project.\n"
-                    },
-                    "passwordProtection": {
-                        "$ref": "#/types/vercel:index/getProjectPasswordProtection:getProjectPasswordProtection",
-                        "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "name"
-                ]
+        "vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication": {
+            "properties": {
+                "protectProduction": {
+                    "type": "boolean",
+                    "description": "If true, production deployments will also be protected\n"
+                }
             },
-            "outputs": {
-                "description": "A collection of values returned by getProject.\n",
-                "properties": {
-                    "buildCommand": {
-                        "type": "string",
-                        "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
-                    },
-                    "devCommand": {
-                        "type": "string",
-                        "description": "The dev command for this project. If omitted, this value will be automatically detected.\n"
-                    },
-                    "environments": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/vercel:index/getProjectEnvironment:getProjectEnvironment"
-                        },
-                        "description": "A list of environment variables that should be configured for the project.\n"
-                    },
-                    "framework": {
-                        "type": "string",
-                        "description": "The framework that is being used for this project. If omitted, no framework is selected.\n"
-                    },
-                    "gitRepository": {
-                        "$ref": "#/types/vercel:index/getProjectGitRepository:getProjectGitRepository",
-                        "description": "The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.\n"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this resource.\n"
-                    },
-                    "ignoreCommand": {
-                        "type": "string",
-                        "description": "When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.\n"
-                    },
-                    "installCommand": {
-                        "type": "string",
-                        "description": "The install command for this project. If omitted, this value will be automatically detected.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project.\n"
-                    },
-                    "outputDirectory": {
-                        "type": "string",
-                        "description": "The output directory of the project. When null is used this value will be automatically detected.\n"
-                    },
-                    "passwordProtection": {
-                        "$ref": "#/types/vercel:index/getProjectPasswordProtection:getProjectPasswordProtection",
-                        "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
-                    },
-                    "publicSource": {
-                        "type": "boolean",
-                        "description": "Specifies whether the source code and logs of the deployments for this project should be public or not.\n"
-                    },
-                    "rootDirectory": {
-                        "type": "string",
-                        "description": "The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.\n"
-                    },
-                    "serverlessFunctionRegion": {
-                        "type": "string",
-                        "description": "The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    },
-                    "vercelAuthentication": {
-                        "$ref": "#/types/vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication",
-                        "description": "Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "buildCommand",
-                    "devCommand",
-                    "environments",
-                    "framework",
-                    "gitRepository",
-                    "id",
-                    "ignoreCommand",
-                    "installCommand",
-                    "name",
-                    "outputDirectory",
-                    "publicSource",
-                    "rootDirectory",
-                    "serverlessFunctionRegion",
-                    "teamId",
-                    "vercelAuthentication"
-                ]
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "protectProduction"
+                    ]
+                }
             }
         },
-        "vercel:index/getProjectDirectory:getProjectDirectory": {
-            "inputs": {
-                "description": "A collection of arguments for invoking getProjectDirectory.\n",
-                "properties": {
-                    "path": {
-                        "type": "string"
-                    }
+        "vercel:index/getProjectEnvironment:getProjectEnvironment": {
+            "properties": {
+                "gitBranch": {
+                    "type": "string",
+                    "description": "The git branch of the environment variable.\n"
                 },
-                "type": "object",
-                "required": [
-                    "path"
-                ]
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the environment variable\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The name of the environment variable.\n"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value of the environment variable.\n"
+                }
             },
-            "outputs": {
-                "description": "A collection of values returned by getProjectDirectory.\n",
-                "properties": {
-                    "files": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "description": "A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.\n"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this resource.\n"
-                    },
-                    "path": {
-                        "type": "string"
-                    }
+            "type": "object",
+            "required": [
+                "gitBranch",
+                "id",
+                "key",
+                "targets",
+                "value"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectGitRepository:getProjectGitRepository": {
+            "properties": {
+                "productionBranch": {
+                    "type": "string",
+                    "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
                 },
-                "type": "object",
-                "required": [
-                    "files",
-                    "id",
-                    "path"
-                ]
+                "repo": {
+                    "type": "string",
+                    "description": "The name of the git repository. For example: `vercel/next.js`.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "productionBranch",
+                "repo",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectPasswordProtection:getProjectPasswordProtection": {
+            "properties": {
+                "protectProduction": {
+                    "type": "boolean",
+                    "description": "If true, production deployments will also be protected\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "protectProduction"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication": {
+            "properties": {
+                "protectProduction": {
+                    "type": "boolean",
+                    "description": "If true, production deployments will also be protected\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "protectProduction"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
             }
         }
-    }
+    },
+    "version": "0.0.1-alpha.1690193173+5b5bbe07.dirty"
 }

@@ -21,7 +21,7 @@ namespace Pulumi.Vercel
         /// The Alias we want to assign to the deployment defined in the URL.
         /// </summary>
         [Output("alias")]
-        public Output<string> Alias { get; private set; } = null!;
+        public Output<string> DeploymentAlias { get; private set; } = null!;
 
         /// <summary>
         /// The id of the Deployment the Alias should be associated with.
@@ -85,7 +85,7 @@ namespace Pulumi.Vercel
         /// The Alias we want to assign to the deployment defined in the URL.
         /// </summary>
         [Input("alias", required: true)]
-        public Input<string> Alias { get; set; } = null!;
+        public Input<string> DeploymentAlias { get; set; } = null!;
 
         /// <summary>
         /// The id of the Deployment the Alias should be associated with.
@@ -111,7 +111,7 @@ namespace Pulumi.Vercel
         /// The Alias we want to assign to the deployment defined in the URL.
         /// </summary>
         [Input("alias")]
-        public Input<string>? Alias { get; set; }
+        public Input<string>? DeploymentAlias { get; set; }
 
         /// <summary>
         /// The id of the Deployment the Alias should be associated with.

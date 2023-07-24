@@ -1,0 +1,45 @@
+Arguments: 
+  /Users/omer/.nvm/versions/node/v16.18.0/bin/node /Users/omer/.nvm/versions/node/v16.18.0/bin/yarn add @pulumi/vercel
+
+PATH: 
+  /opt/homebrew/share/google-cloud-sdk/bin:/Users/omer/.yarn/bin:/Users/omer/.config/yarn/global/node_modules/.bin:/Users/omer/.pyenv/shims:/opt/homebrew/opt/openssl@3/bin:/Users/omer/.nvm/versions/node/v16.18.0/bin:/usr/local/bin,:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Applications/Little Snitch.app/Contents/Components:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/omer/.local/bin:/opt/homebrew/opt/openjdk/bin:/usr/local/sbin:/Users/omer/Library/Android/sdk/build-tools/30.0.2/:/Users/omer/Library/Android/sdk/tools:/Users/omer/Library/Android/sdk/platform-tools:/Users/omer/dev/go/bin:/opt/homebrew/opt/fzf/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.18.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@pulumi%2fvercel: Not found
+      at Request.params.callback [as _callback] (/Users/omer/.nvm/versions/node/v16.18.0/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at Request.self.callback (/Users/omer/.nvm/versions/node/v16.18.0/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/Users/omer/.nvm/versions/node/v16.18.0/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/Users/omer/.nvm/versions/node/v16.18.0/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+      "name": "ts",
+      "main": "index.ts",
+      "devDependencies": {
+          "@types/node": "^16"
+      },
+      "dependencies": {
+          "@pulumi/pulumi": "^3.0.0"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

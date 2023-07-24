@@ -94,7 +94,13 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"vercel_alias":                        {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias")},
+			"vercel_alias": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"alias": {
+						CSharpName: "DeploymentAlias",
+					},
+				},
+			},
 			"vercel_deployment":                   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Deployment")},
 			"vercel_dns_record":                   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "DnsRecord")},
 			"vercel_project":                      {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Project")},
