@@ -17,17 +17,17 @@
 package main
 
 import (
+	"context"
 	_ "embed"
 
 	vercel "github.com/omercnet/pulumi-vercel/provider"
-	"github.com/omercnet/pulumi-vercel/provider/pkg/version"
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 )
 
 //go:embed schema-embed.json
 var pulumiSchema []byte
 
 func main() {
-	// Modify the path to point to the new provider
-	tfbridge.Main("vercel", version.Version, vercel.Provider(), pulumiSchema)
+	meta := tfbridge.ProviderMetadata{PackageSchema: pulumiSchema}
+	tfbridge.Main(context.Background(), "vercel", vercel.Provider(), meta)
 }

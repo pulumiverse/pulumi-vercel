@@ -1,6 +1,6 @@
 archives:
   - id: archive
-    name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
+    name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
 before:
   hooks:
     - make tfgen
@@ -18,7 +18,7 @@ builds:
       - linux
     ldflags:
       # The line below MUST align with the module in current provider/go.mod
-      - -X github.com/your-org-name/pulumi-vercel/provider/pkg/version.Version={{.Tag }}
+      - -X github.com/omercnet/pulumi-vercel/provider/pkg/version.Version={{.Tag }}
     main: ./cmd/pulumi-resource-vercel/
 changelog:
   skip: true
@@ -26,4 +26,4 @@ release:
   disable: false
   prerelease: auto
 snapshot:
-  name_template: '{{ .Tag }}-SNAPSHOT'
+  name_template: "{{ .Tag }}-SNAPSHOT"

@@ -1,5 +1,105 @@
 {
     "attribution": "This Pulumi package is based on the [`vercel` Terraform Provider](https://github.com/vercel/terraform-provider-vercel).",
+    "auto-aliasing": {
+        "resources": {
+            "vercel_alias": {
+                "current": "vercel:index/alias:Alias",
+                "majorVersion": 1
+            },
+            "vercel_deployment": {
+                "current": "vercel:index/deployment:Deployment",
+                "majorVersion": 1,
+                "fields": {
+                    "domains": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_dns_record": {
+                "current": "vercel:index/dnsRecord:DnsRecord",
+                "majorVersion": 1
+            },
+            "vercel_project": {
+                "current": "vercel:index/project:Project",
+                "majorVersion": 1,
+                "fields": {
+                    "environment": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "elem": {
+                                "fields": {
+                                    "target": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "vercel_project_domain": {
+                "current": "vercel:index/projectDomain:ProjectDomain",
+                "majorVersion": 1
+            },
+            "vercel_project_environment_variable": {
+                "current": "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable",
+                "majorVersion": 1,
+                "fields": {
+                    "target": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_shared_environment_variable": {
+                "current": "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable",
+                "majorVersion": 1,
+                "fields": {
+                    "project_ids": {
+                        "maxItemsOne": false
+                    },
+                    "target": {
+                        "maxItemsOne": false
+                    }
+                }
+            }
+        },
+        "datasources": {
+            "vercel_alias": {
+                "current": "vercel:index/getAlias:getAlias",
+                "majorVersion": 1
+            },
+            "vercel_file": {
+                "current": "vercel:index/getFile:getFile",
+                "majorVersion": 1
+            },
+            "vercel_prebuilt_project": {
+                "current": "vercel:index/getPrebuiltProject:getPrebuiltProject",
+                "majorVersion": 1
+            },
+            "vercel_project": {
+                "current": "vercel:index/getProject:getProject",
+                "majorVersion": 1,
+                "fields": {
+                    "environment": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "elem": {
+                                "fields": {
+                                    "target": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "vercel_project_directory": {
+                "current": "vercel:index/getProjectDirectory:getProjectDirectory",
+                "majorVersion": 1
+            }
+        }
+    },
     "config": {
         "variables": {
             "apiToken": {
