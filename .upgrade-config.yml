@@ -1,0 +1,2 @@
+upstream-provider-name: terraform-provider-vercel
+allow-missing-docs: true
