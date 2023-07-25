@@ -1,5 +1,6 @@
 name: Upgrade provider
 on:
+  workflow_dispatch:
   issues:
     types:
     - opened
