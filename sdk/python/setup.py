@@ -55,6 +55,6 @@ setup(name='pulumi_vercel',
       install_requires=[
           'parver>=0.2.1',
           'pulumi',
-          'semver>=2.8.1'
+          'semver>=3.0.1'
       ],
       zip_safe=False)
