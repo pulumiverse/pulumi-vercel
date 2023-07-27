@@ -6,17 +6,11 @@
 	"rangeStrategy": "bump",
 	"packageRules": [
 		{
-			"matchPackageNames": ["node", "npm"],
-			"enabled": false
-		},
-		{
-			"matchPackageNames": ["@types/node"],
-			"matchUpdateTypes": ["major", "minor"],
+			"matchFileNames": ["sdk/**"],
 			"enabled": false
 		},
 		{
 			"matchUpdateTypes": ["minor", "patch", "lockFileMaintenance"],
-			"automergeSchedule": ["after 10am on Friday"],
 			"groupName": "minor/patch updates"
 		}
 	],
