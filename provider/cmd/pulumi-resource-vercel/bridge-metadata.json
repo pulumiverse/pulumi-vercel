@@ -563,6 +563,8 @@
                 "installCommand": "install_command",
                 "outputDirectory": "output_directory",
                 "passwordProtection": "password_protection",
+                "protectionBypassForAutomation": "protection_bypass_for_automation",
+                "protectionBypassForAutomationSecret": "protection_bypass_for_automation_secret",
                 "publicSource": "public_source",
                 "rootDirectory": "root_directory",
                 "serverlessFunctionRegion": "serverless_function_region",
