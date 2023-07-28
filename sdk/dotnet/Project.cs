@@ -79,6 +79,21 @@ namespace Pulumi.Vercel
         public Output<Outputs.ProjectPasswordProtection?> PasswordProtection { get; private set; } = null!;
 
         /// <summary>
+        /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+        /// Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+        /// `password_protection_for_automation_secret` field.
+        /// </summary>
+        [Output("protectionBypassForAutomation")]
+        public Output<bool?> ProtectionBypassForAutomation { get; private set; } = null!;
+
+        /// <summary>
+        /// If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
+        /// Vercel Authentication and Password Protection for both Preview and Production Deployments.
+        /// </summary>
+        [Output("protectionBypassForAutomationSecret")]
+        public Output<string> ProtectionBypassForAutomationSecret { get; private set; } = null!;
+
+        /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
         /// Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
         /// `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly
@@ -234,6 +249,14 @@ namespace Pulumi.Vercel
         public Input<Inputs.ProjectPasswordProtectionArgs>? PasswordProtection { get; set; }
 
         /// <summary>
+        /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+        /// Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+        /// `password_protection_for_automation_secret` field.
+        /// </summary>
+        [Input("protectionBypassForAutomation")]
+        public Input<bool>? ProtectionBypassForAutomation { get; set; }
+
+        /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
         /// Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
         /// `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly
@@ -349,6 +372,21 @@ namespace Pulumi.Vercel
         /// </summary>
         [Input("passwordProtection")]
         public Input<Inputs.ProjectPasswordProtectionGetArgs>? PasswordProtection { get; set; }
+
+        /// <summary>
+        /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+        /// Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+        /// `password_protection_for_automation_secret` field.
+        /// </summary>
+        [Input("protectionBypassForAutomation")]
+        public Input<bool>? ProtectionBypassForAutomation { get; set; }
+
+        /// <summary>
+        /// If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
+        /// Vercel Authentication and Password Protection for both Preview and Production Deployments.
+        /// </summary>
+        [Input("protectionBypassForAutomationSecret")]
+        public Input<string>? ProtectionBypassForAutomationSecret { get; set; }
 
         /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with

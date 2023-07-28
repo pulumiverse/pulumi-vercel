@@ -26,6 +26,7 @@ class ProjectArgs:
                  name: Optional[pulumi.Input[str]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
+                 protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
@@ -49,6 +50,9 @@ class ProjectArgs:
         :param pulumi.Input[str] name: The desired name for the project.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+               Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+               `password_protection_for_automation_secret` field.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
                Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
                `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly
@@ -82,6 +86,8 @@ class ProjectArgs:
             pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
             pulumi.set(__self__, "password_protection", password_protection)
+        if protection_bypass_for_automation is not None:
+            pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
         if public_source is not None:
             pulumi.set(__self__, "public_source", public_source)
         if root_directory is not None:
@@ -218,6 +224,20 @@ class ProjectArgs:
     @password_protection.setter
     def password_protection(self, value: Optional[pulumi.Input['ProjectPasswordProtectionArgs']]):
         pulumi.set(self, "password_protection", value)
+
+    @property
+    @pulumi.getter(name="protectionBypassForAutomation")
+    def protection_bypass_for_automation(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+        Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+        `password_protection_for_automation_secret` field.
+        """
+        return pulumi.get(self, "protection_bypass_for_automation")
+
+    @protection_bypass_for_automation.setter
+    def protection_bypass_for_automation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "protection_bypass_for_automation", value)
 
     @property
     @pulumi.getter(name="publicSource")
@@ -300,6 +320,8 @@ class _ProjectState:
                  name: Optional[pulumi.Input[str]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
+                 protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
+                 protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
@@ -323,6 +345,11 @@ class _ProjectState:
         :param pulumi.Input[str] name: The desired name for the project.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+               Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+               `password_protection_for_automation_secret` field.
+        :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
+               Vercel Authentication and Password Protection for both Preview and Production Deployments.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
                Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
                `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly
@@ -356,6 +383,10 @@ class _ProjectState:
             pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
             pulumi.set(__self__, "password_protection", password_protection)
+        if protection_bypass_for_automation is not None:
+            pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
+        if protection_bypass_for_automation_secret is not None:
+            pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
         if public_source is not None:
             pulumi.set(__self__, "public_source", public_source)
         if root_directory is not None:
@@ -492,6 +523,33 @@ class _ProjectState:
     @password_protection.setter
     def password_protection(self, value: Optional[pulumi.Input['ProjectPasswordProtectionArgs']]):
         pulumi.set(self, "password_protection", value)
+
+    @property
+    @pulumi.getter(name="protectionBypassForAutomation")
+    def protection_bypass_for_automation(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+        Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+        `password_protection_for_automation_secret` field.
+        """
+        return pulumi.get(self, "protection_bypass_for_automation")
+
+    @protection_bypass_for_automation.setter
+    def protection_bypass_for_automation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "protection_bypass_for_automation", value)
+
+    @property
+    @pulumi.getter(name="protectionBypassForAutomationSecret")
+    def protection_bypass_for_automation_secret(self) -> Optional[pulumi.Input[str]]:
+        """
+        If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
+        Vercel Authentication and Password Protection for both Preview and Production Deployments.
+        """
+        return pulumi.get(self, "protection_bypass_for_automation_secret")
+
+    @protection_bypass_for_automation_secret.setter
+    def protection_bypass_for_automation_secret(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protection_bypass_for_automation_secret", value)
 
     @property
     @pulumi.getter(name="publicSource")
@@ -576,6 +634,7 @@ class Project(pulumi.CustomResource):
                  name: Optional[pulumi.Input[str]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
+                 protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
@@ -602,6 +661,9 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] name: The desired name for the project.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+               Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+               `password_protection_for_automation_secret` field.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
                Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
                `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly
@@ -648,6 +710,7 @@ class Project(pulumi.CustomResource):
                  name: Optional[pulumi.Input[str]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
+                 protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
@@ -672,11 +735,13 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["output_directory"] = output_directory
             __props__.__dict__["password_protection"] = password_protection
+            __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
             __props__.__dict__["public_source"] = public_source
             __props__.__dict__["root_directory"] = root_directory
             __props__.__dict__["serverless_function_region"] = serverless_function_region
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["vercel_authentication"] = vercel_authentication
+            __props__.__dict__["protection_bypass_for_automation_secret"] = None
         super(Project, __self__).__init__(
             'vercel:index/project:Project',
             resource_name,
@@ -697,6 +762,8 @@ class Project(pulumi.CustomResource):
             name: Optional[pulumi.Input[str]] = None,
             output_directory: Optional[pulumi.Input[str]] = None,
             password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
+            protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
+            protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
             public_source: Optional[pulumi.Input[bool]] = None,
             root_directory: Optional[pulumi.Input[str]] = None,
             serverless_function_region: Optional[pulumi.Input[str]] = None,
@@ -725,6 +792,11 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] name: The desired name for the project.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+               Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+               `password_protection_for_automation_secret` field.
+        :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
+               Vercel Authentication and Password Protection for both Preview and Production Deployments.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
                Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
                `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly
@@ -752,6 +824,8 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["name"] = name
         __props__.__dict__["output_directory"] = output_directory
         __props__.__dict__["password_protection"] = password_protection
+        __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
+        __props__.__dict__["protection_bypass_for_automation_secret"] = protection_bypass_for_automation_secret
         __props__.__dict__["public_source"] = public_source
         __props__.__dict__["root_directory"] = root_directory
         __props__.__dict__["serverless_function_region"] = serverless_function_region
@@ -844,6 +918,25 @@ class Project(pulumi.CustomResource):
         Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         """
         return pulumi.get(self, "password_protection")
+
+    @property
+    @pulumi.getter(name="protectionBypassForAutomation")
+    def protection_bypass_for_automation(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
+        Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
+        `password_protection_for_automation_secret` field.
+        """
+        return pulumi.get(self, "protection_bypass_for_automation")
+
+    @property
+    @pulumi.getter(name="protectionBypassForAutomationSecret")
+    def protection_bypass_for_automation_secret(self) -> pulumi.Output[str]:
+        """
+        If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
+        Vercel Authentication and Password Protection for both Preview and Production Deployments.
+        """
+        return pulumi.get(self, "protection_bypass_for_automation_secret")
 
     @property
     @pulumi.getter(name="publicSource")
