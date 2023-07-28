@@ -6,6 +6,10 @@
 	"rangeStrategy": "bump",
 	"packageRules": [
 		{
+			"matchPackageNames": ["terraform-provider-vercel"],
+			"enabled": false
+		},
+		{
 			"matchFileNames": ["sdk/**"],
 			"enabled": false
 		},
