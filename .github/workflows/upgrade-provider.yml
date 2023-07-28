@@ -15,3 +15,6 @@ jobs:
     steps:
     - name: Call upgrade provider action
       uses: pulumi/pulumi-upgrade-provider-action@main
+      with:
+        username: omercnet
+        kind: bridge
