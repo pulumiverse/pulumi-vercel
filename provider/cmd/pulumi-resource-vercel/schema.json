@@ -712,6 +712,14 @@
                     "$ref": "#/types/vercel:index/ProjectPasswordProtection:ProjectPasswordProtection",
                     "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
                 },
+                "protectionBypassForAutomation": {
+                    "type": "boolean",
+                    "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production\nDeployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the\n`password_protection_for_automation_secret` field.\n"
+                },
+                "protectionBypassForAutomationSecret": {
+                    "type": "string",
+                    "description": "If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass\nVercel Authentication and Password Protection for both Preview and Production Deployments.\n"
+                },
                 "publicSource": {
                     "type": "boolean",
                     "description": "By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with\nVercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting\n`public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly\nviewed.\n"
@@ -735,6 +743,7 @@
             },
             "required": [
                 "name",
+                "protectionBypassForAutomationSecret",
                 "serverlessFunctionRegion",
                 "teamId"
             ],
@@ -781,6 +790,10 @@
                 "passwordProtection": {
                     "$ref": "#/types/vercel:index/ProjectPasswordProtection:ProjectPasswordProtection",
                     "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
+                },
+                "protectionBypassForAutomation": {
+                    "type": "boolean",
+                    "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production\nDeployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the\n`password_protection_for_automation_secret` field.\n"
                 },
                 "publicSource": {
                     "type": "boolean",
@@ -848,6 +861,14 @@
                     "passwordProtection": {
                         "$ref": "#/types/vercel:index/ProjectPasswordProtection:ProjectPasswordProtection",
                         "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
+                    },
+                    "protectionBypassForAutomation": {
+                        "type": "boolean",
+                        "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production\nDeployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the\n`password_protection_for_automation_secret` field.\n"
+                    },
+                    "protectionBypassForAutomationSecret": {
+                        "type": "string",
+                        "description": "If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass\nVercel Authentication and Password Protection for both Preview and Production Deployments.\n"
                     },
                     "publicSource": {
                         "type": "boolean",
