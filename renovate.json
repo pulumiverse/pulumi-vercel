@@ -6,7 +6,7 @@
 	"rangeStrategy": "bump",
 	"packageRules": [
 		{
-			"matchPackageNames": ["terraform-provider-vercel"],
+			"matchPackageNames": ["terraform-provider-vercel", "pulumi-terraform-bridge"],
 			"enabled": false
 		},
 		{
