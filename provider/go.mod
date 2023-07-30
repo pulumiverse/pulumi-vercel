@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.14.1
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.54.2
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.54.3
 	github.com/vercel/terraform-provider-vercel v0.15.0
 )
 
@@ -178,8 +178,8 @@ require (
 	github.com/pulumi/pulumi-java/pkg v0.9.4 // indirect
 	github.com/pulumi/pulumi-terraform-bridge/x/muxer v0.0.4 // indirect
 	github.com/pulumi/pulumi-yaml v1.1.1 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.75.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.75.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.76.1 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.76.1 // indirect
 	github.com/pulumi/schema-tools v0.1.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
@@ -189,7 +189,7 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v5 v5.0.0 // indirect
 	github.com/segmentio/asm v1.1.3 // indirect
 	github.com/segmentio/encoding v0.3.5 // indirect
-	github.com/sergi/go-diff v1.2.0 // indirect
+	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/skeema/knownhosts v1.1.0 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
@@ -217,7 +217,7 @@ require (
 	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/net v0.11.0 // indirect
 	golang.org/x/oauth2 v0.7.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/sync v0.2.0 // indirect
 	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/term v0.9.0 // indirect
 	golang.org/x/text v0.10.0 // indirect
