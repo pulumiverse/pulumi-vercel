@@ -15,8 +15,8 @@
 package main
 
 import (
-	vercel "github.com/omercnet/pulumi-vercel/provider"
 	"github.com/pulumi/pulumi-terraform-bridge/pf/tfgen"
+	vercel "github.com/pulumiverse/pulumi-vercel/provider"
 )
 
 func main() {

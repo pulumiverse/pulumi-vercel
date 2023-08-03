@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.Vercel
+namespace Pulumiverse.Vercel
 {
     public static class Config
     {

@@ -1,4 +1,4 @@
-module github.com/omercnet/pulumi-vercel/provider
+module github.com/pulumiverse/pulumi-vercel/provider
 
 go 1.20
 
@@ -6,6 +6,7 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.14.1
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.54.3
 	github.com/vercel/terraform-provider-vercel v0.15.0
+	golang.org/x/text v0.10.0
 )
 
 require github.com/Masterminds/semver v1.5.0 // indirect
@@ -220,7 +221,6 @@ require (
 	golang.org/x/sync v0.2.0 // indirect
 	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/term v0.9.0 // indirect
-	golang.org/x/text v0.10.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/api v0.114.0 // indirect

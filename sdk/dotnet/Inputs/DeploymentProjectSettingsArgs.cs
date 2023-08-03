@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Vercel.Inputs
+namespace Pulumiverse.Vercel.Inputs
 {
 
     public sealed class DeploymentProjectSettingsArgs : global::Pulumi.ResourceArgs

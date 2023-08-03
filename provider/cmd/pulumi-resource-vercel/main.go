@@ -20,8 +20,8 @@ import (
 	"context"
 	_ "embed"
 
-	vercel "github.com/omercnet/pulumi-vercel/provider"
 	"github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
+	vercel "github.com/pulumiverse/pulumi-vercel/provider"
 )
 
 //go:embed schema-embed.json

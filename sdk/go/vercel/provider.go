@@ -7,8 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/omercnet/pulumi-vercel/sdk/go/vercel/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
 // The provider type for the vercel package. By default, resources use package-wide configuration

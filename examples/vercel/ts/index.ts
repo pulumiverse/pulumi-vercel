@@ -1,4 +1,4 @@
-import * as vercel from "@pulumi/vercel";
+import * as vercel from "@pulumiverse/vercel";
 
 const project = new vercel.Project("pulumi-vercel", {
   rootDirectory: "src",

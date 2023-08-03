@@ -4,9 +4,9 @@
 package config
 
 import (
-	"github.com/omercnet/pulumi-vercel/sdk/go/vercel/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
 var _ = internal.GetEnvOrDefault

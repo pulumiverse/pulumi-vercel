@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Vercel
+namespace Pulumiverse.Vercel
 {
     [VercelResourceType("vercel:index/alias:Alias")]
     public partial class Alias : global::Pulumi.CustomResource
@@ -54,6 +55,7 @@ namespace Pulumi.Vercel
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/pulumiverse/pulumi-vercel/releases",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

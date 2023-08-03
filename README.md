@@ -33,7 +33,7 @@ pip install pulumi_vercel
 To use from Go, use `go get` to grab the latest version of the library:
 
 ```bash
-go get github.com/omercnet/pulumi-vercel/sdk/go/...
+go get github.com/pulumiverse/pulumi-vercel/sdk/go/...
 ```
 
 ### .NET

@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Vercel
+namespace Pulumiverse.Vercel
 {
     [VercelResourceType("vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable")]
     public partial class SharedEnvironmentVariable : global::Pulumi.CustomResource
@@ -66,6 +67,7 @@ namespace Pulumi.Vercel
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/pulumiverse/pulumi-vercel/releases",
                 AdditionalSecretOutputs =
                 {
                     "value",

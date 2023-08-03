@@ -19,10 +19,12 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/omercnet/pulumi-vercel/provider/pkg/version"
 	pf "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
+	"github.com/pulumiverse/pulumi-vercel/provider/pkg/version"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 
 	"github.com/vercel/terraform-provider-vercel/vercel"
 )
@@ -33,7 +35,8 @@ const (
 	// registries for nodejs and python:
 	mainPkg = "vercel"
 	// modules:
-	mainMod = "index" // the vercel module
+	mainMod   = "index" // the vercel module
+	publisher = "pulumiverse"
 )
 
 //go:embed cmd/pulumi-resource-vercel/bridge-metadata.json
@@ -44,14 +47,16 @@ func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
 	p := pf.ShimProvider(vercel.New())
 
+	caser := cases.Title(language.English)
+
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:       p,
-		Name:    mainPkg,
-		Version: version.Version,
-		// PluginDownloadURL is an optional URL used to download the Provider
-		// for use in Pulumi programs
-		// e.g https://github.com/org/pulumi-provider-name/releases/
+		P:                 p,
+		Name:              mainPkg,
+		Version:           version.Version,
+		Publisher:         caser.String(publisher),
+		DisplayName:       caser.String(mainPkg),
+		PluginDownloadURL: fmt.Sprintf("github://api.github.com/pulumiverse/pulumi-%s/releases", mainPkg),
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"vercel_alias": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
 				Fields: map[string]*tfbridge.SchemaInfo{
@@ -61,9 +66,25 @@ func Provider() tfbridge.ProviderInfo {
 				},
 			},
 		},
+		JavaScript: &tfbridge.JavaScriptInfo{
+			PackageName: fmt.Sprintf("@%s/%s", publisher, mainPkg),
+			Dependencies: map[string]string{
+				"@pulumi/pulumi": "^3.0.0",
+			},
+			DevDependencies: map[string]string{
+				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
+				"@types/mime": "^2.0.0",
+			},
+		},
+		Python: &tfbridge.PythonInfo{
+			PackageName: fmt.Sprintf("%s_%s", publisher, mainPkg),
+			Requires: map[string]string{
+				"pulumi": ">=3.0.0,<4.0.0",
+			},
+		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/omercnet/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/pulumiverse/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -71,9 +92,13 @@ func Provider() tfbridge.ProviderInfo {
 			GenerateResourceContainerTypes: true,
 		},
 		CSharp: &tfbridge.CSharpInfo{
+			RootNamespace: caser.String(publisher),
 			PackageReferences: map[string]string{
 				"Pulumi": "3.*",
 			},
+		},
+		Java: &tfbridge.JavaInfo{
+			BasePackage: "com.pulumiverse",
 		},
 		MetadataInfo: tfbridge.NewProviderMetadata(bridgeMetadata),
 	}
