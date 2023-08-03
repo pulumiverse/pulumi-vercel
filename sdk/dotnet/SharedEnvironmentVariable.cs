@@ -67,7 +67,7 @@ namespace Pulumiverse.Vercel
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/pulumiverse/pulumi-vercel/releases",
+                PluginDownloadURL = "github://api.github.com/pulumiverse",
                 AdditionalSecretOutputs =
                 {
                     "value",

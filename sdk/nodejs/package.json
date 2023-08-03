@@ -16,6 +16,6 @@
     "pulumi": {
         "resource": true,
         "name": "vercel",
-        "server": "github://api.github.com/pulumiverse/pulumi-vercel/releases"
+        "server": "github://api.github.com/pulumiverse"
     }
 }

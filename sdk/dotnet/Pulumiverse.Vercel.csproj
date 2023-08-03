@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Pulumiverse</Authors>
-    <Company>Pulumiverse</Company>
+    <Authors>Pulumi Corp.</Authors>
+    <Company>Pulumi Corp.</Company>
     <Description></Description>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl></PackageProjectUrl>
