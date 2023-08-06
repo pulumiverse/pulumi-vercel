@@ -2,6 +2,7 @@
     "name": "vercel",
     "attribution": "This Pulumi package is based on the [`vercel` Terraform Provider](https://github.com/terraform-providers/terraform-provider-vercel).",
     "pluginDownloadURL": "github://api.github.com/pulumiverse",
+    "publisher": "Pulumiverse",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
     },

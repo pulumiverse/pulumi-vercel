@@ -54,6 +54,7 @@ func Provider() tfbridge.ProviderInfo {
 		P:                 p,
 		Name:              mainPkg,
 		Version:           version.Version,
+		Publisher:         caser.String(publisher),
 		PluginDownloadURL: "github://api.github.com/pulumiverse",
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"vercel_alias": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
