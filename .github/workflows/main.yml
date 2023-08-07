@@ -13,17 +13,16 @@ jobs:
   prerequisites:
     permissions:
       pull-requests: write
-    uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@7792b6dff0147d02a326f397c9f9d9d00ae72178 # tag=actions-workflow-v0.0.3
+    uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@actions-workflows-v0.0.4
     with:
       provider: vercel
-      goversion: "1.20.x"
+      goversion: 1.20.x
   build:
     needs: prerequisites
-    uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@7792b6dff0147d02a326f397c9f9d9d00ae72178 # tag=actions-workflow-v0.0.3
+    uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@actions-workflows-v0.0.4
     with:
       provider: vercel
-      goversion: "1.20.x"
-      pythonversion: "3.9"
-      nodeversion: "16.x"
-      dotnetversion: "6.0"
-      # javaversion: "11"
+      goversion: 1.20.x
+      dotnetversion: 6.0
+      nodeversion: 16.x
+      pythonversion: 3.8
