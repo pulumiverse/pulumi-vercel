@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   issues:
     types:
-    - opened
+      - opened
   schedule:
-    - cron: '0 5 * * *'
+    - cron: "0 5 * * *"
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
@@ -13,8 +13,8 @@ jobs:
     name: upgrade-provider
     runs-on: ubuntu-latest
     steps:
-    - name: Call upgrade provider action
-      uses: pulumi/pulumi-upgrade-provider-action@main
-      with:
-        username: omercnet
-        kind: bridge
+      - name: Call upgrade provider action
+        uses: pulumi/pulumi-upgrade-provider-action@main
+        with:
+          username: omercnet
+          kind: bridge

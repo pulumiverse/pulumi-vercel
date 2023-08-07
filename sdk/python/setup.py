@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'vercel', PLUGIN_VERSION])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'vercel', PLUGIN_VERSION, '--server', 'github://api.github.com/pulumiverse'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""
@@ -37,7 +37,7 @@ def readme():
         return "vercel Pulumi Package - Development Version"
 
 
-setup(name='pulumi_vercel',
+setup(name='pulumiverse_vercel',
       python_requires='>=3.7',
       version=VERSION,
       long_description=readme(),
@@ -47,14 +47,14 @@ setup(name='pulumi_vercel',
       },
       packages=find_packages(),
       package_data={
-          'pulumi_vercel': [
+          'pulumiverse_vercel': [
               'py.typed',
               'pulumi-plugin.json',
           ]
       },
       install_requires=[
           'parver>=0.2.1',
-          'pulumi',
+          'pulumi>=3.0.0,<4.0.0',
           'semver>=2.8.1'
       ],
       zip_safe=False)

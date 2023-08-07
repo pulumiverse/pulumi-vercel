@@ -23,10 +23,10 @@ from . import outputs
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_vercel.config as __config
+    import pulumiverse_vercel.config as __config
     config = __config
 else:
-    config = _utilities.lazy_import('pulumi_vercel.config')
+    config = _utilities.lazy_import('pulumiverse_vercel.config')
 
 _utilities.register(
     resource_modules="""
@@ -34,7 +34,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/alias",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/alias:Alias": "Alias"
   }
@@ -42,7 +42,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/deployment",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/deployment:Deployment": "Deployment"
   }
@@ -50,7 +50,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/dnsRecord",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/dnsRecord:DnsRecord": "DnsRecord"
   }
@@ -58,7 +58,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/project",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/project:Project": "Project"
   }
@@ -66,7 +66,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/projectDomain",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectDomain:ProjectDomain": "ProjectDomain"
   }
@@ -74,7 +74,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/projectEnvironmentVariable",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable": "ProjectEnvironmentVariable"
   }
@@ -82,7 +82,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "mod": "index/sharedEnvironmentVariable",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": "SharedEnvironmentVariable"
   }
@@ -94,7 +94,7 @@ _utilities.register(
  {
   "pkg": "vercel",
   "token": "pulumi:providers:vercel",
-  "fqn": "pulumi_vercel",
+  "fqn": "pulumiverse_vercel",
   "class": "Provider"
  }
 ]
