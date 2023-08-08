@@ -3,184 +3,141 @@ on:
   push:
     tags:
       - v*.*.*
-      - "!v*.*.*-**"
+
+permissions:
+  contents: write
+  id-token: write
 
 env:
-  AWS_REGION: us-west-2
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
+  NUGET_FEED_URL: https://api.nuget.org/v3/index.json
   PROVIDER: vercel
-  PUBLISH_REPO_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-  PUBLISH_REPO_URL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-  PUBLISH_REPO_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-  PULUMI_API: https://api.pulumi-staging.io
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  PULUMI_MISSING_DOCS_ERROR: true
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  TRAVIS_OS_NAME: linux
-
-  GOVERSION: 1.20.x
-  DOTNETVERSION: 6.0
-  NODEVERSION: 16.x
-  PYTHONVERSION: 3.8
-
+  PYPI_USERNAME: "__token__"
+  PUBLISH_PYPI: true
+  PUBLISH_NPM: true
+  PUBLISH_NUGET: true
 jobs:
-  create_docs_build:
-    name: create_docs_build
-    needs: tag_sdk
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.2.0
-        with:
-          repo: pulumi/pulumictl
-      - env:
-          GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
-        name: Dispatch Event
-        run: pulumictl create docs-build pulumi-${{ env.PROVIDER }}
-          ${GITHUB_REF#refs/tags/}
-
-  publish:
+  publish_binary:
     name: publish
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # tag=v3.5.3
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # tag=v4.0.1
         with:
-          go-version: ${{ env.GOVERSION }}
+          go-version: ${{matrix.goversion}}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.2.0
+        uses: jaxxstorm/action-install-gh-release@c5ead9a448b4660cf1e7866ee22e4dc56538031a # tag=v1.10.0
         with:
           repo: pulumi/pulumictl
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v2
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-region: us-east-2
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-duration-seconds: 7200
-          role-external-id: upload-pulumi-release
-          role-session-name: ${{ env.PROVIDER }}@githubActions
-          role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
       - name: Set PreRelease Version
-        run:
-          echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)"
-          >> $GITHUB_ENV
+        run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)" >> $GITHUB_ENV
+      - uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 # v3.1.1
+      - uses: anchore/sbom-action/download-syft@78fc58e266e87a38d4194b2137a3d4e9bcaf7ca1 # v0.14.3
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@336e29918d653399e599bfca99fadc1d7ffbc9f7 # tag=v4.3.0
         with:
-          args: -p 1 release --rm-dist --timeout 90m0s
+          args: -p 3 release --rm-dist
           version: latest
-      - if: failure() && github.event_name == 'push'
-        name: Notify Slack
-        uses: 8398a7/action-slack@v3
+      - name: Create tag
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # tag=v6.4.1
         with:
-          author_name: Failure in publishing binaries
-          fields: repo,commit,author,action
-          status: ${{ job.status }}
-
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/sdk/${{ github.ref_name }}',
+              sha: context.sha
+            })
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+          - 1.19.x
   publish_sdk:
-    name: publish_sdk
-    needs: publish
+    name: Publish SDKs
     runs-on: ubuntu-latest
+    needs: publish_binary
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Checkout Scripts Repo
-        uses: actions/checkout@v2
-        with:
-          path: ci-scripts
-          repository: pulumi/scripts
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # tag=v3.5.3
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # tag=v4.0.1
         with:
-          go-version: ${{ env.GOVERSION }}
+          go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.2.0
+        uses: jaxxstorm/action-install-gh-release@c5ead9a448b4660cf1e7866ee22e4dc56538031a # tag=v1.10.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v2
+        uses: pulumi/action-install-pulumi-cli@b374ceb6168550de27c6eba92e01c1a774040e11 # tag=v2.0.0
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # tag=v3.7.0
         with:
-          node-version: ${{ env.NODEVERSION }}
-          registry-url: https://registry.npmjs.org
+          node-version: ${{matrix.nodeversion}}
+          registry-url: ${{env.NPM_REGISTRY_URL}}
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2 # tag=v2.1.0
         with:
-          dotnet-version: ${{ env.DOTNETVERSION }}
+          dotnet-version: ${{matrix.dotnetverson}}
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # tag=v4.2.0
         with:
-          python-version: ${{ env.PYTHONVERSION }}
-      - name: Download python SDK
-        uses: actions/download-artifact@v2
+          python-version: ${{matrix.pythonversion}}
+      - name: Build SDK
+        run: make build_${{ matrix.language }}
+      - name: Check worktree clean
+        run: |
+          git update-index -q --refresh
+          if ! git diff-files --quiet; then
+              >&2 echo "error: working tree is not clean, aborting!"
+              git status
+              git diff
+              exit 1
+          fi
+      - if: ${{ matrix.language == 'python' && env.PUBLISH_PYPI == 'true' }}
+        name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@f8c70e705ffc13c3b4d1221169b84f12a75d6ca8 # tag=v1.8.8
         with:
-          name: python-sdk.tar.gz
-          path: ${{ github.workspace }}/sdk/
-      - name: Uncompress python SDK
-        run: tar -zxf ${{github.workspace}}/sdk/python.tar.gz -C
-          ${{ github.workspace }}/sdk/python
-      - name: Download dotnet SDK
-        uses: actions/download-artifact@v2
+          user: ${{ env.PYPI_USERNAME }}
+          password: ${{ env.PYPI_PASSWORD }}
+          packages_dir: ${{github.workspace}}/sdk/python/bin/dist
+      - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
+        uses: JS-DevTools/npm-publish@5a85faf05d2ade2d5b6682bfe5359915d5159c6c # tag=v2.2.1
         with:
-          name: dotnet-sdk.tar.gz
-          path: ${{ github.workspace }}/sdk/
-      - name: Uncompress dotnet SDK
-        run: tar -zxf ${{github.workspace}}/sdk/dotnet.tar.gz -C
-          ${{github.workspace}}/sdk/dotnet
-      - name: Download nodejs SDK
-        uses: actions/download-artifact@v2
-        with:
-          name: nodejs-sdk.tar.gz
-          path: ${{ github.workspace}}/sdk/
-      - name: Uncompress nodejs SDK
-        run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
-          ${{github.workspace}}/sdk/nodejs
-      - run: python -m pip install pip twine
-      - env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        name: Publish SDKs
-        run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
-      - name: Set PACKAGE_VERSION to Env
-        run:
-          echo "PACKAGE_VERSION=v$(pulumictl get version --language generic)" >>
-          $GITHUB_ENV
-      - if: failure() && github.event_name == 'push'
-        name: Notify Slack
-        uses: 8398a7/action-slack@v3
-        with:
-          author_name: Failure in publishing SDK
-          fields: repo,commit,author,action
-          status: ${{ job.status }}
-
-  tag_sdk:
-    name: tag_sdk
-    needs: publish_sdk
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.2.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Add SDK version tag
-        run:
-          git tag sdk/v$(pulumictl get version --language generic) && git push origin
-          sdk/v$(pulumictl get version --language generic)
+          access: "public"
+          token: ${{ env.NPM_TOKEN }}
+          package: ${{github.workspace}}/sdk/nodejs/bin/package.json
+          provenance: true
+      - if: ${{ matrix.language == 'dotnet' && env.PUBLISH_NUGET == 'true' }}
+        name: publish nuget package
+        run: |
+          dotnet nuget push ${{github.workspace}}/sdk/dotnet/bin/Debug/*.nupkg -s ${{ env.NUGET_FEED_URL }} -k ${{ env.NUGET_PUBLISH_KEY }}
+          echo "done publishing packages"
+    strategy:
+      fail-fast: true
+      matrix:
+        dotnetversion:
+          - 3.1.301
+        goversion:
+          - 1.19.x
+        language:
+          - nodejs
+          - python
+          - dotnet
+          - go
+        nodeversion:
+          - 18.x
+        pythonversion:
+          - "3.9"
