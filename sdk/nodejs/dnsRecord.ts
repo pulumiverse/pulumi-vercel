@@ -6,6 +6,91 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Provides a DNS Record resource.
+ *
+ * DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
+ *
+ * > The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const dnsRecord = new vercel.DnsRecord("dnsRecord", {
+ *     domain: "example.com",
+ *     ttl: 60,
+ *     type: "A",
+ *     value: "192.168.0.1",
+ * });
+ * const aaaa = new vercel.DnsRecord("aaaa", {
+ *     domain: "example.com",
+ *     ttl: 60,
+ *     type: "AAAA",
+ *     value: "::0",
+ * });
+ * const alias = new vercel.DnsRecord("alias", {
+ *     domain: "example.com",
+ *     ttl: 60,
+ *     type: "ALIAS",
+ *     value: "example2.com.",
+ * });
+ * const caa = new vercel.DnsRecord("caa", {
+ *     domain: "example.com",
+ *     ttl: 60,
+ *     type: "CAA",
+ *     value: "1 issue \"letsencrypt.org\"",
+ * });
+ * const cname = new vercel.DnsRecord("cname", {
+ *     domain: "example.com",
+ *     ttl: 60,
+ *     type: "CNAME",
+ *     value: "example2.com.",
+ * });
+ * const mx = new vercel.DnsRecord("mx", {
+ *     domain: "example.com",
+ *     mxPriority: 333,
+ *     ttl: 60,
+ *     type: "MX",
+ *     value: "example2.com.",
+ * });
+ * const srv = new vercel.DnsRecord("srv", {
+ *     domain: "example.com",
+ *     srv: {
+ *         port: 6000,
+ *         priority: 127,
+ *         target: "example2.com.",
+ *         weight: 60,
+ *     },
+ *     ttl: 60,
+ *     type: "SRV",
+ * });
+ * const txt = new vercel.DnsRecord("txt", {
+ *     domain: "example.com",
+ *     ttl: 60,
+ *     type: "TXT",
+ *     value: "some text value",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * If importing into a personal account, or with a team configured on the provider, simply use the record id. - record_id can be taken from the network tab on the domains page.
+ *
+ * ```sh
+ *  $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ *
+ *  Alternatively, you can import via the team_id and record_id. - team_id can be found in the team `settings` tab in the Vercel UI. - record_id can be taken from the network tab on the domains page.
+ *
+ * ```sh
+ *  $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ */
 export class DnsRecord extends pulumi.CustomResource {
     /**
      * Get an existing DnsRecord resource's state with the given name, ID, and optional extra
@@ -39,8 +124,7 @@ export class DnsRecord extends pulumi.CustomResource {
      */
     public readonly domain!: pulumi.Output<string>;
     /**
-     * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-     * indicates a higher priority.
+     * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
      */
     public readonly mxPriority!: pulumi.Output<number | undefined>;
     /**
@@ -52,8 +136,7 @@ export class DnsRecord extends pulumi.CustomResource {
      */
     public readonly srv!: pulumi.Output<outputs.DnsRecordSrv | undefined>;
     /**
-     * The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-     * not been set in the provider.
+     * The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
@@ -65,12 +148,14 @@ export class DnsRecord extends pulumi.CustomResource {
      */
     public readonly type!: pulumi.Output<string>;
     /**
-     * The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-     * address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-     * records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-     * domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-     * server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-     * text.
+     * The value of the DNS record. The format depends on the 'type' property.
+     * For an 'A' record, this should be a valid IPv4 address.
+     * For an 'AAAA' record, this should be an IPv6 address.
+     * For 'ALIAS' records, this should be a hostname.
+     * For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+     * For 'CNAME' records, this should be a different domain name.
+     * For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+     * For 'TXT' records, this can contain arbitrary text.
      */
     public readonly value!: pulumi.Output<string | undefined>;
 
@@ -126,8 +211,7 @@ export interface DnsRecordState {
      */
     domain?: pulumi.Input<string>;
     /**
-     * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-     * indicates a higher priority.
+     * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
      */
     mxPriority?: pulumi.Input<number>;
     /**
@@ -139,8 +223,7 @@ export interface DnsRecordState {
      */
     srv?: pulumi.Input<inputs.DnsRecordSrv>;
     /**
-     * The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-     * not been set in the provider.
+     * The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
     /**
@@ -152,12 +235,14 @@ export interface DnsRecordState {
      */
     type?: pulumi.Input<string>;
     /**
-     * The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-     * address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-     * records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-     * domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-     * server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-     * text.
+     * The value of the DNS record. The format depends on the 'type' property.
+     * For an 'A' record, this should be a valid IPv4 address.
+     * For an 'AAAA' record, this should be an IPv6 address.
+     * For 'ALIAS' records, this should be a hostname.
+     * For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+     * For 'CNAME' records, this should be a different domain name.
+     * For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+     * For 'TXT' records, this can contain arbitrary text.
      */
     value?: pulumi.Input<string>;
 }
@@ -171,8 +256,7 @@ export interface DnsRecordArgs {
      */
     domain: pulumi.Input<string>;
     /**
-     * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-     * indicates a higher priority.
+     * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
      */
     mxPriority?: pulumi.Input<number>;
     /**
@@ -184,8 +268,7 @@ export interface DnsRecordArgs {
      */
     srv?: pulumi.Input<inputs.DnsRecordSrv>;
     /**
-     * The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-     * not been set in the provider.
+     * The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
     /**
@@ -197,12 +280,14 @@ export interface DnsRecordArgs {
      */
     type: pulumi.Input<string>;
     /**
-     * The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-     * address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-     * records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-     * domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-     * server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-     * text.
+     * The value of the DNS record. The format depends on the 'type' property.
+     * For an 'A' record, this should be a valid IPv4 address.
+     * For an 'AAAA' record, this should be an IPv6 address.
+     * For 'ALIAS' records, this should be a hostname.
+     * For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+     * For 'CNAME' records, this should be a different domain name.
+     * For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+     * For 'TXT' records, this can contain arbitrary text.
      */
     value?: pulumi.Input<string>;
 }

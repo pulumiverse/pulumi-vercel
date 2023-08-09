@@ -30,18 +30,13 @@ class DeploymentArgs:
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
                retained indefinitely. Note that deleted deployments are not recoverable.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-               `vercel_project` resource.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-               `vercel_file` data source. Required if `git_source` is not set.
-        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-               this is omitted, then any leading `../`s will be stripped.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input['DeploymentProjectSettingsArgs'] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-               repository. Required if `ref` is not set.
-        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-               the provider.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "project_id", project_id)
         if delete_on_destroy is not None:
@@ -90,8 +85,7 @@ class DeploymentArgs:
     @pulumi.getter
     def environment(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-        `vercel_project` resource.
+        A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         """
         return pulumi.get(self, "environment")
 
@@ -103,8 +97,7 @@ class DeploymentArgs:
     @pulumi.getter
     def files(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-        `vercel_file` data source. Required if `git_source` is not set.
+        A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         """
         return pulumi.get(self, "files")
 
@@ -116,8 +109,7 @@ class DeploymentArgs:
     @pulumi.getter(name="pathPrefix")
     def path_prefix(self) -> Optional[pulumi.Input[str]]:
         """
-        If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-        this is omitted, then any leading `../`s will be stripped.
+        If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         """
         return pulumi.get(self, "path_prefix")
 
@@ -153,8 +145,7 @@ class DeploymentArgs:
     @pulumi.getter
     def ref(self) -> Optional[pulumi.Input[str]]:
         """
-        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-        repository. Required if `ref` is not set.
+        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         """
         return pulumi.get(self, "ref")
 
@@ -166,8 +157,7 @@ class DeploymentArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-        the provider.
+        The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -194,21 +184,15 @@ class _DeploymentState:
         Input properties used for looking up and filtering Deployment resources.
         :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
                retained indefinitely. Note that deleted deployments are not recoverable.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-               creation.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-               `vercel_project` resource.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-               `vercel_file` data source. Required if `git_source` is not set.
-        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-               this is omitted, then any leading `../`s will be stripped.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input['DeploymentProjectSettingsArgs'] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-               repository. Required if `ref` is not set.
-        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-               the provider.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.
         """
         if delete_on_destroy is not None:
@@ -251,8 +235,7 @@ class _DeploymentState:
     @pulumi.getter
     def domains(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-        creation.
+        A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         """
         return pulumi.get(self, "domains")
 
@@ -264,8 +247,7 @@ class _DeploymentState:
     @pulumi.getter
     def environment(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-        `vercel_project` resource.
+        A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         """
         return pulumi.get(self, "environment")
 
@@ -277,8 +259,7 @@ class _DeploymentState:
     @pulumi.getter
     def files(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-        `vercel_file` data source. Required if `git_source` is not set.
+        A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         """
         return pulumi.get(self, "files")
 
@@ -290,8 +271,7 @@ class _DeploymentState:
     @pulumi.getter(name="pathPrefix")
     def path_prefix(self) -> Optional[pulumi.Input[str]]:
         """
-        If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-        this is omitted, then any leading `../`s will be stripped.
+        If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         """
         return pulumi.get(self, "path_prefix")
 
@@ -339,8 +319,7 @@ class _DeploymentState:
     @pulumi.getter
     def ref(self) -> Optional[pulumi.Input[str]]:
         """
-        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-        repository. Required if `ref` is not set.
+        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         """
         return pulumi.get(self, "ref")
 
@@ -352,8 +331,7 @@ class _DeploymentState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-        the provider.
+        The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -395,19 +373,14 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
                retained indefinitely. Note that deleted deployments are not recoverable.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-               `vercel_project` resource.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-               `vercel_file` data source. Required if `git_source` is not set.
-        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-               this is omitted, then any leading `../`s will be stripped.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-               repository. Required if `ref` is not set.
-        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-               the provider.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -493,21 +466,15 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
                retained indefinitely. Note that deleted deployments are not recoverable.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-               creation.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-               `vercel_project` resource.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-               `vercel_file` data source. Required if `git_source` is not set.
-        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-               this is omitted, then any leading `../`s will be stripped.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-               repository. Required if `ref` is not set.
-        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-               the provider.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -540,8 +507,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter
     def domains(self) -> pulumi.Output[Sequence[str]]:
         """
-        A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-        creation.
+        A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         """
         return pulumi.get(self, "domains")
 
@@ -549,8 +515,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter
     def environment(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
         """
-        A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-        `vercel_project` resource.
+        A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         """
         return pulumi.get(self, "environment")
 
@@ -558,8 +523,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter
     def files(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
         """
-        A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-        `vercel_file` data source. Required if `git_source` is not set.
+        A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         """
         return pulumi.get(self, "files")
 
@@ -567,8 +531,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter(name="pathPrefix")
     def path_prefix(self) -> pulumi.Output[Optional[str]]:
         """
-        If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-        this is omitted, then any leading `../`s will be stripped.
+        If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         """
         return pulumi.get(self, "path_prefix")
 
@@ -600,8 +563,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter
     def ref(self) -> pulumi.Output[Optional[str]]:
         """
-        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-        repository. Required if `ref` is not set.
+        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         """
         return pulumi.get(self, "ref")
 
@@ -609,8 +571,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-        the provider.
+        The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

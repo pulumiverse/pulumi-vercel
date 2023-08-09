@@ -13,12 +13,21 @@ namespace Pulumiverse.Vercel.Inputs
 
     public sealed class ProjectGitRepositoryArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
+        /// </summary>
         [Input("productionBranch")]
         public Input<string>? ProductionBranch { get; set; }
 
+        /// <summary>
+        /// The name of the git repository. For example: `vercel/next.js`.
+        /// </summary>
         [Input("repo", required: true)]
         public Input<string> Repo { get; set; } = null!;
 
+        /// <summary>
+        /// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+        /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
 

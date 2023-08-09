@@ -40,23 +40,19 @@ export class Deployment extends pulumi.CustomResource {
      */
     public readonly deleteOnDestroy!: pulumi.Output<boolean | undefined>;
     /**
-     * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-     * creation.
+     * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
      */
     public /*out*/ readonly domains!: pulumi.Output<string[]>;
     /**
-     * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-     * `vercel_project` resource.
+     * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
      */
     public readonly environment!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
-     * A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-     * `vercel_file` data source. Required if `git_source` is not set.
+     * A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `gitSource` is not set.
      */
     public readonly files!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
-     * If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-     * this is omitted, then any leading `../`s will be stripped.
+     * If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
      */
     public readonly pathPrefix!: pulumi.Output<string | undefined>;
     /**
@@ -72,13 +68,11 @@ export class Deployment extends pulumi.CustomResource {
      */
     public readonly projectSettings!: pulumi.Output<outputs.DeploymentProjectSettings | undefined>;
     /**
-     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-     * repository. Required if `ref` is not set.
+     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
      */
     public readonly ref!: pulumi.Output<string | undefined>;
     /**
-     * The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-     * the provider.
+     * The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
@@ -142,23 +136,19 @@ export interface DeploymentState {
      */
     deleteOnDestroy?: pulumi.Input<boolean>;
     /**
-     * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-     * creation.
+     * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
      */
     domains?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-     * `vercel_project` resource.
+     * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
      */
     environment?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-     * `vercel_file` data source. Required if `git_source` is not set.
+     * A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `gitSource` is not set.
      */
     files?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-     * this is omitted, then any leading `../`s will be stripped.
+     * If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
      */
     pathPrefix?: pulumi.Input<string>;
     /**
@@ -174,13 +164,11 @@ export interface DeploymentState {
      */
     projectSettings?: pulumi.Input<inputs.DeploymentProjectSettings>;
     /**
-     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-     * repository. Required if `ref` is not set.
+     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
      */
     ref?: pulumi.Input<string>;
     /**
-     * The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-     * the provider.
+     * The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
     /**
@@ -199,18 +187,15 @@ export interface DeploymentArgs {
      */
     deleteOnDestroy?: pulumi.Input<boolean>;
     /**
-     * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-     * `vercel_project` resource.
+     * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
      */
     environment?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-     * `vercel_file` data source. Required if `git_source` is not set.
+     * A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `gitSource` is not set.
      */
     files?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-     * this is omitted, then any leading `../`s will be stripped.
+     * If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
      */
     pathPrefix?: pulumi.Input<string>;
     /**
@@ -226,13 +211,11 @@ export interface DeploymentArgs {
      */
     projectSettings?: pulumi.Input<inputs.DeploymentProjectSettings>;
     /**
-     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-     * repository. Required if `ref` is not set.
+     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
      */
     ref?: pulumi.Input<string>;
     /**
-     * The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-     * the provider.
+     * The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

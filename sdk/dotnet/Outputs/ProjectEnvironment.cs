@@ -14,10 +14,25 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class ProjectEnvironment
     {
+        /// <summary>
+        /// The git branch of the Environment Variable.
+        /// </summary>
         public readonly string? GitBranch;
+        /// <summary>
+        /// The ID of the Environment Variable.
+        /// </summary>
         public readonly string? Id;
+        /// <summary>
+        /// The name of the Environment Variable.
+        /// </summary>
         public readonly string Key;
+        /// <summary>
+        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        /// </summary>
         public readonly ImmutableArray<string> Targets;
+        /// <summary>
+        /// The value of the Environment Variable.
+        /// </summary>
         public readonly string Value;
 
         [OutputConstructor]

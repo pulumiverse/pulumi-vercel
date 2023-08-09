@@ -14,11 +14,16 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type DeploymentProjectSettings struct {
-	BuildCommand    *string `pulumi:"buildCommand"`
-	Framework       *string `pulumi:"framework"`
-	InstallCommand  *string `pulumi:"installCommand"`
+	// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+	BuildCommand *string `pulumi:"buildCommand"`
+	// The framework that is being used for this deployment. If omitted, no framework is selected.
+	Framework *string `pulumi:"framework"`
+	// The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+	InstallCommand *string `pulumi:"installCommand"`
+	// The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
-	RootDirectory   *string `pulumi:"rootDirectory"`
+	// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+	RootDirectory *string `pulumi:"rootDirectory"`
 }
 
 // DeploymentProjectSettingsInput is an input type that accepts DeploymentProjectSettingsArgs and DeploymentProjectSettingsOutput values.
@@ -33,11 +38,16 @@ type DeploymentProjectSettingsInput interface {
 }
 
 type DeploymentProjectSettingsArgs struct {
-	BuildCommand    pulumi.StringPtrInput `pulumi:"buildCommand"`
-	Framework       pulumi.StringPtrInput `pulumi:"framework"`
-	InstallCommand  pulumi.StringPtrInput `pulumi:"installCommand"`
+	// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+	BuildCommand pulumi.StringPtrInput `pulumi:"buildCommand"`
+	// The framework that is being used for this deployment. If omitted, no framework is selected.
+	Framework pulumi.StringPtrInput `pulumi:"framework"`
+	// The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+	InstallCommand pulumi.StringPtrInput `pulumi:"installCommand"`
+	// The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
 	OutputDirectory pulumi.StringPtrInput `pulumi:"outputDirectory"`
-	RootDirectory   pulumi.StringPtrInput `pulumi:"rootDirectory"`
+	// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+	RootDirectory pulumi.StringPtrInput `pulumi:"rootDirectory"`
 }
 
 func (DeploymentProjectSettingsArgs) ElementType() reflect.Type {
@@ -117,22 +127,27 @@ func (o DeploymentProjectSettingsOutput) ToDeploymentProjectSettingsPtrOutputWit
 	}).(DeploymentProjectSettingsPtrOutput)
 }
 
+// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
 func (o DeploymentProjectSettingsOutput) BuildCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentProjectSettings) *string { return v.BuildCommand }).(pulumi.StringPtrOutput)
 }
 
+// The framework that is being used for this deployment. If omitted, no framework is selected.
 func (o DeploymentProjectSettingsOutput) Framework() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentProjectSettings) *string { return v.Framework }).(pulumi.StringPtrOutput)
 }
 
+// The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
 func (o DeploymentProjectSettingsOutput) InstallCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentProjectSettings) *string { return v.InstallCommand }).(pulumi.StringPtrOutput)
 }
 
+// The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
 func (o DeploymentProjectSettingsOutput) OutputDirectory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentProjectSettings) *string { return v.OutputDirectory }).(pulumi.StringPtrOutput)
 }
 
+// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
 func (o DeploymentProjectSettingsOutput) RootDirectory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentProjectSettings) *string { return v.RootDirectory }).(pulumi.StringPtrOutput)
 }
@@ -161,6 +176,7 @@ func (o DeploymentProjectSettingsPtrOutput) Elem() DeploymentProjectSettingsOutp
 	}).(DeploymentProjectSettingsOutput)
 }
 
+// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
 func (o DeploymentProjectSettingsPtrOutput) BuildCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeploymentProjectSettings) *string {
 		if v == nil {
@@ -170,6 +186,7 @@ func (o DeploymentProjectSettingsPtrOutput) BuildCommand() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
+// The framework that is being used for this deployment. If omitted, no framework is selected.
 func (o DeploymentProjectSettingsPtrOutput) Framework() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeploymentProjectSettings) *string {
 		if v == nil {
@@ -179,6 +196,7 @@ func (o DeploymentProjectSettingsPtrOutput) Framework() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
 func (o DeploymentProjectSettingsPtrOutput) InstallCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeploymentProjectSettings) *string {
 		if v == nil {
@@ -188,6 +206,7 @@ func (o DeploymentProjectSettingsPtrOutput) InstallCommand() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
+// The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
 func (o DeploymentProjectSettingsPtrOutput) OutputDirectory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeploymentProjectSettings) *string {
 		if v == nil {
@@ -197,6 +216,7 @@ func (o DeploymentProjectSettingsPtrOutput) OutputDirectory() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
+// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
 func (o DeploymentProjectSettingsPtrOutput) RootDirectory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeploymentProjectSettings) *string {
 		if v == nil {
@@ -207,10 +227,14 @@ func (o DeploymentProjectSettingsPtrOutput) RootDirectory() pulumi.StringPtrOutp
 }
 
 type DnsRecordSrv struct {
-	Port     int    `pulumi:"port"`
-	Priority int    `pulumi:"priority"`
-	Target   string `pulumi:"target"`
-	Weight   int    `pulumi:"weight"`
+	// The TCP or UDP port on which the service is to be found.
+	Port int `pulumi:"port"`
+	// The priority of the target host, lower value means more preferred.
+	Priority int `pulumi:"priority"`
+	// The canonical hostname of the machine providing the service, ending in a dot.
+	Target string `pulumi:"target"`
+	// A relative weight for records with the same priority, higher value means higher chance of getting picked.
+	Weight int `pulumi:"weight"`
 }
 
 // DnsRecordSrvInput is an input type that accepts DnsRecordSrvArgs and DnsRecordSrvOutput values.
@@ -225,10 +249,14 @@ type DnsRecordSrvInput interface {
 }
 
 type DnsRecordSrvArgs struct {
-	Port     pulumi.IntInput    `pulumi:"port"`
-	Priority pulumi.IntInput    `pulumi:"priority"`
-	Target   pulumi.StringInput `pulumi:"target"`
-	Weight   pulumi.IntInput    `pulumi:"weight"`
+	// The TCP or UDP port on which the service is to be found.
+	Port pulumi.IntInput `pulumi:"port"`
+	// The priority of the target host, lower value means more preferred.
+	Priority pulumi.IntInput `pulumi:"priority"`
+	// The canonical hostname of the machine providing the service, ending in a dot.
+	Target pulumi.StringInput `pulumi:"target"`
+	// A relative weight for records with the same priority, higher value means higher chance of getting picked.
+	Weight pulumi.IntInput `pulumi:"weight"`
 }
 
 func (DnsRecordSrvArgs) ElementType() reflect.Type {
@@ -308,18 +336,22 @@ func (o DnsRecordSrvOutput) ToDnsRecordSrvPtrOutputWithContext(ctx context.Conte
 	}).(DnsRecordSrvPtrOutput)
 }
 
+// The TCP or UDP port on which the service is to be found.
 func (o DnsRecordSrvOutput) Port() pulumi.IntOutput {
 	return o.ApplyT(func(v DnsRecordSrv) int { return v.Port }).(pulumi.IntOutput)
 }
 
+// The priority of the target host, lower value means more preferred.
 func (o DnsRecordSrvOutput) Priority() pulumi.IntOutput {
 	return o.ApplyT(func(v DnsRecordSrv) int { return v.Priority }).(pulumi.IntOutput)
 }
 
+// The canonical hostname of the machine providing the service, ending in a dot.
 func (o DnsRecordSrvOutput) Target() pulumi.StringOutput {
 	return o.ApplyT(func(v DnsRecordSrv) string { return v.Target }).(pulumi.StringOutput)
 }
 
+// A relative weight for records with the same priority, higher value means higher chance of getting picked.
 func (o DnsRecordSrvOutput) Weight() pulumi.IntOutput {
 	return o.ApplyT(func(v DnsRecordSrv) int { return v.Weight }).(pulumi.IntOutput)
 }
@@ -348,6 +380,7 @@ func (o DnsRecordSrvPtrOutput) Elem() DnsRecordSrvOutput {
 	}).(DnsRecordSrvOutput)
 }
 
+// The TCP or UDP port on which the service is to be found.
 func (o DnsRecordSrvPtrOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsRecordSrv) *int {
 		if v == nil {
@@ -357,6 +390,7 @@ func (o DnsRecordSrvPtrOutput) Port() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// The priority of the target host, lower value means more preferred.
 func (o DnsRecordSrvPtrOutput) Priority() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsRecordSrv) *int {
 		if v == nil {
@@ -366,6 +400,7 @@ func (o DnsRecordSrvPtrOutput) Priority() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// The canonical hostname of the machine providing the service, ending in a dot.
 func (o DnsRecordSrvPtrOutput) Target() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DnsRecordSrv) *string {
 		if v == nil {
@@ -375,6 +410,7 @@ func (o DnsRecordSrvPtrOutput) Target() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// A relative weight for records with the same priority, higher value means higher chance of getting picked.
 func (o DnsRecordSrvPtrOutput) Weight() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsRecordSrv) *int {
 		if v == nil {
@@ -385,11 +421,16 @@ func (o DnsRecordSrvPtrOutput) Weight() pulumi.IntPtrOutput {
 }
 
 type ProjectEnvironment struct {
-	GitBranch *string  `pulumi:"gitBranch"`
-	Id        *string  `pulumi:"id"`
-	Key       string   `pulumi:"key"`
-	Targets   []string `pulumi:"targets"`
-	Value     string   `pulumi:"value"`
+	// The git branch of the Environment Variable.
+	GitBranch *string `pulumi:"gitBranch"`
+	// The ID of the Environment Variable.
+	Id *string `pulumi:"id"`
+	// The name of the Environment Variable.
+	Key string `pulumi:"key"`
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Targets []string `pulumi:"targets"`
+	// The value of the Environment Variable.
+	Value string `pulumi:"value"`
 }
 
 // ProjectEnvironmentInput is an input type that accepts ProjectEnvironmentArgs and ProjectEnvironmentOutput values.
@@ -404,11 +445,16 @@ type ProjectEnvironmentInput interface {
 }
 
 type ProjectEnvironmentArgs struct {
-	GitBranch pulumi.StringPtrInput   `pulumi:"gitBranch"`
-	Id        pulumi.StringPtrInput   `pulumi:"id"`
-	Key       pulumi.StringInput      `pulumi:"key"`
-	Targets   pulumi.StringArrayInput `pulumi:"targets"`
-	Value     pulumi.StringInput      `pulumi:"value"`
+	// The git branch of the Environment Variable.
+	GitBranch pulumi.StringPtrInput `pulumi:"gitBranch"`
+	// The ID of the Environment Variable.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// The name of the Environment Variable.
+	Key pulumi.StringInput `pulumi:"key"`
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Targets pulumi.StringArrayInput `pulumi:"targets"`
+	// The value of the Environment Variable.
+	Value pulumi.StringInput `pulumi:"value"`
 }
 
 func (ProjectEnvironmentArgs) ElementType() reflect.Type {
@@ -462,22 +508,27 @@ func (o ProjectEnvironmentOutput) ToProjectEnvironmentOutputWithContext(ctx cont
 	return o
 }
 
+// The git branch of the Environment Variable.
 func (o ProjectEnvironmentOutput) GitBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *string { return v.GitBranch }).(pulumi.StringPtrOutput)
 }
 
+// The ID of the Environment Variable.
 func (o ProjectEnvironmentOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
 
+// The name of the Environment Variable.
 func (o ProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
 }
 
+// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 func (o ProjectEnvironmentOutput) Targets() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ProjectEnvironment) []string { return v.Targets }).(pulumi.StringArrayOutput)
 }
 
+// The value of the Environment Variable.
 func (o ProjectEnvironmentOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Value }).(pulumi.StringOutput)
 }
@@ -503,9 +554,12 @@ func (o ProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) ProjectEnvironme
 }
 
 type ProjectGitRepository struct {
+	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch *string `pulumi:"productionBranch"`
-	Repo             string  `pulumi:"repo"`
-	Type             string  `pulumi:"type"`
+	// The name of the git repository. For example: `vercel/next.js`.
+	Repo string `pulumi:"repo"`
+	// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+	Type string `pulumi:"type"`
 }
 
 // ProjectGitRepositoryInput is an input type that accepts ProjectGitRepositoryArgs and ProjectGitRepositoryOutput values.
@@ -520,9 +574,12 @@ type ProjectGitRepositoryInput interface {
 }
 
 type ProjectGitRepositoryArgs struct {
+	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch pulumi.StringPtrInput `pulumi:"productionBranch"`
-	Repo             pulumi.StringInput    `pulumi:"repo"`
-	Type             pulumi.StringInput    `pulumi:"type"`
+	// The name of the git repository. For example: `vercel/next.js`.
+	Repo pulumi.StringInput `pulumi:"repo"`
+	// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (ProjectGitRepositoryArgs) ElementType() reflect.Type {
@@ -602,14 +659,17 @@ func (o ProjectGitRepositoryOutput) ToProjectGitRepositoryPtrOutputWithContext(c
 	}).(ProjectGitRepositoryPtrOutput)
 }
 
+// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 func (o ProjectGitRepositoryOutput) ProductionBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectGitRepository) *string { return v.ProductionBranch }).(pulumi.StringPtrOutput)
 }
 
+// The name of the git repository. For example: `vercel/next.js`.
 func (o ProjectGitRepositoryOutput) Repo() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectGitRepository) string { return v.Repo }).(pulumi.StringOutput)
 }
 
+// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
 func (o ProjectGitRepositoryOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectGitRepository) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -638,6 +698,7 @@ func (o ProjectGitRepositoryPtrOutput) Elem() ProjectGitRepositoryOutput {
 	}).(ProjectGitRepositoryOutput)
 }
 
+// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 func (o ProjectGitRepositoryPtrOutput) ProductionBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectGitRepository) *string {
 		if v == nil {
@@ -647,6 +708,7 @@ func (o ProjectGitRepositoryPtrOutput) ProductionBranch() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
+// The name of the git repository. For example: `vercel/next.js`.
 func (o ProjectGitRepositoryPtrOutput) Repo() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectGitRepository) *string {
 		if v == nil {
@@ -656,6 +718,7 @@ func (o ProjectGitRepositoryPtrOutput) Repo() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
 func (o ProjectGitRepositoryPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectGitRepository) *string {
 		if v == nil {
@@ -666,8 +729,10 @@ func (o ProjectGitRepositoryPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 type ProjectPasswordProtection struct {
-	Password          string `pulumi:"password"`
-	ProtectProduction *bool  `pulumi:"protectProduction"`
+	// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
+	Password string `pulumi:"password"`
+	// If true, production deployments will also be protected
+	ProtectProduction *bool `pulumi:"protectProduction"`
 }
 
 // ProjectPasswordProtectionInput is an input type that accepts ProjectPasswordProtectionArgs and ProjectPasswordProtectionOutput values.
@@ -682,7 +747,9 @@ type ProjectPasswordProtectionInput interface {
 }
 
 type ProjectPasswordProtectionArgs struct {
-	Password          pulumi.StringInput  `pulumi:"password"`
+	// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
+	Password pulumi.StringInput `pulumi:"password"`
+	// If true, production deployments will also be protected
 	ProtectProduction pulumi.BoolPtrInput `pulumi:"protectProduction"`
 }
 
@@ -763,10 +830,12 @@ func (o ProjectPasswordProtectionOutput) ToProjectPasswordProtectionPtrOutputWit
 	}).(ProjectPasswordProtectionPtrOutput)
 }
 
+// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 func (o ProjectPasswordProtectionOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectPasswordProtection) string { return v.Password }).(pulumi.StringOutput)
 }
 
+// If true, production deployments will also be protected
 func (o ProjectPasswordProtectionOutput) ProtectProduction() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectPasswordProtection) *bool { return v.ProtectProduction }).(pulumi.BoolPtrOutput)
 }
@@ -795,6 +864,7 @@ func (o ProjectPasswordProtectionPtrOutput) Elem() ProjectPasswordProtectionOutp
 	}).(ProjectPasswordProtectionOutput)
 }
 
+// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 func (o ProjectPasswordProtectionPtrOutput) Password() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectPasswordProtection) *string {
 		if v == nil {
@@ -804,6 +874,7 @@ func (o ProjectPasswordProtectionPtrOutput) Password() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// If true, production deployments will also be protected
 func (o ProjectPasswordProtectionPtrOutput) ProtectProduction() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectPasswordProtection) *bool {
 		if v == nil {
@@ -814,6 +885,7 @@ func (o ProjectPasswordProtectionPtrOutput) ProtectProduction() pulumi.BoolPtrOu
 }
 
 type ProjectVercelAuthentication struct {
+	// If true, production deployments will also be protected
 	ProtectProduction *bool `pulumi:"protectProduction"`
 }
 
@@ -829,6 +901,7 @@ type ProjectVercelAuthenticationInput interface {
 }
 
 type ProjectVercelAuthenticationArgs struct {
+	// If true, production deployments will also be protected
 	ProtectProduction pulumi.BoolPtrInput `pulumi:"protectProduction"`
 }
 
@@ -909,6 +982,7 @@ func (o ProjectVercelAuthenticationOutput) ToProjectVercelAuthenticationPtrOutpu
 	}).(ProjectVercelAuthenticationPtrOutput)
 }
 
+// If true, production deployments will also be protected
 func (o ProjectVercelAuthenticationOutput) ProtectProduction() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectVercelAuthentication) *bool { return v.ProtectProduction }).(pulumi.BoolPtrOutput)
 }
@@ -937,6 +1011,7 @@ func (o ProjectVercelAuthenticationPtrOutput) Elem() ProjectVercelAuthentication
 	}).(ProjectVercelAuthenticationOutput)
 }
 
+// If true, production deployments will also be protected
 func (o ProjectVercelAuthenticationPtrOutput) ProtectProduction() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectVercelAuthentication) *bool {
 		if v == nil {
@@ -947,11 +1022,16 @@ func (o ProjectVercelAuthenticationPtrOutput) ProtectProduction() pulumi.BoolPtr
 }
 
 type GetProjectEnvironment struct {
-	GitBranch string   `pulumi:"gitBranch"`
-	Id        string   `pulumi:"id"`
-	Key       string   `pulumi:"key"`
-	Targets   []string `pulumi:"targets"`
-	Value     string   `pulumi:"value"`
+	// The git branch of the environment variable.
+	GitBranch string `pulumi:"gitBranch"`
+	// The ID of the environment variable
+	Id string `pulumi:"id"`
+	// The name of the environment variable.
+	Key string `pulumi:"key"`
+	// The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Targets []string `pulumi:"targets"`
+	// The value of the environment variable.
+	Value string `pulumi:"value"`
 }
 
 // GetProjectEnvironmentInput is an input type that accepts GetProjectEnvironmentArgs and GetProjectEnvironmentOutput values.
@@ -966,11 +1046,16 @@ type GetProjectEnvironmentInput interface {
 }
 
 type GetProjectEnvironmentArgs struct {
-	GitBranch pulumi.StringInput      `pulumi:"gitBranch"`
-	Id        pulumi.StringInput      `pulumi:"id"`
-	Key       pulumi.StringInput      `pulumi:"key"`
-	Targets   pulumi.StringArrayInput `pulumi:"targets"`
-	Value     pulumi.StringInput      `pulumi:"value"`
+	// The git branch of the environment variable.
+	GitBranch pulumi.StringInput `pulumi:"gitBranch"`
+	// The ID of the environment variable
+	Id pulumi.StringInput `pulumi:"id"`
+	// The name of the environment variable.
+	Key pulumi.StringInput `pulumi:"key"`
+	// The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Targets pulumi.StringArrayInput `pulumi:"targets"`
+	// The value of the environment variable.
+	Value pulumi.StringInput `pulumi:"value"`
 }
 
 func (GetProjectEnvironmentArgs) ElementType() reflect.Type {
@@ -1024,22 +1109,27 @@ func (o GetProjectEnvironmentOutput) ToGetProjectEnvironmentOutputWithContext(ct
 	return o
 }
 
+// The git branch of the environment variable.
 func (o GetProjectEnvironmentOutput) GitBranch() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.GitBranch }).(pulumi.StringOutput)
 }
 
+// The ID of the environment variable
 func (o GetProjectEnvironmentOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the environment variable.
 func (o GetProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
 }
 
+// The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 func (o GetProjectEnvironmentOutput) Targets() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) []string { return v.Targets }).(pulumi.StringArrayOutput)
 }
 
+// The value of the environment variable.
 func (o GetProjectEnvironmentOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Value }).(pulumi.StringOutput)
 }
@@ -1065,9 +1155,12 @@ func (o GetProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) GetProjectEnv
 }
 
 type GetProjectGitRepository struct {
+	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch string `pulumi:"productionBranch"`
-	Repo             string `pulumi:"repo"`
-	Type             string `pulumi:"type"`
+	// The name of the git repository. For example: `vercel/next.js`.
+	Repo string `pulumi:"repo"`
+	// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+	Type string `pulumi:"type"`
 }
 
 // GetProjectGitRepositoryInput is an input type that accepts GetProjectGitRepositoryArgs and GetProjectGitRepositoryOutput values.
@@ -1082,9 +1175,12 @@ type GetProjectGitRepositoryInput interface {
 }
 
 type GetProjectGitRepositoryArgs struct {
+	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch pulumi.StringInput `pulumi:"productionBranch"`
-	Repo             pulumi.StringInput `pulumi:"repo"`
-	Type             pulumi.StringInput `pulumi:"type"`
+	// The name of the git repository. For example: `vercel/next.js`.
+	Repo pulumi.StringInput `pulumi:"repo"`
+	// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (GetProjectGitRepositoryArgs) ElementType() reflect.Type {
@@ -1113,19 +1209,23 @@ func (o GetProjectGitRepositoryOutput) ToGetProjectGitRepositoryOutputWithContex
 	return o
 }
 
+// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 func (o GetProjectGitRepositoryOutput) ProductionBranch() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectGitRepository) string { return v.ProductionBranch }).(pulumi.StringOutput)
 }
 
+// The name of the git repository. For example: `vercel/next.js`.
 func (o GetProjectGitRepositoryOutput) Repo() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectGitRepository) string { return v.Repo }).(pulumi.StringOutput)
 }
 
+// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
 func (o GetProjectGitRepositoryOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectGitRepository) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type GetProjectPasswordProtection struct {
+	// If true, production deployments will also be protected
 	ProtectProduction bool `pulumi:"protectProduction"`
 }
 
@@ -1141,6 +1241,7 @@ type GetProjectPasswordProtectionInput interface {
 }
 
 type GetProjectPasswordProtectionArgs struct {
+	// If true, production deployments will also be protected
 	ProtectProduction pulumi.BoolInput `pulumi:"protectProduction"`
 }
 
@@ -1221,6 +1322,7 @@ func (o GetProjectPasswordProtectionOutput) ToGetProjectPasswordProtectionPtrOut
 	}).(GetProjectPasswordProtectionPtrOutput)
 }
 
+// If true, production deployments will also be protected
 func (o GetProjectPasswordProtectionOutput) ProtectProduction() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectPasswordProtection) bool { return v.ProtectProduction }).(pulumi.BoolOutput)
 }
@@ -1249,6 +1351,7 @@ func (o GetProjectPasswordProtectionPtrOutput) Elem() GetProjectPasswordProtecti
 	}).(GetProjectPasswordProtectionOutput)
 }
 
+// If true, production deployments will also be protected
 func (o GetProjectPasswordProtectionPtrOutput) ProtectProduction() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *GetProjectPasswordProtection) *bool {
 		if v == nil {
@@ -1259,6 +1362,7 @@ func (o GetProjectPasswordProtectionPtrOutput) ProtectProduction() pulumi.BoolPt
 }
 
 type GetProjectVercelAuthentication struct {
+	// If true, production deployments will also be protected
 	ProtectProduction bool `pulumi:"protectProduction"`
 }
 
@@ -1274,6 +1378,7 @@ type GetProjectVercelAuthenticationInput interface {
 }
 
 type GetProjectVercelAuthenticationArgs struct {
+	// If true, production deployments will also be protected
 	ProtectProduction pulumi.BoolInput `pulumi:"protectProduction"`
 }
 
@@ -1303,6 +1408,7 @@ func (o GetProjectVercelAuthenticationOutput) ToGetProjectVercelAuthenticationOu
 	return o
 }
 
+// If true, production deployments will also be protected
 func (o GetProjectVercelAuthenticationOutput) ProtectProduction() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectVercelAuthentication) bool { return v.ProtectProduction }).(pulumi.BoolOutput)
 }

@@ -13,6 +13,9 @@ namespace Pulumiverse.Vercel.Inputs
 
     public sealed class GetProjectPasswordProtectionArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// If true, production deployments will also be protected
+        /// </summary>
         [Input("protectProduction", required: true)]
         public bool ProtectProduction { get; set; }
 

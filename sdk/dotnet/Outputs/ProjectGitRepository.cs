@@ -14,8 +14,17 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class ProjectGitRepository
     {
+        /// <summary>
+        /// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
+        /// </summary>
         public readonly string? ProductionBranch;
+        /// <summary>
+        /// The name of the git repository. For example: `vercel/next.js`.
+        /// </summary>
         public readonly string Repo;
+        /// <summary>
+        /// The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+        /// </summary>
         public readonly string Type;
 
         [OutputConstructor]

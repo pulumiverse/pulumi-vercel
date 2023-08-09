@@ -12,6 +12,69 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
+// Provides a Project Domain resource.
+//
+// A Project Domain is used to associate a domain name with a `Project`.
+//
+// By default, Project Domains will be automatically applied to any `production` deployments.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			if err != nil {
+//				return err
+//			}
+//			exampleProjectDomain, err := vercel.NewProjectDomain(ctx, "exampleProjectDomain", &vercel.ProjectDomainArgs{
+//				ProjectId: exampleProject.ID(),
+//				Domain:    pulumi.String("i-love.vercel.app"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewProjectDomain(ctx, "exampleRedirect", &vercel.ProjectDomainArgs{
+//				ProjectId:          exampleProject.ID(),
+//				Domain:             pulumi.String("i-also-love.vercel.app"),
+//				Redirect:           exampleProjectDomain.Domain,
+//				RedirectStatusCode: pulumi.Int(307),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// If importing into a personal account, or with a team configured on the provider, simply use the project ID and domain. - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// ```sh
+//
+//	$ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
+//
+// ```
+//
+//	Alternatively, you can import via the team_id, project_id and domain name. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// ```sh
+//
+//	$ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
+//
+// ```
 type ProjectDomain struct {
 	pulumi.CustomResourceState
 
@@ -25,8 +88,7 @@ type ProjectDomain struct {
 	Redirect pulumi.StringPtrOutput `pulumi:"redirect"`
 	// The HTTP status code to use when serving as a redirect.
 	RedirectStatusCode pulumi.IntPtrOutput `pulumi:"redirectStatusCode"`
-	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -76,8 +138,7 @@ type projectDomainState struct {
 	Redirect *string `pulumi:"redirect"`
 	// The HTTP status code to use when serving as a redirect.
 	RedirectStatusCode *int `pulumi:"redirectStatusCode"`
-	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -92,8 +153,7 @@ type ProjectDomainState struct {
 	Redirect pulumi.StringPtrInput
 	// The HTTP status code to use when serving as a redirect.
 	RedirectStatusCode pulumi.IntPtrInput
-	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -112,8 +172,7 @@ type projectDomainArgs struct {
 	Redirect *string `pulumi:"redirect"`
 	// The HTTP status code to use when serving as a redirect.
 	RedirectStatusCode *int `pulumi:"redirectStatusCode"`
-	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -129,8 +188,7 @@ type ProjectDomainArgs struct {
 	Redirect pulumi.StringPtrInput
 	// The HTTP status code to use when serving as a redirect.
 	RedirectStatusCode pulumi.IntPtrInput
-	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -246,8 +304,7 @@ func (o ProjectDomainOutput) RedirectStatusCode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ProjectDomain) pulumi.IntPtrOutput { return v.RedirectStatusCode }).(pulumi.IntPtrOutput)
 }
 
-// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-// set in the provider.
+// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o ProjectDomainOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectDomain) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

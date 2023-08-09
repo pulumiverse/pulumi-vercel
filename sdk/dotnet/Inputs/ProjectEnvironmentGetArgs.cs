@@ -13,17 +13,30 @@ namespace Pulumiverse.Vercel.Inputs
 
     public sealed class ProjectEnvironmentGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The git branch of the Environment Variable.
+        /// </summary>
         [Input("gitBranch")]
         public Input<string>? GitBranch { get; set; }
 
+        /// <summary>
+        /// The ID of the Environment Variable.
+        /// </summary>
         [Input("id")]
         public Input<string>? Id { get; set; }
 
+        /// <summary>
+        /// The name of the Environment Variable.
+        /// </summary>
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
         [Input("targets", required: true)]
         private InputList<string>? _targets;
+
+        /// <summary>
+        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        /// </summary>
         public InputList<string> Targets
         {
             get => _targets ?? (_targets = new InputList<string>());
@@ -32,6 +45,10 @@ namespace Pulumiverse.Vercel.Inputs
 
         [Input("value", required: true)]
         private Input<string>? _value;
+
+        /// <summary>
+        /// The value of the Environment Variable.
+        /// </summary>
         public Input<string>? Value
         {
             get => _value;

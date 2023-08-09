@@ -45,6 +45,11 @@ setup(name='pulumiverse_vercel',
       cmdclass={
           'install': InstallPluginCommand,
       },
+      keywords='pulumi vercel category/cloud',
+      project_urls={
+          'Repository': 'https://github.com/pulumiverse/pulumi-vercel'
+      },
+      license='Apache-2.0',
       packages=find_packages(),
       package_data={
           'pulumiverse_vercel': [

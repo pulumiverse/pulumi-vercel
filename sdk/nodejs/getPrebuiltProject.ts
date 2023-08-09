@@ -23,7 +23,13 @@ export interface GetPrebuiltProjectArgs {
  * A collection of values returned by getPrebuiltProject.
  */
 export interface GetPrebuiltProjectResult {
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+     */
     readonly output: {[key: string]: string};
     readonly path: string;
 }

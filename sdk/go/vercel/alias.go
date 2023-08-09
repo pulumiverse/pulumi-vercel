@@ -12,6 +12,9 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
+// Provides an Alias resource.
+//
+// An Alias allows a `Deployment` to be accessed through a different URL.
 type Alias struct {
 	pulumi.CustomResourceState
 
@@ -19,8 +22,7 @@ type Alias struct {
 	Alias pulumi.StringOutput `pulumi:"alias"`
 	// The id of the Deployment the Alias should be associated with.
 	DeploymentId pulumi.StringOutput `pulumi:"deploymentId"`
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -64,8 +66,7 @@ type aliasState struct {
 	Alias *string `pulumi:"alias"`
 	// The id of the Deployment the Alias should be associated with.
 	DeploymentId *string `pulumi:"deploymentId"`
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -74,8 +75,7 @@ type AliasState struct {
 	Alias pulumi.StringPtrInput
 	// The id of the Deployment the Alias should be associated with.
 	DeploymentId pulumi.StringPtrInput
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -88,8 +88,7 @@ type aliasArgs struct {
 	Alias string `pulumi:"alias"`
 	// The id of the Deployment the Alias should be associated with.
 	DeploymentId string `pulumi:"deploymentId"`
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -99,8 +98,7 @@ type AliasArgs struct {
 	Alias pulumi.StringInput
 	// The id of the Deployment the Alias should be associated with.
 	DeploymentId pulumi.StringInput
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -201,8 +199,7 @@ func (o AliasOutput) DeploymentId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Alias) pulumi.StringOutput { return v.DeploymentId }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-// not been set in the provider.
+// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o AliasOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Alias) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
