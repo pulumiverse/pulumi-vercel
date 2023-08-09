@@ -21,29 +21,25 @@ namespace Pulumiverse.Vercel
         public Output<bool?> DeleteOnDestroy { get; private set; } = null!;
 
         /// <summary>
-        /// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-        /// creation.
+        /// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         /// </summary>
         [Output("domains")]
         public Output<ImmutableArray<string>> Domains { get; private set; } = null!;
 
         /// <summary>
-        /// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-        /// `vercel_project` resource.
+        /// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
         /// </summary>
         [Output("environment")]
         public Output<ImmutableDictionary<string, string>?> Environment { get; private set; } = null!;
 
         /// <summary>
-        /// A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-        /// `vercel_file` data source. Required if `git_source` is not set.
+        /// A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `git_source` is not set.
         /// </summary>
         [Output("files")]
         public Output<ImmutableDictionary<string, string>?> Files { get; private set; } = null!;
 
         /// <summary>
-        /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-        /// this is omitted, then any leading `../`s will be stripped.
+        /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         /// </summary>
         [Output("pathPrefix")]
         public Output<string?> PathPrefix { get; private set; } = null!;
@@ -67,15 +63,13 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.DeploymentProjectSettings?> ProjectSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-        /// repository. Required if `ref` is not set.
+        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         /// </summary>
         [Output("ref")]
         public Output<string?> Ref { get; private set; } = null!;
 
         /// <summary>
-        /// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-        /// the provider.
+        /// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -144,8 +138,7 @@ namespace Pulumiverse.Vercel
         private InputMap<string>? _environment;
 
         /// <summary>
-        /// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-        /// `vercel_project` resource.
+        /// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
         /// </summary>
         public InputMap<string> Environment
         {
@@ -157,8 +150,7 @@ namespace Pulumiverse.Vercel
         private InputMap<string>? _files;
 
         /// <summary>
-        /// A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-        /// `vercel_file` data source. Required if `git_source` is not set.
+        /// A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `git_source` is not set.
         /// </summary>
         public InputMap<string> Files
         {
@@ -167,8 +159,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-        /// this is omitted, then any leading `../`s will be stripped.
+        /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         /// </summary>
         [Input("pathPrefix")]
         public Input<string>? PathPrefix { get; set; }
@@ -192,15 +183,13 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.DeploymentProjectSettingsArgs>? ProjectSettings { get; set; }
 
         /// <summary>
-        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-        /// repository. Required if `ref` is not set.
+        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         /// </summary>
         [Input("ref")]
         public Input<string>? Ref { get; set; }
 
         /// <summary>
-        /// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-        /// the provider.
+        /// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -224,8 +213,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _domains;
 
         /// <summary>
-        /// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-        /// creation.
+        /// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         /// </summary>
         public InputList<string> Domains
         {
@@ -237,8 +225,7 @@ namespace Pulumiverse.Vercel
         private InputMap<string>? _environment;
 
         /// <summary>
-        /// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-        /// `vercel_project` resource.
+        /// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
         /// </summary>
         public InputMap<string> Environment
         {
@@ -250,8 +237,7 @@ namespace Pulumiverse.Vercel
         private InputMap<string>? _files;
 
         /// <summary>
-        /// A map of files to be uploaded for the deployment. This should be provided by a `vercel_project_directory` or
-        /// `vercel_file` data source. Required if `git_source` is not set.
+        /// A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `git_source` is not set.
         /// </summary>
         public InputMap<string> Files
         {
@@ -260,8 +246,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If
-        /// this is omitted, then any leading `../`s will be stripped.
+        /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         /// </summary>
         [Input("pathPrefix")]
         public Input<string>? PathPrefix { get; set; }
@@ -285,15 +270,13 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.DeploymentProjectSettingsGetArgs>? ProjectSettings { get; set; }
 
         /// <summary>
-        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-        /// repository. Required if `ref` is not set.
+        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         /// </summary>
         [Input("ref")]
         public Input<string>? Ref { get; set; }
 
         /// <summary>
-        /// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-        /// the provider.
+        /// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

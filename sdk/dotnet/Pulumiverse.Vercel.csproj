@@ -5,9 +5,9 @@
     <Authors>Pulumiverse</Authors>
     <Company>Pulumiverse</Company>
     <Description></Description>
-    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
+    <RepositoryUrl>https://github.com/pulumiverse/pulumi-vercel</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
     <TargetFramework>net6.0</TargetFramework>

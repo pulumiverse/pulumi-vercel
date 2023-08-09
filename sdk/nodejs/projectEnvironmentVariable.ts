@@ -4,6 +4,50 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const exampleProject = new vercel.Project("exampleProject", {gitRepository: {
+ *     type: "github",
+ *     repo: "vercel/some-repo",
+ * }});
+ * // An environment variable that will be created
+ * // for this project for the "production" environment.
+ * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", {
+ *     projectId: exampleProject.id,
+ *     key: "foo",
+ *     value: "bar",
+ *     targets: ["production"],
+ * });
+ * // An environment variable that will be created
+ * // for this project for the "preview" environment when the branch is "staging".
+ * const exampleGitBranch = new vercel.ProjectEnvironmentVariable("exampleGitBranch", {
+ *     projectId: exampleProject.id,
+ *     key: "foo",
+ *     value: "bar-staging",
+ *     targets: ["preview"],
+ *     gitBranch: "staging",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * If importing into a personal account, or with a team configured on the provider, simply use the project_id and environment variable id. - project_id can be found in the project `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the project page.
+ *
+ * ```sh
+ *  $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+ * ```
+ *
+ *  Alternatively, you can import via the team_id, project_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the project page.
+ *
+ * ```sh
+ *  $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+ * ```
+ */
 export class ProjectEnvironmentVariable extends pulumi.CustomResource {
     /**
      * Get an existing ProjectEnvironmentVariable resource's state with the given name, ID, and optional extra
@@ -45,8 +89,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     public readonly targets!: pulumi.Output<string[]>;
     /**
@@ -122,8 +165,7 @@ export interface ProjectEnvironmentVariableState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -153,8 +195,7 @@ export interface ProjectEnvironmentVariableArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     targets: pulumi.Input<pulumi.Input<string>[]>;
     /**

@@ -12,31 +12,154 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
+// Provides a DNS Record resource.
+//
+// DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
+//
+// > The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.NewDnsRecord(ctx, "dnsRecord", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Ttl:    pulumi.Int(60),
+//				Type:   pulumi.String("A"),
+//				Value:  pulumi.String("192.168.0.1"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "aaaa", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Ttl:    pulumi.Int(60),
+//				Type:   pulumi.String("AAAA"),
+//				Value:  pulumi.String("::0"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "alias", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Ttl:    pulumi.Int(60),
+//				Type:   pulumi.String("ALIAS"),
+//				Value:  pulumi.String("example2.com."),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "caa", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Ttl:    pulumi.Int(60),
+//				Type:   pulumi.String("CAA"),
+//				Value:  pulumi.String("1 issue \"letsencrypt.org\""),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "cname", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Ttl:    pulumi.Int(60),
+//				Type:   pulumi.String("CNAME"),
+//				Value:  pulumi.String("example2.com."),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "mx", &vercel.DnsRecordArgs{
+//				Domain:     pulumi.String("example.com"),
+//				MxPriority: pulumi.Int(333),
+//				Ttl:        pulumi.Int(60),
+//				Type:       pulumi.String("MX"),
+//				Value:      pulumi.String("example2.com."),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "srv", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Srv: &vercel.DnsRecordSrvArgs{
+//					Port:     pulumi.Int(6000),
+//					Priority: pulumi.Int(127),
+//					Target:   pulumi.String("example2.com."),
+//					Weight:   pulumi.Int(60),
+//				},
+//				Ttl:  pulumi.Int(60),
+//				Type: pulumi.String("SRV"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDnsRecord(ctx, "txt", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Ttl:    pulumi.Int(60),
+//				Type:   pulumi.String("TXT"),
+//				Value:  pulumi.String("some text value"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// If importing into a personal account, or with a team configured on the provider, simply use the record id. - record_id can be taken from the network tab on the domains page.
+//
+// ```sh
+//
+//	$ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//
+// ```
+//
+//	Alternatively, you can import via the team_id and record_id. - team_id can be found in the team `settings` tab in the Vercel UI. - record_id can be taken from the network tab on the domains page.
+//
+// ```sh
+//
+//	$ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//
+// ```
 type DnsRecord struct {
 	pulumi.CustomResourceState
 
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringOutput `pulumi:"domain"`
-	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-	// indicates a higher priority.
+	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority pulumi.IntPtrOutput `pulumi:"mxPriority"`
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Settings for an SRV record.
 	Srv DnsRecordSrvPtrOutput `pulumi:"srv"`
-	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl pulumi.IntOutput `pulumi:"ttl"`
 	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
 	Type pulumi.StringOutput `pulumi:"type"`
-	// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-	// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-	// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-	// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-	// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-	// text.
+	// The value of the DNS record. The format depends on the 'type' property.
+	// For an 'A' record, this should be a valid IPv4 address.
+	// For an 'AAAA' record, this should be an IPv6 address.
+	// For 'ALIAS' records, this should be a hostname.
+	// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+	// For 'CNAME' records, this should be a different domain name.
+	// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+	// For 'TXT' records, this can contain arbitrary text.
 	Value pulumi.StringPtrOutput `pulumi:"value"`
 }
 
@@ -78,52 +201,52 @@ func GetDnsRecord(ctx *pulumi.Context,
 type dnsRecordState struct {
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain *string `pulumi:"domain"`
-	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-	// indicates a higher priority.
+	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority *int `pulumi:"mxPriority"`
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
 	Name *string `pulumi:"name"`
 	// Settings for an SRV record.
 	Srv *DnsRecordSrv `pulumi:"srv"`
-	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl *int `pulumi:"ttl"`
 	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
 	Type *string `pulumi:"type"`
-	// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-	// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-	// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-	// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-	// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-	// text.
+	// The value of the DNS record. The format depends on the 'type' property.
+	// For an 'A' record, this should be a valid IPv4 address.
+	// For an 'AAAA' record, this should be an IPv6 address.
+	// For 'ALIAS' records, this should be a hostname.
+	// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+	// For 'CNAME' records, this should be a different domain name.
+	// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+	// For 'TXT' records, this can contain arbitrary text.
 	Value *string `pulumi:"value"`
 }
 
 type DnsRecordState struct {
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringPtrInput
-	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-	// indicates a higher priority.
+	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority pulumi.IntPtrInput
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
 	Name pulumi.StringPtrInput
 	// Settings for an SRV record.
 	Srv DnsRecordSrvPtrInput
-	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl pulumi.IntPtrInput
 	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
 	Type pulumi.StringPtrInput
-	// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-	// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-	// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-	// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-	// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-	// text.
+	// The value of the DNS record. The format depends on the 'type' property.
+	// For an 'A' record, this should be a valid IPv4 address.
+	// For an 'AAAA' record, this should be an IPv6 address.
+	// For 'ALIAS' records, this should be a hostname.
+	// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+	// For 'CNAME' records, this should be a different domain name.
+	// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+	// For 'TXT' records, this can contain arbitrary text.
 	Value pulumi.StringPtrInput
 }
 
@@ -134,26 +257,26 @@ func (DnsRecordState) ElementType() reflect.Type {
 type dnsRecordArgs struct {
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain string `pulumi:"domain"`
-	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-	// indicates a higher priority.
+	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority *int `pulumi:"mxPriority"`
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
 	Name *string `pulumi:"name"`
 	// Settings for an SRV record.
 	Srv *DnsRecordSrv `pulumi:"srv"`
-	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl *int `pulumi:"ttl"`
 	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
 	Type string `pulumi:"type"`
-	// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-	// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-	// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-	// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-	// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-	// text.
+	// The value of the DNS record. The format depends on the 'type' property.
+	// For an 'A' record, this should be a valid IPv4 address.
+	// For an 'AAAA' record, this should be an IPv6 address.
+	// For 'ALIAS' records, this should be a hostname.
+	// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+	// For 'CNAME' records, this should be a different domain name.
+	// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+	// For 'TXT' records, this can contain arbitrary text.
 	Value *string `pulumi:"value"`
 }
 
@@ -161,26 +284,26 @@ type dnsRecordArgs struct {
 type DnsRecordArgs struct {
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringInput
-	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-	// indicates a higher priority.
+	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority pulumi.IntPtrInput
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
 	Name pulumi.StringPtrInput
 	// Settings for an SRV record.
 	Srv DnsRecordSrvPtrInput
-	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl pulumi.IntPtrInput
 	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
 	Type pulumi.StringInput
-	// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-	// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-	// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-	// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-	// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-	// text.
+	// The value of the DNS record. The format depends on the 'type' property.
+	// For an 'A' record, this should be a valid IPv4 address.
+	// For an 'AAAA' record, this should be an IPv6 address.
+	// For 'ALIAS' records, this should be a hostname.
+	// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+	// For 'CNAME' records, this should be a different domain name.
+	// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+	// For 'TXT' records, this can contain arbitrary text.
 	Value pulumi.StringPtrInput
 }
 
@@ -276,8 +399,7 @@ func (o DnsRecordOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
 }
 
-// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-// indicates a higher priority.
+// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 func (o DnsRecordOutput) MxPriority() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.IntPtrOutput { return v.MxPriority }).(pulumi.IntPtrOutput)
 }
@@ -292,8 +414,7 @@ func (o DnsRecordOutput) Srv() DnsRecordSrvPtrOutput {
 	return o.ApplyT(func(v *DnsRecord) DnsRecordSrvPtrOutput { return v.Srv }).(DnsRecordSrvPtrOutput)
 }
 
-// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-// not been set in the provider.
+// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
 func (o DnsRecordOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
@@ -308,12 +429,14 @@ func (o DnsRecordOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }
 
-// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-// text.
+// The value of the DNS record. The format depends on the 'type' property.
+// For an 'A' record, this should be a valid IPv4 address.
+// For an 'AAAA' record, this should be an IPv6 address.
+// For 'ALIAS' records, this should be a hostname.
+// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+// For 'CNAME' records, this should be a different domain name.
+// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+// For 'TXT' records, this can contain arbitrary text.
 func (o DnsRecordOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
 }

@@ -6,6 +6,25 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing project within Vercel.
+ *
+ * A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const foo = vercel.getProject({
+ *     name: "my-existing-project",
+ * });
+ * export const projectId = foo.then(foo => foo.id);
+ * ```
+ */
 export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectResult> {
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -20,8 +39,17 @@ export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): P
  * A collection of arguments for invoking getProject.
  */
 export interface GetProjectArgs {
+    /**
+     * The name of the project.
+     */
     name: string;
+    /**
+     * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+     */
     passwordProtection?: inputs.GetProjectPasswordProtection;
+    /**
+     * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -29,23 +57,90 @@ export interface GetProjectArgs {
  * A collection of values returned by getProject.
  */
 export interface GetProjectResult {
+    /**
+     * The build command for this project. If omitted, this value will be automatically detected.
+     */
     readonly buildCommand: string;
+    /**
+     * The dev command for this project. If omitted, this value will be automatically detected.
+     */
     readonly devCommand: string;
+    /**
+     * A list of environment variables that should be configured for the project.
+     */
     readonly environments: outputs.GetProjectEnvironment[];
+    /**
+     * The framework that is being used for this project. If omitted, no framework is selected.
+     */
     readonly framework: string;
+    /**
+     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+     */
     readonly gitRepository: outputs.GetProjectGitRepository;
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
+     */
     readonly ignoreCommand: string;
+    /**
+     * The install command for this project. If omitted, this value will be automatically detected.
+     */
     readonly installCommand: string;
+    /**
+     * The name of the project.
+     */
     readonly name: string;
+    /**
+     * The output directory of the project. When null is used this value will be automatically detected.
+     */
     readonly outputDirectory: string;
+    /**
+     * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+     */
     readonly passwordProtection?: outputs.GetProjectPasswordProtection;
+    /**
+     * Specifies whether the source code and logs of the deployments for this project should be public or not.
+     */
     readonly publicSource: boolean;
+    /**
+     * The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+     */
     readonly rootDirectory: string;
+    /**
+     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     */
     readonly serverlessFunctionRegion: string;
+    /**
+     * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
+    /**
+     * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
+     */
     readonly vercelAuthentication: outputs.GetProjectVercelAuthentication;
 }
+/**
+ * Provides information about an existing project within Vercel.
+ *
+ * A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const foo = vercel.getProject({
+ *     name: "my-existing-project",
+ * });
+ * export const projectId = foo.then(foo => foo.id);
+ * ```
+ */
 export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectResult> {
     return pulumi.output(args).apply((a: any) => getProject(a, opts))
 }
@@ -54,7 +149,16 @@ export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getProject.
  */
 export interface GetProjectOutputArgs {
+    /**
+     * The name of the project.
+     */
     name: pulumi.Input<string>;
+    /**
+     * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+     */
     passwordProtection?: pulumi.Input<inputs.GetProjectPasswordProtectionArgs>;
+    /**
+     * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

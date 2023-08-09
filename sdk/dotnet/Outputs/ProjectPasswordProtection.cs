@@ -14,7 +14,13 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class ProjectPasswordProtection
     {
+        /// <summary>
+        /// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
+        /// </summary>
         public readonly string Password;
+        /// <summary>
+        /// If true, production deployments will also be protected
+        /// </summary>
         public readonly bool? ProtectProduction;
 
         [OutputConstructor]

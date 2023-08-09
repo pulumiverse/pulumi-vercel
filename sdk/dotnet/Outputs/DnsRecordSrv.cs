@@ -14,9 +14,21 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class DnsRecordSrv
     {
+        /// <summary>
+        /// The TCP or UDP port on which the service is to be found.
+        /// </summary>
         public readonly int Port;
+        /// <summary>
+        /// The priority of the target host, lower value means more preferred.
+        /// </summary>
         public readonly int Priority;
+        /// <summary>
+        /// The canonical hostname of the machine providing the service, ending in a dot.
+        /// </summary>
         public readonly string Target;
+        /// <summary>
+        /// A relative weight for records with the same priority, higher value means higher chance of getting picked.
+        /// </summary>
         public readonly int Weight;
 
         [OutputConstructor]

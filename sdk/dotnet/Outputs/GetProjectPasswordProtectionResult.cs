@@ -14,6 +14,9 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class GetProjectPasswordProtectionResult
     {
+        /// <summary>
+        /// If true, production deployments will also be protected
+        /// </summary>
         public readonly bool ProtectProduction;
 
         [OutputConstructor]

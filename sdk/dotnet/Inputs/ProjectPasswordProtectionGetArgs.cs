@@ -15,6 +15,10 @@ namespace Pulumiverse.Vercel.Inputs
     {
         [Input("password", required: true)]
         private Input<string>? _password;
+
+        /// <summary>
+        /// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
+        /// </summary>
         public Input<string>? Password
         {
             get => _password;
@@ -25,6 +29,9 @@ namespace Pulumiverse.Vercel.Inputs
             }
         }
 
+        /// <summary>
+        /// If true, production deployments will also be protected
+        /// </summary>
         [Input("protectProduction")]
         public Input<bool>? ProtectProduction { get; set; }
 

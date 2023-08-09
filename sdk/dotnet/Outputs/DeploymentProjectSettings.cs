@@ -14,10 +14,25 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class DeploymentProjectSettings
     {
+        /// <summary>
+        /// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+        /// </summary>
         public readonly string? BuildCommand;
+        /// <summary>
+        /// The framework that is being used for this deployment. If omitted, no framework is selected.
+        /// </summary>
         public readonly string? Framework;
+        /// <summary>
+        /// The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+        /// </summary>
         public readonly string? InstallCommand;
+        /// <summary>
+        /// The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
+        /// </summary>
         public readonly string? OutputDirectory;
+        /// <summary>
+        /// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+        /// </summary>
         public readonly string? RootDirectory;
 
         [OutputConstructor]

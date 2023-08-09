@@ -27,8 +27,7 @@ class ProjectDomainArgs:
         :param pulumi.Input[str] git_branch: Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
         :param pulumi.Input[str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
-        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-               set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "project_id", project_id)
@@ -105,8 +104,7 @@ class ProjectDomainArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-        set in the provider.
+        The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -131,8 +129,7 @@ class _ProjectDomainState:
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
-        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-               set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
@@ -211,8 +208,7 @@ class _ProjectDomainState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-        set in the provider.
+        The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -234,7 +230,47 @@ class ProjectDomain(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a ProjectDomain resource with the given unique name, props, and options.
+        Provides a Project Domain resource.
+
+        A Project Domain is used to associate a domain name with a `Project`.
+
+        By default, Project Domains will be automatically applied to any `production` deployments.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        # A simple domain that will be automatically
+        # applied to each production deployment
+        example_project_domain = vercel.ProjectDomain("exampleProjectDomain",
+            project_id=example_project.id,
+            domain="i-love.vercel.app")
+        # A redirect of a domain name to a second domain name.
+        # The status_code can optionally be controlled.
+        example_redirect = vercel.ProjectDomain("exampleRedirect",
+            project_id=example_project.id,
+            domain="i-also-love.vercel.app",
+            redirect=example_project_domain.domain,
+            redirect_status_code=307)
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on the provider, simply use the project ID and domain. - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        ```sh
+         $ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
+        ```
+
+         Alternatively, you can import via the team_id, project_id and domain name. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        ```sh
+         $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] domain: The domain name to associate with the project.
@@ -242,8 +278,7 @@ class ProjectDomain(pulumi.CustomResource):
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
-        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-               set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -252,7 +287,47 @@ class ProjectDomain(pulumi.CustomResource):
                  args: ProjectDomainArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ProjectDomain resource with the given unique name, props, and options.
+        Provides a Project Domain resource.
+
+        A Project Domain is used to associate a domain name with a `Project`.
+
+        By default, Project Domains will be automatically applied to any `production` deployments.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        # A simple domain that will be automatically
+        # applied to each production deployment
+        example_project_domain = vercel.ProjectDomain("exampleProjectDomain",
+            project_id=example_project.id,
+            domain="i-love.vercel.app")
+        # A redirect of a domain name to a second domain name.
+        # The status_code can optionally be controlled.
+        example_redirect = vercel.ProjectDomain("exampleRedirect",
+            project_id=example_project.id,
+            domain="i-also-love.vercel.app",
+            redirect=example_project_domain.domain,
+            redirect_status_code=307)
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on the provider, simply use the project ID and domain. - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        ```sh
+         $ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
+        ```
+
+         Alternatively, you can import via the team_id, project_id and domain name. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        ```sh
+         $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
+        ```
+
         :param str resource_name: The name of the resource.
         :param ProjectDomainArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -321,8 +396,7 @@ class ProjectDomain(pulumi.CustomResource):
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
-        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-               set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -380,8 +454,7 @@ class ProjectDomain(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
-        set in the provider.
+        The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
