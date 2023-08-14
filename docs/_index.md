@@ -1,7 +1,7 @@
 ---
 title: Vercel
 meta_desc: Provides an overview of the Vercel Provider for Pulumi.
-layout: overview
+layout: package
 ---
 
 The `Vercel` provider for Pulumi can be used to provision any of the resources available with `Vercel`.
