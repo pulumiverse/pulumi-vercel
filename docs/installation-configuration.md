@@ -1,6 +1,10 @@
-# Vercel Resource Provider
+---
+title: Vercel Installation & Configuration
+meta_desc: Information on how to install the Vercel provider.
+layout: package
+---
 
-The Vercel Resource Provider lets you manage [Vercel](https://vercel.com) resources.
+## Installation
 
 The Pulumi `Vercel` provider is available as a package in all Pulumi languages:
 
@@ -56,7 +60,3 @@ dotnet add package Pulumiverse.vercel
 The following configuration points are available for the `vercel` provider:
 
 - `vercel:apiKey` (environment: `VERCEL_API_KEY`) - the API key for `vercel`
-
-## Reference
-
-For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/vercel/api-docs/).

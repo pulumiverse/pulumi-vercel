@@ -2,6 +2,13 @@
 
 The Vercel Resource Provider lets you manage [Vercel](https://vercel.com) resources.
 
+The Pulumi `Vercel` provider is available as a package in all Pulumi languages:
+
+- JavaScript/TypeScript: [`@pulumiverse/vercel`](https://www.npmjs.com/package/@pulumiverse/vercel)
+- Python: [`pulumiverse-vercel`](https://pypi.org/project/pulumiverse-vercel/)
+- Go: [`github.com/pulumiverse/pulumi-vercel/sdk/v3`](https://pkg.go.dev/github.com/pulumiverse/pulumi-vercel/sdk/v3)
+- .NET: [`Pulumiverse.vercel`](https://www.nuget.org/packages/Pulumiverse.vercel)
+
 ## Installing
 
 This package is available for several languages/platforms:
@@ -11,13 +18,13 @@ This package is available for several languages/platforms:
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumi/vercel
+npm install @pulumiverse/vercel
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumi/vercel
+yarn add @pulumiverse/vercel
 ```
 
 ### Python
@@ -25,7 +32,7 @@ yarn add @pulumi/vercel
 To use from Python, install using `pip`:
 
 ```bash
-pip install pulumi_vercel
+pip install pulumiverse-vercel
 ```
 
 ### Go
@@ -41,7 +48,7 @@ go get github.com/pulumiverse/pulumi-vercel/sdk/go/...
 To use from .NET, install using `dotnet add package`:
 
 ```bash
-dotnet add package Pulumi.vercel
+dotnet add package Pulumiverse.vercel
 ```
 
 ## Configuration
