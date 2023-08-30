@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.16.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.57.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.58.0
 	github.com/vercel/terraform-provider-vercel v0.15.0
 	golang.org/x/text v0.12.0
 )
