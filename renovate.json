@@ -6,7 +6,7 @@
 	"rangeStrategy": "bump",
 	"packageRules": [
 		{
-			"matchPackageNames": ["terraform-provider-vercel", "pulumi-terraform-bridge/v3"],
+			"matchPackageNames": ["github.com/vercel/terraform-provider-vercel", "github.com/pulumi/pulumi-terraform-bridge"],
 			"enabled": false
 		},
 		{
@@ -16,7 +16,7 @@
 		{
 			"matchUpdateTypes": ["minor", "patch", "lockFileMaintenance"],
 			"groupName": "minor/patch updates"
-		}
+		},
 	],
 	"automerge": true,
 	"internalChecksFilter": "strict",
