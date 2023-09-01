@@ -1,6 +1,6 @@
 module github.com/pulumiverse/pulumi-vercel/provider
 
-go 1.19
+go 1.21
 
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.15.2
