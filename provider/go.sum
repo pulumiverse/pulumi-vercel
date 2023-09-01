@@ -1634,8 +1634,8 @@ github.com/prometheus/prometheus v0.37.0/go.mod h1:egARUgz+K93zwqsVIAneFlLZefyGO
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
 github.com/pulumi/pulumi-java/pkg v0.9.4 h1:gIQZmlUI1o9ye8CL2XFqtmAX6Lwr9uj/+HzjboiSmK4=
 github.com/pulumi/pulumi-java/pkg v0.9.4/go.mod h1:c6rSw/+q4O0IImgJ9axxoC6QesbPYWBaG5gimbHouUQ=
-github.com/pulumi/pulumi-terraform-bridge/pf v0.16.0 h1:0Z6cmTjb/1p2z3W4L4e7OwhmsE6FJUbyxTihtyNs9y4=
-github.com/pulumi/pulumi-terraform-bridge/pf v0.16.0/go.mod h1:XdOy385fEso7q3NuL+zAS3I1i+X47Bg01AlVD5aJRS4=
+github.com/pulumi/pulumi-terraform-bridge/pf v0.15.2 h1:zKAzAHk9AKk+EF9FG4vT9u3jYiZFES/Mjq+s9mgoRs8=
+github.com/pulumi/pulumi-terraform-bridge/pf v0.15.2/go.mod h1:XdOy385fEso7q3NuL+zAS3I1i+X47Bg01AlVD5aJRS4=
 github.com/pulumi/pulumi-terraform-bridge/testing v0.0.1 h1:SCg1gjfY9N4yn8U8peIUYATifjoDABkyR7H9lmefsfc=
 github.com/pulumi/pulumi-terraform-bridge/v3 v3.58.0 h1:1vQokJDOEQQuPAsvIHoqb0x7yGflfmXYcjkHrT5tkXg=
 github.com/pulumi/pulumi-terraform-bridge/v3 v3.58.0/go.mod h1:ykaml8e6XS/yI9JOcNZ+6gLirs6EWTB0FmjbT+JyEdU=
@@ -1803,8 +1803,8 @@ github.com/urfave/cli v0.0.0-20171014202726-7bc6a0acffa5/go.mod h1:70zkFmudgCuE/
 github.com/urfave/cli v1.20.0/go.mod h1:70zkFmudgCuE/ngEzBv17Jvp/497gISqfk5gWijbERA=
 github.com/urfave/cli v1.22.1/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtXRu0=
 github.com/urfave/cli v1.22.2/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtXRu0=
-github.com/vercel/terraform-provider-vercel v0.15.0 h1:KcrU7i3cTwtUEMsOJuWnPcznS9RzVkhZXHXgMTx+I28=
-github.com/vercel/terraform-provider-vercel v0.15.0/go.mod h1:7E6nyHHlXBBzUKhJ2lcDLAgZjobRqzHTcKMSpeZe7Wk=
+github.com/vercel/terraform-provider-vercel v0.15.1 h1:MmDGxFxq9snSNq/2o7/FxkpQ55y+p5IGQAKnBxUGSRk=
+github.com/vercel/terraform-provider-vercel v0.15.1/go.mod h1:D0bLKoMfiSUmDxGqFYICdDO6e1RH43yIyotzb5Va+94=
 github.com/vishvananda/netlink v0.0.0-20181108222139-023a6dafdcdf/go.mod h1:+SR5DhBJrl6ZM7CoCKvpw5BKroDKQ+PJqOg65H/2ktk=
 github.com/vishvananda/netlink v1.1.0/go.mod h1:cTgwzPIzzgDAYoQrMm0EdrjRUBkTqKYppBueQtXaqoE=
 github.com/vishvananda/netlink v1.1.1-0.20201029203352-d40f9887b852/go.mod h1:twkDnbuQxJYemMlGd4JFIcuhgX83tXhKS2B/PRMpOho=
