@@ -3,7 +3,6 @@
   "extends": ["config:recommended"],
   "dependencyDashboard": true,
   "configMigration": true,
-  "rangeStrategy": "bump",
   "packageRules": [
     {
       "matchPackageNames": [
@@ -20,6 +19,12 @@
     {
       "matchUpdateTypes": ["minor", "patch", "lockFileMaintenance"],
       "groupName": "minor/patch updates"
+    },
+    {
+      "description": "Opt-out minimum Go version updates: https://github.com/renovatebot/renovate/issues/16715",
+      "matchManagers": ["gomod"],
+      "matchDepTypes": ["golang"],
+      "enabled": false
     }
   ],
   "automerge": true,
@@ -32,7 +37,7 @@
   "schedule": ["at any time"],
   "automergeStrategy": "squash",
   "constraints": {
-    "go": "~1.19"
+    "go": "1.19"
   },
   "postUpdateOptions": ["gomodTidy"]
 }
