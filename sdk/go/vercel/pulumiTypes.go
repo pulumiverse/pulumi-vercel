@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
@@ -62,6 +63,12 @@ func (i DeploymentProjectSettingsArgs) ToDeploymentProjectSettingsOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentProjectSettingsOutput)
 }
 
+func (i DeploymentProjectSettingsArgs) ToOutput(ctx context.Context) pulumix.Output[DeploymentProjectSettings] {
+	return pulumix.Output[DeploymentProjectSettings]{
+		OutputState: i.ToDeploymentProjectSettingsOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i DeploymentProjectSettingsArgs) ToDeploymentProjectSettingsPtrOutput() DeploymentProjectSettingsPtrOutput {
 	return i.ToDeploymentProjectSettingsPtrOutputWithContext(context.Background())
 }
@@ -103,6 +110,12 @@ func (i *deploymentProjectSettingsPtrType) ToDeploymentProjectSettingsPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentProjectSettingsPtrOutput)
 }
 
+func (i *deploymentProjectSettingsPtrType) ToOutput(ctx context.Context) pulumix.Output[*DeploymentProjectSettings] {
+	return pulumix.Output[*DeploymentProjectSettings]{
+		OutputState: i.ToDeploymentProjectSettingsPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DeploymentProjectSettingsOutput struct{ *pulumi.OutputState }
 
 func (DeploymentProjectSettingsOutput) ElementType() reflect.Type {
@@ -125,6 +138,12 @@ func (o DeploymentProjectSettingsOutput) ToDeploymentProjectSettingsPtrOutputWit
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentProjectSettings) *DeploymentProjectSettings {
 		return &v
 	}).(DeploymentProjectSettingsPtrOutput)
+}
+
+func (o DeploymentProjectSettingsOutput) ToOutput(ctx context.Context) pulumix.Output[DeploymentProjectSettings] {
+	return pulumix.Output[DeploymentProjectSettings]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
@@ -164,6 +183,12 @@ func (o DeploymentProjectSettingsPtrOutput) ToDeploymentProjectSettingsPtrOutput
 
 func (o DeploymentProjectSettingsPtrOutput) ToDeploymentProjectSettingsPtrOutputWithContext(ctx context.Context) DeploymentProjectSettingsPtrOutput {
 	return o
+}
+
+func (o DeploymentProjectSettingsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*DeploymentProjectSettings] {
+	return pulumix.Output[*DeploymentProjectSettings]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DeploymentProjectSettingsPtrOutput) Elem() DeploymentProjectSettingsOutput {
@@ -271,6 +296,12 @@ func (i DnsRecordSrvArgs) ToDnsRecordSrvOutputWithContext(ctx context.Context) D
 	return pulumi.ToOutputWithContext(ctx, i).(DnsRecordSrvOutput)
 }
 
+func (i DnsRecordSrvArgs) ToOutput(ctx context.Context) pulumix.Output[DnsRecordSrv] {
+	return pulumix.Output[DnsRecordSrv]{
+		OutputState: i.ToDnsRecordSrvOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i DnsRecordSrvArgs) ToDnsRecordSrvPtrOutput() DnsRecordSrvPtrOutput {
 	return i.ToDnsRecordSrvPtrOutputWithContext(context.Background())
 }
@@ -312,6 +343,12 @@ func (i *dnsRecordSrvPtrType) ToDnsRecordSrvPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(DnsRecordSrvPtrOutput)
 }
 
+func (i *dnsRecordSrvPtrType) ToOutput(ctx context.Context) pulumix.Output[*DnsRecordSrv] {
+	return pulumix.Output[*DnsRecordSrv]{
+		OutputState: i.ToDnsRecordSrvPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DnsRecordSrvOutput struct{ *pulumi.OutputState }
 
 func (DnsRecordSrvOutput) ElementType() reflect.Type {
@@ -334,6 +371,12 @@ func (o DnsRecordSrvOutput) ToDnsRecordSrvPtrOutputWithContext(ctx context.Conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v DnsRecordSrv) *DnsRecordSrv {
 		return &v
 	}).(DnsRecordSrvPtrOutput)
+}
+
+func (o DnsRecordSrvOutput) ToOutput(ctx context.Context) pulumix.Output[DnsRecordSrv] {
+	return pulumix.Output[DnsRecordSrv]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The TCP or UDP port on which the service is to be found.
@@ -368,6 +411,12 @@ func (o DnsRecordSrvPtrOutput) ToDnsRecordSrvPtrOutput() DnsRecordSrvPtrOutput {
 
 func (o DnsRecordSrvPtrOutput) ToDnsRecordSrvPtrOutputWithContext(ctx context.Context) DnsRecordSrvPtrOutput {
 	return o
+}
+
+func (o DnsRecordSrvPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*DnsRecordSrv] {
+	return pulumix.Output[*DnsRecordSrv]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DnsRecordSrvPtrOutput) Elem() DnsRecordSrvOutput {
@@ -469,6 +518,12 @@ func (i ProjectEnvironmentArgs) ToProjectEnvironmentOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentOutput)
 }
 
+func (i ProjectEnvironmentArgs) ToOutput(ctx context.Context) pulumix.Output[ProjectEnvironment] {
+	return pulumix.Output[ProjectEnvironment]{
+		OutputState: i.ToProjectEnvironmentOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ProjectEnvironmentArrayInput is an input type that accepts ProjectEnvironmentArray and ProjectEnvironmentArrayOutput values.
 // You can construct a concrete instance of `ProjectEnvironmentArrayInput` via:
 //
@@ -494,6 +549,12 @@ func (i ProjectEnvironmentArray) ToProjectEnvironmentArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentArrayOutput)
 }
 
+func (i ProjectEnvironmentArray) ToOutput(ctx context.Context) pulumix.Output[[]ProjectEnvironment] {
+	return pulumix.Output[[]ProjectEnvironment]{
+		OutputState: i.ToProjectEnvironmentArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectEnvironmentOutput struct{ *pulumi.OutputState }
 
 func (ProjectEnvironmentOutput) ElementType() reflect.Type {
@@ -506,6 +567,12 @@ func (o ProjectEnvironmentOutput) ToProjectEnvironmentOutput() ProjectEnvironmen
 
 func (o ProjectEnvironmentOutput) ToProjectEnvironmentOutputWithContext(ctx context.Context) ProjectEnvironmentOutput {
 	return o
+}
+
+func (o ProjectEnvironmentOutput) ToOutput(ctx context.Context) pulumix.Output[ProjectEnvironment] {
+	return pulumix.Output[ProjectEnvironment]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The git branch of the Environment Variable.
@@ -545,6 +612,12 @@ func (o ProjectEnvironmentArrayOutput) ToProjectEnvironmentArrayOutput() Project
 
 func (o ProjectEnvironmentArrayOutput) ToProjectEnvironmentArrayOutputWithContext(ctx context.Context) ProjectEnvironmentArrayOutput {
 	return o
+}
+
+func (o ProjectEnvironmentArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ProjectEnvironment] {
+	return pulumix.Output[[]ProjectEnvironment]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) ProjectEnvironmentOutput {
@@ -594,6 +667,12 @@ func (i ProjectGitRepositoryArgs) ToProjectGitRepositoryOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitRepositoryOutput)
 }
 
+func (i ProjectGitRepositoryArgs) ToOutput(ctx context.Context) pulumix.Output[ProjectGitRepository] {
+	return pulumix.Output[ProjectGitRepository]{
+		OutputState: i.ToProjectGitRepositoryOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ProjectGitRepositoryArgs) ToProjectGitRepositoryPtrOutput() ProjectGitRepositoryPtrOutput {
 	return i.ToProjectGitRepositoryPtrOutputWithContext(context.Background())
 }
@@ -635,6 +714,12 @@ func (i *projectGitRepositoryPtrType) ToProjectGitRepositoryPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitRepositoryPtrOutput)
 }
 
+func (i *projectGitRepositoryPtrType) ToOutput(ctx context.Context) pulumix.Output[*ProjectGitRepository] {
+	return pulumix.Output[*ProjectGitRepository]{
+		OutputState: i.ToProjectGitRepositoryPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectGitRepositoryOutput struct{ *pulumi.OutputState }
 
 func (ProjectGitRepositoryOutput) ElementType() reflect.Type {
@@ -657,6 +742,12 @@ func (o ProjectGitRepositoryOutput) ToProjectGitRepositoryPtrOutputWithContext(c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectGitRepository) *ProjectGitRepository {
 		return &v
 	}).(ProjectGitRepositoryPtrOutput)
+}
+
+func (o ProjectGitRepositoryOutput) ToOutput(ctx context.Context) pulumix.Output[ProjectGitRepository] {
+	return pulumix.Output[ProjectGitRepository]{
+		OutputState: o.OutputState,
+	}
 }
 
 // By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
@@ -686,6 +777,12 @@ func (o ProjectGitRepositoryPtrOutput) ToProjectGitRepositoryPtrOutput() Project
 
 func (o ProjectGitRepositoryPtrOutput) ToProjectGitRepositoryPtrOutputWithContext(ctx context.Context) ProjectGitRepositoryPtrOutput {
 	return o
+}
+
+func (o ProjectGitRepositoryPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectGitRepository] {
+	return pulumix.Output[*ProjectGitRepository]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectGitRepositoryPtrOutput) Elem() ProjectGitRepositoryOutput {
@@ -765,6 +862,12 @@ func (i ProjectPasswordProtectionArgs) ToProjectPasswordProtectionOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectPasswordProtectionOutput)
 }
 
+func (i ProjectPasswordProtectionArgs) ToOutput(ctx context.Context) pulumix.Output[ProjectPasswordProtection] {
+	return pulumix.Output[ProjectPasswordProtection]{
+		OutputState: i.ToProjectPasswordProtectionOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ProjectPasswordProtectionArgs) ToProjectPasswordProtectionPtrOutput() ProjectPasswordProtectionPtrOutput {
 	return i.ToProjectPasswordProtectionPtrOutputWithContext(context.Background())
 }
@@ -806,6 +909,12 @@ func (i *projectPasswordProtectionPtrType) ToProjectPasswordProtectionPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectPasswordProtectionPtrOutput)
 }
 
+func (i *projectPasswordProtectionPtrType) ToOutput(ctx context.Context) pulumix.Output[*ProjectPasswordProtection] {
+	return pulumix.Output[*ProjectPasswordProtection]{
+		OutputState: i.ToProjectPasswordProtectionPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectPasswordProtectionOutput struct{ *pulumi.OutputState }
 
 func (ProjectPasswordProtectionOutput) ElementType() reflect.Type {
@@ -830,6 +939,12 @@ func (o ProjectPasswordProtectionOutput) ToProjectPasswordProtectionPtrOutputWit
 	}).(ProjectPasswordProtectionPtrOutput)
 }
 
+func (o ProjectPasswordProtectionOutput) ToOutput(ctx context.Context) pulumix.Output[ProjectPasswordProtection] {
+	return pulumix.Output[ProjectPasswordProtection]{
+		OutputState: o.OutputState,
+	}
+}
+
 // The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 func (o ProjectPasswordProtectionOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectPasswordProtection) string { return v.Password }).(pulumi.StringOutput)
@@ -852,6 +967,12 @@ func (o ProjectPasswordProtectionPtrOutput) ToProjectPasswordProtectionPtrOutput
 
 func (o ProjectPasswordProtectionPtrOutput) ToProjectPasswordProtectionPtrOutputWithContext(ctx context.Context) ProjectPasswordProtectionPtrOutput {
 	return o
+}
+
+func (o ProjectPasswordProtectionPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectPasswordProtection] {
+	return pulumix.Output[*ProjectPasswordProtection]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectPasswordProtectionPtrOutput) Elem() ProjectPasswordProtectionOutput {
@@ -917,6 +1038,12 @@ func (i ProjectVercelAuthenticationArgs) ToProjectVercelAuthenticationOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectVercelAuthenticationOutput)
 }
 
+func (i ProjectVercelAuthenticationArgs) ToOutput(ctx context.Context) pulumix.Output[ProjectVercelAuthentication] {
+	return pulumix.Output[ProjectVercelAuthentication]{
+		OutputState: i.ToProjectVercelAuthenticationOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ProjectVercelAuthenticationArgs) ToProjectVercelAuthenticationPtrOutput() ProjectVercelAuthenticationPtrOutput {
 	return i.ToProjectVercelAuthenticationPtrOutputWithContext(context.Background())
 }
@@ -958,6 +1085,12 @@ func (i *projectVercelAuthenticationPtrType) ToProjectVercelAuthenticationPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectVercelAuthenticationPtrOutput)
 }
 
+func (i *projectVercelAuthenticationPtrType) ToOutput(ctx context.Context) pulumix.Output[*ProjectVercelAuthentication] {
+	return pulumix.Output[*ProjectVercelAuthentication]{
+		OutputState: i.ToProjectVercelAuthenticationPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectVercelAuthenticationOutput struct{ *pulumi.OutputState }
 
 func (ProjectVercelAuthenticationOutput) ElementType() reflect.Type {
@@ -982,6 +1115,12 @@ func (o ProjectVercelAuthenticationOutput) ToProjectVercelAuthenticationPtrOutpu
 	}).(ProjectVercelAuthenticationPtrOutput)
 }
 
+func (o ProjectVercelAuthenticationOutput) ToOutput(ctx context.Context) pulumix.Output[ProjectVercelAuthentication] {
+	return pulumix.Output[ProjectVercelAuthentication]{
+		OutputState: o.OutputState,
+	}
+}
+
 // If true, production deployments will also be protected
 func (o ProjectVercelAuthenticationOutput) ProtectProduction() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectVercelAuthentication) *bool { return v.ProtectProduction }).(pulumi.BoolPtrOutput)
@@ -999,6 +1138,12 @@ func (o ProjectVercelAuthenticationPtrOutput) ToProjectVercelAuthenticationPtrOu
 
 func (o ProjectVercelAuthenticationPtrOutput) ToProjectVercelAuthenticationPtrOutputWithContext(ctx context.Context) ProjectVercelAuthenticationPtrOutput {
 	return o
+}
+
+func (o ProjectVercelAuthenticationPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectVercelAuthentication] {
+	return pulumix.Output[*ProjectVercelAuthentication]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectVercelAuthenticationPtrOutput) Elem() ProjectVercelAuthenticationOutput {
@@ -1070,6 +1215,12 @@ func (i GetProjectEnvironmentArgs) ToGetProjectEnvironmentOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectEnvironmentOutput)
 }
 
+func (i GetProjectEnvironmentArgs) ToOutput(ctx context.Context) pulumix.Output[GetProjectEnvironment] {
+	return pulumix.Output[GetProjectEnvironment]{
+		OutputState: i.ToGetProjectEnvironmentOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetProjectEnvironmentArrayInput is an input type that accepts GetProjectEnvironmentArray and GetProjectEnvironmentArrayOutput values.
 // You can construct a concrete instance of `GetProjectEnvironmentArrayInput` via:
 //
@@ -1095,6 +1246,12 @@ func (i GetProjectEnvironmentArray) ToGetProjectEnvironmentArrayOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectEnvironmentArrayOutput)
 }
 
+func (i GetProjectEnvironmentArray) ToOutput(ctx context.Context) pulumix.Output[[]GetProjectEnvironment] {
+	return pulumix.Output[[]GetProjectEnvironment]{
+		OutputState: i.ToGetProjectEnvironmentArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetProjectEnvironmentOutput struct{ *pulumi.OutputState }
 
 func (GetProjectEnvironmentOutput) ElementType() reflect.Type {
@@ -1107,6 +1264,12 @@ func (o GetProjectEnvironmentOutput) ToGetProjectEnvironmentOutput() GetProjectE
 
 func (o GetProjectEnvironmentOutput) ToGetProjectEnvironmentOutputWithContext(ctx context.Context) GetProjectEnvironmentOutput {
 	return o
+}
+
+func (o GetProjectEnvironmentOutput) ToOutput(ctx context.Context) pulumix.Output[GetProjectEnvironment] {
+	return pulumix.Output[GetProjectEnvironment]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The git branch of the environment variable.
@@ -1146,6 +1309,12 @@ func (o GetProjectEnvironmentArrayOutput) ToGetProjectEnvironmentArrayOutput() G
 
 func (o GetProjectEnvironmentArrayOutput) ToGetProjectEnvironmentArrayOutputWithContext(ctx context.Context) GetProjectEnvironmentArrayOutput {
 	return o
+}
+
+func (o GetProjectEnvironmentArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetProjectEnvironment] {
+	return pulumix.Output[[]GetProjectEnvironment]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) GetProjectEnvironmentOutput {
@@ -1195,6 +1364,12 @@ func (i GetProjectGitRepositoryArgs) ToGetProjectGitRepositoryOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectGitRepositoryOutput)
 }
 
+func (i GetProjectGitRepositoryArgs) ToOutput(ctx context.Context) pulumix.Output[GetProjectGitRepository] {
+	return pulumix.Output[GetProjectGitRepository]{
+		OutputState: i.ToGetProjectGitRepositoryOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetProjectGitRepositoryOutput struct{ *pulumi.OutputState }
 
 func (GetProjectGitRepositoryOutput) ElementType() reflect.Type {
@@ -1207,6 +1382,12 @@ func (o GetProjectGitRepositoryOutput) ToGetProjectGitRepositoryOutput() GetProj
 
 func (o GetProjectGitRepositoryOutput) ToGetProjectGitRepositoryOutputWithContext(ctx context.Context) GetProjectGitRepositoryOutput {
 	return o
+}
+
+func (o GetProjectGitRepositoryOutput) ToOutput(ctx context.Context) pulumix.Output[GetProjectGitRepository] {
+	return pulumix.Output[GetProjectGitRepository]{
+		OutputState: o.OutputState,
+	}
 }
 
 // By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
@@ -1257,6 +1438,12 @@ func (i GetProjectPasswordProtectionArgs) ToGetProjectPasswordProtectionOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPasswordProtectionOutput)
 }
 
+func (i GetProjectPasswordProtectionArgs) ToOutput(ctx context.Context) pulumix.Output[GetProjectPasswordProtection] {
+	return pulumix.Output[GetProjectPasswordProtection]{
+		OutputState: i.ToGetProjectPasswordProtectionOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i GetProjectPasswordProtectionArgs) ToGetProjectPasswordProtectionPtrOutput() GetProjectPasswordProtectionPtrOutput {
 	return i.ToGetProjectPasswordProtectionPtrOutputWithContext(context.Background())
 }
@@ -1298,6 +1485,12 @@ func (i *getProjectPasswordProtectionPtrType) ToGetProjectPasswordProtectionPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPasswordProtectionPtrOutput)
 }
 
+func (i *getProjectPasswordProtectionPtrType) ToOutput(ctx context.Context) pulumix.Output[*GetProjectPasswordProtection] {
+	return pulumix.Output[*GetProjectPasswordProtection]{
+		OutputState: i.ToGetProjectPasswordProtectionPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetProjectPasswordProtectionOutput struct{ *pulumi.OutputState }
 
 func (GetProjectPasswordProtectionOutput) ElementType() reflect.Type {
@@ -1322,6 +1515,12 @@ func (o GetProjectPasswordProtectionOutput) ToGetProjectPasswordProtectionPtrOut
 	}).(GetProjectPasswordProtectionPtrOutput)
 }
 
+func (o GetProjectPasswordProtectionOutput) ToOutput(ctx context.Context) pulumix.Output[GetProjectPasswordProtection] {
+	return pulumix.Output[GetProjectPasswordProtection]{
+		OutputState: o.OutputState,
+	}
+}
+
 // If true, production deployments will also be protected
 func (o GetProjectPasswordProtectionOutput) ProtectProduction() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectPasswordProtection) bool { return v.ProtectProduction }).(pulumi.BoolOutput)
@@ -1339,6 +1538,12 @@ func (o GetProjectPasswordProtectionPtrOutput) ToGetProjectPasswordProtectionPtr
 
 func (o GetProjectPasswordProtectionPtrOutput) ToGetProjectPasswordProtectionPtrOutputWithContext(ctx context.Context) GetProjectPasswordProtectionPtrOutput {
 	return o
+}
+
+func (o GetProjectPasswordProtectionPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*GetProjectPasswordProtection] {
+	return pulumix.Output[*GetProjectPasswordProtection]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetProjectPasswordProtectionPtrOutput) Elem() GetProjectPasswordProtectionOutput {
@@ -1394,6 +1599,12 @@ func (i GetProjectVercelAuthenticationArgs) ToGetProjectVercelAuthenticationOutp
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectVercelAuthenticationOutput)
 }
 
+func (i GetProjectVercelAuthenticationArgs) ToOutput(ctx context.Context) pulumix.Output[GetProjectVercelAuthentication] {
+	return pulumix.Output[GetProjectVercelAuthentication]{
+		OutputState: i.ToGetProjectVercelAuthenticationOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetProjectVercelAuthenticationOutput struct{ *pulumi.OutputState }
 
 func (GetProjectVercelAuthenticationOutput) ElementType() reflect.Type {
@@ -1406,6 +1617,12 @@ func (o GetProjectVercelAuthenticationOutput) ToGetProjectVercelAuthenticationOu
 
 func (o GetProjectVercelAuthenticationOutput) ToGetProjectVercelAuthenticationOutputWithContext(ctx context.Context) GetProjectVercelAuthenticationOutput {
 	return o
+}
+
+func (o GetProjectVercelAuthenticationOutput) ToOutput(ctx context.Context) pulumix.Output[GetProjectVercelAuthentication] {
+	return pulumix.Output[GetProjectVercelAuthentication]{
+		OutputState: o.OutputState,
+	}
 }
 
 // If true, production deployments will also be protected
