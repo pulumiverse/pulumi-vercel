@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
@@ -234,6 +235,12 @@ func (i *ProjectEnvironmentVariable) ToProjectEnvironmentVariableOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentVariableOutput)
 }
 
+func (i *ProjectEnvironmentVariable) ToOutput(ctx context.Context) pulumix.Output[*ProjectEnvironmentVariable] {
+	return pulumix.Output[*ProjectEnvironmentVariable]{
+		OutputState: i.ToProjectEnvironmentVariableOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ProjectEnvironmentVariableArrayInput is an input type that accepts ProjectEnvironmentVariableArray and ProjectEnvironmentVariableArrayOutput values.
 // You can construct a concrete instance of `ProjectEnvironmentVariableArrayInput` via:
 //
@@ -257,6 +264,12 @@ func (i ProjectEnvironmentVariableArray) ToProjectEnvironmentVariableArrayOutput
 
 func (i ProjectEnvironmentVariableArray) ToProjectEnvironmentVariableArrayOutputWithContext(ctx context.Context) ProjectEnvironmentVariableArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentVariableArrayOutput)
+}
+
+func (i ProjectEnvironmentVariableArray) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectEnvironmentVariable] {
+	return pulumix.Output[[]*ProjectEnvironmentVariable]{
+		OutputState: i.ToProjectEnvironmentVariableArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ProjectEnvironmentVariableMapInput is an input type that accepts ProjectEnvironmentVariableMap and ProjectEnvironmentVariableMapOutput values.
@@ -284,6 +297,12 @@ func (i ProjectEnvironmentVariableMap) ToProjectEnvironmentVariableMapOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentVariableMapOutput)
 }
 
+func (i ProjectEnvironmentVariableMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectEnvironmentVariable] {
+	return pulumix.Output[map[string]*ProjectEnvironmentVariable]{
+		OutputState: i.ToProjectEnvironmentVariableMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectEnvironmentVariableOutput struct{ *pulumi.OutputState }
 
 func (ProjectEnvironmentVariableOutput) ElementType() reflect.Type {
@@ -296,6 +315,12 @@ func (o ProjectEnvironmentVariableOutput) ToProjectEnvironmentVariableOutput() P
 
 func (o ProjectEnvironmentVariableOutput) ToProjectEnvironmentVariableOutputWithContext(ctx context.Context) ProjectEnvironmentVariableOutput {
 	return o
+}
+
+func (o ProjectEnvironmentVariableOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectEnvironmentVariable] {
+	return pulumix.Output[*ProjectEnvironmentVariable]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The git branch of the Environment Variable.
@@ -342,6 +367,12 @@ func (o ProjectEnvironmentVariableArrayOutput) ToProjectEnvironmentVariableArray
 	return o
 }
 
+func (o ProjectEnvironmentVariableArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectEnvironmentVariable] {
+	return pulumix.Output[[]*ProjectEnvironmentVariable]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ProjectEnvironmentVariableArrayOutput) Index(i pulumi.IntInput) ProjectEnvironmentVariableOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ProjectEnvironmentVariable {
 		return vs[0].([]*ProjectEnvironmentVariable)[vs[1].(int)]
@@ -360,6 +391,12 @@ func (o ProjectEnvironmentVariableMapOutput) ToProjectEnvironmentVariableMapOutp
 
 func (o ProjectEnvironmentVariableMapOutput) ToProjectEnvironmentVariableMapOutputWithContext(ctx context.Context) ProjectEnvironmentVariableMapOutput {
 	return o
+}
+
+func (o ProjectEnvironmentVariableMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectEnvironmentVariable] {
+	return pulumix.Output[map[string]*ProjectEnvironmentVariable]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectEnvironmentVariableMapOutput) MapIndex(k pulumi.StringInput) ProjectEnvironmentVariableOutput {
