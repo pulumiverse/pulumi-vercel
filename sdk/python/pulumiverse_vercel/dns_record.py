@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -42,20 +42,43 @@ class DnsRecordArgs:
                For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
                For 'TXT' records, this can contain arbitrary text.
         """
-        pulumi.set(__self__, "domain", domain)
-        pulumi.set(__self__, "type", type)
+        DnsRecordArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            domain=domain,
+            type=type,
+            mx_priority=mx_priority,
+            name=name,
+            srv=srv,
+            team_id=team_id,
+            ttl=ttl,
+            value=value,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             domain: pulumi.Input[str],
+             type: pulumi.Input[str],
+             mx_priority: Optional[pulumi.Input[int]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             srv: Optional[pulumi.Input['DnsRecordSrvArgs']] = None,
+             team_id: Optional[pulumi.Input[str]] = None,
+             ttl: Optional[pulumi.Input[int]] = None,
+             value: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("domain", domain)
+        _setter("type", type)
         if mx_priority is not None:
-            pulumi.set(__self__, "mx_priority", mx_priority)
+            _setter("mx_priority", mx_priority)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if srv is not None:
-            pulumi.set(__self__, "srv", srv)
+            _setter("srv", srv)
         if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
+            _setter("team_id", team_id)
         if ttl is not None:
-            pulumi.set(__self__, "ttl", ttl)
+            _setter("ttl", ttl)
         if value is not None:
-            pulumi.set(__self__, "value", value)
+            _setter("value", value)
 
     @property
     @pulumi.getter
@@ -190,22 +213,45 @@ class _DnsRecordState:
                For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
                For 'TXT' records, this can contain arbitrary text.
         """
+        _DnsRecordState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            domain=domain,
+            mx_priority=mx_priority,
+            name=name,
+            srv=srv,
+            team_id=team_id,
+            ttl=ttl,
+            type=type,
+            value=value,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             domain: Optional[pulumi.Input[str]] = None,
+             mx_priority: Optional[pulumi.Input[int]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             srv: Optional[pulumi.Input['DnsRecordSrvArgs']] = None,
+             team_id: Optional[pulumi.Input[str]] = None,
+             ttl: Optional[pulumi.Input[int]] = None,
+             type: Optional[pulumi.Input[str]] = None,
+             value: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if domain is not None:
-            pulumi.set(__self__, "domain", domain)
+            _setter("domain", domain)
         if mx_priority is not None:
-            pulumi.set(__self__, "mx_priority", mx_priority)
+            _setter("mx_priority", mx_priority)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if srv is not None:
-            pulumi.set(__self__, "srv", srv)
+            _setter("srv", srv)
         if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
+            _setter("team_id", team_id)
         if ttl is not None:
-            pulumi.set(__self__, "ttl", ttl)
+            _setter("ttl", ttl)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
         if value is not None:
-            pulumi.set(__self__, "value", value)
+            _setter("value", value)
 
     @property
     @pulumi.getter
@@ -513,6 +559,10 @@ class DnsRecord(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            DnsRecordArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -540,6 +590,11 @@ class DnsRecord(pulumi.CustomResource):
             __props__.__dict__["domain"] = domain
             __props__.__dict__["mx_priority"] = mx_priority
             __props__.__dict__["name"] = name
+            if srv is not None and not isinstance(srv, DnsRecordSrvArgs):
+                srv = srv or {}
+                def _setter(key, value):
+                    srv[key] = value
+                DnsRecordSrvArgs._configure(_setter, **srv)
             __props__.__dict__["srv"] = srv
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["ttl"] = ttl
