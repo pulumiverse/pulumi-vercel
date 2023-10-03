@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -38,23 +38,48 @@ class DeploymentArgs:
         :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
-        pulumi.set(__self__, "project_id", project_id)
+        DeploymentArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            project_id=project_id,
+            delete_on_destroy=delete_on_destroy,
+            environment=environment,
+            files=files,
+            path_prefix=path_prefix,
+            production=production,
+            project_settings=project_settings,
+            ref=ref,
+            team_id=team_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             project_id: pulumi.Input[str],
+             delete_on_destroy: Optional[pulumi.Input[bool]] = None,
+             environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             path_prefix: Optional[pulumi.Input[str]] = None,
+             production: Optional[pulumi.Input[bool]] = None,
+             project_settings: Optional[pulumi.Input['DeploymentProjectSettingsArgs']] = None,
+             ref: Optional[pulumi.Input[str]] = None,
+             team_id: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("project_id", project_id)
         if delete_on_destroy is not None:
-            pulumi.set(__self__, "delete_on_destroy", delete_on_destroy)
+            _setter("delete_on_destroy", delete_on_destroy)
         if environment is not None:
-            pulumi.set(__self__, "environment", environment)
+            _setter("environment", environment)
         if files is not None:
-            pulumi.set(__self__, "files", files)
+            _setter("files", files)
         if path_prefix is not None:
-            pulumi.set(__self__, "path_prefix", path_prefix)
+            _setter("path_prefix", path_prefix)
         if production is not None:
-            pulumi.set(__self__, "production", production)
+            _setter("production", production)
         if project_settings is not None:
-            pulumi.set(__self__, "project_settings", project_settings)
+            _setter("project_settings", project_settings)
         if ref is not None:
-            pulumi.set(__self__, "ref", ref)
+            _setter("ref", ref)
         if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
+            _setter("team_id", team_id)
 
     @property
     @pulumi.getter(name="projectId")
@@ -195,28 +220,57 @@ class _DeploymentState:
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.
         """
+        _DeploymentState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            delete_on_destroy=delete_on_destroy,
+            domains=domains,
+            environment=environment,
+            files=files,
+            path_prefix=path_prefix,
+            production=production,
+            project_id=project_id,
+            project_settings=project_settings,
+            ref=ref,
+            team_id=team_id,
+            url=url,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             delete_on_destroy: Optional[pulumi.Input[bool]] = None,
+             domains: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             path_prefix: Optional[pulumi.Input[str]] = None,
+             production: Optional[pulumi.Input[bool]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             project_settings: Optional[pulumi.Input['DeploymentProjectSettingsArgs']] = None,
+             ref: Optional[pulumi.Input[str]] = None,
+             team_id: Optional[pulumi.Input[str]] = None,
+             url: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if delete_on_destroy is not None:
-            pulumi.set(__self__, "delete_on_destroy", delete_on_destroy)
+            _setter("delete_on_destroy", delete_on_destroy)
         if domains is not None:
-            pulumi.set(__self__, "domains", domains)
+            _setter("domains", domains)
         if environment is not None:
-            pulumi.set(__self__, "environment", environment)
+            _setter("environment", environment)
         if files is not None:
-            pulumi.set(__self__, "files", files)
+            _setter("files", files)
         if path_prefix is not None:
-            pulumi.set(__self__, "path_prefix", path_prefix)
+            _setter("path_prefix", path_prefix)
         if production is not None:
-            pulumi.set(__self__, "production", production)
+            _setter("production", production)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if project_settings is not None:
-            pulumi.set(__self__, "project_settings", project_settings)
+            _setter("project_settings", project_settings)
         if ref is not None:
-            pulumi.set(__self__, "ref", ref)
+            _setter("ref", ref)
         if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
+            _setter("team_id", team_id)
         if url is not None:
-            pulumi.set(__self__, "url", url)
+            _setter("url", url)
 
     @property
     @pulumi.getter(name="deleteOnDestroy")
@@ -400,6 +454,10 @@ class Deployment(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            DeploymentArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -431,6 +489,11 @@ class Deployment(pulumi.CustomResource):
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
+            if project_settings is not None and not isinstance(project_settings, DeploymentProjectSettingsArgs):
+                project_settings = project_settings or {}
+                def _setter(key, value):
+                    project_settings[key] = value
+                DeploymentProjectSettingsArgs._configure(_setter, **project_settings)
             __props__.__dict__["project_settings"] = project_settings
             __props__.__dict__["ref"] = ref
             __props__.__dict__["team_id"] = team_id

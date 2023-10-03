@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['ProjectEnvironmentVariableArgs', 'ProjectEnvironmentVariable']
@@ -29,14 +29,33 @@ class ProjectEnvironmentVariableArgs:
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         """
-        pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "project_id", project_id)
-        pulumi.set(__self__, "targets", targets)
-        pulumi.set(__self__, "value", value)
+        ProjectEnvironmentVariableArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            key=key,
+            project_id=project_id,
+            targets=targets,
+            value=value,
+            git_branch=git_branch,
+            team_id=team_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             key: pulumi.Input[str],
+             project_id: pulumi.Input[str],
+             targets: pulumi.Input[Sequence[pulumi.Input[str]]],
+             value: pulumi.Input[str],
+             git_branch: Optional[pulumi.Input[str]] = None,
+             team_id: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("key", key)
+        _setter("project_id", project_id)
+        _setter("targets", targets)
+        _setter("value", value)
         if git_branch is not None:
-            pulumi.set(__self__, "git_branch", git_branch)
+            _setter("git_branch", git_branch)
         if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
+            _setter("team_id", team_id)
 
     @property
     @pulumi.getter
@@ -129,18 +148,37 @@ class _ProjectEnvironmentVariableState:
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
+        _ProjectEnvironmentVariableState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            git_branch=git_branch,
+            key=key,
+            project_id=project_id,
+            targets=targets,
+            team_id=team_id,
+            value=value,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             git_branch: Optional[pulumi.Input[str]] = None,
+             key: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             team_id: Optional[pulumi.Input[str]] = None,
+             value: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if git_branch is not None:
-            pulumi.set(__self__, "git_branch", git_branch)
+            _setter("git_branch", git_branch)
         if key is not None:
-            pulumi.set(__self__, "key", key)
+            _setter("key", key)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if targets is not None:
-            pulumi.set(__self__, "targets", targets)
+            _setter("targets", targets)
         if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
+            _setter("team_id", team_id)
         if value is not None:
-            pulumi.set(__self__, "value", value)
+            _setter("value", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -336,6 +374,10 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ProjectEnvironmentVariableArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
