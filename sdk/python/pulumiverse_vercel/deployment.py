@@ -62,7 +62,19 @@ class DeploymentArgs:
              project_settings: Optional[pulumi.Input['DeploymentProjectSettingsArgs']] = None,
              ref: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'projectId' in kwargs:
+            project_id = kwargs['projectId']
+        if 'deleteOnDestroy' in kwargs:
+            delete_on_destroy = kwargs['deleteOnDestroy']
+        if 'pathPrefix' in kwargs:
+            path_prefix = kwargs['pathPrefix']
+        if 'projectSettings' in kwargs:
+            project_settings = kwargs['projectSettings']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         _setter("project_id", project_id)
         if delete_on_destroy is not None:
             _setter("delete_on_destroy", delete_on_destroy)
@@ -248,7 +260,19 @@ class _DeploymentState:
              ref: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'deleteOnDestroy' in kwargs:
+            delete_on_destroy = kwargs['deleteOnDestroy']
+        if 'pathPrefix' in kwargs:
+            path_prefix = kwargs['pathPrefix']
+        if 'projectId' in kwargs:
+            project_id = kwargs['projectId']
+        if 'projectSettings' in kwargs:
+            project_settings = kwargs['projectSettings']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         if delete_on_destroy is not None:
             _setter("delete_on_destroy", delete_on_destroy)
         if domains is not None:

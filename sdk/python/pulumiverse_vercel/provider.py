@@ -33,7 +33,11 @@ class ProviderArgs:
              _setter: Callable[[Any, Any], None],
              api_token: Optional[pulumi.Input[str]] = None,
              team: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiToken' in kwargs:
+            api_token = kwargs['apiToken']
+
         if api_token is not None:
             _setter("api_token", api_token)
         if team is not None:

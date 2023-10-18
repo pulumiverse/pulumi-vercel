@@ -43,7 +43,13 @@ class SharedEnvironmentVariableArgs:
              targets: pulumi.Input[Sequence[pulumi.Input[str]]],
              value: pulumi.Input[str],
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'projectIds' in kwargs:
+            project_ids = kwargs['projectIds']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         _setter("key", key)
         _setter("project_ids", project_ids)
         _setter("targets", targets)
@@ -144,7 +150,13 @@ class _SharedEnvironmentVariableState:
              targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'projectIds' in kwargs:
+            project_ids = kwargs['projectIds']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         if key is not None:
             _setter("key", key)
         if project_ids is not None:

@@ -47,7 +47,15 @@ class ProjectEnvironmentVariableArgs:
              value: pulumi.Input[str],
              git_branch: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'projectId' in kwargs:
+            project_id = kwargs['projectId']
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         _setter("key", key)
         _setter("project_id", project_id)
         _setter("targets", targets)
@@ -166,7 +174,15 @@ class _ProjectEnvironmentVariableState:
              targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+        if 'projectId' in kwargs:
+            project_id = kwargs['projectId']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         if git_branch is not None:
             _setter("git_branch", git_branch)
         if key is not None:
