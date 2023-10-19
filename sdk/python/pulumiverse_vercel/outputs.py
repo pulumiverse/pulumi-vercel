@@ -76,7 +76,17 @@ class DeploymentProjectSettings(dict):
              install_command: Optional[str] = None,
              output_directory: Optional[str] = None,
              root_directory: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'buildCommand' in kwargs:
+            build_command = kwargs['buildCommand']
+        if 'installCommand' in kwargs:
+            install_command = kwargs['installCommand']
+        if 'outputDirectory' in kwargs:
+            output_directory = kwargs['outputDirectory']
+        if 'rootDirectory' in kwargs:
+            root_directory = kwargs['rootDirectory']
+
         if build_command is not None:
             _setter("build_command", build_command)
         if framework is not None:
@@ -156,7 +166,9 @@ class DnsRecordSrv(dict):
              priority: int,
              target: str,
              weight: int,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         _setter("port", port)
         _setter("priority", priority)
         _setter("target", target)
@@ -243,7 +255,11 @@ class ProjectEnvironment(dict):
              value: str,
              git_branch: Optional[str] = None,
              id: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+
         _setter("key", key)
         _setter("targets", targets)
         _setter("value", value)
@@ -333,7 +349,11 @@ class ProjectGitRepository(dict):
              repo: str,
              type: str,
              production_branch: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'productionBranch' in kwargs:
+            production_branch = kwargs['productionBranch']
+
         _setter("repo", repo)
         _setter("type", type)
         if production_branch is not None:
@@ -400,7 +420,11 @@ class ProjectPasswordProtection(dict):
              _setter: Callable[[Any, Any], None],
              password: str,
              protect_production: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         _setter("password", password)
         if protect_production is not None:
             _setter("protect_production", protect_production)
@@ -454,7 +478,11 @@ class ProjectVercelAuthentication(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              protect_production: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         if protect_production is not None:
             _setter("protect_production", protect_production)
 
@@ -498,7 +526,11 @@ class GetProjectEnvironmentResult(dict):
              key: str,
              targets: Sequence[str],
              value: str,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+
         _setter("git_branch", git_branch)
         _setter("id", id)
         _setter("key", key)
@@ -569,7 +601,11 @@ class GetProjectGitRepositoryResult(dict):
              production_branch: str,
              repo: str,
              type: str,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'productionBranch' in kwargs:
+            production_branch = kwargs['productionBranch']
+
         _setter("production_branch", production_branch)
         _setter("repo", repo)
         _setter("type", type)
@@ -614,7 +650,11 @@ class GetProjectPasswordProtectionResult(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              protect_production: bool,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         _setter("protect_production", protect_production)
 
     @property
@@ -641,7 +681,11 @@ class GetProjectVercelAuthenticationResult(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              protect_production: bool,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         _setter("protect_production", protect_production)
 
     @property

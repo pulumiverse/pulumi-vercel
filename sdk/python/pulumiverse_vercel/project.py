@@ -89,7 +89,35 @@ class ProjectArgs:
              serverless_function_region: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'buildCommand' in kwargs:
+            build_command = kwargs['buildCommand']
+        if 'devCommand' in kwargs:
+            dev_command = kwargs['devCommand']
+        if 'gitRepository' in kwargs:
+            git_repository = kwargs['gitRepository']
+        if 'ignoreCommand' in kwargs:
+            ignore_command = kwargs['ignoreCommand']
+        if 'installCommand' in kwargs:
+            install_command = kwargs['installCommand']
+        if 'outputDirectory' in kwargs:
+            output_directory = kwargs['outputDirectory']
+        if 'passwordProtection' in kwargs:
+            password_protection = kwargs['passwordProtection']
+        if 'protectionBypassForAutomation' in kwargs:
+            protection_bypass_for_automation = kwargs['protectionBypassForAutomation']
+        if 'publicSource' in kwargs:
+            public_source = kwargs['publicSource']
+        if 'rootDirectory' in kwargs:
+            root_directory = kwargs['rootDirectory']
+        if 'serverlessFunctionRegion' in kwargs:
+            serverless_function_region = kwargs['serverlessFunctionRegion']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+        if 'vercelAuthentication' in kwargs:
+            vercel_authentication = kwargs['vercelAuthentication']
+
         if build_command is not None:
             _setter("build_command", build_command)
         if dev_command is not None:
@@ -396,7 +424,37 @@ class _ProjectState:
              serverless_function_region: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'buildCommand' in kwargs:
+            build_command = kwargs['buildCommand']
+        if 'devCommand' in kwargs:
+            dev_command = kwargs['devCommand']
+        if 'gitRepository' in kwargs:
+            git_repository = kwargs['gitRepository']
+        if 'ignoreCommand' in kwargs:
+            ignore_command = kwargs['ignoreCommand']
+        if 'installCommand' in kwargs:
+            install_command = kwargs['installCommand']
+        if 'outputDirectory' in kwargs:
+            output_directory = kwargs['outputDirectory']
+        if 'passwordProtection' in kwargs:
+            password_protection = kwargs['passwordProtection']
+        if 'protectionBypassForAutomation' in kwargs:
+            protection_bypass_for_automation = kwargs['protectionBypassForAutomation']
+        if 'protectionBypassForAutomationSecret' in kwargs:
+            protection_bypass_for_automation_secret = kwargs['protectionBypassForAutomationSecret']
+        if 'publicSource' in kwargs:
+            public_source = kwargs['publicSource']
+        if 'rootDirectory' in kwargs:
+            root_directory = kwargs['rootDirectory']
+        if 'serverlessFunctionRegion' in kwargs:
+            serverless_function_region = kwargs['serverlessFunctionRegion']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+        if 'vercelAuthentication' in kwargs:
+            vercel_authentication = kwargs['vercelAuthentication']
+
         if build_command is not None:
             _setter("build_command", build_command)
         if dev_command is not None:

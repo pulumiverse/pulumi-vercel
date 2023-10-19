@@ -50,7 +50,17 @@ class DeploymentProjectSettingsArgs:
              install_command: Optional[pulumi.Input[str]] = None,
              output_directory: Optional[pulumi.Input[str]] = None,
              root_directory: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'buildCommand' in kwargs:
+            build_command = kwargs['buildCommand']
+        if 'installCommand' in kwargs:
+            install_command = kwargs['installCommand']
+        if 'outputDirectory' in kwargs:
+            output_directory = kwargs['outputDirectory']
+        if 'rootDirectory' in kwargs:
+            root_directory = kwargs['rootDirectory']
+
         if build_command is not None:
             _setter("build_command", build_command)
         if framework is not None:
@@ -150,7 +160,9 @@ class DnsRecordSrvArgs:
              priority: pulumi.Input[int],
              target: pulumi.Input[str],
              weight: pulumi.Input[int],
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         _setter("port", port)
         _setter("priority", priority)
         _setter("target", target)
@@ -236,7 +248,11 @@ class ProjectEnvironmentArgs:
              value: pulumi.Input[str],
              git_branch: Optional[pulumi.Input[str]] = None,
              id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+
         _setter("key", key)
         _setter("targets", targets)
         _setter("value", value)
@@ -329,7 +345,11 @@ class ProjectGitRepositoryArgs:
              repo: pulumi.Input[str],
              type: pulumi.Input[str],
              production_branch: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'productionBranch' in kwargs:
+            production_branch = kwargs['productionBranch']
+
         _setter("repo", repo)
         _setter("type", type)
         if production_branch is not None:
@@ -391,7 +411,11 @@ class ProjectPasswordProtectionArgs:
              _setter: Callable[[Any, Any], None],
              password: pulumi.Input[str],
              protect_production: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         _setter("password", password)
         if protect_production is not None:
             _setter("protect_production", protect_production)
@@ -436,7 +460,11 @@ class ProjectVercelAuthenticationArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              protect_production: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         if protect_production is not None:
             _setter("protect_production", protect_production)
 
@@ -468,7 +496,11 @@ class GetProjectPasswordProtectionArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              protect_production: bool,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'protectProduction' in kwargs:
+            protect_production = kwargs['protectProduction']
+
         _setter("protect_production", protect_production)
 
     @property

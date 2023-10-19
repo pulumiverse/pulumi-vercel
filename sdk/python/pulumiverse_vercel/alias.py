@@ -35,7 +35,13 @@ class AliasArgs:
              alias: pulumi.Input[str],
              deployment_id: pulumi.Input[str],
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'deploymentId' in kwargs:
+            deployment_id = kwargs['deploymentId']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         _setter("alias", alias)
         _setter("deployment_id", deployment_id)
         if team_id is not None:
@@ -102,7 +108,13 @@ class _AliasState:
              alias: Optional[pulumi.Input[str]] = None,
              deployment_id: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'deploymentId' in kwargs:
+            deployment_id = kwargs['deploymentId']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         if alias is not None:
             _setter("alias", alias)
         if deployment_id is not None:

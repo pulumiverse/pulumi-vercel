@@ -47,7 +47,17 @@ class ProjectDomainArgs:
              redirect: Optional[pulumi.Input[str]] = None,
              redirect_status_code: Optional[pulumi.Input[int]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'projectId' in kwargs:
+            project_id = kwargs['projectId']
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+        if 'redirectStatusCode' in kwargs:
+            redirect_status_code = kwargs['redirectStatusCode']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         _setter("domain", domain)
         _setter("project_id", project_id)
         if git_branch is not None:
@@ -168,7 +178,17 @@ class _ProjectDomainState:
              redirect: Optional[pulumi.Input[str]] = None,
              redirect_status_code: Optional[pulumi.Input[int]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'gitBranch' in kwargs:
+            git_branch = kwargs['gitBranch']
+        if 'projectId' in kwargs:
+            project_id = kwargs['projectId']
+        if 'redirectStatusCode' in kwargs:
+            redirect_status_code = kwargs['redirectStatusCode']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         if domain is not None:
             _setter("domain", domain)
         if git_branch is not None:

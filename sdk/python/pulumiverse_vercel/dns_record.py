@@ -64,7 +64,13 @@ class DnsRecordArgs:
              team_id: Optional[pulumi.Input[str]] = None,
              ttl: Optional[pulumi.Input[int]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'mxPriority' in kwargs:
+            mx_priority = kwargs['mxPriority']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         _setter("domain", domain)
         _setter("type", type)
         if mx_priority is not None:
@@ -235,7 +241,13 @@ class _DnsRecordState:
              ttl: Optional[pulumi.Input[int]] = None,
              type: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'mxPriority' in kwargs:
+            mx_priority = kwargs['mxPriority']
+        if 'teamId' in kwargs:
+            team_id = kwargs['teamId']
+
         if domain is not None:
             _setter("domain", domain)
         if mx_priority is not None:
