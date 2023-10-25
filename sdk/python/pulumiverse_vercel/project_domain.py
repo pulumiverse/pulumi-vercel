@@ -41,21 +41,25 @@ class ProjectDomainArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             domain: pulumi.Input[str],
-             project_id: pulumi.Input[str],
+             domain: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
              git_branch: Optional[pulumi.Input[str]] = None,
              redirect: Optional[pulumi.Input[str]] = None,
              redirect_status_code: Optional[pulumi.Input[int]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'projectId' in kwargs:
+        if domain is None:
+            raise TypeError("Missing 'domain' argument")
+        if project_id is None and 'projectId' in kwargs:
             project_id = kwargs['projectId']
-        if 'gitBranch' in kwargs:
+        if project_id is None:
+            raise TypeError("Missing 'project_id' argument")
+        if git_branch is None and 'gitBranch' in kwargs:
             git_branch = kwargs['gitBranch']
-        if 'redirectStatusCode' in kwargs:
+        if redirect_status_code is None and 'redirectStatusCode' in kwargs:
             redirect_status_code = kwargs['redirectStatusCode']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         _setter("domain", domain)
@@ -178,15 +182,15 @@ class _ProjectDomainState:
              redirect: Optional[pulumi.Input[str]] = None,
              redirect_status_code: Optional[pulumi.Input[int]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'gitBranch' in kwargs:
+        if git_branch is None and 'gitBranch' in kwargs:
             git_branch = kwargs['gitBranch']
-        if 'projectId' in kwargs:
+        if project_id is None and 'projectId' in kwargs:
             project_id = kwargs['projectId']
-        if 'redirectStatusCode' in kwargs:
+        if redirect_status_code is None and 'redirectStatusCode' in kwargs:
             redirect_status_code = kwargs['redirectStatusCode']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         if domain is not None:

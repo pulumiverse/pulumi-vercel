@@ -89,33 +89,33 @@ class ProjectArgs:
              serverless_function_region: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'buildCommand' in kwargs:
+        if build_command is None and 'buildCommand' in kwargs:
             build_command = kwargs['buildCommand']
-        if 'devCommand' in kwargs:
+        if dev_command is None and 'devCommand' in kwargs:
             dev_command = kwargs['devCommand']
-        if 'gitRepository' in kwargs:
+        if git_repository is None and 'gitRepository' in kwargs:
             git_repository = kwargs['gitRepository']
-        if 'ignoreCommand' in kwargs:
+        if ignore_command is None and 'ignoreCommand' in kwargs:
             ignore_command = kwargs['ignoreCommand']
-        if 'installCommand' in kwargs:
+        if install_command is None and 'installCommand' in kwargs:
             install_command = kwargs['installCommand']
-        if 'outputDirectory' in kwargs:
+        if output_directory is None and 'outputDirectory' in kwargs:
             output_directory = kwargs['outputDirectory']
-        if 'passwordProtection' in kwargs:
+        if password_protection is None and 'passwordProtection' in kwargs:
             password_protection = kwargs['passwordProtection']
-        if 'protectionBypassForAutomation' in kwargs:
+        if protection_bypass_for_automation is None and 'protectionBypassForAutomation' in kwargs:
             protection_bypass_for_automation = kwargs['protectionBypassForAutomation']
-        if 'publicSource' in kwargs:
+        if public_source is None and 'publicSource' in kwargs:
             public_source = kwargs['publicSource']
-        if 'rootDirectory' in kwargs:
+        if root_directory is None and 'rootDirectory' in kwargs:
             root_directory = kwargs['rootDirectory']
-        if 'serverlessFunctionRegion' in kwargs:
+        if serverless_function_region is None and 'serverlessFunctionRegion' in kwargs:
             serverless_function_region = kwargs['serverlessFunctionRegion']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
-        if 'vercelAuthentication' in kwargs:
+        if vercel_authentication is None and 'vercelAuthentication' in kwargs:
             vercel_authentication = kwargs['vercelAuthentication']
 
         if build_command is not None:
@@ -424,35 +424,35 @@ class _ProjectState:
              serverless_function_region: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'buildCommand' in kwargs:
+        if build_command is None and 'buildCommand' in kwargs:
             build_command = kwargs['buildCommand']
-        if 'devCommand' in kwargs:
+        if dev_command is None and 'devCommand' in kwargs:
             dev_command = kwargs['devCommand']
-        if 'gitRepository' in kwargs:
+        if git_repository is None and 'gitRepository' in kwargs:
             git_repository = kwargs['gitRepository']
-        if 'ignoreCommand' in kwargs:
+        if ignore_command is None and 'ignoreCommand' in kwargs:
             ignore_command = kwargs['ignoreCommand']
-        if 'installCommand' in kwargs:
+        if install_command is None and 'installCommand' in kwargs:
             install_command = kwargs['installCommand']
-        if 'outputDirectory' in kwargs:
+        if output_directory is None and 'outputDirectory' in kwargs:
             output_directory = kwargs['outputDirectory']
-        if 'passwordProtection' in kwargs:
+        if password_protection is None and 'passwordProtection' in kwargs:
             password_protection = kwargs['passwordProtection']
-        if 'protectionBypassForAutomation' in kwargs:
+        if protection_bypass_for_automation is None and 'protectionBypassForAutomation' in kwargs:
             protection_bypass_for_automation = kwargs['protectionBypassForAutomation']
-        if 'protectionBypassForAutomationSecret' in kwargs:
+        if protection_bypass_for_automation_secret is None and 'protectionBypassForAutomationSecret' in kwargs:
             protection_bypass_for_automation_secret = kwargs['protectionBypassForAutomationSecret']
-        if 'publicSource' in kwargs:
+        if public_source is None and 'publicSource' in kwargs:
             public_source = kwargs['publicSource']
-        if 'rootDirectory' in kwargs:
+        if root_directory is None and 'rootDirectory' in kwargs:
             root_directory = kwargs['rootDirectory']
-        if 'serverlessFunctionRegion' in kwargs:
+        if serverless_function_region is None and 'serverlessFunctionRegion' in kwargs:
             serverless_function_region = kwargs['serverlessFunctionRegion']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
-        if 'vercelAuthentication' in kwargs:
+        if vercel_authentication is None and 'vercelAuthentication' in kwargs:
             vercel_authentication = kwargs['vercelAuthentication']
 
         if build_command is not None:
@@ -862,32 +862,20 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["dev_command"] = dev_command
             __props__.__dict__["environments"] = environments
             __props__.__dict__["framework"] = framework
-            if git_repository is not None and not isinstance(git_repository, ProjectGitRepositoryArgs):
-                git_repository = git_repository or {}
-                def _setter(key, value):
-                    git_repository[key] = value
-                ProjectGitRepositoryArgs._configure(_setter, **git_repository)
+            git_repository = _utilities.configure(git_repository, ProjectGitRepositoryArgs, True)
             __props__.__dict__["git_repository"] = git_repository
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
             __props__.__dict__["name"] = name
             __props__.__dict__["output_directory"] = output_directory
-            if password_protection is not None and not isinstance(password_protection, ProjectPasswordProtectionArgs):
-                password_protection = password_protection or {}
-                def _setter(key, value):
-                    password_protection[key] = value
-                ProjectPasswordProtectionArgs._configure(_setter, **password_protection)
+            password_protection = _utilities.configure(password_protection, ProjectPasswordProtectionArgs, True)
             __props__.__dict__["password_protection"] = password_protection
             __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
             __props__.__dict__["public_source"] = public_source
             __props__.__dict__["root_directory"] = root_directory
             __props__.__dict__["serverless_function_region"] = serverless_function_region
             __props__.__dict__["team_id"] = team_id
-            if vercel_authentication is not None and not isinstance(vercel_authentication, ProjectVercelAuthenticationArgs):
-                vercel_authentication = vercel_authentication or {}
-                def _setter(key, value):
-                    vercel_authentication[key] = value
-                ProjectVercelAuthenticationArgs._configure(_setter, **vercel_authentication)
+            vercel_authentication = _utilities.configure(vercel_authentication, ProjectVercelAuthenticationArgs, True)
             __props__.__dict__["vercel_authentication"] = vercel_authentication
             __props__.__dict__["protection_bypass_for_automation_secret"] = None
         super(Project, __self__).__init__(

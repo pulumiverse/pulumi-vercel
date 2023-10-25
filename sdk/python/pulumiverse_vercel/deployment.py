@@ -53,7 +53,7 @@ class DeploymentArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             project_id: pulumi.Input[str],
+             project_id: Optional[pulumi.Input[str]] = None,
              delete_on_destroy: Optional[pulumi.Input[bool]] = None,
              environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
@@ -62,17 +62,19 @@ class DeploymentArgs:
              project_settings: Optional[pulumi.Input['DeploymentProjectSettingsArgs']] = None,
              ref: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'projectId' in kwargs:
+        if project_id is None and 'projectId' in kwargs:
             project_id = kwargs['projectId']
-        if 'deleteOnDestroy' in kwargs:
+        if project_id is None:
+            raise TypeError("Missing 'project_id' argument")
+        if delete_on_destroy is None and 'deleteOnDestroy' in kwargs:
             delete_on_destroy = kwargs['deleteOnDestroy']
-        if 'pathPrefix' in kwargs:
+        if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
-        if 'projectSettings' in kwargs:
+        if project_settings is None and 'projectSettings' in kwargs:
             project_settings = kwargs['projectSettings']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         _setter("project_id", project_id)
@@ -260,17 +262,17 @@ class _DeploymentState:
              ref: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'deleteOnDestroy' in kwargs:
+        if delete_on_destroy is None and 'deleteOnDestroy' in kwargs:
             delete_on_destroy = kwargs['deleteOnDestroy']
-        if 'pathPrefix' in kwargs:
+        if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
-        if 'projectId' in kwargs:
+        if project_id is None and 'projectId' in kwargs:
             project_id = kwargs['projectId']
-        if 'projectSettings' in kwargs:
+        if project_settings is None and 'projectSettings' in kwargs:
             project_settings = kwargs['projectSettings']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         if delete_on_destroy is not None:
@@ -513,11 +515,7 @@ class Deployment(pulumi.CustomResource):
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
-            if project_settings is not None and not isinstance(project_settings, DeploymentProjectSettingsArgs):
-                project_settings = project_settings or {}
-                def _setter(key, value):
-                    project_settings[key] = value
-                DeploymentProjectSettingsArgs._configure(_setter, **project_settings)
+            project_settings = _utilities.configure(project_settings, DeploymentProjectSettingsArgs, True)
             __props__.__dict__["project_settings"] = project_settings
             __props__.__dict__["ref"] = ref
             __props__.__dict__["team_id"] = team_id
