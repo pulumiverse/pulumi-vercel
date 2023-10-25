@@ -56,19 +56,23 @@ class DnsRecordArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             domain: pulumi.Input[str],
-             type: pulumi.Input[str],
+             domain: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              mx_priority: Optional[pulumi.Input[int]] = None,
              name: Optional[pulumi.Input[str]] = None,
              srv: Optional[pulumi.Input['DnsRecordSrvArgs']] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              ttl: Optional[pulumi.Input[int]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'mxPriority' in kwargs:
+        if domain is None:
+            raise TypeError("Missing 'domain' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if mx_priority is None and 'mxPriority' in kwargs:
             mx_priority = kwargs['mxPriority']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         _setter("domain", domain)
@@ -241,11 +245,11 @@ class _DnsRecordState:
              ttl: Optional[pulumi.Input[int]] = None,
              type: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'mxPriority' in kwargs:
+        if mx_priority is None and 'mxPriority' in kwargs:
             mx_priority = kwargs['mxPriority']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         if domain is not None:
@@ -602,11 +606,7 @@ class DnsRecord(pulumi.CustomResource):
             __props__.__dict__["domain"] = domain
             __props__.__dict__["mx_priority"] = mx_priority
             __props__.__dict__["name"] = name
-            if srv is not None and not isinstance(srv, DnsRecordSrvArgs):
-                srv = srv or {}
-                def _setter(key, value):
-                    srv[key] = value
-                DnsRecordSrvArgs._configure(_setter, **srv)
+            srv = _utilities.configure(srv, DnsRecordSrvArgs, True)
             __props__.__dict__["srv"] = srv
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["ttl"] = ttl

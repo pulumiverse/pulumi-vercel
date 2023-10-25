@@ -32,14 +32,18 @@ class AliasArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             alias: pulumi.Input[str],
-             deployment_id: pulumi.Input[str],
+             alias: Optional[pulumi.Input[str]] = None,
+             deployment_id: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'deploymentId' in kwargs:
+        if alias is None:
+            raise TypeError("Missing 'alias' argument")
+        if deployment_id is None and 'deploymentId' in kwargs:
             deployment_id = kwargs['deploymentId']
-        if 'teamId' in kwargs:
+        if deployment_id is None:
+            raise TypeError("Missing 'deployment_id' argument")
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         _setter("alias", alias)
@@ -108,11 +112,11 @@ class _AliasState:
              alias: Optional[pulumi.Input[str]] = None,
              deployment_id: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'deploymentId' in kwargs:
+        if deployment_id is None and 'deploymentId' in kwargs:
             deployment_id = kwargs['deploymentId']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         if alias is not None:

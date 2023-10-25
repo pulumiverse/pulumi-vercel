@@ -41,19 +41,27 @@ class ProjectEnvironmentVariableArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             project_id: pulumi.Input[str],
-             targets: pulumi.Input[Sequence[pulumi.Input[str]]],
-             value: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             value: Optional[pulumi.Input[str]] = None,
              git_branch: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'projectId' in kwargs:
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if project_id is None and 'projectId' in kwargs:
             project_id = kwargs['projectId']
-        if 'gitBranch' in kwargs:
+        if project_id is None:
+            raise TypeError("Missing 'project_id' argument")
+        if targets is None:
+            raise TypeError("Missing 'targets' argument")
+        if value is None:
+            raise TypeError("Missing 'value' argument")
+        if git_branch is None and 'gitBranch' in kwargs:
             git_branch = kwargs['gitBranch']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         _setter("key", key)
@@ -174,13 +182,13 @@ class _ProjectEnvironmentVariableState:
              targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'gitBranch' in kwargs:
+        if git_branch is None and 'gitBranch' in kwargs:
             git_branch = kwargs['gitBranch']
-        if 'projectId' in kwargs:
+        if project_id is None and 'projectId' in kwargs:
             project_id = kwargs['projectId']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         if git_branch is not None:

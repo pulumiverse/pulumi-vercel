@@ -38,16 +38,24 @@ class SharedEnvironmentVariableArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             project_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
-             targets: pulumi.Input[Sequence[pulumi.Input[str]]],
-             value: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             value: Optional[pulumi.Input[str]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'projectIds' in kwargs:
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if project_ids is None and 'projectIds' in kwargs:
             project_ids = kwargs['projectIds']
-        if 'teamId' in kwargs:
+        if project_ids is None:
+            raise TypeError("Missing 'project_ids' argument")
+        if targets is None:
+            raise TypeError("Missing 'targets' argument")
+        if value is None:
+            raise TypeError("Missing 'value' argument")
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         _setter("key", key)
@@ -150,11 +158,11 @@ class _SharedEnvironmentVariableState:
              targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              team_id: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'projectIds' in kwargs:
+        if project_ids is None and 'projectIds' in kwargs:
             project_ids = kwargs['projectIds']
-        if 'teamId' in kwargs:
+        if team_id is None and 'teamId' in kwargs:
             team_id = kwargs['teamId']
 
         if key is not None:

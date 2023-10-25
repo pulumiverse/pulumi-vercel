@@ -50,15 +50,15 @@ class DeploymentProjectSettingsArgs:
              install_command: Optional[pulumi.Input[str]] = None,
              output_directory: Optional[pulumi.Input[str]] = None,
              root_directory: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'buildCommand' in kwargs:
+        if build_command is None and 'buildCommand' in kwargs:
             build_command = kwargs['buildCommand']
-        if 'installCommand' in kwargs:
+        if install_command is None and 'installCommand' in kwargs:
             install_command = kwargs['installCommand']
-        if 'outputDirectory' in kwargs:
+        if output_directory is None and 'outputDirectory' in kwargs:
             output_directory = kwargs['outputDirectory']
-        if 'rootDirectory' in kwargs:
+        if root_directory is None and 'rootDirectory' in kwargs:
             root_directory = kwargs['rootDirectory']
 
         if build_command is not None:
@@ -156,12 +156,20 @@ class DnsRecordSrvArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[int],
-             priority: pulumi.Input[int],
-             target: pulumi.Input[str],
-             weight: pulumi.Input[int],
-             opts: Optional[pulumi.ResourceOptions]=None,
+             port: Optional[pulumi.Input[int]] = None,
+             priority: Optional[pulumi.Input[int]] = None,
+             target: Optional[pulumi.Input[str]] = None,
+             weight: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
+        if port is None:
+            raise TypeError("Missing 'port' argument")
+        if priority is None:
+            raise TypeError("Missing 'priority' argument")
+        if target is None:
+            raise TypeError("Missing 'target' argument")
+        if weight is None:
+            raise TypeError("Missing 'weight' argument")
 
         _setter("port", port)
         _setter("priority", priority)
@@ -243,14 +251,20 @@ class ProjectEnvironmentArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             targets: pulumi.Input[Sequence[pulumi.Input[str]]],
-             value: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             value: Optional[pulumi.Input[str]] = None,
              git_branch: Optional[pulumi.Input[str]] = None,
              id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'gitBranch' in kwargs:
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if targets is None:
+            raise TypeError("Missing 'targets' argument")
+        if value is None:
+            raise TypeError("Missing 'value' argument")
+        if git_branch is None and 'gitBranch' in kwargs:
             git_branch = kwargs['gitBranch']
 
         _setter("key", key)
@@ -342,12 +356,16 @@ class ProjectGitRepositoryArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             repo: pulumi.Input[str],
-             type: pulumi.Input[str],
+             repo: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              production_branch: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'productionBranch' in kwargs:
+        if repo is None:
+            raise TypeError("Missing 'repo' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if production_branch is None and 'productionBranch' in kwargs:
             production_branch = kwargs['productionBranch']
 
         _setter("repo", repo)
@@ -409,11 +427,13 @@ class ProjectPasswordProtectionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             password: pulumi.Input[str],
+             password: Optional[pulumi.Input[str]] = None,
              protect_production: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'protectProduction' in kwargs:
+        if password is None:
+            raise TypeError("Missing 'password' argument")
+        if protect_production is None and 'protectProduction' in kwargs:
             protect_production = kwargs['protectProduction']
 
         _setter("password", password)
@@ -460,9 +480,9 @@ class ProjectVercelAuthenticationArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              protect_production: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'protectProduction' in kwargs:
+        if protect_production is None and 'protectProduction' in kwargs:
             protect_production = kwargs['protectProduction']
 
         if protect_production is not None:
@@ -495,11 +515,13 @@ class GetProjectPasswordProtectionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             protect_production: bool,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             protect_production: Optional[bool] = None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
-        if 'protectProduction' in kwargs:
+        if protect_production is None and 'protectProduction' in kwargs:
             protect_production = kwargs['protectProduction']
+        if protect_production is None:
+            raise TypeError("Missing 'protect_production' argument")
 
         _setter("protect_production", protect_production)
 
