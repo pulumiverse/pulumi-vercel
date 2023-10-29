@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -51,105 +51,38 @@ class ProjectArgs:
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
-        ProjectArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            build_command=build_command,
-            dev_command=dev_command,
-            environments=environments,
-            framework=framework,
-            git_repository=git_repository,
-            ignore_command=ignore_command,
-            install_command=install_command,
-            name=name,
-            output_directory=output_directory,
-            password_protection=password_protection,
-            protection_bypass_for_automation=protection_bypass_for_automation,
-            public_source=public_source,
-            root_directory=root_directory,
-            serverless_function_region=serverless_function_region,
-            team_id=team_id,
-            vercel_authentication=vercel_authentication,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             build_command: Optional[pulumi.Input[str]] = None,
-             dev_command: Optional[pulumi.Input[str]] = None,
-             environments: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]] = None,
-             framework: Optional[pulumi.Input[str]] = None,
-             git_repository: Optional[pulumi.Input['ProjectGitRepositoryArgs']] = None,
-             ignore_command: Optional[pulumi.Input[str]] = None,
-             install_command: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             output_directory: Optional[pulumi.Input[str]] = None,
-             password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
-             protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
-             public_source: Optional[pulumi.Input[bool]] = None,
-             root_directory: Optional[pulumi.Input[str]] = None,
-             serverless_function_region: Optional[pulumi.Input[str]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if build_command is None and 'buildCommand' in kwargs:
-            build_command = kwargs['buildCommand']
-        if dev_command is None and 'devCommand' in kwargs:
-            dev_command = kwargs['devCommand']
-        if git_repository is None and 'gitRepository' in kwargs:
-            git_repository = kwargs['gitRepository']
-        if ignore_command is None and 'ignoreCommand' in kwargs:
-            ignore_command = kwargs['ignoreCommand']
-        if install_command is None and 'installCommand' in kwargs:
-            install_command = kwargs['installCommand']
-        if output_directory is None and 'outputDirectory' in kwargs:
-            output_directory = kwargs['outputDirectory']
-        if password_protection is None and 'passwordProtection' in kwargs:
-            password_protection = kwargs['passwordProtection']
-        if protection_bypass_for_automation is None and 'protectionBypassForAutomation' in kwargs:
-            protection_bypass_for_automation = kwargs['protectionBypassForAutomation']
-        if public_source is None and 'publicSource' in kwargs:
-            public_source = kwargs['publicSource']
-        if root_directory is None and 'rootDirectory' in kwargs:
-            root_directory = kwargs['rootDirectory']
-        if serverless_function_region is None and 'serverlessFunctionRegion' in kwargs:
-            serverless_function_region = kwargs['serverlessFunctionRegion']
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-        if vercel_authentication is None and 'vercelAuthentication' in kwargs:
-            vercel_authentication = kwargs['vercelAuthentication']
-
         if build_command is not None:
-            _setter("build_command", build_command)
+            pulumi.set(__self__, "build_command", build_command)
         if dev_command is not None:
-            _setter("dev_command", dev_command)
+            pulumi.set(__self__, "dev_command", dev_command)
         if environments is not None:
-            _setter("environments", environments)
+            pulumi.set(__self__, "environments", environments)
         if framework is not None:
-            _setter("framework", framework)
+            pulumi.set(__self__, "framework", framework)
         if git_repository is not None:
-            _setter("git_repository", git_repository)
+            pulumi.set(__self__, "git_repository", git_repository)
         if ignore_command is not None:
-            _setter("ignore_command", ignore_command)
+            pulumi.set(__self__, "ignore_command", ignore_command)
         if install_command is not None:
-            _setter("install_command", install_command)
+            pulumi.set(__self__, "install_command", install_command)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if output_directory is not None:
-            _setter("output_directory", output_directory)
+            pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
-            _setter("password_protection", password_protection)
+            pulumi.set(__self__, "password_protection", password_protection)
         if protection_bypass_for_automation is not None:
-            _setter("protection_bypass_for_automation", protection_bypass_for_automation)
+            pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
         if public_source is not None:
-            _setter("public_source", public_source)
+            pulumi.set(__self__, "public_source", public_source)
         if root_directory is not None:
-            _setter("root_directory", root_directory)
+            pulumi.set(__self__, "root_directory", root_directory)
         if serverless_function_region is not None:
-            _setter("serverless_function_region", serverless_function_region)
+            pulumi.set(__self__, "serverless_function_region", serverless_function_region)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
         if vercel_authentication is not None:
-            _setter("vercel_authentication", vercel_authentication)
+            pulumi.set(__self__, "vercel_authentication", vercel_authentication)
 
     @property
     @pulumi.getter(name="buildCommand")
@@ -384,111 +317,40 @@ class _ProjectState:
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
-        _ProjectState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            build_command=build_command,
-            dev_command=dev_command,
-            environments=environments,
-            framework=framework,
-            git_repository=git_repository,
-            ignore_command=ignore_command,
-            install_command=install_command,
-            name=name,
-            output_directory=output_directory,
-            password_protection=password_protection,
-            protection_bypass_for_automation=protection_bypass_for_automation,
-            protection_bypass_for_automation_secret=protection_bypass_for_automation_secret,
-            public_source=public_source,
-            root_directory=root_directory,
-            serverless_function_region=serverless_function_region,
-            team_id=team_id,
-            vercel_authentication=vercel_authentication,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             build_command: Optional[pulumi.Input[str]] = None,
-             dev_command: Optional[pulumi.Input[str]] = None,
-             environments: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]] = None,
-             framework: Optional[pulumi.Input[str]] = None,
-             git_repository: Optional[pulumi.Input['ProjectGitRepositoryArgs']] = None,
-             ignore_command: Optional[pulumi.Input[str]] = None,
-             install_command: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             output_directory: Optional[pulumi.Input[str]] = None,
-             password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
-             protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
-             protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
-             public_source: Optional[pulumi.Input[bool]] = None,
-             root_directory: Optional[pulumi.Input[str]] = None,
-             serverless_function_region: Optional[pulumi.Input[str]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if build_command is None and 'buildCommand' in kwargs:
-            build_command = kwargs['buildCommand']
-        if dev_command is None and 'devCommand' in kwargs:
-            dev_command = kwargs['devCommand']
-        if git_repository is None and 'gitRepository' in kwargs:
-            git_repository = kwargs['gitRepository']
-        if ignore_command is None and 'ignoreCommand' in kwargs:
-            ignore_command = kwargs['ignoreCommand']
-        if install_command is None and 'installCommand' in kwargs:
-            install_command = kwargs['installCommand']
-        if output_directory is None and 'outputDirectory' in kwargs:
-            output_directory = kwargs['outputDirectory']
-        if password_protection is None and 'passwordProtection' in kwargs:
-            password_protection = kwargs['passwordProtection']
-        if protection_bypass_for_automation is None and 'protectionBypassForAutomation' in kwargs:
-            protection_bypass_for_automation = kwargs['protectionBypassForAutomation']
-        if protection_bypass_for_automation_secret is None and 'protectionBypassForAutomationSecret' in kwargs:
-            protection_bypass_for_automation_secret = kwargs['protectionBypassForAutomationSecret']
-        if public_source is None and 'publicSource' in kwargs:
-            public_source = kwargs['publicSource']
-        if root_directory is None and 'rootDirectory' in kwargs:
-            root_directory = kwargs['rootDirectory']
-        if serverless_function_region is None and 'serverlessFunctionRegion' in kwargs:
-            serverless_function_region = kwargs['serverlessFunctionRegion']
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-        if vercel_authentication is None and 'vercelAuthentication' in kwargs:
-            vercel_authentication = kwargs['vercelAuthentication']
-
         if build_command is not None:
-            _setter("build_command", build_command)
+            pulumi.set(__self__, "build_command", build_command)
         if dev_command is not None:
-            _setter("dev_command", dev_command)
+            pulumi.set(__self__, "dev_command", dev_command)
         if environments is not None:
-            _setter("environments", environments)
+            pulumi.set(__self__, "environments", environments)
         if framework is not None:
-            _setter("framework", framework)
+            pulumi.set(__self__, "framework", framework)
         if git_repository is not None:
-            _setter("git_repository", git_repository)
+            pulumi.set(__self__, "git_repository", git_repository)
         if ignore_command is not None:
-            _setter("ignore_command", ignore_command)
+            pulumi.set(__self__, "ignore_command", ignore_command)
         if install_command is not None:
-            _setter("install_command", install_command)
+            pulumi.set(__self__, "install_command", install_command)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if output_directory is not None:
-            _setter("output_directory", output_directory)
+            pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
-            _setter("password_protection", password_protection)
+            pulumi.set(__self__, "password_protection", password_protection)
         if protection_bypass_for_automation is not None:
-            _setter("protection_bypass_for_automation", protection_bypass_for_automation)
+            pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
         if protection_bypass_for_automation_secret is not None:
-            _setter("protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
+            pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
         if public_source is not None:
-            _setter("public_source", public_source)
+            pulumi.set(__self__, "public_source", public_source)
         if root_directory is not None:
-            _setter("root_directory", root_directory)
+            pulumi.set(__self__, "root_directory", root_directory)
         if serverless_function_region is not None:
-            _setter("serverless_function_region", serverless_function_region)
+            pulumi.set(__self__, "serverless_function_region", serverless_function_region)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
         if vercel_authentication is not None:
-            _setter("vercel_authentication", vercel_authentication)
+            pulumi.set(__self__, "vercel_authentication", vercel_authentication)
 
     @property
     @pulumi.getter(name="buildCommand")
@@ -824,10 +686,6 @@ class Project(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ProjectArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -862,20 +720,17 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["dev_command"] = dev_command
             __props__.__dict__["environments"] = environments
             __props__.__dict__["framework"] = framework
-            git_repository = _utilities.configure(git_repository, ProjectGitRepositoryArgs, True)
             __props__.__dict__["git_repository"] = git_repository
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
             __props__.__dict__["name"] = name
             __props__.__dict__["output_directory"] = output_directory
-            password_protection = _utilities.configure(password_protection, ProjectPasswordProtectionArgs, True)
             __props__.__dict__["password_protection"] = password_protection
             __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
             __props__.__dict__["public_source"] = public_source
             __props__.__dict__["root_directory"] = root_directory
             __props__.__dict__["serverless_function_region"] = serverless_function_region
             __props__.__dict__["team_id"] = team_id
-            vercel_authentication = _utilities.configure(vercel_authentication, ProjectVercelAuthenticationArgs, True)
             __props__.__dict__["vercel_authentication"] = vercel_authentication
             __props__.__dict__["protection_bypass_for_automation_secret"] = None
         super(Project, __self__).__init__(

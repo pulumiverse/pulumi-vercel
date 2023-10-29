@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['SharedEnvironmentVariableArgs', 'SharedEnvironmentVariable']
@@ -27,43 +27,12 @@ class SharedEnvironmentVariableArgs:
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         """
-        SharedEnvironmentVariableArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            key=key,
-            project_ids=project_ids,
-            targets=targets,
-            value=value,
-            team_id=team_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             key: Optional[pulumi.Input[str]] = None,
-             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             value: Optional[pulumi.Input[str]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if key is None:
-            raise TypeError("Missing 'key' argument")
-        if project_ids is None and 'projectIds' in kwargs:
-            project_ids = kwargs['projectIds']
-        if project_ids is None:
-            raise TypeError("Missing 'project_ids' argument")
-        if targets is None:
-            raise TypeError("Missing 'targets' argument")
-        if value is None:
-            raise TypeError("Missing 'value' argument")
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-
-        _setter("key", key)
-        _setter("project_ids", project_ids)
-        _setter("targets", targets)
-        _setter("value", value)
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "project_ids", project_ids)
+        pulumi.set(__self__, "targets", targets)
+        pulumi.set(__self__, "value", value)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter
@@ -142,39 +111,16 @@ class _SharedEnvironmentVariableState:
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
-        _SharedEnvironmentVariableState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            key=key,
-            project_ids=project_ids,
-            targets=targets,
-            team_id=team_id,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             key: Optional[pulumi.Input[str]] = None,
-             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if project_ids is None and 'projectIds' in kwargs:
-            project_ids = kwargs['projectIds']
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-
         if key is not None:
-            _setter("key", key)
+            pulumi.set(__self__, "key", key)
         if project_ids is not None:
-            _setter("project_ids", project_ids)
+            pulumi.set(__self__, "project_ids", project_ids)
         if targets is not None:
-            _setter("targets", targets)
+            pulumi.set(__self__, "targets", targets)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter
@@ -340,10 +286,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            SharedEnvironmentVariableArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

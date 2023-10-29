@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['ProviderArgs', 'Provider']
@@ -23,25 +23,10 @@ class ProviderArgs:
         :param pulumi.Input[str] team: The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
                and ID are both available from the Team Settings page in the Vercel dashboard.
         """
-        ProviderArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_token=api_token,
-            team=team,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_token: Optional[pulumi.Input[str]] = None,
-             team: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_token is None and 'apiToken' in kwargs:
-            api_token = kwargs['apiToken']
-
         if api_token is not None:
-            _setter("api_token", api_token)
+            pulumi.set(__self__, "api_token", api_token)
         if team is not None:
-            _setter("team", team)
+            pulumi.set(__self__, "team", team)
 
     @property
     @pulumi.getter(name="apiToken")
@@ -113,10 +98,6 @@ class Provider(pulumi.ProviderResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ProviderArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
