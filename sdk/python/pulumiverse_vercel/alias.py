@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['AliasArgs', 'Alias']
@@ -23,33 +23,10 @@ class AliasArgs:
         :param pulumi.Input[str] deployment_id: The id of the Deployment the Alias should be associated with.
         :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
-        AliasArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            alias=alias,
-            deployment_id=deployment_id,
-            team_id=team_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             alias: Optional[pulumi.Input[str]] = None,
-             deployment_id: Optional[pulumi.Input[str]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if alias is None:
-            raise TypeError("Missing 'alias' argument")
-        if deployment_id is None and 'deploymentId' in kwargs:
-            deployment_id = kwargs['deploymentId']
-        if deployment_id is None:
-            raise TypeError("Missing 'deployment_id' argument")
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-
-        _setter("alias", alias)
-        _setter("deployment_id", deployment_id)
+        pulumi.set(__self__, "alias", alias)
+        pulumi.set(__self__, "deployment_id", deployment_id)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter
@@ -100,31 +77,12 @@ class _AliasState:
         :param pulumi.Input[str] deployment_id: The id of the Deployment the Alias should be associated with.
         :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
-        _AliasState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            alias=alias,
-            deployment_id=deployment_id,
-            team_id=team_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             alias: Optional[pulumi.Input[str]] = None,
-             deployment_id: Optional[pulumi.Input[str]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if deployment_id is None and 'deploymentId' in kwargs:
-            deployment_id = kwargs['deploymentId']
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-
         if alias is not None:
-            _setter("alias", alias)
+            pulumi.set(__self__, "alias", alias)
         if deployment_id is not None:
-            _setter("deployment_id", deployment_id)
+            pulumi.set(__self__, "deployment_id", deployment_id)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter
@@ -204,10 +162,6 @@ class Alias(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            AliasArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

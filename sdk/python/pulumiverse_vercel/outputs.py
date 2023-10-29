@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
@@ -60,43 +60,16 @@ class DeploymentProjectSettings(dict):
         :param str output_directory: The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
         :param str root_directory: The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
         """
-        DeploymentProjectSettings._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            build_command=build_command,
-            framework=framework,
-            install_command=install_command,
-            output_directory=output_directory,
-            root_directory=root_directory,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             build_command: Optional[str] = None,
-             framework: Optional[str] = None,
-             install_command: Optional[str] = None,
-             output_directory: Optional[str] = None,
-             root_directory: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if build_command is None and 'buildCommand' in kwargs:
-            build_command = kwargs['buildCommand']
-        if install_command is None and 'installCommand' in kwargs:
-            install_command = kwargs['installCommand']
-        if output_directory is None and 'outputDirectory' in kwargs:
-            output_directory = kwargs['outputDirectory']
-        if root_directory is None and 'rootDirectory' in kwargs:
-            root_directory = kwargs['rootDirectory']
-
         if build_command is not None:
-            _setter("build_command", build_command)
+            pulumi.set(__self__, "build_command", build_command)
         if framework is not None:
-            _setter("framework", framework)
+            pulumi.set(__self__, "framework", framework)
         if install_command is not None:
-            _setter("install_command", install_command)
+            pulumi.set(__self__, "install_command", install_command)
         if output_directory is not None:
-            _setter("output_directory", output_directory)
+            pulumi.set(__self__, "output_directory", output_directory)
         if root_directory is not None:
-            _setter("root_directory", root_directory)
+            pulumi.set(__self__, "root_directory", root_directory)
 
     @property
     @pulumi.getter(name="buildCommand")
@@ -152,35 +125,10 @@ class DnsRecordSrv(dict):
         :param str target: The canonical hostname of the machine providing the service, ending in a dot.
         :param int weight: A relative weight for records with the same priority, higher value means higher chance of getting picked.
         """
-        DnsRecordSrv._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            port=port,
-            priority=priority,
-            target=target,
-            weight=weight,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             port: Optional[int] = None,
-             priority: Optional[int] = None,
-             target: Optional[str] = None,
-             weight: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if port is None:
-            raise TypeError("Missing 'port' argument")
-        if priority is None:
-            raise TypeError("Missing 'priority' argument")
-        if target is None:
-            raise TypeError("Missing 'target' argument")
-        if weight is None:
-            raise TypeError("Missing 'weight' argument")
-
-        _setter("port", port)
-        _setter("priority", priority)
-        _setter("target", target)
-        _setter("weight", weight)
+        pulumi.set(__self__, "port", port)
+        pulumi.set(__self__, "priority", priority)
+        pulumi.set(__self__, "target", target)
+        pulumi.set(__self__, "weight", weight)
 
     @property
     @pulumi.getter
@@ -247,40 +195,13 @@ class ProjectEnvironment(dict):
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
         """
-        ProjectEnvironment._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            key=key,
-            targets=targets,
-            value=value,
-            git_branch=git_branch,
-            id=id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             key: Optional[str] = None,
-             targets: Optional[Sequence[str]] = None,
-             value: Optional[str] = None,
-             git_branch: Optional[str] = None,
-             id: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if key is None:
-            raise TypeError("Missing 'key' argument")
-        if targets is None:
-            raise TypeError("Missing 'targets' argument")
-        if value is None:
-            raise TypeError("Missing 'value' argument")
-        if git_branch is None and 'gitBranch' in kwargs:
-            git_branch = kwargs['gitBranch']
-
-        _setter("key", key)
-        _setter("targets", targets)
-        _setter("value", value)
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "targets", targets)
+        pulumi.set(__self__, "value", value)
         if git_branch is not None:
-            _setter("git_branch", git_branch)
+            pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
-            _setter("id", id)
+            pulumi.set(__self__, "id", id)
 
     @property
     @pulumi.getter
@@ -351,31 +272,10 @@ class ProjectGitRepository(dict):
         :param str type: The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
         :param str production_branch: By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         """
-        ProjectGitRepository._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            repo=repo,
-            type=type,
-            production_branch=production_branch,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             repo: Optional[str] = None,
-             type: Optional[str] = None,
-             production_branch: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if repo is None:
-            raise TypeError("Missing 'repo' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if production_branch is None and 'productionBranch' in kwargs:
-            production_branch = kwargs['productionBranch']
-
-        _setter("repo", repo)
-        _setter("type", type)
+        pulumi.set(__self__, "repo", repo)
+        pulumi.set(__self__, "type", type)
         if production_branch is not None:
-            _setter("production_branch", production_branch)
+            pulumi.set(__self__, "production_branch", production_branch)
 
     @property
     @pulumi.getter
@@ -428,26 +328,9 @@ class ProjectPasswordProtection(dict):
         :param str password: The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
         :param bool protect_production: If true, production deployments will also be protected
         """
-        ProjectPasswordProtection._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            password=password,
-            protect_production=protect_production,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             password: Optional[str] = None,
-             protect_production: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if password is None:
-            raise TypeError("Missing 'password' argument")
-        if protect_production is None and 'protectProduction' in kwargs:
-            protect_production = kwargs['protectProduction']
-
-        _setter("password", password)
+        pulumi.set(__self__, "password", password)
         if protect_production is not None:
-            _setter("protect_production", protect_production)
+            pulumi.set(__self__, "protect_production", protect_production)
 
     @property
     @pulumi.getter
@@ -490,21 +373,8 @@ class ProjectVercelAuthentication(dict):
         """
         :param bool protect_production: If true, production deployments will also be protected
         """
-        ProjectVercelAuthentication._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            protect_production=protect_production,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             protect_production: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if protect_production is None and 'protectProduction' in kwargs:
-            protect_production = kwargs['protectProduction']
-
         if protect_production is not None:
-            _setter("protect_production", protect_production)
+            pulumi.set(__self__, "protect_production", protect_production)
 
     @property
     @pulumi.getter(name="protectProduction")
@@ -530,42 +400,11 @@ class GetProjectEnvironmentResult(dict):
         :param Sequence[str] targets: The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the environment variable.
         """
-        GetProjectEnvironmentResult._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            git_branch=git_branch,
-            id=id,
-            key=key,
-            targets=targets,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             git_branch: Optional[str] = None,
-             id: Optional[str] = None,
-             key: Optional[str] = None,
-             targets: Optional[Sequence[str]] = None,
-             value: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if git_branch is None and 'gitBranch' in kwargs:
-            git_branch = kwargs['gitBranch']
-        if git_branch is None:
-            raise TypeError("Missing 'git_branch' argument")
-        if id is None:
-            raise TypeError("Missing 'id' argument")
-        if key is None:
-            raise TypeError("Missing 'key' argument")
-        if targets is None:
-            raise TypeError("Missing 'targets' argument")
-        if value is None:
-            raise TypeError("Missing 'value' argument")
-
-        _setter("git_branch", git_branch)
-        _setter("id", id)
-        _setter("key", key)
-        _setter("targets", targets)
-        _setter("value", value)
+        pulumi.set(__self__, "git_branch", git_branch)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "targets", targets)
+        pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -619,32 +458,9 @@ class GetProjectGitRepositoryResult(dict):
         :param str repo: The name of the git repository. For example: `vercel/next.js`.
         :param str type: The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
         """
-        GetProjectGitRepositoryResult._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            production_branch=production_branch,
-            repo=repo,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             production_branch: Optional[str] = None,
-             repo: Optional[str] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if production_branch is None and 'productionBranch' in kwargs:
-            production_branch = kwargs['productionBranch']
-        if production_branch is None:
-            raise TypeError("Missing 'production_branch' argument")
-        if repo is None:
-            raise TypeError("Missing 'repo' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-
-        _setter("production_branch", production_branch)
-        _setter("repo", repo)
-        _setter("type", type)
+        pulumi.set(__self__, "production_branch", production_branch)
+        pulumi.set(__self__, "repo", repo)
+        pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="productionBranch")
@@ -678,22 +494,7 @@ class GetProjectPasswordProtectionResult(dict):
         """
         :param bool protect_production: If true, production deployments will also be protected
         """
-        GetProjectPasswordProtectionResult._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            protect_production=protect_production,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             protect_production: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if protect_production is None and 'protectProduction' in kwargs:
-            protect_production = kwargs['protectProduction']
-        if protect_production is None:
-            raise TypeError("Missing 'protect_production' argument")
-
-        _setter("protect_production", protect_production)
+        pulumi.set(__self__, "protect_production", protect_production)
 
     @property
     @pulumi.getter(name="protectProduction")
@@ -711,22 +512,7 @@ class GetProjectVercelAuthenticationResult(dict):
         """
         :param bool protect_production: If true, production deployments will also be protected
         """
-        GetProjectVercelAuthenticationResult._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            protect_production=protect_production,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             protect_production: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if protect_production is None and 'protectProduction' in kwargs:
-            protect_production = kwargs['protectProduction']
-        if protect_production is None:
-            raise TypeError("Missing 'protect_production' argument")
-
-        _setter("protect_production", protect_production)
+        pulumi.set(__self__, "protect_production", protect_production)
 
     @property
     @pulumi.getter(name="protectProduction")

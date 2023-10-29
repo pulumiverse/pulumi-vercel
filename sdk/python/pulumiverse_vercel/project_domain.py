@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['ProjectDomainArgs', 'ProjectDomain']
@@ -29,49 +29,16 @@ class ProjectDomainArgs:
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
         :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
-        ProjectDomainArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            domain=domain,
-            project_id=project_id,
-            git_branch=git_branch,
-            redirect=redirect,
-            redirect_status_code=redirect_status_code,
-            team_id=team_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             domain: Optional[pulumi.Input[str]] = None,
-             project_id: Optional[pulumi.Input[str]] = None,
-             git_branch: Optional[pulumi.Input[str]] = None,
-             redirect: Optional[pulumi.Input[str]] = None,
-             redirect_status_code: Optional[pulumi.Input[int]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if domain is None:
-            raise TypeError("Missing 'domain' argument")
-        if project_id is None and 'projectId' in kwargs:
-            project_id = kwargs['projectId']
-        if project_id is None:
-            raise TypeError("Missing 'project_id' argument")
-        if git_branch is None and 'gitBranch' in kwargs:
-            git_branch = kwargs['gitBranch']
-        if redirect_status_code is None and 'redirectStatusCode' in kwargs:
-            redirect_status_code = kwargs['redirectStatusCode']
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-
-        _setter("domain", domain)
-        _setter("project_id", project_id)
+        pulumi.set(__self__, "domain", domain)
+        pulumi.set(__self__, "project_id", project_id)
         if git_branch is not None:
-            _setter("git_branch", git_branch)
+            pulumi.set(__self__, "git_branch", git_branch)
         if redirect is not None:
-            _setter("redirect", redirect)
+            pulumi.set(__self__, "redirect", redirect)
         if redirect_status_code is not None:
-            _setter("redirect_status_code", redirect_status_code)
+            pulumi.set(__self__, "redirect_status_code", redirect_status_code)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter
@@ -164,47 +131,18 @@ class _ProjectDomainState:
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
         :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
-        _ProjectDomainState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            domain=domain,
-            git_branch=git_branch,
-            project_id=project_id,
-            redirect=redirect,
-            redirect_status_code=redirect_status_code,
-            team_id=team_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             domain: Optional[pulumi.Input[str]] = None,
-             git_branch: Optional[pulumi.Input[str]] = None,
-             project_id: Optional[pulumi.Input[str]] = None,
-             redirect: Optional[pulumi.Input[str]] = None,
-             redirect_status_code: Optional[pulumi.Input[int]] = None,
-             team_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if git_branch is None and 'gitBranch' in kwargs:
-            git_branch = kwargs['gitBranch']
-        if project_id is None and 'projectId' in kwargs:
-            project_id = kwargs['projectId']
-        if redirect_status_code is None and 'redirectStatusCode' in kwargs:
-            redirect_status_code = kwargs['redirectStatusCode']
-        if team_id is None and 'teamId' in kwargs:
-            team_id = kwargs['teamId']
-
         if domain is not None:
-            _setter("domain", domain)
+            pulumi.set(__self__, "domain", domain)
         if git_branch is not None:
-            _setter("git_branch", git_branch)
+            pulumi.set(__self__, "git_branch", git_branch)
         if project_id is not None:
-            _setter("project_id", project_id)
+            pulumi.set(__self__, "project_id", project_id)
         if redirect is not None:
-            _setter("redirect", redirect)
+            pulumi.set(__self__, "redirect", redirect)
         if redirect_status_code is not None:
-            _setter("redirect_status_code", redirect_status_code)
+            pulumi.set(__self__, "redirect_status_code", redirect_status_code)
         if team_id is not None:
-            _setter("team_id", team_id)
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter
@@ -400,10 +338,6 @@ class ProjectDomain(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ProjectDomainArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
