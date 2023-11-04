@@ -6,7 +6,7 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.18.3
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.63.2
 	github.com/vercel/terraform-provider-vercel v0.15.4
-	golang.org/x/text v0.13.0
+	golang.org/x/text v0.14.0
 )
 
 require github.com/Masterminds/semver v1.5.0 // indirect
