@@ -37,7 +37,7 @@
   "schedule": ["at any time"],
   "automergeStrategy": "squash",
   "constraints": {
-    "go": "1.19"
+    "go": "1.20"
   },
   "postUpdateOptions": ["gomodTidy"]
 }
