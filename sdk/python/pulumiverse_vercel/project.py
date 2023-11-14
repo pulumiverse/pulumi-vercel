@@ -938,7 +938,7 @@ class Project(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="vercelAuthentication")
-    def vercel_authentication(self) -> pulumi.Output[Optional['outputs.ProjectVercelAuthentication']]:
+    def vercel_authentication(self) -> pulumi.Output['outputs.ProjectVercelAuthentication']:
         """
         Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
