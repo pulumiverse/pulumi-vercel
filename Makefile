@@ -44,7 +44,7 @@ prepare::
 development:: install_plugins provider lint_provider build_sdks install_sdks cleanup # Build the provider & SDKs for a development environment
 
 # Required for the codegen action that runs in pulumi/pulumi and pulumi/pulumi-terraform-bridge
-build:: install_plugins provider build_sdks install_sdks
+build:: install_plugins provider build_sdks
 only_build:: build
 
 tfgen:: install_plugins
