@@ -807,7 +807,8 @@
                 "name",
                 "protectionBypassForAutomationSecret",
                 "serverlessFunctionRegion",
-                "teamId"
+                "teamId",
+                "vercelAuthentication"
             ],
             "inputProperties": {
                 "buildCommand": {

@@ -138,7 +138,7 @@ export class Project extends pulumi.CustomResource {
     /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      */
-    public readonly vercelAuthentication!: pulumi.Output<outputs.ProjectVercelAuthentication | undefined>;
+    public readonly vercelAuthentication!: pulumi.Output<outputs.ProjectVercelAuthentication>;
 
     /**
      * Create a Project resource with the given unique name, arguments, and options.

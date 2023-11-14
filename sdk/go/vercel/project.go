@@ -101,7 +101,7 @@ type Project struct {
 	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
-	VercelAuthentication ProjectVercelAuthenticationPtrOutput `pulumi:"vercelAuthentication"`
+	VercelAuthentication ProjectVercelAuthenticationOutput `pulumi:"vercelAuthentication"`
 }
 
 // NewProject registers a new resource with the given unique name, arguments, and options.
@@ -474,8 +474,8 @@ func (o ProjectOutput) TeamId() pulumi.StringOutput {
 }
 
 // Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
-func (o ProjectOutput) VercelAuthentication() ProjectVercelAuthenticationPtrOutput {
-	return o.ApplyT(func(v *Project) ProjectVercelAuthenticationPtrOutput { return v.VercelAuthentication }).(ProjectVercelAuthenticationPtrOutput)
+func (o ProjectOutput) VercelAuthentication() ProjectVercelAuthenticationOutput {
+	return o.ApplyT(func(v *Project) ProjectVercelAuthenticationOutput { return v.VercelAuthentication }).(ProjectVercelAuthenticationOutput)
 }
 
 type ProjectArrayOutput struct{ *pulumi.OutputState }

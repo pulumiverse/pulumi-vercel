@@ -162,7 +162,7 @@ namespace Pulumiverse.Vercel
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
         [Output("vercelAuthentication")]
-        public Output<Outputs.ProjectVercelAuthentication?> VercelAuthentication { get; private set; } = null!;
+        public Output<Outputs.ProjectVercelAuthentication> VercelAuthentication { get; private set; } = null!;
 
 
         /// <summary>
