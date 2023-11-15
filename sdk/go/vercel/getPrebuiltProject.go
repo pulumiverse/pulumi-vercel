@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
@@ -71,12 +70,6 @@ func (o GetPrebuiltProjectResultOutput) ToGetPrebuiltProjectResultOutput() GetPr
 
 func (o GetPrebuiltProjectResultOutput) ToGetPrebuiltProjectResultOutputWithContext(ctx context.Context) GetPrebuiltProjectResultOutput {
 	return o
-}
-
-func (o GetPrebuiltProjectResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetPrebuiltProjectResult] {
-	return pulumix.Output[GetPrebuiltProjectResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The ID of this resource.

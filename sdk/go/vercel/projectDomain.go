@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
@@ -216,12 +215,6 @@ func (i *ProjectDomain) ToProjectDomainOutputWithContext(ctx context.Context) Pr
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectDomainOutput)
 }
 
-func (i *ProjectDomain) ToOutput(ctx context.Context) pulumix.Output[*ProjectDomain] {
-	return pulumix.Output[*ProjectDomain]{
-		OutputState: i.ToProjectDomainOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ProjectDomainArrayInput is an input type that accepts ProjectDomainArray and ProjectDomainArrayOutput values.
 // You can construct a concrete instance of `ProjectDomainArrayInput` via:
 //
@@ -245,12 +238,6 @@ func (i ProjectDomainArray) ToProjectDomainArrayOutput() ProjectDomainArrayOutpu
 
 func (i ProjectDomainArray) ToProjectDomainArrayOutputWithContext(ctx context.Context) ProjectDomainArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectDomainArrayOutput)
-}
-
-func (i ProjectDomainArray) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectDomain] {
-	return pulumix.Output[[]*ProjectDomain]{
-		OutputState: i.ToProjectDomainArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ProjectDomainMapInput is an input type that accepts ProjectDomainMap and ProjectDomainMapOutput values.
@@ -278,12 +265,6 @@ func (i ProjectDomainMap) ToProjectDomainMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectDomainMapOutput)
 }
 
-func (i ProjectDomainMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectDomain] {
-	return pulumix.Output[map[string]*ProjectDomain]{
-		OutputState: i.ToProjectDomainMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ProjectDomainOutput struct{ *pulumi.OutputState }
 
 func (ProjectDomainOutput) ElementType() reflect.Type {
@@ -296,12 +277,6 @@ func (o ProjectDomainOutput) ToProjectDomainOutput() ProjectDomainOutput {
 
 func (o ProjectDomainOutput) ToProjectDomainOutputWithContext(ctx context.Context) ProjectDomainOutput {
 	return o
-}
-
-func (o ProjectDomainOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectDomain] {
-	return pulumix.Output[*ProjectDomain]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The domain name to associate with the project.
@@ -348,12 +323,6 @@ func (o ProjectDomainArrayOutput) ToProjectDomainArrayOutputWithContext(ctx cont
 	return o
 }
 
-func (o ProjectDomainArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectDomain] {
-	return pulumix.Output[[]*ProjectDomain]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ProjectDomainArrayOutput) Index(i pulumi.IntInput) ProjectDomainOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ProjectDomain {
 		return vs[0].([]*ProjectDomain)[vs[1].(int)]
@@ -372,12 +341,6 @@ func (o ProjectDomainMapOutput) ToProjectDomainMapOutput() ProjectDomainMapOutpu
 
 func (o ProjectDomainMapOutput) ToProjectDomainMapOutputWithContext(ctx context.Context) ProjectDomainMapOutput {
 	return o
-}
-
-func (o ProjectDomainMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectDomain] {
-	return pulumix.Output[map[string]*ProjectDomain]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ProjectDomainMapOutput) MapIndex(k pulumi.StringInput) ProjectDomainOutput {

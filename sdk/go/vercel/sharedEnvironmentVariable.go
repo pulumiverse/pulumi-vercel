@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
@@ -213,12 +212,6 @@ func (i *SharedEnvironmentVariable) ToSharedEnvironmentVariableOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(SharedEnvironmentVariableOutput)
 }
 
-func (i *SharedEnvironmentVariable) ToOutput(ctx context.Context) pulumix.Output[*SharedEnvironmentVariable] {
-	return pulumix.Output[*SharedEnvironmentVariable]{
-		OutputState: i.ToSharedEnvironmentVariableOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SharedEnvironmentVariableArrayInput is an input type that accepts SharedEnvironmentVariableArray and SharedEnvironmentVariableArrayOutput values.
 // You can construct a concrete instance of `SharedEnvironmentVariableArrayInput` via:
 //
@@ -242,12 +235,6 @@ func (i SharedEnvironmentVariableArray) ToSharedEnvironmentVariableArrayOutput()
 
 func (i SharedEnvironmentVariableArray) ToSharedEnvironmentVariableArrayOutputWithContext(ctx context.Context) SharedEnvironmentVariableArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SharedEnvironmentVariableArrayOutput)
-}
-
-func (i SharedEnvironmentVariableArray) ToOutput(ctx context.Context) pulumix.Output[[]*SharedEnvironmentVariable] {
-	return pulumix.Output[[]*SharedEnvironmentVariable]{
-		OutputState: i.ToSharedEnvironmentVariableArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // SharedEnvironmentVariableMapInput is an input type that accepts SharedEnvironmentVariableMap and SharedEnvironmentVariableMapOutput values.
@@ -275,12 +262,6 @@ func (i SharedEnvironmentVariableMap) ToSharedEnvironmentVariableMapOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(SharedEnvironmentVariableMapOutput)
 }
 
-func (i SharedEnvironmentVariableMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SharedEnvironmentVariable] {
-	return pulumix.Output[map[string]*SharedEnvironmentVariable]{
-		OutputState: i.ToSharedEnvironmentVariableMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type SharedEnvironmentVariableOutput struct{ *pulumi.OutputState }
 
 func (SharedEnvironmentVariableOutput) ElementType() reflect.Type {
@@ -293,12 +274,6 @@ func (o SharedEnvironmentVariableOutput) ToSharedEnvironmentVariableOutput() Sha
 
 func (o SharedEnvironmentVariableOutput) ToSharedEnvironmentVariableOutputWithContext(ctx context.Context) SharedEnvironmentVariableOutput {
 	return o
-}
-
-func (o SharedEnvironmentVariableOutput) ToOutput(ctx context.Context) pulumix.Output[*SharedEnvironmentVariable] {
-	return pulumix.Output[*SharedEnvironmentVariable]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The name of the Environment Variable.
@@ -340,12 +315,6 @@ func (o SharedEnvironmentVariableArrayOutput) ToSharedEnvironmentVariableArrayOu
 	return o
 }
 
-func (o SharedEnvironmentVariableArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SharedEnvironmentVariable] {
-	return pulumix.Output[[]*SharedEnvironmentVariable]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o SharedEnvironmentVariableArrayOutput) Index(i pulumi.IntInput) SharedEnvironmentVariableOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SharedEnvironmentVariable {
 		return vs[0].([]*SharedEnvironmentVariable)[vs[1].(int)]
@@ -364,12 +333,6 @@ func (o SharedEnvironmentVariableMapOutput) ToSharedEnvironmentVariableMapOutput
 
 func (o SharedEnvironmentVariableMapOutput) ToSharedEnvironmentVariableMapOutputWithContext(ctx context.Context) SharedEnvironmentVariableMapOutput {
 	return o
-}
-
-func (o SharedEnvironmentVariableMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SharedEnvironmentVariable] {
-	return pulumix.Output[map[string]*SharedEnvironmentVariable]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SharedEnvironmentVariableMapOutput) MapIndex(k pulumi.StringInput) SharedEnvironmentVariableOutput {
