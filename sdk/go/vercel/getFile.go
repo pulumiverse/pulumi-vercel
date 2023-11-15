@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
@@ -113,12 +112,6 @@ func (o GetFileResultOutput) ToGetFileResultOutput() GetFileResultOutput {
 
 func (o GetFileResultOutput) ToGetFileResultOutputWithContext(ctx context.Context) GetFileResultOutput {
 	return o
-}
-
-func (o GetFileResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetFileResult] {
-	return pulumix.Output[GetFileResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
