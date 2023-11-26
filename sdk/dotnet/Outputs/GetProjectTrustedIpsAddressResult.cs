@@ -12,17 +12,22 @@ namespace Pulumiverse.Vercel.Outputs
 {
 
     [OutputType]
-    public sealed class ProjectVercelAuthentication
+    public sealed class GetProjectTrustedIpsAddressResult
     {
+        public readonly string Note;
         /// <summary>
-        /// The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        /// The value of the environment variable.
         /// </summary>
-        public readonly string DeploymentType;
+        public readonly string Value;
 
         [OutputConstructor]
-        private ProjectVercelAuthentication(string deploymentType)
+        private GetProjectTrustedIpsAddressResult(
+            string note,
+
+            string value)
         {
-            DeploymentType = deploymentType;
+            Note = note;
+            Value = value;
         }
     }
 }

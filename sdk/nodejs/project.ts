@@ -136,6 +136,10 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
+     * Ensures only visitors from an allowed IP address can access your deployment.
+     */
+    public readonly trustedIps!: pulumi.Output<outputs.ProjectTrustedIps | undefined>;
+    /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      */
     public readonly vercelAuthentication!: pulumi.Output<outputs.ProjectVercelAuthentication>;
@@ -169,6 +173,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["rootDirectory"] = state ? state.rootDirectory : undefined;
             resourceInputs["serverlessFunctionRegion"] = state ? state.serverlessFunctionRegion : undefined;
             resourceInputs["teamId"] = state ? state.teamId : undefined;
+            resourceInputs["trustedIps"] = state ? state.trustedIps : undefined;
             resourceInputs["vercelAuthentication"] = state ? state.vercelAuthentication : undefined;
         } else {
             const args = argsOrState as ProjectArgs | undefined;
@@ -187,6 +192,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["rootDirectory"] = args ? args.rootDirectory : undefined;
             resourceInputs["serverlessFunctionRegion"] = args ? args.serverlessFunctionRegion : undefined;
             resourceInputs["teamId"] = args ? args.teamId : undefined;
+            resourceInputs["trustedIps"] = args ? args.trustedIps : undefined;
             resourceInputs["vercelAuthentication"] = args ? args.vercelAuthentication : undefined;
             resourceInputs["protectionBypassForAutomationSecret"] = undefined /*out*/;
         }
@@ -264,6 +270,10 @@ export interface ProjectState {
      */
     teamId?: pulumi.Input<string>;
     /**
+     * Ensures only visitors from an allowed IP address can access your deployment.
+     */
+    trustedIps?: pulumi.Input<inputs.ProjectTrustedIps>;
+    /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      */
     vercelAuthentication?: pulumi.Input<inputs.ProjectVercelAuthentication>;
@@ -333,6 +343,10 @@ export interface ProjectArgs {
      * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
+    /**
+     * Ensures only visitors from an allowed IP address can access your deployment.
+     */
+    trustedIps?: pulumi.Input<inputs.ProjectTrustedIps>;
     /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      */

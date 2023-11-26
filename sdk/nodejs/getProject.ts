@@ -30,7 +30,6 @@ export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): P
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProject:getProject", {
         "name": args.name,
-        "passwordProtection": args.passwordProtection,
         "teamId": args.teamId,
     }, opts);
 }
@@ -43,10 +42,6 @@ export interface GetProjectArgs {
      * The name of the project.
      */
     name: string;
-    /**
-     * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-     */
-    passwordProtection?: inputs.GetProjectPasswordProtection;
     /**
      * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
      */
@@ -100,7 +95,7 @@ export interface GetProjectResult {
     /**
      * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      */
-    readonly passwordProtection?: outputs.GetProjectPasswordProtection;
+    readonly passwordProtection: outputs.GetProjectPasswordProtection;
     /**
      * Specifies whether the source code and logs of the deployments for this project should be public or not.
      */
@@ -117,6 +112,10 @@ export interface GetProjectResult {
      * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
      */
     readonly teamId: string;
+    /**
+     * Ensures only visitors from an allowed IP address can access your deployment.
+     */
+    readonly trustedIps: outputs.GetProjectTrustedIps;
     /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      */
@@ -153,10 +152,6 @@ export interface GetProjectOutputArgs {
      * The name of the project.
      */
     name: pulumi.Input<string>;
-    /**
-     * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-     */
-    passwordProtection?: pulumi.Input<inputs.GetProjectPasswordProtectionArgs>;
     /**
      * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
      */

@@ -20,3 +20,11 @@ func getPythonBaseOptions(t *testing.T) integration.ProgramTestOptions {
 
 	return basePython
 }
+
+func TestAccVercelPy(t *testing.T) {
+	test := getPythonBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: filepath.Join(getCwd(t), "vercel-py"),
+		})
+	integration.ProgramTest(t, &test)
+}

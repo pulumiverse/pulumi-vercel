@@ -47,20 +47,6 @@ export interface DnsRecordSrv {
     weight: pulumi.Input<number>;
 }
 
-export interface GetProjectPasswordProtection {
-    /**
-     * If true, production deployments will also be protected
-     */
-    protectProduction?: boolean;
-}
-
-export interface GetProjectPasswordProtectionArgs {
-    /**
-     * If true, production deployments will also be protected
-     */
-    protectProduction?: pulumi.Input<boolean>;
-}
-
 export interface ProjectEnvironment {
     /**
      * The git branch of the Environment Variable.
@@ -101,18 +87,44 @@ export interface ProjectGitRepository {
 
 export interface ProjectPasswordProtection {
     /**
+     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+     */
+    deploymentType: pulumi.Input<string>;
+    /**
      * The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
      */
     password: pulumi.Input<string>;
+}
+
+export interface ProjectTrustedIps {
     /**
-     * If true, production deployments will also be protected
+     * The allowed IP addressses and CIDR ranges with optional descriptions.
      */
-    protectProduction?: pulumi.Input<boolean>;
+    addresses: pulumi.Input<pulumi.Input<inputs.ProjectTrustedIpsAddress>[]>;
+    /**
+     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+     */
+    deploymentType: pulumi.Input<string>;
+    /**
+     * Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
+     */
+    protectionMode?: pulumi.Input<string>;
+}
+
+export interface ProjectTrustedIpsAddress {
+    /**
+     * A description for the value
+     */
+    note?: pulumi.Input<string>;
+    /**
+     * The value of the Environment Variable.
+     */
+    value: pulumi.Input<string>;
 }
 
 export interface ProjectVercelAuthentication {
     /**
-     * If true, production deployments will also be protected
+     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
-    protectProduction?: pulumi.Input<boolean>;
+    deploymentType: pulumi.Input<string>;
 }

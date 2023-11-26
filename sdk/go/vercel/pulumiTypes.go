@@ -729,10 +729,10 @@ func (o ProjectGitRepositoryPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 type ProjectPasswordProtection struct {
+	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+	DeploymentType string `pulumi:"deploymentType"`
 	// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 	Password string `pulumi:"password"`
-	// If true, production deployments will also be protected
-	ProtectProduction *bool `pulumi:"protectProduction"`
 }
 
 // ProjectPasswordProtectionInput is an input type that accepts ProjectPasswordProtectionArgs and ProjectPasswordProtectionOutput values.
@@ -747,10 +747,10 @@ type ProjectPasswordProtectionInput interface {
 }
 
 type ProjectPasswordProtectionArgs struct {
+	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 	// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 	Password pulumi.StringInput `pulumi:"password"`
-	// If true, production deployments will also be protected
-	ProtectProduction pulumi.BoolPtrInput `pulumi:"protectProduction"`
 }
 
 func (ProjectPasswordProtectionArgs) ElementType() reflect.Type {
@@ -830,14 +830,14 @@ func (o ProjectPasswordProtectionOutput) ToProjectPasswordProtectionPtrOutputWit
 	}).(ProjectPasswordProtectionPtrOutput)
 }
 
+// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+func (o ProjectPasswordProtectionOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
 // The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 func (o ProjectPasswordProtectionOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectPasswordProtection) string { return v.Password }).(pulumi.StringOutput)
-}
-
-// If true, production deployments will also be protected
-func (o ProjectPasswordProtectionOutput) ProtectProduction() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectPasswordProtection) *bool { return v.ProtectProduction }).(pulumi.BoolPtrOutput)
 }
 
 type ProjectPasswordProtectionPtrOutput struct{ *pulumi.OutputState }
@@ -864,6 +864,16 @@ func (o ProjectPasswordProtectionPtrOutput) Elem() ProjectPasswordProtectionOutp
 	}).(ProjectPasswordProtectionOutput)
 }
 
+// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+func (o ProjectPasswordProtectionPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectPasswordProtection) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
 // The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 func (o ProjectPasswordProtectionPtrOutput) Password() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectPasswordProtection) *string {
@@ -874,19 +884,290 @@ func (o ProjectPasswordProtectionPtrOutput) Password() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// If true, production deployments will also be protected
-func (o ProjectPasswordProtectionPtrOutput) ProtectProduction() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ProjectPasswordProtection) *bool {
+type ProjectTrustedIps struct {
+	// The allowed IP addressses and CIDR ranges with optional descriptions.
+	Addresses []ProjectTrustedIpsAddress `pulumi:"addresses"`
+	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
+	ProtectionMode *string `pulumi:"protectionMode"`
+}
+
+// ProjectTrustedIpsInput is an input type that accepts ProjectTrustedIpsArgs and ProjectTrustedIpsOutput values.
+// You can construct a concrete instance of `ProjectTrustedIpsInput` via:
+//
+//	ProjectTrustedIpsArgs{...}
+type ProjectTrustedIpsInput interface {
+	pulumi.Input
+
+	ToProjectTrustedIpsOutput() ProjectTrustedIpsOutput
+	ToProjectTrustedIpsOutputWithContext(context.Context) ProjectTrustedIpsOutput
+}
+
+type ProjectTrustedIpsArgs struct {
+	// The allowed IP addressses and CIDR ranges with optional descriptions.
+	Addresses ProjectTrustedIpsAddressArrayInput `pulumi:"addresses"`
+	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
+	ProtectionMode pulumi.StringPtrInput `pulumi:"protectionMode"`
+}
+
+func (ProjectTrustedIpsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedIps)(nil)).Elem()
+}
+
+func (i ProjectTrustedIpsArgs) ToProjectTrustedIpsOutput() ProjectTrustedIpsOutput {
+	return i.ToProjectTrustedIpsOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedIpsArgs) ToProjectTrustedIpsOutputWithContext(ctx context.Context) ProjectTrustedIpsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedIpsOutput)
+}
+
+func (i ProjectTrustedIpsArgs) ToProjectTrustedIpsPtrOutput() ProjectTrustedIpsPtrOutput {
+	return i.ToProjectTrustedIpsPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedIpsArgs) ToProjectTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectTrustedIpsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedIpsOutput).ToProjectTrustedIpsPtrOutputWithContext(ctx)
+}
+
+// ProjectTrustedIpsPtrInput is an input type that accepts ProjectTrustedIpsArgs, ProjectTrustedIpsPtr and ProjectTrustedIpsPtrOutput values.
+// You can construct a concrete instance of `ProjectTrustedIpsPtrInput` via:
+//
+//	        ProjectTrustedIpsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectTrustedIpsPtrInput interface {
+	pulumi.Input
+
+	ToProjectTrustedIpsPtrOutput() ProjectTrustedIpsPtrOutput
+	ToProjectTrustedIpsPtrOutputWithContext(context.Context) ProjectTrustedIpsPtrOutput
+}
+
+type projectTrustedIpsPtrType ProjectTrustedIpsArgs
+
+func ProjectTrustedIpsPtr(v *ProjectTrustedIpsArgs) ProjectTrustedIpsPtrInput {
+	return (*projectTrustedIpsPtrType)(v)
+}
+
+func (*projectTrustedIpsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectTrustedIps)(nil)).Elem()
+}
+
+func (i *projectTrustedIpsPtrType) ToProjectTrustedIpsPtrOutput() ProjectTrustedIpsPtrOutput {
+	return i.ToProjectTrustedIpsPtrOutputWithContext(context.Background())
+}
+
+func (i *projectTrustedIpsPtrType) ToProjectTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectTrustedIpsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedIpsPtrOutput)
+}
+
+type ProjectTrustedIpsOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedIpsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedIps)(nil)).Elem()
+}
+
+func (o ProjectTrustedIpsOutput) ToProjectTrustedIpsOutput() ProjectTrustedIpsOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsOutput) ToProjectTrustedIpsOutputWithContext(ctx context.Context) ProjectTrustedIpsOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsOutput) ToProjectTrustedIpsPtrOutput() ProjectTrustedIpsPtrOutput {
+	return o.ToProjectTrustedIpsPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectTrustedIpsOutput) ToProjectTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectTrustedIpsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectTrustedIps) *ProjectTrustedIps {
+		return &v
+	}).(ProjectTrustedIpsPtrOutput)
+}
+
+// The allowed IP addressses and CIDR ranges with optional descriptions.
+func (o ProjectTrustedIpsOutput) Addresses() ProjectTrustedIpsAddressArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedIps) []ProjectTrustedIpsAddress { return v.Addresses }).(ProjectTrustedIpsAddressArrayOutput)
+}
+
+// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+func (o ProjectTrustedIpsOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectTrustedIps) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
+func (o ProjectTrustedIpsOutput) ProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedIps) *string { return v.ProtectionMode }).(pulumi.StringPtrOutput)
+}
+
+type ProjectTrustedIpsPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedIpsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectTrustedIps)(nil)).Elem()
+}
+
+func (o ProjectTrustedIpsPtrOutput) ToProjectTrustedIpsPtrOutput() ProjectTrustedIpsPtrOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsPtrOutput) ToProjectTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectTrustedIpsPtrOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsPtrOutput) Elem() ProjectTrustedIpsOutput {
+	return o.ApplyT(func(v *ProjectTrustedIps) ProjectTrustedIps {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectTrustedIps
+		return ret
+	}).(ProjectTrustedIpsOutput)
+}
+
+// The allowed IP addressses and CIDR ranges with optional descriptions.
+func (o ProjectTrustedIpsPtrOutput) Addresses() ProjectTrustedIpsAddressArrayOutput {
+	return o.ApplyT(func(v *ProjectTrustedIps) []ProjectTrustedIpsAddress {
 		if v == nil {
 			return nil
 		}
-		return v.ProtectProduction
-	}).(pulumi.BoolPtrOutput)
+		return v.Addresses
+	}).(ProjectTrustedIpsAddressArrayOutput)
+}
+
+// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+func (o ProjectTrustedIpsPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectTrustedIps) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
+func (o ProjectTrustedIpsPtrOutput) ProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectTrustedIps) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ProtectionMode
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProjectTrustedIpsAddress struct {
+	// A description for the value
+	Note *string `pulumi:"note"`
+	// The value of the Environment Variable.
+	Value string `pulumi:"value"`
+}
+
+// ProjectTrustedIpsAddressInput is an input type that accepts ProjectTrustedIpsAddressArgs and ProjectTrustedIpsAddressOutput values.
+// You can construct a concrete instance of `ProjectTrustedIpsAddressInput` via:
+//
+//	ProjectTrustedIpsAddressArgs{...}
+type ProjectTrustedIpsAddressInput interface {
+	pulumi.Input
+
+	ToProjectTrustedIpsAddressOutput() ProjectTrustedIpsAddressOutput
+	ToProjectTrustedIpsAddressOutputWithContext(context.Context) ProjectTrustedIpsAddressOutput
+}
+
+type ProjectTrustedIpsAddressArgs struct {
+	// A description for the value
+	Note pulumi.StringPtrInput `pulumi:"note"`
+	// The value of the Environment Variable.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ProjectTrustedIpsAddressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (i ProjectTrustedIpsAddressArgs) ToProjectTrustedIpsAddressOutput() ProjectTrustedIpsAddressOutput {
+	return i.ToProjectTrustedIpsAddressOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedIpsAddressArgs) ToProjectTrustedIpsAddressOutputWithContext(ctx context.Context) ProjectTrustedIpsAddressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedIpsAddressOutput)
+}
+
+// ProjectTrustedIpsAddressArrayInput is an input type that accepts ProjectTrustedIpsAddressArray and ProjectTrustedIpsAddressArrayOutput values.
+// You can construct a concrete instance of `ProjectTrustedIpsAddressArrayInput` via:
+//
+//	ProjectTrustedIpsAddressArray{ ProjectTrustedIpsAddressArgs{...} }
+type ProjectTrustedIpsAddressArrayInput interface {
+	pulumi.Input
+
+	ToProjectTrustedIpsAddressArrayOutput() ProjectTrustedIpsAddressArrayOutput
+	ToProjectTrustedIpsAddressArrayOutputWithContext(context.Context) ProjectTrustedIpsAddressArrayOutput
+}
+
+type ProjectTrustedIpsAddressArray []ProjectTrustedIpsAddressInput
+
+func (ProjectTrustedIpsAddressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (i ProjectTrustedIpsAddressArray) ToProjectTrustedIpsAddressArrayOutput() ProjectTrustedIpsAddressArrayOutput {
+	return i.ToProjectTrustedIpsAddressArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedIpsAddressArray) ToProjectTrustedIpsAddressArrayOutputWithContext(ctx context.Context) ProjectTrustedIpsAddressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedIpsAddressArrayOutput)
+}
+
+type ProjectTrustedIpsAddressOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedIpsAddressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (o ProjectTrustedIpsAddressOutput) ToProjectTrustedIpsAddressOutput() ProjectTrustedIpsAddressOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsAddressOutput) ToProjectTrustedIpsAddressOutputWithContext(ctx context.Context) ProjectTrustedIpsAddressOutput {
+	return o
+}
+
+// A description for the value
+func (o ProjectTrustedIpsAddressOutput) Note() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedIpsAddress) *string { return v.Note }).(pulumi.StringPtrOutput)
+}
+
+// The value of the Environment Variable.
+func (o ProjectTrustedIpsAddressOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectTrustedIpsAddress) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ProjectTrustedIpsAddressArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedIpsAddressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (o ProjectTrustedIpsAddressArrayOutput) ToProjectTrustedIpsAddressArrayOutput() ProjectTrustedIpsAddressArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsAddressArrayOutput) ToProjectTrustedIpsAddressArrayOutputWithContext(ctx context.Context) ProjectTrustedIpsAddressArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedIpsAddressArrayOutput) Index(i pulumi.IntInput) ProjectTrustedIpsAddressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectTrustedIpsAddress {
+		return vs[0].([]ProjectTrustedIpsAddress)[vs[1].(int)]
+	}).(ProjectTrustedIpsAddressOutput)
 }
 
 type ProjectVercelAuthentication struct {
-	// If true, production deployments will also be protected
-	ProtectProduction *bool `pulumi:"protectProduction"`
+	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+	DeploymentType string `pulumi:"deploymentType"`
 }
 
 // ProjectVercelAuthenticationInput is an input type that accepts ProjectVercelAuthenticationArgs and ProjectVercelAuthenticationOutput values.
@@ -901,8 +1182,8 @@ type ProjectVercelAuthenticationInput interface {
 }
 
 type ProjectVercelAuthenticationArgs struct {
-	// If true, production deployments will also be protected
-	ProtectProduction pulumi.BoolPtrInput `pulumi:"protectProduction"`
+	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 }
 
 func (ProjectVercelAuthenticationArgs) ElementType() reflect.Type {
@@ -982,9 +1263,9 @@ func (o ProjectVercelAuthenticationOutput) ToProjectVercelAuthenticationPtrOutpu
 	}).(ProjectVercelAuthenticationPtrOutput)
 }
 
-// If true, production deployments will also be protected
-func (o ProjectVercelAuthenticationOutput) ProtectProduction() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectVercelAuthentication) *bool { return v.ProtectProduction }).(pulumi.BoolPtrOutput)
+// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+func (o ProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
 type ProjectVercelAuthenticationPtrOutput struct{ *pulumi.OutputState }
@@ -1011,14 +1292,14 @@ func (o ProjectVercelAuthenticationPtrOutput) Elem() ProjectVercelAuthentication
 	}).(ProjectVercelAuthenticationOutput)
 }
 
-// If true, production deployments will also be protected
-func (o ProjectVercelAuthenticationPtrOutput) ProtectProduction() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ProjectVercelAuthentication) *bool {
+// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+func (o ProjectVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectVercelAuthentication) *string {
 		if v == nil {
 			return nil
 		}
-		return v.ProtectProduction
-	}).(pulumi.BoolPtrOutput)
+		return &v.DeploymentType
+	}).(pulumi.StringPtrOutput)
 }
 
 type GetProjectEnvironment struct {
@@ -1225,8 +1506,8 @@ func (o GetProjectGitRepositoryOutput) Type() pulumi.StringOutput {
 }
 
 type GetProjectPasswordProtection struct {
-	// If true, production deployments will also be protected
-	ProtectProduction bool `pulumi:"protectProduction"`
+	// The deployment environment that will be protected.
+	DeploymentType string `pulumi:"deploymentType"`
 }
 
 // GetProjectPasswordProtectionInput is an input type that accepts GetProjectPasswordProtectionArgs and GetProjectPasswordProtectionOutput values.
@@ -1241,8 +1522,8 @@ type GetProjectPasswordProtectionInput interface {
 }
 
 type GetProjectPasswordProtectionArgs struct {
-	// If true, production deployments will also be protected
-	ProtectProduction pulumi.BoolInput `pulumi:"protectProduction"`
+	// The deployment environment that will be protected.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 }
 
 func (GetProjectPasswordProtectionArgs) ElementType() reflect.Type {
@@ -1255,47 +1536,6 @@ func (i GetProjectPasswordProtectionArgs) ToGetProjectPasswordProtectionOutput()
 
 func (i GetProjectPasswordProtectionArgs) ToGetProjectPasswordProtectionOutputWithContext(ctx context.Context) GetProjectPasswordProtectionOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPasswordProtectionOutput)
-}
-
-func (i GetProjectPasswordProtectionArgs) ToGetProjectPasswordProtectionPtrOutput() GetProjectPasswordProtectionPtrOutput {
-	return i.ToGetProjectPasswordProtectionPtrOutputWithContext(context.Background())
-}
-
-func (i GetProjectPasswordProtectionArgs) ToGetProjectPasswordProtectionPtrOutputWithContext(ctx context.Context) GetProjectPasswordProtectionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPasswordProtectionOutput).ToGetProjectPasswordProtectionPtrOutputWithContext(ctx)
-}
-
-// GetProjectPasswordProtectionPtrInput is an input type that accepts GetProjectPasswordProtectionArgs, GetProjectPasswordProtectionPtr and GetProjectPasswordProtectionPtrOutput values.
-// You can construct a concrete instance of `GetProjectPasswordProtectionPtrInput` via:
-//
-//	        GetProjectPasswordProtectionArgs{...}
-//
-//	or:
-//
-//	        nil
-type GetProjectPasswordProtectionPtrInput interface {
-	pulumi.Input
-
-	ToGetProjectPasswordProtectionPtrOutput() GetProjectPasswordProtectionPtrOutput
-	ToGetProjectPasswordProtectionPtrOutputWithContext(context.Context) GetProjectPasswordProtectionPtrOutput
-}
-
-type getProjectPasswordProtectionPtrType GetProjectPasswordProtectionArgs
-
-func GetProjectPasswordProtectionPtr(v *GetProjectPasswordProtectionArgs) GetProjectPasswordProtectionPtrInput {
-	return (*getProjectPasswordProtectionPtrType)(v)
-}
-
-func (*getProjectPasswordProtectionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetProjectPasswordProtection)(nil)).Elem()
-}
-
-func (i *getProjectPasswordProtectionPtrType) ToGetProjectPasswordProtectionPtrOutput() GetProjectPasswordProtectionPtrOutput {
-	return i.ToGetProjectPasswordProtectionPtrOutputWithContext(context.Background())
-}
-
-func (i *getProjectPasswordProtectionPtrType) ToGetProjectPasswordProtectionPtrOutputWithContext(ctx context.Context) GetProjectPasswordProtectionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPasswordProtectionPtrOutput)
 }
 
 type GetProjectPasswordProtectionOutput struct{ *pulumi.OutputState }
@@ -1312,58 +1552,187 @@ func (o GetProjectPasswordProtectionOutput) ToGetProjectPasswordProtectionOutput
 	return o
 }
 
-func (o GetProjectPasswordProtectionOutput) ToGetProjectPasswordProtectionPtrOutput() GetProjectPasswordProtectionPtrOutput {
-	return o.ToGetProjectPasswordProtectionPtrOutputWithContext(context.Background())
+// The deployment environment that will be protected.
+func (o GetProjectPasswordProtectionOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
-func (o GetProjectPasswordProtectionOutput) ToGetProjectPasswordProtectionPtrOutputWithContext(ctx context.Context) GetProjectPasswordProtectionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetProjectPasswordProtection) *GetProjectPasswordProtection {
-		return &v
-	}).(GetProjectPasswordProtectionPtrOutput)
+type GetProjectTrustedIps struct {
+	// The allowed IP addressses and CIDR ranges with optional descriptions.
+	Addresses []GetProjectTrustedIpsAddress `pulumi:"addresses"`
+	// The deployment environment that will be protected.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether or not Trusted IPs is required or optional to access a deployment.
+	ProtectionMode string `pulumi:"protectionMode"`
 }
 
-// If true, production deployments will also be protected
-func (o GetProjectPasswordProtectionOutput) ProtectProduction() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetProjectPasswordProtection) bool { return v.ProtectProduction }).(pulumi.BoolOutput)
+// GetProjectTrustedIpsInput is an input type that accepts GetProjectTrustedIpsArgs and GetProjectTrustedIpsOutput values.
+// You can construct a concrete instance of `GetProjectTrustedIpsInput` via:
+//
+//	GetProjectTrustedIpsArgs{...}
+type GetProjectTrustedIpsInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedIpsOutput() GetProjectTrustedIpsOutput
+	ToGetProjectTrustedIpsOutputWithContext(context.Context) GetProjectTrustedIpsOutput
 }
 
-type GetProjectPasswordProtectionPtrOutput struct{ *pulumi.OutputState }
-
-func (GetProjectPasswordProtectionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetProjectPasswordProtection)(nil)).Elem()
+type GetProjectTrustedIpsArgs struct {
+	// The allowed IP addressses and CIDR ranges with optional descriptions.
+	Addresses GetProjectTrustedIpsAddressArrayInput `pulumi:"addresses"`
+	// The deployment environment that will be protected.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether or not Trusted IPs is required or optional to access a deployment.
+	ProtectionMode pulumi.StringInput `pulumi:"protectionMode"`
 }
 
-func (o GetProjectPasswordProtectionPtrOutput) ToGetProjectPasswordProtectionPtrOutput() GetProjectPasswordProtectionPtrOutput {
+func (GetProjectTrustedIpsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedIps)(nil)).Elem()
+}
+
+func (i GetProjectTrustedIpsArgs) ToGetProjectTrustedIpsOutput() GetProjectTrustedIpsOutput {
+	return i.ToGetProjectTrustedIpsOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedIpsArgs) ToGetProjectTrustedIpsOutputWithContext(ctx context.Context) GetProjectTrustedIpsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedIpsOutput)
+}
+
+type GetProjectTrustedIpsOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedIpsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedIps)(nil)).Elem()
+}
+
+func (o GetProjectTrustedIpsOutput) ToGetProjectTrustedIpsOutput() GetProjectTrustedIpsOutput {
 	return o
 }
 
-func (o GetProjectPasswordProtectionPtrOutput) ToGetProjectPasswordProtectionPtrOutputWithContext(ctx context.Context) GetProjectPasswordProtectionPtrOutput {
+func (o GetProjectTrustedIpsOutput) ToGetProjectTrustedIpsOutputWithContext(ctx context.Context) GetProjectTrustedIpsOutput {
 	return o
 }
 
-func (o GetProjectPasswordProtectionPtrOutput) Elem() GetProjectPasswordProtectionOutput {
-	return o.ApplyT(func(v *GetProjectPasswordProtection) GetProjectPasswordProtection {
-		if v != nil {
-			return *v
-		}
-		var ret GetProjectPasswordProtection
-		return ret
-	}).(GetProjectPasswordProtectionOutput)
+// The allowed IP addressses and CIDR ranges with optional descriptions.
+func (o GetProjectTrustedIpsOutput) Addresses() GetProjectTrustedIpsAddressArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedIps) []GetProjectTrustedIpsAddress { return v.Addresses }).(GetProjectTrustedIpsAddressArrayOutput)
 }
 
-// If true, production deployments will also be protected
-func (o GetProjectPasswordProtectionPtrOutput) ProtectProduction() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *GetProjectPasswordProtection) *bool {
-		if v == nil {
-			return nil
-		}
-		return &v.ProtectProduction
-	}).(pulumi.BoolPtrOutput)
+// The deployment environment that will be protected.
+func (o GetProjectTrustedIpsOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedIps) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether or not Trusted IPs is required or optional to access a deployment.
+func (o GetProjectTrustedIpsOutput) ProtectionMode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedIps) string { return v.ProtectionMode }).(pulumi.StringOutput)
+}
+
+type GetProjectTrustedIpsAddress struct {
+	Note string `pulumi:"note"`
+	// The value of the environment variable.
+	Value string `pulumi:"value"`
+}
+
+// GetProjectTrustedIpsAddressInput is an input type that accepts GetProjectTrustedIpsAddressArgs and GetProjectTrustedIpsAddressOutput values.
+// You can construct a concrete instance of `GetProjectTrustedIpsAddressInput` via:
+//
+//	GetProjectTrustedIpsAddressArgs{...}
+type GetProjectTrustedIpsAddressInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedIpsAddressOutput() GetProjectTrustedIpsAddressOutput
+	ToGetProjectTrustedIpsAddressOutputWithContext(context.Context) GetProjectTrustedIpsAddressOutput
+}
+
+type GetProjectTrustedIpsAddressArgs struct {
+	Note pulumi.StringInput `pulumi:"note"`
+	// The value of the environment variable.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetProjectTrustedIpsAddressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (i GetProjectTrustedIpsAddressArgs) ToGetProjectTrustedIpsAddressOutput() GetProjectTrustedIpsAddressOutput {
+	return i.ToGetProjectTrustedIpsAddressOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedIpsAddressArgs) ToGetProjectTrustedIpsAddressOutputWithContext(ctx context.Context) GetProjectTrustedIpsAddressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedIpsAddressOutput)
+}
+
+// GetProjectTrustedIpsAddressArrayInput is an input type that accepts GetProjectTrustedIpsAddressArray and GetProjectTrustedIpsAddressArrayOutput values.
+// You can construct a concrete instance of `GetProjectTrustedIpsAddressArrayInput` via:
+//
+//	GetProjectTrustedIpsAddressArray{ GetProjectTrustedIpsAddressArgs{...} }
+type GetProjectTrustedIpsAddressArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedIpsAddressArrayOutput() GetProjectTrustedIpsAddressArrayOutput
+	ToGetProjectTrustedIpsAddressArrayOutputWithContext(context.Context) GetProjectTrustedIpsAddressArrayOutput
+}
+
+type GetProjectTrustedIpsAddressArray []GetProjectTrustedIpsAddressInput
+
+func (GetProjectTrustedIpsAddressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (i GetProjectTrustedIpsAddressArray) ToGetProjectTrustedIpsAddressArrayOutput() GetProjectTrustedIpsAddressArrayOutput {
+	return i.ToGetProjectTrustedIpsAddressArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedIpsAddressArray) ToGetProjectTrustedIpsAddressArrayOutputWithContext(ctx context.Context) GetProjectTrustedIpsAddressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedIpsAddressArrayOutput)
+}
+
+type GetProjectTrustedIpsAddressOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedIpsAddressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (o GetProjectTrustedIpsAddressOutput) ToGetProjectTrustedIpsAddressOutput() GetProjectTrustedIpsAddressOutput {
+	return o
+}
+
+func (o GetProjectTrustedIpsAddressOutput) ToGetProjectTrustedIpsAddressOutputWithContext(ctx context.Context) GetProjectTrustedIpsAddressOutput {
+	return o
+}
+
+func (o GetProjectTrustedIpsAddressOutput) Note() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedIpsAddress) string { return v.Note }).(pulumi.StringOutput)
+}
+
+// The value of the environment variable.
+func (o GetProjectTrustedIpsAddressOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedIpsAddress) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetProjectTrustedIpsAddressArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedIpsAddressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedIpsAddress)(nil)).Elem()
+}
+
+func (o GetProjectTrustedIpsAddressArrayOutput) ToGetProjectTrustedIpsAddressArrayOutput() GetProjectTrustedIpsAddressArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedIpsAddressArrayOutput) ToGetProjectTrustedIpsAddressArrayOutputWithContext(ctx context.Context) GetProjectTrustedIpsAddressArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedIpsAddressArrayOutput) Index(i pulumi.IntInput) GetProjectTrustedIpsAddressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectTrustedIpsAddress {
+		return vs[0].([]GetProjectTrustedIpsAddress)[vs[1].(int)]
+	}).(GetProjectTrustedIpsAddressOutput)
 }
 
 type GetProjectVercelAuthentication struct {
-	// If true, production deployments will also be protected
-	ProtectProduction bool `pulumi:"protectProduction"`
+	// The deployment environment that will be protected.
+	DeploymentType string `pulumi:"deploymentType"`
 }
 
 // GetProjectVercelAuthenticationInput is an input type that accepts GetProjectVercelAuthenticationArgs and GetProjectVercelAuthenticationOutput values.
@@ -1378,8 +1747,8 @@ type GetProjectVercelAuthenticationInput interface {
 }
 
 type GetProjectVercelAuthenticationArgs struct {
-	// If true, production deployments will also be protected
-	ProtectProduction pulumi.BoolInput `pulumi:"protectProduction"`
+	// The deployment environment that will be protected.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 }
 
 func (GetProjectVercelAuthenticationArgs) ElementType() reflect.Type {
@@ -1408,9 +1777,9 @@ func (o GetProjectVercelAuthenticationOutput) ToGetProjectVercelAuthenticationOu
 	return o
 }
 
-// If true, production deployments will also be protected
-func (o GetProjectVercelAuthenticationOutput) ProtectProduction() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetProjectVercelAuthentication) bool { return v.ProtectProduction }).(pulumi.BoolOutput)
+// The deployment environment that will be protected.
+func (o GetProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
 func init() {
@@ -1424,13 +1793,19 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsPtrInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressInput)(nil)).Elem(), ProjectTrustedIpsAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressArrayInput)(nil)).Elem(), ProjectTrustedIpsAddressArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationPtrInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionPtrInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsInput)(nil)).Elem(), GetProjectTrustedIpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressInput)(nil)).Elem(), GetProjectTrustedIpsAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressArrayInput)(nil)).Elem(), GetProjectTrustedIpsAddressArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
@@ -1442,12 +1817,18 @@ func init() {
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedIpsPtrOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedIpsAddressOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedIpsAddressArrayOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationPtrOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
-	pulumi.RegisterOutputType(GetProjectPasswordProtectionPtrOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedIpsOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
 }

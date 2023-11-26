@@ -57,8 +57,6 @@ func LookupProject(ctx *pulumi.Context, args *LookupProjectArgs, opts ...pulumi.
 type LookupProjectArgs struct {
 	// The name of the project.
 	Name string `pulumi:"name"`
-	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-	PasswordProtection *GetProjectPasswordProtection `pulumi:"passwordProtection"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
@@ -86,7 +84,7 @@ type LookupProjectResult struct {
 	// The output directory of the project. When null is used this value will be automatically detected.
 	OutputDirectory string `pulumi:"outputDirectory"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-	PasswordProtection *GetProjectPasswordProtection `pulumi:"passwordProtection"`
+	PasswordProtection GetProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Specifies whether the source code and logs of the deployments for this project should be public or not.
 	PublicSource bool `pulumi:"publicSource"`
 	// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
@@ -95,6 +93,8 @@ type LookupProjectResult struct {
 	ServerlessFunctionRegion string `pulumi:"serverlessFunctionRegion"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
+	// Ensures only visitors from an allowed IP address can access your deployment.
+	TrustedIps GetProjectTrustedIps `pulumi:"trustedIps"`
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication GetProjectVercelAuthentication `pulumi:"vercelAuthentication"`
 }
@@ -116,8 +116,6 @@ func LookupProjectOutput(ctx *pulumi.Context, args LookupProjectOutputArgs, opts
 type LookupProjectOutputArgs struct {
 	// The name of the project.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-	PasswordProtection GetProjectPasswordProtectionPtrInput `pulumi:"passwordProtection"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
@@ -192,8 +190,8 @@ func (o LookupProjectResultOutput) OutputDirectory() pulumi.StringOutput {
 }
 
 // Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-func (o LookupProjectResultOutput) PasswordProtection() GetProjectPasswordProtectionPtrOutput {
-	return o.ApplyT(func(v LookupProjectResult) *GetProjectPasswordProtection { return v.PasswordProtection }).(GetProjectPasswordProtectionPtrOutput)
+func (o LookupProjectResultOutput) PasswordProtection() GetProjectPasswordProtectionOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectPasswordProtection { return v.PasswordProtection }).(GetProjectPasswordProtectionOutput)
 }
 
 // Specifies whether the source code and logs of the deployments for this project should be public or not.
@@ -214,6 +212,11 @@ func (o LookupProjectResultOutput) ServerlessFunctionRegion() pulumi.StringOutpu
 // The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupProjectResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.TeamId }).(pulumi.StringOutput)
+}
+
+// Ensures only visitors from an allowed IP address can access your deployment.
+func (o LookupProjectResultOutput) TrustedIps() GetProjectTrustedIpsOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectTrustedIps { return v.TrustedIps }).(GetProjectTrustedIpsOutput)
 }
 
 // Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.

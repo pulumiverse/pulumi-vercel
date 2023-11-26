@@ -14,10 +14,10 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectVercelAuthenticationGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// If true, production deployments will also be protected
+        /// The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
         /// </summary>
-        [Input("protectProduction")]
-        public Input<bool>? ProtectProduction { get; set; }
+        [Input("deploymentType", required: true)]
+        public Input<string> DeploymentType { get; set; } = null!;
 
         public ProjectVercelAuthenticationGetArgs()
         {

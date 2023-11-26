@@ -34,6 +34,15 @@
                                 }
                             }
                         }
+                    },
+                    "trusted_ips": {
+                        "elem": {
+                            "fields": {
+                                "addresses": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -88,6 +97,15 @@
                                     "target": {
                                         "maxItemsOne": false
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "trusted_ips": {
+                        "elem": {
+                            "fields": {
+                                "addresses": {
+                                    "maxItemsOne": false
                                 }
                             }
                         }
@@ -502,10 +520,14 @@
                 "productionBranch": "production_branch"
             },
             "vercel:index/ProjectPasswordProtection:ProjectPasswordProtection": {
-                "protectProduction": "protect_production"
+                "deploymentType": "deployment_type"
+            },
+            "vercel:index/ProjectTrustedIps:ProjectTrustedIps": {
+                "deploymentType": "deployment_type",
+                "protectionMode": "protection_mode"
             },
             "vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication": {
-                "protectProduction": "protect_production"
+                "deploymentType": "deployment_type"
             },
             "vercel:index/alias:Alias": {
                 "deploymentId": "deployment_id",
@@ -539,6 +561,7 @@
                 "rootDirectory": "root_directory",
                 "serverlessFunctionRegion": "serverless_function_region",
                 "teamId": "team_id",
+                "trustedIps": "trusted_ips",
                 "vercelAuthentication": "vercel_authentication"
             },
             "vercel:index/getProjectEnvironment:getProjectEnvironment": {
@@ -549,10 +572,14 @@
                 "productionBranch": "production_branch"
             },
             "vercel:index/getProjectPasswordProtection:getProjectPasswordProtection": {
-                "protectProduction": "protect_production"
+                "deploymentType": "deployment_type"
+            },
+            "vercel:index/getProjectTrustedIps:getProjectTrustedIps": {
+                "deploymentType": "deployment_type",
+                "protectionMode": "protection_mode"
             },
             "vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication": {
-                "protectProduction": "protect_production"
+                "deploymentType": "deployment_type"
             },
             "vercel:index/project:Project": {
                 "buildCommand": "build_command",
@@ -569,6 +596,7 @@
                 "rootDirectory": "root_directory",
                 "serverlessFunctionRegion": "serverless_function_region",
                 "teamId": "team_id",
+                "trustedIps": "trusted_ips",
                 "vercelAuthentication": "vercel_authentication"
             },
             "vercel:index/projectDomain:ProjectDomain": {

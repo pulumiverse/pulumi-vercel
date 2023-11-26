@@ -95,12 +95,6 @@ namespace Pulumiverse.Vercel
         public string Name { get; set; } = null!;
 
         /// <summary>
-        /// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        /// </summary>
-        [Input("passwordProtection")]
-        public Inputs.GetProjectPasswordProtectionArgs? PasswordProtection { get; set; }
-
-        /// <summary>
         /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
@@ -119,12 +113,6 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
-
-        /// <summary>
-        /// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        /// </summary>
-        [Input("passwordProtection")]
-        public Input<Inputs.GetProjectPasswordProtectionInputArgs>? PasswordProtection { get; set; }
 
         /// <summary>
         /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
@@ -185,7 +173,7 @@ namespace Pulumiverse.Vercel
         /// <summary>
         /// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         /// </summary>
-        public readonly Outputs.GetProjectPasswordProtectionResult? PasswordProtection;
+        public readonly Outputs.GetProjectPasswordProtectionResult PasswordProtection;
         /// <summary>
         /// Specifies whether the source code and logs of the deployments for this project should be public or not.
         /// </summary>
@@ -202,6 +190,10 @@ namespace Pulumiverse.Vercel
         /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         public readonly string TeamId;
+        /// <summary>
+        /// Ensures only visitors from an allowed IP address can access your deployment.
+        /// </summary>
+        public readonly Outputs.GetProjectTrustedIpsResult TrustedIps;
         /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
@@ -229,7 +221,7 @@ namespace Pulumiverse.Vercel
 
             string outputDirectory,
 
-            Outputs.GetProjectPasswordProtectionResult? passwordProtection,
+            Outputs.GetProjectPasswordProtectionResult passwordProtection,
 
             bool publicSource,
 
@@ -238,6 +230,8 @@ namespace Pulumiverse.Vercel
             string serverlessFunctionRegion,
 
             string teamId,
+
+            Outputs.GetProjectTrustedIpsResult trustedIps,
 
             Outputs.GetProjectVercelAuthenticationResult vercelAuthentication)
         {
@@ -256,6 +250,7 @@ namespace Pulumiverse.Vercel
             RootDirectory = rootDirectory;
             ServerlessFunctionRegion = serverlessFunctionRegion;
             TeamId = teamId;
+            TrustedIps = trustedIps;
             VercelAuthentication = vercelAuthentication;
         }
     }

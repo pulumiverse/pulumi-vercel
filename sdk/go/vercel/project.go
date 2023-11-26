@@ -99,6 +99,8 @@ type Project struct {
 	ServerlessFunctionRegion pulumi.StringOutput `pulumi:"serverlessFunctionRegion"`
 	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
+	// Ensures only visitors from an allowed IP address can access your deployment.
+	TrustedIps ProjectTrustedIpsPtrOutput `pulumi:"trustedIps"`
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication ProjectVercelAuthenticationOutput `pulumi:"vercelAuthentication"`
 }
@@ -165,6 +167,8 @@ type projectState struct {
 	ServerlessFunctionRegion *string `pulumi:"serverlessFunctionRegion"`
 	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
+	// Ensures only visitors from an allowed IP address can access your deployment.
+	TrustedIps *ProjectTrustedIps `pulumi:"trustedIps"`
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication *ProjectVercelAuthentication `pulumi:"vercelAuthentication"`
 }
@@ -202,6 +206,8 @@ type ProjectState struct {
 	ServerlessFunctionRegion pulumi.StringPtrInput
 	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
+	// Ensures only visitors from an allowed IP address can access your deployment.
+	TrustedIps ProjectTrustedIpsPtrInput
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication ProjectVercelAuthenticationPtrInput
 }
@@ -241,6 +247,8 @@ type projectArgs struct {
 	ServerlessFunctionRegion *string `pulumi:"serverlessFunctionRegion"`
 	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
+	// Ensures only visitors from an allowed IP address can access your deployment.
+	TrustedIps *ProjectTrustedIps `pulumi:"trustedIps"`
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication *ProjectVercelAuthentication `pulumi:"vercelAuthentication"`
 }
@@ -277,6 +285,8 @@ type ProjectArgs struct {
 	ServerlessFunctionRegion pulumi.StringPtrInput
 	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
+	// Ensures only visitors from an allowed IP address can access your deployment.
+	TrustedIps ProjectTrustedIpsPtrInput
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication ProjectVercelAuthenticationPtrInput
 }
@@ -446,6 +456,11 @@ func (o ProjectOutput) ServerlessFunctionRegion() pulumi.StringOutput {
 // The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 func (o ProjectOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
+}
+
+// Ensures only visitors from an allowed IP address can access your deployment.
+func (o ProjectOutput) TrustedIps() ProjectTrustedIpsPtrOutput {
+	return o.ApplyT(func(v *Project) ProjectTrustedIpsPtrOutput { return v.TrustedIps }).(ProjectTrustedIpsPtrOutput)
 }
 
 // Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.

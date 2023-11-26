@@ -15,14 +15,14 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class GetProjectPasswordProtectionResult
     {
         /// <summary>
-        /// If true, production deployments will also be protected
+        /// The deployment environment that will be protected.
         /// </summary>
-        public readonly bool ProtectProduction;
+        public readonly string DeploymentType;
 
         [OutputConstructor]
-        private GetProjectPasswordProtectionResult(bool protectProduction)
+        private GetProjectPasswordProtectionResult(string deploymentType)
         {
-            ProtectProduction = protectProduction;
+            DeploymentType = deploymentType;
         }
     }
 }
