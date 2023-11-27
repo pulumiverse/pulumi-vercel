@@ -31,6 +31,7 @@ class ProjectArgs:
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
+                 trusted_ips: Optional[pulumi.Input['ProjectTrustedIpsArgs']] = None,
                  vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None):
         """
         The set of arguments for constructing a Project resource.
@@ -49,6 +50,7 @@ class ProjectArgs:
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input['ProjectTrustedIpsArgs'] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         if build_command is not None:
@@ -81,6 +83,8 @@ class ProjectArgs:
             pulumi.set(__self__, "serverless_function_region", serverless_function_region)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+        if trusted_ips is not None:
+            pulumi.set(__self__, "trusted_ips", trusted_ips)
         if vercel_authentication is not None:
             pulumi.set(__self__, "vercel_authentication", vercel_authentication)
 
@@ -265,6 +269,18 @@ class ProjectArgs:
         pulumi.set(self, "team_id", value)
 
     @property
+    @pulumi.getter(name="trustedIps")
+    def trusted_ips(self) -> Optional[pulumi.Input['ProjectTrustedIpsArgs']]:
+        """
+        Ensures only visitors from an allowed IP address can access your deployment.
+        """
+        return pulumi.get(self, "trusted_ips")
+
+    @trusted_ips.setter
+    def trusted_ips(self, value: Optional[pulumi.Input['ProjectTrustedIpsArgs']]):
+        pulumi.set(self, "trusted_ips", value)
+
+    @property
     @pulumi.getter(name="vercelAuthentication")
     def vercel_authentication(self) -> Optional[pulumi.Input['ProjectVercelAuthenticationArgs']]:
         """
@@ -296,6 +312,7 @@ class _ProjectState:
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
+                 trusted_ips: Optional[pulumi.Input['ProjectTrustedIpsArgs']] = None,
                  vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None):
         """
         Input properties used for looking up and filtering Project resources.
@@ -315,6 +332,7 @@ class _ProjectState:
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input['ProjectTrustedIpsArgs'] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         if build_command is not None:
@@ -349,6 +367,8 @@ class _ProjectState:
             pulumi.set(__self__, "serverless_function_region", serverless_function_region)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+        if trusted_ips is not None:
+            pulumi.set(__self__, "trusted_ips", trusted_ips)
         if vercel_authentication is not None:
             pulumi.set(__self__, "vercel_authentication", vercel_authentication)
 
@@ -545,6 +565,18 @@ class _ProjectState:
         pulumi.set(self, "team_id", value)
 
     @property
+    @pulumi.getter(name="trustedIps")
+    def trusted_ips(self) -> Optional[pulumi.Input['ProjectTrustedIpsArgs']]:
+        """
+        Ensures only visitors from an allowed IP address can access your deployment.
+        """
+        return pulumi.get(self, "trusted_ips")
+
+    @trusted_ips.setter
+    def trusted_ips(self, value: Optional[pulumi.Input['ProjectTrustedIpsArgs']]):
+        pulumi.set(self, "trusted_ips", value)
+
+    @property
     @pulumi.getter(name="vercelAuthentication")
     def vercel_authentication(self) -> Optional[pulumi.Input['ProjectVercelAuthenticationArgs']]:
         """
@@ -577,6 +609,7 @@ class Project(pulumi.CustomResource):
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
+                 trusted_ips: Optional[pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']]] = None,
                  vercel_authentication: Optional[pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']]] = None,
                  __props__=None):
         """
@@ -632,6 +665,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
         :param pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         ...
@@ -706,6 +740,7 @@ class Project(pulumi.CustomResource):
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
+                 trusted_ips: Optional[pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']]] = None,
                  vercel_authentication: Optional[pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -731,6 +766,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["root_directory"] = root_directory
             __props__.__dict__["serverless_function_region"] = serverless_function_region
             __props__.__dict__["team_id"] = team_id
+            __props__.__dict__["trusted_ips"] = trusted_ips
             __props__.__dict__["vercel_authentication"] = vercel_authentication
             __props__.__dict__["protection_bypass_for_automation_secret"] = None
         super(Project, __self__).__init__(
@@ -759,6 +795,7 @@ class Project(pulumi.CustomResource):
             root_directory: Optional[pulumi.Input[str]] = None,
             serverless_function_region: Optional[pulumi.Input[str]] = None,
             team_id: Optional[pulumi.Input[str]] = None,
+            trusted_ips: Optional[pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']]] = None,
             vercel_authentication: Optional[pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']]] = None) -> 'Project':
         """
         Get an existing Project resource's state with the given name, id, and optional extra
@@ -783,6 +820,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
         :param pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -805,6 +843,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["root_directory"] = root_directory
         __props__.__dict__["serverless_function_region"] = serverless_function_region
         __props__.__dict__["team_id"] = team_id
+        __props__.__dict__["trusted_ips"] = trusted_ips
         __props__.__dict__["vercel_authentication"] = vercel_authentication
         return Project(resource_name, opts=opts, __props__=__props__)
 
@@ -935,6 +974,14 @@ class Project(pulumi.CustomResource):
         The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
+
+    @property
+    @pulumi.getter(name="trustedIps")
+    def trusted_ips(self) -> pulumi.Output[Optional['outputs.ProjectTrustedIps']]:
+        """
+        Ensures only visitors from an allowed IP address can access your deployment.
+        """
+        return pulumi.get(self, "trusted_ips")
 
     @property
     @pulumi.getter(name="vercelAuthentication")

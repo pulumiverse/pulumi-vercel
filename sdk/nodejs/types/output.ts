@@ -87,16 +87,39 @@ export interface GetProjectGitRepository {
 
 export interface GetProjectPasswordProtection {
     /**
-     * If true, production deployments will also be protected
+     * The deployment environment that will be protected.
      */
-    protectProduction: boolean;
+    deploymentType: string;
+}
+
+export interface GetProjectTrustedIps {
+    /**
+     * The allowed IP addressses and CIDR ranges with optional descriptions.
+     */
+    addresses: outputs.GetProjectTrustedIpsAddress[];
+    /**
+     * The deployment environment that will be protected.
+     */
+    deploymentType: string;
+    /**
+     * Whether or not Trusted IPs is required or optional to access a deployment.
+     */
+    protectionMode: string;
+}
+
+export interface GetProjectTrustedIpsAddress {
+    note: string;
+    /**
+     * The value of the environment variable.
+     */
+    value: string;
 }
 
 export interface GetProjectVercelAuthentication {
     /**
-     * If true, production deployments will also be protected
+     * The deployment environment that will be protected.
      */
-    protectProduction: boolean;
+    deploymentType: string;
 }
 
 export interface ProjectEnvironment {
@@ -139,19 +162,45 @@ export interface ProjectGitRepository {
 
 export interface ProjectPasswordProtection {
     /**
+     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+     */
+    deploymentType: string;
+    /**
      * The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
      */
     password: string;
+}
+
+export interface ProjectTrustedIps {
     /**
-     * If true, production deployments will also be protected
+     * The allowed IP addressses and CIDR ranges with optional descriptions.
      */
-    protectProduction: boolean;
+    addresses: outputs.ProjectTrustedIpsAddress[];
+    /**
+     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+     */
+    deploymentType: string;
+    /**
+     * Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
+     */
+    protectionMode: string;
+}
+
+export interface ProjectTrustedIpsAddress {
+    /**
+     * A description for the value
+     */
+    note?: string;
+    /**
+     * The value of the Environment Variable.
+     */
+    value: string;
 }
 
 export interface ProjectVercelAuthentication {
     /**
-     * If true, production deployments will also be protected
+     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
-    protectProduction: boolean;
+    deploymentType: string;
 }
 

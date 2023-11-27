@@ -13,6 +13,12 @@ namespace Pulumiverse.Vercel.Inputs
 
     public sealed class ProjectPasswordProtectionGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        /// </summary>
+        [Input("deploymentType", required: true)]
+        public Input<string> DeploymentType { get; set; } = null!;
+
         [Input("password", required: true)]
         private Input<string>? _password;
 
@@ -28,12 +34,6 @@ namespace Pulumiverse.Vercel.Inputs
                 _password = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
-
-        /// <summary>
-        /// If true, production deployments will also be protected
-        /// </summary>
-        [Input("protectProduction")]
-        public Input<bool>? ProtectProduction { get; set; }
 
         public ProjectPasswordProtectionGetArgs()
         {

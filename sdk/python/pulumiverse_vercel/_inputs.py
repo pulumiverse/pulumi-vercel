@@ -15,8 +15,9 @@ __all__ = [
     'ProjectEnvironmentArgs',
     'ProjectGitRepositoryArgs',
     'ProjectPasswordProtectionArgs',
+    'ProjectTrustedIpsArgs',
+    'ProjectTrustedIpsAddressArgs',
     'ProjectVercelAuthenticationArgs',
-    'GetProjectPasswordProtectionArgs',
 ]
 
 @pulumi.input_type
@@ -313,15 +314,26 @@ class ProjectGitRepositoryArgs:
 @pulumi.input_type
 class ProjectPasswordProtectionArgs:
     def __init__(__self__, *,
-                 password: pulumi.Input[str],
-                 protect_production: Optional[pulumi.Input[bool]] = None):
+                 deployment_type: pulumi.Input[str],
+                 password: pulumi.Input[str]):
         """
+        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
         :param pulumi.Input[str] password: The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
-        :param pulumi.Input[bool] protect_production: If true, production deployments will also be protected
         """
+        pulumi.set(__self__, "deployment_type", deployment_type)
         pulumi.set(__self__, "password", password)
-        if protect_production is not None:
-            pulumi.set(__self__, "protect_production", protect_production)
+
+    @property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> pulumi.Input[str]:
+        """
+        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @deployment_type.setter
+    def deployment_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "deployment_type", value)
 
     @property
     @pulumi.getter
@@ -335,61 +347,117 @@ class ProjectPasswordProtectionArgs:
     def password(self, value: pulumi.Input[str]):
         pulumi.set(self, "password", value)
 
-    @property
-    @pulumi.getter(name="protectProduction")
-    def protect_production(self) -> Optional[pulumi.Input[bool]]:
-        """
-        If true, production deployments will also be protected
-        """
-        return pulumi.get(self, "protect_production")
 
-    @protect_production.setter
-    def protect_production(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "protect_production", value)
+@pulumi.input_type
+class ProjectTrustedIpsArgs:
+    def __init__(__self__, *,
+                 addresses: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgs']]],
+                 deployment_type: pulumi.Input[str],
+                 protection_mode: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgs']]] addresses: The allowed IP addressses and CIDR ranges with optional descriptions.
+        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        :param pulumi.Input[str] protection_mode: Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
+        """
+        pulumi.set(__self__, "addresses", addresses)
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        if protection_mode is not None:
+            pulumi.set(__self__, "protection_mode", protection_mode)
+
+    @property
+    @pulumi.getter
+    def addresses(self) -> pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgs']]]:
+        """
+        The allowed IP addressses and CIDR ranges with optional descriptions.
+        """
+        return pulumi.get(self, "addresses")
+
+    @addresses.setter
+    def addresses(self, value: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgs']]]):
+        pulumi.set(self, "addresses", value)
+
+    @property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> pulumi.Input[str]:
+        """
+        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @deployment_type.setter
+    def deployment_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "deployment_type", value)
+
+    @property
+    @pulumi.getter(name="protectionMode")
+    def protection_mode(self) -> Optional[pulumi.Input[str]]:
+        """
+        Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
+        """
+        return pulumi.get(self, "protection_mode")
+
+    @protection_mode.setter
+    def protection_mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protection_mode", value)
+
+
+@pulumi.input_type
+class ProjectTrustedIpsAddressArgs:
+    def __init__(__self__, *,
+                 value: pulumi.Input[str],
+                 note: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] note: A description for the value
+        """
+        pulumi.set(__self__, "value", value)
+        if note is not None:
+            pulumi.set(__self__, "note", note)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        """
+        The value of the Environment Variable.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+    @property
+    @pulumi.getter
+    def note(self) -> Optional[pulumi.Input[str]]:
+        """
+        A description for the value
+        """
+        return pulumi.get(self, "note")
+
+    @note.setter
+    def note(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "note", value)
 
 
 @pulumi.input_type
 class ProjectVercelAuthenticationArgs:
     def __init__(__self__, *,
-                 protect_production: Optional[pulumi.Input[bool]] = None):
+                 deployment_type: pulumi.Input[str]):
         """
-        :param pulumi.Input[bool] protect_production: If true, production deployments will also be protected
+        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
         """
-        if protect_production is not None:
-            pulumi.set(__self__, "protect_production", protect_production)
+        pulumi.set(__self__, "deployment_type", deployment_type)
 
     @property
-    @pulumi.getter(name="protectProduction")
-    def protect_production(self) -> Optional[pulumi.Input[bool]]:
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> pulumi.Input[str]:
         """
-        If true, production deployments will also be protected
+        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
         """
-        return pulumi.get(self, "protect_production")
+        return pulumi.get(self, "deployment_type")
 
-    @protect_production.setter
-    def protect_production(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "protect_production", value)
-
-
-@pulumi.input_type
-class GetProjectPasswordProtectionArgs:
-    def __init__(__self__, *,
-                 protect_production: bool):
-        """
-        :param bool protect_production: If true, production deployments will also be protected
-        """
-        pulumi.set(__self__, "protect_production", protect_production)
-
-    @property
-    @pulumi.getter(name="protectProduction")
-    def protect_production(self) -> bool:
-        """
-        If true, production deployments will also be protected
-        """
-        return pulumi.get(self, "protect_production")
-
-    @protect_production.setter
-    def protect_production(self, value: bool):
-        pulumi.set(self, "protect_production", value)
+    @deployment_type.setter
+    def deployment_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "deployment_type", value)
 
 

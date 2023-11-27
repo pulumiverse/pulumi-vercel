@@ -198,44 +198,83 @@
         },
         "vercel:index/ProjectPasswordProtection:ProjectPasswordProtection": {
             "properties": {
+                "deploymentType": {
+                    "type": "string",
+                    "description": "The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.\n"
+                },
                 "password": {
                     "type": "string",
                     "description": "The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.\n",
                     "secret": true
-                },
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
                 }
             },
             "type": "object",
             "required": [
+                "deploymentType",
                 "password"
+            ]
+        },
+        "vercel:index/ProjectTrustedIps:ProjectTrustedIps": {
+            "properties": {
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/ProjectTrustedIpsAddress:ProjectTrustedIpsAddress"
+                    },
+                    "description": "The allowed IP addressses and CIDR ranges with optional descriptions.\n"
+                },
+                "deploymentType": {
+                    "type": "string",
+                    "description": "The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.\n"
+                },
+                "protectionMode": {
+                    "type": "string",
+                    "description": "Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "addresses",
+                "deploymentType"
             ],
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
-                        "password",
-                        "protectProduction"
+                        "addresses",
+                        "deploymentType",
+                        "protectionMode"
                     ]
                 }
             }
         },
-        "vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication": {
+        "vercel:index/ProjectTrustedIpsAddress:ProjectTrustedIpsAddress": {
             "properties": {
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
+                "note": {
+                    "type": "string",
+                    "description": "A description for the value\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value of the Environment Variable.\n",
+                    "secret": true
                 }
             },
             "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "protectProduction"
-                    ]
+            "required": [
+                "value"
+            ]
+        },
+        "vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication": {
+            "properties": {
+                "deploymentType": {
+                    "type": "string",
+                    "description": "The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.\n"
                 }
-            }
+            },
+            "type": "object",
+            "required": [
+                "deploymentType"
+            ]
         },
         "vercel:index/getProjectEnvironment:getProjectEnvironment": {
             "properties": {
@@ -306,14 +345,65 @@
         },
         "vercel:index/getProjectPasswordProtection:getProjectPasswordProtection": {
             "properties": {
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
+                "deploymentType": {
+                    "type": "string",
+                    "description": "The deployment environment that will be protected.\n"
                 }
             },
             "type": "object",
             "required": [
-                "protectProduction"
+                "deploymentType"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectTrustedIps:getProjectTrustedIps": {
+            "properties": {
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/getProjectTrustedIpsAddress:getProjectTrustedIpsAddress"
+                    },
+                    "description": "The allowed IP addressses and CIDR ranges with optional descriptions.\n"
+                },
+                "deploymentType": {
+                    "type": "string",
+                    "description": "The deployment environment that will be protected.\n"
+                },
+                "protectionMode": {
+                    "type": "string",
+                    "description": "Whether or not Trusted IPs is required or optional to access a deployment.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "addresses",
+                "deploymentType",
+                "protectionMode"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectTrustedIpsAddress:getProjectTrustedIpsAddress": {
+            "properties": {
+                "note": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value of the environment variable.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "note",
+                "value"
             ],
             "language": {
                 "nodejs": {
@@ -323,14 +413,14 @@
         },
         "vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication": {
             "properties": {
-                "protectProduction": {
-                    "type": "boolean",
-                    "description": "If true, production deployments will also be protected\n"
+                "deploymentType": {
+                    "type": "string",
+                    "description": "The deployment environment that will be protected.\n"
                 }
             },
             "type": "object",
             "required": [
-                "protectProduction"
+                "deploymentType"
             ],
             "language": {
                 "nodejs": {
@@ -798,6 +888,10 @@
                     "type": "string",
                     "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.\n"
                 },
+                "trustedIps": {
+                    "$ref": "#/types/vercel:index/ProjectTrustedIps:ProjectTrustedIps",
+                    "description": "Ensures only visitors from an allowed IP address can access your deployment.\n"
+                },
                 "vercelAuthentication": {
                     "$ref": "#/types/vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication",
                     "description": "Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.\n"
@@ -874,6 +968,10 @@
                     "type": "string",
                     "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.\n"
                 },
+                "trustedIps": {
+                    "$ref": "#/types/vercel:index/ProjectTrustedIps:ProjectTrustedIps",
+                    "description": "Ensures only visitors from an allowed IP address can access your deployment.\n"
+                },
                 "vercelAuthentication": {
                     "$ref": "#/types/vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication",
                     "description": "Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.\n"
@@ -948,6 +1046,10 @@
                     "teamId": {
                         "type": "string",
                         "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "trustedIps": {
+                        "$ref": "#/types/vercel:index/ProjectTrustedIps:ProjectTrustedIps",
+                        "description": "Ensures only visitors from an allowed IP address can access your deployment.\n"
                     },
                     "vercelAuthentication": {
                         "$ref": "#/types/vercel:index/ProjectVercelAuthentication:ProjectVercelAuthentication",
@@ -1406,10 +1508,6 @@
                         "type": "string",
                         "description": "The name of the project.\n"
                     },
-                    "passwordProtection": {
-                        "$ref": "#/types/vercel:index/getProjectPasswordProtection:getProjectPasswordProtection",
-                        "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
-                    },
                     "teamId": {
                         "type": "string",
                         "description": "The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.\n"
@@ -1486,6 +1584,10 @@
                         "type": "string",
                         "description": "The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.\n"
                     },
+                    "trustedIps": {
+                        "$ref": "#/types/vercel:index/getProjectTrustedIps:getProjectTrustedIps",
+                        "description": "Ensures only visitors from an allowed IP address can access your deployment.\n"
+                    },
                     "vercelAuthentication": {
                         "$ref": "#/types/vercel:index/getProjectVercelAuthentication:getProjectVercelAuthentication",
                         "description": "Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.\n"
@@ -1503,10 +1605,12 @@
                     "installCommand",
                     "name",
                     "outputDirectory",
+                    "passwordProtection",
                     "publicSource",
                     "rootDirectory",
                     "serverlessFunctionRegion",
                     "teamId",
+                    "trustedIps",
                     "vercelAuthentication"
                 ]
             }

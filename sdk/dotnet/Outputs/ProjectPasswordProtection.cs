@@ -15,22 +15,22 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class ProjectPasswordProtection
     {
         /// <summary>
+        /// The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        /// </summary>
+        public readonly string DeploymentType;
+        /// <summary>
         /// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
         /// </summary>
         public readonly string Password;
-        /// <summary>
-        /// If true, production deployments will also be protected
-        /// </summary>
-        public readonly bool? ProtectProduction;
 
         [OutputConstructor]
         private ProjectPasswordProtection(
-            string password,
+            string deploymentType,
 
-            bool? protectProduction)
+            string password)
         {
+            DeploymentType = deploymentType;
             Password = password;
-            ProtectProduction = protectProduction;
         }
     }
 }

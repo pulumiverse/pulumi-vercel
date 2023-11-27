@@ -9,7 +9,6 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
-from ._inputs import *
 
 __all__ = [
     'GetProjectResult',
@@ -23,7 +22,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, build_command=None, dev_command=None, environments=None, framework=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, public_source=None, root_directory=None, serverless_function_region=None, team_id=None, vercel_authentication=None):
+    def __init__(__self__, build_command=None, dev_command=None, environments=None, framework=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, public_source=None, root_directory=None, serverless_function_region=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if build_command and not isinstance(build_command, str):
             raise TypeError("Expected argument 'build_command' to be a str")
         pulumi.set(__self__, "build_command", build_command)
@@ -69,6 +68,9 @@ class GetProjectResult:
         if team_id and not isinstance(team_id, str):
             raise TypeError("Expected argument 'team_id' to be a str")
         pulumi.set(__self__, "team_id", team_id)
+        if trusted_ips and not isinstance(trusted_ips, dict):
+            raise TypeError("Expected argument 'trusted_ips' to be a dict")
+        pulumi.set(__self__, "trusted_ips", trusted_ips)
         if vercel_authentication and not isinstance(vercel_authentication, dict):
             raise TypeError("Expected argument 'vercel_authentication' to be a dict")
         pulumi.set(__self__, "vercel_authentication", vercel_authentication)
@@ -155,7 +157,7 @@ class GetProjectResult:
 
     @property
     @pulumi.getter(name="passwordProtection")
-    def password_protection(self) -> Optional['outputs.GetProjectPasswordProtectionResult']:
+    def password_protection(self) -> 'outputs.GetProjectPasswordProtectionResult':
         """
         Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         """
@@ -194,6 +196,14 @@ class GetProjectResult:
         return pulumi.get(self, "team_id")
 
     @property
+    @pulumi.getter(name="trustedIps")
+    def trusted_ips(self) -> 'outputs.GetProjectTrustedIpsResult':
+        """
+        Ensures only visitors from an allowed IP address can access your deployment.
+        """
+        return pulumi.get(self, "trusted_ips")
+
+    @property
     @pulumi.getter(name="vercelAuthentication")
     def vercel_authentication(self) -> 'outputs.GetProjectVercelAuthenticationResult':
         """
@@ -223,11 +233,11 @@ class AwaitableGetProjectResult(GetProjectResult):
             root_directory=self.root_directory,
             serverless_function_region=self.serverless_function_region,
             team_id=self.team_id,
+            trusted_ips=self.trusted_ips,
             vercel_authentication=self.vercel_authentication)
 
 
 def get_project(name: Optional[str] = None,
-                password_protection: Optional[pulumi.InputType['GetProjectPasswordProtectionArgs']] = None,
                 team_id: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectResult:
     """
@@ -249,12 +259,10 @@ def get_project(name: Optional[str] = None,
 
 
     :param str name: The name of the project.
-    :param pulumi.InputType['GetProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['name'] = name
-    __args__['passwordProtection'] = password_protection
     __args__['teamId'] = team_id
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('vercel:index/getProject:getProject', __args__, opts=opts, typ=GetProjectResult).value
@@ -275,12 +283,12 @@ def get_project(name: Optional[str] = None,
         root_directory=pulumi.get(__ret__, 'root_directory'),
         serverless_function_region=pulumi.get(__ret__, 'serverless_function_region'),
         team_id=pulumi.get(__ret__, 'team_id'),
+        trusted_ips=pulumi.get(__ret__, 'trusted_ips'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))
 
 
 @_utilities.lift_output_func(get_project)
 def get_project_output(name: Optional[pulumi.Input[str]] = None,
-                       password_protection: Optional[pulumi.Input[Optional[pulumi.InputType['GetProjectPasswordProtectionArgs']]]] = None,
                        team_id: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectResult]:
     """
@@ -302,7 +310,6 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
 
 
     :param str name: The name of the project.
-    :param pulumi.InputType['GetProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     ...

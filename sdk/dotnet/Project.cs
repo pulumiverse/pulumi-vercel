@@ -159,6 +159,12 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
+        /// Ensures only visitors from an allowed IP address can access your deployment.
+        /// </summary>
+        [Output("trustedIps")]
+        public Output<Outputs.ProjectTrustedIps?> TrustedIps { get; private set; } = null!;
+
+        /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
         [Output("vercelAuthentication")]
@@ -308,6 +314,12 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
+        /// Ensures only visitors from an allowed IP address can access your deployment.
+        /// </summary>
+        [Input("trustedIps")]
+        public Input<Inputs.ProjectTrustedIpsArgs>? TrustedIps { get; set; }
+
+        /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
         [Input("vercelAuthentication")]
@@ -422,6 +434,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
+
+        /// <summary>
+        /// Ensures only visitors from an allowed IP address can access your deployment.
+        /// </summary>
+        [Input("trustedIps")]
+        public Input<Inputs.ProjectTrustedIpsGetArgs>? TrustedIps { get; set; }
 
         /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
