@@ -26,21 +26,17 @@
                     "environment": {
                         "maxItemsOne": false,
                         "elem": {
-                            "elem": {
-                                "fields": {
-                                    "target": {
-                                        "maxItemsOne": false
-                                    }
+                            "fields": {
+                                "target": {
+                                    "maxItemsOne": false
                                 }
                             }
                         }
                     },
                     "trusted_ips": {
-                        "elem": {
-                            "fields": {
-                                "addresses": {
-                                    "maxItemsOne": false
-                                }
+                        "fields": {
+                            "addresses": {
+                                "maxItemsOne": false
                             }
                         }
                     }
@@ -92,21 +88,17 @@
                     "environment": {
                         "maxItemsOne": false,
                         "elem": {
-                            "elem": {
-                                "fields": {
-                                    "target": {
-                                        "maxItemsOne": false
-                                    }
+                            "fields": {
+                                "target": {
+                                    "maxItemsOne": false
                                 }
                             }
                         }
                     },
                     "trusted_ips": {
-                        "elem": {
-                            "fields": {
-                                "addresses": {
-                                    "maxItemsOne": false
-                                }
+                        "fields": {
+                            "addresses": {
+                                "maxItemsOne": false
                             }
                         }
                     }
@@ -118,6 +110,7 @@
             }
         }
     },
+    "auto-settings": {},
     "config": {
         "variables": {
             "apiToken": {
