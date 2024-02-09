@@ -27,6 +27,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string Key;
         /// <summary>
+        /// Whether the Environment Variable is sensitive or not.
+        /// </summary>
+        public readonly bool? Sensitive;
+        /// <summary>
         /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         /// </summary>
         public readonly ImmutableArray<string> Targets;
@@ -43,6 +47,8 @@ namespace Pulumiverse.Vercel.Outputs
 
             string key,
 
+            bool? sensitive,
+
             ImmutableArray<string> targets,
 
             string value)
@@ -50,6 +56,7 @@ namespace Pulumiverse.Vercel.Outputs
             GitBranch = gitBranch;
             Id = id;
             Key = key;
+            Sensitive = sensitive;
             Targets = targets;
             Value = value;
         }

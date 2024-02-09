@@ -61,6 +61,10 @@ export interface GetProjectEnvironment {
      */
     key: string;
     /**
+     * Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
+     */
+    sensitive: boolean;
+    /**
      * The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     targets: string[];
@@ -135,6 +139,10 @@ export interface ProjectEnvironment {
      * The name of the Environment Variable.
      */
     key: string;
+    /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    sensitive: boolean;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */

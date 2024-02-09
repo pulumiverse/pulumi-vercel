@@ -57,7 +57,7 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
-    /// You can import via the team_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the shared environment variable page.
+    /// You can import via the team_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page. # Note also, that the value field for sensitive environment variables will be imported as `null`.
     /// 
     /// ```sh
     ///  $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
@@ -77,6 +77,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("projectIds")]
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the Environment Variable is sensitive or not.
+        /// </summary>
+        [Output("sensitive")]
+        public Output<bool> Sensitive { get; private set; } = null!;
 
         /// <summary>
         /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
@@ -165,6 +171,12 @@ namespace Pulumiverse.Vercel
             set => _projectIds = value;
         }
 
+        /// <summary>
+        /// Whether the Environment Variable is sensitive or not.
+        /// </summary>
+        [Input("sensitive")]
+        public Input<bool>? Sensitive { get; set; }
+
         [Input("targets", required: true)]
         private InputList<string>? _targets;
 
@@ -224,6 +236,12 @@ namespace Pulumiverse.Vercel
             get => _projectIds ?? (_projectIds = new InputList<string>());
             set => _projectIds = value;
         }
+
+        /// <summary>
+        /// Whether the Environment Variable is sensitive or not.
+        /// </summary>
+        [Input("sensitive")]
+        public Input<bool>? Sensitive { get; set; }
 
         [Input("targets")]
         private InputList<string>? _targets;

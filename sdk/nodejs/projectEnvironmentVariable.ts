@@ -32,17 +32,26 @@ import * as utilities from "./utilities";
  *     targets: ["preview"],
  *     gitBranch: "staging",
  * });
+ * // A sensitive environment variable that will be created
+ * // for this project for the "production" environment.
+ * const exampleSensitive = new vercel.ProjectEnvironmentVariable("exampleSensitive", {
+ *     projectId: exampleProject.id,
+ *     key: "foo",
+ *     value: "bar-production",
+ *     targets: ["production"],
+ *     sensitive: true,
+ * });
  * ```
  *
  * ## Import
  *
- * If importing into a personal account, or with a team configured on the provider, simply use the project_id and environment variable id. - project_id can be found in the project `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the project page.
+ * If importing into a personal account, or with a team configured on the provider, simply use the project_id and environment variable id. - project_id can be found in the project `settings` tab in the Vercel UI. - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the project page. # Note also, that the value field for sensitive environment variables will be imported as `null`.
  *
  * ```sh
  *  $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
  * ```
  *
- *  Alternatively, you can import via the team_id, project_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the project page.
+ *  Alternatively, you can import via the team_id, project_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI. - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the project page. # Note also, that the value field for sensitive environment variables will be imported as `null`.
  *
  * ```sh
  *  $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
@@ -89,6 +98,10 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    public readonly sensitive!: pulumi.Output<boolean>;
+    /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     public readonly targets!: pulumi.Output<string[]>;
@@ -117,6 +130,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["gitBranch"] = state ? state.gitBranch : undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["sensitive"] = state ? state.sensitive : undefined;
             resourceInputs["targets"] = state ? state.targets : undefined;
             resourceInputs["teamId"] = state ? state.teamId : undefined;
             resourceInputs["value"] = state ? state.value : undefined;
@@ -137,6 +151,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["gitBranch"] = args ? args.gitBranch : undefined;
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["sensitive"] = args ? args.sensitive : undefined;
             resourceInputs["targets"] = args ? args.targets : undefined;
             resourceInputs["teamId"] = args ? args.teamId : undefined;
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
@@ -164,6 +179,10 @@ export interface ProjectEnvironmentVariableState {
      * The ID of the Vercel project.
      */
     projectId?: pulumi.Input<string>;
+    /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    sensitive?: pulumi.Input<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
@@ -194,6 +213,10 @@ export interface ProjectEnvironmentVariableArgs {
      * The ID of the Vercel project.
      */
     projectId: pulumi.Input<string>;
+    /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    sensitive?: pulumi.Input<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */

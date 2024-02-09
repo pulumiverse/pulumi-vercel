@@ -33,7 +33,7 @@ import * as utilities from "./utilities";
  *
  * ## Import
  *
- * You can import via the team_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the shared environment variable page.
+ * You can import via the team_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page. # Note also, that the value field for sensitive environment variables will be imported as `null`.
  *
  * ```sh
  *  $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
@@ -76,6 +76,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly projectIds!: pulumi.Output<string[]>;
     /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    public readonly sensitive!: pulumi.Output<boolean>;
+    /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     public readonly targets!: pulumi.Output<string[]>;
@@ -103,6 +107,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             const state = argsOrState as SharedEnvironmentVariableState | undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["projectIds"] = state ? state.projectIds : undefined;
+            resourceInputs["sensitive"] = state ? state.sensitive : undefined;
             resourceInputs["targets"] = state ? state.targets : undefined;
             resourceInputs["teamId"] = state ? state.teamId : undefined;
             resourceInputs["value"] = state ? state.value : undefined;
@@ -122,6 +127,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             }
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["projectIds"] = args ? args.projectIds : undefined;
+            resourceInputs["sensitive"] = args ? args.sensitive : undefined;
             resourceInputs["targets"] = args ? args.targets : undefined;
             resourceInputs["teamId"] = args ? args.teamId : undefined;
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
@@ -145,6 +151,10 @@ export interface SharedEnvironmentVariableState {
      * The ID of the Vercel project.
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    sensitive?: pulumi.Input<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
@@ -171,6 +181,10 @@ export interface SharedEnvironmentVariableArgs {
      * The ID of the Vercel project.
      */
     projectIds: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    sensitive?: pulumi.Input<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */

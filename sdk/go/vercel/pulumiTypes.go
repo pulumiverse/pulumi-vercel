@@ -427,6 +427,8 @@ type ProjectEnvironment struct {
 	Id *string `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key string `pulumi:"key"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
@@ -451,6 +453,8 @@ type ProjectEnvironmentArgs struct {
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key pulumi.StringInput `pulumi:"key"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
@@ -521,6 +525,11 @@ func (o ProjectEnvironmentOutput) Id() pulumi.StringPtrOutput {
 // The name of the Environment Variable.
 func (o ProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// Whether the Environment Variable is sensitive or not.
+func (o ProjectEnvironmentOutput) Sensitive() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironment) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
 }
 
 // The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
@@ -1309,6 +1318,8 @@ type GetProjectEnvironment struct {
 	Id string `pulumi:"id"`
 	// The name of the environment variable.
 	Key string `pulumi:"key"`
+	// Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
+	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
 	// The value of the environment variable.
@@ -1333,6 +1344,8 @@ type GetProjectEnvironmentArgs struct {
 	Id pulumi.StringInput `pulumi:"id"`
 	// The name of the environment variable.
 	Key pulumi.StringInput `pulumi:"key"`
+	// Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
+	Sensitive pulumi.BoolInput `pulumi:"sensitive"`
 	// The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the environment variable.
@@ -1403,6 +1416,11 @@ func (o GetProjectEnvironmentOutput) Id() pulumi.StringOutput {
 // The name of the environment variable.
 func (o GetProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
+func (o GetProjectEnvironmentOutput) Sensitive() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectEnvironment) bool { return v.Sensitive }).(pulumi.BoolOutput)
 }
 
 // The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.

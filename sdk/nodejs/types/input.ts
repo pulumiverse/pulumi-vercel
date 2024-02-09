@@ -61,6 +61,10 @@ export interface ProjectEnvironment {
      */
     key: pulumi.Input<string>;
     /**
+     * Whether the Environment Variable is sensitive or not.
+     */
+    sensitive?: pulumi.Input<boolean>;
+    /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     targets: pulumi.Input<pulumi.Input<string>[]>;
