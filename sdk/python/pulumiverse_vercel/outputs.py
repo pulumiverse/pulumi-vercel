@@ -192,13 +192,15 @@ class ProjectEnvironment(dict):
                  targets: Sequence[str],
                  value: str,
                  git_branch: Optional[str] = None,
-                 id: Optional[str] = None):
+                 id: Optional[str] = None,
+                 sensitive: Optional[bool] = None):
         """
         :param str key: The name of the Environment Variable.
         :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the Environment Variable.
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
+        :param bool sensitive: Whether the Environment Variable is sensitive or not.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
@@ -207,6 +209,8 @@ class ProjectEnvironment(dict):
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
+        if sensitive is not None:
+            pulumi.set(__self__, "sensitive", sensitive)
 
     @property
     @pulumi.getter
@@ -247,6 +251,14 @@ class ProjectEnvironment(dict):
         The ID of the Environment Variable.
         """
         return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def sensitive(self) -> Optional[bool]:
+        """
+        Whether the Environment Variable is sensitive or not.
+        """
+        return pulumi.get(self, "sensitive")
 
 
 @pulumi.output_type
@@ -484,18 +496,21 @@ class GetProjectEnvironmentResult(dict):
                  git_branch: str,
                  id: str,
                  key: str,
+                 sensitive: bool,
                  targets: Sequence[str],
                  value: str):
         """
         :param str git_branch: The git branch of the environment variable.
         :param str id: The ID of the environment variable
         :param str key: The name of the environment variable.
+        :param bool sensitive: Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
         :param Sequence[str] targets: The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the environment variable.
         """
         pulumi.set(__self__, "git_branch", git_branch)
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
 
@@ -522,6 +537,14 @@ class GetProjectEnvironmentResult(dict):
         The name of the environment variable.
         """
         return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def sensitive(self) -> bool:
+        """
+        Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
+        """
+        return pulumi.get(self, "sensitive")
 
     @property
     @pulumi.getter

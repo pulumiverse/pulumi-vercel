@@ -31,6 +31,12 @@ namespace Pulumiverse.Vercel.Inputs
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
+        /// <summary>
+        /// Whether the Environment Variable is sensitive or not.
+        /// </summary>
+        [Input("sensitive")]
+        public Input<bool>? Sensitive { get; set; }
+
         [Input("targets", required: true)]
         private InputList<string>? _targets;
 

@@ -62,7 +62,7 @@ import (
 //
 // ## Import
 //
-// You can import via the team_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - environment variable id can be taken from the network tab on the shared environment variable page.
+// You can import via the team_id and environment variable id. - team_id can be found in the team `settings` tab in the Vercel UI. - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page. # Note also, that the value field for sensitive environment variables will be imported as `null`.
 //
 // ```sh
 //
@@ -76,6 +76,8 @@ type SharedEnvironmentVariable struct {
 	Key pulumi.StringOutput `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectIds pulumi.StringArrayOutput `pulumi:"projectIds"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive pulumi.BoolOutput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -137,6 +139,8 @@ type sharedEnvironmentVariableState struct {
 	Key *string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectIds []string `pulumi:"projectIds"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -150,6 +154,8 @@ type SharedEnvironmentVariableState struct {
 	Key pulumi.StringPtrInput
 	// The ID of the Vercel project.
 	ProjectIds pulumi.StringArrayInput
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive pulumi.BoolPtrInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -167,6 +173,8 @@ type sharedEnvironmentVariableArgs struct {
 	Key string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectIds []string `pulumi:"projectIds"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -181,6 +189,8 @@ type SharedEnvironmentVariableArgs struct {
 	Key pulumi.StringInput
 	// The ID of the Vercel project.
 	ProjectIds pulumi.StringArrayInput
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive pulumi.BoolPtrInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -284,6 +294,11 @@ func (o SharedEnvironmentVariableOutput) Key() pulumi.StringOutput {
 // The ID of the Vercel project.
 func (o SharedEnvironmentVariableOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringArrayOutput { return v.ProjectIds }).(pulumi.StringArrayOutput)
+}
+
+// Whether the Environment Variable is sensitive or not.
+func (o SharedEnvironmentVariableOutput) Sensitive() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.BoolOutput { return v.Sensitive }).(pulumi.BoolOutput)
 }
 
 // The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.

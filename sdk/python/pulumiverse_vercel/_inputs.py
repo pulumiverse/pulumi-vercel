@@ -181,13 +181,15 @@ class ProjectEnvironmentArgs:
                  targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
                  git_branch: Optional[pulumi.Input[str]] = None,
-                 id: Optional[pulumi.Input[str]] = None):
+                 id: Optional[pulumi.Input[str]] = None,
+                 sensitive: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] id: The ID of the Environment Variable.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
@@ -196,6 +198,8 @@ class ProjectEnvironmentArgs:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
+        if sensitive is not None:
+            pulumi.set(__self__, "sensitive", sensitive)
 
     @property
     @pulumi.getter
@@ -256,6 +260,18 @@ class ProjectEnvironmentArgs:
     @id.setter
     def id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "id", value)
+
+    @property
+    @pulumi.getter
+    def sensitive(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the Environment Variable is sensitive or not.
+        """
+        return pulumi.get(self, "sensitive")
+
+    @sensitive.setter
+    def sensitive(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "sensitive", value)
 
 
 @pulumi.input_type
