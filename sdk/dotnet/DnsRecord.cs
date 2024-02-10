@@ -105,16 +105,24 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
-    /// If importing into a personal account, or with a team configured on the provider, simply use the record id. - record_id is hard to find, but can be taken from the network tab, inside developer tools, on the domains page.
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    ///  the provider, simply use the record id.
+    /// 
+    ///  - record_id is hard to find, but can be taken from the network tab, inside developer tools, on the domains page.
     /// 
     /// ```sh
-    ///  $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
     /// ```
     /// 
-    ///  Alternatively, you can import via the team_id and record_id. - team_id can be found in the team `settings` tab in the Vercel UI. - record_id is hard to find, but can be taken from the network tab, inside developer tools, on the domains page.
+    ///  Alternatively, you can import via the team_id and record_id.
+    /// 
+    ///  - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    ///  - record_id is hard to find, but can be taken from the network tab, inside developer tools, on the domains page.
     /// 
     /// ```sh
-    ///  $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
     /// ```
     /// </summary>
     [VercelResourceType("vercel:index/dnsRecord:DnsRecord")]
