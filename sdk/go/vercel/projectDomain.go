@@ -60,20 +60,24 @@ import (
 //
 // ## Import
 //
-// If importing into a personal account, or with a team configured on the provider, simply use the project ID and domain. - project_id can be found in the project `settings` tab in the Vercel UI.
+// If importing into a personal account, or with a team configured on
+//
+//	the provider, simply use the project ID and domain.
+//
+//	- project_id can be found in the project `settings` tab in the Vercel UI.
 //
 // ```sh
-//
-//	$ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
-//
+// $ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
 // ```
 //
-//	Alternatively, you can import via the team_id, project_id and domain name. - team_id can be found in the team `settings` tab in the Vercel UI. - project_id can be found in the project `settings` tab in the Vercel UI.
+//	Alternatively, you can import via the team_id, project_id and domain name.
+//
+//	- team_id can be found in the team `settings` tab in the Vercel UI.
+//
+//	- project_id can be found in the project `settings` tab in the Vercel UI.
 //
 // ```sh
-//
-//	$ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
-//
+// $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
 // ```
 type ProjectDomain struct {
 	pulumi.CustomResourceState
