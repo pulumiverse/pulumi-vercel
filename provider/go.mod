@@ -3,7 +3,7 @@ module github.com/pulumiverse/pulumi-vercel/provider
 go 1.20
 
 require (
-	github.com/pulumi/pulumi-terraform-bridge/pf v0.27.0
+	github.com/pulumi/pulumi-terraform-bridge/pf v0.28.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.75.0
 	github.com/vercel/terraform-provider-vercel v1.1.0
 	golang.org/x/text v0.14.0
