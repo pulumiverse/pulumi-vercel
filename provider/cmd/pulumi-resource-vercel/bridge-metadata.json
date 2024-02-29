@@ -107,6 +107,18 @@
             "vercel_project_directory": {
                 "current": "vercel:index/getProjectDirectory:getProjectDirectory",
                 "majorVersion": 1
+            },
+            "vercel_shared_environment_variable": {
+                "current": "vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable",
+                "majorVersion": 1,
+                "fields": {
+                    "project_ids": {
+                        "maxItemsOne": false
+                    },
+                    "target": {
+                        "maxItemsOne": false
+                    }
+                }
             }
         }
     },
