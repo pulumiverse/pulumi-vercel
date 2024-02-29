@@ -23,6 +23,7 @@
         "getPrebuiltProject.ts",
         "getProject.ts",
         "getProjectDirectory.ts",
+        "getSharedEnvironmentVariable.ts",
         "index.ts",
         "project.ts",
         "projectDomain.ts",

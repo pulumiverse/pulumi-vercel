@@ -41,6 +41,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A shared environment variable that will be created
+//			// and associated with the "example" project.
 //			_, err = vercel.NewSharedEnvironmentVariable(ctx, "exampleSharedEnvironmentVariable", &vercel.SharedEnvironmentVariableArgs{
 //				Key:   pulumi.String("EXAMPLE"),
 //				Value: pulumi.String("some_value"),

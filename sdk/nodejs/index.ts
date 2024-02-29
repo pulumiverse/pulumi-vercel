@@ -45,6 +45,11 @@ export const getProjectDirectory: typeof import("./getProjectDirectory").getProj
 export const getProjectDirectoryOutput: typeof import("./getProjectDirectory").getProjectDirectoryOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectDirectory","getProjectDirectoryOutput"], () => require("./getProjectDirectory"));
 
+export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
+export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
+export const getSharedEnvironmentVariableOutput: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariableOutput = null as any;
+utilities.lazyLoad(exports, ["getSharedEnvironmentVariable","getSharedEnvironmentVariableOutput"], () => require("./getSharedEnvironmentVariable"));
+
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;

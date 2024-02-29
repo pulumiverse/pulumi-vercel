@@ -35,6 +35,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// An environment variable that will be created
+//			// for this project for the "production" environment.
 //			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleProjectEnvironmentVariable", &vercel.ProjectEnvironmentVariableArgs{
 //				ProjectId: exampleProject.ID(),
 //				Key:       pulumi.String("foo"),
@@ -46,6 +48,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// An environment variable that will be created
+//			// for this project for the "preview" environment when the branch is "staging".
 //			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleGitBranch", &vercel.ProjectEnvironmentVariableArgs{
 //				ProjectId: exampleProject.ID(),
 //				Key:       pulumi.String("foo"),
@@ -58,6 +62,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A sensitive environment variable that will be created
+//			// for this project for the "production" environment.
 //			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleSensitive", &vercel.ProjectEnvironmentVariableArgs{
 //				ProjectId: exampleProject.ID(),
 //				Key:       pulumi.String("foo"),
