@@ -25,6 +25,9 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// A project that is connected to a git repository.
+//			// Deployments will be created automatically
+//			// on every branch push and merges onto the Production Branch.
 //			_, err := vercel.NewProject(ctx, "withGit", &vercel.ProjectArgs{
 //				Framework: pulumi.String("nextjs"),
 //				GitRepository: &vercel.ProjectGitRepositoryArgs{
@@ -35,6 +38,9 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A project that is not connected to a git repository.
+//			// Deployments will need to be created manually through
+//			// terraform, or via the vercel CLI.
 //			_, err = vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
 //				Framework: pulumi.String("nextjs"),
 //			})

@@ -36,6 +36,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A simple domain that will be automatically
+//			// applied to each production deployment
 //			exampleProjectDomain, err := vercel.NewProjectDomain(ctx, "exampleProjectDomain", &vercel.ProjectDomainArgs{
 //				ProjectId: exampleProject.ID(),
 //				Domain:    pulumi.String("i-love.vercel.app"),
@@ -43,6 +45,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A redirect of a domain name to a second domain name.
+//			// The status_code can optionally be controlled.
 //			_, err = vercel.NewProjectDomain(ctx, "exampleRedirect", &vercel.ProjectDomainArgs{
 //				ProjectId:          exampleProject.ID(),
 //				Domain:             pulumi.String("i-also-love.vercel.app"),

@@ -13,6 +13,7 @@ from .get_file import *
 from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_directory import *
+from .get_shared_environment_variable import *
 from .project import *
 from .project_domain import *
 from .project_environment_variable import *
