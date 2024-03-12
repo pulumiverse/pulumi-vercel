@@ -249,6 +249,7 @@ def get_project(name: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -256,6 +257,7 @@ def get_project(name: Optional[str] = None,
     foo = vercel.get_project(name="my-existing-project")
     pulumi.export("projectId", foo.id)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str name: The name of the project.
@@ -300,6 +302,7 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -307,6 +310,7 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
     foo = vercel.get_project(name="my-existing-project")
     pulumi.export("projectId", foo.id)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str name: The name of the project.

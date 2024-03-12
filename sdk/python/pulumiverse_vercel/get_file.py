@@ -74,6 +74,7 @@ def get_file(path: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -85,6 +86,7 @@ def get_file(path: Optional[str] = None,
         project_id=example_project.id,
         files=example_file.file)
     ```
+    <!--End PulumiCodeChooser -->
     """
     __args__ = dict()
     __args__['path'] = path
@@ -107,6 +109,7 @@ def get_file_output(path: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -118,5 +121,6 @@ def get_file_output(path: Optional[pulumi.Input[str]] = None,
         project_id=example_project.id,
         files=example_file.file)
     ```
+    <!--End PulumiCodeChooser -->
     """
     ...

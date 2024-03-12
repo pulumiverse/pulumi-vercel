@@ -236,6 +236,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -252,18 +253,19 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             targets=["production"],
             project_ids=[example_project.id])
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         You can import via the team_id and environment variable id.
 
-         - team_id can be found in the team `settings` tab in the Vercel UI.
+        - team_id can be found in the team `settings` tab in the Vercel UI.
 
-         - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page.
+        - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page.
 
         # 
 
-         Note also, that the value field for sensitive environment variables will be imported as `null`.
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
 
         ```sh
         $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
@@ -293,6 +295,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -309,18 +312,19 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             targets=["production"],
             project_ids=[example_project.id])
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         You can import via the team_id and environment variable id.
 
-         - team_id can be found in the team `settings` tab in the Vercel UI.
+        - team_id can be found in the team `settings` tab in the Vercel UI.
 
-         - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page.
+        - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page.
 
         # 
 
-         Note also, that the value field for sensitive environment variables will be imported as `null`.
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
 
         ```sh
         $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy

@@ -19,10 +19,9 @@ namespace Pulumiverse.Vercel
         /// 
         /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -42,8 +41,7 @@ namespace Pulumiverse.Vercel
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Task<GetProjectResult> InvokeAsync(GetProjectArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("vercel:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
@@ -55,10 +53,9 @@ namespace Pulumiverse.Vercel
         /// 
         /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -78,8 +75,7 @@ namespace Pulumiverse.Vercel
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectResult>("vercel:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());

@@ -19,10 +19,9 @@ namespace Pulumiverse.Vercel
         /// 
         /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -48,8 +47,7 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Task<GetSharedEnvironmentVariableResult> InvokeAsync(GetSharedEnvironmentVariableArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSharedEnvironmentVariableResult>("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", args ?? new GetSharedEnvironmentVariableArgs(), options.WithDefaults());
@@ -61,10 +59,9 @@ namespace Pulumiverse.Vercel
         /// 
         /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -90,8 +87,7 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Output<GetSharedEnvironmentVariableResult> Invoke(GetSharedEnvironmentVariableInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSharedEnvironmentVariableResult>("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", args ?? new GetSharedEnvironmentVariableInvokeArgs(), options.WithDefaults());
