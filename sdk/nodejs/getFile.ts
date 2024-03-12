@@ -11,6 +11,7 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -27,6 +28,7 @@ import * as utilities from "./utilities";
  *     files: exampleFile.then(exampleFile => exampleFile.file),
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getFile(args: GetFileArgs, opts?: pulumi.InvokeOptions): Promise<GetFileResult> {
 
@@ -64,6 +66,7 @@ export interface GetFileResult {
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -80,6 +83,7 @@ export interface GetFileResult {
  *     files: exampleFile.then(exampleFile => exampleFile.file),
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getFileOutput(args: GetFileOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetFileResult> {
     return pulumi.output(args).apply((a: any) => getFile(a, opts))

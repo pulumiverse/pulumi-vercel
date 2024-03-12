@@ -615,6 +615,7 @@ class Project(pulumi.CustomResource):
         """
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -633,24 +634,25 @@ class Project(pulumi.CustomResource):
         # terraform, or via the vercel CLI.
         example = vercel.Project("example", framework="nextjs")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         If importing into a personal account, or with a team configured on
 
-         the provider, simply use the project ID.
+        the provider, simply use the project ID.
 
-         - project_id can be found in the project `settings` tab in the Vercel UI.
+        - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
-         Alternatively, you can import via the team_id and project_id.
+        Alternatively, you can import via the team_id and project_id.
 
-         - team_id can be found in the team `settings` tab in the Vercel UI.
+        - team_id can be found in the team `settings` tab in the Vercel UI.
 
-         - project_id can be found in the project `settings` tab in the Vercel UI.
+        - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -685,6 +687,7 @@ class Project(pulumi.CustomResource):
         """
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -703,24 +706,25 @@ class Project(pulumi.CustomResource):
         # terraform, or via the vercel CLI.
         example = vercel.Project("example", framework="nextjs")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         If importing into a personal account, or with a team configured on
 
-         the provider, simply use the project ID.
+        the provider, simply use the project ID.
 
-         - project_id can be found in the project `settings` tab in the Vercel UI.
+        - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
-         Alternatively, you can import via the team_id and project_id.
+        Alternatively, you can import via the team_id and project_id.
 
-         - team_id can be found in the team `settings` tab in the Vercel UI.
+        - team_id can be found in the team `settings` tab in the Vercel UI.
 
-         - project_id can be found in the project `settings` tab in the Vercel UI.
+        - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

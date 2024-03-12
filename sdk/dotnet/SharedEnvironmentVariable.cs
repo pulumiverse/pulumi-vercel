@@ -19,6 +19,7 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Example Usage
     /// 
+    /// &lt;!--Start PulumiCodeChooser --&gt;
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
@@ -54,18 +55,19 @@ namespace Pulumiverse.Vercel
     /// 
     /// });
     /// ```
+    /// &lt;!--End PulumiCodeChooser --&gt;
     /// 
     /// ## Import
     /// 
     /// You can import via the team_id and environment variable id.
     /// 
-    ///  - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
     /// 
-    ///  - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page.
+    /// - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the shared environment variable page.
     /// 
     /// # 
     /// 
-    ///  Note also, that the value field for sensitive environment variables will be imported as `null`.
+    /// Note also, that the value field for sensitive environment variables will be imported as `null`.
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy

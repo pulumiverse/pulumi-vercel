@@ -13,6 +13,7 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -28,6 +29,7 @@ import * as utilities from "./utilities";
  *     ],
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getSharedEnvironmentVariable(args?: GetSharedEnvironmentVariableArgs, opts?: pulumi.InvokeOptions): Promise<GetSharedEnvironmentVariableResult> {
     args = args || {};
@@ -105,6 +107,7 @@ export interface GetSharedEnvironmentVariableResult {
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -120,6 +123,7 @@ export interface GetSharedEnvironmentVariableResult {
  *     ],
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getSharedEnvironmentVariableOutput(args?: GetSharedEnvironmentVariableOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSharedEnvironmentVariableResult> {
     return pulumi.output(args).apply((a: any) => getSharedEnvironmentVariable(a, opts))
