@@ -131,6 +131,12 @@ namespace Pulumiverse.Vercel
     public partial class DnsRecord : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// A comment explaining what the DNS record is for.
+        /// </summary>
+        [Output("comment")]
+        public Output<string> Comment { get; private set; } = null!;
+
+        /// <summary>
         /// The domain name, or zone, that the DNS record should be created beneath.
         /// </summary>
         [Output("domain")]
@@ -233,6 +239,12 @@ namespace Pulumiverse.Vercel
     public sealed class DnsRecordArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// A comment explaining what the DNS record is for.
+        /// </summary>
+        [Input("comment")]
+        public Input<string>? Comment { get; set; }
+
+        /// <summary>
         /// The domain name, or zone, that the DNS record should be created beneath.
         /// </summary>
         [Input("domain", required: true)]
@@ -295,6 +307,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class DnsRecordState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// A comment explaining what the DNS record is for.
+        /// </summary>
+        [Input("comment")]
+        public Input<string>? Comment { get; set; }
+
         /// <summary>
         /// The domain name, or zone, that the DNS record should be created beneath.
         /// </summary>

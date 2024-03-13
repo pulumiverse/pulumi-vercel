@@ -18,6 +18,7 @@ class DnsRecordArgs:
     def __init__(__self__, *,
                  domain: pulumi.Input[str],
                  type: pulumi.Input[str],
+                 comment: Optional[pulumi.Input[str]] = None,
                  mx_priority: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  srv: Optional[pulumi.Input['DnsRecordSrvArgs']] = None,
@@ -28,6 +29,7 @@ class DnsRecordArgs:
         The set of arguments for constructing a DnsRecord resource.
         :param pulumi.Input[str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        :param pulumi.Input[str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
         :param pulumi.Input['DnsRecordSrvArgs'] srv: Settings for an SRV record.
@@ -44,6 +46,8 @@ class DnsRecordArgs:
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "type", type)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if mx_priority is not None:
             pulumi.set(__self__, "mx_priority", mx_priority)
         if name is not None:
@@ -80,6 +84,18 @@ class DnsRecordArgs:
     @type.setter
     def type(self, value: pulumi.Input[str]):
         pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the DNS record is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
 
     @property
     @pulumi.getter(name="mxPriority")
@@ -164,6 +180,7 @@ class DnsRecordArgs:
 @pulumi.input_type
 class _DnsRecordState:
     def __init__(__self__, *,
+                 comment: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  mx_priority: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -174,6 +191,7 @@ class _DnsRecordState:
                  value: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering DnsRecord resources.
+        :param pulumi.Input[str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -190,6 +208,8 @@ class _DnsRecordState:
                For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
                For 'TXT' records, this can contain arbitrary text.
         """
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
         if mx_priority is not None:
@@ -206,6 +226,18 @@ class _DnsRecordState:
             pulumi.set(__self__, "type", type)
         if value is not None:
             pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the DNS record is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
 
     @property
     @pulumi.getter
@@ -316,6 +348,7 @@ class DnsRecord(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 comment: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  mx_priority: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -414,6 +447,7 @@ class DnsRecord(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -538,6 +572,7 @@ class DnsRecord(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 comment: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  mx_priority: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -555,6 +590,7 @@ class DnsRecord(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = DnsRecordArgs.__new__(DnsRecordArgs)
 
+            __props__.__dict__["comment"] = comment
             if domain is None and not opts.urn:
                 raise TypeError("Missing required property 'domain'")
             __props__.__dict__["domain"] = domain
@@ -577,6 +613,7 @@ class DnsRecord(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            comment: Optional[pulumi.Input[str]] = None,
             domain: Optional[pulumi.Input[str]] = None,
             mx_priority: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
@@ -592,6 +629,7 @@ class DnsRecord(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -612,6 +650,7 @@ class DnsRecord(pulumi.CustomResource):
 
         __props__ = _DnsRecordState.__new__(_DnsRecordState)
 
+        __props__.__dict__["comment"] = comment
         __props__.__dict__["domain"] = domain
         __props__.__dict__["mx_priority"] = mx_priority
         __props__.__dict__["name"] = name
@@ -621,6 +660,14 @@ class DnsRecord(pulumi.CustomResource):
         __props__.__dict__["type"] = type
         __props__.__dict__["value"] = value
         return DnsRecord(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> pulumi.Output[str]:
+        """
+        A comment explaining what the DNS record is for.
+        """
+        return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter
