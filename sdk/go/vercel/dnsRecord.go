@@ -144,6 +144,8 @@ import (
 type DnsRecord struct {
 	pulumi.CustomResourceState
 
+	// A comment explaining what the DNS record is for.
+	Comment pulumi.StringOutput `pulumi:"comment"`
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringOutput `pulumi:"domain"`
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -205,6 +207,8 @@ func GetDnsRecord(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering DnsRecord resources.
 type dnsRecordState struct {
+	// A comment explaining what the DNS record is for.
+	Comment *string `pulumi:"comment"`
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain *string `pulumi:"domain"`
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -231,6 +235,8 @@ type dnsRecordState struct {
 }
 
 type DnsRecordState struct {
+	// A comment explaining what the DNS record is for.
+	Comment pulumi.StringPtrInput
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringPtrInput
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -261,6 +267,8 @@ func (DnsRecordState) ElementType() reflect.Type {
 }
 
 type dnsRecordArgs struct {
+	// A comment explaining what the DNS record is for.
+	Comment *string `pulumi:"comment"`
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain string `pulumi:"domain"`
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -288,6 +296,8 @@ type dnsRecordArgs struct {
 
 // The set of arguments for constructing a DnsRecord resource.
 type DnsRecordArgs struct {
+	// A comment explaining what the DNS record is for.
+	Comment pulumi.StringPtrInput
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringInput
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -398,6 +408,11 @@ func (o DnsRecordOutput) ToDnsRecordOutput() DnsRecordOutput {
 
 func (o DnsRecordOutput) ToDnsRecordOutputWithContext(ctx context.Context) DnsRecordOutput {
 	return o
+}
+
+// A comment explaining what the DNS record is for.
+func (o DnsRecordOutput) Comment() pulumi.StringOutput {
+	return o.ApplyT(func(v *DnsRecord) pulumi.StringOutput { return v.Comment }).(pulumi.StringOutput)
 }
 
 // The domain name, or zone, that the DNS record should be created beneath.

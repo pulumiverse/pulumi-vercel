@@ -130,6 +130,10 @@ export class DnsRecord extends pulumi.CustomResource {
     }
 
     /**
+     * A comment explaining what the DNS record is for.
+     */
+    public readonly comment!: pulumi.Output<string>;
+    /**
      * The domain name, or zone, that the DNS record should be created beneath.
      */
     public readonly domain!: pulumi.Output<string>;
@@ -182,6 +186,7 @@ export class DnsRecord extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DnsRecordState | undefined;
+            resourceInputs["comment"] = state ? state.comment : undefined;
             resourceInputs["domain"] = state ? state.domain : undefined;
             resourceInputs["mxPriority"] = state ? state.mxPriority : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
@@ -198,6 +203,7 @@ export class DnsRecord extends pulumi.CustomResource {
             if ((!args || args.type === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'type'");
             }
+            resourceInputs["comment"] = args ? args.comment : undefined;
             resourceInputs["domain"] = args ? args.domain : undefined;
             resourceInputs["mxPriority"] = args ? args.mxPriority : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -216,6 +222,10 @@ export class DnsRecord extends pulumi.CustomResource {
  * Input properties used for looking up and filtering DnsRecord resources.
  */
 export interface DnsRecordState {
+    /**
+     * A comment explaining what the DNS record is for.
+     */
+    comment?: pulumi.Input<string>;
     /**
      * The domain name, or zone, that the DNS record should be created beneath.
      */
@@ -261,6 +271,10 @@ export interface DnsRecordState {
  * The set of arguments for constructing a DnsRecord resource.
  */
 export interface DnsRecordArgs {
+    /**
+     * A comment explaining what the DNS record is for.
+     */
+    comment?: pulumi.Input<string>;
     /**
      * The domain name, or zone, that the DNS record should be created beneath.
      */
