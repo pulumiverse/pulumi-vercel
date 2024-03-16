@@ -16,6 +16,7 @@ __all__ = ['ProjectArgs', 'Project']
 @pulumi.input_type
 class ProjectArgs:
     def __init__(__self__, *,
+                 automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]] = None,
@@ -35,6 +36,7 @@ class ProjectArgs:
                  vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None):
         """
         The set of arguments for constructing a Project resource.
+        :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project.
@@ -53,6 +55,8 @@ class ProjectArgs:
         :param pulumi.Input['ProjectTrustedIpsArgs'] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
+        if automatically_expose_system_environment_variables is not None:
+            pulumi.set(__self__, "automatically_expose_system_environment_variables", automatically_expose_system_environment_variables)
         if build_command is not None:
             pulumi.set(__self__, "build_command", build_command)
         if dev_command is not None:
@@ -87,6 +91,18 @@ class ProjectArgs:
             pulumi.set(__self__, "trusted_ips", trusted_ips)
         if vercel_authentication is not None:
             pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @property
+    @pulumi.getter(name="automaticallyExposeSystemEnvironmentVariables")
+    def automatically_expose_system_environment_variables(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+        """
+        return pulumi.get(self, "automatically_expose_system_environment_variables")
+
+    @automatically_expose_system_environment_variables.setter
+    def automatically_expose_system_environment_variables(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "automatically_expose_system_environment_variables", value)
 
     @property
     @pulumi.getter(name="buildCommand")
@@ -296,6 +312,7 @@ class ProjectArgs:
 @pulumi.input_type
 class _ProjectState:
     def __init__(__self__, *,
+                 automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]] = None,
@@ -316,6 +333,7 @@ class _ProjectState:
                  vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None):
         """
         Input properties used for looking up and filtering Project resources.
+        :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project.
@@ -335,6 +353,8 @@ class _ProjectState:
         :param pulumi.Input['ProjectTrustedIpsArgs'] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
+        if automatically_expose_system_environment_variables is not None:
+            pulumi.set(__self__, "automatically_expose_system_environment_variables", automatically_expose_system_environment_variables)
         if build_command is not None:
             pulumi.set(__self__, "build_command", build_command)
         if dev_command is not None:
@@ -371,6 +391,18 @@ class _ProjectState:
             pulumi.set(__self__, "trusted_ips", trusted_ips)
         if vercel_authentication is not None:
             pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @property
+    @pulumi.getter(name="automaticallyExposeSystemEnvironmentVariables")
+    def automatically_expose_system_environment_variables(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+        """
+        return pulumi.get(self, "automatically_expose_system_environment_variables")
+
+    @automatically_expose_system_environment_variables.setter
+    def automatically_expose_system_environment_variables(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "automatically_expose_system_environment_variables", value)
 
     @property
     @pulumi.getter(name="buildCommand")
@@ -594,6 +626,7 @@ class Project(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]]] = None,
@@ -660,6 +693,7 @@ class Project(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]] environments: A set of Environment Variables that should be configured for the project.
@@ -745,6 +779,7 @@ class Project(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]]] = None,
@@ -771,6 +806,7 @@ class Project(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProjectArgs.__new__(ProjectArgs)
 
+            __props__.__dict__["automatically_expose_system_environment_variables"] = automatically_expose_system_environment_variables
             __props__.__dict__["build_command"] = build_command
             __props__.__dict__["dev_command"] = dev_command
             __props__.__dict__["environments"] = environments
@@ -799,6 +835,7 @@ class Project(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
             build_command: Optional[pulumi.Input[str]] = None,
             dev_command: Optional[pulumi.Input[str]] = None,
             environments: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]]] = None,
@@ -824,6 +861,7 @@ class Project(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]] environments: A set of Environment Variables that should be configured for the project.
@@ -847,6 +885,7 @@ class Project(pulumi.CustomResource):
 
         __props__ = _ProjectState.__new__(_ProjectState)
 
+        __props__.__dict__["automatically_expose_system_environment_variables"] = automatically_expose_system_environment_variables
         __props__.__dict__["build_command"] = build_command
         __props__.__dict__["dev_command"] = dev_command
         __props__.__dict__["environments"] = environments
@@ -866,6 +905,14 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["trusted_ips"] = trusted_ips
         __props__.__dict__["vercel_authentication"] = vercel_authentication
         return Project(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="automaticallyExposeSystemEnvironmentVariables")
+    def automatically_expose_system_environment_variables(self) -> pulumi.Output[bool]:
+        """
+        Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+        """
+        return pulumi.get(self, "automatically_expose_system_environment_variables")
 
     @property
     @pulumi.getter(name="buildCommand")
