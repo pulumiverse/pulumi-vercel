@@ -22,7 +22,10 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, build_command=None, dev_command=None, environments=None, framework=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, public_source=None, root_directory=None, serverless_function_region=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, automatically_expose_system_environment_variables=None, build_command=None, dev_command=None, environments=None, framework=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, public_source=None, root_directory=None, serverless_function_region=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+        if automatically_expose_system_environment_variables and not isinstance(automatically_expose_system_environment_variables, bool):
+            raise TypeError("Expected argument 'automatically_expose_system_environment_variables' to be a bool")
+        pulumi.set(__self__, "automatically_expose_system_environment_variables", automatically_expose_system_environment_variables)
         if build_command and not isinstance(build_command, str):
             raise TypeError("Expected argument 'build_command' to be a str")
         pulumi.set(__self__, "build_command", build_command)
@@ -74,6 +77,14 @@ class GetProjectResult:
         if vercel_authentication and not isinstance(vercel_authentication, dict):
             raise TypeError("Expected argument 'vercel_authentication' to be a dict")
         pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @property
+    @pulumi.getter(name="automaticallyExposeSystemEnvironmentVariables")
+    def automatically_expose_system_environment_variables(self) -> bool:
+        """
+        Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+        """
+        return pulumi.get(self, "automatically_expose_system_environment_variables")
 
     @property
     @pulumi.getter(name="buildCommand")
@@ -218,6 +229,7 @@ class AwaitableGetProjectResult(GetProjectResult):
         if False:
             yield self
         return GetProjectResult(
+            automatically_expose_system_environment_variables=self.automatically_expose_system_environment_variables,
             build_command=self.build_command,
             dev_command=self.dev_command,
             environments=self.environments,
@@ -270,6 +282,7 @@ def get_project(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getProject:getProject', __args__, opts=opts, typ=GetProjectResult).value
 
     return AwaitableGetProjectResult(
+        automatically_expose_system_environment_variables=pulumi.get(__ret__, 'automatically_expose_system_environment_variables'),
         build_command=pulumi.get(__ret__, 'build_command'),
         dev_command=pulumi.get(__ret__, 'dev_command'),
         environments=pulumi.get(__ret__, 'environments'),

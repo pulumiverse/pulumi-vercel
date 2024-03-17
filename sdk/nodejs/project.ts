@@ -82,6 +82,10 @@ export class Project extends pulumi.CustomResource {
     }
 
     /**
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     */
+    public readonly automaticallyExposeSystemEnvironmentVariables!: pulumi.Output<boolean>;
+    /**
      * The build command for this project. If omitted, this value will be automatically detected.
      */
     public readonly buildCommand!: pulumi.Output<string | undefined>;
@@ -167,6 +171,7 @@ export class Project extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ProjectState | undefined;
+            resourceInputs["automaticallyExposeSystemEnvironmentVariables"] = state ? state.automaticallyExposeSystemEnvironmentVariables : undefined;
             resourceInputs["buildCommand"] = state ? state.buildCommand : undefined;
             resourceInputs["devCommand"] = state ? state.devCommand : undefined;
             resourceInputs["environments"] = state ? state.environments : undefined;
@@ -187,6 +192,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["vercelAuthentication"] = state ? state.vercelAuthentication : undefined;
         } else {
             const args = argsOrState as ProjectArgs | undefined;
+            resourceInputs["automaticallyExposeSystemEnvironmentVariables"] = args ? args.automaticallyExposeSystemEnvironmentVariables : undefined;
             resourceInputs["buildCommand"] = args ? args.buildCommand : undefined;
             resourceInputs["devCommand"] = args ? args.devCommand : undefined;
             resourceInputs["environments"] = args ? args.environments : undefined;
@@ -215,6 +221,10 @@ export class Project extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Project resources.
  */
 export interface ProjectState {
+    /**
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     */
+    automaticallyExposeSystemEnvironmentVariables?: pulumi.Input<boolean>;
     /**
      * The build command for this project. If omitted, this value will be automatically detected.
      */
@@ -293,6 +303,10 @@ export interface ProjectState {
  * The set of arguments for constructing a Project resource.
  */
 export interface ProjectArgs {
+    /**
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     */
+    automaticallyExposeSystemEnvironmentVariables?: pulumi.Input<boolean>;
     /**
      * The build command for this project. If omitted, this value will be automatically detected.
      */

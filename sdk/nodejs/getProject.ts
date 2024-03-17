@@ -55,6 +55,10 @@ export interface GetProjectArgs {
  */
 export interface GetProjectResult {
     /**
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     */
+    readonly automaticallyExposeSystemEnvironmentVariables: boolean;
+    /**
      * The build command for this project. If omitted, this value will be automatically detected.
      */
     readonly buildCommand: string;

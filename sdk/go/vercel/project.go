@@ -79,6 +79,8 @@ import (
 type Project struct {
 	pulumi.CustomResourceState
 
+	// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolOutput `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrOutput `pulumi:"buildCommand"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -147,6 +149,8 @@ func GetProject(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Project resources.
 type projectState struct {
+	// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -186,6 +190,8 @@ type projectState struct {
 }
 
 type ProjectState struct {
+	// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -229,6 +235,8 @@ func (ProjectState) ElementType() reflect.Type {
 }
 
 type projectArgs struct {
+	// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -267,6 +275,8 @@ type projectArgs struct {
 
 // The set of arguments for constructing a Project resource.
 type ProjectArgs struct {
+	// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -388,6 +398,11 @@ func (o ProjectOutput) ToProjectOutput() ProjectOutput {
 
 func (o ProjectOutput) ToProjectOutputWithContext(ctx context.Context) ProjectOutput {
 	return o
+}
+
+// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+func (o ProjectOutput) AutomaticallyExposeSystemEnvironmentVariables() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.AutomaticallyExposeSystemEnvironmentVariables }).(pulumi.BoolOutput)
 }
 
 // The build command for this project. If omitted, this value will be automatically detected.
