@@ -65,6 +65,8 @@ type LookupProjectArgs struct {
 
 // A collection of values returned by getProject.
 type LookupProjectResult struct {
+	// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+	AutomaticallyExposeSystemEnvironmentVariables bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand string `pulumi:"buildCommand"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -139,6 +141,11 @@ func (o LookupProjectResultOutput) ToLookupProjectResultOutput() LookupProjectRe
 
 func (o LookupProjectResultOutput) ToLookupProjectResultOutputWithContext(ctx context.Context) LookupProjectResultOutput {
 	return o
+}
+
+// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+func (o LookupProjectResultOutput) AutomaticallyExposeSystemEnvironmentVariables() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.AutomaticallyExposeSystemEnvironmentVariables }).(pulumi.BoolOutput)
 }
 
 // The build command for this project. If omitted, this value will be automatically detected.

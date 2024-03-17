@@ -127,6 +127,10 @@ namespace Pulumiverse.Vercel
     public sealed class GetProjectResult
     {
         /// <summary>
+        /// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+        /// </summary>
+        public readonly bool AutomaticallyExposeSystemEnvironmentVariables;
+        /// <summary>
         /// The build command for this project. If omitted, this value will be automatically detected.
         /// </summary>
         public readonly string BuildCommand;
@@ -197,6 +201,8 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetProjectResult(
+            bool automaticallyExposeSystemEnvironmentVariables,
+
             string buildCommand,
 
             string devCommand,
@@ -231,6 +237,7 @@ namespace Pulumiverse.Vercel
 
             Outputs.GetProjectVercelAuthenticationResult vercelAuthentication)
         {
+            AutomaticallyExposeSystemEnvironmentVariables = automaticallyExposeSystemEnvironmentVariables;
             BuildCommand = buildCommand;
             DevCommand = devCommand;
             Environments = environments;

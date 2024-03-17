@@ -844,6 +844,10 @@
         "vercel:index/project:Project": {
             "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\n// A project that is connected to a git repository.\n// Deployments will be created automatically\n// on every branch push and merges onto the Production Branch.\nconst withGit = new vercel.Project(\"withGit\", {\n    framework: \"nextjs\",\n    gitRepository: {\n        repo: \"vercel/some-repo\",\n        type: \"github\",\n    },\n});\n// A project that is not connected to a git repository.\n// Deployments will need to be created manually through\n// terraform, or via the vercel CLI.\nconst example = new vercel.Project(\"example\", {framework: \"nextjs\"});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\n# A project that is connected to a git repository.\n# Deployments will be created automatically\n# on every branch push and merges onto the Production Branch.\nwith_git = vercel.Project(\"withGit\",\n    framework=\"nextjs\",\n    git_repository=vercel.ProjectGitRepositoryArgs(\n        repo=\"vercel/some-repo\",\n        type=\"github\",\n    ))\n# A project that is not connected to a git repository.\n# Deployments will need to be created manually through\n# terraform, or via the vercel CLI.\nexample = vercel.Project(\"example\", framework=\"nextjs\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // A project that is connected to a git repository.\n    // Deployments will be created automatically\n    // on every branch push and merges onto the Production Branch.\n    var withGit = new Vercel.Project(\"withGit\", new()\n    {\n        Framework = \"nextjs\",\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Repo = \"vercel/some-repo\",\n            Type = \"github\",\n        },\n    });\n\n    // A project that is not connected to a git repository.\n    // Deployments will need to be created manually through\n    // terraform, or via the vercel CLI.\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Framework = \"nextjs\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// A project that is connected to a git repository.\n\t\t// Deployments will be created automatically\n\t\t// on every branch push and merges onto the Production Branch.\n\t\t_, err := vercel.NewProject(ctx, \"withGit\", \u0026vercel.ProjectArgs{\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A project that is not connected to a git repository.\n\t\t// Deployments will need to be created manually through\n\t\t// terraform, or via the vercel CLI.\n\t\t_, err = vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var withGit = new Project(\"withGit\", ProjectArgs.builder()        \n            .framework(\"nextjs\")\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .repo(\"vercel/some-repo\")\n                .type(\"github\")\n                .build())\n            .build());\n\n        var example = new Project(\"example\", ProjectArgs.builder()        \n            .framework(\"nextjs\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # A project that is connected to a git repository.\n  # // Deployments will be created automatically\n  # // on every branch push and merges onto the Production Branch.\n  withGit:\n    type: vercel:Project\n    properties:\n      framework: nextjs\n      gitRepository:\n        repo: vercel/some-repo\n        type: github\n  # A project that is not connected to a git repository.\n  # // Deployments will need to be created manually through\n  # // terraform, or via the vercel CLI.\n  example:\n    type: vercel:Project\n    properties:\n      framework: nextjs\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the project ID.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
+                "automaticallyExposeSystemEnvironmentVariables": {
+                    "type": "boolean",
+                    "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
+                },
                 "buildCommand": {
                     "type": "string",
                     "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
@@ -921,6 +925,7 @@
                 }
             },
             "required": [
+                "automaticallyExposeSystemEnvironmentVariables",
                 "name",
                 "protectionBypassForAutomationSecret",
                 "serverlessFunctionRegion",
@@ -928,6 +933,10 @@
                 "vercelAuthentication"
             ],
             "inputProperties": {
+                "automaticallyExposeSystemEnvironmentVariables": {
+                    "type": "boolean",
+                    "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
+                },
                 "buildCommand": {
                     "type": "string",
                     "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
@@ -1003,6 +1012,10 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Project resources.\n",
                 "properties": {
+                    "automaticallyExposeSystemEnvironmentVariables": {
+                        "type": "boolean",
+                        "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
+                    },
                     "buildCommand": {
                         "type": "string",
                         "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
@@ -1570,6 +1583,10 @@
             "outputs": {
                 "description": "A collection of values returned by getProject.\n",
                 "properties": {
+                    "automaticallyExposeSystemEnvironmentVariables": {
+                        "type": "boolean",
+                        "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
+                    },
                     "buildCommand": {
                         "type": "string",
                         "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
@@ -1644,6 +1661,7 @@
                 },
                 "type": "object",
                 "required": [
+                    "automaticallyExposeSystemEnvironmentVariables",
                     "buildCommand",
                     "devCommand",
                     "environments",
