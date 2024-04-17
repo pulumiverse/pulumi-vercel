@@ -19,6 +19,18 @@
                 "current": "vercel:index/dnsRecord:DnsRecord",
                 "majorVersion": 1
             },
+            "vercel_edge_config": {
+                "current": "vercel:index/edgeConfig:EdgeConfig",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_schema": {
+                "current": "vercel:index/edgeConfigSchema:EdgeConfigSchema",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_token": {
+                "current": "vercel:index/edgeConfigToken:EdgeConfigToken",
+                "majorVersion": 1
+            },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
                 "majorVersion": 1,
@@ -71,6 +83,18 @@
         "datasources": {
             "vercel_alias": {
                 "current": "vercel:index/getAlias:getAlias",
+                "majorVersion": 1
+            },
+            "vercel_edge_config": {
+                "current": "vercel:index/getEdgeConfig:getEdgeConfig",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_schema": {
+                "current": "vercel:index/getEdgeConfigSchema:getEdgeConfigSchema",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_token": {
+                "current": "vercel:index/getEdgeConfigToken:getEdgeConfigToken",
                 "majorVersion": 1
             },
             "vercel_file": {
