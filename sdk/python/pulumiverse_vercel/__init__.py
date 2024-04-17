@@ -8,7 +8,13 @@ import typing
 from .alias import *
 from .deployment import *
 from .dns_record import *
+from .edge_config import *
+from .edge_config_schema import *
+from .edge_config_token import *
 from .get_alias import *
+from .get_edge_config import *
+from .get_edge_config_schema import *
+from .get_edge_config_token import *
 from .get_file import *
 from .get_prebuilt_project import *
 from .get_project import *
@@ -54,6 +60,30 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/dnsRecord:DnsRecord": "DnsRecord"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/edgeConfig",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfig:EdgeConfig": "EdgeConfig"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/edgeConfigSchema",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfigSchema:EdgeConfigSchema": "EdgeConfigSchema"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/edgeConfigToken",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfigToken:EdgeConfigToken": "EdgeConfigToken"
   }
  },
  {

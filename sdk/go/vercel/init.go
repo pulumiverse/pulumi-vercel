@@ -27,6 +27,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Deployment{}
 	case "vercel:index/dnsRecord:DnsRecord":
 		r = &DnsRecord{}
+	case "vercel:index/edgeConfig:EdgeConfig":
+		r = &EdgeConfig{}
+	case "vercel:index/edgeConfigSchema:EdgeConfigSchema":
+		r = &EdgeConfigSchema{}
+	case "vercel:index/edgeConfigToken:EdgeConfigToken":
+		r = &EdgeConfigToken{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectDomain:ProjectDomain":
@@ -79,6 +85,21 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/dnsRecord",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/edgeConfig",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/edgeConfigSchema",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/edgeConfigToken",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

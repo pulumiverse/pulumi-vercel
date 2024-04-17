@@ -20,10 +20,40 @@ export type DnsRecord = import("./dnsRecord").DnsRecord;
 export const DnsRecord: typeof import("./dnsRecord").DnsRecord = null as any;
 utilities.lazyLoad(exports, ["DnsRecord"], () => require("./dnsRecord"));
 
+export { EdgeConfigArgs, EdgeConfigState } from "./edgeConfig";
+export type EdgeConfig = import("./edgeConfig").EdgeConfig;
+export const EdgeConfig: typeof import("./edgeConfig").EdgeConfig = null as any;
+utilities.lazyLoad(exports, ["EdgeConfig"], () => require("./edgeConfig"));
+
+export { EdgeConfigSchemaArgs, EdgeConfigSchemaState } from "./edgeConfigSchema";
+export type EdgeConfigSchema = import("./edgeConfigSchema").EdgeConfigSchema;
+export const EdgeConfigSchema: typeof import("./edgeConfigSchema").EdgeConfigSchema = null as any;
+utilities.lazyLoad(exports, ["EdgeConfigSchema"], () => require("./edgeConfigSchema"));
+
+export { EdgeConfigTokenArgs, EdgeConfigTokenState } from "./edgeConfigToken";
+export type EdgeConfigToken = import("./edgeConfigToken").EdgeConfigToken;
+export const EdgeConfigToken: typeof import("./edgeConfigToken").EdgeConfigToken = null as any;
+utilities.lazyLoad(exports, ["EdgeConfigToken"], () => require("./edgeConfigToken"));
+
 export { GetAliasArgs, GetAliasResult, GetAliasOutputArgs } from "./getAlias";
 export const getAlias: typeof import("./getAlias").getAlias = null as any;
 export const getAliasOutput: typeof import("./getAlias").getAliasOutput = null as any;
 utilities.lazyLoad(exports, ["getAlias","getAliasOutput"], () => require("./getAlias"));
+
+export { GetEdgeConfigArgs, GetEdgeConfigResult, GetEdgeConfigOutputArgs } from "./getEdgeConfig";
+export const getEdgeConfig: typeof import("./getEdgeConfig").getEdgeConfig = null as any;
+export const getEdgeConfigOutput: typeof import("./getEdgeConfig").getEdgeConfigOutput = null as any;
+utilities.lazyLoad(exports, ["getEdgeConfig","getEdgeConfigOutput"], () => require("./getEdgeConfig"));
+
+export { GetEdgeConfigSchemaArgs, GetEdgeConfigSchemaResult, GetEdgeConfigSchemaOutputArgs } from "./getEdgeConfigSchema";
+export const getEdgeConfigSchema: typeof import("./getEdgeConfigSchema").getEdgeConfigSchema = null as any;
+export const getEdgeConfigSchemaOutput: typeof import("./getEdgeConfigSchema").getEdgeConfigSchemaOutput = null as any;
+utilities.lazyLoad(exports, ["getEdgeConfigSchema","getEdgeConfigSchemaOutput"], () => require("./getEdgeConfigSchema"));
+
+export { GetEdgeConfigTokenArgs, GetEdgeConfigTokenResult, GetEdgeConfigTokenOutputArgs } from "./getEdgeConfigToken";
+export const getEdgeConfigToken: typeof import("./getEdgeConfigToken").getEdgeConfigToken = null as any;
+export const getEdgeConfigTokenOutput: typeof import("./getEdgeConfigToken").getEdgeConfigTokenOutput = null as any;
+utilities.lazyLoad(exports, ["getEdgeConfigToken","getEdgeConfigTokenOutput"], () => require("./getEdgeConfigToken"));
 
 export { GetFileArgs, GetFileResult, GetFileOutputArgs } from "./getFile";
 export const getFile: typeof import("./getFile").getFile = null as any;
@@ -95,6 +125,12 @@ const _module = {
                 return new Deployment(name, <any>undefined, { urn })
             case "vercel:index/dnsRecord:DnsRecord":
                 return new DnsRecord(name, <any>undefined, { urn })
+            case "vercel:index/edgeConfig:EdgeConfig":
+                return new EdgeConfig(name, <any>undefined, { urn })
+            case "vercel:index/edgeConfigSchema:EdgeConfigSchema":
+                return new EdgeConfigSchema(name, <any>undefined, { urn })
+            case "vercel:index/edgeConfigToken:EdgeConfigToken":
+                return new EdgeConfigToken(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectDomain:ProjectDomain":
@@ -111,6 +147,9 @@ const _module = {
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
