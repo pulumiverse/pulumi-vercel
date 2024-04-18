@@ -85,7 +85,9 @@ import * as utilities from "./utilities";
  *
  * the provider, simply use the record id.
  *
- * - record_id is hard to find, but can be taken from the network tab, inside developer tools, on the domains page.
+ * - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
+ *
+ * or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
  *
  * ```sh
  * $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -95,7 +97,9 @@ import * as utilities from "./utilities";
  *
  * - team_id can be found in the team `settings` tab in the Vercel UI.
  *
- * - record_id is hard to find, but can be taken from the network tab, inside developer tools, on the domains page.
+ * - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
+ *
+ * or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
  *
  * ```sh
  * $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
