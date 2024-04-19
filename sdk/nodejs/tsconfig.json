@@ -18,7 +18,13 @@
         "config/vars.ts",
         "deployment.ts",
         "dnsRecord.ts",
+        "edgeConfig.ts",
+        "edgeConfigSchema.ts",
+        "edgeConfigToken.ts",
         "getAlias.ts",
+        "getEdgeConfig.ts",
+        "getEdgeConfigSchema.ts",
+        "getEdgeConfigToken.ts",
         "getFile.ts",
         "getPrebuiltProject.ts",
         "getProject.ts",
@@ -33,6 +39,7 @@
         "types/index.ts",
         "types/input.ts",
         "types/output.ts",
-        "utilities.ts"
+        "utilities.ts",
+        "webhook.ts"
     ]
 }

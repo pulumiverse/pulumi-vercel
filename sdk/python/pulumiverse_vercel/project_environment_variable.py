@@ -306,7 +306,9 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
 
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
-        - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the project page.
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         # 
 
@@ -324,7 +326,9 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
 
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
-        - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the project page.
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         # 
 
@@ -396,7 +400,9 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
 
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
-        - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the project page.
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         # 
 
@@ -414,7 +420,9 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
 
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
-        - environment variable id is hard to find, but can be taken from the network tab, inside developer tools, on the project page.
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         # 
 
