@@ -8,17 +8,27 @@ import typing
 from .alias import *
 from .deployment import *
 from .dns_record import *
+from .edge_config import *
+from .edge_config_schema import *
+from .edge_config_token import *
 from .get_alias import *
+from .get_edge_config import *
+from .get_edge_config_schema import *
+from .get_edge_config_token import *
+from .get_endpoint_verification import *
 from .get_file import *
+from .get_log_drain import *
 from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_directory import *
 from .get_shared_environment_variable import *
+from .log_drain import *
 from .project import *
 from .project_domain import *
 from .project_environment_variable import *
 from .provider import *
 from .shared_environment_variable import *
+from .webhook import *
 from ._inputs import *
 from . import outputs
 
@@ -58,6 +68,38 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/edgeConfig",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfig:EdgeConfig": "EdgeConfig"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/edgeConfigSchema",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfigSchema:EdgeConfigSchema": "EdgeConfigSchema"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/edgeConfigToken",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfigToken:EdgeConfigToken": "EdgeConfigToken"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/logDrain",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/logDrain:LogDrain": "LogDrain"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/project",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -86,6 +128,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": "SharedEnvironmentVariable"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/webhook",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/webhook:Webhook": "Webhook"
   }
  }
 ]

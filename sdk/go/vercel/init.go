@@ -27,6 +27,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Deployment{}
 	case "vercel:index/dnsRecord:DnsRecord":
 		r = &DnsRecord{}
+	case "vercel:index/edgeConfig:EdgeConfig":
+		r = &EdgeConfig{}
+	case "vercel:index/edgeConfigSchema:EdgeConfigSchema":
+		r = &EdgeConfigSchema{}
+	case "vercel:index/edgeConfigToken:EdgeConfigToken":
+		r = &EdgeConfigToken{}
+	case "vercel:index/logDrain:LogDrain":
+		r = &LogDrain{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectDomain:ProjectDomain":
@@ -35,6 +43,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectEnvironmentVariable{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
+	case "vercel:index/webhook:Webhook":
+		r = &Webhook{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -83,6 +93,26 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/edgeConfig",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/edgeConfigSchema",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/edgeConfigToken",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/logDrain",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/project",
 		&module{version},
 	)
@@ -99,6 +129,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/sharedEnvironmentVariable",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/webhook",
 		&module{version},
 	)
 	pulumi.RegisterResourcePackage(
