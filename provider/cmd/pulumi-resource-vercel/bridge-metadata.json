@@ -19,6 +19,33 @@
                 "current": "vercel:index/dnsRecord:DnsRecord",
                 "majorVersion": 1
             },
+            "vercel_edge_config": {
+                "current": "vercel:index/edgeConfig:EdgeConfig",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_schema": {
+                "current": "vercel:index/edgeConfigSchema:EdgeConfigSchema",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_token": {
+                "current": "vercel:index/edgeConfigToken:EdgeConfigToken",
+                "majorVersion": 1
+            },
+            "vercel_log_drain": {
+                "current": "vercel:index/logDrain:LogDrain",
+                "majorVersion": 1,
+                "fields": {
+                    "environments": {
+                        "maxItemsOne": false
+                    },
+                    "project_ids": {
+                        "maxItemsOne": false
+                    },
+                    "sources": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
                 "majorVersion": 1,
@@ -66,6 +93,18 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_webhook": {
+                "current": "vercel:index/webhook:Webhook",
+                "majorVersion": 1,
+                "fields": {
+                    "events": {
+                        "maxItemsOne": false
+                    },
+                    "project_ids": {
+                        "maxItemsOne": false
+                    }
+                }
             }
         },
         "datasources": {
@@ -73,9 +112,40 @@
                 "current": "vercel:index/getAlias:getAlias",
                 "majorVersion": 1
             },
+            "vercel_edge_config": {
+                "current": "vercel:index/getEdgeConfig:getEdgeConfig",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_schema": {
+                "current": "vercel:index/getEdgeConfigSchema:getEdgeConfigSchema",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_token": {
+                "current": "vercel:index/getEdgeConfigToken:getEdgeConfigToken",
+                "majorVersion": 1
+            },
+            "vercel_endpoint_verification": {
+                "current": "vercel:index/getEndpointVerification:getEndpointVerification",
+                "majorVersion": 1
+            },
             "vercel_file": {
                 "current": "vercel:index/getFile:getFile",
                 "majorVersion": 1
+            },
+            "vercel_log_drain": {
+                "current": "vercel:index/getLogDrain:getLogDrain",
+                "majorVersion": 1,
+                "fields": {
+                    "environments": {
+                        "maxItemsOne": false
+                    },
+                    "project_ids": {
+                        "maxItemsOne": false
+                    },
+                    "sources": {
+                        "maxItemsOne": false
+                    }
+                }
             },
             "vercel_prebuilt_project": {
                 "current": "vercel:index/getPrebuiltProject:getPrebuiltProject",
