@@ -112,6 +112,15 @@
                 "current": "vercel:index/getAlias:getAlias",
                 "majorVersion": 1
             },
+            "vercel_deployment": {
+                "current": "vercel:index/getDeployment:getDeployment",
+                "majorVersion": 1,
+                "fields": {
+                    "domains": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_edge_config": {
                 "current": "vercel:index/getEdgeConfig:getEdgeConfig",
                 "majorVersion": 1
