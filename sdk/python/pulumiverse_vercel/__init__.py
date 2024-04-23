@@ -12,6 +12,7 @@ from .edge_config import *
 from .edge_config_schema import *
 from .edge_config_token import *
 from .get_alias import *
+from .get_deployment import *
 from .get_edge_config import *
 from .get_edge_config_schema import *
 from .get_edge_config_token import *
