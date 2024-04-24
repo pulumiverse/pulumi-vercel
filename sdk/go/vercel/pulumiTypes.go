@@ -1071,7 +1071,7 @@ func (o ProjectTrustedIpsPtrOutput) ProtectionMode() pulumi.StringPtrOutput {
 type ProjectTrustedIpsAddress struct {
 	// A description for the value
 	Note *string `pulumi:"note"`
-	// The value of the Environment Variable.
+	// The address or CIDR range that can access deployments.
 	Value string `pulumi:"value"`
 }
 
@@ -1089,7 +1089,7 @@ type ProjectTrustedIpsAddressInput interface {
 type ProjectTrustedIpsAddressArgs struct {
 	// A description for the value
 	Note pulumi.StringPtrInput `pulumi:"note"`
-	// The value of the Environment Variable.
+	// The address or CIDR range that can access deployments.
 	Value pulumi.StringInput `pulumi:"value"`
 }
 
@@ -1149,7 +1149,7 @@ func (o ProjectTrustedIpsAddressOutput) Note() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectTrustedIpsAddress) *string { return v.Note }).(pulumi.StringPtrOutput)
 }
 
-// The value of the Environment Variable.
+// The address or CIDR range that can access deployments.
 func (o ProjectTrustedIpsAddressOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectTrustedIpsAddress) string { return v.Value }).(pulumi.StringOutput)
 }
@@ -1646,8 +1646,7 @@ func (o GetProjectTrustedIpsOutput) ProtectionMode() pulumi.StringOutput {
 }
 
 type GetProjectTrustedIpsAddress struct {
-	Note string `pulumi:"note"`
-	// The value of the environment variable.
+	Note  string `pulumi:"note"`
 	Value string `pulumi:"value"`
 }
 
@@ -1663,8 +1662,7 @@ type GetProjectTrustedIpsAddressInput interface {
 }
 
 type GetProjectTrustedIpsAddressArgs struct {
-	Note pulumi.StringInput `pulumi:"note"`
-	// The value of the environment variable.
+	Note  pulumi.StringInput `pulumi:"note"`
 	Value pulumi.StringInput `pulumi:"value"`
 }
 
@@ -1723,7 +1721,6 @@ func (o GetProjectTrustedIpsAddressOutput) Note() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectTrustedIpsAddress) string { return v.Note }).(pulumi.StringOutput)
 }
 
-// The value of the environment variable.
 func (o GetProjectTrustedIpsAddressOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectTrustedIpsAddress) string { return v.Value }).(pulumi.StringOutput)
 }

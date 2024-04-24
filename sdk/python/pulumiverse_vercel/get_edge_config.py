@@ -78,14 +78,12 @@ def get_edge_config(id: Optional[str] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str id: The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
@@ -114,14 +112,12 @@ def get_edge_config_output(id: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str id: The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.

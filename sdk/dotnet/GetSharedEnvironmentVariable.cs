@@ -21,7 +21,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -47,7 +46,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Task<GetSharedEnvironmentVariableResult> InvokeAsync(GetSharedEnvironmentVariableArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSharedEnvironmentVariableResult>("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", args ?? new GetSharedEnvironmentVariableArgs(), options.WithDefaults());
@@ -61,7 +59,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -87,7 +84,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Output<GetSharedEnvironmentVariableResult> Invoke(GetSharedEnvironmentVariableInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSharedEnvironmentVariableResult>("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", args ?? new GetSharedEnvironmentVariableInvokeArgs(), options.WithDefaults());

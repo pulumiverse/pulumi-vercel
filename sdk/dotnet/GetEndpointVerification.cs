@@ -17,7 +17,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -30,7 +29,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Task<GetEndpointVerificationResult> InvokeAsync(GetEndpointVerificationArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetEndpointVerificationResult>("vercel:index/getEndpointVerification:getEndpointVerification", args ?? new GetEndpointVerificationArgs(), options.WithDefaults());
@@ -40,7 +38,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -53,7 +50,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Output<GetEndpointVerificationResult> Invoke(GetEndpointVerificationInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetEndpointVerificationResult>("vercel:index/getEndpointVerification:getEndpointVerification", args ?? new GetEndpointVerificationInvokeArgs(), options.WithDefaults());

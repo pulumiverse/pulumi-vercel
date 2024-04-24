@@ -648,7 +648,6 @@ class Project(pulumi.CustomResource):
         """
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -667,7 +666,6 @@ class Project(pulumi.CustomResource):
         # terraform, or via the vercel CLI.
         example = vercel.Project("example", framework="nextjs")
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -721,7 +719,6 @@ class Project(pulumi.CustomResource):
         """
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -740,7 +737,6 @@ class Project(pulumi.CustomResource):
         # terraform, or via the vercel CLI.
         example = vercel.Project("example", framework="nextjs")
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 

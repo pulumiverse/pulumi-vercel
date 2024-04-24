@@ -130,7 +130,6 @@ def get_shared_environment_variable(id: Optional[str] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -142,7 +141,6 @@ def get_shared_environment_variable(id: Optional[str] = None,
             "preview",
         ])
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str id: The ID of the Environment Variable.
@@ -183,7 +181,6 @@ def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[st
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -195,7 +192,6 @@ def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[st
             "preview",
         ])
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str id: The ID of the Environment Variable.

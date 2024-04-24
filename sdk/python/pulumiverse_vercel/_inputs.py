@@ -423,7 +423,7 @@ class ProjectTrustedIpsAddressArgs:
                  value: pulumi.Input[str],
                  note: Optional[pulumi.Input[str]] = None):
         """
-        :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] value: The address or CIDR range that can access deployments.
         :param pulumi.Input[str] note: A description for the value
         """
         pulumi.set(__self__, "value", value)
@@ -434,7 +434,7 @@ class ProjectTrustedIpsAddressArgs:
     @pulumi.getter
     def value(self) -> pulumi.Input[str]:
         """
-        The value of the Environment Variable.
+        The address or CIDR range that can access deployments.
         """
         return pulumi.get(self, "value")
 

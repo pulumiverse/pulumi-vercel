@@ -13,7 +13,6 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -23,7 +22,6 @@ import * as utilities from "./utilities";
  *     token: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getEdgeConfigToken(args: GetEdgeConfigTokenArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigTokenResult> {
 
@@ -91,7 +89,6 @@ export interface GetEdgeConfigTokenResult {
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -101,7 +98,6 @@ export interface GetEdgeConfigTokenResult {
  *     token: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getEdgeConfigTokenOutput(args: GetEdgeConfigTokenOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigTokenResult> {
     return pulumi.output(args).apply((a: any) => getEdgeConfigToken(a, opts))

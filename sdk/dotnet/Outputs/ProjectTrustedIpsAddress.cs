@@ -19,7 +19,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? Note;
         /// <summary>
-        /// The value of the Environment Variable.
+        /// The address or CIDR range that can access deployments.
         /// </summary>
         public readonly string Value;
 

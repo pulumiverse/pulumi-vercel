@@ -19,7 +19,6 @@ import (
 //
 // ## Example Usage
 //
-// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
@@ -44,7 +43,6 @@ import (
 //	}
 //
 // ```
-// <!--End PulumiCodeChooser -->
 func LookupEdgeConfigToken(ctx *pulumi.Context, args *LookupEdgeConfigTokenArgs, opts ...pulumi.InvokeOption) (*LookupEdgeConfigTokenResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupEdgeConfigTokenResult

@@ -76,14 +76,12 @@ def get_edge_config_schema(id: Optional[str] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     test = vercel.get_edge_config_schema(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str id: The ID of the Edge Config that the schema should be for.
@@ -110,14 +108,12 @@ def get_edge_config_schema_output(id: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     test = vercel.get_edge_config_schema(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str id: The ID of the Edge Config that the schema should be for.

@@ -17,7 +17,6 @@ import (
 //
 // ## Example Usage
 //
-// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
@@ -54,7 +53,6 @@ import (
 //	}
 //
 // ```
-// <!--End PulumiCodeChooser -->
 func GetFile(ctx *pulumi.Context, args *GetFileArgs, opts ...pulumi.InvokeOption) (*GetFileResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetFileResult
