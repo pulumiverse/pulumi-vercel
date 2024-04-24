@@ -260,7 +260,7 @@
                 },
                 "value": {
                     "type": "string",
-                    "description": "The value of the Environment Variable.\n",
+                    "description": "The address or CIDR range that can access deployments.\n",
                     "secret": true
                 }
             },
@@ -406,8 +406,7 @@
                     "type": "string"
                 },
                 "value": {
-                    "type": "string",
-                    "description": "The value of the environment variable.\n"
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -1913,6 +1912,72 @@
                     "deploymentId",
                     "id",
                     "teamId"
+                ]
+            }
+        },
+        "vercel:index/getDeployment:getDeployment": {
+            "description": "Provides information about an existing Deployment.\n\nA Deployment is the result of building your Project and making it available through a live URL.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst example = vercel.getDeployment({\n    id: \"https://my-vercel-project.vercel.app\",\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_deployment(id=\"https://my-vercel-project.vercel.app\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetDeployment.Invoke(new()\n    {\n        Id = \"https://my-vercel-project.vercel.app\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.LookupDeployment(ctx, \u0026vercel.LookupDeploymentArgs{\n\t\t\tId: \"https://my-vercel-project.vercel.app\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetDeploymentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getDeployment(GetDeploymentArgs.builder()\n            .id(\"https://my-vercel-project.vercel.app\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: vercel:getDeployment\n      Arguments:\n        id: https://my-vercel-project.vercel.app\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getDeployment.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID or URL of the Deployment to read.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getDeployment.\n",
+                "properties": {
+                    "domains": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID or URL of the Deployment to read.\n"
+                    },
+                    "production": {
+                        "type": "boolean",
+                        "description": "true if the deployment is a production deployment, meaning production aliases will be assigned.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The project ID to add the deployment to.\n"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "The branch or commit hash that has been deployed. Note this will only work if the project is configured to use a Git repository.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "A unique URL that is automatically generated for a deployment.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "domains",
+                    "id",
+                    "production",
+                    "projectId",
+                    "ref",
+                    "teamId",
+                    "url"
                 ]
             }
         },
