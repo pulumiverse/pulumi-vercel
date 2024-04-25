@@ -236,7 +236,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -253,7 +252,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             targets=["production"],
             project_ids=[example_project.id])
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -295,7 +293,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -312,7 +309,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             targets=["production"],
             project_ids=[example_project.id])
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 

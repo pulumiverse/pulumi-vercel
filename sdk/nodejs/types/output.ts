@@ -113,9 +113,6 @@ export interface GetProjectTrustedIps {
 
 export interface GetProjectTrustedIpsAddress {
     note: string;
-    /**
-     * The value of the environment variable.
-     */
     value: string;
 }
 
@@ -200,7 +197,7 @@ export interface ProjectTrustedIpsAddress {
      */
     note?: string;
     /**
-     * The value of the Environment Variable.
+     * The address or CIDR range that can access deployments.
      */
     value: string;
 }

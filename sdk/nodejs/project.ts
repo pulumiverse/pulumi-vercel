@@ -9,7 +9,6 @@ import * as utilities from "./utilities";
 /**
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
@@ -29,7 +28,6 @@ import * as utilities from "./utilities";
  * // terraform, or via the vercel CLI.
  * const example = new vercel.Project("example", {framework: "nextjs"});
  * ```
- * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *

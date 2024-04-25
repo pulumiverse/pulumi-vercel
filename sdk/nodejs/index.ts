@@ -40,6 +40,11 @@ export const getAlias: typeof import("./getAlias").getAlias = null as any;
 export const getAliasOutput: typeof import("./getAlias").getAliasOutput = null as any;
 utilities.lazyLoad(exports, ["getAlias","getAliasOutput"], () => require("./getAlias"));
 
+export { GetDeploymentArgs, GetDeploymentResult, GetDeploymentOutputArgs } from "./getDeployment";
+export const getDeployment: typeof import("./getDeployment").getDeployment = null as any;
+export const getDeploymentOutput: typeof import("./getDeployment").getDeploymentOutput = null as any;
+utilities.lazyLoad(exports, ["getDeployment","getDeploymentOutput"], () => require("./getDeployment"));
+
 export { GetEdgeConfigArgs, GetEdgeConfigResult, GetEdgeConfigOutputArgs } from "./getEdgeConfig";
 export const getEdgeConfig: typeof import("./getEdgeConfig").getEdgeConfig = null as any;
 export const getEdgeConfigOutput: typeof import("./getEdgeConfig").getEdgeConfigOutput = null as any;

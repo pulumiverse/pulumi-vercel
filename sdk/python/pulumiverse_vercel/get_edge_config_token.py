@@ -117,7 +117,6 @@ def get_edge_config_token(edge_config_id: Optional[str] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -125,7 +124,6 @@ def get_edge_config_token(edge_config_id: Optional[str] = None,
     test = vercel.get_edge_config_token(edge_config_id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         token="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str edge_config_id: The label of the Edge Config Token.
@@ -162,7 +160,6 @@ def get_edge_config_token_output(edge_config_id: Optional[pulumi.Input[str]] = N
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
@@ -170,7 +167,6 @@ def get_edge_config_token_output(edge_config_id: Optional[pulumi.Input[str]] = N
     test = vercel.get_edge_config_token(edge_config_id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         token="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str edge_config_id: The label of the Edge Config Token.

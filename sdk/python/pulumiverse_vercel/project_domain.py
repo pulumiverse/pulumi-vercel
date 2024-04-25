@@ -238,7 +238,6 @@ class ProjectDomain(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -257,7 +256,6 @@ class ProjectDomain(pulumi.CustomResource):
             redirect=example_project_domain.domain,
             redirect_status_code=307)
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -305,7 +303,6 @@ class ProjectDomain(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -324,7 +321,6 @@ class ProjectDomain(pulumi.CustomResource):
             redirect=example_project_domain.domain,
             redirect_status_code=307)
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 

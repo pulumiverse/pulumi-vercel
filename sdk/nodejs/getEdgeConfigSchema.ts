@@ -9,7 +9,6 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -18,7 +17,6 @@ import * as utilities from "./utilities";
  *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getEdgeConfigSchema(args: GetEdgeConfigSchemaArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigSchemaResult> {
 
@@ -65,7 +63,6 @@ export interface GetEdgeConfigSchemaResult {
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -74,7 +71,6 @@ export interface GetEdgeConfigSchemaResult {
  *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getEdgeConfigSchemaOutput(args: GetEdgeConfigSchemaOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigSchemaResult> {
     return pulumi.output(args).apply((a: any) => getEdgeConfigSchema(a, opts))

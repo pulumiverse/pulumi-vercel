@@ -23,7 +23,7 @@ namespace Pulumiverse.Vercel.Inputs
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// The address or CIDR range that can access deployments.
         /// </summary>
         public Input<string>? Value
         {

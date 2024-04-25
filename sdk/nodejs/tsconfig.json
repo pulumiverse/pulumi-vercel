@@ -22,6 +22,7 @@
         "edgeConfigSchema.ts",
         "edgeConfigToken.ts",
         "getAlias.ts",
+        "getDeployment.ts",
         "getEdgeConfig.ts",
         "getEdgeConfigSchema.ts",
         "getEdgeConfigToken.ts",

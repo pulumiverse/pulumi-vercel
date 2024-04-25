@@ -13,7 +13,6 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
@@ -34,7 +33,6 @@ import * as utilities from "./utilities";
  *     redirectStatusCode: 307,
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *

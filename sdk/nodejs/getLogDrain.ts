@@ -13,7 +13,6 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -22,7 +21,6 @@ import * as utilities from "./utilities";
  *     id: "lg_xxxxxxx_xxxxxx_xxxxx",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getLogDrain(args: GetLogDrainArgs, opts?: pulumi.InvokeOptions): Promise<GetLogDrainResult> {
 
@@ -102,7 +100,6 @@ export interface GetLogDrainResult {
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -111,7 +108,6 @@ export interface GetLogDrainResult {
  *     id: "lg_xxxxxxx_xxxxxx_xxxxx",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getLogDrainOutput(args: GetLogDrainOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetLogDrainResult> {
     return pulumi.output(args).apply((a: any) => getLogDrain(a, opts))

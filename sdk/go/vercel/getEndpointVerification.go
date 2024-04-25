@@ -15,7 +15,6 @@ import (
 //
 // ## Example Usage
 //
-// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
@@ -37,7 +36,6 @@ import (
 //	}
 //
 // ```
-// <!--End PulumiCodeChooser -->
 func GetEndpointVerification(ctx *pulumi.Context, args *GetEndpointVerificationArgs, opts ...pulumi.InvokeOption) (*GetEndpointVerificationResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetEndpointVerificationResult

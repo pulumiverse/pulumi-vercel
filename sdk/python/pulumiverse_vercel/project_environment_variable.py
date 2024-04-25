@@ -263,7 +263,6 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         """
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -296,7 +295,6 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             targets=["production"],
             sensitive=True)
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -357,7 +355,6 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         """
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -390,7 +387,6 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             targets=["production"],
             sensitive=True)
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 

@@ -21,7 +21,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -37,7 +36,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Task<GetLogDrainResult> InvokeAsync(GetLogDrainArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetLogDrainResult>("vercel:index/getLogDrain:getLogDrain", args ?? new GetLogDrainArgs(), options.WithDefaults());
@@ -51,7 +49,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -67,7 +64,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Output<GetLogDrainResult> Invoke(GetLogDrainInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetLogDrainResult>("vercel:index/getLogDrain:getLogDrain", args ?? new GetLogDrainInvokeArgs(), options.WithDefaults());

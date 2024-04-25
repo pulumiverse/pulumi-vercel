@@ -75,14 +75,12 @@ def get_endpoint_verification(team_id: Optional[str] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     example = vercel.get_endpoint_verification()
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -106,14 +104,12 @@ def get_endpoint_verification_output(team_id: Optional[pulumi.Input[Optional[str
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     example = vercel.get_endpoint_verification()
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.

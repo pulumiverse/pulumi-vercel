@@ -9,14 +9,12 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
  * const example = vercel.getEndpointVerification({});
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getEndpointVerification(args?: GetEndpointVerificationArgs, opts?: pulumi.InvokeOptions): Promise<GetEndpointVerificationResult> {
     args = args || {};
@@ -59,14 +57,12 @@ export interface GetEndpointVerificationResult {
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
  * const example = vercel.getEndpointVerification({});
  * ```
- * <!--End PulumiCodeChooser -->
  */
 export function getEndpointVerificationOutput(args?: GetEndpointVerificationOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEndpointVerificationResult> {
     return pulumi.output(args).apply((a: any) => getEndpointVerification(a, opts))

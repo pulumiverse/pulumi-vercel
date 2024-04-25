@@ -121,7 +121,7 @@ export interface ProjectTrustedIpsAddress {
      */
     note?: pulumi.Input<string>;
     /**
-     * The value of the Environment Variable.
+     * The address or CIDR range that can access deployments.
      */
     value: pulumi.Input<string>;
 }

@@ -17,7 +17,6 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
@@ -38,7 +37,6 @@ import * as utilities from "./utilities";
  *     endpoint: "https://example.com/my-log-drain-endpoint",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
