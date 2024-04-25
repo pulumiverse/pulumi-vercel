@@ -369,7 +369,6 @@ class DnsRecord(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -421,7 +420,6 @@ class DnsRecord(pulumi.CustomResource):
             type="TXT",
             value="some text value")
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -485,7 +483,6 @@ class DnsRecord(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -537,7 +534,6 @@ class DnsRecord(pulumi.CustomResource):
             type="TXT",
             value="some text value")
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 

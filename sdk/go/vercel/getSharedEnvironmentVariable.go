@@ -19,7 +19,6 @@ import (
 //
 // ## Example Usage
 //
-// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
@@ -53,7 +52,6 @@ import (
 //	}
 //
 // ```
-// <!--End PulumiCodeChooser -->
 func LookupSharedEnvironmentVariable(ctx *pulumi.Context, args *LookupSharedEnvironmentVariableArgs, opts ...pulumi.InvokeOption) (*LookupSharedEnvironmentVariableResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupSharedEnvironmentVariableResult

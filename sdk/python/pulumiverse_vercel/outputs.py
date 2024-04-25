@@ -431,7 +431,7 @@ class ProjectTrustedIpsAddress(dict):
                  value: str,
                  note: Optional[str] = None):
         """
-        :param str value: The value of the Environment Variable.
+        :param str value: The address or CIDR range that can access deployments.
         :param str note: A description for the value
         """
         pulumi.set(__self__, "value", value)
@@ -442,7 +442,7 @@ class ProjectTrustedIpsAddress(dict):
     @pulumi.getter
     def value(self) -> str:
         """
-        The value of the Environment Variable.
+        The address or CIDR range that can access deployments.
         """
         return pulumi.get(self, "value")
 
@@ -666,9 +666,6 @@ class GetProjectTrustedIpsAddressResult(dict):
     def __init__(__self__, *,
                  note: str,
                  value: str):
-        """
-        :param str value: The value of the environment variable.
-        """
         pulumi.set(__self__, "note", note)
         pulumi.set(__self__, "value", value)
 
@@ -680,9 +677,6 @@ class GetProjectTrustedIpsAddressResult(dict):
     @property
     @pulumi.getter
     def value(self) -> str:
-        """
-        The value of the environment variable.
-        """
         return pulumi.get(self, "value")
 
 

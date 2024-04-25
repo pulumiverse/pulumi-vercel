@@ -21,7 +21,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -38,7 +37,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Task<GetEdgeConfigTokenResult> InvokeAsync(GetEdgeConfigTokenArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetEdgeConfigTokenResult>("vercel:index/getEdgeConfigToken:getEdgeConfigToken", args ?? new GetEdgeConfigTokenArgs(), options.WithDefaults());
@@ -52,7 +50,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// ## Example Usage
         /// 
-        /// &lt;!--Start PulumiCodeChooser --&gt;
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -69,7 +66,6 @@ namespace Pulumiverse.Vercel
         /// 
         /// });
         /// ```
-        /// &lt;!--End PulumiCodeChooser --&gt;
         /// </summary>
         public static Output<GetEdgeConfigTokenResult> Invoke(GetEdgeConfigTokenInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetEdgeConfigTokenResult>("vercel:index/getEdgeConfigToken:getEdgeConfigToken", args ?? new GetEdgeConfigTokenInvokeArgs(), options.WithDefaults());

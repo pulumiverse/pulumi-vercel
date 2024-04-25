@@ -153,14 +153,12 @@ def get_log_drain(endpoint: Optional[str] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     example = vercel.get_log_drain(id="lg_xxxxxxx_xxxxxx_xxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
@@ -200,14 +198,12 @@ def get_log_drain_output(endpoint: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
-    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_vercel as vercel
 
     example = vercel.get_log_drain(id="lg_xxxxxxx_xxxxxx_xxxxx")
     ```
-    <!--End PulumiCodeChooser -->
 
 
     :param str endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.

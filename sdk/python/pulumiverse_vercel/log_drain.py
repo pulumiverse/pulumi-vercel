@@ -339,7 +339,6 @@ class LogDrain(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumi_vercel as vercel
@@ -359,7 +358,6 @@ class LogDrain(pulumi.CustomResource):
             sources=["static"],
             endpoint="https://example.com/my-log-drain-endpoint")
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -414,7 +412,6 @@ class LogDrain(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumi_vercel as vercel
@@ -434,7 +431,6 @@ class LogDrain(pulumi.CustomResource):
             sources=["static"],
             endpoint="https://example.com/my-log-drain-endpoint")
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 

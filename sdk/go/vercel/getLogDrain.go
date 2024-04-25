@@ -19,7 +19,6 @@ import (
 //
 // ## Example Usage
 //
-// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
@@ -43,7 +42,6 @@ import (
 //	}
 //
 // ```
-// <!--End PulumiCodeChooser -->
 func LookupLogDrain(ctx *pulumi.Context, args *LookupLogDrainArgs, opts ...pulumi.InvokeOption) (*LookupLogDrainResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupLogDrainResult

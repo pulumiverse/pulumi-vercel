@@ -17,7 +17,6 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
- * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
@@ -77,7 +76,6 @@ import * as utilities from "./utilities";
  *     value: "some text value",
  * });
  * ```
- * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *

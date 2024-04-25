@@ -15,9 +15,6 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class GetProjectTrustedIpsAddressResult
     {
         public readonly string Note;
-        /// <summary>
-        /// The value of the environment variable.
-        /// </summary>
         public readonly string Value;
 
         [OutputConstructor]

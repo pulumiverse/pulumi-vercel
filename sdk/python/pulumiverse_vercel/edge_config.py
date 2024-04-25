@@ -106,7 +106,6 @@ class EdgeConfig(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -126,7 +125,6 @@ class EdgeConfig(pulumi.CustomResource):
             key="EDGE_CONFIG",
             value=example_edge_config_token.connection_string)
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -168,7 +166,6 @@ class EdgeConfig(pulumi.CustomResource):
 
         ## Example Usage
 
-        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
@@ -188,7 +185,6 @@ class EdgeConfig(pulumi.CustomResource):
             key="EDGE_CONFIG",
             value=example_edge_config_token.connection_string)
         ```
-        <!--End PulumiCodeChooser -->
 
         ## Import
 
