@@ -14,12 +14,15 @@ __all__ = [
     'DeploymentProjectSettings',
     'DnsRecordSrv',
     'ProjectEnvironment',
+    'ProjectGitComments',
     'ProjectGitRepository',
+    'ProjectGitRepositoryDeployHook',
     'ProjectPasswordProtection',
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
     'ProjectVercelAuthentication',
     'GetProjectEnvironmentResult',
+    'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
     'GetProjectPasswordProtectionResult',
     'GetProjectTrustedIpsResult',
@@ -262,11 +265,61 @@ class ProjectEnvironment(dict):
 
 
 @pulumi.output_type
+class ProjectGitComments(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "onCommit":
+            suggest = "on_commit"
+        elif key == "onPullRequest":
+            suggest = "on_pull_request"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectGitComments. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectGitComments.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectGitComments.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 on_commit: bool,
+                 on_pull_request: bool):
+        """
+        :param bool on_commit: Whether Commit comments are enabled
+        :param bool on_pull_request: Whether Pull Request comments are enabled
+        """
+        pulumi.set(__self__, "on_commit", on_commit)
+        pulumi.set(__self__, "on_pull_request", on_pull_request)
+
+    @property
+    @pulumi.getter(name="onCommit")
+    def on_commit(self) -> bool:
+        """
+        Whether Commit comments are enabled
+        """
+        return pulumi.get(self, "on_commit")
+
+    @property
+    @pulumi.getter(name="onPullRequest")
+    def on_pull_request(self) -> bool:
+        """
+        Whether Pull Request comments are enabled
+        """
+        return pulumi.get(self, "on_pull_request")
+
+
+@pulumi.output_type
 class ProjectGitRepository(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "productionBranch":
+        if key == "deployHooks":
+            suggest = "deploy_hooks"
+        elif key == "productionBranch":
             suggest = "production_branch"
 
         if suggest:
@@ -283,14 +336,18 @@ class ProjectGitRepository(dict):
     def __init__(__self__, *,
                  repo: str,
                  type: str,
+                 deploy_hooks: Optional[Sequence['outputs.ProjectGitRepositoryDeployHook']] = None,
                  production_branch: Optional[str] = None):
         """
         :param str repo: The name of the git repository. For example: `vercel/next.js`.
         :param str type: The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+        :param Sequence['ProjectGitRepositoryDeployHookArgs'] deploy_hooks: Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
         :param str production_branch: By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         """
         pulumi.set(__self__, "repo", repo)
         pulumi.set(__self__, "type", type)
+        if deploy_hooks is not None:
+            pulumi.set(__self__, "deploy_hooks", deploy_hooks)
         if production_branch is not None:
             pulumi.set(__self__, "production_branch", production_branch)
 
@@ -311,12 +368,73 @@ class ProjectGitRepository(dict):
         return pulumi.get(self, "type")
 
     @property
+    @pulumi.getter(name="deployHooks")
+    def deploy_hooks(self) -> Optional[Sequence['outputs.ProjectGitRepositoryDeployHook']]:
+        """
+        Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+        """
+        return pulumi.get(self, "deploy_hooks")
+
+    @property
     @pulumi.getter(name="productionBranch")
     def production_branch(self) -> Optional[str]:
         """
         By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         """
         return pulumi.get(self, "production_branch")
+
+
+@pulumi.output_type
+class ProjectGitRepositoryDeployHook(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 ref: str,
+                 id: Optional[str] = None,
+                 url: Optional[str] = None):
+        """
+        :param str name: The name of the deploy hook.
+        :param str ref: The branch or commit hash that should be deployed.
+        :param str id: The ID of the deploy hook.
+        :param str url: A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "ref", ref)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the deploy hook.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def ref(self) -> str:
+        """
+        The branch or commit hash that should be deployed.
+        """
+        return pulumi.get(self, "ref")
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        The ID of the deploy hook.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[str]:
+        """
+        A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+        return pulumi.get(self, "url")
 
 
 @pulumi.output_type
@@ -561,6 +679,35 @@ class GetProjectEnvironmentResult(dict):
         The value of the environment variable.
         """
         return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetProjectGitCommentsResult(dict):
+    def __init__(__self__, *,
+                 on_commit: bool,
+                 on_pull_request: bool):
+        """
+        :param bool on_commit: Whether Commit comments are enabled
+        :param bool on_pull_request: Whether Pull Request comments are enabled
+        """
+        pulumi.set(__self__, "on_commit", on_commit)
+        pulumi.set(__self__, "on_pull_request", on_pull_request)
+
+    @property
+    @pulumi.getter(name="onCommit")
+    def on_commit(self) -> bool:
+        """
+        Whether Commit comments are enabled
+        """
+        return pulumi.get(self, "on_commit")
+
+    @property
+    @pulumi.getter(name="onPullRequest")
+    def on_pull_request(self) -> bool:
+        """
+        Whether Pull Request comments are enabled
+        """
+        return pulumi.get(self, "on_pull_request")
 
 
 @pulumi.output_type

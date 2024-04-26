@@ -123,6 +123,10 @@ namespace Pulumiverse.Vercel
     public sealed class GetProjectResult
     {
         /// <summary>
+        /// Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+        /// </summary>
+        public readonly bool AutoAssignCustomDomains;
+        /// <summary>
         /// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         /// </summary>
         public readonly bool AutomaticallyExposeSystemEnvironmentVariables;
@@ -131,9 +135,17 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string BuildCommand;
         /// <summary>
+        /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+        /// </summary>
+        public readonly bool CustomerSuccessCodeVisibility;
+        /// <summary>
         /// The dev command for this project. If omitted, this value will be automatically detected.
         /// </summary>
         public readonly string DevCommand;
+        /// <summary>
+        /// If no index file is present within a directory, the directory contents will be displayed.
+        /// </summary>
+        public readonly bool DirectoryListing;
         /// <summary>
         /// A list of environment variables that should be configured for the project.
         /// </summary>
@@ -142,6 +154,22 @@ namespace Pulumiverse.Vercel
         /// The framework that is being used for this project. If omitted, no framework is selected.
         /// </summary>
         public readonly string Framework;
+        /// <summary>
+        /// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        public readonly bool FunctionFailover;
+        /// <summary>
+        /// Configuration for Git Comments.
+        /// </summary>
+        public readonly Outputs.GetProjectGitCommentsResult GitComments;
+        /// <summary>
+        /// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json.
+        /// </summary>
+        public readonly bool GitForkProtection;
+        /// <summary>
+        /// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        /// </summary>
+        public readonly bool GitLfs;
         /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         /// </summary>
@@ -171,6 +199,18 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly Outputs.GetProjectPasswordProtectionResult PasswordProtection;
         /// <summary>
+        /// Whether comments are enabled on your Preview Deployments.
+        /// </summary>
+        public readonly bool PreviewComments;
+        /// <summary>
+        /// If enabled, builds for the Production environment will be prioritized over Preview environments.
+        /// </summary>
+        public readonly bool PrioritiseProductionBuilds;
+        /// <summary>
+        /// Allows automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass`.
+        /// </summary>
+        public readonly bool ProtectionBypassForAutomation;
+        /// <summary>
         /// Specifies whether the source code and logs of the deployments for this project should be public or not.
         /// </summary>
         public readonly bool PublicSource;
@@ -182,6 +222,10 @@ namespace Pulumiverse.Vercel
         /// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         /// </summary>
         public readonly string ServerlessFunctionRegion;
+        /// <summary>
+        /// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+        /// </summary>
+        public readonly string SkewProtection;
         /// <summary>
         /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
@@ -197,15 +241,29 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetProjectResult(
+            bool autoAssignCustomDomains,
+
             bool automaticallyExposeSystemEnvironmentVariables,
 
             string buildCommand,
 
+            bool customerSuccessCodeVisibility,
+
             string devCommand,
+
+            bool directoryListing,
 
             ImmutableArray<Outputs.GetProjectEnvironmentResult> environments,
 
             string framework,
+
+            bool functionFailover,
+
+            Outputs.GetProjectGitCommentsResult gitComments,
+
+            bool gitForkProtection,
+
+            bool gitLfs,
 
             Outputs.GetProjectGitRepositoryResult gitRepository,
 
@@ -221,11 +279,19 @@ namespace Pulumiverse.Vercel
 
             Outputs.GetProjectPasswordProtectionResult passwordProtection,
 
+            bool previewComments,
+
+            bool prioritiseProductionBuilds,
+
+            bool protectionBypassForAutomation,
+
             bool publicSource,
 
             string rootDirectory,
 
             string serverlessFunctionRegion,
+
+            string skewProtection,
 
             string teamId,
 
@@ -233,11 +299,18 @@ namespace Pulumiverse.Vercel
 
             Outputs.GetProjectVercelAuthenticationResult vercelAuthentication)
         {
+            AutoAssignCustomDomains = autoAssignCustomDomains;
             AutomaticallyExposeSystemEnvironmentVariables = automaticallyExposeSystemEnvironmentVariables;
             BuildCommand = buildCommand;
+            CustomerSuccessCodeVisibility = customerSuccessCodeVisibility;
             DevCommand = devCommand;
+            DirectoryListing = directoryListing;
             Environments = environments;
             Framework = framework;
+            FunctionFailover = functionFailover;
+            GitComments = gitComments;
+            GitForkProtection = gitForkProtection;
+            GitLfs = gitLfs;
             GitRepository = gitRepository;
             Id = id;
             IgnoreCommand = ignoreCommand;
@@ -245,9 +318,13 @@ namespace Pulumiverse.Vercel
             Name = name;
             OutputDirectory = outputDirectory;
             PasswordProtection = passwordProtection;
+            PreviewComments = previewComments;
+            PrioritiseProductionBuilds = prioritiseProductionBuilds;
+            ProtectionBypassForAutomation = protectionBypassForAutomation;
             PublicSource = publicSource;
             RootDirectory = rootDirectory;
             ServerlessFunctionRegion = serverlessFunctionRegion;
+            SkewProtection = skewProtection;
             TeamId = teamId;
             TrustedIps = trustedIps;
             VercelAuthentication = vercelAuthentication;

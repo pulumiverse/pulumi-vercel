@@ -53,6 +53,10 @@ export interface GetProjectArgs {
  */
 export interface GetProjectResult {
     /**
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+     */
+    readonly autoAssignCustomDomains: boolean;
+    /**
      * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     readonly automaticallyExposeSystemEnvironmentVariables: boolean;
@@ -61,9 +65,17 @@ export interface GetProjectResult {
      */
     readonly buildCommand: string;
     /**
+     * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+     */
+    readonly customerSuccessCodeVisibility: boolean;
+    /**
      * The dev command for this project. If omitted, this value will be automatically detected.
      */
     readonly devCommand: string;
+    /**
+     * If no index file is present within a directory, the directory contents will be displayed.
+     */
+    readonly directoryListing: boolean;
     /**
      * A list of environment variables that should be configured for the project.
      */
@@ -72,6 +84,22 @@ export interface GetProjectResult {
      * The framework that is being used for this project. If omitted, no framework is selected.
      */
     readonly framework: string;
+    /**
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+     */
+    readonly functionFailover: boolean;
+    /**
+     * Configuration for Git Comments.
+     */
+    readonly gitComments: outputs.GetProjectGitComments;
+    /**
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json.
+     */
+    readonly gitForkProtection: boolean;
+    /**
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     */
+    readonly gitLfs: boolean;
     /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
@@ -101,6 +129,18 @@ export interface GetProjectResult {
      */
     readonly passwordProtection: outputs.GetProjectPasswordProtection;
     /**
+     * Whether comments are enabled on your Preview Deployments.
+     */
+    readonly previewComments: boolean;
+    /**
+     * If enabled, builds for the Production environment will be prioritized over Preview environments.
+     */
+    readonly prioritiseProductionBuilds: boolean;
+    /**
+     * Allows automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass`.
+     */
+    readonly protectionBypassForAutomation: boolean;
+    /**
      * Specifies whether the source code and logs of the deployments for this project should be public or not.
      */
     readonly publicSource: boolean;
@@ -112,6 +152,10 @@ export interface GetProjectResult {
      * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
      */
     readonly serverlessFunctionRegion: string;
+    /**
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+     */
+    readonly skewProtection: string;
     /**
      * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
      */

@@ -74,6 +74,17 @@ export interface GetProjectEnvironment {
     value: string;
 }
 
+export interface GetProjectGitComments {
+    /**
+     * Whether Commit comments are enabled
+     */
+    onCommit: boolean;
+    /**
+     * Whether Pull Request comments are enabled
+     */
+    onPullRequest: boolean;
+}
+
 export interface GetProjectGitRepository {
     /**
      * By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
@@ -150,7 +161,22 @@ export interface ProjectEnvironment {
     value: string;
 }
 
+export interface ProjectGitComments {
+    /**
+     * Whether Commit comments are enabled
+     */
+    onCommit: boolean;
+    /**
+     * Whether Pull Request comments are enabled
+     */
+    onPullRequest: boolean;
+}
+
 export interface ProjectGitRepository {
+    /**
+     * Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+     */
+    deployHooks?: outputs.ProjectGitRepositoryDeployHook[];
     /**
      * By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
      */
@@ -163,6 +189,25 @@ export interface ProjectGitRepository {
      * The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
      */
     type: string;
+}
+
+export interface ProjectGitRepositoryDeployHook {
+    /**
+     * The ID of the deploy hook.
+     */
+    id: string;
+    /**
+     * The name of the deploy hook.
+     */
+    name: string;
+    /**
+     * The branch or commit hash that should be deployed.
+     */
+    ref: string;
+    /**
+     * A URL that, when a POST request is made to, will trigger a new deployment.
+     */
+    url: string;
 }
 
 export interface ProjectPasswordProtection {

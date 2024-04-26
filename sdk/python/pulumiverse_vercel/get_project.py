@@ -22,22 +22,43 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, automatically_expose_system_environment_variables=None, build_command=None, dev_command=None, environments=None, framework=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, public_source=None, root_directory=None, serverless_function_region=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+        if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
+            raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
+        pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
         if automatically_expose_system_environment_variables and not isinstance(automatically_expose_system_environment_variables, bool):
             raise TypeError("Expected argument 'automatically_expose_system_environment_variables' to be a bool")
         pulumi.set(__self__, "automatically_expose_system_environment_variables", automatically_expose_system_environment_variables)
         if build_command and not isinstance(build_command, str):
             raise TypeError("Expected argument 'build_command' to be a str")
         pulumi.set(__self__, "build_command", build_command)
+        if customer_success_code_visibility and not isinstance(customer_success_code_visibility, bool):
+            raise TypeError("Expected argument 'customer_success_code_visibility' to be a bool")
+        pulumi.set(__self__, "customer_success_code_visibility", customer_success_code_visibility)
         if dev_command and not isinstance(dev_command, str):
             raise TypeError("Expected argument 'dev_command' to be a str")
         pulumi.set(__self__, "dev_command", dev_command)
+        if directory_listing and not isinstance(directory_listing, bool):
+            raise TypeError("Expected argument 'directory_listing' to be a bool")
+        pulumi.set(__self__, "directory_listing", directory_listing)
         if environments and not isinstance(environments, list):
             raise TypeError("Expected argument 'environments' to be a list")
         pulumi.set(__self__, "environments", environments)
         if framework and not isinstance(framework, str):
             raise TypeError("Expected argument 'framework' to be a str")
         pulumi.set(__self__, "framework", framework)
+        if function_failover and not isinstance(function_failover, bool):
+            raise TypeError("Expected argument 'function_failover' to be a bool")
+        pulumi.set(__self__, "function_failover", function_failover)
+        if git_comments and not isinstance(git_comments, dict):
+            raise TypeError("Expected argument 'git_comments' to be a dict")
+        pulumi.set(__self__, "git_comments", git_comments)
+        if git_fork_protection and not isinstance(git_fork_protection, bool):
+            raise TypeError("Expected argument 'git_fork_protection' to be a bool")
+        pulumi.set(__self__, "git_fork_protection", git_fork_protection)
+        if git_lfs and not isinstance(git_lfs, bool):
+            raise TypeError("Expected argument 'git_lfs' to be a bool")
+        pulumi.set(__self__, "git_lfs", git_lfs)
         if git_repository and not isinstance(git_repository, dict):
             raise TypeError("Expected argument 'git_repository' to be a dict")
         pulumi.set(__self__, "git_repository", git_repository)
@@ -59,6 +80,15 @@ class GetProjectResult:
         if password_protection and not isinstance(password_protection, dict):
             raise TypeError("Expected argument 'password_protection' to be a dict")
         pulumi.set(__self__, "password_protection", password_protection)
+        if preview_comments and not isinstance(preview_comments, bool):
+            raise TypeError("Expected argument 'preview_comments' to be a bool")
+        pulumi.set(__self__, "preview_comments", preview_comments)
+        if prioritise_production_builds and not isinstance(prioritise_production_builds, bool):
+            raise TypeError("Expected argument 'prioritise_production_builds' to be a bool")
+        pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
+        if protection_bypass_for_automation and not isinstance(protection_bypass_for_automation, bool):
+            raise TypeError("Expected argument 'protection_bypass_for_automation' to be a bool")
+        pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
         if public_source and not isinstance(public_source, bool):
             raise TypeError("Expected argument 'public_source' to be a bool")
         pulumi.set(__self__, "public_source", public_source)
@@ -68,6 +98,9 @@ class GetProjectResult:
         if serverless_function_region and not isinstance(serverless_function_region, str):
             raise TypeError("Expected argument 'serverless_function_region' to be a str")
         pulumi.set(__self__, "serverless_function_region", serverless_function_region)
+        if skew_protection and not isinstance(skew_protection, str):
+            raise TypeError("Expected argument 'skew_protection' to be a str")
+        pulumi.set(__self__, "skew_protection", skew_protection)
         if team_id and not isinstance(team_id, str):
             raise TypeError("Expected argument 'team_id' to be a str")
         pulumi.set(__self__, "team_id", team_id)
@@ -77,6 +110,14 @@ class GetProjectResult:
         if vercel_authentication and not isinstance(vercel_authentication, dict):
             raise TypeError("Expected argument 'vercel_authentication' to be a dict")
         pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @property
+    @pulumi.getter(name="autoAssignCustomDomains")
+    def auto_assign_custom_domains(self) -> bool:
+        """
+        Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+        """
+        return pulumi.get(self, "auto_assign_custom_domains")
 
     @property
     @pulumi.getter(name="automaticallyExposeSystemEnvironmentVariables")
@@ -95,12 +136,28 @@ class GetProjectResult:
         return pulumi.get(self, "build_command")
 
     @property
+    @pulumi.getter(name="customerSuccessCodeVisibility")
+    def customer_success_code_visibility(self) -> bool:
+        """
+        Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+        """
+        return pulumi.get(self, "customer_success_code_visibility")
+
+    @property
     @pulumi.getter(name="devCommand")
     def dev_command(self) -> str:
         """
         The dev command for this project. If omitted, this value will be automatically detected.
         """
         return pulumi.get(self, "dev_command")
+
+    @property
+    @pulumi.getter(name="directoryListing")
+    def directory_listing(self) -> bool:
+        """
+        If no index file is present within a directory, the directory contents will be displayed.
+        """
+        return pulumi.get(self, "directory_listing")
 
     @property
     @pulumi.getter
@@ -117,6 +174,38 @@ class GetProjectResult:
         The framework that is being used for this project. If omitted, no framework is selected.
         """
         return pulumi.get(self, "framework")
+
+    @property
+    @pulumi.getter(name="functionFailover")
+    def function_failover(self) -> bool:
+        """
+        Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+        """
+        return pulumi.get(self, "function_failover")
+
+    @property
+    @pulumi.getter(name="gitComments")
+    def git_comments(self) -> 'outputs.GetProjectGitCommentsResult':
+        """
+        Configuration for Git Comments.
+        """
+        return pulumi.get(self, "git_comments")
+
+    @property
+    @pulumi.getter(name="gitForkProtection")
+    def git_fork_protection(self) -> bool:
+        """
+        Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json.
+        """
+        return pulumi.get(self, "git_fork_protection")
+
+    @property
+    @pulumi.getter(name="gitLfs")
+    def git_lfs(self) -> bool:
+        """
+        Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        """
+        return pulumi.get(self, "git_lfs")
 
     @property
     @pulumi.getter(name="gitRepository")
@@ -175,6 +264,30 @@ class GetProjectResult:
         return pulumi.get(self, "password_protection")
 
     @property
+    @pulumi.getter(name="previewComments")
+    def preview_comments(self) -> bool:
+        """
+        Whether comments are enabled on your Preview Deployments.
+        """
+        return pulumi.get(self, "preview_comments")
+
+    @property
+    @pulumi.getter(name="prioritiseProductionBuilds")
+    def prioritise_production_builds(self) -> bool:
+        """
+        If enabled, builds for the Production environment will be prioritized over Preview environments.
+        """
+        return pulumi.get(self, "prioritise_production_builds")
+
+    @property
+    @pulumi.getter(name="protectionBypassForAutomation")
+    def protection_bypass_for_automation(self) -> bool:
+        """
+        Allows automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass`.
+        """
+        return pulumi.get(self, "protection_bypass_for_automation")
+
+    @property
     @pulumi.getter(name="publicSource")
     def public_source(self) -> bool:
         """
@@ -197,6 +310,14 @@ class GetProjectResult:
         The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         """
         return pulumi.get(self, "serverless_function_region")
+
+    @property
+    @pulumi.getter(name="skewProtection")
+    def skew_protection(self) -> str:
+        """
+        Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+        """
+        return pulumi.get(self, "skew_protection")
 
     @property
     @pulumi.getter(name="teamId")
@@ -229,11 +350,18 @@ class AwaitableGetProjectResult(GetProjectResult):
         if False:
             yield self
         return GetProjectResult(
+            auto_assign_custom_domains=self.auto_assign_custom_domains,
             automatically_expose_system_environment_variables=self.automatically_expose_system_environment_variables,
             build_command=self.build_command,
+            customer_success_code_visibility=self.customer_success_code_visibility,
             dev_command=self.dev_command,
+            directory_listing=self.directory_listing,
             environments=self.environments,
             framework=self.framework,
+            function_failover=self.function_failover,
+            git_comments=self.git_comments,
+            git_fork_protection=self.git_fork_protection,
+            git_lfs=self.git_lfs,
             git_repository=self.git_repository,
             id=self.id,
             ignore_command=self.ignore_command,
@@ -241,9 +369,13 @@ class AwaitableGetProjectResult(GetProjectResult):
             name=self.name,
             output_directory=self.output_directory,
             password_protection=self.password_protection,
+            preview_comments=self.preview_comments,
+            prioritise_production_builds=self.prioritise_production_builds,
+            protection_bypass_for_automation=self.protection_bypass_for_automation,
             public_source=self.public_source,
             root_directory=self.root_directory,
             serverless_function_region=self.serverless_function_region,
+            skew_protection=self.skew_protection,
             team_id=self.team_id,
             trusted_ips=self.trusted_ips,
             vercel_authentication=self.vercel_authentication)
@@ -280,11 +412,18 @@ def get_project(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getProject:getProject', __args__, opts=opts, typ=GetProjectResult).value
 
     return AwaitableGetProjectResult(
+        auto_assign_custom_domains=pulumi.get(__ret__, 'auto_assign_custom_domains'),
         automatically_expose_system_environment_variables=pulumi.get(__ret__, 'automatically_expose_system_environment_variables'),
         build_command=pulumi.get(__ret__, 'build_command'),
+        customer_success_code_visibility=pulumi.get(__ret__, 'customer_success_code_visibility'),
         dev_command=pulumi.get(__ret__, 'dev_command'),
+        directory_listing=pulumi.get(__ret__, 'directory_listing'),
         environments=pulumi.get(__ret__, 'environments'),
         framework=pulumi.get(__ret__, 'framework'),
+        function_failover=pulumi.get(__ret__, 'function_failover'),
+        git_comments=pulumi.get(__ret__, 'git_comments'),
+        git_fork_protection=pulumi.get(__ret__, 'git_fork_protection'),
+        git_lfs=pulumi.get(__ret__, 'git_lfs'),
         git_repository=pulumi.get(__ret__, 'git_repository'),
         id=pulumi.get(__ret__, 'id'),
         ignore_command=pulumi.get(__ret__, 'ignore_command'),
@@ -292,9 +431,13 @@ def get_project(name: Optional[str] = None,
         name=pulumi.get(__ret__, 'name'),
         output_directory=pulumi.get(__ret__, 'output_directory'),
         password_protection=pulumi.get(__ret__, 'password_protection'),
+        preview_comments=pulumi.get(__ret__, 'preview_comments'),
+        prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
+        protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
         public_source=pulumi.get(__ret__, 'public_source'),
         root_directory=pulumi.get(__ret__, 'root_directory'),
         serverless_function_region=pulumi.get(__ret__, 'serverless_function_region'),
+        skew_protection=pulumi.get(__ret__, 'skew_protection'),
         team_id=pulumi.get(__ret__, 'team_id'),
         trusted_ips=pulumi.get(__ret__, 'trusted_ips'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))

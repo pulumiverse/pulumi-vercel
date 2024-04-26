@@ -71,6 +71,12 @@ namespace Pulumiverse.Vercel
     public partial class Project : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+        /// </summary>
+        [Output("autoAssignCustomDomains")]
+        public Output<bool> AutoAssignCustomDomains { get; private set; } = null!;
+
+        /// <summary>
         /// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         /// </summary>
         [Output("automaticallyExposeSystemEnvironmentVariables")]
@@ -83,10 +89,22 @@ namespace Pulumiverse.Vercel
         public Output<string?> BuildCommand { get; private set; } = null!;
 
         /// <summary>
+        /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+        /// </summary>
+        [Output("customerSuccessCodeVisibility")]
+        public Output<bool> CustomerSuccessCodeVisibility { get; private set; } = null!;
+
+        /// <summary>
         /// The dev command for this project. If omitted, this value will be automatically detected.
         /// </summary>
         [Output("devCommand")]
         public Output<string?> DevCommand { get; private set; } = null!;
+
+        /// <summary>
+        /// If no index file is present within a directory, the directory contents will be displayed.
+        /// </summary>
+        [Output("directoryListing")]
+        public Output<bool> DirectoryListing { get; private set; } = null!;
 
         /// <summary>
         /// A set of Environment Variables that should be configured for the project.
@@ -99,6 +117,30 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("framework")]
         public Output<string?> Framework { get; private set; } = null!;
+
+        /// <summary>
+        /// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        [Output("functionFailover")]
+        public Output<bool> FunctionFailover { get; private set; } = null!;
+
+        /// <summary>
+        /// Configuration for Git Comments.
+        /// </summary>
+        [Output("gitComments")]
+        public Output<Outputs.ProjectGitComments?> GitComments { get; private set; } = null!;
+
+        /// <summary>
+        /// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+        /// </summary>
+        [Output("gitForkProtection")]
+        public Output<bool> GitForkProtection { get; private set; } = null!;
+
+        /// <summary>
+        /// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        /// </summary>
+        [Output("gitLfs")]
+        public Output<bool> GitLfs { get; private set; } = null!;
 
         /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
@@ -137,6 +179,18 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.ProjectPasswordProtection?> PasswordProtection { get; private set; } = null!;
 
         /// <summary>
+        /// Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        /// </summary>
+        [Output("previewComments")]
+        public Output<bool?> PreviewComments { get; private set; } = null!;
+
+        /// <summary>
+        /// If enabled, builds for the Production environment will be prioritized over Preview environments.
+        /// </summary>
+        [Output("prioritiseProductionBuilds")]
+        public Output<bool> PrioritiseProductionBuilds { get; private set; } = null!;
+
+        /// <summary>
         /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         /// </summary>
         [Output("protectionBypassForAutomation")]
@@ -165,6 +219,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("serverlessFunctionRegion")]
         public Output<string> ServerlessFunctionRegion { get; private set; } = null!;
+
+        /// <summary>
+        /// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+        /// </summary>
+        [Output("skewProtection")]
+        public Output<string?> SkewProtection { get; private set; } = null!;
 
         /// <summary>
         /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
@@ -232,6 +292,12 @@ namespace Pulumiverse.Vercel
     public sealed class ProjectArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+        /// </summary>
+        [Input("autoAssignCustomDomains")]
+        public Input<bool>? AutoAssignCustomDomains { get; set; }
+
+        /// <summary>
         /// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         /// </summary>
         [Input("automaticallyExposeSystemEnvironmentVariables")]
@@ -244,10 +310,22 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
+        /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+        /// </summary>
+        [Input("customerSuccessCodeVisibility")]
+        public Input<bool>? CustomerSuccessCodeVisibility { get; set; }
+
+        /// <summary>
         /// The dev command for this project. If omitted, this value will be automatically detected.
         /// </summary>
         [Input("devCommand")]
         public Input<string>? DevCommand { get; set; }
+
+        /// <summary>
+        /// If no index file is present within a directory, the directory contents will be displayed.
+        /// </summary>
+        [Input("directoryListing")]
+        public Input<bool>? DirectoryListing { get; set; }
 
         [Input("environments")]
         private InputList<Inputs.ProjectEnvironmentArgs>? _environments;
@@ -266,6 +344,30 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("framework")]
         public Input<string>? Framework { get; set; }
+
+        /// <summary>
+        /// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        [Input("functionFailover")]
+        public Input<bool>? FunctionFailover { get; set; }
+
+        /// <summary>
+        /// Configuration for Git Comments.
+        /// </summary>
+        [Input("gitComments")]
+        public Input<Inputs.ProjectGitCommentsArgs>? GitComments { get; set; }
+
+        /// <summary>
+        /// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+        /// </summary>
+        [Input("gitForkProtection")]
+        public Input<bool>? GitForkProtection { get; set; }
+
+        /// <summary>
+        /// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        /// </summary>
+        [Input("gitLfs")]
+        public Input<bool>? GitLfs { get; set; }
 
         /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
@@ -304,6 +406,18 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.ProjectPasswordProtectionArgs>? PasswordProtection { get; set; }
 
         /// <summary>
+        /// Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        /// </summary>
+        [Input("previewComments")]
+        public Input<bool>? PreviewComments { get; set; }
+
+        /// <summary>
+        /// If enabled, builds for the Production environment will be prioritized over Preview environments.
+        /// </summary>
+        [Input("prioritiseProductionBuilds")]
+        public Input<bool>? PrioritiseProductionBuilds { get; set; }
+
+        /// <summary>
         /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         /// </summary>
         [Input("protectionBypassForAutomation")]
@@ -326,6 +440,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("serverlessFunctionRegion")]
         public Input<string>? ServerlessFunctionRegion { get; set; }
+
+        /// <summary>
+        /// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+        /// </summary>
+        [Input("skewProtection")]
+        public Input<string>? SkewProtection { get; set; }
 
         /// <summary>
         /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
@@ -354,6 +474,12 @@ namespace Pulumiverse.Vercel
     public sealed class ProjectState : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+        /// </summary>
+        [Input("autoAssignCustomDomains")]
+        public Input<bool>? AutoAssignCustomDomains { get; set; }
+
+        /// <summary>
         /// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         /// </summary>
         [Input("automaticallyExposeSystemEnvironmentVariables")]
@@ -366,10 +492,22 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
+        /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+        /// </summary>
+        [Input("customerSuccessCodeVisibility")]
+        public Input<bool>? CustomerSuccessCodeVisibility { get; set; }
+
+        /// <summary>
         /// The dev command for this project. If omitted, this value will be automatically detected.
         /// </summary>
         [Input("devCommand")]
         public Input<string>? DevCommand { get; set; }
+
+        /// <summary>
+        /// If no index file is present within a directory, the directory contents will be displayed.
+        /// </summary>
+        [Input("directoryListing")]
+        public Input<bool>? DirectoryListing { get; set; }
 
         [Input("environments")]
         private InputList<Inputs.ProjectEnvironmentGetArgs>? _environments;
@@ -388,6 +526,30 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("framework")]
         public Input<string>? Framework { get; set; }
+
+        /// <summary>
+        /// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        [Input("functionFailover")]
+        public Input<bool>? FunctionFailover { get; set; }
+
+        /// <summary>
+        /// Configuration for Git Comments.
+        /// </summary>
+        [Input("gitComments")]
+        public Input<Inputs.ProjectGitCommentsGetArgs>? GitComments { get; set; }
+
+        /// <summary>
+        /// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+        /// </summary>
+        [Input("gitForkProtection")]
+        public Input<bool>? GitForkProtection { get; set; }
+
+        /// <summary>
+        /// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        /// </summary>
+        [Input("gitLfs")]
+        public Input<bool>? GitLfs { get; set; }
 
         /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
@@ -426,6 +588,18 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.ProjectPasswordProtectionGetArgs>? PasswordProtection { get; set; }
 
         /// <summary>
+        /// Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        /// </summary>
+        [Input("previewComments")]
+        public Input<bool>? PreviewComments { get; set; }
+
+        /// <summary>
+        /// If enabled, builds for the Production environment will be prioritized over Preview environments.
+        /// </summary>
+        [Input("prioritiseProductionBuilds")]
+        public Input<bool>? PrioritiseProductionBuilds { get; set; }
+
+        /// <summary>
         /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         /// </summary>
         [Input("protectionBypassForAutomation")]
@@ -454,6 +628,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("serverlessFunctionRegion")]
         public Input<string>? ServerlessFunctionRegion { get; set; }
+
+        /// <summary>
+        /// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+        /// </summary>
+        [Input("skewProtection")]
+        public Input<string>? SkewProtection { get; set; }
 
         /// <summary>
         /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
