@@ -171,8 +171,32 @@
                 }
             }
         },
+        "vercel:index/ProjectGitComments:ProjectGitComments": {
+            "properties": {
+                "onCommit": {
+                    "type": "boolean",
+                    "description": "Whether Commit comments are enabled\n"
+                },
+                "onPullRequest": {
+                    "type": "boolean",
+                    "description": "Whether Pull Request comments are enabled\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "onCommit",
+                "onPullRequest"
+            ]
+        },
         "vercel:index/ProjectGitRepository:ProjectGitRepository": {
             "properties": {
+                "deployHooks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/ProjectGitRepositoryDeployHook:ProjectGitRepositoryDeployHook"
+                    },
+                    "description": "Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.\n"
+                },
                 "productionBranch": {
                     "type": "string",
                     "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
@@ -197,6 +221,42 @@
                         "productionBranch",
                         "repo",
                         "type"
+                    ]
+                }
+            }
+        },
+        "vercel:index/ProjectGitRepositoryDeployHook:ProjectGitRepositoryDeployHook": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the deploy hook.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the deploy hook.\n"
+                },
+                "ref": {
+                    "type": "string",
+                    "description": "The branch or commit hash that should be deployed.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "A URL that, when a POST request is made to, will trigger a new deployment.\n",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "ref"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "id",
+                        "name",
+                        "ref",
+                        "url"
                     ]
                 }
             }
@@ -319,6 +379,28 @@
                 "sensitive",
                 "targets",
                 "value"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectGitComments:getProjectGitComments": {
+            "properties": {
+                "onCommit": {
+                    "type": "boolean",
+                    "description": "Whether Commit comments are enabled\n"
+                },
+                "onPullRequest": {
+                    "type": "boolean",
+                    "description": "Whether Pull Request comments are enabled\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "onCommit",
+                "onPullRequest"
             ],
             "language": {
                 "nodejs": {
@@ -1178,6 +1260,10 @@
         "vercel:index/project:Project": {
             "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\n// A project that is connected to a git repository.\n// Deployments will be created automatically\n// on every branch push and merges onto the Production Branch.\nconst withGit = new vercel.Project(\"withGit\", {\n    framework: \"nextjs\",\n    gitRepository: {\n        repo: \"vercel/some-repo\",\n        type: \"github\",\n    },\n});\n// A project that is not connected to a git repository.\n// Deployments will need to be created manually through\n// terraform, or via the vercel CLI.\nconst example = new vercel.Project(\"example\", {framework: \"nextjs\"});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\n# A project that is connected to a git repository.\n# Deployments will be created automatically\n# on every branch push and merges onto the Production Branch.\nwith_git = vercel.Project(\"withGit\",\n    framework=\"nextjs\",\n    git_repository=vercel.ProjectGitRepositoryArgs(\n        repo=\"vercel/some-repo\",\n        type=\"github\",\n    ))\n# A project that is not connected to a git repository.\n# Deployments will need to be created manually through\n# terraform, or via the vercel CLI.\nexample = vercel.Project(\"example\", framework=\"nextjs\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // A project that is connected to a git repository.\n    // Deployments will be created automatically\n    // on every branch push and merges onto the Production Branch.\n    var withGit = new Vercel.Project(\"withGit\", new()\n    {\n        Framework = \"nextjs\",\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Repo = \"vercel/some-repo\",\n            Type = \"github\",\n        },\n    });\n\n    // A project that is not connected to a git repository.\n    // Deployments will need to be created manually through\n    // terraform, or via the vercel CLI.\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Framework = \"nextjs\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// A project that is connected to a git repository.\n\t\t// Deployments will be created automatically\n\t\t// on every branch push and merges onto the Production Branch.\n\t\t_, err := vercel.NewProject(ctx, \"withGit\", \u0026vercel.ProjectArgs{\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A project that is not connected to a git repository.\n\t\t// Deployments will need to be created manually through\n\t\t// terraform, or via the vercel CLI.\n\t\t_, err = vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // A project that is connected to a git repository.\n        // Deployments will be created automatically\n        // on every branch push and merges onto the Production Branch.\n        var withGit = new Project(\"withGit\", ProjectArgs.builder()        \n            .framework(\"nextjs\")\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .repo(\"vercel/some-repo\")\n                .type(\"github\")\n                .build())\n            .build());\n\n        // A project that is not connected to a git repository.\n        // Deployments will need to be created manually through\n        // terraform, or via the vercel CLI.\n        var example = new Project(\"example\", ProjectArgs.builder()        \n            .framework(\"nextjs\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # A project that is connected to a git repository.\n  # // Deployments will be created automatically\n  # // on every branch push and merges onto the Production Branch.\n  withGit:\n    type: vercel:Project\n    properties:\n      framework: nextjs\n      gitRepository:\n        repo: vercel/some-repo\n        type: github\n  # A project that is not connected to a git repository.\n  # // Deployments will need to be created manually through\n  # // terraform, or via the vercel CLI.\n  example:\n    type: vercel:Project\n    properties:\n      framework: nextjs\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the project ID.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
+                "autoAssignCustomDomains": {
+                    "type": "boolean",
+                    "description": "Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`\n"
+                },
                 "automaticallyExposeSystemEnvironmentVariables": {
                     "type": "boolean",
                     "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
@@ -1186,9 +1272,17 @@
                     "type": "string",
                     "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
                 },
+                "customerSuccessCodeVisibility": {
+                    "type": "boolean",
+                    "description": "Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.\n"
+                },
                 "devCommand": {
                     "type": "string",
                     "description": "The dev command for this project. If omitted, this value will be automatically detected.\n"
+                },
+                "directoryListing": {
+                    "type": "boolean",
+                    "description": "If no index file is present within a directory, the directory contents will be displayed.\n"
                 },
                 "environments": {
                     "type": "array",
@@ -1200,6 +1294,22 @@
                 "framework": {
                     "type": "string",
                     "description": "The framework that is being used for this project. If omitted, no framework is selected.\n"
+                },
+                "functionFailover": {
+                    "type": "boolean",
+                    "description": "Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.\n"
+                },
+                "gitComments": {
+                    "$ref": "#/types/vercel:index/ProjectGitComments:ProjectGitComments",
+                    "description": "Configuration for Git Comments.\n"
+                },
+                "gitForkProtection": {
+                    "type": "boolean",
+                    "description": "Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.\n"
+                },
+                "gitLfs": {
+                    "type": "boolean",
+                    "description": "Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.\n"
                 },
                 "gitRepository": {
                     "$ref": "#/types/vercel:index/ProjectGitRepository:ProjectGitRepository",
@@ -1224,6 +1334,14 @@
                 "passwordProtection": {
                     "$ref": "#/types/vercel:index/ProjectPasswordProtection:ProjectPasswordProtection",
                     "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
+                },
+                "previewComments": {
+                    "type": "boolean",
+                    "description": "Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).\n"
+                },
+                "prioritiseProductionBuilds": {
+                    "type": "boolean",
+                    "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
                 },
                 "protectionBypassForAutomation": {
                     "type": "boolean",
@@ -1245,6 +1363,10 @@
                     "type": "string",
                     "description": "The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.\n"
                 },
+                "skewProtection": {
+                    "type": "string",
+                    "description": "Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.\n"
+                },
                 "teamId": {
                     "type": "string",
                     "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.\n"
@@ -1259,14 +1381,25 @@
                 }
             },
             "required": [
+                "autoAssignCustomDomains",
                 "automaticallyExposeSystemEnvironmentVariables",
+                "customerSuccessCodeVisibility",
+                "directoryListing",
+                "functionFailover",
+                "gitForkProtection",
+                "gitLfs",
                 "name",
+                "prioritiseProductionBuilds",
                 "protectionBypassForAutomationSecret",
                 "serverlessFunctionRegion",
                 "teamId",
                 "vercelAuthentication"
             ],
             "inputProperties": {
+                "autoAssignCustomDomains": {
+                    "type": "boolean",
+                    "description": "Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`\n"
+                },
                 "automaticallyExposeSystemEnvironmentVariables": {
                     "type": "boolean",
                     "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
@@ -1275,9 +1408,17 @@
                     "type": "string",
                     "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
                 },
+                "customerSuccessCodeVisibility": {
+                    "type": "boolean",
+                    "description": "Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.\n"
+                },
                 "devCommand": {
                     "type": "string",
                     "description": "The dev command for this project. If omitted, this value will be automatically detected.\n"
+                },
+                "directoryListing": {
+                    "type": "boolean",
+                    "description": "If no index file is present within a directory, the directory contents will be displayed.\n"
                 },
                 "environments": {
                     "type": "array",
@@ -1289,6 +1430,22 @@
                 "framework": {
                     "type": "string",
                     "description": "The framework that is being used for this project. If omitted, no framework is selected.\n"
+                },
+                "functionFailover": {
+                    "type": "boolean",
+                    "description": "Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.\n"
+                },
+                "gitComments": {
+                    "$ref": "#/types/vercel:index/ProjectGitComments:ProjectGitComments",
+                    "description": "Configuration for Git Comments.\n"
+                },
+                "gitForkProtection": {
+                    "type": "boolean",
+                    "description": "Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.\n"
+                },
+                "gitLfs": {
+                    "type": "boolean",
+                    "description": "Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.\n"
                 },
                 "gitRepository": {
                     "$ref": "#/types/vercel:index/ProjectGitRepository:ProjectGitRepository",
@@ -1314,6 +1471,14 @@
                     "$ref": "#/types/vercel:index/ProjectPasswordProtection:ProjectPasswordProtection",
                     "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
                 },
+                "previewComments": {
+                    "type": "boolean",
+                    "description": "Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).\n"
+                },
+                "prioritiseProductionBuilds": {
+                    "type": "boolean",
+                    "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
+                },
                 "protectionBypassForAutomation": {
                     "type": "boolean",
                     "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.\n"
@@ -1329,6 +1494,10 @@
                 "serverlessFunctionRegion": {
                     "type": "string",
                     "description": "The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.\n"
+                },
+                "skewProtection": {
+                    "type": "string",
+                    "description": "Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -1346,6 +1515,10 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Project resources.\n",
                 "properties": {
+                    "autoAssignCustomDomains": {
+                        "type": "boolean",
+                        "description": "Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`\n"
+                    },
                     "automaticallyExposeSystemEnvironmentVariables": {
                         "type": "boolean",
                         "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
@@ -1354,9 +1527,17 @@
                         "type": "string",
                         "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
                     },
+                    "customerSuccessCodeVisibility": {
+                        "type": "boolean",
+                        "description": "Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.\n"
+                    },
                     "devCommand": {
                         "type": "string",
                         "description": "The dev command for this project. If omitted, this value will be automatically detected.\n"
+                    },
+                    "directoryListing": {
+                        "type": "boolean",
+                        "description": "If no index file is present within a directory, the directory contents will be displayed.\n"
                     },
                     "environments": {
                         "type": "array",
@@ -1368,6 +1549,22 @@
                     "framework": {
                         "type": "string",
                         "description": "The framework that is being used for this project. If omitted, no framework is selected.\n"
+                    },
+                    "functionFailover": {
+                        "type": "boolean",
+                        "description": "Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.\n"
+                    },
+                    "gitComments": {
+                        "$ref": "#/types/vercel:index/ProjectGitComments:ProjectGitComments",
+                        "description": "Configuration for Git Comments.\n"
+                    },
+                    "gitForkProtection": {
+                        "type": "boolean",
+                        "description": "Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.\n"
+                    },
+                    "gitLfs": {
+                        "type": "boolean",
+                        "description": "Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.\n"
                     },
                     "gitRepository": {
                         "$ref": "#/types/vercel:index/ProjectGitRepository:ProjectGitRepository",
@@ -1393,6 +1590,14 @@
                         "$ref": "#/types/vercel:index/ProjectPasswordProtection:ProjectPasswordProtection",
                         "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
                     },
+                    "previewComments": {
+                        "type": "boolean",
+                        "description": "Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).\n"
+                    },
+                    "prioritiseProductionBuilds": {
+                        "type": "boolean",
+                        "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
+                    },
                     "protectionBypassForAutomation": {
                         "type": "boolean",
                         "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.\n"
@@ -1412,6 +1617,10 @@
                     "serverlessFunctionRegion": {
                         "type": "string",
                         "description": "The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.\n"
+                    },
+                    "skewProtection": {
+                        "type": "string",
+                        "description": "Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.\n"
                     },
                     "teamId": {
                         "type": "string",
@@ -2357,6 +2566,10 @@
             "outputs": {
                 "description": "A collection of values returned by getProject.\n",
                 "properties": {
+                    "autoAssignCustomDomains": {
+                        "type": "boolean",
+                        "description": "Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`\n"
+                    },
                     "automaticallyExposeSystemEnvironmentVariables": {
                         "type": "boolean",
                         "description": "Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field\n"
@@ -2365,9 +2578,17 @@
                         "type": "string",
                         "description": "The build command for this project. If omitted, this value will be automatically detected.\n"
                     },
+                    "customerSuccessCodeVisibility": {
+                        "type": "boolean",
+                        "description": "Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.\n"
+                    },
                     "devCommand": {
                         "type": "string",
                         "description": "The dev command for this project. If omitted, this value will be automatically detected.\n"
+                    },
+                    "directoryListing": {
+                        "type": "boolean",
+                        "description": "If no index file is present within a directory, the directory contents will be displayed.\n"
                     },
                     "environments": {
                         "type": "array",
@@ -2379,6 +2600,22 @@
                     "framework": {
                         "type": "string",
                         "description": "The framework that is being used for this project. If omitted, no framework is selected.\n"
+                    },
+                    "functionFailover": {
+                        "type": "boolean",
+                        "description": "Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.\n"
+                    },
+                    "gitComments": {
+                        "$ref": "#/types/vercel:index/getProjectGitComments:getProjectGitComments",
+                        "description": "Configuration for Git Comments.\n"
+                    },
+                    "gitForkProtection": {
+                        "type": "boolean",
+                        "description": "Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json.\n"
+                    },
+                    "gitLfs": {
+                        "type": "boolean",
+                        "description": "Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.\n"
                     },
                     "gitRepository": {
                         "$ref": "#/types/vercel:index/getProjectGitRepository:getProjectGitRepository",
@@ -2408,6 +2645,18 @@
                         "$ref": "#/types/vercel:index/getProjectPasswordProtection:getProjectPasswordProtection",
                         "description": "Ensures visitors of your Preview Deployments must enter a password in order to gain access.\n"
                     },
+                    "previewComments": {
+                        "type": "boolean",
+                        "description": "Whether comments are enabled on your Preview Deployments.\n"
+                    },
+                    "prioritiseProductionBuilds": {
+                        "type": "boolean",
+                        "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
+                    },
+                    "protectionBypassForAutomation": {
+                        "type": "boolean",
+                        "description": "Allows automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass`.\n"
+                    },
                     "publicSource": {
                         "type": "boolean",
                         "description": "Specifies whether the source code and logs of the deployments for this project should be public or not.\n"
@@ -2419,6 +2668,10 @@
                     "serverlessFunctionRegion": {
                         "type": "string",
                         "description": "The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.\n"
+                    },
+                    "skewProtection": {
+                        "type": "string",
+                        "description": "Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.\n"
                     },
                     "teamId": {
                         "type": "string",
@@ -2435,11 +2688,18 @@
                 },
                 "type": "object",
                 "required": [
+                    "autoAssignCustomDomains",
                     "automaticallyExposeSystemEnvironmentVariables",
                     "buildCommand",
+                    "customerSuccessCodeVisibility",
                     "devCommand",
+                    "directoryListing",
                     "environments",
                     "framework",
+                    "functionFailover",
+                    "gitComments",
+                    "gitForkProtection",
+                    "gitLfs",
                     "gitRepository",
                     "id",
                     "ignoreCommand",
@@ -2447,9 +2707,13 @@
                     "name",
                     "outputDirectory",
                     "passwordProtection",
+                    "previewComments",
+                    "prioritiseProductionBuilds",
+                    "protectionBypassForAutomation",
                     "publicSource",
                     "rootDirectory",
                     "serverlessFunctionRegion",
+                    "skewProtection",
                     "teamId",
                     "trustedIps",
                     "vercelAuthentication"
