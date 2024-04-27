@@ -562,7 +562,165 @@ func (o ProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) ProjectEnvironme
 	}).(ProjectEnvironmentOutput)
 }
 
+type ProjectGitComments struct {
+	// Whether Commit comments are enabled
+	OnCommit bool `pulumi:"onCommit"`
+	// Whether Pull Request comments are enabled
+	OnPullRequest bool `pulumi:"onPullRequest"`
+}
+
+// ProjectGitCommentsInput is an input type that accepts ProjectGitCommentsArgs and ProjectGitCommentsOutput values.
+// You can construct a concrete instance of `ProjectGitCommentsInput` via:
+//
+//	ProjectGitCommentsArgs{...}
+type ProjectGitCommentsInput interface {
+	pulumi.Input
+
+	ToProjectGitCommentsOutput() ProjectGitCommentsOutput
+	ToProjectGitCommentsOutputWithContext(context.Context) ProjectGitCommentsOutput
+}
+
+type ProjectGitCommentsArgs struct {
+	// Whether Commit comments are enabled
+	OnCommit pulumi.BoolInput `pulumi:"onCommit"`
+	// Whether Pull Request comments are enabled
+	OnPullRequest pulumi.BoolInput `pulumi:"onPullRequest"`
+}
+
+func (ProjectGitCommentsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectGitComments)(nil)).Elem()
+}
+
+func (i ProjectGitCommentsArgs) ToProjectGitCommentsOutput() ProjectGitCommentsOutput {
+	return i.ToProjectGitCommentsOutputWithContext(context.Background())
+}
+
+func (i ProjectGitCommentsArgs) ToProjectGitCommentsOutputWithContext(ctx context.Context) ProjectGitCommentsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitCommentsOutput)
+}
+
+func (i ProjectGitCommentsArgs) ToProjectGitCommentsPtrOutput() ProjectGitCommentsPtrOutput {
+	return i.ToProjectGitCommentsPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectGitCommentsArgs) ToProjectGitCommentsPtrOutputWithContext(ctx context.Context) ProjectGitCommentsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitCommentsOutput).ToProjectGitCommentsPtrOutputWithContext(ctx)
+}
+
+// ProjectGitCommentsPtrInput is an input type that accepts ProjectGitCommentsArgs, ProjectGitCommentsPtr and ProjectGitCommentsPtrOutput values.
+// You can construct a concrete instance of `ProjectGitCommentsPtrInput` via:
+//
+//	        ProjectGitCommentsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectGitCommentsPtrInput interface {
+	pulumi.Input
+
+	ToProjectGitCommentsPtrOutput() ProjectGitCommentsPtrOutput
+	ToProjectGitCommentsPtrOutputWithContext(context.Context) ProjectGitCommentsPtrOutput
+}
+
+type projectGitCommentsPtrType ProjectGitCommentsArgs
+
+func ProjectGitCommentsPtr(v *ProjectGitCommentsArgs) ProjectGitCommentsPtrInput {
+	return (*projectGitCommentsPtrType)(v)
+}
+
+func (*projectGitCommentsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectGitComments)(nil)).Elem()
+}
+
+func (i *projectGitCommentsPtrType) ToProjectGitCommentsPtrOutput() ProjectGitCommentsPtrOutput {
+	return i.ToProjectGitCommentsPtrOutputWithContext(context.Background())
+}
+
+func (i *projectGitCommentsPtrType) ToProjectGitCommentsPtrOutputWithContext(ctx context.Context) ProjectGitCommentsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitCommentsPtrOutput)
+}
+
+type ProjectGitCommentsOutput struct{ *pulumi.OutputState }
+
+func (ProjectGitCommentsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectGitComments)(nil)).Elem()
+}
+
+func (o ProjectGitCommentsOutput) ToProjectGitCommentsOutput() ProjectGitCommentsOutput {
+	return o
+}
+
+func (o ProjectGitCommentsOutput) ToProjectGitCommentsOutputWithContext(ctx context.Context) ProjectGitCommentsOutput {
+	return o
+}
+
+func (o ProjectGitCommentsOutput) ToProjectGitCommentsPtrOutput() ProjectGitCommentsPtrOutput {
+	return o.ToProjectGitCommentsPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectGitCommentsOutput) ToProjectGitCommentsPtrOutputWithContext(ctx context.Context) ProjectGitCommentsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectGitComments) *ProjectGitComments {
+		return &v
+	}).(ProjectGitCommentsPtrOutput)
+}
+
+// Whether Commit comments are enabled
+func (o ProjectGitCommentsOutput) OnCommit() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectGitComments) bool { return v.OnCommit }).(pulumi.BoolOutput)
+}
+
+// Whether Pull Request comments are enabled
+func (o ProjectGitCommentsOutput) OnPullRequest() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectGitComments) bool { return v.OnPullRequest }).(pulumi.BoolOutput)
+}
+
+type ProjectGitCommentsPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectGitCommentsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectGitComments)(nil)).Elem()
+}
+
+func (o ProjectGitCommentsPtrOutput) ToProjectGitCommentsPtrOutput() ProjectGitCommentsPtrOutput {
+	return o
+}
+
+func (o ProjectGitCommentsPtrOutput) ToProjectGitCommentsPtrOutputWithContext(ctx context.Context) ProjectGitCommentsPtrOutput {
+	return o
+}
+
+func (o ProjectGitCommentsPtrOutput) Elem() ProjectGitCommentsOutput {
+	return o.ApplyT(func(v *ProjectGitComments) ProjectGitComments {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectGitComments
+		return ret
+	}).(ProjectGitCommentsOutput)
+}
+
+// Whether Commit comments are enabled
+func (o ProjectGitCommentsPtrOutput) OnCommit() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectGitComments) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.OnCommit
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether Pull Request comments are enabled
+func (o ProjectGitCommentsPtrOutput) OnPullRequest() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectGitComments) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.OnPullRequest
+	}).(pulumi.BoolPtrOutput)
+}
+
 type ProjectGitRepository struct {
+	// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+	DeployHooks []ProjectGitRepositoryDeployHook `pulumi:"deployHooks"`
 	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch *string `pulumi:"productionBranch"`
 	// The name of the git repository. For example: `vercel/next.js`.
@@ -583,6 +741,8 @@ type ProjectGitRepositoryInput interface {
 }
 
 type ProjectGitRepositoryArgs struct {
+	// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+	DeployHooks ProjectGitRepositoryDeployHookArrayInput `pulumi:"deployHooks"`
 	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch pulumi.StringPtrInput `pulumi:"productionBranch"`
 	// The name of the git repository. For example: `vercel/next.js`.
@@ -668,6 +828,11 @@ func (o ProjectGitRepositoryOutput) ToProjectGitRepositoryPtrOutputWithContext(c
 	}).(ProjectGitRepositoryPtrOutput)
 }
 
+// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+func (o ProjectGitRepositoryOutput) DeployHooks() ProjectGitRepositoryDeployHookArrayOutput {
+	return o.ApplyT(func(v ProjectGitRepository) []ProjectGitRepositoryDeployHook { return v.DeployHooks }).(ProjectGitRepositoryDeployHookArrayOutput)
+}
+
 // By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 func (o ProjectGitRepositoryOutput) ProductionBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectGitRepository) *string { return v.ProductionBranch }).(pulumi.StringPtrOutput)
@@ -707,6 +872,16 @@ func (o ProjectGitRepositoryPtrOutput) Elem() ProjectGitRepositoryOutput {
 	}).(ProjectGitRepositoryOutput)
 }
 
+// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+func (o ProjectGitRepositoryPtrOutput) DeployHooks() ProjectGitRepositoryDeployHookArrayOutput {
+	return o.ApplyT(func(v *ProjectGitRepository) []ProjectGitRepositoryDeployHook {
+		if v == nil {
+			return nil
+		}
+		return v.DeployHooks
+	}).(ProjectGitRepositoryDeployHookArrayOutput)
+}
+
 // By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 func (o ProjectGitRepositoryPtrOutput) ProductionBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectGitRepository) *string {
@@ -735,6 +910,130 @@ func (o ProjectGitRepositoryPtrOutput) Type() pulumi.StringPtrOutput {
 		}
 		return &v.Type
 	}).(pulumi.StringPtrOutput)
+}
+
+type ProjectGitRepositoryDeployHook struct {
+	// The ID of the deploy hook.
+	Id *string `pulumi:"id"`
+	// The name of the deploy hook.
+	Name string `pulumi:"name"`
+	// The branch or commit hash that should be deployed.
+	Ref string `pulumi:"ref"`
+	// A URL that, when a POST request is made to, will trigger a new deployment.
+	Url *string `pulumi:"url"`
+}
+
+// ProjectGitRepositoryDeployHookInput is an input type that accepts ProjectGitRepositoryDeployHookArgs and ProjectGitRepositoryDeployHookOutput values.
+// You can construct a concrete instance of `ProjectGitRepositoryDeployHookInput` via:
+//
+//	ProjectGitRepositoryDeployHookArgs{...}
+type ProjectGitRepositoryDeployHookInput interface {
+	pulumi.Input
+
+	ToProjectGitRepositoryDeployHookOutput() ProjectGitRepositoryDeployHookOutput
+	ToProjectGitRepositoryDeployHookOutputWithContext(context.Context) ProjectGitRepositoryDeployHookOutput
+}
+
+type ProjectGitRepositoryDeployHookArgs struct {
+	// The ID of the deploy hook.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// The name of the deploy hook.
+	Name pulumi.StringInput `pulumi:"name"`
+	// The branch or commit hash that should be deployed.
+	Ref pulumi.StringInput `pulumi:"ref"`
+	// A URL that, when a POST request is made to, will trigger a new deployment.
+	Url pulumi.StringPtrInput `pulumi:"url"`
+}
+
+func (ProjectGitRepositoryDeployHookArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectGitRepositoryDeployHook)(nil)).Elem()
+}
+
+func (i ProjectGitRepositoryDeployHookArgs) ToProjectGitRepositoryDeployHookOutput() ProjectGitRepositoryDeployHookOutput {
+	return i.ToProjectGitRepositoryDeployHookOutputWithContext(context.Background())
+}
+
+func (i ProjectGitRepositoryDeployHookArgs) ToProjectGitRepositoryDeployHookOutputWithContext(ctx context.Context) ProjectGitRepositoryDeployHookOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitRepositoryDeployHookOutput)
+}
+
+// ProjectGitRepositoryDeployHookArrayInput is an input type that accepts ProjectGitRepositoryDeployHookArray and ProjectGitRepositoryDeployHookArrayOutput values.
+// You can construct a concrete instance of `ProjectGitRepositoryDeployHookArrayInput` via:
+//
+//	ProjectGitRepositoryDeployHookArray{ ProjectGitRepositoryDeployHookArgs{...} }
+type ProjectGitRepositoryDeployHookArrayInput interface {
+	pulumi.Input
+
+	ToProjectGitRepositoryDeployHookArrayOutput() ProjectGitRepositoryDeployHookArrayOutput
+	ToProjectGitRepositoryDeployHookArrayOutputWithContext(context.Context) ProjectGitRepositoryDeployHookArrayOutput
+}
+
+type ProjectGitRepositoryDeployHookArray []ProjectGitRepositoryDeployHookInput
+
+func (ProjectGitRepositoryDeployHookArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectGitRepositoryDeployHook)(nil)).Elem()
+}
+
+func (i ProjectGitRepositoryDeployHookArray) ToProjectGitRepositoryDeployHookArrayOutput() ProjectGitRepositoryDeployHookArrayOutput {
+	return i.ToProjectGitRepositoryDeployHookArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectGitRepositoryDeployHookArray) ToProjectGitRepositoryDeployHookArrayOutputWithContext(ctx context.Context) ProjectGitRepositoryDeployHookArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitRepositoryDeployHookArrayOutput)
+}
+
+type ProjectGitRepositoryDeployHookOutput struct{ *pulumi.OutputState }
+
+func (ProjectGitRepositoryDeployHookOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectGitRepositoryDeployHook)(nil)).Elem()
+}
+
+func (o ProjectGitRepositoryDeployHookOutput) ToProjectGitRepositoryDeployHookOutput() ProjectGitRepositoryDeployHookOutput {
+	return o
+}
+
+func (o ProjectGitRepositoryDeployHookOutput) ToProjectGitRepositoryDeployHookOutputWithContext(ctx context.Context) ProjectGitRepositoryDeployHookOutput {
+	return o
+}
+
+// The ID of the deploy hook.
+func (o ProjectGitRepositoryDeployHookOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectGitRepositoryDeployHook) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// The name of the deploy hook.
+func (o ProjectGitRepositoryDeployHookOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectGitRepositoryDeployHook) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The branch or commit hash that should be deployed.
+func (o ProjectGitRepositoryDeployHookOutput) Ref() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectGitRepositoryDeployHook) string { return v.Ref }).(pulumi.StringOutput)
+}
+
+// A URL that, when a POST request is made to, will trigger a new deployment.
+func (o ProjectGitRepositoryDeployHookOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectGitRepositoryDeployHook) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type ProjectGitRepositoryDeployHookArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectGitRepositoryDeployHookArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectGitRepositoryDeployHook)(nil)).Elem()
+}
+
+func (o ProjectGitRepositoryDeployHookArrayOutput) ToProjectGitRepositoryDeployHookArrayOutput() ProjectGitRepositoryDeployHookArrayOutput {
+	return o
+}
+
+func (o ProjectGitRepositoryDeployHookArrayOutput) ToProjectGitRepositoryDeployHookArrayOutputWithContext(ctx context.Context) ProjectGitRepositoryDeployHookArrayOutput {
+	return o
+}
+
+func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) ProjectGitRepositoryDeployHookOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectGitRepositoryDeployHook {
+		return vs[0].([]ProjectGitRepositoryDeployHook)[vs[1].(int)]
+	}).(ProjectGitRepositoryDeployHookOutput)
 }
 
 type ProjectPasswordProtection struct {
@@ -1453,6 +1752,67 @@ func (o GetProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) GetProjectEnv
 	}).(GetProjectEnvironmentOutput)
 }
 
+type GetProjectGitComments struct {
+	// Whether Commit comments are enabled
+	OnCommit bool `pulumi:"onCommit"`
+	// Whether Pull Request comments are enabled
+	OnPullRequest bool `pulumi:"onPullRequest"`
+}
+
+// GetProjectGitCommentsInput is an input type that accepts GetProjectGitCommentsArgs and GetProjectGitCommentsOutput values.
+// You can construct a concrete instance of `GetProjectGitCommentsInput` via:
+//
+//	GetProjectGitCommentsArgs{...}
+type GetProjectGitCommentsInput interface {
+	pulumi.Input
+
+	ToGetProjectGitCommentsOutput() GetProjectGitCommentsOutput
+	ToGetProjectGitCommentsOutputWithContext(context.Context) GetProjectGitCommentsOutput
+}
+
+type GetProjectGitCommentsArgs struct {
+	// Whether Commit comments are enabled
+	OnCommit pulumi.BoolInput `pulumi:"onCommit"`
+	// Whether Pull Request comments are enabled
+	OnPullRequest pulumi.BoolInput `pulumi:"onPullRequest"`
+}
+
+func (GetProjectGitCommentsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectGitComments)(nil)).Elem()
+}
+
+func (i GetProjectGitCommentsArgs) ToGetProjectGitCommentsOutput() GetProjectGitCommentsOutput {
+	return i.ToGetProjectGitCommentsOutputWithContext(context.Background())
+}
+
+func (i GetProjectGitCommentsArgs) ToGetProjectGitCommentsOutputWithContext(ctx context.Context) GetProjectGitCommentsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectGitCommentsOutput)
+}
+
+type GetProjectGitCommentsOutput struct{ *pulumi.OutputState }
+
+func (GetProjectGitCommentsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectGitComments)(nil)).Elem()
+}
+
+func (o GetProjectGitCommentsOutput) ToGetProjectGitCommentsOutput() GetProjectGitCommentsOutput {
+	return o
+}
+
+func (o GetProjectGitCommentsOutput) ToGetProjectGitCommentsOutputWithContext(ctx context.Context) GetProjectGitCommentsOutput {
+	return o
+}
+
+// Whether Commit comments are enabled
+func (o GetProjectGitCommentsOutput) OnCommit() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectGitComments) bool { return v.OnCommit }).(pulumi.BoolOutput)
+}
+
+// Whether Pull Request comments are enabled
+func (o GetProjectGitCommentsOutput) OnPullRequest() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectGitComments) bool { return v.OnPullRequest }).(pulumi.BoolOutput)
+}
+
 type GetProjectGitRepository struct {
 	// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
 	ProductionBranch string `pulumi:"productionBranch"`
@@ -1804,8 +2164,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvPtrInput)(nil)).Elem(), DnsRecordSrvArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentArrayInput)(nil)).Elem(), ProjectEnvironmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsInput)(nil)).Elem(), ProjectGitCommentsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsPtrInput)(nil)).Elem(), ProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
@@ -1816,6 +2180,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationPtrInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitCommentsInput)(nil)).Elem(), GetProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsInput)(nil)).Elem(), GetProjectTrustedIpsArgs{})
@@ -1828,8 +2193,12 @@ func init() {
 	pulumi.RegisterOutputType(DnsRecordSrvPtrOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentArrayOutput{})
+	pulumi.RegisterOutputType(ProjectGitCommentsOutput{})
+	pulumi.RegisterOutputType(ProjectGitCommentsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
+	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookOutput{})
+	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookArrayOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
@@ -1840,6 +2209,7 @@ func init() {
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationPtrOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectGitCommentsOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsOutput{})
