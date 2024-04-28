@@ -13,7 +13,9 @@ __all__ = [
     'DeploymentProjectSettingsArgs',
     'DnsRecordSrvArgs',
     'ProjectEnvironmentArgs',
+    'ProjectGitCommentsArgs',
     'ProjectGitRepositoryArgs',
+    'ProjectGitRepositoryDeployHookArgs',
     'ProjectPasswordProtectionArgs',
     'ProjectTrustedIpsArgs',
     'ProjectTrustedIpsAddressArgs',
@@ -275,18 +277,59 @@ class ProjectEnvironmentArgs:
 
 
 @pulumi.input_type
+class ProjectGitCommentsArgs:
+    def __init__(__self__, *,
+                 on_commit: pulumi.Input[bool],
+                 on_pull_request: pulumi.Input[bool]):
+        """
+        :param pulumi.Input[bool] on_commit: Whether Commit comments are enabled
+        :param pulumi.Input[bool] on_pull_request: Whether Pull Request comments are enabled
+        """
+        pulumi.set(__self__, "on_commit", on_commit)
+        pulumi.set(__self__, "on_pull_request", on_pull_request)
+
+    @property
+    @pulumi.getter(name="onCommit")
+    def on_commit(self) -> pulumi.Input[bool]:
+        """
+        Whether Commit comments are enabled
+        """
+        return pulumi.get(self, "on_commit")
+
+    @on_commit.setter
+    def on_commit(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "on_commit", value)
+
+    @property
+    @pulumi.getter(name="onPullRequest")
+    def on_pull_request(self) -> pulumi.Input[bool]:
+        """
+        Whether Pull Request comments are enabled
+        """
+        return pulumi.get(self, "on_pull_request")
+
+    @on_pull_request.setter
+    def on_pull_request(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "on_pull_request", value)
+
+
+@pulumi.input_type
 class ProjectGitRepositoryArgs:
     def __init__(__self__, *,
                  repo: pulumi.Input[str],
                  type: pulumi.Input[str],
+                 deploy_hooks: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgs']]]] = None,
                  production_branch: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[str] repo: The name of the git repository. For example: `vercel/next.js`.
         :param pulumi.Input[str] type: The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgs']]] deploy_hooks: Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
         :param pulumi.Input[str] production_branch: By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         """
         pulumi.set(__self__, "repo", repo)
         pulumi.set(__self__, "type", type)
+        if deploy_hooks is not None:
+            pulumi.set(__self__, "deploy_hooks", deploy_hooks)
         if production_branch is not None:
             pulumi.set(__self__, "production_branch", production_branch)
 
@@ -315,6 +358,18 @@ class ProjectGitRepositoryArgs:
         pulumi.set(self, "type", value)
 
     @property
+    @pulumi.getter(name="deployHooks")
+    def deploy_hooks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgs']]]]:
+        """
+        Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+        """
+        return pulumi.get(self, "deploy_hooks")
+
+    @deploy_hooks.setter
+    def deploy_hooks(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgs']]]]):
+        pulumi.set(self, "deploy_hooks", value)
+
+    @property
     @pulumi.getter(name="productionBranch")
     def production_branch(self) -> Optional[pulumi.Input[str]]:
         """
@@ -325,6 +380,75 @@ class ProjectGitRepositoryArgs:
     @production_branch.setter
     def production_branch(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "production_branch", value)
+
+
+@pulumi.input_type
+class ProjectGitRepositoryDeployHookArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 ref: pulumi.Input[str],
+                 id: Optional[pulumi.Input[str]] = None,
+                 url: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] name: The name of the deploy hook.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed.
+        :param pulumi.Input[str] id: The ID of the deploy hook.
+        :param pulumi.Input[str] url: A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "ref", ref)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the deploy hook.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def ref(self) -> pulumi.Input[str]:
+        """
+        The branch or commit hash that should be deployed.
+        """
+        return pulumi.get(self, "ref")
+
+    @ref.setter
+    def ref(self, value: pulumi.Input[str]):
+        pulumi.set(self, "ref", value)
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the deploy hook.
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "id", value)
+
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "url", value)
 
 
 @pulumi.input_type

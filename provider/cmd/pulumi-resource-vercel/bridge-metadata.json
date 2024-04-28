@@ -60,6 +60,13 @@
                             }
                         }
                     },
+                    "git_repository": {
+                        "fields": {
+                            "deploy_hooks": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
                     "trusted_ips": {
                         "fields": {
                             "addresses": {

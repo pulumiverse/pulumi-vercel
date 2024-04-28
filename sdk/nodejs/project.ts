@@ -80,6 +80,10 @@ export class Project extends pulumi.CustomResource {
     }
 
     /**
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+     */
+    public readonly autoAssignCustomDomains!: pulumi.Output<boolean>;
+    /**
      * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     public readonly automaticallyExposeSystemEnvironmentVariables!: pulumi.Output<boolean>;
@@ -88,9 +92,17 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly buildCommand!: pulumi.Output<string | undefined>;
     /**
+     * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+     */
+    public readonly customerSuccessCodeVisibility!: pulumi.Output<boolean>;
+    /**
      * The dev command for this project. If omitted, this value will be automatically detected.
      */
     public readonly devCommand!: pulumi.Output<string | undefined>;
+    /**
+     * If no index file is present within a directory, the directory contents will be displayed.
+     */
+    public readonly directoryListing!: pulumi.Output<boolean>;
     /**
      * A set of Environment Variables that should be configured for the project.
      */
@@ -99,6 +111,22 @@ export class Project extends pulumi.CustomResource {
      * The framework that is being used for this project. If omitted, no framework is selected.
      */
     public readonly framework!: pulumi.Output<string | undefined>;
+    /**
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+     */
+    public readonly functionFailover!: pulumi.Output<boolean>;
+    /**
+     * Configuration for Git Comments.
+     */
+    public readonly gitComments!: pulumi.Output<outputs.ProjectGitComments | undefined>;
+    /**
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+     */
+    public readonly gitForkProtection!: pulumi.Output<boolean>;
+    /**
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     */
+    public readonly gitLfs!: pulumi.Output<boolean>;
     /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
@@ -124,6 +152,14 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly passwordProtection!: pulumi.Output<outputs.ProjectPasswordProtection | undefined>;
     /**
+     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+     */
+    public readonly previewComments!: pulumi.Output<boolean | undefined>;
+    /**
+     * If enabled, builds for the Production environment will be prioritized over Preview environments.
+     */
+    public readonly prioritiseProductionBuilds!: pulumi.Output<boolean>;
+    /**
      * Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `passwordProtectionForAutomationSecret` field.
      */
     public readonly protectionBypassForAutomation!: pulumi.Output<boolean | undefined>;
@@ -143,6 +179,10 @@ export class Project extends pulumi.CustomResource {
      * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
      */
     public readonly serverlessFunctionRegion!: pulumi.Output<string>;
+    /**
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+     */
+    public readonly skewProtection!: pulumi.Output<string | undefined>;
     /**
      * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
@@ -169,42 +209,62 @@ export class Project extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ProjectState | undefined;
+            resourceInputs["autoAssignCustomDomains"] = state ? state.autoAssignCustomDomains : undefined;
             resourceInputs["automaticallyExposeSystemEnvironmentVariables"] = state ? state.automaticallyExposeSystemEnvironmentVariables : undefined;
             resourceInputs["buildCommand"] = state ? state.buildCommand : undefined;
+            resourceInputs["customerSuccessCodeVisibility"] = state ? state.customerSuccessCodeVisibility : undefined;
             resourceInputs["devCommand"] = state ? state.devCommand : undefined;
+            resourceInputs["directoryListing"] = state ? state.directoryListing : undefined;
             resourceInputs["environments"] = state ? state.environments : undefined;
             resourceInputs["framework"] = state ? state.framework : undefined;
+            resourceInputs["functionFailover"] = state ? state.functionFailover : undefined;
+            resourceInputs["gitComments"] = state ? state.gitComments : undefined;
+            resourceInputs["gitForkProtection"] = state ? state.gitForkProtection : undefined;
+            resourceInputs["gitLfs"] = state ? state.gitLfs : undefined;
             resourceInputs["gitRepository"] = state ? state.gitRepository : undefined;
             resourceInputs["ignoreCommand"] = state ? state.ignoreCommand : undefined;
             resourceInputs["installCommand"] = state ? state.installCommand : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["outputDirectory"] = state ? state.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = state ? state.passwordProtection : undefined;
+            resourceInputs["previewComments"] = state ? state.previewComments : undefined;
+            resourceInputs["prioritiseProductionBuilds"] = state ? state.prioritiseProductionBuilds : undefined;
             resourceInputs["protectionBypassForAutomation"] = state ? state.protectionBypassForAutomation : undefined;
             resourceInputs["protectionBypassForAutomationSecret"] = state ? state.protectionBypassForAutomationSecret : undefined;
             resourceInputs["publicSource"] = state ? state.publicSource : undefined;
             resourceInputs["rootDirectory"] = state ? state.rootDirectory : undefined;
             resourceInputs["serverlessFunctionRegion"] = state ? state.serverlessFunctionRegion : undefined;
+            resourceInputs["skewProtection"] = state ? state.skewProtection : undefined;
             resourceInputs["teamId"] = state ? state.teamId : undefined;
             resourceInputs["trustedIps"] = state ? state.trustedIps : undefined;
             resourceInputs["vercelAuthentication"] = state ? state.vercelAuthentication : undefined;
         } else {
             const args = argsOrState as ProjectArgs | undefined;
+            resourceInputs["autoAssignCustomDomains"] = args ? args.autoAssignCustomDomains : undefined;
             resourceInputs["automaticallyExposeSystemEnvironmentVariables"] = args ? args.automaticallyExposeSystemEnvironmentVariables : undefined;
             resourceInputs["buildCommand"] = args ? args.buildCommand : undefined;
+            resourceInputs["customerSuccessCodeVisibility"] = args ? args.customerSuccessCodeVisibility : undefined;
             resourceInputs["devCommand"] = args ? args.devCommand : undefined;
+            resourceInputs["directoryListing"] = args ? args.directoryListing : undefined;
             resourceInputs["environments"] = args ? args.environments : undefined;
             resourceInputs["framework"] = args ? args.framework : undefined;
+            resourceInputs["functionFailover"] = args ? args.functionFailover : undefined;
+            resourceInputs["gitComments"] = args ? args.gitComments : undefined;
+            resourceInputs["gitForkProtection"] = args ? args.gitForkProtection : undefined;
+            resourceInputs["gitLfs"] = args ? args.gitLfs : undefined;
             resourceInputs["gitRepository"] = args ? args.gitRepository : undefined;
             resourceInputs["ignoreCommand"] = args ? args.ignoreCommand : undefined;
             resourceInputs["installCommand"] = args ? args.installCommand : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["outputDirectory"] = args ? args.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = args ? args.passwordProtection : undefined;
+            resourceInputs["previewComments"] = args ? args.previewComments : undefined;
+            resourceInputs["prioritiseProductionBuilds"] = args ? args.prioritiseProductionBuilds : undefined;
             resourceInputs["protectionBypassForAutomation"] = args ? args.protectionBypassForAutomation : undefined;
             resourceInputs["publicSource"] = args ? args.publicSource : undefined;
             resourceInputs["rootDirectory"] = args ? args.rootDirectory : undefined;
             resourceInputs["serverlessFunctionRegion"] = args ? args.serverlessFunctionRegion : undefined;
+            resourceInputs["skewProtection"] = args ? args.skewProtection : undefined;
             resourceInputs["teamId"] = args ? args.teamId : undefined;
             resourceInputs["trustedIps"] = args ? args.trustedIps : undefined;
             resourceInputs["vercelAuthentication"] = args ? args.vercelAuthentication : undefined;
@@ -220,6 +280,10 @@ export class Project extends pulumi.CustomResource {
  */
 export interface ProjectState {
     /**
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+     */
+    autoAssignCustomDomains?: pulumi.Input<boolean>;
+    /**
      * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     automaticallyExposeSystemEnvironmentVariables?: pulumi.Input<boolean>;
@@ -228,9 +292,17 @@ export interface ProjectState {
      */
     buildCommand?: pulumi.Input<string>;
     /**
+     * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+     */
+    customerSuccessCodeVisibility?: pulumi.Input<boolean>;
+    /**
      * The dev command for this project. If omitted, this value will be automatically detected.
      */
     devCommand?: pulumi.Input<string>;
+    /**
+     * If no index file is present within a directory, the directory contents will be displayed.
+     */
+    directoryListing?: pulumi.Input<boolean>;
     /**
      * A set of Environment Variables that should be configured for the project.
      */
@@ -239,6 +311,22 @@ export interface ProjectState {
      * The framework that is being used for this project. If omitted, no framework is selected.
      */
     framework?: pulumi.Input<string>;
+    /**
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+     */
+    functionFailover?: pulumi.Input<boolean>;
+    /**
+     * Configuration for Git Comments.
+     */
+    gitComments?: pulumi.Input<inputs.ProjectGitComments>;
+    /**
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+     */
+    gitForkProtection?: pulumi.Input<boolean>;
+    /**
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     */
+    gitLfs?: pulumi.Input<boolean>;
     /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
@@ -263,6 +351,14 @@ export interface ProjectState {
      * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      */
     passwordProtection?: pulumi.Input<inputs.ProjectPasswordProtection>;
+    /**
+     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+     */
+    previewComments?: pulumi.Input<boolean>;
+    /**
+     * If enabled, builds for the Production environment will be prioritized over Preview environments.
+     */
+    prioritiseProductionBuilds?: pulumi.Input<boolean>;
     /**
      * Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `passwordProtectionForAutomationSecret` field.
      */
@@ -284,6 +380,10 @@ export interface ProjectState {
      */
     serverlessFunctionRegion?: pulumi.Input<string>;
     /**
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+     */
+    skewProtection?: pulumi.Input<string>;
+    /**
      * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
@@ -302,6 +402,10 @@ export interface ProjectState {
  */
 export interface ProjectArgs {
     /**
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+     */
+    autoAssignCustomDomains?: pulumi.Input<boolean>;
+    /**
      * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     automaticallyExposeSystemEnvironmentVariables?: pulumi.Input<boolean>;
@@ -310,9 +414,17 @@ export interface ProjectArgs {
      */
     buildCommand?: pulumi.Input<string>;
     /**
+     * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+     */
+    customerSuccessCodeVisibility?: pulumi.Input<boolean>;
+    /**
      * The dev command for this project. If omitted, this value will be automatically detected.
      */
     devCommand?: pulumi.Input<string>;
+    /**
+     * If no index file is present within a directory, the directory contents will be displayed.
+     */
+    directoryListing?: pulumi.Input<boolean>;
     /**
      * A set of Environment Variables that should be configured for the project.
      */
@@ -321,6 +433,22 @@ export interface ProjectArgs {
      * The framework that is being used for this project. If omitted, no framework is selected.
      */
     framework?: pulumi.Input<string>;
+    /**
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+     */
+    functionFailover?: pulumi.Input<boolean>;
+    /**
+     * Configuration for Git Comments.
+     */
+    gitComments?: pulumi.Input<inputs.ProjectGitComments>;
+    /**
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+     */
+    gitForkProtection?: pulumi.Input<boolean>;
+    /**
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     */
+    gitLfs?: pulumi.Input<boolean>;
     /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
@@ -346,6 +474,14 @@ export interface ProjectArgs {
      */
     passwordProtection?: pulumi.Input<inputs.ProjectPasswordProtection>;
     /**
+     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+     */
+    previewComments?: pulumi.Input<boolean>;
+    /**
+     * If enabled, builds for the Production environment will be prioritized over Preview environments.
+     */
+    prioritiseProductionBuilds?: pulumi.Input<boolean>;
+    /**
      * Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `passwordProtectionForAutomationSecret` field.
      */
     protectionBypassForAutomation?: pulumi.Input<boolean>;
@@ -361,6 +497,10 @@ export interface ProjectArgs {
      * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
      */
     serverlessFunctionRegion?: pulumi.Input<string>;
+    /**
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+     */
+    skewProtection?: pulumi.Input<string>;
     /**
      * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */

@@ -15,6 +15,10 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class ProjectGitRepository
     {
         /// <summary>
+        /// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.ProjectGitRepositoryDeployHook> DeployHooks;
+        /// <summary>
         /// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         /// </summary>
         public readonly string? ProductionBranch;
@@ -29,12 +33,15 @@ namespace Pulumiverse.Vercel.Outputs
 
         [OutputConstructor]
         private ProjectGitRepository(
+            ImmutableArray<Outputs.ProjectGitRepositoryDeployHook> deployHooks,
+
             string? productionBranch,
 
             string repo,
 
             string type)
         {
+            DeployHooks = deployHooks;
             ProductionBranch = productionBranch;
             Repo = repo;
             Type = type;
