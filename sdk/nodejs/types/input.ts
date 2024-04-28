@@ -74,7 +74,22 @@ export interface ProjectEnvironment {
     value: pulumi.Input<string>;
 }
 
+export interface ProjectGitComments {
+    /**
+     * Whether Commit comments are enabled
+     */
+    onCommit: pulumi.Input<boolean>;
+    /**
+     * Whether Pull Request comments are enabled
+     */
+    onPullRequest: pulumi.Input<boolean>;
+}
+
 export interface ProjectGitRepository {
+    /**
+     * Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+     */
+    deployHooks?: pulumi.Input<pulumi.Input<inputs.ProjectGitRepositoryDeployHook>[]>;
     /**
      * By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
      */
@@ -87,6 +102,25 @@ export interface ProjectGitRepository {
      * The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
      */
     type: pulumi.Input<string>;
+}
+
+export interface ProjectGitRepositoryDeployHook {
+    /**
+     * The ID of the deploy hook.
+     */
+    id?: pulumi.Input<string>;
+    /**
+     * The name of the deploy hook.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * The branch or commit hash that should be deployed.
+     */
+    ref: pulumi.Input<string>;
+    /**
+     * A URL that, when a POST request is made to, will trigger a new deployment.
+     */
+    url?: pulumi.Input<string>;
 }
 
 export interface ProjectPasswordProtection {

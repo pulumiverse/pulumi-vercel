@@ -13,6 +13,18 @@ namespace Pulumiverse.Vercel.Inputs
 
     public sealed class ProjectGitRepositoryGetArgs : global::Pulumi.ResourceArgs
     {
+        [Input("deployHooks")]
+        private InputList<Inputs.ProjectGitRepositoryDeployHookGetArgs>? _deployHooks;
+
+        /// <summary>
+        /// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+        /// </summary>
+        public InputList<Inputs.ProjectGitRepositoryDeployHookGetArgs> DeployHooks
+        {
+            get => _deployHooks ?? (_deployHooks = new InputList<Inputs.ProjectGitRepositoryDeployHookGetArgs>());
+            set => _deployHooks = value;
+        }
+
         /// <summary>
         /// By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         /// </summary>
