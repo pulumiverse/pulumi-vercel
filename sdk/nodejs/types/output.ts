@@ -87,6 +87,10 @@ export interface GetProjectGitComments {
 
 export interface GetProjectGitRepository {
     /**
+     * Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+     */
+    deployHooks: outputs.GetProjectGitRepositoryDeployHook[];
+    /**
      * By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
      */
     productionBranch: string;
@@ -98,6 +102,25 @@ export interface GetProjectGitRepository {
      * The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
      */
     type: string;
+}
+
+export interface GetProjectGitRepositoryDeployHook {
+    /**
+     * The ID of the deploy hook.
+     */
+    id: string;
+    /**
+     * The name of the deploy hook.
+     */
+    name: string;
+    /**
+     * The branch or commit hash that should be deployed.
+     */
+    ref: string;
+    /**
+     * A URL that, when a POST request is made to, will trigger a new deployment.
+     */
+    url: string;
 }
 
 export interface GetProjectPasswordProtection {

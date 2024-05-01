@@ -24,6 +24,7 @@ __all__ = [
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
+    'GetProjectGitRepositoryDeployHookResult',
     'GetProjectPasswordProtectionResult',
     'GetProjectTrustedIpsResult',
     'GetProjectTrustedIpsAddressResult',
@@ -713,17 +714,28 @@ class GetProjectGitCommentsResult(dict):
 @pulumi.output_type
 class GetProjectGitRepositoryResult(dict):
     def __init__(__self__, *,
+                 deploy_hooks: Sequence['outputs.GetProjectGitRepositoryDeployHookResult'],
                  production_branch: str,
                  repo: str,
                  type: str):
         """
+        :param Sequence['GetProjectGitRepositoryDeployHookArgs'] deploy_hooks: Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
         :param str production_branch: By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
         :param str repo: The name of the git repository. For example: `vercel/next.js`.
         :param str type: The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
         """
+        pulumi.set(__self__, "deploy_hooks", deploy_hooks)
         pulumi.set(__self__, "production_branch", production_branch)
         pulumi.set(__self__, "repo", repo)
         pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="deployHooks")
+    def deploy_hooks(self) -> Sequence['outputs.GetProjectGitRepositoryDeployHookResult']:
+        """
+        Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+        """
+        return pulumi.get(self, "deploy_hooks")
 
     @property
     @pulumi.getter(name="productionBranch")
@@ -748,6 +760,57 @@ class GetProjectGitRepositoryResult(dict):
         The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetProjectGitRepositoryDeployHookResult(dict):
+    def __init__(__self__, *,
+                 id: str,
+                 name: str,
+                 ref: str,
+                 url: str):
+        """
+        :param str id: The ID of the deploy hook.
+        :param str name: The name of the deploy hook.
+        :param str ref: The branch or commit hash that should be deployed.
+        :param str url: A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "ref", ref)
+        pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        The ID of the deploy hook.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the deploy hook.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def ref(self) -> str:
+        """
+        The branch or commit hash that should be deployed.
+        """
+        return pulumi.get(self, "ref")
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        """
+        A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+        return pulumi.get(self, "url")
 
 
 @pulumi.output_type
