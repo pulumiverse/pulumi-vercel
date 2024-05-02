@@ -410,6 +410,13 @@
         },
         "vercel:index/getProjectGitRepository:getProjectGitRepository": {
             "properties": {
+                "deployHooks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/getProjectGitRepositoryDeployHook:getProjectGitRepositoryDeployHook"
+                    },
+                    "description": "Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.\n"
+                },
                 "productionBranch": {
                     "type": "string",
                     "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
@@ -425,9 +432,43 @@
             },
             "type": "object",
             "required": [
+                "deployHooks",
                 "productionBranch",
                 "repo",
                 "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectGitRepositoryDeployHook:getProjectGitRepositoryDeployHook": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the deploy hook.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the deploy hook.\n"
+                },
+                "ref": {
+                    "type": "string",
+                    "description": "The branch or commit hash that should be deployed.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "A URL that, when a POST request is made to, will trigger a new deployment.\n",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "ref",
+                "url"
             ],
             "language": {
                 "nodejs": {
