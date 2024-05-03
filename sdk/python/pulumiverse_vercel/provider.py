@@ -20,8 +20,8 @@ class ProviderArgs:
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] api_token: The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens
                can be created from your [Vercel settings](https://vercel.com/account/tokens).
-        :param pulumi.Input[str] team: The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-               and ID are both available from the Team Settings page in the Vercel dashboard.
+        :param pulumi.Input[str] team: The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+               slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
         """
         if api_token is not None:
             pulumi.set(__self__, "api_token", api_token)
@@ -45,8 +45,8 @@ class ProviderArgs:
     @pulumi.getter
     def team(self) -> Optional[pulumi.Input[str]]:
         """
-        The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-        and ID are both available from the Team Settings page in the Vercel dashboard.
+        The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+        slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
         """
         return pulumi.get(self, "team")
 
@@ -73,8 +73,8 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_token: The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens
                can be created from your [Vercel settings](https://vercel.com/account/tokens).
-        :param pulumi.Input[str] team: The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-               and ID are both available from the Team Settings page in the Vercel dashboard.
+        :param pulumi.Input[str] team: The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+               slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
         """
         ...
     @overload
@@ -137,8 +137,8 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter
     def team(self) -> pulumi.Output[Optional[str]]:
         """
-        The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-        and ID are both available from the Team Settings page in the Vercel dashboard.
+        The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+        slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
         """
         return pulumi.get(self, "team")
 

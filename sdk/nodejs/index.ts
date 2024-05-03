@@ -10,6 +10,11 @@ export type Alias = import("./alias").Alias;
 export const Alias: typeof import("./alias").Alias = null as any;
 utilities.lazyLoad(exports, ["Alias"], () => require("./alias"));
 
+export { AttackChallengeModeArgs, AttackChallengeModeState } from "./attackChallengeMode";
+export type AttackChallengeMode = import("./attackChallengeMode").AttackChallengeMode;
+export const AttackChallengeMode: typeof import("./attackChallengeMode").AttackChallengeMode = null as any;
+utilities.lazyLoad(exports, ["AttackChallengeMode"], () => require("./attackChallengeMode"));
+
 export { DeploymentArgs, DeploymentState } from "./deployment";
 export type Deployment = import("./deployment").Deployment;
 export const Deployment: typeof import("./deployment").Deployment = null as any;
@@ -39,6 +44,11 @@ export { GetAliasArgs, GetAliasResult, GetAliasOutputArgs } from "./getAlias";
 export const getAlias: typeof import("./getAlias").getAlias = null as any;
 export const getAliasOutput: typeof import("./getAlias").getAliasOutput = null as any;
 utilities.lazyLoad(exports, ["getAlias","getAliasOutput"], () => require("./getAlias"));
+
+export { GetAttackChallengeModeArgs, GetAttackChallengeModeResult, GetAttackChallengeModeOutputArgs } from "./getAttackChallengeMode";
+export const getAttackChallengeMode: typeof import("./getAttackChallengeMode").getAttackChallengeMode = null as any;
+export const getAttackChallengeModeOutput: typeof import("./getAttackChallengeMode").getAttackChallengeModeOutput = null as any;
+utilities.lazyLoad(exports, ["getAttackChallengeMode","getAttackChallengeModeOutput"], () => require("./getAttackChallengeMode"));
 
 export { GetDeploymentArgs, GetDeploymentResult, GetDeploymentOutputArgs } from "./getDeployment";
 export const getDeployment: typeof import("./getDeployment").getDeployment = null as any;
@@ -90,6 +100,11 @@ export const getProjectDirectory: typeof import("./getProjectDirectory").getProj
 export const getProjectDirectoryOutput: typeof import("./getProjectDirectory").getProjectDirectoryOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectDirectory","getProjectDirectoryOutput"], () => require("./getProjectDirectory"));
 
+export { GetProjectFunctionCpuArgs, GetProjectFunctionCpuResult, GetProjectFunctionCpuOutputArgs } from "./getProjectFunctionCpu";
+export const getProjectFunctionCpu: typeof import("./getProjectFunctionCpu").getProjectFunctionCpu = null as any;
+export const getProjectFunctionCpuOutput: typeof import("./getProjectFunctionCpu").getProjectFunctionCpuOutput = null as any;
+utilities.lazyLoad(exports, ["getProjectFunctionCpu","getProjectFunctionCpuOutput"], () => require("./getProjectFunctionCpu"));
+
 export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
 export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
 export const getSharedEnvironmentVariableOutput: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariableOutput = null as any;
@@ -114,6 +129,11 @@ export { ProjectEnvironmentVariableArgs, ProjectEnvironmentVariableState } from 
 export type ProjectEnvironmentVariable = import("./projectEnvironmentVariable").ProjectEnvironmentVariable;
 export const ProjectEnvironmentVariable: typeof import("./projectEnvironmentVariable").ProjectEnvironmentVariable = null as any;
 utilities.lazyLoad(exports, ["ProjectEnvironmentVariable"], () => require("./projectEnvironmentVariable"));
+
+export { ProjectFunctionCpuArgs, ProjectFunctionCpuState } from "./projectFunctionCpu";
+export type ProjectFunctionCpu = import("./projectFunctionCpu").ProjectFunctionCpu;
+export const ProjectFunctionCpu: typeof import("./projectFunctionCpu").ProjectFunctionCpu = null as any;
+utilities.lazyLoad(exports, ["ProjectFunctionCpu"], () => require("./projectFunctionCpu"));
 
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
@@ -146,6 +166,8 @@ const _module = {
         switch (type) {
             case "vercel:index/alias:Alias":
                 return new Alias(name, <any>undefined, { urn })
+            case "vercel:index/attackChallengeMode:AttackChallengeMode":
+                return new AttackChallengeMode(name, <any>undefined, { urn })
             case "vercel:index/deployment:Deployment":
                 return new Deployment(name, <any>undefined, { urn })
             case "vercel:index/dnsRecord:DnsRecord":
@@ -164,6 +186,8 @@ const _module = {
                 return new ProjectDomain(name, <any>undefined, { urn })
             case "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable":
                 return new ProjectEnvironmentVariable(name, <any>undefined, { urn })
+            case "vercel:index/projectFunctionCpu:ProjectFunctionCpu":
+                return new ProjectFunctionCpu(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
             case "vercel:index/webhook:Webhook":
@@ -174,6 +198,7 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
@@ -183,6 +208,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectFunctionCpu", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("vercel", {
