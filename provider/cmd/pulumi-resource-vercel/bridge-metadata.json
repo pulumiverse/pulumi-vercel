@@ -6,6 +6,10 @@
                 "current": "vercel:index/alias:Alias",
                 "majorVersion": 1
             },
+            "vercel_attack_challenge_mode": {
+                "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
+                "majorVersion": 1
+            },
             "vercel_deployment": {
                 "current": "vercel:index/deployment:Deployment",
                 "majorVersion": 1,
@@ -89,6 +93,10 @@
                     }
                 }
             },
+            "vercel_project_function_cpu": {
+                "current": "vercel:index/projectFunctionCpu:ProjectFunctionCpu",
+                "majorVersion": 1
+            },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable",
                 "majorVersion": 1,
@@ -117,6 +125,10 @@
         "datasources": {
             "vercel_alias": {
                 "current": "vercel:index/getAlias:getAlias",
+                "majorVersion": 1
+            },
+            "vercel_attack_challenge_mode": {
+                "current": "vercel:index/getAttackChallengeMode:getAttackChallengeMode",
                 "majorVersion": 1
             },
             "vercel_deployment": {
@@ -181,6 +193,13 @@
                             }
                         }
                     },
+                    "git_repository": {
+                        "fields": {
+                            "deploy_hooks": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
                     "trusted_ips": {
                         "fields": {
                             "addresses": {
@@ -192,6 +211,10 @@
             },
             "vercel_project_directory": {
                 "current": "vercel:index/getProjectDirectory:getProjectDirectory",
+                "majorVersion": 1
+            },
+            "vercel_project_function_cpu": {
+                "current": "vercel:index/getProjectFunctionCpu:getProjectFunctionCpu",
                 "majorVersion": 1
             },
             "vercel_shared_environment_variable": {
