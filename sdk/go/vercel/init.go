@@ -23,6 +23,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "vercel:index/alias:Alias":
 		r = &Alias{}
+	case "vercel:index/attackChallengeMode:AttackChallengeMode":
+		r = &AttackChallengeMode{}
 	case "vercel:index/deployment:Deployment":
 		r = &Deployment{}
 	case "vercel:index/dnsRecord:DnsRecord":
@@ -41,6 +43,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectDomain{}
 	case "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable":
 		r = &ProjectEnvironmentVariable{}
+	case "vercel:index/projectFunctionCpu:ProjectFunctionCpu":
+		r = &ProjectFunctionCpu{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
 	case "vercel:index/webhook:Webhook":
@@ -79,6 +83,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/alias",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/attackChallengeMode",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -124,6 +133,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/projectEnvironmentVariable",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/projectFunctionCpu",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
