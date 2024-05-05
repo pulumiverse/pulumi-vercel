@@ -65,7 +65,7 @@
             },
             "team": {
                 "type": "string",
-                "description": "The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug\nand ID are both available from the Team Settings page in the Vercel dashboard.\n"
+                "description": "The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team\nslug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.\n"
             }
         }
     },
@@ -410,6 +410,13 @@
         },
         "vercel:index/getProjectGitRepository:getProjectGitRepository": {
             "properties": {
+                "deployHooks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/getProjectGitRepositoryDeployHook:getProjectGitRepositoryDeployHook"
+                    },
+                    "description": "Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.\n"
+                },
                 "productionBranch": {
                     "type": "string",
                     "description": "By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.\n"
@@ -425,9 +432,43 @@
             },
             "type": "object",
             "required": [
+                "deployHooks",
                 "productionBranch",
                 "repo",
                 "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectGitRepositoryDeployHook:getProjectGitRepositoryDeployHook": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the deploy hook.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the deploy hook.\n"
+                },
+                "ref": {
+                    "type": "string",
+                    "description": "The branch or commit hash that should be deployed.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "A URL that, when a POST request is made to, will trigger a new deployment.\n",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "ref",
+                "url"
             ],
             "language": {
                 "nodejs": {
@@ -530,7 +571,7 @@
             },
             "team": {
                 "type": "string",
-                "description": "The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug\nand ID are both available from the Team Settings page in the Vercel dashboard.\n"
+                "description": "The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team\nslug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.\n"
             }
         },
         "inputProperties": {
@@ -541,7 +582,7 @@
             },
             "team": {
                 "type": "string",
-                "description": "The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug\nand ID are both available from the Team Settings page in the Vercel dashboard.\n"
+                "description": "The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team\nslug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.\n"
             }
         }
     },
@@ -614,6 +655,64 @@
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/attackChallengeMode:AttackChallengeMode": {
+            "description": "Provides an Attack Challenge Mode resource.\n\nAttack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {});\nconst exampleAttackChallengeMode = new vercel.AttackChallengeMode(\"exampleAttackChallengeMode\", {\n    projectId: exampleProject.id,\n    enabled: true,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\")\nexample_attack_challenge_mode = vercel.AttackChallengeMode(\"exampleAttackChallengeMode\",\n    project_id=example_project.id,\n    enabled=True)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\");\n\n    var exampleAttackChallengeMode = new Vercel.AttackChallengeMode(\"exampleAttackChallengeMode\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Enabled = true,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewAttackChallengeMode(ctx, \"exampleAttackChallengeMode\", \u0026vercel.AttackChallengeModeArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tEnabled:   pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.AttackChallengeMode;\nimport com.pulumi.vercel.AttackChallengeModeArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleAttackChallengeMode = new AttackChallengeMode(\"exampleAttackChallengeMode\", AttackChallengeModeArgs.builder()        \n            .projectId(exampleProject.id())\n            .enabled(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleAttackChallengeMode:\n    type: vercel:AttackChallengeMode\n    properties:\n      projectId: ${exampleProject.id}\n      enabled: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether Attack Challenge Mode is enabled or not.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Project to adjust the CPU for.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "enabled",
+                "projectId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether Attack Challenge Mode is enabled or not.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Project to adjust the CPU for.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "enabled",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AttackChallengeMode resources.\n",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Whether Attack Challenge Mode is enabled or not.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project to adjust the CPU for.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
                     }
                 },
                 "type": "object"
@@ -1855,6 +1954,64 @@
                 "type": "object"
             }
         },
+        "vercel:index/projectFunctionCpu:ProjectFunctionCpu": {
+            "description": "Provides a Function CPU resource for a Project.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\nA new Deployment is required for your changes to take effect.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {});\nconst exampleProjectFunctionCpu = new vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", {\n    projectId: exampleProject.id,\n    cpu: \"performance\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\")\nexample_project_function_cpu = vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\",\n    project_id=example_project.id,\n    cpu=\"performance\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\");\n\n    var exampleProjectFunctionCpu = new Vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Cpu = \"performance\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewProjectFunctionCpu(ctx, \"exampleProjectFunctionCpu\", \u0026vercel.ProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tCpu:       pulumi.String(\"performance\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectFunctionCpu;\nimport com.pulumi.vercel.ProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleProjectFunctionCpu = new ProjectFunctionCpu(\"exampleProjectFunctionCpu\", ProjectFunctionCpuArgs.builder()        \n            .projectId(exampleProject.id())\n            .cpu(\"performance\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleProjectFunctionCpu:\n    type: vercel:ProjectFunctionCpu\n    properties:\n      projectId: ${exampleProject.id}\n      cpu: performance\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectFunctionCpu:ProjectFunctionCpu example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "cpu": {
+                    "type": "string",
+                    "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Project to adjust the CPU for.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "cpu",
+                "projectId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "cpu": {
+                    "type": "string",
+                    "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Project to adjust the CPU for.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "cpu",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ProjectFunctionCpu resources.\n",
+                "properties": {
+                    "cpu": {
+                        "type": "string",
+                        "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project to adjust the CPU for.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": {
             "description": "Provides a Shared Environment Variable resource.\n\nA Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {gitRepository: {\n    type: \"github\",\n    repo: \"vercel/some-repo\",\n}});\n// A shared environment variable that will be created\n// and associated with the \"example\" project.\nconst exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", {\n    key: \"EXAMPLE\",\n    value: \"some_value\",\n    targets: [\"production\"],\n    projectIds: [exampleProject.id],\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\", git_repository=vercel.ProjectGitRepositoryArgs(\n    type=\"github\",\n    repo=\"vercel/some-repo\",\n))\n# A shared environment variable that will be created\n# and associated with the \"example\" project.\nexample_shared_environment_variable = vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\",\n    key=\"EXAMPLE\",\n    value=\"some_value\",\n    targets=[\"production\"],\n    project_ids=[example_project.id])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\", new()\n    {\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // A shared environment variable that will be created\n    // and associated with the \"example\" project.\n    var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", new()\n    {\n        Key = \"EXAMPLE\",\n        Value = \"some_value\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n        ProjectIds = new[]\n        {\n            exampleProject.Id,\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", \u0026vercel.ProjectArgs{\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A shared environment variable that will be created\n\t\t// and associated with the \"example\" project.\n\t\t_, err = vercel.NewSharedEnvironmentVariable(ctx, \"exampleSharedEnvironmentVariable\", \u0026vercel.SharedEnvironmentVariableArgs{\n\t\t\tKey:   pulumi.String(\"EXAMPLE\"),\n\t\t\tValue: pulumi.String(\"some_value\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tProjectIds: pulumi.StringArray{\n\t\t\t\texampleProject.ID(),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.SharedEnvironmentVariable;\nimport com.pulumi.vercel.SharedEnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\", ProjectArgs.builder()        \n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // A shared environment variable that will be created\n        // and associated with the \"example\" project.\n        var exampleSharedEnvironmentVariable = new SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", SharedEnvironmentVariableArgs.builder()        \n            .key(\"EXAMPLE\")\n            .value(\"some_value\")\n            .targets(\"production\")\n            .projectIds(exampleProject.id())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n    properties:\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # A shared environment variable that will be created\n  # and associated with the \"example\" project.\n  exampleSharedEnvironmentVariable:\n    type: vercel:SharedEnvironmentVariable\n    properties:\n      key: EXAMPLE\n      value: some_value\n      targets:\n        - production\n      projectIds:\n        - ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and environment variable id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page.\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy\n```\n\n",
             "properties": {
@@ -2120,6 +2277,54 @@
                     "alias",
                     "deploymentId",
                     "id",
+                    "teamId"
+                ]
+            }
+        },
+        "vercel:index/getAttackChallengeMode:getAttackChallengeMode": {
+            "description": "Provides an Attack Challenge Mode resource.\n\nAttack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst example = vercel.getAttackChallengeMode({\n    projectId: vercel_project.example.id,\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_attack_challenge_mode(project_id=vercel_project[\"example\"][\"id\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetAttackChallengeMode.Invoke(new()\n    {\n        ProjectId = vercel_project.Example.Id,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.LookupAttackChallengeMode(ctx, \u0026vercel.LookupAttackChallengeModeArgs{\n\t\t\tProjectId: vercel_project.Example.Id,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetAttackChallengeModeArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getAttackChallengeMode(GetAttackChallengeModeArgs.builder()\n            .projectId(vercel_project.example().id())\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: vercel:getAttackChallengeMode\n      Arguments:\n        projectId: ${vercel_project.example.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getAttackChallengeMode.\n",
+                "properties": {
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project to adjust the CPU for.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAttackChallengeMode.\n",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Whether Attack Challenge Mode is enabled or not.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The resource identifier.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project to adjust the CPU for.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "enabled",
+                    "id",
+                    "projectId",
                     "teamId"
                 ]
             }
@@ -2756,6 +2961,54 @@
                     "files",
                     "id",
                     "path"
+                ]
+            }
+        },
+        "vercel:index/getProjectFunctionCpu:getProjectFunctionCpu": {
+            "description": "Provides information about a Project's Function CPU setting.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst exampleProject = vercel.getProject({\n    name: \"example\",\n});\nconst exampleProjectFunctionCpu = exampleProject.then(exampleProject =\u003e vercel.getProjectFunctionCpu({\n    projectId: exampleProject.id,\n}));\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample_project = vercel.get_project(name=\"example\")\nexample_project_function_cpu = vercel.get_project_function_cpu(project_id=example_project.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"example\",\n    });\n\n    var exampleProjectFunctionCpu = Vercel.GetProjectFunctionCpu.Invoke(new()\n    {\n        ProjectId = exampleProject.Apply(getProjectResult =\u003e getProjectResult.Id),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"example\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.LookupProjectFunctionCpu(ctx, \u0026vercel.LookupProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.Id,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport com.pulumi.vercel.inputs.GetProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleProject = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"example\")\n            .build());\n\n        final var exampleProjectFunctionCpu = VercelFunctions.getProjectFunctionCpu(GetProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.applyValue(getProjectResult -\u003e getProjectResult.id()))\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  exampleProject:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: example\n  exampleProjectFunctionCpu:\n    fn::invoke:\n      Function: vercel:getProjectFunctionCpu\n      Arguments:\n        projectId: ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getProjectFunctionCpu.\n",
+                "properties": {
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project to read the Function CPU setting for.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProjectFunctionCpu.\n",
+                "properties": {
+                    "cpu": {
+                        "type": "string",
+                        "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the resource.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project to read the Function CPU setting for.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cpu",
+                    "id",
+                    "projectId",
+                    "teamId"
                 ]
             }
         },
