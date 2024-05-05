@@ -27,8 +27,8 @@ namespace Pulumiverse.Vercel
         public Output<string?> ApiToken { get; private set; } = null!;
 
         /// <summary>
-        /// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-        /// and ID are both available from the Team Settings page in the Vercel dashboard.
+        /// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+        /// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
         /// </summary>
         [Output("team")]
         public Output<string?> Team { get; private set; } = null!;
@@ -84,8 +84,8 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-        /// and ID are both available from the Team Settings page in the Vercel dashboard.
+        /// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+        /// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
         /// </summary>
         [Input("team")]
         public Input<string>? Team { get; set; }

@@ -6,12 +6,14 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .alias import *
+from .attack_challenge_mode import *
 from .deployment import *
 from .dns_record import *
 from .edge_config import *
 from .edge_config_schema import *
 from .edge_config_token import *
 from .get_alias import *
+from .get_attack_challenge_mode import *
 from .get_deployment import *
 from .get_edge_config import *
 from .get_edge_config_schema import *
@@ -22,11 +24,13 @@ from .get_log_drain import *
 from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_directory import *
+from .get_project_function_cpu import *
 from .get_shared_environment_variable import *
 from .log_drain import *
 from .project import *
 from .project_domain import *
 from .project_environment_variable import *
+from .project_function_cpu import *
 from .provider import *
 from .shared_environment_variable import *
 from .webhook import *
@@ -49,6 +53,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/alias:Alias": "Alias"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/attackChallengeMode",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/attackChallengeMode:AttackChallengeMode": "AttackChallengeMode"
   }
  },
  {
@@ -121,6 +133,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable": "ProjectEnvironmentVariable"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectFunctionCpu",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectFunctionCpu:ProjectFunctionCpu": "ProjectFunctionCpu"
   }
  },
  {

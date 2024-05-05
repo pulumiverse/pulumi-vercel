@@ -31,8 +31,8 @@ export class Provider extends pulumi.ProviderResource {
      */
     public readonly apiToken!: pulumi.Output<string | undefined>;
     /**
-     * The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-     * and ID are both available from the Team Settings page in the Vercel dashboard.
+     * The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+     * slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
      */
     public readonly team!: pulumi.Output<string | undefined>;
 
@@ -67,8 +67,8 @@ export interface ProviderArgs {
      */
     apiToken?: pulumi.Input<string>;
     /**
-     * The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-     * and ID are both available from the Team Settings page in the Vercel dashboard.
+     * The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+     * slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
      */
     team?: pulumi.Input<string>;
 }

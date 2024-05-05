@@ -17,8 +17,8 @@ func GetApiToken(ctx *pulumi.Context) string {
 	return config.Get(ctx, "vercel:apiToken")
 }
 
-// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-// and ID are both available from the Team Settings page in the Vercel dashboard.
+// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
 func GetTeam(ctx *pulumi.Context) string {
 	return config.Get(ctx, "vercel:team")
 }

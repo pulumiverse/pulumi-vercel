@@ -21,8 +21,8 @@ type Provider struct {
 	// The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens
 	// can be created from your [Vercel settings](https://vercel.com/account/tokens).
 	ApiToken pulumi.StringPtrOutput `pulumi:"apiToken"`
-	// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-	// and ID are both available from the Team Settings page in the Vercel dashboard.
+	// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+	// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
 	Team pulumi.StringPtrOutput `pulumi:"team"`
 }
 
@@ -53,8 +53,8 @@ type providerArgs struct {
 	// The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens
 	// can be created from your [Vercel settings](https://vercel.com/account/tokens).
 	ApiToken *string `pulumi:"apiToken"`
-	// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-	// and ID are both available from the Team Settings page in the Vercel dashboard.
+	// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+	// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
 	Team *string `pulumi:"team"`
 }
 
@@ -63,8 +63,8 @@ type ProviderArgs struct {
 	// The Vercel API Token to use. This can also be specified with the `VERCEL_API_TOKEN` shell environment variable. Tokens
 	// can be created from your [Vercel settings](https://vercel.com/account/tokens).
 	ApiToken pulumi.StringPtrInput
-	// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-	// and ID are both available from the Team Settings page in the Vercel dashboard.
+	// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+	// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
 	Team pulumi.StringPtrInput
 }
 
@@ -111,8 +111,8 @@ func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiToken }).(pulumi.StringPtrOutput)
 }
 
-// The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-// and ID are both available from the Team Settings page in the Vercel dashboard.
+// The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+// slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
 func (o ProviderOutput) Team() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Team }).(pulumi.StringPtrOutput)
 }

@@ -17,7 +17,7 @@ can be created from your [Vercel settings](https://vercel.com/account/tokens).
 
 team: Optional[str]
 """
-The default Vercel Team to use when creating resources. This can be provided as either a team slug, or team ID. The slug
-and ID are both available from the Team Settings page in the Vercel dashboard.
+The default Vercel Team to use when creating resources or reading data sources. This can be provided as either a team
+slug, or team ID. The slug and ID are both available from the Team Settings page in the Vercel dashboard.
 """
 
