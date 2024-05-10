@@ -34,10 +34,6 @@ export class Deployment extends pulumi.CustomResource {
         return obj['__pulumiType'] === Deployment.__pulumiType;
     }
 
-    /**
-     * Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-     * retained indefinitely. Note that deleted deployments are not recoverable.
-     */
     public readonly deleteOnDestroy!: pulumi.Output<boolean | undefined>;
     /**
      * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
@@ -130,10 +126,6 @@ export class Deployment extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Deployment resources.
  */
 export interface DeploymentState {
-    /**
-     * Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-     * retained indefinitely. Note that deleted deployments are not recoverable.
-     */
     deleteOnDestroy?: pulumi.Input<boolean>;
     /**
      * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
@@ -181,10 +173,6 @@ export interface DeploymentState {
  * The set of arguments for constructing a Deployment resource.
  */
 export interface DeploymentArgs {
-    /**
-     * Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-     * retained indefinitely. Note that deleted deployments are not recoverable.
-     */
     deleteOnDestroy?: pulumi.Input<boolean>;
     /**
      * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
