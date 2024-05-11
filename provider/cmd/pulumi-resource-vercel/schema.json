@@ -721,8 +721,7 @@
         "vercel:index/deployment:Deployment": {
             "properties": {
                 "deleteOnDestroy": {
-                    "type": "boolean",
-                    "description": "Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are\nretained indefinitely. Note that deleted deployments are not recoverable.\n"
+                    "type": "boolean"
                 },
                 "domains": {
                     "type": "array",
@@ -783,8 +782,7 @@
             ],
             "inputProperties": {
                 "deleteOnDestroy": {
-                    "type": "boolean",
-                    "description": "Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are\nretained indefinitely. Note that deleted deployments are not recoverable.\n"
+                    "type": "boolean"
                 },
                 "environment": {
                     "type": "object",
@@ -832,8 +830,7 @@
                 "description": "Input properties used for looking up and filtering Deployment resources.\n",
                 "properties": {
                     "deleteOnDestroy": {
-                        "type": "boolean",
-                        "description": "Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are\nretained indefinitely. Note that deleted deployments are not recoverable.\n"
+                        "type": "boolean"
                     },
                     "domains": {
                         "type": "array",
