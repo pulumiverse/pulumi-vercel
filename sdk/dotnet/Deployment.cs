@@ -13,10 +13,6 @@ namespace Pulumiverse.Vercel
     [VercelResourceType("vercel:index/deployment:Deployment")]
     public partial class Deployment : global::Pulumi.CustomResource
     {
-        /// <summary>
-        /// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-        /// retained indefinitely. Note that deleted deployments are not recoverable.
-        /// </summary>
         [Output("deleteOnDestroy")]
         public Output<bool?> DeleteOnDestroy { get; private set; } = null!;
 
@@ -127,10 +123,6 @@ namespace Pulumiverse.Vercel
 
     public sealed class DeploymentArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-        /// retained indefinitely. Note that deleted deployments are not recoverable.
-        /// </summary>
         [Input("deleteOnDestroy")]
         public Input<bool>? DeleteOnDestroy { get; set; }
 
@@ -202,10 +194,6 @@ namespace Pulumiverse.Vercel
 
     public sealed class DeploymentState : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-        /// retained indefinitely. Note that deleted deployments are not recoverable.
-        /// </summary>
         [Input("deleteOnDestroy")]
         public Input<bool>? DeleteOnDestroy { get; set; }
 

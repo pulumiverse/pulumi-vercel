@@ -28,8 +28,6 @@ class DeploymentArgs:
         """
         The set of arguments for constructing a Deployment resource.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
-        :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-               retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
@@ -71,10 +69,6 @@ class DeploymentArgs:
     @property
     @pulumi.getter(name="deleteOnDestroy")
     def delete_on_destroy(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-        retained indefinitely. Note that deleted deployments are not recoverable.
-        """
         return pulumi.get(self, "delete_on_destroy")
 
     @delete_on_destroy.setter
@@ -182,8 +176,6 @@ class _DeploymentState:
                  url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Deployment resources.
-        :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-               retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
@@ -221,10 +213,6 @@ class _DeploymentState:
     @property
     @pulumi.getter(name="deleteOnDestroy")
     def delete_on_destroy(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-        retained indefinitely. Note that deleted deployments are not recoverable.
-        """
         return pulumi.get(self, "delete_on_destroy")
 
     @delete_on_destroy.setter
@@ -371,8 +359,6 @@ class Deployment(pulumi.CustomResource):
         Create a Deployment resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-               retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
@@ -464,8 +450,6 @@ class Deployment(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-               retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
@@ -497,10 +481,6 @@ class Deployment(pulumi.CustomResource):
     @property
     @pulumi.getter(name="deleteOnDestroy")
     def delete_on_destroy(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are
-        retained indefinitely. Note that deleted deployments are not recoverable.
-        """
         return pulumi.get(self, "delete_on_destroy")
 
     @property
