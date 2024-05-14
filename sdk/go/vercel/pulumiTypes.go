@@ -427,7 +427,7 @@ type ProjectEnvironment struct {
 	Id *string `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key string `pulumi:"key"`
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
@@ -453,7 +453,7 @@ type ProjectEnvironmentArgs struct {
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
@@ -527,7 +527,7 @@ func (o ProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive or not.
+// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 func (o ProjectEnvironmentOutput) Sensitive() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
 }

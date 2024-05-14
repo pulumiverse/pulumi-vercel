@@ -204,7 +204,7 @@ class ProjectEnvironment(dict):
         :param str value: The value of the Environment Variable.
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
-        :param bool sensitive: Whether the Environment Variable is sensitive or not.
+        :param bool sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
@@ -260,7 +260,7 @@ class ProjectEnvironment(dict):
     @pulumi.getter
     def sensitive(self) -> Optional[bool]:
         """
-        Whether the Environment Variable is sensitive or not.
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 

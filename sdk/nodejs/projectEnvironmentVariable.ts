@@ -124,7 +124,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     public readonly sensitive!: pulumi.Output<boolean>;
     /**
@@ -206,7 +206,7 @@ export interface ProjectEnvironmentVariableState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
@@ -240,7 +240,7 @@ export interface ProjectEnvironmentVariableArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
