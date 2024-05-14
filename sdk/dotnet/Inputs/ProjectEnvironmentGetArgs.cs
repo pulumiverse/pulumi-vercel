@@ -32,7 +32,7 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not.
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }

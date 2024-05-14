@@ -87,7 +87,7 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not.
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Output("sensitive")]
         public Output<bool> Sensitive { get; private set; } = null!;
@@ -180,7 +180,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not.
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }
@@ -246,7 +246,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not.
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }

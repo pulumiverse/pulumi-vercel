@@ -61,7 +61,7 @@ export interface ProjectEnvironment {
      */
     key: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
