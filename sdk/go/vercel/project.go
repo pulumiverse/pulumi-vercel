@@ -109,6 +109,8 @@ type Project struct {
 	InstallCommand pulumi.StringPtrOutput `pulumi:"installCommand"`
 	// The desired name for the project.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+	OptionsAllowlist ProjectOptionsAllowlistPtrOutput `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrOutput `pulumi:"outputDirectory"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -199,6 +201,8 @@ type projectState struct {
 	InstallCommand *string `pulumi:"installCommand"`
 	// The desired name for the project.
 	Name *string `pulumi:"name"`
+	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+	OptionsAllowlist *ProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -260,6 +264,8 @@ type ProjectState struct {
 	InstallCommand pulumi.StringPtrInput
 	// The desired name for the project.
 	Name pulumi.StringPtrInput
+	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+	OptionsAllowlist ProjectOptionsAllowlistPtrInput
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrInput
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -325,6 +331,8 @@ type projectArgs struct {
 	InstallCommand *string `pulumi:"installCommand"`
 	// The desired name for the project.
 	Name *string `pulumi:"name"`
+	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+	OptionsAllowlist *ProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -385,6 +393,8 @@ type ProjectArgs struct {
 	InstallCommand pulumi.StringPtrInput
 	// The desired name for the project.
 	Name pulumi.StringPtrInput
+	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+	OptionsAllowlist ProjectOptionsAllowlistPtrInput
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrInput
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -576,6 +586,11 @@ func (o ProjectOutput) InstallCommand() pulumi.StringPtrOutput {
 // The desired name for the project.
 func (o ProjectOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+func (o ProjectOutput) OptionsAllowlist() ProjectOptionsAllowlistPtrOutput {
+	return o.ApplyT(func(v *Project) ProjectOptionsAllowlistPtrOutput { return v.OptionsAllowlist }).(ProjectOptionsAllowlistPtrOutput)
 }
 
 // The output directory of the project. If omitted, this value will be automatically detected.

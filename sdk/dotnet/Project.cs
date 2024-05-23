@@ -167,6 +167,12 @@ namespace Pulumiverse.Vercel
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
+        /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        /// </summary>
+        [Output("optionsAllowlist")]
+        public Output<Outputs.ProjectOptionsAllowlist?> OptionsAllowlist { get; private set; } = null!;
+
+        /// <summary>
         /// The output directory of the project. If omitted, this value will be automatically detected.
         /// </summary>
         [Output("outputDirectory")]
@@ -394,6 +400,12 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
+        /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        /// </summary>
+        [Input("optionsAllowlist")]
+        public Input<Inputs.ProjectOptionsAllowlistArgs>? OptionsAllowlist { get; set; }
+
+        /// <summary>
         /// The output directory of the project. If omitted, this value will be automatically detected.
         /// </summary>
         [Input("outputDirectory")]
@@ -574,6 +586,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        /// </summary>
+        [Input("optionsAllowlist")]
+        public Input<Inputs.ProjectOptionsAllowlistGetArgs>? OptionsAllowlist { get; set; }
 
         /// <summary>
         /// The output directory of the project. If omitted, this value will be automatically detected.

@@ -191,6 +191,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string Name;
         /// <summary>
+        /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        /// </summary>
+        public readonly Outputs.GetProjectOptionsAllowlistResult OptionsAllowlist;
+        /// <summary>
         /// The output directory of the project. When null is used this value will be automatically detected.
         /// </summary>
         public readonly string OutputDirectory;
@@ -275,6 +279,8 @@ namespace Pulumiverse.Vercel
 
             string name,
 
+            Outputs.GetProjectOptionsAllowlistResult optionsAllowlist,
+
             string outputDirectory,
 
             Outputs.GetProjectPasswordProtectionResult passwordProtection,
@@ -316,6 +322,7 @@ namespace Pulumiverse.Vercel
             IgnoreCommand = ignoreCommand;
             InstallCommand = installCommand;
             Name = name;
+            OptionsAllowlist = optionsAllowlist;
             OutputDirectory = outputDirectory;
             PasswordProtection = passwordProtection;
             PreviewComments = previewComments;

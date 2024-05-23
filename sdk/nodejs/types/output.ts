@@ -123,6 +123,17 @@ export interface GetProjectGitRepositoryDeployHook {
     url: string;
 }
 
+export interface GetProjectOptionsAllowlist {
+    /**
+     * The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+     */
+    paths: outputs.GetProjectOptionsAllowlistPath[];
+}
+
+export interface GetProjectOptionsAllowlistPath {
+    value: string;
+}
+
 export interface GetProjectPasswordProtection {
     /**
      * The deployment environment that will be protected.
@@ -231,6 +242,20 @@ export interface ProjectGitRepositoryDeployHook {
      * A URL that, when a POST request is made to, will trigger a new deployment.
      */
     url: string;
+}
+
+export interface ProjectOptionsAllowlist {
+    /**
+     * The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+     */
+    paths: outputs.ProjectOptionsAllowlistPath[];
+}
+
+export interface ProjectOptionsAllowlistPath {
+    /**
+     * The path prefix to compare with the incoming request path.
+     */
+    value: string;
 }
 
 export interface ProjectPasswordProtection {
