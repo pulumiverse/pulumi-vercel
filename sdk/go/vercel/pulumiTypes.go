@@ -1036,6 +1036,240 @@ func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) Proj
 	}).(ProjectGitRepositoryDeployHookOutput)
 }
 
+type ProjectOptionsAllowlist struct {
+	// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+	Paths []ProjectOptionsAllowlistPath `pulumi:"paths"`
+}
+
+// ProjectOptionsAllowlistInput is an input type that accepts ProjectOptionsAllowlistArgs and ProjectOptionsAllowlistOutput values.
+// You can construct a concrete instance of `ProjectOptionsAllowlistInput` via:
+//
+//	ProjectOptionsAllowlistArgs{...}
+type ProjectOptionsAllowlistInput interface {
+	pulumi.Input
+
+	ToProjectOptionsAllowlistOutput() ProjectOptionsAllowlistOutput
+	ToProjectOptionsAllowlistOutputWithContext(context.Context) ProjectOptionsAllowlistOutput
+}
+
+type ProjectOptionsAllowlistArgs struct {
+	// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+	Paths ProjectOptionsAllowlistPathArrayInput `pulumi:"paths"`
+}
+
+func (ProjectOptionsAllowlistArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectOptionsAllowlist)(nil)).Elem()
+}
+
+func (i ProjectOptionsAllowlistArgs) ToProjectOptionsAllowlistOutput() ProjectOptionsAllowlistOutput {
+	return i.ToProjectOptionsAllowlistOutputWithContext(context.Background())
+}
+
+func (i ProjectOptionsAllowlistArgs) ToProjectOptionsAllowlistOutputWithContext(ctx context.Context) ProjectOptionsAllowlistOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOptionsAllowlistOutput)
+}
+
+func (i ProjectOptionsAllowlistArgs) ToProjectOptionsAllowlistPtrOutput() ProjectOptionsAllowlistPtrOutput {
+	return i.ToProjectOptionsAllowlistPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectOptionsAllowlistArgs) ToProjectOptionsAllowlistPtrOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOptionsAllowlistOutput).ToProjectOptionsAllowlistPtrOutputWithContext(ctx)
+}
+
+// ProjectOptionsAllowlistPtrInput is an input type that accepts ProjectOptionsAllowlistArgs, ProjectOptionsAllowlistPtr and ProjectOptionsAllowlistPtrOutput values.
+// You can construct a concrete instance of `ProjectOptionsAllowlistPtrInput` via:
+//
+//	        ProjectOptionsAllowlistArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectOptionsAllowlistPtrInput interface {
+	pulumi.Input
+
+	ToProjectOptionsAllowlistPtrOutput() ProjectOptionsAllowlistPtrOutput
+	ToProjectOptionsAllowlistPtrOutputWithContext(context.Context) ProjectOptionsAllowlistPtrOutput
+}
+
+type projectOptionsAllowlistPtrType ProjectOptionsAllowlistArgs
+
+func ProjectOptionsAllowlistPtr(v *ProjectOptionsAllowlistArgs) ProjectOptionsAllowlistPtrInput {
+	return (*projectOptionsAllowlistPtrType)(v)
+}
+
+func (*projectOptionsAllowlistPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectOptionsAllowlist)(nil)).Elem()
+}
+
+func (i *projectOptionsAllowlistPtrType) ToProjectOptionsAllowlistPtrOutput() ProjectOptionsAllowlistPtrOutput {
+	return i.ToProjectOptionsAllowlistPtrOutputWithContext(context.Background())
+}
+
+func (i *projectOptionsAllowlistPtrType) ToProjectOptionsAllowlistPtrOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOptionsAllowlistPtrOutput)
+}
+
+type ProjectOptionsAllowlistOutput struct{ *pulumi.OutputState }
+
+func (ProjectOptionsAllowlistOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectOptionsAllowlist)(nil)).Elem()
+}
+
+func (o ProjectOptionsAllowlistOutput) ToProjectOptionsAllowlistOutput() ProjectOptionsAllowlistOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistOutput) ToProjectOptionsAllowlistOutputWithContext(ctx context.Context) ProjectOptionsAllowlistOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistOutput) ToProjectOptionsAllowlistPtrOutput() ProjectOptionsAllowlistPtrOutput {
+	return o.ToProjectOptionsAllowlistPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectOptionsAllowlistOutput) ToProjectOptionsAllowlistPtrOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectOptionsAllowlist) *ProjectOptionsAllowlist {
+		return &v
+	}).(ProjectOptionsAllowlistPtrOutput)
+}
+
+// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+func (o ProjectOptionsAllowlistOutput) Paths() ProjectOptionsAllowlistPathArrayOutput {
+	return o.ApplyT(func(v ProjectOptionsAllowlist) []ProjectOptionsAllowlistPath { return v.Paths }).(ProjectOptionsAllowlistPathArrayOutput)
+}
+
+type ProjectOptionsAllowlistPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectOptionsAllowlistPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectOptionsAllowlist)(nil)).Elem()
+}
+
+func (o ProjectOptionsAllowlistPtrOutput) ToProjectOptionsAllowlistPtrOutput() ProjectOptionsAllowlistPtrOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistPtrOutput) ToProjectOptionsAllowlistPtrOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPtrOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistPtrOutput) Elem() ProjectOptionsAllowlistOutput {
+	return o.ApplyT(func(v *ProjectOptionsAllowlist) ProjectOptionsAllowlist {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectOptionsAllowlist
+		return ret
+	}).(ProjectOptionsAllowlistOutput)
+}
+
+// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+func (o ProjectOptionsAllowlistPtrOutput) Paths() ProjectOptionsAllowlistPathArrayOutput {
+	return o.ApplyT(func(v *ProjectOptionsAllowlist) []ProjectOptionsAllowlistPath {
+		if v == nil {
+			return nil
+		}
+		return v.Paths
+	}).(ProjectOptionsAllowlistPathArrayOutput)
+}
+
+type ProjectOptionsAllowlistPath struct {
+	// The path prefix to compare with the incoming request path.
+	Value string `pulumi:"value"`
+}
+
+// ProjectOptionsAllowlistPathInput is an input type that accepts ProjectOptionsAllowlistPathArgs and ProjectOptionsAllowlistPathOutput values.
+// You can construct a concrete instance of `ProjectOptionsAllowlistPathInput` via:
+//
+//	ProjectOptionsAllowlistPathArgs{...}
+type ProjectOptionsAllowlistPathInput interface {
+	pulumi.Input
+
+	ToProjectOptionsAllowlistPathOutput() ProjectOptionsAllowlistPathOutput
+	ToProjectOptionsAllowlistPathOutputWithContext(context.Context) ProjectOptionsAllowlistPathOutput
+}
+
+type ProjectOptionsAllowlistPathArgs struct {
+	// The path prefix to compare with the incoming request path.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ProjectOptionsAllowlistPathArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (i ProjectOptionsAllowlistPathArgs) ToProjectOptionsAllowlistPathOutput() ProjectOptionsAllowlistPathOutput {
+	return i.ToProjectOptionsAllowlistPathOutputWithContext(context.Background())
+}
+
+func (i ProjectOptionsAllowlistPathArgs) ToProjectOptionsAllowlistPathOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPathOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOptionsAllowlistPathOutput)
+}
+
+// ProjectOptionsAllowlistPathArrayInput is an input type that accepts ProjectOptionsAllowlistPathArray and ProjectOptionsAllowlistPathArrayOutput values.
+// You can construct a concrete instance of `ProjectOptionsAllowlistPathArrayInput` via:
+//
+//	ProjectOptionsAllowlistPathArray{ ProjectOptionsAllowlistPathArgs{...} }
+type ProjectOptionsAllowlistPathArrayInput interface {
+	pulumi.Input
+
+	ToProjectOptionsAllowlistPathArrayOutput() ProjectOptionsAllowlistPathArrayOutput
+	ToProjectOptionsAllowlistPathArrayOutputWithContext(context.Context) ProjectOptionsAllowlistPathArrayOutput
+}
+
+type ProjectOptionsAllowlistPathArray []ProjectOptionsAllowlistPathInput
+
+func (ProjectOptionsAllowlistPathArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (i ProjectOptionsAllowlistPathArray) ToProjectOptionsAllowlistPathArrayOutput() ProjectOptionsAllowlistPathArrayOutput {
+	return i.ToProjectOptionsAllowlistPathArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectOptionsAllowlistPathArray) ToProjectOptionsAllowlistPathArrayOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPathArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOptionsAllowlistPathArrayOutput)
+}
+
+type ProjectOptionsAllowlistPathOutput struct{ *pulumi.OutputState }
+
+func (ProjectOptionsAllowlistPathOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (o ProjectOptionsAllowlistPathOutput) ToProjectOptionsAllowlistPathOutput() ProjectOptionsAllowlistPathOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistPathOutput) ToProjectOptionsAllowlistPathOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPathOutput {
+	return o
+}
+
+// The path prefix to compare with the incoming request path.
+func (o ProjectOptionsAllowlistPathOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectOptionsAllowlistPath) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ProjectOptionsAllowlistPathArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectOptionsAllowlistPathArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (o ProjectOptionsAllowlistPathArrayOutput) ToProjectOptionsAllowlistPathArrayOutput() ProjectOptionsAllowlistPathArrayOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistPathArrayOutput) ToProjectOptionsAllowlistPathArrayOutputWithContext(ctx context.Context) ProjectOptionsAllowlistPathArrayOutput {
+	return o
+}
+
+func (o ProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) ProjectOptionsAllowlistPathOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectOptionsAllowlistPath {
+		return vs[0].([]ProjectOptionsAllowlistPath)[vs[1].(int)]
+	}).(ProjectOptionsAllowlistPathOutput)
+}
+
 type ProjectPasswordProtection struct {
 	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
 	DeploymentType string `pulumi:"deploymentType"`
@@ -2016,6 +2250,152 @@ func (o GetProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) G
 	}).(GetProjectGitRepositoryDeployHookOutput)
 }
 
+type GetProjectOptionsAllowlist struct {
+	// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+	Paths []GetProjectOptionsAllowlistPath `pulumi:"paths"`
+}
+
+// GetProjectOptionsAllowlistInput is an input type that accepts GetProjectOptionsAllowlistArgs and GetProjectOptionsAllowlistOutput values.
+// You can construct a concrete instance of `GetProjectOptionsAllowlistInput` via:
+//
+//	GetProjectOptionsAllowlistArgs{...}
+type GetProjectOptionsAllowlistInput interface {
+	pulumi.Input
+
+	ToGetProjectOptionsAllowlistOutput() GetProjectOptionsAllowlistOutput
+	ToGetProjectOptionsAllowlistOutputWithContext(context.Context) GetProjectOptionsAllowlistOutput
+}
+
+type GetProjectOptionsAllowlistArgs struct {
+	// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+	Paths GetProjectOptionsAllowlistPathArrayInput `pulumi:"paths"`
+}
+
+func (GetProjectOptionsAllowlistArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectOptionsAllowlist)(nil)).Elem()
+}
+
+func (i GetProjectOptionsAllowlistArgs) ToGetProjectOptionsAllowlistOutput() GetProjectOptionsAllowlistOutput {
+	return i.ToGetProjectOptionsAllowlistOutputWithContext(context.Background())
+}
+
+func (i GetProjectOptionsAllowlistArgs) ToGetProjectOptionsAllowlistOutputWithContext(ctx context.Context) GetProjectOptionsAllowlistOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectOptionsAllowlistOutput)
+}
+
+type GetProjectOptionsAllowlistOutput struct{ *pulumi.OutputState }
+
+func (GetProjectOptionsAllowlistOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectOptionsAllowlist)(nil)).Elem()
+}
+
+func (o GetProjectOptionsAllowlistOutput) ToGetProjectOptionsAllowlistOutput() GetProjectOptionsAllowlistOutput {
+	return o
+}
+
+func (o GetProjectOptionsAllowlistOutput) ToGetProjectOptionsAllowlistOutputWithContext(ctx context.Context) GetProjectOptionsAllowlistOutput {
+	return o
+}
+
+// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+func (o GetProjectOptionsAllowlistOutput) Paths() GetProjectOptionsAllowlistPathArrayOutput {
+	return o.ApplyT(func(v GetProjectOptionsAllowlist) []GetProjectOptionsAllowlistPath { return v.Paths }).(GetProjectOptionsAllowlistPathArrayOutput)
+}
+
+type GetProjectOptionsAllowlistPath struct {
+	Value string `pulumi:"value"`
+}
+
+// GetProjectOptionsAllowlistPathInput is an input type that accepts GetProjectOptionsAllowlistPathArgs and GetProjectOptionsAllowlistPathOutput values.
+// You can construct a concrete instance of `GetProjectOptionsAllowlistPathInput` via:
+//
+//	GetProjectOptionsAllowlistPathArgs{...}
+type GetProjectOptionsAllowlistPathInput interface {
+	pulumi.Input
+
+	ToGetProjectOptionsAllowlistPathOutput() GetProjectOptionsAllowlistPathOutput
+	ToGetProjectOptionsAllowlistPathOutputWithContext(context.Context) GetProjectOptionsAllowlistPathOutput
+}
+
+type GetProjectOptionsAllowlistPathArgs struct {
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetProjectOptionsAllowlistPathArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (i GetProjectOptionsAllowlistPathArgs) ToGetProjectOptionsAllowlistPathOutput() GetProjectOptionsAllowlistPathOutput {
+	return i.ToGetProjectOptionsAllowlistPathOutputWithContext(context.Background())
+}
+
+func (i GetProjectOptionsAllowlistPathArgs) ToGetProjectOptionsAllowlistPathOutputWithContext(ctx context.Context) GetProjectOptionsAllowlistPathOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectOptionsAllowlistPathOutput)
+}
+
+// GetProjectOptionsAllowlistPathArrayInput is an input type that accepts GetProjectOptionsAllowlistPathArray and GetProjectOptionsAllowlistPathArrayOutput values.
+// You can construct a concrete instance of `GetProjectOptionsAllowlistPathArrayInput` via:
+//
+//	GetProjectOptionsAllowlistPathArray{ GetProjectOptionsAllowlistPathArgs{...} }
+type GetProjectOptionsAllowlistPathArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectOptionsAllowlistPathArrayOutput() GetProjectOptionsAllowlistPathArrayOutput
+	ToGetProjectOptionsAllowlistPathArrayOutputWithContext(context.Context) GetProjectOptionsAllowlistPathArrayOutput
+}
+
+type GetProjectOptionsAllowlistPathArray []GetProjectOptionsAllowlistPathInput
+
+func (GetProjectOptionsAllowlistPathArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (i GetProjectOptionsAllowlistPathArray) ToGetProjectOptionsAllowlistPathArrayOutput() GetProjectOptionsAllowlistPathArrayOutput {
+	return i.ToGetProjectOptionsAllowlistPathArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectOptionsAllowlistPathArray) ToGetProjectOptionsAllowlistPathArrayOutputWithContext(ctx context.Context) GetProjectOptionsAllowlistPathArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectOptionsAllowlistPathArrayOutput)
+}
+
+type GetProjectOptionsAllowlistPathOutput struct{ *pulumi.OutputState }
+
+func (GetProjectOptionsAllowlistPathOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (o GetProjectOptionsAllowlistPathOutput) ToGetProjectOptionsAllowlistPathOutput() GetProjectOptionsAllowlistPathOutput {
+	return o
+}
+
+func (o GetProjectOptionsAllowlistPathOutput) ToGetProjectOptionsAllowlistPathOutputWithContext(ctx context.Context) GetProjectOptionsAllowlistPathOutput {
+	return o
+}
+
+func (o GetProjectOptionsAllowlistPathOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectOptionsAllowlistPath) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetProjectOptionsAllowlistPathArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectOptionsAllowlistPathArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectOptionsAllowlistPath)(nil)).Elem()
+}
+
+func (o GetProjectOptionsAllowlistPathArrayOutput) ToGetProjectOptionsAllowlistPathArrayOutput() GetProjectOptionsAllowlistPathArrayOutput {
+	return o
+}
+
+func (o GetProjectOptionsAllowlistPathArrayOutput) ToGetProjectOptionsAllowlistPathArrayOutputWithContext(ctx context.Context) GetProjectOptionsAllowlistPathArrayOutput {
+	return o
+}
+
+func (o GetProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) GetProjectOptionsAllowlistPathOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectOptionsAllowlistPath {
+		return vs[0].([]GetProjectOptionsAllowlistPath)[vs[1].(int)]
+	}).(GetProjectOptionsAllowlistPathOutput)
+}
+
 type GetProjectPasswordProtection struct {
 	// The deployment environment that will be protected.
 	DeploymentType string `pulumi:"deploymentType"`
@@ -2303,6 +2683,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPtrInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathInput)(nil)).Elem(), ProjectOptionsAllowlistPathArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), ProjectOptionsAllowlistPathArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
@@ -2317,6 +2701,9 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistInput)(nil)).Elem(), GetProjectOptionsAllowlistArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsInput)(nil)).Elem(), GetProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressInput)(nil)).Elem(), GetProjectTrustedIpsAddressArgs{})
@@ -2334,6 +2721,10 @@ func init() {
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookArrayOutput{})
+	pulumi.RegisterOutputType(ProjectOptionsAllowlistOutput{})
+	pulumi.RegisterOutputType(ProjectOptionsAllowlistPtrOutput{})
+	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathOutput{})
+	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathArrayOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
@@ -2348,6 +2739,9 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectOptionsAllowlistOutput{})
+	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathOutput{})
+	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressOutput{})

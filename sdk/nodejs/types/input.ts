@@ -123,6 +123,20 @@ export interface ProjectGitRepositoryDeployHook {
     url?: pulumi.Input<string>;
 }
 
+export interface ProjectOptionsAllowlist {
+    /**
+     * The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+     */
+    paths: pulumi.Input<pulumi.Input<inputs.ProjectOptionsAllowlistPath>[]>;
+}
+
+export interface ProjectOptionsAllowlistPath {
+    /**
+     * The path prefix to compare with the incoming request path.
+     */
+    value: pulumi.Input<string>;
+}
+
 export interface ProjectPasswordProtection {
     /**
      * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.

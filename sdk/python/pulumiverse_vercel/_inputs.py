@@ -16,6 +16,8 @@ __all__ = [
     'ProjectGitCommentsArgs',
     'ProjectGitRepositoryArgs',
     'ProjectGitRepositoryDeployHookArgs',
+    'ProjectOptionsAllowlistArgs',
+    'ProjectOptionsAllowlistPathArgs',
     'ProjectPasswordProtectionArgs',
     'ProjectTrustedIpsArgs',
     'ProjectTrustedIpsAddressArgs',
@@ -449,6 +451,50 @@ class ProjectGitRepositoryDeployHookArgs:
     @url.setter
     def url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "url", value)
+
+
+@pulumi.input_type
+class ProjectOptionsAllowlistArgs:
+    def __init__(__self__, *,
+                 paths: pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgs']]]):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgs']]] paths: The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+        pulumi.set(__self__, "paths", paths)
+
+    @property
+    @pulumi.getter
+    def paths(self) -> pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgs']]]:
+        """
+        The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+        return pulumi.get(self, "paths")
+
+    @paths.setter
+    def paths(self, value: pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgs']]]):
+        pulumi.set(self, "paths", value)
+
+
+@pulumi.input_type
+class ProjectOptionsAllowlistPathArgs:
+    def __init__(__self__, *,
+                 value: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] value: The path prefix to compare with the incoming request path.
+        """
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        """
+        The path prefix to compare with the incoming request path.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
 
 
 @pulumi.input_type

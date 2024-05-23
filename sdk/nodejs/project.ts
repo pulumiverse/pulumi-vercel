@@ -144,6 +144,10 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+     */
+    public readonly optionsAllowlist!: pulumi.Output<outputs.ProjectOptionsAllowlist | undefined>;
+    /**
      * The output directory of the project. If omitted, this value will be automatically detected.
      */
     public readonly outputDirectory!: pulumi.Output<string | undefined>;
@@ -225,6 +229,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["ignoreCommand"] = state ? state.ignoreCommand : undefined;
             resourceInputs["installCommand"] = state ? state.installCommand : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["optionsAllowlist"] = state ? state.optionsAllowlist : undefined;
             resourceInputs["outputDirectory"] = state ? state.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = state ? state.passwordProtection : undefined;
             resourceInputs["previewComments"] = state ? state.previewComments : undefined;
@@ -256,6 +261,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["ignoreCommand"] = args ? args.ignoreCommand : undefined;
             resourceInputs["installCommand"] = args ? args.installCommand : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["optionsAllowlist"] = args ? args.optionsAllowlist : undefined;
             resourceInputs["outputDirectory"] = args ? args.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = args ? args.passwordProtection : undefined;
             resourceInputs["previewComments"] = args ? args.previewComments : undefined;
@@ -343,6 +349,10 @@ export interface ProjectState {
      * The desired name for the project.
      */
     name?: pulumi.Input<string>;
+    /**
+     * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+     */
+    optionsAllowlist?: pulumi.Input<inputs.ProjectOptionsAllowlist>;
     /**
      * The output directory of the project. If omitted, this value will be automatically detected.
      */
@@ -465,6 +475,10 @@ export interface ProjectArgs {
      * The desired name for the project.
      */
     name?: pulumi.Input<string>;
+    /**
+     * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+     */
+    optionsAllowlist?: pulumi.Input<inputs.ProjectOptionsAllowlist>;
     /**
      * The output directory of the project. If omitted, this value will be automatically detected.
      */
