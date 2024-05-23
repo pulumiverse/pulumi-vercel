@@ -7,7 +7,7 @@ toolchain go1.21.7
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.35.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.82.0
-	github.com/vercel/terraform-provider-vercel v1.10.0
+	github.com/vercel/terraform-provider-vercel v1.11.0
 	golang.org/x/text v0.14.0
 )
 

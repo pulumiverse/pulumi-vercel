@@ -97,6 +97,8 @@ type LookupProjectResult struct {
 	InstallCommand string `pulumi:"installCommand"`
 	// The name of the project.
 	Name string `pulumi:"name"`
+	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+	OptionsAllowlist GetProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. When null is used this value will be automatically detected.
 	OutputDirectory string `pulumi:"outputDirectory"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -246,6 +248,11 @@ func (o LookupProjectResultOutput) InstallCommand() pulumi.StringOutput {
 // The name of the project.
 func (o LookupProjectResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+func (o LookupProjectResultOutput) OptionsAllowlist() GetProjectOptionsAllowlistOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectOptionsAllowlist { return v.OptionsAllowlist }).(GetProjectOptionsAllowlistOutput)
 }
 
 // The output directory of the project. When null is used this value will be automatically detected.

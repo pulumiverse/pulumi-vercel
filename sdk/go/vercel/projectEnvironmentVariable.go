@@ -130,7 +130,7 @@ type ProjectEnvironmentVariable struct {
 	Key pulumi.StringOutput `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolOutput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
@@ -195,7 +195,7 @@ type projectEnvironmentVariableState struct {
 	Key *string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId *string `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
@@ -212,7 +212,7 @@ type ProjectEnvironmentVariableState struct {
 	Key pulumi.StringPtrInput
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringPtrInput
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolPtrInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput
@@ -233,7 +233,7 @@ type projectEnvironmentVariableArgs struct {
 	Key string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId string `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
@@ -251,7 +251,7 @@ type ProjectEnvironmentVariableArgs struct {
 	Key pulumi.StringInput
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringInput
-	// Whether the Environment Variable is sensitive or not.
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolPtrInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput
@@ -363,7 +363,7 @@ func (o ProjectEnvironmentVariableOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive or not.
+// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 func (o ProjectEnvironmentVariableOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.BoolOutput { return v.Sensitive }).(pulumi.BoolOutput)
 }

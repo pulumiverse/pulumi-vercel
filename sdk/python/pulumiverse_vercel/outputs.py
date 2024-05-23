@@ -17,6 +17,8 @@ __all__ = [
     'ProjectGitComments',
     'ProjectGitRepository',
     'ProjectGitRepositoryDeployHook',
+    'ProjectOptionsAllowlist',
+    'ProjectOptionsAllowlistPath',
     'ProjectPasswordProtection',
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
@@ -25,6 +27,8 @@ __all__ = [
     'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
     'GetProjectGitRepositoryDeployHookResult',
+    'GetProjectOptionsAllowlistResult',
+    'GetProjectOptionsAllowlistPathResult',
     'GetProjectPasswordProtectionResult',
     'GetProjectTrustedIpsResult',
     'GetProjectTrustedIpsAddressResult',
@@ -204,7 +208,7 @@ class ProjectEnvironment(dict):
         :param str value: The value of the Environment Variable.
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
-        :param bool sensitive: Whether the Environment Variable is sensitive or not.
+        :param bool sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
@@ -260,7 +264,7 @@ class ProjectEnvironment(dict):
     @pulumi.getter
     def sensitive(self) -> Optional[bool]:
         """
-        Whether the Environment Variable is sensitive or not.
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -436,6 +440,42 @@ class ProjectGitRepositoryDeployHook(dict):
         A URL that, when a POST request is made to, will trigger a new deployment.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class ProjectOptionsAllowlist(dict):
+    def __init__(__self__, *,
+                 paths: Sequence['outputs.ProjectOptionsAllowlistPath']):
+        """
+        :param Sequence['ProjectOptionsAllowlistPathArgs'] paths: The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+        pulumi.set(__self__, "paths", paths)
+
+    @property
+    @pulumi.getter
+    def paths(self) -> Sequence['outputs.ProjectOptionsAllowlistPath']:
+        """
+        The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+        return pulumi.get(self, "paths")
+
+
+@pulumi.output_type
+class ProjectOptionsAllowlistPath(dict):
+    def __init__(__self__, *,
+                 value: str):
+        """
+        :param str value: The path prefix to compare with the incoming request path.
+        """
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        """
+        The path prefix to compare with the incoming request path.
+        """
+        return pulumi.get(self, "value")
 
 
 @pulumi.output_type
@@ -811,6 +851,36 @@ class GetProjectGitRepositoryDeployHookResult(dict):
         A URL that, when a POST request is made to, will trigger a new deployment.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class GetProjectOptionsAllowlistResult(dict):
+    def __init__(__self__, *,
+                 paths: Sequence['outputs.GetProjectOptionsAllowlistPathResult']):
+        """
+        :param Sequence['GetProjectOptionsAllowlistPathArgs'] paths: The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+        pulumi.set(__self__, "paths", paths)
+
+    @property
+    @pulumi.getter
+    def paths(self) -> Sequence['outputs.GetProjectOptionsAllowlistPathResult']:
+        """
+        The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+        return pulumi.get(self, "paths")
+
+
+@pulumi.output_type
+class GetProjectOptionsAllowlistPathResult(dict):
+    def __init__(__self__, *,
+                 value: str):
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        return pulumi.get(self, "value")
 
 
 @pulumi.output_type

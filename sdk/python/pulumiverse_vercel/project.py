@@ -32,6 +32,7 @@ class ProjectArgs:
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
@@ -62,6 +63,7 @@ class ProjectArgs:
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
@@ -107,6 +109,8 @@ class ProjectArgs:
             pulumi.set(__self__, "install_command", install_command)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if options_allowlist is not None:
+            pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
             pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
@@ -325,6 +329,18 @@ class ProjectArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="optionsAllowlist")
+    def options_allowlist(self) -> Optional[pulumi.Input['ProjectOptionsAllowlistArgs']]:
+        """
+        Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        """
+        return pulumi.get(self, "options_allowlist")
+
+    @options_allowlist.setter
+    def options_allowlist(self, value: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']]):
+        pulumi.set(self, "options_allowlist", value)
+
+    @property
     @pulumi.getter(name="outputDirectory")
     def output_directory(self) -> Optional[pulumi.Input[str]]:
         """
@@ -488,6 +504,7 @@ class _ProjectState:
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
@@ -519,6 +536,7 @@ class _ProjectState:
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
@@ -565,6 +583,8 @@ class _ProjectState:
             pulumi.set(__self__, "install_command", install_command)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if options_allowlist is not None:
+            pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
             pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
@@ -785,6 +805,18 @@ class _ProjectState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="optionsAllowlist")
+    def options_allowlist(self) -> Optional[pulumi.Input['ProjectOptionsAllowlistArgs']]:
+        """
+        Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        """
+        return pulumi.get(self, "options_allowlist")
+
+    @options_allowlist.setter
+    def options_allowlist(self, value: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']]):
+        pulumi.set(self, "options_allowlist", value)
+
+    @property
     @pulumi.getter(name="outputDirectory")
     def output_directory(self) -> Optional[pulumi.Input[str]]:
         """
@@ -962,6 +994,7 @@ class Project(pulumi.CustomResource):
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
@@ -1037,6 +1070,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
@@ -1131,6 +1165,7 @@ class Project(pulumi.CustomResource):
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
@@ -1168,6 +1203,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
             __props__.__dict__["name"] = name
+            __props__.__dict__["options_allowlist"] = options_allowlist
             __props__.__dict__["output_directory"] = output_directory
             __props__.__dict__["password_protection"] = password_protection
             __props__.__dict__["preview_comments"] = preview_comments
@@ -1207,6 +1243,7 @@ class Project(pulumi.CustomResource):
             ignore_command: Optional[pulumi.Input[str]] = None,
             install_command: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
             output_directory: Optional[pulumi.Input[str]] = None,
             password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
             preview_comments: Optional[pulumi.Input[bool]] = None,
@@ -1243,6 +1280,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
@@ -1277,6 +1315,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["ignore_command"] = ignore_command
         __props__.__dict__["install_command"] = install_command
         __props__.__dict__["name"] = name
+        __props__.__dict__["options_allowlist"] = options_allowlist
         __props__.__dict__["output_directory"] = output_directory
         __props__.__dict__["password_protection"] = password_protection
         __props__.__dict__["preview_comments"] = preview_comments
@@ -1419,6 +1458,14 @@ class Project(pulumi.CustomResource):
         The desired name for the project.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="optionsAllowlist")
+    def options_allowlist(self) -> pulumi.Output[Optional['outputs.ProjectOptionsAllowlist']]:
+        """
+        Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        """
+        return pulumi.get(self, "options_allowlist")
 
     @property
     @pulumi.getter(name="outputDirectory")

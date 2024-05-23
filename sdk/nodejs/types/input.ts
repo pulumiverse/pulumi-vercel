@@ -61,7 +61,7 @@ export interface ProjectEnvironment {
      */
     key: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
@@ -121,6 +121,20 @@ export interface ProjectGitRepositoryDeployHook {
      * A URL that, when a POST request is made to, will trigger a new deployment.
      */
     url?: pulumi.Input<string>;
+}
+
+export interface ProjectOptionsAllowlist {
+    /**
+     * The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+     */
+    paths: pulumi.Input<pulumi.Input<inputs.ProjectOptionsAllowlistPath>[]>;
+}
+
+export interface ProjectOptionsAllowlistPath {
+    /**
+     * The path prefix to compare with the incoming request path.
+     */
+    value: pulumi.Input<string>;
 }
 
 export interface ProjectPasswordProtection {

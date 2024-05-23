@@ -22,7 +22,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -74,6 +74,9 @@ class GetProjectResult:
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
+        if options_allowlist and not isinstance(options_allowlist, dict):
+            raise TypeError("Expected argument 'options_allowlist' to be a dict")
+        pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory and not isinstance(output_directory, str):
             raise TypeError("Expected argument 'output_directory' to be a str")
         pulumi.set(__self__, "output_directory", output_directory)
@@ -248,6 +251,14 @@ class GetProjectResult:
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="optionsAllowlist")
+    def options_allowlist(self) -> 'outputs.GetProjectOptionsAllowlistResult':
+        """
+        Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        """
+        return pulumi.get(self, "options_allowlist")
+
+    @property
     @pulumi.getter(name="outputDirectory")
     def output_directory(self) -> str:
         """
@@ -367,6 +378,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             ignore_command=self.ignore_command,
             install_command=self.install_command,
             name=self.name,
+            options_allowlist=self.options_allowlist,
             output_directory=self.output_directory,
             password_protection=self.password_protection,
             preview_comments=self.preview_comments,
@@ -429,6 +441,7 @@ def get_project(name: Optional[str] = None,
         ignore_command=pulumi.get(__ret__, 'ignore_command'),
         install_command=pulumi.get(__ret__, 'install_command'),
         name=pulumi.get(__ret__, 'name'),
+        options_allowlist=pulumi.get(__ret__, 'options_allowlist'),
         output_directory=pulumi.get(__ret__, 'output_directory'),
         password_protection=pulumi.get(__ret__, 'password_protection'),
         preview_comments=pulumi.get(__ret__, 'preview_comments'),
