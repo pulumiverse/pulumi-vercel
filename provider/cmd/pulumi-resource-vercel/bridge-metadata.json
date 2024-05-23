@@ -71,6 +71,13 @@
                             }
                         }
                     },
+                    "options_allowlist": {
+                        "fields": {
+                            "paths": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
                     "trusted_ips": {
                         "fields": {
                             "addresses": {
@@ -196,6 +203,13 @@
                     "git_repository": {
                         "fields": {
                             "deploy_hooks": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "options_allowlist": {
+                        "fields": {
+                            "paths": {
                                 "maxItemsOne": false
                             }
                         }

@@ -261,6 +261,33 @@
                 }
             }
         },
+        "vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist": {
+            "properties": {
+                "paths": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/ProjectOptionsAllowlistPath:ProjectOptionsAllowlistPath"
+                    },
+                    "description": "The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "paths"
+            ]
+        },
+        "vercel:index/ProjectOptionsAllowlistPath:ProjectOptionsAllowlistPath": {
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "description": "The path prefix to compare with the incoming request path.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "value"
+            ]
+        },
         "vercel:index/ProjectPasswordProtection:ProjectPasswordProtection": {
             "properties": {
                 "deploymentType": {
@@ -469,6 +496,42 @@
                 "name",
                 "ref",
                 "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectOptionsAllowlist:getProjectOptionsAllowlist": {
+            "properties": {
+                "paths": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/getProjectOptionsAllowlistPath:getProjectOptionsAllowlistPath"
+                    },
+                    "description": "The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "paths"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectOptionsAllowlistPath:getProjectOptionsAllowlistPath": {
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "value"
             ],
             "language": {
                 "nodejs": {
@@ -1423,6 +1486,10 @@
                     "type": "string",
                     "description": "The desired name for the project.\n"
                 },
+                "optionsAllowlist": {
+                    "$ref": "#/types/vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist",
+                    "description": "Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.\n"
+                },
                 "outputDirectory": {
                     "type": "string",
                     "description": "The output directory of the project. If omitted, this value will be automatically detected.\n"
@@ -1559,6 +1626,10 @@
                     "type": "string",
                     "description": "The desired name for the project.\n"
                 },
+                "optionsAllowlist": {
+                    "$ref": "#/types/vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist",
+                    "description": "Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.\n"
+                },
                 "outputDirectory": {
                     "type": "string",
                     "description": "The output directory of the project. If omitted, this value will be automatically detected.\n"
@@ -1677,6 +1748,10 @@
                     "name": {
                         "type": "string",
                         "description": "The desired name for the project.\n"
+                    },
+                    "optionsAllowlist": {
+                        "$ref": "#/types/vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist",
+                        "description": "Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.\n"
                     },
                     "outputDirectory": {
                         "type": "string",
@@ -2839,6 +2914,10 @@
                         "type": "string",
                         "description": "The name of the project.\n"
                     },
+                    "optionsAllowlist": {
+                        "$ref": "#/types/vercel:index/getProjectOptionsAllowlist:getProjectOptionsAllowlist",
+                        "description": "Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.\n"
+                    },
                     "outputDirectory": {
                         "type": "string",
                         "description": "The output directory of the project. When null is used this value will be automatically detected.\n"
@@ -2907,6 +2986,7 @@
                     "ignoreCommand",
                     "installCommand",
                     "name",
+                    "optionsAllowlist",
                     "outputDirectory",
                     "passwordProtection",
                     "previewComments",
