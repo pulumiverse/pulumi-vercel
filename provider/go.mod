@@ -5,8 +5,8 @@ go 1.21
 toolchain go1.21.7
 
 require (
-	github.com/pulumi/pulumi-terraform-bridge/pf v0.35.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.82.0
+	github.com/pulumi/pulumi-terraform-bridge/pf v0.36.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.83.0
 	github.com/vercel/terraform-provider-vercel v1.11.0
 	golang.org/x/text v0.14.0
 )
@@ -173,11 +173,11 @@ require (
 	github.com/posener/complete v1.2.3 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.6.2 // indirect
-	github.com/pulumi/pulumi-java/pkg v0.10.0 // indirect
+	github.com/pulumi/pulumi-java/pkg v0.11.0 // indirect
 	github.com/pulumi/pulumi-terraform-bridge/x/muxer v0.0.8 // indirect
-	github.com/pulumi/pulumi-yaml v1.6.0 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.114.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.114.0 // indirect
+	github.com/pulumi/pulumi-yaml v1.7.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.116.1 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.116.1 // indirect
 	github.com/pulumi/schema-tools v0.1.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
@@ -240,4 +240,4 @@ require (
 	lukechampine.com/frand v1.4.2 // indirect
 )
 
-replace github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20240229143312-4f60ee4e2975
+replace github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20240520223432-0c0bf0d65f10
