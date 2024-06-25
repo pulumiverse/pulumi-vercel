@@ -2,7 +2,7 @@ module github.com/pulumiverse/pulumi-vercel/provider
 
 go 1.21
 
-toolchain go1.21.7
+toolchain go1.22.4
 
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.38.0
