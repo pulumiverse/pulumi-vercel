@@ -17,6 +17,7 @@ __all__ = [
     'ProjectGitComments',
     'ProjectGitRepository',
     'ProjectGitRepositoryDeployHook',
+    'ProjectOidcTokenConfig',
     'ProjectOptionsAllowlist',
     'ProjectOptionsAllowlistPath',
     'ProjectPasswordProtection',
@@ -27,6 +28,7 @@ __all__ = [
     'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
     'GetProjectGitRepositoryDeployHookResult',
+    'GetProjectOidcTokenConfigResult',
     'GetProjectOptionsAllowlistResult',
     'GetProjectOptionsAllowlistPathResult',
     'GetProjectPasswordProtectionResult',
@@ -443,6 +445,24 @@ class ProjectGitRepositoryDeployHook(dict):
 
 
 @pulumi.output_type
+class ProjectOidcTokenConfig(dict):
+    def __init__(__self__, *,
+                 enabled: bool):
+        """
+        :param bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> bool:
+        """
+        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
 class ProjectOptionsAllowlist(dict):
     def __init__(__self__, *,
                  paths: Sequence['outputs.ProjectOptionsAllowlistPath']):
@@ -851,6 +871,24 @@ class GetProjectGitRepositoryDeployHookResult(dict):
         A URL that, when a POST request is made to, will trigger a new deployment.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class GetProjectOidcTokenConfigResult(dict):
+    def __init__(__self__, *,
+                 enabled: bool):
+        """
+        :param bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> bool:
+        """
+        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        return pulumi.get(self, "enabled")
 
 
 @pulumi.output_type

@@ -16,6 +16,7 @@ __all__ = [
     'ProjectGitCommentsArgs',
     'ProjectGitRepositoryArgs',
     'ProjectGitRepositoryDeployHookArgs',
+    'ProjectOidcTokenConfigArgs',
     'ProjectOptionsAllowlistArgs',
     'ProjectOptionsAllowlistPathArgs',
     'ProjectPasswordProtectionArgs',
@@ -451,6 +452,28 @@ class ProjectGitRepositoryDeployHookArgs:
     @url.setter
     def url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "url", value)
+
+
+@pulumi.input_type
+class ProjectOidcTokenConfigArgs:
+    def __init__(__self__, *,
+                 enabled: pulumi.Input[bool]):
+        """
+        :param pulumi.Input[bool] enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[bool]:
+        """
+        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "enabled", value)
 
 
 @pulumi.input_type

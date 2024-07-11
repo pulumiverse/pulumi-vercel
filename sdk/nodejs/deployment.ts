@@ -64,7 +64,7 @@ export class Deployment extends pulumi.CustomResource {
      */
     public readonly projectSettings!: pulumi.Output<outputs.DeploymentProjectSettings | undefined>;
     /**
-     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
      */
     public readonly ref!: pulumi.Output<string | undefined>;
     /**
@@ -156,7 +156,7 @@ export interface DeploymentState {
      */
     projectSettings?: pulumi.Input<inputs.DeploymentProjectSettings>;
     /**
-     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
      */
     ref?: pulumi.Input<string>;
     /**
@@ -199,7 +199,7 @@ export interface DeploymentArgs {
      */
     projectSettings?: pulumi.Input<inputs.DeploymentProjectSettings>;
     /**
-     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+     * The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
      */
     ref?: pulumi.Input<string>;
     /**

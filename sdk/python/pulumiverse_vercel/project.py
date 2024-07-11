@@ -32,6 +32,7 @@ class ProjectArgs:
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 oidc_token_config: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']] = None,
                  options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
@@ -63,6 +64,7 @@ class ProjectArgs:
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input['ProjectOidcTokenConfigArgs'] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
         :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -109,6 +111,8 @@ class ProjectArgs:
             pulumi.set(__self__, "install_command", install_command)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if oidc_token_config is not None:
+            pulumi.set(__self__, "oidc_token_config", oidc_token_config)
         if options_allowlist is not None:
             pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
@@ -329,6 +333,18 @@ class ProjectArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="oidcTokenConfig")
+    def oidc_token_config(self) -> Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]:
+        """
+        Configuration for OpenID Connect (OIDC) tokens.
+        """
+        return pulumi.get(self, "oidc_token_config")
+
+    @oidc_token_config.setter
+    def oidc_token_config(self, value: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]):
+        pulumi.set(self, "oidc_token_config", value)
+
+    @property
     @pulumi.getter(name="optionsAllowlist")
     def options_allowlist(self) -> Optional[pulumi.Input['ProjectOptionsAllowlistArgs']]:
         """
@@ -504,6 +520,7 @@ class _ProjectState:
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 oidc_token_config: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']] = None,
                  options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
@@ -536,6 +553,7 @@ class _ProjectState:
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input['ProjectOidcTokenConfigArgs'] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
         :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -583,6 +601,8 @@ class _ProjectState:
             pulumi.set(__self__, "install_command", install_command)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if oidc_token_config is not None:
+            pulumi.set(__self__, "oidc_token_config", oidc_token_config)
         if options_allowlist is not None:
             pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
@@ -805,6 +825,18 @@ class _ProjectState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="oidcTokenConfig")
+    def oidc_token_config(self) -> Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]:
+        """
+        Configuration for OpenID Connect (OIDC) tokens.
+        """
+        return pulumi.get(self, "oidc_token_config")
+
+    @oidc_token_config.setter
+    def oidc_token_config(self, value: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]):
+        pulumi.set(self, "oidc_token_config", value)
+
+    @property
     @pulumi.getter(name="optionsAllowlist")
     def options_allowlist(self) -> Optional[pulumi.Input['ProjectOptionsAllowlistArgs']]:
         """
@@ -994,6 +1026,7 @@ class Project(pulumi.CustomResource):
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 oidc_token_config: Optional[pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']]] = None,
                  options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
@@ -1070,6 +1103,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
         :param pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -1165,6 +1199,7 @@ class Project(pulumi.CustomResource):
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 oidc_token_config: Optional[pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']]] = None,
                  options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
@@ -1203,6 +1238,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
             __props__.__dict__["name"] = name
+            __props__.__dict__["oidc_token_config"] = oidc_token_config
             __props__.__dict__["options_allowlist"] = options_allowlist
             __props__.__dict__["output_directory"] = output_directory
             __props__.__dict__["password_protection"] = password_protection
@@ -1243,6 +1279,7 @@ class Project(pulumi.CustomResource):
             ignore_command: Optional[pulumi.Input[str]] = None,
             install_command: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            oidc_token_config: Optional[pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']]] = None,
             options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
             output_directory: Optional[pulumi.Input[str]] = None,
             password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
@@ -1280,6 +1317,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
         :param pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
@@ -1315,6 +1353,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["ignore_command"] = ignore_command
         __props__.__dict__["install_command"] = install_command
         __props__.__dict__["name"] = name
+        __props__.__dict__["oidc_token_config"] = oidc_token_config
         __props__.__dict__["options_allowlist"] = options_allowlist
         __props__.__dict__["output_directory"] = output_directory
         __props__.__dict__["password_protection"] = password_protection
@@ -1458,6 +1497,14 @@ class Project(pulumi.CustomResource):
         The desired name for the project.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="oidcTokenConfig")
+    def oidc_token_config(self) -> pulumi.Output['outputs.ProjectOidcTokenConfig']:
+        """
+        Configuration for OpenID Connect (OIDC) tokens.
+        """
+        return pulumi.get(self, "oidc_token_config")
 
     @property
     @pulumi.getter(name="optionsAllowlist")

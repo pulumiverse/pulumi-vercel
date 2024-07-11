@@ -30,7 +30,7 @@ type Deployment struct {
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// Project settings that will be applied to the deployment.
 	ProjectSettings DeploymentProjectSettingsPtrOutput `pulumi:"projectSettings"`
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref pulumi.StringPtrOutput `pulumi:"ref"`
 	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -86,7 +86,7 @@ type deploymentState struct {
 	ProjectId *string `pulumi:"projectId"`
 	// Project settings that will be applied to the deployment.
 	ProjectSettings *DeploymentProjectSettings `pulumi:"projectSettings"`
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref *string `pulumi:"ref"`
 	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -110,7 +110,7 @@ type DeploymentState struct {
 	ProjectId pulumi.StringPtrInput
 	// Project settings that will be applied to the deployment.
 	ProjectSettings DeploymentProjectSettingsPtrInput
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref pulumi.StringPtrInput
 	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -136,7 +136,7 @@ type deploymentArgs struct {
 	ProjectId string `pulumi:"projectId"`
 	// Project settings that will be applied to the deployment.
 	ProjectSettings *DeploymentProjectSettings `pulumi:"projectSettings"`
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref *string `pulumi:"ref"`
 	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -157,7 +157,7 @@ type DeploymentArgs struct {
 	ProjectId pulumi.StringInput
 	// Project settings that will be applied to the deployment.
 	ProjectSettings DeploymentProjectSettingsPtrInput
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref pulumi.StringPtrInput
 	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -289,7 +289,7 @@ func (o DeploymentOutput) ProjectSettings() DeploymentProjectSettingsPtrOutput {
 	return o.ApplyT(func(v *Deployment) DeploymentProjectSettingsPtrOutput { return v.ProjectSettings }).(DeploymentProjectSettingsPtrOutput)
 }
 
-// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 func (o DeploymentOutput) Ref() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.Ref }).(pulumi.StringPtrOutput)
 }

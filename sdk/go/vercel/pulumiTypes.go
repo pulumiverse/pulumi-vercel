@@ -1036,6 +1036,143 @@ func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) Proj
 	}).(ProjectGitRepositoryDeployHookOutput)
 }
 
+type ProjectOidcTokenConfig struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// ProjectOidcTokenConfigInput is an input type that accepts ProjectOidcTokenConfigArgs and ProjectOidcTokenConfigOutput values.
+// You can construct a concrete instance of `ProjectOidcTokenConfigInput` via:
+//
+//	ProjectOidcTokenConfigArgs{...}
+type ProjectOidcTokenConfigInput interface {
+	pulumi.Input
+
+	ToProjectOidcTokenConfigOutput() ProjectOidcTokenConfigOutput
+	ToProjectOidcTokenConfigOutputWithContext(context.Context) ProjectOidcTokenConfigOutput
+}
+
+type ProjectOidcTokenConfigArgs struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (ProjectOidcTokenConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectOidcTokenConfig)(nil)).Elem()
+}
+
+func (i ProjectOidcTokenConfigArgs) ToProjectOidcTokenConfigOutput() ProjectOidcTokenConfigOutput {
+	return i.ToProjectOidcTokenConfigOutputWithContext(context.Background())
+}
+
+func (i ProjectOidcTokenConfigArgs) ToProjectOidcTokenConfigOutputWithContext(ctx context.Context) ProjectOidcTokenConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOidcTokenConfigOutput)
+}
+
+func (i ProjectOidcTokenConfigArgs) ToProjectOidcTokenConfigPtrOutput() ProjectOidcTokenConfigPtrOutput {
+	return i.ToProjectOidcTokenConfigPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectOidcTokenConfigArgs) ToProjectOidcTokenConfigPtrOutputWithContext(ctx context.Context) ProjectOidcTokenConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOidcTokenConfigOutput).ToProjectOidcTokenConfigPtrOutputWithContext(ctx)
+}
+
+// ProjectOidcTokenConfigPtrInput is an input type that accepts ProjectOidcTokenConfigArgs, ProjectOidcTokenConfigPtr and ProjectOidcTokenConfigPtrOutput values.
+// You can construct a concrete instance of `ProjectOidcTokenConfigPtrInput` via:
+//
+//	        ProjectOidcTokenConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectOidcTokenConfigPtrInput interface {
+	pulumi.Input
+
+	ToProjectOidcTokenConfigPtrOutput() ProjectOidcTokenConfigPtrOutput
+	ToProjectOidcTokenConfigPtrOutputWithContext(context.Context) ProjectOidcTokenConfigPtrOutput
+}
+
+type projectOidcTokenConfigPtrType ProjectOidcTokenConfigArgs
+
+func ProjectOidcTokenConfigPtr(v *ProjectOidcTokenConfigArgs) ProjectOidcTokenConfigPtrInput {
+	return (*projectOidcTokenConfigPtrType)(v)
+}
+
+func (*projectOidcTokenConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectOidcTokenConfig)(nil)).Elem()
+}
+
+func (i *projectOidcTokenConfigPtrType) ToProjectOidcTokenConfigPtrOutput() ProjectOidcTokenConfigPtrOutput {
+	return i.ToProjectOidcTokenConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *projectOidcTokenConfigPtrType) ToProjectOidcTokenConfigPtrOutputWithContext(ctx context.Context) ProjectOidcTokenConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectOidcTokenConfigPtrOutput)
+}
+
+type ProjectOidcTokenConfigOutput struct{ *pulumi.OutputState }
+
+func (ProjectOidcTokenConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectOidcTokenConfig)(nil)).Elem()
+}
+
+func (o ProjectOidcTokenConfigOutput) ToProjectOidcTokenConfigOutput() ProjectOidcTokenConfigOutput {
+	return o
+}
+
+func (o ProjectOidcTokenConfigOutput) ToProjectOidcTokenConfigOutputWithContext(ctx context.Context) ProjectOidcTokenConfigOutput {
+	return o
+}
+
+func (o ProjectOidcTokenConfigOutput) ToProjectOidcTokenConfigPtrOutput() ProjectOidcTokenConfigPtrOutput {
+	return o.ToProjectOidcTokenConfigPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectOidcTokenConfigOutput) ToProjectOidcTokenConfigPtrOutputWithContext(ctx context.Context) ProjectOidcTokenConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectOidcTokenConfig) *ProjectOidcTokenConfig {
+		return &v
+	}).(ProjectOidcTokenConfigPtrOutput)
+}
+
+// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+func (o ProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type ProjectOidcTokenConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectOidcTokenConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectOidcTokenConfig)(nil)).Elem()
+}
+
+func (o ProjectOidcTokenConfigPtrOutput) ToProjectOidcTokenConfigPtrOutput() ProjectOidcTokenConfigPtrOutput {
+	return o
+}
+
+func (o ProjectOidcTokenConfigPtrOutput) ToProjectOidcTokenConfigPtrOutputWithContext(ctx context.Context) ProjectOidcTokenConfigPtrOutput {
+	return o
+}
+
+func (o ProjectOidcTokenConfigPtrOutput) Elem() ProjectOidcTokenConfigOutput {
+	return o.ApplyT(func(v *ProjectOidcTokenConfig) ProjectOidcTokenConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectOidcTokenConfig
+		return ret
+	}).(ProjectOidcTokenConfigOutput)
+}
+
+// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+func (o ProjectOidcTokenConfigPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectOidcTokenConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
 type ProjectOptionsAllowlist struct {
 	// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
 	Paths []ProjectOptionsAllowlistPath `pulumi:"paths"`
@@ -2250,6 +2387,58 @@ func (o GetProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) G
 	}).(GetProjectGitRepositoryDeployHookOutput)
 }
 
+type GetProjectOidcTokenConfig struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetProjectOidcTokenConfigInput is an input type that accepts GetProjectOidcTokenConfigArgs and GetProjectOidcTokenConfigOutput values.
+// You can construct a concrete instance of `GetProjectOidcTokenConfigInput` via:
+//
+//	GetProjectOidcTokenConfigArgs{...}
+type GetProjectOidcTokenConfigInput interface {
+	pulumi.Input
+
+	ToGetProjectOidcTokenConfigOutput() GetProjectOidcTokenConfigOutput
+	ToGetProjectOidcTokenConfigOutputWithContext(context.Context) GetProjectOidcTokenConfigOutput
+}
+
+type GetProjectOidcTokenConfigArgs struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetProjectOidcTokenConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectOidcTokenConfig)(nil)).Elem()
+}
+
+func (i GetProjectOidcTokenConfigArgs) ToGetProjectOidcTokenConfigOutput() GetProjectOidcTokenConfigOutput {
+	return i.ToGetProjectOidcTokenConfigOutputWithContext(context.Background())
+}
+
+func (i GetProjectOidcTokenConfigArgs) ToGetProjectOidcTokenConfigOutputWithContext(ctx context.Context) GetProjectOidcTokenConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectOidcTokenConfigOutput)
+}
+
+type GetProjectOidcTokenConfigOutput struct{ *pulumi.OutputState }
+
+func (GetProjectOidcTokenConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectOidcTokenConfig)(nil)).Elem()
+}
+
+func (o GetProjectOidcTokenConfigOutput) ToGetProjectOidcTokenConfigOutput() GetProjectOidcTokenConfigOutput {
+	return o
+}
+
+func (o GetProjectOidcTokenConfigOutput) ToGetProjectOidcTokenConfigOutputWithContext(ctx context.Context) GetProjectOidcTokenConfigOutput {
+	return o
+}
+
+// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+func (o GetProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
 type GetProjectOptionsAllowlist struct {
 	// The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
 	Paths []GetProjectOptionsAllowlistPath `pulumi:"paths"`
@@ -2683,6 +2872,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOidcTokenConfigInput)(nil)).Elem(), ProjectOidcTokenConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOidcTokenConfigPtrInput)(nil)).Elem(), ProjectOidcTokenConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPtrInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathInput)(nil)).Elem(), ProjectOptionsAllowlistPathArgs{})
@@ -2701,6 +2892,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOidcTokenConfigInput)(nil)).Elem(), GetProjectOidcTokenConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistInput)(nil)).Elem(), GetProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArray{})
@@ -2721,6 +2913,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookArrayOutput{})
+	pulumi.RegisterOutputType(ProjectOidcTokenConfigOutput{})
+	pulumi.RegisterOutputType(ProjectOidcTokenConfigPtrOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPtrOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathOutput{})
@@ -2739,6 +2933,7 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectOidcTokenConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathArrayOutput{})

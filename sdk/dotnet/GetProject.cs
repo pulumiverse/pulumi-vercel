@@ -191,6 +191,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string Name;
         /// <summary>
+        /// Configuration for OpenID Connect (OIDC) tokens.
+        /// </summary>
+        public readonly Outputs.GetProjectOidcTokenConfigResult OidcTokenConfig;
+        /// <summary>
         /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         /// </summary>
         public readonly Outputs.GetProjectOptionsAllowlistResult OptionsAllowlist;
@@ -279,6 +283,8 @@ namespace Pulumiverse.Vercel
 
             string name,
 
+            Outputs.GetProjectOidcTokenConfigResult oidcTokenConfig,
+
             Outputs.GetProjectOptionsAllowlistResult optionsAllowlist,
 
             string outputDirectory,
@@ -322,6 +328,7 @@ namespace Pulumiverse.Vercel
             IgnoreCommand = ignoreCommand;
             InstallCommand = installCommand;
             Name = name;
+            OidcTokenConfig = oidcTokenConfig;
             OptionsAllowlist = optionsAllowlist;
             OutputDirectory = outputDirectory;
             PasswordProtection = passwordProtection;

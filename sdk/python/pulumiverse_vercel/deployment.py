@@ -33,7 +33,7 @@ class DeploymentArgs:
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input['DeploymentProjectSettingsArgs'] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "project_id", project_id)
@@ -139,7 +139,7 @@ class DeploymentArgs:
     @pulumi.getter
     def ref(self) -> Optional[pulumi.Input[str]]:
         """
-        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         """
         return pulumi.get(self, "ref")
 
@@ -183,7 +183,7 @@ class _DeploymentState:
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input['DeploymentProjectSettingsArgs'] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.
         """
@@ -307,7 +307,7 @@ class _DeploymentState:
     @pulumi.getter
     def ref(self) -> Optional[pulumi.Input[str]]:
         """
-        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         """
         return pulumi.get(self, "ref")
 
@@ -365,7 +365,7 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
@@ -457,7 +457,7 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']] project_settings: Project settings that will be applied to the deployment.
-        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.
         """
@@ -543,7 +543,7 @@ class Deployment(pulumi.CustomResource):
     @pulumi.getter
     def ref(self) -> pulumi.Output[Optional[str]]:
         """
-        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         """
         return pulumi.get(self, "ref")
 

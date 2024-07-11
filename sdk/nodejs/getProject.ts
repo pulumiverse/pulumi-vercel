@@ -121,6 +121,10 @@ export interface GetProjectResult {
      */
     readonly name: string;
     /**
+     * Configuration for OpenID Connect (OIDC) tokens.
+     */
+    readonly oidcTokenConfig: outputs.GetProjectOidcTokenConfig;
+    /**
      * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
      */
     readonly optionsAllowlist: outputs.GetProjectOptionsAllowlist;

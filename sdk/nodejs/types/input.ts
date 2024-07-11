@@ -123,6 +123,13 @@ export interface ProjectGitRepositoryDeployHook {
     url?: pulumi.Input<string>;
 }
 
+export interface ProjectOidcTokenConfig {
+    /**
+     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     */
+    enabled: pulumi.Input<boolean>;
+}
+
 export interface ProjectOptionsAllowlist {
     /**
      * The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
