@@ -827,8 +827,8 @@ github.com/uber/jaeger-lib v2.4.1+incompatible h1:td4jdvLcExb4cBISKIpHuGoVXh+dVK
 github.com/uber/jaeger-lib v2.4.1+incompatible/go.mod h1:ComeNDZlWwrWnDv8aPp0Ba6+uUTzImX/AauajbLI56U=
 github.com/ulikunitz/xz v0.5.10 h1:t92gobL9l3HE202wg3rlk19F6X+JOxl9BBrCCMYEYd8=
 github.com/ulikunitz/xz v0.5.10/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
-github.com/vercel/terraform-provider-vercel v1.11.1 h1:ilDh5rQ/AVNtyAx/xdiX7SQXNxa0Hf8JFb3Z5w9Urog=
-github.com/vercel/terraform-provider-vercel v1.11.1/go.mod h1:eBu7BcowyyLXlIqcy2KLpGqytaKA/rCNbCVJ5YqvuvQ=
+github.com/vercel/terraform-provider-vercel v1.12.0 h1:pYHEiFW3OkbJWnZsR4CX9auez/EIssucyZNL91Efl64=
+github.com/vercel/terraform-provider-vercel v1.12.0/go.mod h1:eBu7BcowyyLXlIqcy2KLpGqytaKA/rCNbCVJ5YqvuvQ=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.4+incompatible h1:dSLoQfGFAo3F6OoNhwUmLwVgaUXK79GlxNBwueZn0xI=
 github.com/vmihailenco/msgpack v4.0.4+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=

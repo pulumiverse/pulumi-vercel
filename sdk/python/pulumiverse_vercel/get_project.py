@@ -22,7 +22,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, oidc_token_config=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -74,6 +74,9 @@ class GetProjectResult:
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
+        if oidc_token_config and not isinstance(oidc_token_config, dict):
+            raise TypeError("Expected argument 'oidc_token_config' to be a dict")
+        pulumi.set(__self__, "oidc_token_config", oidc_token_config)
         if options_allowlist and not isinstance(options_allowlist, dict):
             raise TypeError("Expected argument 'options_allowlist' to be a dict")
         pulumi.set(__self__, "options_allowlist", options_allowlist)
@@ -251,6 +254,14 @@ class GetProjectResult:
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="oidcTokenConfig")
+    def oidc_token_config(self) -> 'outputs.GetProjectOidcTokenConfigResult':
+        """
+        Configuration for OpenID Connect (OIDC) tokens.
+        """
+        return pulumi.get(self, "oidc_token_config")
+
+    @property
     @pulumi.getter(name="optionsAllowlist")
     def options_allowlist(self) -> 'outputs.GetProjectOptionsAllowlistResult':
         """
@@ -378,6 +389,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             ignore_command=self.ignore_command,
             install_command=self.install_command,
             name=self.name,
+            oidc_token_config=self.oidc_token_config,
             options_allowlist=self.options_allowlist,
             output_directory=self.output_directory,
             password_protection=self.password_protection,
@@ -441,6 +453,7 @@ def get_project(name: Optional[str] = None,
         ignore_command=pulumi.get(__ret__, 'ignore_command'),
         install_command=pulumi.get(__ret__, 'install_command'),
         name=pulumi.get(__ret__, 'name'),
+        oidc_token_config=pulumi.get(__ret__, 'oidc_token_config'),
         options_allowlist=pulumi.get(__ret__, 'options_allowlist'),
         output_directory=pulumi.get(__ret__, 'output_directory'),
         password_protection=pulumi.get(__ret__, 'password_protection'),

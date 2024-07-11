@@ -109,6 +109,8 @@ type Project struct {
 	InstallCommand pulumi.StringPtrOutput `pulumi:"installCommand"`
 	// The desired name for the project.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Configuration for OpenID Connect (OIDC) tokens.
+	OidcTokenConfig ProjectOidcTokenConfigOutput `pulumi:"oidcTokenConfig"`
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist ProjectOptionsAllowlistPtrOutput `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
@@ -201,6 +203,8 @@ type projectState struct {
 	InstallCommand *string `pulumi:"installCommand"`
 	// The desired name for the project.
 	Name *string `pulumi:"name"`
+	// Configuration for OpenID Connect (OIDC) tokens.
+	OidcTokenConfig *ProjectOidcTokenConfig `pulumi:"oidcTokenConfig"`
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist *ProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
@@ -264,6 +268,8 @@ type ProjectState struct {
 	InstallCommand pulumi.StringPtrInput
 	// The desired name for the project.
 	Name pulumi.StringPtrInput
+	// Configuration for OpenID Connect (OIDC) tokens.
+	OidcTokenConfig ProjectOidcTokenConfigPtrInput
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist ProjectOptionsAllowlistPtrInput
 	// The output directory of the project. If omitted, this value will be automatically detected.
@@ -331,6 +337,8 @@ type projectArgs struct {
 	InstallCommand *string `pulumi:"installCommand"`
 	// The desired name for the project.
 	Name *string `pulumi:"name"`
+	// Configuration for OpenID Connect (OIDC) tokens.
+	OidcTokenConfig *ProjectOidcTokenConfig `pulumi:"oidcTokenConfig"`
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist *ProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
@@ -393,6 +401,8 @@ type ProjectArgs struct {
 	InstallCommand pulumi.StringPtrInput
 	// The desired name for the project.
 	Name pulumi.StringPtrInput
+	// Configuration for OpenID Connect (OIDC) tokens.
+	OidcTokenConfig ProjectOidcTokenConfigPtrInput
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist ProjectOptionsAllowlistPtrInput
 	// The output directory of the project. If omitted, this value will be automatically detected.
@@ -586,6 +596,11 @@ func (o ProjectOutput) InstallCommand() pulumi.StringPtrOutput {
 // The desired name for the project.
 func (o ProjectOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Configuration for OpenID Connect (OIDC) tokens.
+func (o ProjectOutput) OidcTokenConfig() ProjectOidcTokenConfigOutput {
+	return o.ApplyT(func(v *Project) ProjectOidcTokenConfigOutput { return v.OidcTokenConfig }).(ProjectOidcTokenConfigOutput)
 }
 
 // Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.

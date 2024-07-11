@@ -97,6 +97,8 @@ type LookupProjectResult struct {
 	InstallCommand string `pulumi:"installCommand"`
 	// The name of the project.
 	Name string `pulumi:"name"`
+	// Configuration for OpenID Connect (OIDC) tokens.
+	OidcTokenConfig GetProjectOidcTokenConfig `pulumi:"oidcTokenConfig"`
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist GetProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. When null is used this value will be automatically detected.
@@ -248,6 +250,11 @@ func (o LookupProjectResultOutput) InstallCommand() pulumi.StringOutput {
 // The name of the project.
 func (o LookupProjectResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Configuration for OpenID Connect (OIDC) tokens.
+func (o LookupProjectResultOutput) OidcTokenConfig() GetProjectOidcTokenConfigOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectOidcTokenConfig { return v.OidcTokenConfig }).(GetProjectOidcTokenConfigOutput)
 }
 
 // Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.

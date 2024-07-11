@@ -59,7 +59,7 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.DeploymentProjectSettings?> ProjectSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         /// </summary>
         [Output("ref")]
         public Output<string?> Ref { get; private set; } = null!;
@@ -175,7 +175,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.DeploymentProjectSettingsArgs>? ProjectSettings { get; set; }
 
         /// <summary>
-        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         /// </summary>
         [Input("ref")]
         public Input<string>? Ref { get; set; }
@@ -258,7 +258,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.DeploymentProjectSettingsGetArgs>? ProjectSettings { get; set; }
 
         /// <summary>
-        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.
+        /// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         /// </summary>
         [Input("ref")]
         public Input<string>? Ref { get; set; }

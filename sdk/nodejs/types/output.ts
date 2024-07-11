@@ -123,6 +123,13 @@ export interface GetProjectGitRepositoryDeployHook {
     url: string;
 }
 
+export interface GetProjectOidcTokenConfig {
+    /**
+     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     */
+    enabled: boolean;
+}
+
 export interface GetProjectOptionsAllowlist {
     /**
      * The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
@@ -242,6 +249,13 @@ export interface ProjectGitRepositoryDeployHook {
      * A URL that, when a POST request is made to, will trigger a new deployment.
      */
     url: string;
+}
+
+export interface ProjectOidcTokenConfig {
+    /**
+     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     */
+    enabled: boolean;
 }
 
 export interface ProjectOptionsAllowlist {
