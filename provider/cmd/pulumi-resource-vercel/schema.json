@@ -261,6 +261,18 @@
                 }
             }
         },
+        "vercel:index/ProjectOidcTokenConfig:ProjectOidcTokenConfig": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled"
+            ]
+        },
         "vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist": {
             "properties": {
                 "paths": {
@@ -496,6 +508,23 @@
                 "name",
                 "ref",
                 "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectOidcTokenConfig:getProjectOidcTokenConfig": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled"
             ],
             "language": {
                 "nodejs": {
@@ -825,7 +854,7 @@
                 },
                 "ref": {
                     "type": "string",
-                    "description": "The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.\n"
+                    "description": "The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -879,7 +908,7 @@
                 },
                 "ref": {
                     "type": "string",
-                    "description": "The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.\n"
+                    "description": "The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -934,7 +963,7 @@
                     },
                     "ref": {
                         "type": "string",
-                        "description": "The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `ref` is not set.\n"
+                        "description": "The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.\n"
                     },
                     "teamId": {
                         "type": "string",
@@ -1486,6 +1515,10 @@
                     "type": "string",
                     "description": "The desired name for the project.\n"
                 },
+                "oidcTokenConfig": {
+                    "$ref": "#/types/vercel:index/ProjectOidcTokenConfig:ProjectOidcTokenConfig",
+                    "description": "Configuration for OpenID Connect (OIDC) tokens.\n"
+                },
                 "optionsAllowlist": {
                     "$ref": "#/types/vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist",
                     "description": "Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.\n"
@@ -1552,6 +1585,7 @@
                 "gitForkProtection",
                 "gitLfs",
                 "name",
+                "oidcTokenConfig",
                 "prioritiseProductionBuilds",
                 "protectionBypassForAutomationSecret",
                 "serverlessFunctionRegion",
@@ -1625,6 +1659,10 @@
                 "name": {
                     "type": "string",
                     "description": "The desired name for the project.\n"
+                },
+                "oidcTokenConfig": {
+                    "$ref": "#/types/vercel:index/ProjectOidcTokenConfig:ProjectOidcTokenConfig",
+                    "description": "Configuration for OpenID Connect (OIDC) tokens.\n"
                 },
                 "optionsAllowlist": {
                     "$ref": "#/types/vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist",
@@ -1748,6 +1786,10 @@
                     "name": {
                         "type": "string",
                         "description": "The desired name for the project.\n"
+                    },
+                    "oidcTokenConfig": {
+                        "$ref": "#/types/vercel:index/ProjectOidcTokenConfig:ProjectOidcTokenConfig",
+                        "description": "Configuration for OpenID Connect (OIDC) tokens.\n"
                     },
                     "optionsAllowlist": {
                         "$ref": "#/types/vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist",
@@ -2914,6 +2956,10 @@
                         "type": "string",
                         "description": "The name of the project.\n"
                     },
+                    "oidcTokenConfig": {
+                        "$ref": "#/types/vercel:index/getProjectOidcTokenConfig:getProjectOidcTokenConfig",
+                        "description": "Configuration for OpenID Connect (OIDC) tokens.\n"
+                    },
                     "optionsAllowlist": {
                         "$ref": "#/types/vercel:index/getProjectOptionsAllowlist:getProjectOptionsAllowlist",
                         "description": "Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.\n"
@@ -2986,6 +3032,7 @@
                     "ignoreCommand",
                     "installCommand",
                     "name",
+                    "oidcTokenConfig",
                     "optionsAllowlist",
                     "outputDirectory",
                     "passwordProtection",
