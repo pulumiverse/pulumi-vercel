@@ -43,7 +43,7 @@ import (
 //			}
 //			_, err = vercel.NewDeployment(ctx, "exampleDeployment", &vercel.DeploymentArgs{
 //				ProjectId: pulumi.String(exampleProject.Id),
-//				Files:     interface{}(exampleFile.File),
+//				Files:     pulumi.StringMap(exampleFile.File),
 //			})
 //			if err != nil {
 //				return err
