@@ -1016,20 +1016,20 @@ class Project(pulumi.CustomResource):
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
-                 environments: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]]] = None,
+                 environments: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]]] = None,
                  framework: Optional[pulumi.Input[str]] = None,
                  function_failover: Optional[pulumi.Input[bool]] = None,
-                 git_comments: Optional[pulumi.Input[pulumi.InputType['ProjectGitCommentsArgs']]] = None,
+                 git_comments: Optional[pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']]] = None,
                  git_fork_protection: Optional[pulumi.Input[bool]] = None,
                  git_lfs: Optional[pulumi.Input[bool]] = None,
-                 git_repository: Optional[pulumi.Input[pulumi.InputType['ProjectGitRepositoryArgs']]] = None,
+                 git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 oidc_token_config: Optional[pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']]] = None,
-                 options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
+                 oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
+                 options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
-                 password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
+                 password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
@@ -1038,8 +1038,8 @@ class Project(pulumi.CustomResource):
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  skew_protection: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
-                 trusted_ips: Optional[pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']]] = None,
-                 vercel_authentication: Optional[pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']]] = None,
+                 trusted_ips: Optional[pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']]] = None,
+                 vercel_authentication: Optional[pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']]] = None,
                  __props__=None):
         """
         ## Example Usage
@@ -1053,10 +1053,10 @@ class Project(pulumi.CustomResource):
         # on every branch push and merges onto the Production Branch.
         with_git = vercel.Project("withGit",
             framework="nextjs",
-            git_repository=vercel.ProjectGitRepositoryArgs(
-                repo="vercel/some-repo",
-                type="github",
-            ))
+            git_repository={
+                "repo": "vercel/some-repo",
+                "type": "github",
+            })
         # A project that is not connected to a git repository.
         # Deployments will need to be created manually through
         # terraform, or via the vercel CLI.
@@ -1093,20 +1093,20 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]] environments: A set of Environment Variables that should be configured for the project.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        :param pulumi.Input[pulumi.InputType['ProjectGitCommentsArgs']] git_comments: Configuration for Git Comments.
+        :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
         :param pulumi.Input[bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
-        :param pulumi.Input[pulumi.InputType['ProjectGitRepositoryArgs']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+        :param pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
-        :param pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
-        :param pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        :param pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
+        :param pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
@@ -1115,8 +1115,8 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
-        :param pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
-        :param pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
+        :param pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
+        :param pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         ...
     @overload
@@ -1136,10 +1136,10 @@ class Project(pulumi.CustomResource):
         # on every branch push and merges onto the Production Branch.
         with_git = vercel.Project("withGit",
             framework="nextjs",
-            git_repository=vercel.ProjectGitRepositoryArgs(
-                repo="vercel/some-repo",
-                type="github",
-            ))
+            git_repository={
+                "repo": "vercel/some-repo",
+                "type": "github",
+            })
         # A project that is not connected to a git repository.
         # Deployments will need to be created manually through
         # terraform, or via the vercel CLI.
@@ -1189,20 +1189,20 @@ class Project(pulumi.CustomResource):
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
-                 environments: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]]] = None,
+                 environments: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]]] = None,
                  framework: Optional[pulumi.Input[str]] = None,
                  function_failover: Optional[pulumi.Input[bool]] = None,
-                 git_comments: Optional[pulumi.Input[pulumi.InputType['ProjectGitCommentsArgs']]] = None,
+                 git_comments: Optional[pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']]] = None,
                  git_fork_protection: Optional[pulumi.Input[bool]] = None,
                  git_lfs: Optional[pulumi.Input[bool]] = None,
-                 git_repository: Optional[pulumi.Input[pulumi.InputType['ProjectGitRepositoryArgs']]] = None,
+                 git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 oidc_token_config: Optional[pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']]] = None,
-                 options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
+                 oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
+                 options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
-                 password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
+                 password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
@@ -1211,8 +1211,8 @@ class Project(pulumi.CustomResource):
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  skew_protection: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
-                 trusted_ips: Optional[pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']]] = None,
-                 vercel_authentication: Optional[pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']]] = None,
+                 trusted_ips: Optional[pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']]] = None,
+                 vercel_authentication: Optional[pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1269,20 +1269,20 @@ class Project(pulumi.CustomResource):
             customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
             dev_command: Optional[pulumi.Input[str]] = None,
             directory_listing: Optional[pulumi.Input[bool]] = None,
-            environments: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]]] = None,
+            environments: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]]] = None,
             framework: Optional[pulumi.Input[str]] = None,
             function_failover: Optional[pulumi.Input[bool]] = None,
-            git_comments: Optional[pulumi.Input[pulumi.InputType['ProjectGitCommentsArgs']]] = None,
+            git_comments: Optional[pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']]] = None,
             git_fork_protection: Optional[pulumi.Input[bool]] = None,
             git_lfs: Optional[pulumi.Input[bool]] = None,
-            git_repository: Optional[pulumi.Input[pulumi.InputType['ProjectGitRepositoryArgs']]] = None,
+            git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
             ignore_command: Optional[pulumi.Input[str]] = None,
             install_command: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
-            oidc_token_config: Optional[pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']]] = None,
-            options_allowlist: Optional[pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']]] = None,
+            oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
+            options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
             output_directory: Optional[pulumi.Input[str]] = None,
-            password_protection: Optional[pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']]] = None,
+            password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
             preview_comments: Optional[pulumi.Input[bool]] = None,
             prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
             protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
@@ -1292,8 +1292,8 @@ class Project(pulumi.CustomResource):
             serverless_function_region: Optional[pulumi.Input[str]] = None,
             skew_protection: Optional[pulumi.Input[str]] = None,
             team_id: Optional[pulumi.Input[str]] = None,
-            trusted_ips: Optional[pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']]] = None,
-            vercel_authentication: Optional[pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']]] = None) -> 'Project':
+            trusted_ips: Optional[pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']]] = None,
+            vercel_authentication: Optional[pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']]] = None) -> 'Project':
         """
         Get an existing Project resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1307,20 +1307,20 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ProjectEnvironmentArgs']]]] environments: A set of Environment Variables that should be configured for the project.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        :param pulumi.Input[pulumi.InputType['ProjectGitCommentsArgs']] git_comments: Configuration for Git Comments.
+        :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
         :param pulumi.Input[bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
-        :param pulumi.Input[pulumi.InputType['ProjectGitRepositoryArgs']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+        :param pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
-        :param pulumi.Input[pulumi.InputType['ProjectOidcTokenConfigArgs']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
-        :param pulumi.Input[pulumi.InputType['ProjectOptionsAllowlistArgs']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        :param pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
+        :param pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[pulumi.InputType['ProjectPasswordProtectionArgs']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
@@ -1330,8 +1330,8 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
         :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
-        :param pulumi.Input[pulumi.InputType['ProjectTrustedIpsArgs']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
-        :param pulumi.Input[pulumi.InputType['ProjectVercelAuthenticationArgs']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
+        :param pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
+        :param pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 

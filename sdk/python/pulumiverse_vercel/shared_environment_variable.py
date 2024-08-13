@@ -240,10 +240,10 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository=vercel.ProjectGitRepositoryArgs(
-            type="github",
-            repo="vercel/some-repo",
-        ))
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
         # A shared environment variable that will be created
         # and associated with the "example" project.
         example_shared_environment_variable = vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable",
@@ -297,10 +297,10 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository=vercel.ProjectGitRepositoryArgs(
-            type="github",
-            repo="vercel/some-repo",
-        ))
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
         # A shared environment variable that will be created
         # and associated with the "example" project.
         example_shared_environment_variable = vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable",
