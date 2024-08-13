@@ -352,7 +352,7 @@ class DnsRecord(pulumi.CustomResource):
                  domain: Optional[pulumi.Input[str]] = None,
                  mx_priority: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 srv: Optional[pulumi.Input[pulumi.InputType['DnsRecordSrvArgs']]] = None,
+                 srv: Optional[pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
                  ttl: Optional[pulumi.Input[int]] = None,
                  type: Optional[pulumi.Input[str]] = None,
@@ -406,12 +406,12 @@ class DnsRecord(pulumi.CustomResource):
             value="example2.com.")
         srv = vercel.DnsRecord("srv",
             domain="example.com",
-            srv=vercel.DnsRecordSrvArgs(
-                port=6000,
-                priority=127,
-                target="example2.com.",
-                weight=60,
-            ),
+            srv={
+                "port": 6000,
+                "priority": 127,
+                "target": "example2.com.",
+                "weight": 60,
+            },
             ttl=60,
             type="SRV")
         txt = vercel.DnsRecord("txt",
@@ -453,7 +453,7 @@ class DnsRecord(pulumi.CustomResource):
         :param pulumi.Input[str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
-        :param pulumi.Input[pulumi.InputType['DnsRecordSrvArgs']] srv: Settings for an SRV record.
+        :param pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']] srv: Settings for an SRV record.
         :param pulumi.Input[str] team_id: The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[int] ttl: The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
         :param pulumi.Input[str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
@@ -520,12 +520,12 @@ class DnsRecord(pulumi.CustomResource):
             value="example2.com.")
         srv = vercel.DnsRecord("srv",
             domain="example.com",
-            srv=vercel.DnsRecordSrvArgs(
-                port=6000,
-                priority=127,
-                target="example2.com.",
-                weight=60,
-            ),
+            srv={
+                "port": 6000,
+                "priority": 127,
+                "target": "example2.com.",
+                "weight": 60,
+            },
             ttl=60,
             type="SRV")
         txt = vercel.DnsRecord("txt",
@@ -580,7 +580,7 @@ class DnsRecord(pulumi.CustomResource):
                  domain: Optional[pulumi.Input[str]] = None,
                  mx_priority: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 srv: Optional[pulumi.Input[pulumi.InputType['DnsRecordSrvArgs']]] = None,
+                 srv: Optional[pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
                  ttl: Optional[pulumi.Input[int]] = None,
                  type: Optional[pulumi.Input[str]] = None,
@@ -621,7 +621,7 @@ class DnsRecord(pulumi.CustomResource):
             domain: Optional[pulumi.Input[str]] = None,
             mx_priority: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
-            srv: Optional[pulumi.Input[pulumi.InputType['DnsRecordSrvArgs']]] = None,
+            srv: Optional[pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']]] = None,
             team_id: Optional[pulumi.Input[str]] = None,
             ttl: Optional[pulumi.Input[int]] = None,
             type: Optional[pulumi.Input[str]] = None,
@@ -637,7 +637,7 @@ class DnsRecord(pulumi.CustomResource):
         :param pulumi.Input[str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
-        :param pulumi.Input[pulumi.InputType['DnsRecordSrvArgs']] srv: Settings for an SRV record.
+        :param pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']] srv: Settings for an SRV record.
         :param pulumi.Input[str] team_id: The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[int] ttl: The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
         :param pulumi.Input[str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.

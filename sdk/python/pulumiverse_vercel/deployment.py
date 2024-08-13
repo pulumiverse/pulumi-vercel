@@ -351,7 +351,7 @@ class Deployment(pulumi.CustomResource):
                  path_prefix: Optional[pulumi.Input[str]] = None,
                  production: Optional[pulumi.Input[bool]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
-                 project_settings: Optional[pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']]] = None,
+                 project_settings: Optional[pulumi.Input[Union['DeploymentProjectSettingsArgs', 'DeploymentProjectSettingsArgsDict']]] = None,
                  ref: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -364,7 +364,7 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
-        :param pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']] project_settings: Project settings that will be applied to the deployment.
+        :param pulumi.Input[Union['DeploymentProjectSettingsArgs', 'DeploymentProjectSettingsArgsDict']] project_settings: Project settings that will be applied to the deployment.
         :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -397,7 +397,7 @@ class Deployment(pulumi.CustomResource):
                  path_prefix: Optional[pulumi.Input[str]] = None,
                  production: Optional[pulumi.Input[bool]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
-                 project_settings: Optional[pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']]] = None,
+                 project_settings: Optional[pulumi.Input[Union['DeploymentProjectSettingsArgs', 'DeploymentProjectSettingsArgsDict']]] = None,
                  ref: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -439,7 +439,7 @@ class Deployment(pulumi.CustomResource):
             path_prefix: Optional[pulumi.Input[str]] = None,
             production: Optional[pulumi.Input[bool]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
-            project_settings: Optional[pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']]] = None,
+            project_settings: Optional[pulumi.Input[Union['DeploymentProjectSettingsArgs', 'DeploymentProjectSettingsArgsDict']]] = None,
             ref: Optional[pulumi.Input[str]] = None,
             team_id: Optional[pulumi.Input[str]] = None,
             url: Optional[pulumi.Input[str]] = None) -> 'Deployment':
@@ -456,7 +456,7 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
-        :param pulumi.Input[pulumi.InputType['DeploymentProjectSettingsArgs']] project_settings: Project settings that will be applied to the deployment.
+        :param pulumi.Input[Union['DeploymentProjectSettingsArgs', 'DeploymentProjectSettingsArgsDict']] project_settings: Project settings that will be applied to the deployment.
         :param pulumi.Input[str] ref: The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.

@@ -267,10 +267,10 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository=vercel.ProjectGitRepositoryArgs(
-            type="github",
-            repo="vercel/some-repo",
-        ))
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
         # An environment variable that will be created
         # for this project for the "production" environment.
         example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
@@ -359,10 +359,10 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository=vercel.ProjectGitRepositoryArgs(
-            type="github",
-            repo="vercel/some-repo",
-        ))
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
         # An environment variable that will be created
         # for this project for the "production" environment.
         example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
