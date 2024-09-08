@@ -1,10 +1,12 @@
 module github.com/pulumiverse/pulumi-vercel/provider
 
-go 1.21.12
+go 1.22
+
+toolchain go1.23.1
 
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.42.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.89.1
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.90.0
 	github.com/vercel/terraform-provider-vercel v1.12.0
 	golang.org/x/text v0.18.0
 )
@@ -168,8 +170,8 @@ require (
 	github.com/pulumi/pulumi-java/pkg v0.14.0 // indirect
 	github.com/pulumi/pulumi-terraform-bridge/x/muxer v0.0.8 // indirect
 	github.com/pulumi/pulumi-yaml v1.9.2 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.129.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.129.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.130.0 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.130.0 // indirect
 	github.com/pulumi/schema-tools v0.1.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
