@@ -87,6 +87,10 @@
                     }
                 }
             },
+            "vercel_project_deployment_retention": {
+                "current": "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention",
+                "majorVersion": 1
+            },
             "vercel_project_domain": {
                 "current": "vercel:index/projectDomain:ProjectDomain",
                 "majorVersion": 1
@@ -222,6 +226,10 @@
                         }
                     }
                 }
+            },
+            "vercel_project_deployment_retention": {
+                "current": "vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention",
+                "majorVersion": 1
             },
             "vercel_project_directory": {
                 "current": "vercel:index/getProjectDirectory:getProjectDirectory",

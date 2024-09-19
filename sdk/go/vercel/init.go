@@ -39,6 +39,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &LogDrain{}
 	case "vercel:index/project:Project":
 		r = &Project{}
+	case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
+		r = &ProjectDeploymentRetention{}
 	case "vercel:index/projectDomain:ProjectDomain":
 		r = &ProjectDomain{}
 	case "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable":
@@ -123,6 +125,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/project",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/projectDeploymentRetention",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
