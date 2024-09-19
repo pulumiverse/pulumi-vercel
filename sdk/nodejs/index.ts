@@ -95,6 +95,11 @@ export const getProject: typeof import("./getProject").getProject = null as any;
 export const getProjectOutput: typeof import("./getProject").getProjectOutput = null as any;
 utilities.lazyLoad(exports, ["getProject","getProjectOutput"], () => require("./getProject"));
 
+export { GetProjectDeploymentRetentionArgs, GetProjectDeploymentRetentionResult, GetProjectDeploymentRetentionOutputArgs } from "./getProjectDeploymentRetention";
+export const getProjectDeploymentRetention: typeof import("./getProjectDeploymentRetention").getProjectDeploymentRetention = null as any;
+export const getProjectDeploymentRetentionOutput: typeof import("./getProjectDeploymentRetention").getProjectDeploymentRetentionOutput = null as any;
+utilities.lazyLoad(exports, ["getProjectDeploymentRetention","getProjectDeploymentRetentionOutput"], () => require("./getProjectDeploymentRetention"));
+
 export { GetProjectDirectoryArgs, GetProjectDirectoryResult, GetProjectDirectoryOutputArgs } from "./getProjectDirectory";
 export const getProjectDirectory: typeof import("./getProjectDirectory").getProjectDirectory = null as any;
 export const getProjectDirectoryOutput: typeof import("./getProjectDirectory").getProjectDirectoryOutput = null as any;
@@ -119,6 +124,11 @@ export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
 utilities.lazyLoad(exports, ["Project"], () => require("./project"));
+
+export { ProjectDeploymentRetentionArgs, ProjectDeploymentRetentionState } from "./projectDeploymentRetention";
+export type ProjectDeploymentRetention = import("./projectDeploymentRetention").ProjectDeploymentRetention;
+export const ProjectDeploymentRetention: typeof import("./projectDeploymentRetention").ProjectDeploymentRetention = null as any;
+utilities.lazyLoad(exports, ["ProjectDeploymentRetention"], () => require("./projectDeploymentRetention"));
 
 export { ProjectDomainArgs, ProjectDomainState } from "./projectDomain";
 export type ProjectDomain = import("./projectDomain").ProjectDomain;
@@ -182,6 +192,8 @@ const _module = {
                 return new LogDrain(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
+            case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
+                return new ProjectDeploymentRetention(name, <any>undefined, { urn })
             case "vercel:index/projectDomain:ProjectDomain":
                 return new ProjectDomain(name, <any>undefined, { urn })
             case "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable":
@@ -206,6 +218,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _modul
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectFunctionCpu", _module)

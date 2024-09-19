@@ -23,11 +23,13 @@ from .get_file import *
 from .get_log_drain import *
 from .get_prebuilt_project import *
 from .get_project import *
+from .get_project_deployment_retention import *
 from .get_project_directory import *
 from .get_project_function_cpu import *
 from .get_shared_environment_variable import *
 from .log_drain import *
 from .project import *
+from .project_deployment_retention import *
 from .project_domain import *
 from .project_environment_variable import *
 from .project_function_cpu import *
@@ -117,6 +119,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/project:Project": "Project"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectDeploymentRetention",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention": "ProjectDeploymentRetention"
   }
  },
  {

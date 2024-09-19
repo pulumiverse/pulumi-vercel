@@ -1851,6 +1851,102 @@
                 "type": "object"
             }
         },
+        "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention": {
+            "description": "Provides a Project Deployment Retention resource.\n\nA Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {gitRepository: {\n    type: \"github\",\n    repo: \"vercel/some-repo\",\n}});\n// An unlimited deployment retention policy that will be created\n// for this project for all deployments.\nconst exampleUnlimited = new vercel.ProjectDeploymentRetention(\"exampleUnlimited\", {\n    projectId: example.id,\n    teamId: example.teamId,\n    expirationPreview: \"unlimited\",\n    expirationProduction: \"unlimited\",\n    expirationCanceled: \"unlimited\",\n    expirationErrored: \"unlimited\",\n});\n// A customized deployment retention policy that will be created\n// for this project for all deployments.\nconst exampleCustomized = new vercel.ProjectDeploymentRetention(\"exampleCustomized\", {\n    projectId: example.id,\n    teamId: example.teamId,\n    expirationPreview: \"3m\",\n    expirationProduction: \"1y\",\n    expirationCanceled: \"1m\",\n    expirationErrored: \"2m\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", git_repository={\n    \"type\": \"github\",\n    \"repo\": \"vercel/some-repo\",\n})\n# An unlimited deployment retention policy that will be created\n# for this project for all deployments.\nexample_unlimited = vercel.ProjectDeploymentRetention(\"exampleUnlimited\",\n    project_id=example.id,\n    team_id=example.team_id,\n    expiration_preview=\"unlimited\",\n    expiration_production=\"unlimited\",\n    expiration_canceled=\"unlimited\",\n    expiration_errored=\"unlimited\")\n# A customized deployment retention policy that will be created\n# for this project for all deployments.\nexample_customized = vercel.ProjectDeploymentRetention(\"exampleCustomized\",\n    project_id=example.id,\n    team_id=example.team_id,\n    expiration_preview=\"3m\",\n    expiration_production=\"1y\",\n    expiration_canceled=\"1m\",\n    expiration_errored=\"2m\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // An unlimited deployment retention policy that will be created\n    // for this project for all deployments.\n    var exampleUnlimited = new Vercel.ProjectDeploymentRetention(\"exampleUnlimited\", new()\n    {\n        ProjectId = example.Id,\n        TeamId = example.TeamId,\n        ExpirationPreview = \"unlimited\",\n        ExpirationProduction = \"unlimited\",\n        ExpirationCanceled = \"unlimited\",\n        ExpirationErrored = \"unlimited\",\n    });\n\n    // A customized deployment retention policy that will be created\n    // for this project for all deployments.\n    var exampleCustomized = new Vercel.ProjectDeploymentRetention(\"exampleCustomized\", new()\n    {\n        ProjectId = example.Id,\n        TeamId = example.TeamId,\n        ExpirationPreview = \"3m\",\n        ExpirationProduction = \"1y\",\n        ExpirationCanceled = \"1m\",\n        ExpirationErrored = \"2m\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An unlimited deployment retention policy that will be created\n\t\t// for this project for all deployments.\n\t\t_, err = vercel.NewProjectDeploymentRetention(ctx, \"exampleUnlimited\", \u0026vercel.ProjectDeploymentRetentionArgs{\n\t\t\tProjectId:            example.ID(),\n\t\t\tTeamId:               example.TeamId,\n\t\t\tExpirationPreview:    pulumi.String(\"unlimited\"),\n\t\t\tExpirationProduction: pulumi.String(\"unlimited\"),\n\t\t\tExpirationCanceled:   pulumi.String(\"unlimited\"),\n\t\t\tExpirationErrored:    pulumi.String(\"unlimited\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A customized deployment retention policy that will be created\n\t\t// for this project for all deployments.\n\t\t_, err = vercel.NewProjectDeploymentRetention(ctx, \"exampleCustomized\", \u0026vercel.ProjectDeploymentRetentionArgs{\n\t\t\tProjectId:            example.ID(),\n\t\t\tTeamId:               example.TeamId,\n\t\t\tExpirationPreview:    pulumi.String(\"3m\"),\n\t\t\tExpirationProduction: pulumi.String(\"1y\"),\n\t\t\tExpirationCanceled:   pulumi.String(\"1m\"),\n\t\t\tExpirationErrored:    pulumi.String(\"2m\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.ProjectDeploymentRetention;\nimport com.pulumi.vercel.ProjectDeploymentRetentionArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // An unlimited deployment retention policy that will be created\n        // for this project for all deployments.\n        var exampleUnlimited = new ProjectDeploymentRetention(\"exampleUnlimited\", ProjectDeploymentRetentionArgs.builder()\n            .projectId(example.id())\n            .teamId(example.teamId())\n            .expirationPreview(\"unlimited\")\n            .expirationProduction(\"unlimited\")\n            .expirationCanceled(\"unlimited\")\n            .expirationErrored(\"unlimited\")\n            .build());\n\n        // A customized deployment retention policy that will be created\n        // for this project for all deployments.\n        var exampleCustomized = new ProjectDeploymentRetention(\"exampleCustomized\", ProjectDeploymentRetentionArgs.builder()\n            .projectId(example.id())\n            .teamId(example.teamId())\n            .expirationPreview(\"3m\")\n            .expirationProduction(\"1y\")\n            .expirationCanceled(\"1m\")\n            .expirationErrored(\"2m\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # An unlimited deployment retention policy that will be created\n  # for this project for all deployments.\n  exampleUnlimited:\n    type: vercel:ProjectDeploymentRetention\n    properties:\n      projectId: ${example.id}\n      teamId: ${example.teamId}\n      expirationPreview: unlimited\n      expirationProduction: unlimited\n      expirationCanceled: unlimited\n      expirationErrored: unlimited\n  # A customized deployment retention policy that will be created\n  # for this project for all deployments.\n  exampleCustomized:\n    type: vercel:ProjectDeploymentRetention\n    properties:\n      projectId: ${example.id}\n      teamId: ${example.teamId}\n      expirationPreview: 3m\n      expirationProduction: 1y\n      expirationCanceled: 1m\n      expirationErrored: 2m\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDeploymentRetention:ProjectDeploymentRetention example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "expirationCanceled": {
+                    "type": "string",
+                    "description": "The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "expirationErrored": {
+                    "type": "string",
+                    "description": "The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "expirationPreview": {
+                    "type": "string",
+                    "description": "The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "expirationProduction": {
+                    "type": "string",
+                    "description": "The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Project for the retention policy\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the Vercel team.\n"
+                }
+            },
+            "required": [
+                "expirationCanceled",
+                "expirationErrored",
+                "expirationPreview",
+                "expirationProduction",
+                "projectId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "expirationCanceled": {
+                    "type": "string",
+                    "description": "The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "expirationErrored": {
+                    "type": "string",
+                    "description": "The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "expirationPreview": {
+                    "type": "string",
+                    "description": "The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "expirationProduction": {
+                    "type": "string",
+                    "description": "The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Project for the retention policy\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the Vercel team.\n"
+                }
+            },
+            "requiredInputs": [
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ProjectDeploymentRetention resources.\n",
+                "properties": {
+                    "expirationCanceled": {
+                        "type": "string",
+                        "description": "The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                    },
+                    "expirationErrored": {
+                        "type": "string",
+                        "description": "The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                    },
+                    "expirationPreview": {
+                        "type": "string",
+                        "description": "The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                    },
+                    "expirationProduction": {
+                        "type": "string",
+                        "description": "The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project for the retention policy\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the Vercel team.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "vercel:index/projectDomain:ProjectDomain": {
             "description": "Provides a Project Domain resource.\n\nA Project Domain is used to associate a domain name with a `vercel.Project`.\n\nBy default, Project Domains will be automatically applied to any `production` deployments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {});\n// A simple domain that will be automatically\n// applied to each production deployment\nconst exampleProjectDomain = new vercel.ProjectDomain(\"exampleProjectDomain\", {\n    projectId: exampleProject.id,\n    domain: \"i-love.vercel.app\",\n});\n// A redirect of a domain name to a second domain name.\n// The status_code can optionally be controlled.\nconst exampleRedirect = new vercel.ProjectDomain(\"exampleRedirect\", {\n    projectId: exampleProject.id,\n    domain: \"i-also-love.vercel.app\",\n    redirect: exampleProjectDomain.domain,\n    redirectStatusCode: 307,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\")\n# A simple domain that will be automatically\n# applied to each production deployment\nexample_project_domain = vercel.ProjectDomain(\"exampleProjectDomain\",\n    project_id=example_project.id,\n    domain=\"i-love.vercel.app\")\n# A redirect of a domain name to a second domain name.\n# The status_code can optionally be controlled.\nexample_redirect = vercel.ProjectDomain(\"exampleRedirect\",\n    project_id=example_project.id,\n    domain=\"i-also-love.vercel.app\",\n    redirect=example_project_domain.domain,\n    redirect_status_code=307)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\");\n\n    // A simple domain that will be automatically\n    // applied to each production deployment\n    var exampleProjectDomain = new Vercel.ProjectDomain(\"exampleProjectDomain\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Domain = \"i-love.vercel.app\",\n    });\n\n    // A redirect of a domain name to a second domain name.\n    // The status_code can optionally be controlled.\n    var exampleRedirect = new Vercel.ProjectDomain(\"exampleRedirect\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Domain = \"i-also-love.vercel.app\",\n        Redirect = exampleProjectDomain.Domain,\n        RedirectStatusCode = 307,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A simple domain that will be automatically\n\t\t// applied to each production deployment\n\t\texampleProjectDomain, err := vercel.NewProjectDomain(ctx, \"exampleProjectDomain\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tDomain:    pulumi.String(\"i-love.vercel.app\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A redirect of a domain name to a second domain name.\n\t\t// The status_code can optionally be controlled.\n\t\t_, err = vercel.NewProjectDomain(ctx, \"exampleRedirect\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId:          exampleProject.ID(),\n\t\t\tDomain:             pulumi.String(\"i-also-love.vercel.app\"),\n\t\t\tRedirect:           exampleProjectDomain.Domain,\n\t\t\tRedirectStatusCode: pulumi.Int(307),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectDomain;\nimport com.pulumi.vercel.ProjectDomainArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        // A simple domain that will be automatically\n        // applied to each production deployment\n        var exampleProjectDomain = new ProjectDomain(\"exampleProjectDomain\", ProjectDomainArgs.builder()\n            .projectId(exampleProject.id())\n            .domain(\"i-love.vercel.app\")\n            .build());\n\n        // A redirect of a domain name to a second domain name.\n        // The status_code can optionally be controlled.\n        var exampleRedirect = new ProjectDomain(\"exampleRedirect\", ProjectDomainArgs.builder()\n            .projectId(exampleProject.id())\n            .domain(\"i-also-love.vercel.app\")\n            .redirect(exampleProjectDomain.domain())\n            .redirectStatusCode(307)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  # A simple domain that will be automatically\n  # applied to each production deployment\n  exampleProjectDomain:\n    type: vercel:ProjectDomain\n    properties:\n      projectId: ${exampleProject.id}\n      domain: i-love.vercel.app\n  # A redirect of a domain name to a second domain name.\n  # The status_code can optionally be controlled.\n  exampleRedirect:\n    type: vercel:ProjectDomain\n    properties:\n      projectId: ${exampleProject.id}\n      domain: i-also-love.vercel.app\n      redirect: ${exampleProjectDomain.domain}\n      redirectStatusCode: 307\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the project ID and domain.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com\n```\n\nAlternatively, you can import via the team_id, project_id and domain name.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com\n```\n\n",
             "properties": {
@@ -3046,6 +3142,69 @@
                     "teamId",
                     "trustedIps",
                     "vercelAuthentication"
+                ]
+            }
+        },
+        "vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention": {
+            "description": "Provides a Project Deployment Retention datasource.\n\nA Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getProjectDeploymentRetention.\n",
+                "properties": {
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project for the retention policy\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the Vercel team.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProjectDeploymentRetention.\n",
+                "properties": {
+                    "expirationCanceled": {
+                        "type": "string",
+                        "description": "The retention period for canceled deployments.\n"
+                    },
+                    "expirationErrored": {
+                        "type": "string",
+                        "description": "The retention period for errored deployments.\n"
+                    },
+                    "expirationPreview": {
+                        "type": "string",
+                        "description": "The retention period for preview deployments.\n"
+                    },
+                    "expirationProduction": {
+                        "type": "string",
+                        "description": "The retention period for production deployments.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Project for the retention policy\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the Vercel team.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "expirationCanceled",
+                    "expirationErrored",
+                    "expirationPreview",
+                    "expirationProduction",
+                    "id",
+                    "projectId",
+                    "teamId"
                 ]
             }
         },

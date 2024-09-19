@@ -15,13 +15,16 @@
 package vercel
 
 import (
+	"context"
 	_ "embed" // nolint: golint
 	"fmt"
 	"path/filepath"
+	"strings"
 
 	pf "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumiverse/pulumi-vercel/provider/pkg/version"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -67,6 +70,12 @@ func Provider() tfbridge.ProviderInfo {
 					"alias": {
 						CSharpName: "DeploymentAlias",
 					},
+				},
+			},
+			"vercel_project_deployment_retention": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 		},
