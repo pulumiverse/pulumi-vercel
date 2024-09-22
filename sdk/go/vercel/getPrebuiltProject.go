@@ -37,14 +37,20 @@ type GetPrebuiltProjectResult struct {
 
 func GetPrebuiltProjectOutput(ctx *pulumi.Context, args GetPrebuiltProjectOutputArgs, opts ...pulumi.InvokeOption) GetPrebuiltProjectResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetPrebuiltProjectResult, error) {
+		ApplyT(func(v interface{}) (GetPrebuiltProjectResultOutput, error) {
 			args := v.(GetPrebuiltProjectArgs)
-			r, err := GetPrebuiltProject(ctx, &args, opts...)
-			var s GetPrebuiltProjectResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetPrebuiltProjectResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getPrebuiltProject:getPrebuiltProject", args, &rv, "", opts...)
+			if err != nil {
+				return GetPrebuiltProjectResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetPrebuiltProjectResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetPrebuiltProjectResultOutput), nil
+			}
+			return output, nil
 		}).(GetPrebuiltProjectResultOutput)
 }
 

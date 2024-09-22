@@ -10,7 +10,6 @@ import * as utilities from "./utilities";
  * An Alias allows a `vercel.Deployment` to be accessed through a different URL.
  */
 export function getAlias(args: GetAliasArgs, opts?: pulumi.InvokeOptions): Promise<GetAliasResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getAlias:getAlias", {
         "alias": args.alias,
@@ -59,7 +58,11 @@ export interface GetAliasResult {
  * An Alias allows a `vercel.Deployment` to be accessed through a different URL.
  */
 export function getAliasOutput(args: GetAliasOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAliasResult> {
-    return pulumi.output(args).apply((a: any) => getAlias(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getAlias:getAlias", {
+        "alias": args.alias,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

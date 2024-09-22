@@ -11,6 +11,8 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
+// > This data source has been deprecated and no longer works. Please use the `Project` data source and its `resourceConfig` attribute instead.
+//
 // Provides information about a Project's Function CPU setting.
 //
 // This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.
@@ -78,14 +80,20 @@ type LookupProjectFunctionCpuResult struct {
 
 func LookupProjectFunctionCpuOutput(ctx *pulumi.Context, args LookupProjectFunctionCpuOutputArgs, opts ...pulumi.InvokeOption) LookupProjectFunctionCpuResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupProjectFunctionCpuResult, error) {
+		ApplyT(func(v interface{}) (LookupProjectFunctionCpuResultOutput, error) {
 			args := v.(LookupProjectFunctionCpuArgs)
-			r, err := LookupProjectFunctionCpu(ctx, &args, opts...)
-			var s LookupProjectFunctionCpuResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupProjectFunctionCpuResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getProjectFunctionCpu:getProjectFunctionCpu", args, &rv, "", opts...)
+			if err != nil {
+				return LookupProjectFunctionCpuResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupProjectFunctionCpuResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupProjectFunctionCpuResultOutput), nil
+			}
+			return output, nil
 		}).(LookupProjectFunctionCpuResultOutput)
 }
 

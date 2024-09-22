@@ -81,14 +81,20 @@ type LookupEdgeConfigTokenResult struct {
 
 func LookupEdgeConfigTokenOutput(ctx *pulumi.Context, args LookupEdgeConfigTokenOutputArgs, opts ...pulumi.InvokeOption) LookupEdgeConfigTokenResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupEdgeConfigTokenResult, error) {
+		ApplyT(func(v interface{}) (LookupEdgeConfigTokenResultOutput, error) {
 			args := v.(LookupEdgeConfigTokenArgs)
-			r, err := LookupEdgeConfigToken(ctx, &args, opts...)
-			var s LookupEdgeConfigTokenResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupEdgeConfigTokenResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getEdgeConfigToken:getEdgeConfigToken", args, &rv, "", opts...)
+			if err != nil {
+				return LookupEdgeConfigTokenResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupEdgeConfigTokenResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupEdgeConfigTokenResultOutput), nil
+			}
+			return output, nil
 		}).(LookupEdgeConfigTokenResultOutput)
 }
 

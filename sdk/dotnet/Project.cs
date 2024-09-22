@@ -221,6 +221,12 @@ namespace Pulumiverse.Vercel
         public Output<bool?> PublicSource { get; private set; } = null!;
 
         /// <summary>
+        /// Resource Configuration for the project.
+        /// </summary>
+        [Output("resourceConfig")]
+        public Output<Outputs.ProjectResourceConfig> ResourceConfig { get; private set; } = null!;
+
+        /// <summary>
         /// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         /// </summary>
         [Output("rootDirectory")]
@@ -454,6 +460,12 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PublicSource { get; set; }
 
         /// <summary>
+        /// Resource Configuration for the project.
+        /// </summary>
+        [Input("resourceConfig")]
+        public Input<Inputs.ProjectResourceConfigArgs>? ResourceConfig { get; set; }
+
+        /// <summary>
         /// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         /// </summary>
         [Input("rootDirectory")]
@@ -652,6 +664,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("publicSource")]
         public Input<bool>? PublicSource { get; set; }
+
+        /// <summary>
+        /// Resource Configuration for the project.
+        /// </summary>
+        [Input("resourceConfig")]
+        public Input<Inputs.ProjectResourceConfigGetArgs>? ResourceConfig { get; set; }
 
         /// <summary>
         /// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.

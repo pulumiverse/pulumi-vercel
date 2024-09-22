@@ -12,7 +12,6 @@ import * as utilities from "./utilities";
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
  */
 export function getProjectDeploymentRetention(args: GetProjectDeploymentRetentionArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectDeploymentRetentionResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", {
         "projectId": args.projectId,
@@ -75,7 +74,11 @@ export interface GetProjectDeploymentRetentionResult {
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
  */
 export function getProjectDeploymentRetentionOutput(args: GetProjectDeploymentRetentionOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectDeploymentRetentionResult> {
-    return pulumi.output(args).apply((a: any) => getProjectDeploymentRetention(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", {
+        "projectId": args.projectId,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

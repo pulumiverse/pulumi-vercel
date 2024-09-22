@@ -70,14 +70,20 @@ type LookupEdgeConfigResult struct {
 
 func LookupEdgeConfigOutput(ctx *pulumi.Context, args LookupEdgeConfigOutputArgs, opts ...pulumi.InvokeOption) LookupEdgeConfigResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupEdgeConfigResult, error) {
+		ApplyT(func(v interface{}) (LookupEdgeConfigResultOutput, error) {
 			args := v.(LookupEdgeConfigArgs)
-			r, err := LookupEdgeConfig(ctx, &args, opts...)
-			var s LookupEdgeConfigResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupEdgeConfigResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getEdgeConfig:getEdgeConfig", args, &rv, "", opts...)
+			if err != nil {
+				return LookupEdgeConfigResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupEdgeConfigResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupEdgeConfigResultOutput), nil
+			}
+			return output, nil
 		}).(LookupEdgeConfigResultOutput)
 }
 

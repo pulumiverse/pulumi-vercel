@@ -1563,6 +1563,162 @@ func (o ProjectPasswordProtectionPtrOutput) Password() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ProjectResourceConfig struct {
+	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+	FunctionDefaultCpuType *string `pulumi:"functionDefaultCpuType"`
+	// The default timeout for Serverless Functions.
+	FunctionDefaultTimeout *int `pulumi:"functionDefaultTimeout"`
+}
+
+// ProjectResourceConfigInput is an input type that accepts ProjectResourceConfigArgs and ProjectResourceConfigOutput values.
+// You can construct a concrete instance of `ProjectResourceConfigInput` via:
+//
+//	ProjectResourceConfigArgs{...}
+type ProjectResourceConfigInput interface {
+	pulumi.Input
+
+	ToProjectResourceConfigOutput() ProjectResourceConfigOutput
+	ToProjectResourceConfigOutputWithContext(context.Context) ProjectResourceConfigOutput
+}
+
+type ProjectResourceConfigArgs struct {
+	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+	FunctionDefaultCpuType pulumi.StringPtrInput `pulumi:"functionDefaultCpuType"`
+	// The default timeout for Serverless Functions.
+	FunctionDefaultTimeout pulumi.IntPtrInput `pulumi:"functionDefaultTimeout"`
+}
+
+func (ProjectResourceConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectResourceConfig)(nil)).Elem()
+}
+
+func (i ProjectResourceConfigArgs) ToProjectResourceConfigOutput() ProjectResourceConfigOutput {
+	return i.ToProjectResourceConfigOutputWithContext(context.Background())
+}
+
+func (i ProjectResourceConfigArgs) ToProjectResourceConfigOutputWithContext(ctx context.Context) ProjectResourceConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectResourceConfigOutput)
+}
+
+func (i ProjectResourceConfigArgs) ToProjectResourceConfigPtrOutput() ProjectResourceConfigPtrOutput {
+	return i.ToProjectResourceConfigPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectResourceConfigArgs) ToProjectResourceConfigPtrOutputWithContext(ctx context.Context) ProjectResourceConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectResourceConfigOutput).ToProjectResourceConfigPtrOutputWithContext(ctx)
+}
+
+// ProjectResourceConfigPtrInput is an input type that accepts ProjectResourceConfigArgs, ProjectResourceConfigPtr and ProjectResourceConfigPtrOutput values.
+// You can construct a concrete instance of `ProjectResourceConfigPtrInput` via:
+//
+//	        ProjectResourceConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectResourceConfigPtrInput interface {
+	pulumi.Input
+
+	ToProjectResourceConfigPtrOutput() ProjectResourceConfigPtrOutput
+	ToProjectResourceConfigPtrOutputWithContext(context.Context) ProjectResourceConfigPtrOutput
+}
+
+type projectResourceConfigPtrType ProjectResourceConfigArgs
+
+func ProjectResourceConfigPtr(v *ProjectResourceConfigArgs) ProjectResourceConfigPtrInput {
+	return (*projectResourceConfigPtrType)(v)
+}
+
+func (*projectResourceConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectResourceConfig)(nil)).Elem()
+}
+
+func (i *projectResourceConfigPtrType) ToProjectResourceConfigPtrOutput() ProjectResourceConfigPtrOutput {
+	return i.ToProjectResourceConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *projectResourceConfigPtrType) ToProjectResourceConfigPtrOutputWithContext(ctx context.Context) ProjectResourceConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectResourceConfigPtrOutput)
+}
+
+type ProjectResourceConfigOutput struct{ *pulumi.OutputState }
+
+func (ProjectResourceConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectResourceConfig)(nil)).Elem()
+}
+
+func (o ProjectResourceConfigOutput) ToProjectResourceConfigOutput() ProjectResourceConfigOutput {
+	return o
+}
+
+func (o ProjectResourceConfigOutput) ToProjectResourceConfigOutputWithContext(ctx context.Context) ProjectResourceConfigOutput {
+	return o
+}
+
+func (o ProjectResourceConfigOutput) ToProjectResourceConfigPtrOutput() ProjectResourceConfigPtrOutput {
+	return o.ToProjectResourceConfigPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectResourceConfigOutput) ToProjectResourceConfigPtrOutputWithContext(ctx context.Context) ProjectResourceConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectResourceConfig) *ProjectResourceConfig {
+		return &v
+	}).(ProjectResourceConfigPtrOutput)
+}
+
+// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+func (o ProjectResourceConfigOutput) FunctionDefaultCpuType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectResourceConfig) *string { return v.FunctionDefaultCpuType }).(pulumi.StringPtrOutput)
+}
+
+// The default timeout for Serverless Functions.
+func (o ProjectResourceConfigOutput) FunctionDefaultTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ProjectResourceConfig) *int { return v.FunctionDefaultTimeout }).(pulumi.IntPtrOutput)
+}
+
+type ProjectResourceConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectResourceConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectResourceConfig)(nil)).Elem()
+}
+
+func (o ProjectResourceConfigPtrOutput) ToProjectResourceConfigPtrOutput() ProjectResourceConfigPtrOutput {
+	return o
+}
+
+func (o ProjectResourceConfigPtrOutput) ToProjectResourceConfigPtrOutputWithContext(ctx context.Context) ProjectResourceConfigPtrOutput {
+	return o
+}
+
+func (o ProjectResourceConfigPtrOutput) Elem() ProjectResourceConfigOutput {
+	return o.ApplyT(func(v *ProjectResourceConfig) ProjectResourceConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectResourceConfig
+		return ret
+	}).(ProjectResourceConfigOutput)
+}
+
+// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+func (o ProjectResourceConfigPtrOutput) FunctionDefaultCpuType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectResourceConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FunctionDefaultCpuType
+	}).(pulumi.StringPtrOutput)
+}
+
+// The default timeout for Serverless Functions.
+func (o ProjectResourceConfigPtrOutput) FunctionDefaultTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProjectResourceConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.FunctionDefaultTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
 type ProjectTrustedIps struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses []ProjectTrustedIpsAddress `pulumi:"addresses"`
@@ -2637,6 +2793,67 @@ func (o GetProjectPasswordProtectionOutput) DeploymentType() pulumi.StringOutput
 	return o.ApplyT(func(v GetProjectPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
+type GetProjectResourceConfig struct {
+	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+	FunctionDefaultCpuType string `pulumi:"functionDefaultCpuType"`
+	// The default timeout for Serverless Functions.
+	FunctionDefaultTimeout int `pulumi:"functionDefaultTimeout"`
+}
+
+// GetProjectResourceConfigInput is an input type that accepts GetProjectResourceConfigArgs and GetProjectResourceConfigOutput values.
+// You can construct a concrete instance of `GetProjectResourceConfigInput` via:
+//
+//	GetProjectResourceConfigArgs{...}
+type GetProjectResourceConfigInput interface {
+	pulumi.Input
+
+	ToGetProjectResourceConfigOutput() GetProjectResourceConfigOutput
+	ToGetProjectResourceConfigOutputWithContext(context.Context) GetProjectResourceConfigOutput
+}
+
+type GetProjectResourceConfigArgs struct {
+	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+	FunctionDefaultCpuType pulumi.StringInput `pulumi:"functionDefaultCpuType"`
+	// The default timeout for Serverless Functions.
+	FunctionDefaultTimeout pulumi.IntInput `pulumi:"functionDefaultTimeout"`
+}
+
+func (GetProjectResourceConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectResourceConfig)(nil)).Elem()
+}
+
+func (i GetProjectResourceConfigArgs) ToGetProjectResourceConfigOutput() GetProjectResourceConfigOutput {
+	return i.ToGetProjectResourceConfigOutputWithContext(context.Background())
+}
+
+func (i GetProjectResourceConfigArgs) ToGetProjectResourceConfigOutputWithContext(ctx context.Context) GetProjectResourceConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectResourceConfigOutput)
+}
+
+type GetProjectResourceConfigOutput struct{ *pulumi.OutputState }
+
+func (GetProjectResourceConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectResourceConfig)(nil)).Elem()
+}
+
+func (o GetProjectResourceConfigOutput) ToGetProjectResourceConfigOutput() GetProjectResourceConfigOutput {
+	return o
+}
+
+func (o GetProjectResourceConfigOutput) ToGetProjectResourceConfigOutputWithContext(ctx context.Context) GetProjectResourceConfigOutput {
+	return o
+}
+
+// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+func (o GetProjectResourceConfigOutput) FunctionDefaultCpuType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectResourceConfig) string { return v.FunctionDefaultCpuType }).(pulumi.StringOutput)
+}
+
+// The default timeout for Serverless Functions.
+func (o GetProjectResourceConfigOutput) FunctionDefaultTimeout() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectResourceConfig) int { return v.FunctionDefaultTimeout }).(pulumi.IntOutput)
+}
+
 type GetProjectTrustedIps struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses []GetProjectTrustedIpsAddress `pulumi:"addresses"`
@@ -2880,6 +3097,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), ProjectOptionsAllowlistPathArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigInput)(nil)).Elem(), ProjectResourceConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigPtrInput)(nil)).Elem(), ProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsPtrInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressInput)(nil)).Elem(), ProjectTrustedIpsAddressArgs{})
@@ -2897,6 +3116,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectResourceConfigInput)(nil)).Elem(), GetProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsInput)(nil)).Elem(), GetProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressInput)(nil)).Elem(), GetProjectTrustedIpsAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressArrayInput)(nil)).Elem(), GetProjectTrustedIpsAddressArray{})
@@ -2921,6 +3141,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathArrayOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
+	pulumi.RegisterOutputType(ProjectResourceConfigOutput{})
+	pulumi.RegisterOutputType(ProjectResourceConfigPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsAddressOutput{})
@@ -2938,6 +3160,7 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
+	pulumi.RegisterOutputType(GetProjectResourceConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressArrayOutput{})

@@ -22,7 +22,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, oidc_token_config=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, oidc_token_config=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -98,6 +98,9 @@ class GetProjectResult:
         if public_source and not isinstance(public_source, bool):
             raise TypeError("Expected argument 'public_source' to be a bool")
         pulumi.set(__self__, "public_source", public_source)
+        if resource_config and not isinstance(resource_config, dict):
+            raise TypeError("Expected argument 'resource_config' to be a dict")
+        pulumi.set(__self__, "resource_config", resource_config)
         if root_directory and not isinstance(root_directory, str):
             raise TypeError("Expected argument 'root_directory' to be a str")
         pulumi.set(__self__, "root_directory", root_directory)
@@ -318,6 +321,14 @@ class GetProjectResult:
         return pulumi.get(self, "public_source")
 
     @property
+    @pulumi.getter(name="resourceConfig")
+    def resource_config(self) -> 'outputs.GetProjectResourceConfigResult':
+        """
+        Resource Configuration for the project.
+        """
+        return pulumi.get(self, "resource_config")
+
+    @property
     @pulumi.getter(name="rootDirectory")
     def root_directory(self) -> str:
         """
@@ -397,6 +408,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             prioritise_production_builds=self.prioritise_production_builds,
             protection_bypass_for_automation=self.protection_bypass_for_automation,
             public_source=self.public_source,
+            resource_config=self.resource_config,
             root_directory=self.root_directory,
             serverless_function_region=self.serverless_function_region,
             skew_protection=self.skew_protection,
@@ -461,6 +473,7 @@ def get_project(name: Optional[str] = None,
         prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
         public_source=pulumi.get(__ret__, 'public_source'),
+        resource_config=pulumi.get(__ret__, 'resource_config'),
         root_directory=pulumi.get(__ret__, 'root_directory'),
         serverless_function_region=pulumi.get(__ret__, 'serverless_function_region'),
         skew_protection=pulumi.get(__ret__, 'skew_protection'),

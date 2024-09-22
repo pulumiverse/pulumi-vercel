@@ -37,14 +37,20 @@ type GetProjectDirectoryResult struct {
 
 func GetProjectDirectoryOutput(ctx *pulumi.Context, args GetProjectDirectoryOutputArgs, opts ...pulumi.InvokeOption) GetProjectDirectoryResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetProjectDirectoryResult, error) {
+		ApplyT(func(v interface{}) (GetProjectDirectoryResultOutput, error) {
 			args := v.(GetProjectDirectoryArgs)
-			r, err := GetProjectDirectory(ctx, &args, opts...)
-			var s GetProjectDirectoryResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetProjectDirectoryResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getProjectDirectory:getProjectDirectory", args, &rv, "", opts...)
+			if err != nil {
+				return GetProjectDirectoryResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetProjectDirectoryResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetProjectDirectoryResultOutput), nil
+			}
+			return output, nil
 		}).(GetProjectDirectoryResultOutput)
 }
 

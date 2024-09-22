@@ -86,14 +86,20 @@ type LookupLogDrainResult struct {
 
 func LookupLogDrainOutput(ctx *pulumi.Context, args LookupLogDrainOutputArgs, opts ...pulumi.InvokeOption) LookupLogDrainResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupLogDrainResult, error) {
+		ApplyT(func(v interface{}) (LookupLogDrainResultOutput, error) {
 			args := v.(LookupLogDrainArgs)
-			r, err := LookupLogDrain(ctx, &args, opts...)
-			var s LookupLogDrainResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupLogDrainResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getLogDrain:getLogDrain", args, &rv, "", opts...)
+			if err != nil {
+				return LookupLogDrainResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupLogDrainResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupLogDrainResultOutput), nil
+			}
+			return output, nil
 		}).(LookupLogDrainResultOutput)
 }
 

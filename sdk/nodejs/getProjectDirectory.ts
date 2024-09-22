@@ -5,7 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 export function getProjectDirectory(args: GetProjectDirectoryArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectDirectoryResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProjectDirectory:getProjectDirectory", {
         "path": args.path,
@@ -34,7 +33,10 @@ export interface GetProjectDirectoryResult {
     readonly path: string;
 }
 export function getProjectDirectoryOutput(args: GetProjectDirectoryOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectDirectoryResult> {
-    return pulumi.output(args).apply((a: any) => getProjectDirectory(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getProjectDirectory:getProjectDirectory", {
+        "path": args.path,
+    }, opts);
 }
 
 /**

@@ -26,7 +26,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProject:getProject", {
         "name": args.name,
@@ -153,6 +152,10 @@ export interface GetProjectResult {
      */
     readonly publicSource: boolean;
     /**
+     * Resource Configuration for the project.
+     */
+    readonly resourceConfig: outputs.GetProjectResourceConfig;
+    /**
      * The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
      */
     readonly rootDirectory: string;
@@ -197,7 +200,11 @@ export interface GetProjectResult {
  * ```
  */
 export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectResult> {
-    return pulumi.output(args).apply((a: any) => getProject(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getProject:getProject", {
+        "name": args.name,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

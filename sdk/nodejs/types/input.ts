@@ -155,6 +155,17 @@ export interface ProjectPasswordProtection {
     password: pulumi.Input<string>;
 }
 
+export interface ProjectResourceConfig {
+    /**
+     * The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+     */
+    functionDefaultCpuType?: pulumi.Input<string>;
+    /**
+     * The default timeout for Serverless Functions.
+     */
+    functionDefaultTimeout?: pulumi.Input<number>;
+}
+
 export interface ProjectTrustedIps {
     /**
      * The allowed IP addressses and CIDR ranges with optional descriptions.

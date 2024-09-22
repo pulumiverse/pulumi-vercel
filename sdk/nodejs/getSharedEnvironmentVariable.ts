@@ -31,7 +31,6 @@ import * as utilities from "./utilities";
  */
 export function getSharedEnvironmentVariable(args?: GetSharedEnvironmentVariableArgs, opts?: pulumi.InvokeOptions): Promise<GetSharedEnvironmentVariableResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", {
         "id": args.id,
@@ -122,7 +121,14 @@ export interface GetSharedEnvironmentVariableResult {
  * ```
  */
 export function getSharedEnvironmentVariableOutput(args?: GetSharedEnvironmentVariableOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSharedEnvironmentVariableResult> {
-    return pulumi.output(args).apply((a: any) => getSharedEnvironmentVariable(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", {
+        "id": args.id,
+        "key": args.key,
+        "targets": args.targets,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

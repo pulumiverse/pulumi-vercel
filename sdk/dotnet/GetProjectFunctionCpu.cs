@@ -13,6 +13,8 @@ namespace Pulumiverse.Vercel
     public static class GetProjectFunctionCpu
     {
         /// <summary>
+        /// &gt; This data source has been deprecated and no longer works. Please use the `vercel.Project` data source and its `resource_config` attribute instead.
+        /// 
         /// Provides information about a Project's Function CPU setting.
         /// 
         /// This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.
@@ -44,6 +46,8 @@ namespace Pulumiverse.Vercel
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectFunctionCpuResult>("vercel:index/getProjectFunctionCpu:getProjectFunctionCpu", args ?? new GetProjectFunctionCpuArgs(), options.WithDefaults());
 
         /// <summary>
+        /// &gt; This data source has been deprecated and no longer works. Please use the `vercel.Project` data source and its `resource_config` attribute instead.
+        /// 
         /// Provides information about a Project's Function CPU setting.
         /// 
         /// This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.

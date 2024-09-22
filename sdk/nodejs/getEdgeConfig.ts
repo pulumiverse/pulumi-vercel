@@ -21,7 +21,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getEdgeConfig(args: GetEdgeConfigArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getEdgeConfig:getEdgeConfig", {
         "id": args.id,
@@ -77,7 +76,11 @@ export interface GetEdgeConfigResult {
  * ```
  */
 export function getEdgeConfigOutput(args: GetEdgeConfigOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigResult> {
-    return pulumi.output(args).apply((a: any) => getEdgeConfig(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getEdgeConfig:getEdgeConfig", {
+        "id": args.id,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**
