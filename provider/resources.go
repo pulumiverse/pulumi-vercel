@@ -1,5 +1,7 @@
 // Copyright 2016-2018, Pulumi Corporation.
 //
+
+
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -76,6 +78,11 @@ func Provider() tfbridge.ProviderInfo {
 				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_edge_config_schema": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["id"]), nil
 				},
 			},
 		},

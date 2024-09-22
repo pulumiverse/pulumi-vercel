@@ -123,3 +123,5 @@ install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
 
+update::
+	go run github.com/pulumi/upgrade-provider@main pulumiverse/pulumi-vercel
