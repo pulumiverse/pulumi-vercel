@@ -64,14 +64,20 @@ type GetEndpointVerificationResult struct {
 
 func GetEndpointVerificationOutput(ctx *pulumi.Context, args GetEndpointVerificationOutputArgs, opts ...pulumi.InvokeOption) GetEndpointVerificationResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetEndpointVerificationResult, error) {
+		ApplyT(func(v interface{}) (GetEndpointVerificationResultOutput, error) {
 			args := v.(GetEndpointVerificationArgs)
-			r, err := GetEndpointVerification(ctx, &args, opts...)
-			var s GetEndpointVerificationResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetEndpointVerificationResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getEndpointVerification:getEndpointVerification", args, &rv, "", opts...)
+			if err != nil {
+				return GetEndpointVerificationResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetEndpointVerificationResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetEndpointVerificationResultOutput), nil
+			}
+			return output, nil
 		}).(GetEndpointVerificationResultOutput)
 }
 

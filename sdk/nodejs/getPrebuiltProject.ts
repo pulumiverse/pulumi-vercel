@@ -5,7 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 export function getPrebuiltProject(args: GetPrebuiltProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetPrebuiltProjectResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getPrebuiltProject:getPrebuiltProject", {
         "path": args.path,
@@ -34,7 +33,10 @@ export interface GetPrebuiltProjectResult {
     readonly path: string;
 }
 export function getPrebuiltProjectOutput(args: GetPrebuiltProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetPrebuiltProjectResult> {
-    return pulumi.output(args).apply((a: any) => getPrebuiltProject(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getPrebuiltProject:getPrebuiltProject", {
+        "path": args.path,
+    }, opts);
 }
 
 /**

@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * > This resource has been deprecated and no longer works. Please use the `vercel.Project` resource and its `resourceConfig` attribute instead.
+ *
  * Provides a Function CPU resource for a Project.
  *
  * This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.

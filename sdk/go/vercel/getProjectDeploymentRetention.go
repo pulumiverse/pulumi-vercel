@@ -54,14 +54,20 @@ type LookupProjectDeploymentRetentionResult struct {
 
 func LookupProjectDeploymentRetentionOutput(ctx *pulumi.Context, args LookupProjectDeploymentRetentionOutputArgs, opts ...pulumi.InvokeOption) LookupProjectDeploymentRetentionResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupProjectDeploymentRetentionResult, error) {
+		ApplyT(func(v interface{}) (LookupProjectDeploymentRetentionResultOutput, error) {
 			args := v.(LookupProjectDeploymentRetentionArgs)
-			r, err := LookupProjectDeploymentRetention(ctx, &args, opts...)
-			var s LookupProjectDeploymentRetentionResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupProjectDeploymentRetentionResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", args, &rv, "", opts...)
+			if err != nil {
+				return LookupProjectDeploymentRetentionResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupProjectDeploymentRetentionResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupProjectDeploymentRetentionResultOutput), nil
+			}
+			return output, nil
 		}).(LookupProjectDeploymentRetentionResultOutput)
 }
 

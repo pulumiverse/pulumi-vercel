@@ -84,6 +84,8 @@ def get_project_function_cpu(project_id: Optional[str] = None,
                              team_id: Optional[str] = None,
                              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectFunctionCpuResult:
     """
+    > This data source has been deprecated and no longer works. Please use the `Project` data source and its `resource_config` attribute instead.
+
     Provides information about a Project's Function CPU setting.
 
     This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.
@@ -120,6 +122,8 @@ def get_project_function_cpu_output(project_id: Optional[pulumi.Input[str]] = No
                                     team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectFunctionCpuResult]:
     """
+    > This data source has been deprecated and no longer works. Please use the `Project` data source and its `resource_config` attribute instead.
+
     Provides information about a Project's Function CPU setting.
 
     This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.

@@ -21,7 +21,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getAttackChallengeMode(args: GetAttackChallengeModeArgs, opts?: pulumi.InvokeOptions): Promise<GetAttackChallengeModeResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getAttackChallengeMode:getAttackChallengeMode", {
         "projectId": args.projectId,
@@ -81,7 +80,11 @@ export interface GetAttackChallengeModeResult {
  * ```
  */
 export function getAttackChallengeModeOutput(args: GetAttackChallengeModeOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAttackChallengeModeResult> {
-    return pulumi.output(args).apply((a: any) => getAttackChallengeMode(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getAttackChallengeMode:getAttackChallengeMode", {
+        "projectId": args.projectId,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

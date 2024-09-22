@@ -180,6 +180,10 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly publicSource!: pulumi.Output<boolean | undefined>;
     /**
+     * Resource Configuration for the project.
+     */
+    public readonly resourceConfig!: pulumi.Output<outputs.ProjectResourceConfig>;
+    /**
      * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
      */
     public readonly rootDirectory!: pulumi.Output<string | undefined>;
@@ -242,6 +246,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["protectionBypassForAutomation"] = state ? state.protectionBypassForAutomation : undefined;
             resourceInputs["protectionBypassForAutomationSecret"] = state ? state.protectionBypassForAutomationSecret : undefined;
             resourceInputs["publicSource"] = state ? state.publicSource : undefined;
+            resourceInputs["resourceConfig"] = state ? state.resourceConfig : undefined;
             resourceInputs["rootDirectory"] = state ? state.rootDirectory : undefined;
             resourceInputs["serverlessFunctionRegion"] = state ? state.serverlessFunctionRegion : undefined;
             resourceInputs["skewProtection"] = state ? state.skewProtection : undefined;
@@ -274,6 +279,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["prioritiseProductionBuilds"] = args ? args.prioritiseProductionBuilds : undefined;
             resourceInputs["protectionBypassForAutomation"] = args ? args.protectionBypassForAutomation : undefined;
             resourceInputs["publicSource"] = args ? args.publicSource : undefined;
+            resourceInputs["resourceConfig"] = args ? args.resourceConfig : undefined;
             resourceInputs["rootDirectory"] = args ? args.rootDirectory : undefined;
             resourceInputs["serverlessFunctionRegion"] = args ? args.serverlessFunctionRegion : undefined;
             resourceInputs["skewProtection"] = args ? args.skewProtection : undefined;
@@ -391,6 +397,10 @@ export interface ProjectState {
      * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
      */
     publicSource?: pulumi.Input<boolean>;
+    /**
+     * Resource Configuration for the project.
+     */
+    resourceConfig?: pulumi.Input<inputs.ProjectResourceConfig>;
     /**
      * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
      */
@@ -517,6 +527,10 @@ export interface ProjectArgs {
      * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
      */
     publicSource?: pulumi.Input<boolean>;
+    /**
+     * Resource Configuration for the project.
+     */
+    resourceConfig?: pulumi.Input<inputs.ProjectResourceConfig>;
     /**
      * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
      */

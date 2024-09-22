@@ -131,6 +131,8 @@ class ProjectFunctionCpu(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
+        > This resource has been deprecated and no longer works. Please use the `Project` resource and its `resource_config` attribute instead.
+
         Provides a Function CPU resource for a Project.
 
         This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.
@@ -174,6 +176,8 @@ class ProjectFunctionCpu(pulumi.CustomResource):
                  args: ProjectFunctionCpuArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        > This resource has been deprecated and no longer works. Please use the `Project` resource and its `resource_config` attribute instead.
+
         Provides a Function CPU resource for a Project.
 
         This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.

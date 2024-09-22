@@ -72,14 +72,20 @@ type LookupAttackChallengeModeResult struct {
 
 func LookupAttackChallengeModeOutput(ctx *pulumi.Context, args LookupAttackChallengeModeOutputArgs, opts ...pulumi.InvokeOption) LookupAttackChallengeModeResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupAttackChallengeModeResult, error) {
+		ApplyT(func(v interface{}) (LookupAttackChallengeModeResultOutput, error) {
 			args := v.(LookupAttackChallengeModeArgs)
-			r, err := LookupAttackChallengeMode(ctx, &args, opts...)
-			var s LookupAttackChallengeModeResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupAttackChallengeModeResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getAttackChallengeMode:getAttackChallengeMode", args, &rv, "", opts...)
+			if err != nil {
+				return LookupAttackChallengeModeResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupAttackChallengeModeResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupAttackChallengeModeResultOutput), nil
+			}
+			return output, nil
 		}).(LookupAttackChallengeModeResultOutput)
 }
 

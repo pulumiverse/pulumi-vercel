@@ -113,6 +113,8 @@ type LookupProjectResult struct {
 	ProtectionBypassForAutomation bool `pulumi:"protectionBypassForAutomation"`
 	// Specifies whether the source code and logs of the deployments for this project should be public or not.
 	PublicSource bool `pulumi:"publicSource"`
+	// Resource Configuration for the project.
+	ResourceConfig GetProjectResourceConfig `pulumi:"resourceConfig"`
 	// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
 	RootDirectory string `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -129,14 +131,20 @@ type LookupProjectResult struct {
 
 func LookupProjectOutput(ctx *pulumi.Context, args LookupProjectOutputArgs, opts ...pulumi.InvokeOption) LookupProjectResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupProjectResult, error) {
+		ApplyT(func(v interface{}) (LookupProjectResultOutput, error) {
 			args := v.(LookupProjectArgs)
-			r, err := LookupProject(ctx, &args, opts...)
-			var s LookupProjectResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupProjectResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getProject:getProject", args, &rv, "", opts...)
+			if err != nil {
+				return LookupProjectResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupProjectResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupProjectResultOutput), nil
+			}
+			return output, nil
 		}).(LookupProjectResultOutput)
 }
 
@@ -290,6 +298,11 @@ func (o LookupProjectResultOutput) ProtectionBypassForAutomation() pulumi.BoolOu
 // Specifies whether the source code and logs of the deployments for this project should be public or not.
 func (o LookupProjectResultOutput) PublicSource() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PublicSource }).(pulumi.BoolOutput)
+}
+
+// Resource Configuration for the project.
+func (o LookupProjectResultOutput) ResourceConfig() GetProjectResourceConfigOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectResourceConfig { return v.ResourceConfig }).(GetProjectResourceConfigOutput)
 }
 
 // The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.

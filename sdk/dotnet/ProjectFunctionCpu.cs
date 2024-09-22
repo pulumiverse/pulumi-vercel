@@ -11,6 +11,8 @@ using Pulumi;
 namespace Pulumiverse.Vercel
 {
     /// <summary>
+    /// &gt; This resource has been deprecated and no longer works. Please use the `vercel.Project` resource and its `resource_config` attribute instead.
+    /// 
     /// Provides a Function CPU resource for a Project.
     /// 
     /// This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.

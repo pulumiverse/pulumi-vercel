@@ -40,6 +40,7 @@ class ProjectArgs:
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
+                 resource_config: Optional[pulumi.Input['ProjectResourceConfigArgs']] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  skew_protection: Optional[pulumi.Input[str]] = None,
@@ -72,6 +73,7 @@ class ProjectArgs:
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+        :param pulumi.Input['ProjectResourceConfigArgs'] resource_config: Resource Configuration for the project.
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
@@ -127,6 +129,8 @@ class ProjectArgs:
             pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
         if public_source is not None:
             pulumi.set(__self__, "public_source", public_source)
+        if resource_config is not None:
+            pulumi.set(__self__, "resource_config", resource_config)
         if root_directory is not None:
             pulumi.set(__self__, "root_directory", root_directory)
         if serverless_function_region is not None:
@@ -429,6 +433,18 @@ class ProjectArgs:
         pulumi.set(self, "public_source", value)
 
     @property
+    @pulumi.getter(name="resourceConfig")
+    def resource_config(self) -> Optional[pulumi.Input['ProjectResourceConfigArgs']]:
+        """
+        Resource Configuration for the project.
+        """
+        return pulumi.get(self, "resource_config")
+
+    @resource_config.setter
+    def resource_config(self, value: Optional[pulumi.Input['ProjectResourceConfigArgs']]):
+        pulumi.set(self, "resource_config", value)
+
+    @property
     @pulumi.getter(name="rootDirectory")
     def root_directory(self) -> Optional[pulumi.Input[str]]:
         """
@@ -529,6 +545,7 @@ class _ProjectState:
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
+                 resource_config: Optional[pulumi.Input['ProjectResourceConfigArgs']] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  skew_protection: Optional[pulumi.Input[str]] = None,
@@ -562,6 +579,7 @@ class _ProjectState:
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+        :param pulumi.Input['ProjectResourceConfigArgs'] resource_config: Resource Configuration for the project.
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
@@ -619,6 +637,8 @@ class _ProjectState:
             pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
         if public_source is not None:
             pulumi.set(__self__, "public_source", public_source)
+        if resource_config is not None:
+            pulumi.set(__self__, "resource_config", resource_config)
         if root_directory is not None:
             pulumi.set(__self__, "root_directory", root_directory)
         if serverless_function_region is not None:
@@ -933,6 +953,18 @@ class _ProjectState:
         pulumi.set(self, "public_source", value)
 
     @property
+    @pulumi.getter(name="resourceConfig")
+    def resource_config(self) -> Optional[pulumi.Input['ProjectResourceConfigArgs']]:
+        """
+        Resource Configuration for the project.
+        """
+        return pulumi.get(self, "resource_config")
+
+    @resource_config.setter
+    def resource_config(self, value: Optional[pulumi.Input['ProjectResourceConfigArgs']]):
+        pulumi.set(self, "resource_config", value)
+
+    @property
     @pulumi.getter(name="rootDirectory")
     def root_directory(self) -> Optional[pulumi.Input[str]]:
         """
@@ -1034,6 +1066,7 @@ class Project(pulumi.CustomResource):
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
+                 resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  skew_protection: Optional[pulumi.Input[str]] = None,
@@ -1111,6 +1144,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+        :param pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']] resource_config: Resource Configuration for the project.
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
@@ -1207,6 +1241,7 @@ class Project(pulumi.CustomResource):
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  public_source: Optional[pulumi.Input[bool]] = None,
+                 resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
                  root_directory: Optional[pulumi.Input[str]] = None,
                  serverless_function_region: Optional[pulumi.Input[str]] = None,
                  skew_protection: Optional[pulumi.Input[str]] = None,
@@ -1246,6 +1281,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
             __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
             __props__.__dict__["public_source"] = public_source
+            __props__.__dict__["resource_config"] = resource_config
             __props__.__dict__["root_directory"] = root_directory
             __props__.__dict__["serverless_function_region"] = serverless_function_region
             __props__.__dict__["skew_protection"] = skew_protection
@@ -1288,6 +1324,7 @@ class Project(pulumi.CustomResource):
             protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
             protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
             public_source: Optional[pulumi.Input[bool]] = None,
+            resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
             root_directory: Optional[pulumi.Input[str]] = None,
             serverless_function_region: Optional[pulumi.Input[str]] = None,
             skew_protection: Optional[pulumi.Input[str]] = None,
@@ -1326,6 +1363,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `password_protection_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments.
         :param pulumi.Input[bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+        :param pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']] resource_config: Resource Configuration for the project.
         :param pulumi.Input[str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
         :param pulumi.Input[str] serverless_function_region: The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
         :param pulumi.Input[str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
@@ -1362,6 +1400,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
         __props__.__dict__["protection_bypass_for_automation_secret"] = protection_bypass_for_automation_secret
         __props__.__dict__["public_source"] = public_source
+        __props__.__dict__["resource_config"] = resource_config
         __props__.__dict__["root_directory"] = root_directory
         __props__.__dict__["serverless_function_region"] = serverless_function_region
         __props__.__dict__["skew_protection"] = skew_protection
@@ -1569,6 +1608,14 @@ class Project(pulumi.CustomResource):
         By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         """
         return pulumi.get(self, "public_source")
+
+    @property
+    @pulumi.getter(name="resourceConfig")
+    def resource_config(self) -> pulumi.Output['outputs.ProjectResourceConfig']:
+        """
+        Resource Configuration for the project.
+        """
+        return pulumi.get(self, "resource_config")
 
     @property
     @pulumi.getter(name="rootDirectory")

@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * > This data source has been deprecated and no longer works. Please use the `vercel.Project` data source and its `resourceConfig` attribute instead.
+ *
  * Provides information about a Project's Function CPU setting.
  *
  * This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.
@@ -24,7 +26,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getProjectFunctionCpu(args: GetProjectFunctionCpuArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectFunctionCpuResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProjectFunctionCpu:getProjectFunctionCpu", {
         "projectId": args.projectId,
@@ -68,6 +69,8 @@ export interface GetProjectFunctionCpuResult {
     readonly teamId: string;
 }
 /**
+ * > This data source has been deprecated and no longer works. Please use the `vercel.Project` data source and its `resourceConfig` attribute instead.
+ *
  * Provides information about a Project's Function CPU setting.
  *
  * This controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.
@@ -87,7 +90,11 @@ export interface GetProjectFunctionCpuResult {
  * ```
  */
 export function getProjectFunctionCpuOutput(args: GetProjectFunctionCpuOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectFunctionCpuResult> {
-    return pulumi.output(args).apply((a: any) => getProjectFunctionCpu(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getProjectFunctionCpu:getProjectFunctionCpu", {
+        "projectId": args.projectId,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

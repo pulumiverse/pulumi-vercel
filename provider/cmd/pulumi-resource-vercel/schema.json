@@ -318,6 +318,27 @@
                 "password"
             ]
         },
+        "vercel:index/ProjectResourceConfig:ProjectResourceConfig": {
+            "properties": {
+                "functionDefaultCpuType": {
+                    "type": "string",
+                    "description": "The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
+                },
+                "functionDefaultTimeout": {
+                    "type": "integer",
+                    "description": "The default timeout for Serverless Functions.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "functionDefaultCpuType",
+                        "functionDefaultTimeout"
+                    ]
+                }
+            }
+        },
         "vercel:index/ProjectTrustedIps:ProjectTrustedIps": {
             "properties": {
                 "addresses": {
@@ -578,6 +599,28 @@
             "type": "object",
             "required": [
                 "deploymentType"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectResourceConfig:getProjectResourceConfig": {
+            "properties": {
+                "functionDefaultCpuType": {
+                    "type": "string",
+                    "description": "The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
+                },
+                "functionDefaultTimeout": {
+                    "type": "integer",
+                    "description": "The default timeout for Serverless Functions.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "functionDefaultCpuType",
+                "functionDefaultTimeout"
             ],
             "language": {
                 "nodejs": {
@@ -1551,6 +1594,10 @@
                     "type": "boolean",
                     "description": "By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.\n"
                 },
+                "resourceConfig": {
+                    "$ref": "#/types/vercel:index/ProjectResourceConfig:ProjectResourceConfig",
+                    "description": "Resource Configuration for the project.\n"
+                },
                 "rootDirectory": {
                     "type": "string",
                     "description": "The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.\n"
@@ -1588,6 +1635,7 @@
                 "oidcTokenConfig",
                 "prioritiseProductionBuilds",
                 "protectionBypassForAutomationSecret",
+                "resourceConfig",
                 "serverlessFunctionRegion",
                 "teamId",
                 "vercelAuthentication"
@@ -1691,6 +1739,10 @@
                 "publicSource": {
                     "type": "boolean",
                     "description": "By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.\n"
+                },
+                "resourceConfig": {
+                    "$ref": "#/types/vercel:index/ProjectResourceConfig:ProjectResourceConfig",
+                    "description": "Resource Configuration for the project.\n"
                 },
                 "rootDirectory": {
                     "type": "string",
@@ -1822,6 +1874,10 @@
                     "publicSource": {
                         "type": "boolean",
                         "description": "By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.\n"
+                    },
+                    "resourceConfig": {
+                        "$ref": "#/types/vercel:index/ProjectResourceConfig:ProjectResourceConfig",
+                        "description": "Resource Configuration for the project.\n"
                     },
                     "rootDirectory": {
                         "type": "string",
@@ -2165,7 +2221,7 @@
             }
         },
         "vercel:index/projectFunctionCpu:ProjectFunctionCpu": {
-            "description": "Provides a Function CPU resource for a Project.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\nA new Deployment is required for your changes to take effect.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {});\nconst exampleProjectFunctionCpu = new vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", {\n    projectId: exampleProject.id,\n    cpu: \"performance\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\")\nexample_project_function_cpu = vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\",\n    project_id=example_project.id,\n    cpu=\"performance\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\");\n\n    var exampleProjectFunctionCpu = new Vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Cpu = \"performance\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewProjectFunctionCpu(ctx, \"exampleProjectFunctionCpu\", \u0026vercel.ProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tCpu:       pulumi.String(\"performance\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectFunctionCpu;\nimport com.pulumi.vercel.ProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleProjectFunctionCpu = new ProjectFunctionCpu(\"exampleProjectFunctionCpu\", ProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.id())\n            .cpu(\"performance\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleProjectFunctionCpu:\n    type: vercel:ProjectFunctionCpu\n    properties:\n      projectId: ${exampleProject.id}\n      cpu: performance\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectFunctionCpu:ProjectFunctionCpu example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "description": "\u003e This resource has been deprecated and no longer works. Please use the `vercel.Project` resource and its `resource_config` attribute instead.\n\nProvides a Function CPU resource for a Project.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\nA new Deployment is required for your changes to take effect.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {});\nconst exampleProjectFunctionCpu = new vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", {\n    projectId: exampleProject.id,\n    cpu: \"performance\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\")\nexample_project_function_cpu = vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\",\n    project_id=example_project.id,\n    cpu=\"performance\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\");\n\n    var exampleProjectFunctionCpu = new Vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Cpu = \"performance\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewProjectFunctionCpu(ctx, \"exampleProjectFunctionCpu\", \u0026vercel.ProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tCpu:       pulumi.String(\"performance\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectFunctionCpu;\nimport com.pulumi.vercel.ProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleProjectFunctionCpu = new ProjectFunctionCpu(\"exampleProjectFunctionCpu\", ProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.id())\n            .cpu(\"performance\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleProjectFunctionCpu:\n    type: vercel:ProjectFunctionCpu\n    properties:\n      projectId: ${exampleProject.id}\n      cpu: performance\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectFunctionCpu:ProjectFunctionCpu example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
                 "cpu": {
                     "type": "string",
@@ -3084,6 +3140,10 @@
                         "type": "boolean",
                         "description": "Specifies whether the source code and logs of the deployments for this project should be public or not.\n"
                     },
+                    "resourceConfig": {
+                        "$ref": "#/types/vercel:index/getProjectResourceConfig:getProjectResourceConfig",
+                        "description": "Resource Configuration for the project.\n"
+                    },
                     "rootDirectory": {
                         "type": "string",
                         "description": "The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.\n"
@@ -3136,6 +3196,7 @@
                     "prioritiseProductionBuilds",
                     "protectionBypassForAutomation",
                     "publicSource",
+                    "resourceConfig",
                     "rootDirectory",
                     "serverlessFunctionRegion",
                     "skewProtection",
@@ -3248,7 +3309,7 @@
             }
         },
         "vercel:index/getProjectFunctionCpu:getProjectFunctionCpu": {
-            "description": "Provides information about a Project's Function CPU setting.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst exampleProject = vercel.getProject({\n    name: \"example\",\n});\nconst exampleProjectFunctionCpu = exampleProject.then(exampleProject =\u003e vercel.getProjectFunctionCpu({\n    projectId: exampleProject.id,\n}));\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample_project = vercel.get_project(name=\"example\")\nexample_project_function_cpu = vercel.get_project_function_cpu(project_id=example_project.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"example\",\n    });\n\n    var exampleProjectFunctionCpu = Vercel.GetProjectFunctionCpu.Invoke(new()\n    {\n        ProjectId = exampleProject.Apply(getProjectResult =\u003e getProjectResult.Id),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"example\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.LookupProjectFunctionCpu(ctx, \u0026vercel.LookupProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.Id,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport com.pulumi.vercel.inputs.GetProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleProject = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"example\")\n            .build());\n\n        final var exampleProjectFunctionCpu = VercelFunctions.getProjectFunctionCpu(GetProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.applyValue(getProjectResult -\u003e getProjectResult.id()))\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  exampleProject:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: example\n  exampleProjectFunctionCpu:\n    fn::invoke:\n      Function: vercel:getProjectFunctionCpu\n      Arguments:\n        projectId: ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "\u003e This data source has been deprecated and no longer works. Please use the `vercel.Project` data source and its `resource_config` attribute instead.\n\nProvides information about a Project's Function CPU setting.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst exampleProject = vercel.getProject({\n    name: \"example\",\n});\nconst exampleProjectFunctionCpu = exampleProject.then(exampleProject =\u003e vercel.getProjectFunctionCpu({\n    projectId: exampleProject.id,\n}));\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample_project = vercel.get_project(name=\"example\")\nexample_project_function_cpu = vercel.get_project_function_cpu(project_id=example_project.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"example\",\n    });\n\n    var exampleProjectFunctionCpu = Vercel.GetProjectFunctionCpu.Invoke(new()\n    {\n        ProjectId = exampleProject.Apply(getProjectResult =\u003e getProjectResult.Id),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"example\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.LookupProjectFunctionCpu(ctx, \u0026vercel.LookupProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.Id,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport com.pulumi.vercel.inputs.GetProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleProject = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"example\")\n            .build());\n\n        final var exampleProjectFunctionCpu = VercelFunctions.getProjectFunctionCpu(GetProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.applyValue(getProjectResult -\u003e getProjectResult.id()))\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  exampleProject:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: example\n  exampleProjectFunctionCpu:\n    fn::invoke:\n      Function: vercel:getProjectFunctionCpu\n      Arguments:\n        projectId: ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getProjectFunctionCpu.\n",
                 "properties": {

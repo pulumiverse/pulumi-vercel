@@ -21,7 +21,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getDeployment(args: GetDeploymentArgs, opts?: pulumi.InvokeOptions): Promise<GetDeploymentResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getDeployment:getDeployment", {
         "id": args.id,
@@ -93,7 +92,11 @@ export interface GetDeploymentResult {
  * ```
  */
 export function getDeploymentOutput(args: GetDeploymentOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDeploymentResult> {
-    return pulumi.output(args).apply((a: any) => getDeployment(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getDeployment:getDeployment", {
+        "id": args.id,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

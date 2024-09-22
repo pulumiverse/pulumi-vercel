@@ -223,6 +223,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly bool PublicSource;
         /// <summary>
+        /// Resource Configuration for the project.
+        /// </summary>
+        public readonly Outputs.GetProjectResourceConfigResult ResourceConfig;
+        /// <summary>
         /// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
         /// </summary>
         public readonly string RootDirectory;
@@ -299,6 +303,8 @@ namespace Pulumiverse.Vercel
 
             bool publicSource,
 
+            Outputs.GetProjectResourceConfigResult resourceConfig,
+
             string rootDirectory,
 
             string serverlessFunctionRegion,
@@ -336,6 +342,7 @@ namespace Pulumiverse.Vercel
             PrioritiseProductionBuilds = prioritiseProductionBuilds;
             ProtectionBypassForAutomation = protectionBypassForAutomation;
             PublicSource = publicSource;
+            ResourceConfig = resourceConfig;
             RootDirectory = rootDirectory;
             ServerlessFunctionRegion = serverlessFunctionRegion;
             SkewProtection = skewProtection;

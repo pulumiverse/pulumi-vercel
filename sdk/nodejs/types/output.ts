@@ -148,6 +148,17 @@ export interface GetProjectPasswordProtection {
     deploymentType: string;
 }
 
+export interface GetProjectResourceConfig {
+    /**
+     * The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+     */
+    functionDefaultCpuType: string;
+    /**
+     * The default timeout for Serverless Functions.
+     */
+    functionDefaultTimeout: number;
+}
+
 export interface GetProjectTrustedIps {
     /**
      * The allowed IP addressses and CIDR ranges with optional descriptions.
@@ -281,6 +292,17 @@ export interface ProjectPasswordProtection {
      * The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
      */
     password: string;
+}
+
+export interface ProjectResourceConfig {
+    /**
+     * The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+     */
+    functionDefaultCpuType: string;
+    /**
+     * The default timeout for Serverless Functions.
+     */
+    functionDefaultTimeout: number;
 }
 
 export interface ProjectTrustedIps {

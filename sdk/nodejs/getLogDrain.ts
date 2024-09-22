@@ -23,7 +23,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getLogDrain(args: GetLogDrainArgs, opts?: pulumi.InvokeOptions): Promise<GetLogDrainResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getLogDrain:getLogDrain", {
         "endpoint": args.endpoint,
@@ -110,7 +109,12 @@ export interface GetLogDrainResult {
  * ```
  */
 export function getLogDrainOutput(args: GetLogDrainOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetLogDrainResult> {
-    return pulumi.output(args).apply((a: any) => getLogDrain(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getLogDrain:getLogDrain", {
+        "endpoint": args.endpoint,
+        "id": args.id,
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

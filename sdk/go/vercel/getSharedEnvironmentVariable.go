@@ -94,14 +94,20 @@ type LookupSharedEnvironmentVariableResult struct {
 
 func LookupSharedEnvironmentVariableOutput(ctx *pulumi.Context, args LookupSharedEnvironmentVariableOutputArgs, opts ...pulumi.InvokeOption) LookupSharedEnvironmentVariableResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupSharedEnvironmentVariableResult, error) {
+		ApplyT(func(v interface{}) (LookupSharedEnvironmentVariableResultOutput, error) {
 			args := v.(LookupSharedEnvironmentVariableArgs)
-			r, err := LookupSharedEnvironmentVariable(ctx, &args, opts...)
-			var s LookupSharedEnvironmentVariableResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupSharedEnvironmentVariableResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable", args, &rv, "", opts...)
+			if err != nil {
+				return LookupSharedEnvironmentVariableResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupSharedEnvironmentVariableResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupSharedEnvironmentVariableResultOutput), nil
+			}
+			return output, nil
 		}).(LookupSharedEnvironmentVariableResultOutput)
 }
 

@@ -79,14 +79,20 @@ type GetFileResult struct {
 
 func GetFileOutput(ctx *pulumi.Context, args GetFileOutputArgs, opts ...pulumi.InvokeOption) GetFileResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetFileResult, error) {
+		ApplyT(func(v interface{}) (GetFileResultOutput, error) {
 			args := v.(GetFileArgs)
-			r, err := GetFile(ctx, &args, opts...)
-			var s GetFileResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetFileResult
+			secret, err := ctx.InvokePackageRaw("vercel:index/getFile:getFile", args, &rv, "", opts...)
+			if err != nil {
+				return GetFileResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetFileResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetFileResultOutput), nil
+			}
+			return output, nil
 		}).(GetFileResultOutput)
 }
 

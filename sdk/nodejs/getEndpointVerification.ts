@@ -18,7 +18,6 @@ import * as utilities from "./utilities";
  */
 export function getEndpointVerification(args?: GetEndpointVerificationArgs, opts?: pulumi.InvokeOptions): Promise<GetEndpointVerificationResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getEndpointVerification:getEndpointVerification", {
         "teamId": args.teamId,
@@ -65,7 +64,11 @@ export interface GetEndpointVerificationResult {
  * ```
  */
 export function getEndpointVerificationOutput(args?: GetEndpointVerificationOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEndpointVerificationResult> {
-    return pulumi.output(args).apply((a: any) => getEndpointVerification(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("vercel:index/getEndpointVerification:getEndpointVerification", {
+        "teamId": args.teamId,
+    }, opts);
 }
 
 /**

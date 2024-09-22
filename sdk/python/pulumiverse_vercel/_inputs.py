@@ -20,6 +20,7 @@ __all__ = [
     'ProjectOptionsAllowlistArgs',
     'ProjectOptionsAllowlistPathArgs',
     'ProjectPasswordProtectionArgs',
+    'ProjectResourceConfigArgs',
     'ProjectTrustedIpsArgs',
     'ProjectTrustedIpsAddressArgs',
     'ProjectVercelAuthenticationArgs',
@@ -555,6 +556,45 @@ class ProjectPasswordProtectionArgs:
     @password.setter
     def password(self, value: pulumi.Input[str]):
         pulumi.set(self, "password", value)
+
+
+@pulumi.input_type
+class ProjectResourceConfigArgs:
+    def __init__(__self__, *,
+                 function_default_cpu_type: Optional[pulumi.Input[str]] = None,
+                 function_default_timeout: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[str] function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+        :param pulumi.Input[int] function_default_timeout: The default timeout for Serverless Functions.
+        """
+        if function_default_cpu_type is not None:
+            pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
+        if function_default_timeout is not None:
+            pulumi.set(__self__, "function_default_timeout", function_default_timeout)
+
+    @property
+    @pulumi.getter(name="functionDefaultCpuType")
+    def function_default_cpu_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+        """
+        return pulumi.get(self, "function_default_cpu_type")
+
+    @function_default_cpu_type.setter
+    def function_default_cpu_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "function_default_cpu_type", value)
+
+    @property
+    @pulumi.getter(name="functionDefaultTimeout")
+    def function_default_timeout(self) -> Optional[pulumi.Input[int]]:
+        """
+        The default timeout for Serverless Functions.
+        """
+        return pulumi.get(self, "function_default_timeout")
+
+    @function_default_timeout.setter
+    def function_default_timeout(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "function_default_timeout", value)
 
 
 @pulumi.input_type

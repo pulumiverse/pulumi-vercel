@@ -78,6 +78,11 @@ func Provider() tfbridge.ProviderInfo {
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
+			"vercel_edge_config_schema": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["id"].StringValue()), nil
+				},
+			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: fmt.Sprintf("@%s/%s", publisher, mainPkg),

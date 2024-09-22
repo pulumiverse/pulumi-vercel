@@ -127,6 +127,8 @@ type Project struct {
 	ProtectionBypassForAutomationSecret pulumi.StringOutput `pulumi:"protectionBypassForAutomationSecret"`
 	// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
 	PublicSource pulumi.BoolPtrOutput `pulumi:"publicSource"`
+	// Resource Configuration for the project.
+	ResourceConfig ProjectResourceConfigOutput `pulumi:"resourceConfig"`
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory pulumi.StringPtrOutput `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -221,6 +223,8 @@ type projectState struct {
 	ProtectionBypassForAutomationSecret *string `pulumi:"protectionBypassForAutomationSecret"`
 	// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
 	PublicSource *bool `pulumi:"publicSource"`
+	// Resource Configuration for the project.
+	ResourceConfig *ProjectResourceConfig `pulumi:"resourceConfig"`
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory *string `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -286,6 +290,8 @@ type ProjectState struct {
 	ProtectionBypassForAutomationSecret pulumi.StringPtrInput
 	// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
 	PublicSource pulumi.BoolPtrInput
+	// Resource Configuration for the project.
+	ResourceConfig ProjectResourceConfigPtrInput
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory pulumi.StringPtrInput
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -353,6 +359,8 @@ type projectArgs struct {
 	ProtectionBypassForAutomation *bool `pulumi:"protectionBypassForAutomation"`
 	// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
 	PublicSource *bool `pulumi:"publicSource"`
+	// Resource Configuration for the project.
+	ResourceConfig *ProjectResourceConfig `pulumi:"resourceConfig"`
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory *string `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -417,6 +425,8 @@ type ProjectArgs struct {
 	ProtectionBypassForAutomation pulumi.BoolPtrInput
 	// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
 	PublicSource pulumi.BoolPtrInput
+	// Resource Configuration for the project.
+	ResourceConfig ProjectResourceConfigPtrInput
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory pulumi.StringPtrInput
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -641,6 +651,11 @@ func (o ProjectOutput) ProtectionBypassForAutomationSecret() pulumi.StringOutput
 // By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
 func (o ProjectOutput) PublicSource() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolPtrOutput { return v.PublicSource }).(pulumi.BoolPtrOutput)
+}
+
+// Resource Configuration for the project.
+func (o ProjectOutput) ResourceConfig() ProjectResourceConfigOutput {
+	return o.ApplyT(func(v *Project) ProjectResourceConfigOutput { return v.ResourceConfig }).(ProjectResourceConfigOutput)
 }
 
 // The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
