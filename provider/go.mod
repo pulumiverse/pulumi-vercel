@@ -7,9 +7,9 @@ toolchain go1.23.2
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.44.1
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.91.1
-	github.com/pulumi/pulumi/sdk/v3 v3.134.1
+	github.com/pulumi/pulumi/sdk/v3 v3.135.0
 	github.com/vercel/terraform-provider-vercel v1.14.0
-	golang.org/x/text v0.18.0
+	golang.org/x/text v0.19.0
 )
 
 require github.com/Masterminds/semver v1.5.0 // indirect
