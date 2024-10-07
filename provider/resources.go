@@ -65,7 +65,7 @@ func Provider() tfbridge.ProviderInfo {
 		GitHubOrg:         "vercel",
 		Repository:        "https://github.com/pulumiverse/pulumi-vercel",
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"vercel_alias": { 
+			"vercel_alias": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
 				Fields: map[string]*tfbridge.SchemaInfo{
 					"alias": {
