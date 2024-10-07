@@ -20,7 +20,7 @@ class AttackChallengeModeArgs:
         """
         The set of arguments for constructing a AttackChallengeMode resource.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
-        :param pulumi.Input[str] project_id: The ID of the Project to adjust the CPU for.
+        :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "enabled", enabled)
@@ -44,7 +44,7 @@ class AttackChallengeModeArgs:
     @pulumi.getter(name="projectId")
     def project_id(self) -> pulumi.Input[str]:
         """
-        The ID of the Project to adjust the CPU for.
+        The ID of the Project to toggle Attack Challenge Mode on.
         """
         return pulumi.get(self, "project_id")
 
@@ -74,7 +74,7 @@ class _AttackChallengeModeState:
         """
         Input properties used for looking up and filtering AttackChallengeMode resources.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
-        :param pulumi.Input[str] project_id: The ID of the Project to adjust the CPU for.
+        :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if enabled is not None:
@@ -100,7 +100,7 @@ class _AttackChallengeModeState:
     @pulumi.getter(name="projectId")
     def project_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the Project to adjust the CPU for.
+        The ID of the Project to toggle Attack Challenge Mode on.
         """
         return pulumi.get(self, "project_id")
 
@@ -162,7 +162,7 @@ class AttackChallengeMode(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
-        :param pulumi.Input[str] project_id: The ID of the Project to adjust the CPU for.
+        :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
@@ -255,7 +255,7 @@ class AttackChallengeMode(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
-        :param pulumi.Input[str] project_id: The ID of the Project to adjust the CPU for.
+        :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -279,7 +279,7 @@ class AttackChallengeMode(pulumi.CustomResource):
     @pulumi.getter(name="projectId")
     def project_id(self) -> pulumi.Output[str]:
         """
-        The ID of the Project to adjust the CPU for.
+        The ID of the Project to toggle Attack Challenge Mode on.
         """
         return pulumi.get(self, "project_id")
 

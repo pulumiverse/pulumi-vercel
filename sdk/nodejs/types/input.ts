@@ -47,6 +47,226 @@ export interface DnsRecordSrv {
     weight: pulumi.Input<number>;
 }
 
+export interface FirewallConfigIpRules {
+    rules?: pulumi.Input<pulumi.Input<inputs.FirewallConfigIpRulesRule>[]>;
+}
+
+export interface FirewallConfigIpRulesRule {
+    action: pulumi.Input<string>;
+    /**
+     * Hosts to apply these rules to
+     */
+    hostname: pulumi.Input<string>;
+    /**
+     * The ID of this resource.
+     */
+    id?: pulumi.Input<string>;
+    /**
+     * IP or CIDR to block
+     */
+    ip: pulumi.Input<string>;
+    notes?: pulumi.Input<string>;
+}
+
+export interface FirewallConfigManagedRulesets {
+    /**
+     * Enable the owasp managed rulesets and select ruleset behaviors
+     */
+    owasp?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwasp>;
+}
+
+export interface FirewallConfigManagedRulesetsOwasp {
+    /**
+     * Generic Attack Detection
+     */
+    gen?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspGen>;
+    /**
+     * Java Attack Detection
+     */
+    java?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspJava>;
+    /**
+     * Local File Inclusion Rules
+     */
+    lfi?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspLfi>;
+    /**
+     * Multipart Rules
+     */
+    ma?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspMa>;
+    /**
+     * PHP Attack Detection
+     */
+    php?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspPhp>;
+    /**
+     * Remote Code Execution Rules
+     */
+    rce?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspRce>;
+    /**
+     * Remote File Inclusion Rules
+     */
+    rfi?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspRfi>;
+    /**
+     * Scanner Detection Rules
+     */
+    sd?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspSd>;
+    /**
+     * SQL Injection Rules
+     */
+    sqli?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspSqli>;
+    /**
+     * Cross Site Scripting Rules
+     */
+    xss?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspXss>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspGen {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspJava {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspLfi {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspMa {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspPhp {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspRce {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspRfi {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspSd {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspSqli {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspXss {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigRules {
+    rules?: pulumi.Input<pulumi.Input<inputs.FirewallConfigRulesRule>[]>;
+}
+
+export interface FirewallConfigRulesRule {
+    /**
+     * Actions to take when the condition groups match a request
+     */
+    action: pulumi.Input<inputs.FirewallConfigRulesRuleAction>;
+    /**
+     * Rule is active or disabled
+     */
+    active?: pulumi.Input<boolean>;
+    /**
+     * Sets of conditions that may match a request
+     */
+    conditionGroups: pulumi.Input<pulumi.Input<inputs.FirewallConfigRulesRuleConditionGroup>[]>;
+    description?: pulumi.Input<string>;
+    /**
+     * The ID of this resource.
+     */
+    id?: pulumi.Input<string>;
+    /**
+     * Name to identify the rule
+     */
+    name: pulumi.Input<string>;
+}
+
+export interface FirewallConfigRulesRuleAction {
+    /**
+     * Base action
+     */
+    action: pulumi.Input<string>;
+    /**
+     * Forward persistence of a rule aciton
+     */
+    actionDuration?: pulumi.Input<string>;
+    /**
+     * Behavior or a rate limiting action. Required if action is rate*limit
+     */
+    rateLimit?: pulumi.Input<inputs.FirewallConfigRulesRuleActionRateLimit>;
+    /**
+     * How to redirect a request. Required if action is redirect
+     */
+    redirect?: pulumi.Input<inputs.FirewallConfigRulesRuleActionRedirect>;
+}
+
+export interface FirewallConfigRulesRuleActionRateLimit {
+    /**
+     * Action to take when rate limit is exceeded
+     */
+    action: pulumi.Input<string>;
+    /**
+     * Rate limiting algorithm
+     */
+    algo: pulumi.Input<string>;
+    /**
+     * Keys used to bucket an individual client
+     */
+    keys: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * number of requests allowed in the window
+     */
+    limit: pulumi.Input<number>;
+    /**
+     * Time window in seconds
+     */
+    window: pulumi.Input<number>;
+}
+
+export interface FirewallConfigRulesRuleActionRedirect {
+    location: pulumi.Input<string>;
+    permanent: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigRulesRuleConditionGroup {
+    /**
+     * Conditions that must all match within a group
+     */
+    conditions: pulumi.Input<pulumi.Input<inputs.FirewallConfigRulesRuleConditionGroupCondition>[]>;
+}
+
+export interface FirewallConfigRulesRuleConditionGroupCondition {
+    /**
+     * Key within type to match against
+     */
+    key?: pulumi.Input<string>;
+    neg?: pulumi.Input<boolean>;
+    /**
+     * How to comparse type to value
+     */
+    op: pulumi.Input<string>;
+    /**
+     * Request key type to match against
+     */
+    type: pulumi.Input<string>;
+    value?: pulumi.Input<string>;
+}
+
 export interface ProjectEnvironment {
     /**
      * The git branch of the Environment Variable.

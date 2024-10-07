@@ -58,7 +58,7 @@ namespace Pulumiverse.Vercel
         public Output<bool> Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the Project to adjust the CPU for.
+        /// The ID of the Project to toggle Attack Challenge Mode on.
         /// </summary>
         [Output("projectId")]
         public Output<string> ProjectId { get; private set; } = null!;
@@ -123,7 +123,7 @@ namespace Pulumiverse.Vercel
         public Input<bool> Enabled { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the Project to adjust the CPU for.
+        /// The ID of the Project to toggle Attack Challenge Mode on.
         /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
@@ -149,7 +149,7 @@ namespace Pulumiverse.Vercel
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
-        /// The ID of the Project to adjust the CPU for.
+        /// The ID of the Project to toggle Attack Challenge Mode on.
         /// </summary>
         [Input("projectId")]
         public Input<string>? ProjectId { get; set; }

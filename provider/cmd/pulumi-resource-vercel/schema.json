@@ -122,6 +122,422 @@
                 "weight"
             ]
         },
+        "vercel:index/FirewallConfigIpRules:FirewallConfigIpRules": {
+            "properties": {
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/FirewallConfigIpRulesRule:FirewallConfigIpRulesRule"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "vercel:index/FirewallConfigIpRulesRule:FirewallConfigIpRulesRule": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "Hosts to apply these rules to\n"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "The ID of this resource.\n"
+                },
+                "ip": {
+                    "type": "string",
+                    "description": "IP or CIDR to block\n"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action",
+                "hostname",
+                "ip"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "action",
+                        "hostname",
+                        "id",
+                        "ip"
+                    ]
+                }
+            }
+        },
+        "vercel:index/FirewallConfigManagedRulesets:FirewallConfigManagedRulesets": {
+            "properties": {
+                "owasp": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwasp:FirewallConfigManagedRulesetsOwasp",
+                    "description": "Enable the owasp managed rulesets and select ruleset behaviors\n"
+                }
+            },
+            "type": "object"
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwasp:FirewallConfigManagedRulesetsOwasp": {
+            "properties": {
+                "gen": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspGen:FirewallConfigManagedRulesetsOwaspGen",
+                    "description": "Generic Attack Detection\n"
+                },
+                "java": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspJava:FirewallConfigManagedRulesetsOwaspJava",
+                    "description": "Java Attack Detection\n"
+                },
+                "lfi": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspLfi:FirewallConfigManagedRulesetsOwaspLfi",
+                    "description": "Local File Inclusion Rules\n"
+                },
+                "ma": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspMa:FirewallConfigManagedRulesetsOwaspMa",
+                    "description": "Multipart Rules\n"
+                },
+                "php": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspPhp:FirewallConfigManagedRulesetsOwaspPhp",
+                    "description": "PHP Attack Detection\n"
+                },
+                "rce": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspRce:FirewallConfigManagedRulesetsOwaspRce",
+                    "description": "Remote Code Execution Rules\n"
+                },
+                "rfi": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspRfi:FirewallConfigManagedRulesetsOwaspRfi",
+                    "description": "Remote File Inclusion Rules\n"
+                },
+                "sd": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspSd:FirewallConfigManagedRulesetsOwaspSd",
+                    "description": "Scanner Detection Rules\n"
+                },
+                "sqli": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspSqli:FirewallConfigManagedRulesetsOwaspSqli",
+                    "description": "SQL Injection Rules\n"
+                },
+                "xss": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspXss:FirewallConfigManagedRulesetsOwaspXss",
+                    "description": "Cross Site Scripting Rules\n"
+                }
+            },
+            "type": "object"
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspGen:FirewallConfigManagedRulesetsOwaspGen": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspJava:FirewallConfigManagedRulesetsOwaspJava": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspLfi:FirewallConfigManagedRulesetsOwaspLfi": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspMa:FirewallConfigManagedRulesetsOwaspMa": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspPhp:FirewallConfigManagedRulesetsOwaspPhp": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspRce:FirewallConfigManagedRulesetsOwaspRce": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspRfi:FirewallConfigManagedRulesetsOwaspRfi": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspSd:FirewallConfigManagedRulesetsOwaspSd": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspSqli:FirewallConfigManagedRulesetsOwaspSqli": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspXss:FirewallConfigManagedRulesetsOwaspXss": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigRules:FirewallConfigRules": {
+            "properties": {
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/FirewallConfigRulesRule:FirewallConfigRulesRule"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "vercel:index/FirewallConfigRulesRule:FirewallConfigRulesRule": {
+            "properties": {
+                "action": {
+                    "$ref": "#/types/vercel:index/FirewallConfigRulesRuleAction:FirewallConfigRulesRuleAction",
+                    "description": "Actions to take when the condition groups match a request\n"
+                },
+                "active": {
+                    "type": "boolean",
+                    "description": "Rule is active or disabled\n"
+                },
+                "conditionGroups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/FirewallConfigRulesRuleConditionGroup:FirewallConfigRulesRuleConditionGroup"
+                    },
+                    "description": "Sets of conditions that may match a request\n"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "The ID of this resource.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name to identify the rule\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action",
+                "conditionGroups",
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "action",
+                        "conditionGroups",
+                        "id",
+                        "name"
+                    ]
+                }
+            }
+        },
+        "vercel:index/FirewallConfigRulesRuleAction:FirewallConfigRulesRuleAction": {
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "Base action\n"
+                },
+                "actionDuration": {
+                    "type": "string",
+                    "description": "Forward persistence of a rule aciton\n"
+                },
+                "rateLimit": {
+                    "$ref": "#/types/vercel:index/FirewallConfigRulesRuleActionRateLimit:FirewallConfigRulesRuleActionRateLimit",
+                    "description": "Behavior or a rate limiting action. Required if action is rate*limit\n"
+                },
+                "redirect": {
+                    "$ref": "#/types/vercel:index/FirewallConfigRulesRuleActionRedirect:FirewallConfigRulesRuleActionRedirect",
+                    "description": "How to redirect a request. Required if action is redirect\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigRulesRuleActionRateLimit:FirewallConfigRulesRuleActionRateLimit": {
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "Action to take when rate limit is exceeded\n"
+                },
+                "algo": {
+                    "type": "string",
+                    "description": "Rate limiting algorithm\n"
+                },
+                "keys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Keys used to bucket an individual client\n"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "number of requests allowed in the window\n"
+                },
+                "window": {
+                    "type": "integer",
+                    "description": "Time window in seconds\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action",
+                "algo",
+                "keys",
+                "limit",
+                "window"
+            ]
+        },
+        "vercel:index/FirewallConfigRulesRuleActionRedirect:FirewallConfigRulesRuleActionRedirect": {
+            "properties": {
+                "location": {
+                    "type": "string"
+                },
+                "permanent": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "location",
+                "permanent"
+            ]
+        },
+        "vercel:index/FirewallConfigRulesRuleConditionGroup:FirewallConfigRulesRuleConditionGroup": {
+            "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/FirewallConfigRulesRuleConditionGroupCondition:FirewallConfigRulesRuleConditionGroupCondition"
+                    },
+                    "description": "Conditions that must all match within a group\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "conditions"
+            ]
+        },
+        "vercel:index/FirewallConfigRulesRuleConditionGroupCondition:FirewallConfigRulesRuleConditionGroupCondition": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "Key within type to match against\n"
+                },
+                "neg": {
+                    "type": "boolean"
+                },
+                "op": {
+                    "type": "string",
+                    "description": "How to comparse type to value\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Request key type to match against\n"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "op",
+                "type"
+            ]
+        },
         "vercel:index/ProjectEnvironment:ProjectEnvironment": {
             "properties": {
                 "gitBranch": {
@@ -804,7 +1220,7 @@
                 },
                 "projectId": {
                     "type": "string",
-                    "description": "The ID of the Project to adjust the CPU for.\n"
+                    "description": "The ID of the Project to toggle Attack Challenge Mode on.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -823,7 +1239,7 @@
                 },
                 "projectId": {
                     "type": "string",
-                    "description": "The ID of the Project to adjust the CPU for.\n"
+                    "description": "The ID of the Project to toggle Attack Challenge Mode on.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -843,7 +1259,7 @@
                     },
                     "projectId": {
                         "type": "string",
-                        "description": "The ID of the Project to adjust the CPU for.\n"
+                        "description": "The ID of the Project to toggle Attack Challenge Mode on.\n"
                     },
                     "teamId": {
                         "type": "string",
@@ -1309,6 +1725,99 @@
                     "token": {
                         "type": "string",
                         "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/firewallConfig:FirewallConfig": {
+            "description": "Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.FirewallConfig;\nimport com.pulumi.vercel.FirewallConfigArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleFirewallConfig = new FirewallConfig(\"exampleFirewallConfig\", FirewallConfigArgs.builder()\n            .projectId(exampleProject.id())\n            .rules(FirewallConfigRulesArgs.builder()\n                .rules(                \n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Bypass Known request\")\n                        .description(\"Bypass requests using internal bearer tokens\")\n                        .conditionGroups(                        \n                            FirewallConfigRulesRuleConditionGroupArgs.builder()\n                                .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"header\")\n                                    .key(\"Authorization\")\n                                    .op(\"eq\")\n                                    .value(\"Bearer internaltoken\")\n                                    .build())\n                                .build(),\n                            FirewallConfigRulesRuleConditionGroupArgs.builder()\n                                .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"header\")\n                                    .key(\"Authorization\")\n                                    .op(\"eq\")\n                                    .value(\"Bearer internaltoken2\")\n                                    .build())\n                                .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"bypass\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Challenge curl\")\n                        .description(\"Challenge user agents containing 'curl'\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                .type(\"user_agent\")\n                                .op(\"sub\")\n                                .value(\"curl\")\n                                .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"challenge\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Deny cookieless requests\")\n                        .description(\"requests to /api that are missing a session cookie\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(                            \n                                FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"path\")\n                                    .op(\"eq\")\n                                    .value(\"/api\")\n                                    .build(),\n                                FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"cookie\")\n                                    .key(\"_session\")\n                                    .neg(true)\n                                    .op(\"ex\")\n                                    .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"challenge\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Rate limit API\")\n                        .description(\"apply ratelimit to requests under /api\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                .type(\"path\")\n                                .op(\"pre\")\n                                .value(\"/api\")\n                                .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"rate_limit\")\n                            .rate_limit(%!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference))\n                            .actionDuration(\"5m\")\n                            .build())\n                        .build())\n                .build())\n            .build());\n\n        var managedExample = new Project(\"managedExample\");\n\n        var managed = new FirewallConfig(\"managed\", FirewallConfigArgs.builder()\n            .projectId(vercel_project.managed().id())\n            .managedRulesets(FirewallConfigManagedRulesetsArgs.builder()\n                .owasp(FirewallConfigManagedRulesetsOwaspArgs.builder()\n                    .xss(FirewallConfigManagedRulesetsOwaspXssArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .sqli(FirewallConfigManagedRulesetsOwaspSqliArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .rce(FirewallConfigManagedRulesetsOwaspRceArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .php(FirewallConfigManagedRulesetsOwaspPhpArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .java(FirewallConfigManagedRulesetsOwaspJavaArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .lfi(FirewallConfigManagedRulesetsOwaspLfiArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .rfi(FirewallConfigManagedRulesetsOwaspRfiArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .gen(FirewallConfigManagedRulesetsOwaspGenArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .build())\n                .build())\n            .build());\n\n        var ipExample = new Project(\"ipExample\");\n\n        var ip_blocking = new FirewallConfig(\"ip-blocking\", FirewallConfigArgs.builder()\n            .projectId(ipExample.id())\n            .ipRules(FirewallConfigIpRulesArgs.builder()\n                .rules(                \n                    FirewallConfigIpRulesRuleArgs.builder()\n                        .action(\"deny\")\n                        .ip(\"51.85.0.0/16\")\n                        .hostname(\"*\")\n                        .build(),\n                    FirewallConfigIpRulesRuleArgs.builder()\n                        .action(\"challenge\")\n                        .ip(\"1.2.3.4\")\n                        .hostname(\"example.com\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleFirewallConfig:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${exampleProject.id}\n      rules:\n        - rules:\n            - name: Bypass Known request\n              description: Bypass requests using internal bearer tokens\n              conditionGroups:\n                - conditions:\n                    - type: header\n                      key: Authorization\n                      op: eq\n                      value: Bearer internaltoken\n                - conditions:\n                    - type: header\n                      key: Authorization\n                      op: eq\n                      value: Bearer internaltoken2\n              action:\n                action: bypass\n            - name: Challenge curl\n              description: Challenge user agents containing 'curl'\n              conditionGroups:\n                - conditions:\n                    - type: user_agent\n                      op: sub\n                      value: curl\n              action:\n                action: challenge\n            - name: Deny cookieless requests\n              description: requests to /api that are missing a session cookie\n              conditionGroups:\n                - conditions:\n                    - type: path\n                      op: eq\n                      value: /api\n                    - type: cookie\n                      key: _session\n                      neg: true\n                      op: ex\n              action:\n                action: challenge\n            - name: Rate limit API\n              description: apply ratelimit to requests under /api\n              conditionGroups:\n                - conditions:\n                    - type: path\n                      op: pre\n                      value: /api\n              action:\n                action: rate_limit\n                rate_limit:\n                  limit: 100\n                  window: 300\n                  keys:\n                    - ip\n                    - ja4\n                  algo: fixed_window\n                  action: deny\n                actionDuration: 5m\n  managedExample:\n    type: vercel:Project\n  managed:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${vercel_project.managed.id}\n      managedRulesets:\n        - owasp:\n            - xss:\n                action: deny\n              sqli:\n                action: deny\n              rce:\n                action: deny\n              php:\n                action: deny\n              java:\n                action: deny\n              lfi:\n                action: deny\n              rfi:\n                action: deny\n              gen:\n                action: deny\n  ipExample:\n    type: vercel:Project\n  ip-blocking:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${ipExample.id}\n      ipRules:\n        - rules:\n            - action: deny\n              ip: 51.85.0.0/16\n              hostname: '*'\n            - action: challenge\n              ip: 1.2.3.4\n              hostname: example.com\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\n```sh\n$ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether firewall is enabled or not.\n"
+                },
+                "ipRules": {
+                    "$ref": "#/types/vercel:index/FirewallConfigIpRules:FirewallConfigIpRules",
+                    "description": "IP rules to apply to the project.\n"
+                },
+                "managedRulesets": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesets:FirewallConfigManagedRulesets",
+                    "description": "The managed rulesets that are enabled.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project this configuration belongs to.\n"
+                },
+                "rules": {
+                    "$ref": "#/types/vercel:index/FirewallConfigRules:FirewallConfigRules",
+                    "description": "Custom rules to apply to the project\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team this project belongs to.\n"
+                }
+            },
+            "required": [
+                "enabled",
+                "projectId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether firewall is enabled or not.\n"
+                },
+                "ipRules": {
+                    "$ref": "#/types/vercel:index/FirewallConfigIpRules:FirewallConfigIpRules",
+                    "description": "IP rules to apply to the project.\n"
+                },
+                "managedRulesets": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesets:FirewallConfigManagedRulesets",
+                    "description": "The managed rulesets that are enabled.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project this configuration belongs to.\n"
+                },
+                "rules": {
+                    "$ref": "#/types/vercel:index/FirewallConfigRules:FirewallConfigRules",
+                    "description": "Custom rules to apply to the project\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team this project belongs to.\n"
+                }
+            },
+            "requiredInputs": [
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering FirewallConfig resources.\n",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Whether firewall is enabled or not.\n"
+                    },
+                    "ipRules": {
+                        "$ref": "#/types/vercel:index/FirewallConfigIpRules:FirewallConfigIpRules",
+                        "description": "IP rules to apply to the project.\n"
+                    },
+                    "managedRulesets": {
+                        "$ref": "#/types/vercel:index/FirewallConfigManagedRulesets:FirewallConfigManagedRulesets",
+                        "description": "The managed rulesets that are enabled.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the project this configuration belongs to.\n"
+                    },
+                    "rules": {
+                        "$ref": "#/types/vercel:index/FirewallConfigRules:FirewallConfigRules",
+                        "description": "Custom rules to apply to the project\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team this project belongs to.\n"
                     }
                 },
                 "type": "object"

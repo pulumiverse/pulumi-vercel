@@ -47,6 +47,226 @@ export interface DnsRecordSrv {
     weight: number;
 }
 
+export interface FirewallConfigIpRules {
+    rules?: outputs.FirewallConfigIpRulesRule[];
+}
+
+export interface FirewallConfigIpRulesRule {
+    action: string;
+    /**
+     * Hosts to apply these rules to
+     */
+    hostname: string;
+    /**
+     * The ID of this resource.
+     */
+    id: string;
+    /**
+     * IP or CIDR to block
+     */
+    ip: string;
+    notes?: string;
+}
+
+export interface FirewallConfigManagedRulesets {
+    /**
+     * Enable the owasp managed rulesets and select ruleset behaviors
+     */
+    owasp?: outputs.FirewallConfigManagedRulesetsOwasp;
+}
+
+export interface FirewallConfigManagedRulesetsOwasp {
+    /**
+     * Generic Attack Detection
+     */
+    gen?: outputs.FirewallConfigManagedRulesetsOwaspGen;
+    /**
+     * Java Attack Detection
+     */
+    java?: outputs.FirewallConfigManagedRulesetsOwaspJava;
+    /**
+     * Local File Inclusion Rules
+     */
+    lfi?: outputs.FirewallConfigManagedRulesetsOwaspLfi;
+    /**
+     * Multipart Rules
+     */
+    ma?: outputs.FirewallConfigManagedRulesetsOwaspMa;
+    /**
+     * PHP Attack Detection
+     */
+    php?: outputs.FirewallConfigManagedRulesetsOwaspPhp;
+    /**
+     * Remote Code Execution Rules
+     */
+    rce?: outputs.FirewallConfigManagedRulesetsOwaspRce;
+    /**
+     * Remote File Inclusion Rules
+     */
+    rfi?: outputs.FirewallConfigManagedRulesetsOwaspRfi;
+    /**
+     * Scanner Detection Rules
+     */
+    sd?: outputs.FirewallConfigManagedRulesetsOwaspSd;
+    /**
+     * SQL Injection Rules
+     */
+    sqli?: outputs.FirewallConfigManagedRulesetsOwaspSqli;
+    /**
+     * Cross Site Scripting Rules
+     */
+    xss?: outputs.FirewallConfigManagedRulesetsOwaspXss;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspGen {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspJava {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspLfi {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspMa {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspPhp {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspRce {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspRfi {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspSd {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspSqli {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspXss {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigRules {
+    rules?: outputs.FirewallConfigRulesRule[];
+}
+
+export interface FirewallConfigRulesRule {
+    /**
+     * Actions to take when the condition groups match a request
+     */
+    action: outputs.FirewallConfigRulesRuleAction;
+    /**
+     * Rule is active or disabled
+     */
+    active?: boolean;
+    /**
+     * Sets of conditions that may match a request
+     */
+    conditionGroups: outputs.FirewallConfigRulesRuleConditionGroup[];
+    description?: string;
+    /**
+     * The ID of this resource.
+     */
+    id: string;
+    /**
+     * Name to identify the rule
+     */
+    name: string;
+}
+
+export interface FirewallConfigRulesRuleAction {
+    /**
+     * Base action
+     */
+    action: string;
+    /**
+     * Forward persistence of a rule aciton
+     */
+    actionDuration?: string;
+    /**
+     * Behavior or a rate limiting action. Required if action is rate*limit
+     */
+    rateLimit?: outputs.FirewallConfigRulesRuleActionRateLimit;
+    /**
+     * How to redirect a request. Required if action is redirect
+     */
+    redirect?: outputs.FirewallConfigRulesRuleActionRedirect;
+}
+
+export interface FirewallConfigRulesRuleActionRateLimit {
+    /**
+     * Action to take when rate limit is exceeded
+     */
+    action: string;
+    /**
+     * Rate limiting algorithm
+     */
+    algo: string;
+    /**
+     * Keys used to bucket an individual client
+     */
+    keys: string[];
+    /**
+     * number of requests allowed in the window
+     */
+    limit: number;
+    /**
+     * Time window in seconds
+     */
+    window: number;
+}
+
+export interface FirewallConfigRulesRuleActionRedirect {
+    location: string;
+    permanent: boolean;
+}
+
+export interface FirewallConfigRulesRuleConditionGroup {
+    /**
+     * Conditions that must all match within a group
+     */
+    conditions: outputs.FirewallConfigRulesRuleConditionGroupCondition[];
+}
+
+export interface FirewallConfigRulesRuleConditionGroupCondition {
+    /**
+     * Key within type to match against
+     */
+    key?: string;
+    neg?: boolean;
+    /**
+     * How to comparse type to value
+     */
+    op: string;
+    /**
+     * Request key type to match against
+     */
+    type: string;
+    value?: string;
+}
+
 export interface GetProjectEnvironment {
     /**
      * The git branch of the environment variable.

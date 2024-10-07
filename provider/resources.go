@@ -65,7 +65,8 @@ func Provider() tfbridge.ProviderInfo {
 		GitHubOrg:         "vercel",
 		Repository:        "https://github.com/pulumiverse/pulumi-vercel",
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"vercel_alias": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
+			"vercel_alias": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
 				Fields: map[string]*tfbridge.SchemaInfo{
 					"alias": {
 						CSharpName: "DeploymentAlias",
@@ -81,6 +82,12 @@ func Provider() tfbridge.ProviderInfo {
 			"vercel_edge_config_schema": {
 				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
 					return resource.ID(state["id"].StringValue()), nil
+				},
+			},
+			"vercel_firewall_config": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 		},

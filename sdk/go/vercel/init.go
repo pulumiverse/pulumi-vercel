@@ -35,6 +35,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EdgeConfigSchema{}
 	case "vercel:index/edgeConfigToken:EdgeConfigToken":
 		r = &EdgeConfigToken{}
+	case "vercel:index/firewallConfig:FirewallConfig":
+		r = &FirewallConfig{}
 	case "vercel:index/logDrain:LogDrain":
 		r = &LogDrain{}
 	case "vercel:index/project:Project":
@@ -115,6 +117,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/edgeConfigToken",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/firewallConfig",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

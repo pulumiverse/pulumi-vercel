@@ -12,6 +12,7 @@ from .dns_record import *
 from .edge_config import *
 from .edge_config_schema import *
 from .edge_config_token import *
+from .firewall_config import *
 from .get_alias import *
 from .get_attack_challenge_mode import *
 from .get_deployment import *
@@ -103,6 +104,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/edgeConfigToken:EdgeConfigToken": "EdgeConfigToken"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/firewallConfig",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/firewallConfig:FirewallConfig": "FirewallConfig"
   }
  },
  {
