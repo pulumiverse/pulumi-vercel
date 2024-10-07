@@ -420,6 +420,3129 @@ func (o DnsRecordSrvPtrOutput) Weight() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+type FirewallConfigIpRules struct {
+	Rules []FirewallConfigIpRulesRule `pulumi:"rules"`
+}
+
+// FirewallConfigIpRulesInput is an input type that accepts FirewallConfigIpRulesArgs and FirewallConfigIpRulesOutput values.
+// You can construct a concrete instance of `FirewallConfigIpRulesInput` via:
+//
+//	FirewallConfigIpRulesArgs{...}
+type FirewallConfigIpRulesInput interface {
+	pulumi.Input
+
+	ToFirewallConfigIpRulesOutput() FirewallConfigIpRulesOutput
+	ToFirewallConfigIpRulesOutputWithContext(context.Context) FirewallConfigIpRulesOutput
+}
+
+type FirewallConfigIpRulesArgs struct {
+	Rules FirewallConfigIpRulesRuleArrayInput `pulumi:"rules"`
+}
+
+func (FirewallConfigIpRulesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigIpRules)(nil)).Elem()
+}
+
+func (i FirewallConfigIpRulesArgs) ToFirewallConfigIpRulesOutput() FirewallConfigIpRulesOutput {
+	return i.ToFirewallConfigIpRulesOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigIpRulesArgs) ToFirewallConfigIpRulesOutputWithContext(ctx context.Context) FirewallConfigIpRulesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigIpRulesOutput)
+}
+
+func (i FirewallConfigIpRulesArgs) ToFirewallConfigIpRulesPtrOutput() FirewallConfigIpRulesPtrOutput {
+	return i.ToFirewallConfigIpRulesPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigIpRulesArgs) ToFirewallConfigIpRulesPtrOutputWithContext(ctx context.Context) FirewallConfigIpRulesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigIpRulesOutput).ToFirewallConfigIpRulesPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigIpRulesPtrInput is an input type that accepts FirewallConfigIpRulesArgs, FirewallConfigIpRulesPtr and FirewallConfigIpRulesPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigIpRulesPtrInput` via:
+//
+//	        FirewallConfigIpRulesArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigIpRulesPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigIpRulesPtrOutput() FirewallConfigIpRulesPtrOutput
+	ToFirewallConfigIpRulesPtrOutputWithContext(context.Context) FirewallConfigIpRulesPtrOutput
+}
+
+type firewallConfigIpRulesPtrType FirewallConfigIpRulesArgs
+
+func FirewallConfigIpRulesPtr(v *FirewallConfigIpRulesArgs) FirewallConfigIpRulesPtrInput {
+	return (*firewallConfigIpRulesPtrType)(v)
+}
+
+func (*firewallConfigIpRulesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigIpRules)(nil)).Elem()
+}
+
+func (i *firewallConfigIpRulesPtrType) ToFirewallConfigIpRulesPtrOutput() FirewallConfigIpRulesPtrOutput {
+	return i.ToFirewallConfigIpRulesPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigIpRulesPtrType) ToFirewallConfigIpRulesPtrOutputWithContext(ctx context.Context) FirewallConfigIpRulesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigIpRulesPtrOutput)
+}
+
+type FirewallConfigIpRulesOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigIpRulesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigIpRules)(nil)).Elem()
+}
+
+func (o FirewallConfigIpRulesOutput) ToFirewallConfigIpRulesOutput() FirewallConfigIpRulesOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesOutput) ToFirewallConfigIpRulesOutputWithContext(ctx context.Context) FirewallConfigIpRulesOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesOutput) ToFirewallConfigIpRulesPtrOutput() FirewallConfigIpRulesPtrOutput {
+	return o.ToFirewallConfigIpRulesPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigIpRulesOutput) ToFirewallConfigIpRulesPtrOutputWithContext(ctx context.Context) FirewallConfigIpRulesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigIpRules) *FirewallConfigIpRules {
+		return &v
+	}).(FirewallConfigIpRulesPtrOutput)
+}
+
+func (o FirewallConfigIpRulesOutput) Rules() FirewallConfigIpRulesRuleArrayOutput {
+	return o.ApplyT(func(v FirewallConfigIpRules) []FirewallConfigIpRulesRule { return v.Rules }).(FirewallConfigIpRulesRuleArrayOutput)
+}
+
+type FirewallConfigIpRulesPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigIpRulesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigIpRules)(nil)).Elem()
+}
+
+func (o FirewallConfigIpRulesPtrOutput) ToFirewallConfigIpRulesPtrOutput() FirewallConfigIpRulesPtrOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesPtrOutput) ToFirewallConfigIpRulesPtrOutputWithContext(ctx context.Context) FirewallConfigIpRulesPtrOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesPtrOutput) Elem() FirewallConfigIpRulesOutput {
+	return o.ApplyT(func(v *FirewallConfigIpRules) FirewallConfigIpRules {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigIpRules
+		return ret
+	}).(FirewallConfigIpRulesOutput)
+}
+
+func (o FirewallConfigIpRulesPtrOutput) Rules() FirewallConfigIpRulesRuleArrayOutput {
+	return o.ApplyT(func(v *FirewallConfigIpRules) []FirewallConfigIpRulesRule {
+		if v == nil {
+			return nil
+		}
+		return v.Rules
+	}).(FirewallConfigIpRulesRuleArrayOutput)
+}
+
+type FirewallConfigIpRulesRule struct {
+	Action string `pulumi:"action"`
+	// Hosts to apply these rules to
+	Hostname string `pulumi:"hostname"`
+	// The ID of this resource.
+	Id *string `pulumi:"id"`
+	// IP or CIDR to block
+	Ip    string  `pulumi:"ip"`
+	Notes *string `pulumi:"notes"`
+}
+
+// FirewallConfigIpRulesRuleInput is an input type that accepts FirewallConfigIpRulesRuleArgs and FirewallConfigIpRulesRuleOutput values.
+// You can construct a concrete instance of `FirewallConfigIpRulesRuleInput` via:
+//
+//	FirewallConfigIpRulesRuleArgs{...}
+type FirewallConfigIpRulesRuleInput interface {
+	pulumi.Input
+
+	ToFirewallConfigIpRulesRuleOutput() FirewallConfigIpRulesRuleOutput
+	ToFirewallConfigIpRulesRuleOutputWithContext(context.Context) FirewallConfigIpRulesRuleOutput
+}
+
+type FirewallConfigIpRulesRuleArgs struct {
+	Action pulumi.StringInput `pulumi:"action"`
+	// Hosts to apply these rules to
+	Hostname pulumi.StringInput `pulumi:"hostname"`
+	// The ID of this resource.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// IP or CIDR to block
+	Ip    pulumi.StringInput    `pulumi:"ip"`
+	Notes pulumi.StringPtrInput `pulumi:"notes"`
+}
+
+func (FirewallConfigIpRulesRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigIpRulesRule)(nil)).Elem()
+}
+
+func (i FirewallConfigIpRulesRuleArgs) ToFirewallConfigIpRulesRuleOutput() FirewallConfigIpRulesRuleOutput {
+	return i.ToFirewallConfigIpRulesRuleOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigIpRulesRuleArgs) ToFirewallConfigIpRulesRuleOutputWithContext(ctx context.Context) FirewallConfigIpRulesRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigIpRulesRuleOutput)
+}
+
+// FirewallConfigIpRulesRuleArrayInput is an input type that accepts FirewallConfigIpRulesRuleArray and FirewallConfigIpRulesRuleArrayOutput values.
+// You can construct a concrete instance of `FirewallConfigIpRulesRuleArrayInput` via:
+//
+//	FirewallConfigIpRulesRuleArray{ FirewallConfigIpRulesRuleArgs{...} }
+type FirewallConfigIpRulesRuleArrayInput interface {
+	pulumi.Input
+
+	ToFirewallConfigIpRulesRuleArrayOutput() FirewallConfigIpRulesRuleArrayOutput
+	ToFirewallConfigIpRulesRuleArrayOutputWithContext(context.Context) FirewallConfigIpRulesRuleArrayOutput
+}
+
+type FirewallConfigIpRulesRuleArray []FirewallConfigIpRulesRuleInput
+
+func (FirewallConfigIpRulesRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigIpRulesRule)(nil)).Elem()
+}
+
+func (i FirewallConfigIpRulesRuleArray) ToFirewallConfigIpRulesRuleArrayOutput() FirewallConfigIpRulesRuleArrayOutput {
+	return i.ToFirewallConfigIpRulesRuleArrayOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigIpRulesRuleArray) ToFirewallConfigIpRulesRuleArrayOutputWithContext(ctx context.Context) FirewallConfigIpRulesRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigIpRulesRuleArrayOutput)
+}
+
+type FirewallConfigIpRulesRuleOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigIpRulesRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigIpRulesRule)(nil)).Elem()
+}
+
+func (o FirewallConfigIpRulesRuleOutput) ToFirewallConfigIpRulesRuleOutput() FirewallConfigIpRulesRuleOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesRuleOutput) ToFirewallConfigIpRulesRuleOutputWithContext(ctx context.Context) FirewallConfigIpRulesRuleOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesRuleOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigIpRulesRule) string { return v.Action }).(pulumi.StringOutput)
+}
+
+// Hosts to apply these rules to
+func (o FirewallConfigIpRulesRuleOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigIpRulesRule) string { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// The ID of this resource.
+func (o FirewallConfigIpRulesRuleOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigIpRulesRule) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// IP or CIDR to block
+func (o FirewallConfigIpRulesRuleOutput) Ip() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigIpRulesRule) string { return v.Ip }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigIpRulesRuleOutput) Notes() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigIpRulesRule) *string { return v.Notes }).(pulumi.StringPtrOutput)
+}
+
+type FirewallConfigIpRulesRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigIpRulesRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigIpRulesRule)(nil)).Elem()
+}
+
+func (o FirewallConfigIpRulesRuleArrayOutput) ToFirewallConfigIpRulesRuleArrayOutput() FirewallConfigIpRulesRuleArrayOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesRuleArrayOutput) ToFirewallConfigIpRulesRuleArrayOutputWithContext(ctx context.Context) FirewallConfigIpRulesRuleArrayOutput {
+	return o
+}
+
+func (o FirewallConfigIpRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallConfigIpRulesRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FirewallConfigIpRulesRule {
+		return vs[0].([]FirewallConfigIpRulesRule)[vs[1].(int)]
+	}).(FirewallConfigIpRulesRuleOutput)
+}
+
+type FirewallConfigManagedRulesets struct {
+	// Enable the owasp managed rulesets and select ruleset behaviors
+	Owasp *FirewallConfigManagedRulesetsOwasp `pulumi:"owasp"`
+}
+
+// FirewallConfigManagedRulesetsInput is an input type that accepts FirewallConfigManagedRulesetsArgs and FirewallConfigManagedRulesetsOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsInput` via:
+//
+//	FirewallConfigManagedRulesetsArgs{...}
+type FirewallConfigManagedRulesetsInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOutput() FirewallConfigManagedRulesetsOutput
+	ToFirewallConfigManagedRulesetsOutputWithContext(context.Context) FirewallConfigManagedRulesetsOutput
+}
+
+type FirewallConfigManagedRulesetsArgs struct {
+	// Enable the owasp managed rulesets and select ruleset behaviors
+	Owasp FirewallConfigManagedRulesetsOwaspPtrInput `pulumi:"owasp"`
+}
+
+func (FirewallConfigManagedRulesetsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesets)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsArgs) ToFirewallConfigManagedRulesetsOutput() FirewallConfigManagedRulesetsOutput {
+	return i.ToFirewallConfigManagedRulesetsOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsArgs) ToFirewallConfigManagedRulesetsOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOutput)
+}
+
+func (i FirewallConfigManagedRulesetsArgs) ToFirewallConfigManagedRulesetsPtrOutput() FirewallConfigManagedRulesetsPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsArgs) ToFirewallConfigManagedRulesetsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOutput).ToFirewallConfigManagedRulesetsPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsPtrInput is an input type that accepts FirewallConfigManagedRulesetsArgs, FirewallConfigManagedRulesetsPtr and FirewallConfigManagedRulesetsPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsPtrOutput() FirewallConfigManagedRulesetsPtrOutput
+	ToFirewallConfigManagedRulesetsPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsPtrOutput
+}
+
+type firewallConfigManagedRulesetsPtrType FirewallConfigManagedRulesetsArgs
+
+func FirewallConfigManagedRulesetsPtr(v *FirewallConfigManagedRulesetsArgs) FirewallConfigManagedRulesetsPtrInput {
+	return (*firewallConfigManagedRulesetsPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesets)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsPtrType) ToFirewallConfigManagedRulesetsPtrOutput() FirewallConfigManagedRulesetsPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsPtrType) ToFirewallConfigManagedRulesetsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesets)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsOutput() FirewallConfigManagedRulesetsOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsPtrOutput() FirewallConfigManagedRulesetsPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesets {
+		return &v
+	}).(FirewallConfigManagedRulesetsPtrOutput)
+}
+
+// Enable the owasp managed rulesets and select ruleset behaviors
+func (o FirewallConfigManagedRulesetsOutput) Owasp() FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsOwasp { return v.Owasp }).(FirewallConfigManagedRulesetsOwaspPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesets)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsPtrOutput) ToFirewallConfigManagedRulesetsPtrOutput() FirewallConfigManagedRulesetsPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsPtrOutput) ToFirewallConfigManagedRulesetsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsPtrOutput) Elem() FirewallConfigManagedRulesetsOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesets) FirewallConfigManagedRulesets {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesets
+		return ret
+	}).(FirewallConfigManagedRulesetsOutput)
+}
+
+// Enable the owasp managed rulesets and select ruleset behaviors
+func (o FirewallConfigManagedRulesetsPtrOutput) Owasp() FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsOwasp {
+		if v == nil {
+			return nil
+		}
+		return v.Owasp
+	}).(FirewallConfigManagedRulesetsOwaspPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwasp struct {
+	// Generic Attack Detection
+	Gen *FirewallConfigManagedRulesetsOwaspGen `pulumi:"gen"`
+	// Java Attack Detection
+	Java *FirewallConfigManagedRulesetsOwaspJava `pulumi:"java"`
+	// Local File Inclusion Rules
+	Lfi *FirewallConfigManagedRulesetsOwaspLfi `pulumi:"lfi"`
+	// Multipart Rules
+	Ma *FirewallConfigManagedRulesetsOwaspMa `pulumi:"ma"`
+	// PHP Attack Detection
+	Php *FirewallConfigManagedRulesetsOwaspPhp `pulumi:"php"`
+	// Remote Code Execution Rules
+	Rce *FirewallConfigManagedRulesetsOwaspRce `pulumi:"rce"`
+	// Remote File Inclusion Rules
+	Rfi *FirewallConfigManagedRulesetsOwaspRfi `pulumi:"rfi"`
+	// Scanner Detection Rules
+	Sd *FirewallConfigManagedRulesetsOwaspSd `pulumi:"sd"`
+	// SQL Injection Rules
+	Sqli *FirewallConfigManagedRulesetsOwaspSqli `pulumi:"sqli"`
+	// Cross Site Scripting Rules
+	Xss *FirewallConfigManagedRulesetsOwaspXss `pulumi:"xss"`
+}
+
+// FirewallConfigManagedRulesetsOwaspInput is an input type that accepts FirewallConfigManagedRulesetsOwaspArgs and FirewallConfigManagedRulesetsOwaspOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspArgs{...}
+type FirewallConfigManagedRulesetsOwaspInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspOutput() FirewallConfigManagedRulesetsOwaspOutput
+	ToFirewallConfigManagedRulesetsOwaspOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspArgs struct {
+	// Generic Attack Detection
+	Gen FirewallConfigManagedRulesetsOwaspGenPtrInput `pulumi:"gen"`
+	// Java Attack Detection
+	Java FirewallConfigManagedRulesetsOwaspJavaPtrInput `pulumi:"java"`
+	// Local File Inclusion Rules
+	Lfi FirewallConfigManagedRulesetsOwaspLfiPtrInput `pulumi:"lfi"`
+	// Multipart Rules
+	Ma FirewallConfigManagedRulesetsOwaspMaPtrInput `pulumi:"ma"`
+	// PHP Attack Detection
+	Php FirewallConfigManagedRulesetsOwaspPhpPtrInput `pulumi:"php"`
+	// Remote Code Execution Rules
+	Rce FirewallConfigManagedRulesetsOwaspRcePtrInput `pulumi:"rce"`
+	// Remote File Inclusion Rules
+	Rfi FirewallConfigManagedRulesetsOwaspRfiPtrInput `pulumi:"rfi"`
+	// Scanner Detection Rules
+	Sd FirewallConfigManagedRulesetsOwaspSdPtrInput `pulumi:"sd"`
+	// SQL Injection Rules
+	Sqli FirewallConfigManagedRulesetsOwaspSqliPtrInput `pulumi:"sqli"`
+	// Cross Site Scripting Rules
+	Xss FirewallConfigManagedRulesetsOwaspXssPtrInput `pulumi:"xss"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwasp)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspArgs) ToFirewallConfigManagedRulesetsOwaspOutput() FirewallConfigManagedRulesetsOwaspOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspArgs) ToFirewallConfigManagedRulesetsOwaspOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspArgs) ToFirewallConfigManagedRulesetsOwaspPtrOutput() FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspArgs) ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspOutput).ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspArgs, FirewallConfigManagedRulesetsOwaspPtr and FirewallConfigManagedRulesetsOwaspPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspPtrOutput() FirewallConfigManagedRulesetsOwaspPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspPtrType FirewallConfigManagedRulesetsOwaspArgs
+
+func FirewallConfigManagedRulesetsOwaspPtr(v *FirewallConfigManagedRulesetsOwaspArgs) FirewallConfigManagedRulesetsOwaspPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwasp)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspPtrType) ToFirewallConfigManagedRulesetsOwaspPtrOutput() FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspPtrType) ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwasp)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspOutput) ToFirewallConfigManagedRulesetsOwaspOutput() FirewallConfigManagedRulesetsOwaspOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspOutput) ToFirewallConfigManagedRulesetsOwaspOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspOutput) ToFirewallConfigManagedRulesetsOwaspPtrOutput() FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspOutput) ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwasp {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspPtrOutput)
+}
+
+// Generic Attack Detection
+func (o FirewallConfigManagedRulesetsOwaspOutput) Gen() FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspGen { return v.Gen }).(FirewallConfigManagedRulesetsOwaspGenPtrOutput)
+}
+
+// Java Attack Detection
+func (o FirewallConfigManagedRulesetsOwaspOutput) Java() FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspJava { return v.Java }).(FirewallConfigManagedRulesetsOwaspJavaPtrOutput)
+}
+
+// Local File Inclusion Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Lfi() FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspLfi { return v.Lfi }).(FirewallConfigManagedRulesetsOwaspLfiPtrOutput)
+}
+
+// Multipart Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Ma() FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspMa { return v.Ma }).(FirewallConfigManagedRulesetsOwaspMaPtrOutput)
+}
+
+// PHP Attack Detection
+func (o FirewallConfigManagedRulesetsOwaspOutput) Php() FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspPhp { return v.Php }).(FirewallConfigManagedRulesetsOwaspPhpPtrOutput)
+}
+
+// Remote Code Execution Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Rce() FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspRce { return v.Rce }).(FirewallConfigManagedRulesetsOwaspRcePtrOutput)
+}
+
+// Remote File Inclusion Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Rfi() FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspRfi { return v.Rfi }).(FirewallConfigManagedRulesetsOwaspRfiPtrOutput)
+}
+
+// Scanner Detection Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Sd() FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspSd { return v.Sd }).(FirewallConfigManagedRulesetsOwaspSdPtrOutput)
+}
+
+// SQL Injection Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Sqli() FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspSqli { return v.Sqli }).(FirewallConfigManagedRulesetsOwaspSqliPtrOutput)
+}
+
+// Cross Site Scripting Rules
+func (o FirewallConfigManagedRulesetsOwaspOutput) Xss() FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspXss { return v.Xss }).(FirewallConfigManagedRulesetsOwaspXssPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwasp)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) ToFirewallConfigManagedRulesetsOwaspPtrOutput() FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) ToFirewallConfigManagedRulesetsOwaspPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) FirewallConfigManagedRulesetsOwasp {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwasp
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspOutput)
+}
+
+// Generic Attack Detection
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Gen() FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspGen {
+		if v == nil {
+			return nil
+		}
+		return v.Gen
+	}).(FirewallConfigManagedRulesetsOwaspGenPtrOutput)
+}
+
+// Java Attack Detection
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Java() FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspJava {
+		if v == nil {
+			return nil
+		}
+		return v.Java
+	}).(FirewallConfigManagedRulesetsOwaspJavaPtrOutput)
+}
+
+// Local File Inclusion Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Lfi() FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspLfi {
+		if v == nil {
+			return nil
+		}
+		return v.Lfi
+	}).(FirewallConfigManagedRulesetsOwaspLfiPtrOutput)
+}
+
+// Multipart Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Ma() FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspMa {
+		if v == nil {
+			return nil
+		}
+		return v.Ma
+	}).(FirewallConfigManagedRulesetsOwaspMaPtrOutput)
+}
+
+// PHP Attack Detection
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Php() FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspPhp {
+		if v == nil {
+			return nil
+		}
+		return v.Php
+	}).(FirewallConfigManagedRulesetsOwaspPhpPtrOutput)
+}
+
+// Remote Code Execution Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Rce() FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspRce {
+		if v == nil {
+			return nil
+		}
+		return v.Rce
+	}).(FirewallConfigManagedRulesetsOwaspRcePtrOutput)
+}
+
+// Remote File Inclusion Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Rfi() FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspRfi {
+		if v == nil {
+			return nil
+		}
+		return v.Rfi
+	}).(FirewallConfigManagedRulesetsOwaspRfiPtrOutput)
+}
+
+// Scanner Detection Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Sd() FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspSd {
+		if v == nil {
+			return nil
+		}
+		return v.Sd
+	}).(FirewallConfigManagedRulesetsOwaspSdPtrOutput)
+}
+
+// SQL Injection Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Sqli() FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspSqli {
+		if v == nil {
+			return nil
+		}
+		return v.Sqli
+	}).(FirewallConfigManagedRulesetsOwaspSqliPtrOutput)
+}
+
+// Cross Site Scripting Rules
+func (o FirewallConfigManagedRulesetsOwaspPtrOutput) Xss() FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwasp) *FirewallConfigManagedRulesetsOwaspXss {
+		if v == nil {
+			return nil
+		}
+		return v.Xss
+	}).(FirewallConfigManagedRulesetsOwaspXssPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspGen struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspGenInput is an input type that accepts FirewallConfigManagedRulesetsOwaspGenArgs and FirewallConfigManagedRulesetsOwaspGenOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspGenInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspGenArgs{...}
+type FirewallConfigManagedRulesetsOwaspGenInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspGenOutput() FirewallConfigManagedRulesetsOwaspGenOutput
+	ToFirewallConfigManagedRulesetsOwaspGenOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspGenOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspGenArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspGenArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspGen)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspGenArgs) ToFirewallConfigManagedRulesetsOwaspGenOutput() FirewallConfigManagedRulesetsOwaspGenOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspGenOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspGenArgs) ToFirewallConfigManagedRulesetsOwaspGenOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspGenOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspGenOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspGenArgs) ToFirewallConfigManagedRulesetsOwaspGenPtrOutput() FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspGenArgs) ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspGenOutput).ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspGenPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspGenArgs, FirewallConfigManagedRulesetsOwaspGenPtr and FirewallConfigManagedRulesetsOwaspGenPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspGenPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspGenArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspGenPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspGenPtrOutput() FirewallConfigManagedRulesetsOwaspGenPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspGenPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspGenPtrType FirewallConfigManagedRulesetsOwaspGenArgs
+
+func FirewallConfigManagedRulesetsOwaspGenPtr(v *FirewallConfigManagedRulesetsOwaspGenArgs) FirewallConfigManagedRulesetsOwaspGenPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspGenPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspGenPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspGen)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspGenPtrType) ToFirewallConfigManagedRulesetsOwaspGenPtrOutput() FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspGenPtrType) ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspGenPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspGenOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspGenOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspGen)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenOutput) ToFirewallConfigManagedRulesetsOwaspGenOutput() FirewallConfigManagedRulesetsOwaspGenOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenOutput) ToFirewallConfigManagedRulesetsOwaspGenOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspGenOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenOutput) ToFirewallConfigManagedRulesetsOwaspGenPtrOutput() FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenOutput) ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspGen) *FirewallConfigManagedRulesetsOwaspGen {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspGenPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspGen) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspGen) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspGenPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspGenPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspGen)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenPtrOutput) ToFirewallConfigManagedRulesetsOwaspGenPtrOutput() FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenPtrOutput) ToFirewallConfigManagedRulesetsOwaspGenPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspGenPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspGenOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspGen) FirewallConfigManagedRulesetsOwaspGen {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspGen
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspGenOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspGen) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspGenPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspGen) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspJava struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspJavaInput is an input type that accepts FirewallConfigManagedRulesetsOwaspJavaArgs and FirewallConfigManagedRulesetsOwaspJavaOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspJavaInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspJavaArgs{...}
+type FirewallConfigManagedRulesetsOwaspJavaInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspJavaOutput() FirewallConfigManagedRulesetsOwaspJavaOutput
+	ToFirewallConfigManagedRulesetsOwaspJavaOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspJavaOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspJavaArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspJavaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspJava)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspJavaArgs) ToFirewallConfigManagedRulesetsOwaspJavaOutput() FirewallConfigManagedRulesetsOwaspJavaOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspJavaOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspJavaArgs) ToFirewallConfigManagedRulesetsOwaspJavaOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspJavaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspJavaOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspJavaArgs) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutput() FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspJavaArgs) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspJavaOutput).ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspJavaPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspJavaArgs, FirewallConfigManagedRulesetsOwaspJavaPtr and FirewallConfigManagedRulesetsOwaspJavaPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspJavaPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspJavaArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspJavaPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspJavaPtrOutput() FirewallConfigManagedRulesetsOwaspJavaPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspJavaPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspJavaPtrType FirewallConfigManagedRulesetsOwaspJavaArgs
+
+func FirewallConfigManagedRulesetsOwaspJavaPtr(v *FirewallConfigManagedRulesetsOwaspJavaArgs) FirewallConfigManagedRulesetsOwaspJavaPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspJavaPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspJavaPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspJava)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspJavaPtrType) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutput() FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspJavaPtrType) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspJavaPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspJavaOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspJavaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspJava)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaOutput) ToFirewallConfigManagedRulesetsOwaspJavaOutput() FirewallConfigManagedRulesetsOwaspJavaOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaOutput) ToFirewallConfigManagedRulesetsOwaspJavaOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspJavaOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaOutput) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutput() FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaOutput) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspJava) *FirewallConfigManagedRulesetsOwaspJava {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspJavaPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspJava) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspJava) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspJavaPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspJavaPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspJava)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaPtrOutput) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutput() FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaPtrOutput) ToFirewallConfigManagedRulesetsOwaspJavaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspJavaPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspJavaOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspJava) FirewallConfigManagedRulesetsOwaspJava {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspJava
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspJavaOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspJava) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspJavaPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspJava) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspLfi struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspLfiInput is an input type that accepts FirewallConfigManagedRulesetsOwaspLfiArgs and FirewallConfigManagedRulesetsOwaspLfiOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspLfiInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspLfiArgs{...}
+type FirewallConfigManagedRulesetsOwaspLfiInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspLfiOutput() FirewallConfigManagedRulesetsOwaspLfiOutput
+	ToFirewallConfigManagedRulesetsOwaspLfiOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspLfiOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspLfiArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspLfiArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspLfi)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspLfiArgs) ToFirewallConfigManagedRulesetsOwaspLfiOutput() FirewallConfigManagedRulesetsOwaspLfiOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspLfiOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspLfiArgs) ToFirewallConfigManagedRulesetsOwaspLfiOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspLfiOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspLfiOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspLfiArgs) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutput() FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspLfiArgs) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspLfiOutput).ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspLfiPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspLfiArgs, FirewallConfigManagedRulesetsOwaspLfiPtr and FirewallConfigManagedRulesetsOwaspLfiPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspLfiPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspLfiArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspLfiPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspLfiPtrOutput() FirewallConfigManagedRulesetsOwaspLfiPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspLfiPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspLfiPtrType FirewallConfigManagedRulesetsOwaspLfiArgs
+
+func FirewallConfigManagedRulesetsOwaspLfiPtr(v *FirewallConfigManagedRulesetsOwaspLfiArgs) FirewallConfigManagedRulesetsOwaspLfiPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspLfiPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspLfiPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspLfi)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspLfiPtrType) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutput() FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspLfiPtrType) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspLfiPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspLfiOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspLfiOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspLfi)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiOutput) ToFirewallConfigManagedRulesetsOwaspLfiOutput() FirewallConfigManagedRulesetsOwaspLfiOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiOutput) ToFirewallConfigManagedRulesetsOwaspLfiOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspLfiOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiOutput) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutput() FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiOutput) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspLfi) *FirewallConfigManagedRulesetsOwaspLfi {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspLfiPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspLfi) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspLfi) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspLfiPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspLfiPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspLfi)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiPtrOutput) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutput() FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiPtrOutput) ToFirewallConfigManagedRulesetsOwaspLfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspLfiPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspLfiOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspLfi) FirewallConfigManagedRulesetsOwaspLfi {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspLfi
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspLfiOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspLfi) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspLfiPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspLfi) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspMa struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspMaInput is an input type that accepts FirewallConfigManagedRulesetsOwaspMaArgs and FirewallConfigManagedRulesetsOwaspMaOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspMaInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspMaArgs{...}
+type FirewallConfigManagedRulesetsOwaspMaInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspMaOutput() FirewallConfigManagedRulesetsOwaspMaOutput
+	ToFirewallConfigManagedRulesetsOwaspMaOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspMaOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspMaArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspMaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspMa)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspMaArgs) ToFirewallConfigManagedRulesetsOwaspMaOutput() FirewallConfigManagedRulesetsOwaspMaOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspMaOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspMaArgs) ToFirewallConfigManagedRulesetsOwaspMaOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspMaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspMaOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspMaArgs) ToFirewallConfigManagedRulesetsOwaspMaPtrOutput() FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspMaArgs) ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspMaOutput).ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspMaPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspMaArgs, FirewallConfigManagedRulesetsOwaspMaPtr and FirewallConfigManagedRulesetsOwaspMaPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspMaPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspMaArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspMaPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspMaPtrOutput() FirewallConfigManagedRulesetsOwaspMaPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspMaPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspMaPtrType FirewallConfigManagedRulesetsOwaspMaArgs
+
+func FirewallConfigManagedRulesetsOwaspMaPtr(v *FirewallConfigManagedRulesetsOwaspMaArgs) FirewallConfigManagedRulesetsOwaspMaPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspMaPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspMaPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspMa)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspMaPtrType) ToFirewallConfigManagedRulesetsOwaspMaPtrOutput() FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspMaPtrType) ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspMaPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspMaOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspMaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspMa)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaOutput) ToFirewallConfigManagedRulesetsOwaspMaOutput() FirewallConfigManagedRulesetsOwaspMaOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaOutput) ToFirewallConfigManagedRulesetsOwaspMaOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspMaOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaOutput) ToFirewallConfigManagedRulesetsOwaspMaPtrOutput() FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaOutput) ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspMa) *FirewallConfigManagedRulesetsOwaspMa {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspMaPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspMa) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspMa) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspMaPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspMaPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspMa)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaPtrOutput) ToFirewallConfigManagedRulesetsOwaspMaPtrOutput() FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaPtrOutput) ToFirewallConfigManagedRulesetsOwaspMaPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspMaPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspMaOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspMa) FirewallConfigManagedRulesetsOwaspMa {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspMa
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspMaOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspMa) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspMaPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspMa) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspPhp struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspPhpInput is an input type that accepts FirewallConfigManagedRulesetsOwaspPhpArgs and FirewallConfigManagedRulesetsOwaspPhpOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspPhpInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspPhpArgs{...}
+type FirewallConfigManagedRulesetsOwaspPhpInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspPhpOutput() FirewallConfigManagedRulesetsOwaspPhpOutput
+	ToFirewallConfigManagedRulesetsOwaspPhpOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspPhpOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspPhpArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspPhpArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPhp)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspPhpArgs) ToFirewallConfigManagedRulesetsOwaspPhpOutput() FirewallConfigManagedRulesetsOwaspPhpOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspPhpOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspPhpArgs) ToFirewallConfigManagedRulesetsOwaspPhpOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPhpOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspPhpOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspPhpArgs) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutput() FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspPhpArgs) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspPhpOutput).ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspPhpPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspPhpArgs, FirewallConfigManagedRulesetsOwaspPhpPtr and FirewallConfigManagedRulesetsOwaspPhpPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspPhpPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspPhpArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspPhpPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspPhpPtrOutput() FirewallConfigManagedRulesetsOwaspPhpPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspPhpPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspPhpPtrType FirewallConfigManagedRulesetsOwaspPhpArgs
+
+func FirewallConfigManagedRulesetsOwaspPhpPtr(v *FirewallConfigManagedRulesetsOwaspPhpArgs) FirewallConfigManagedRulesetsOwaspPhpPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspPhpPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspPhpPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspPhp)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspPhpPtrType) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutput() FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspPhpPtrType) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspPhpPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspPhpOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspPhpOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPhp)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpOutput) ToFirewallConfigManagedRulesetsOwaspPhpOutput() FirewallConfigManagedRulesetsOwaspPhpOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpOutput) ToFirewallConfigManagedRulesetsOwaspPhpOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPhpOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpOutput) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutput() FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpOutput) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspPhp) *FirewallConfigManagedRulesetsOwaspPhp {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspPhpPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspPhp) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspPhp) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspPhpPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspPhpPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspPhp)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpPtrOutput) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutput() FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpPtrOutput) ToFirewallConfigManagedRulesetsOwaspPhpPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspPhpPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspPhpOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspPhp) FirewallConfigManagedRulesetsOwaspPhp {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspPhp
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspPhpOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspPhp) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspPhpPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspPhp) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspRce struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspRceInput is an input type that accepts FirewallConfigManagedRulesetsOwaspRceArgs and FirewallConfigManagedRulesetsOwaspRceOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspRceInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspRceArgs{...}
+type FirewallConfigManagedRulesetsOwaspRceInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspRceOutput() FirewallConfigManagedRulesetsOwaspRceOutput
+	ToFirewallConfigManagedRulesetsOwaspRceOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspRceOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspRceArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspRceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRce)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRceArgs) ToFirewallConfigManagedRulesetsOwaspRceOutput() FirewallConfigManagedRulesetsOwaspRceOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspRceOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRceArgs) ToFirewallConfigManagedRulesetsOwaspRceOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspRceOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRceArgs) ToFirewallConfigManagedRulesetsOwaspRcePtrOutput() FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRceArgs) ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspRceOutput).ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspRcePtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspRceArgs, FirewallConfigManagedRulesetsOwaspRcePtr and FirewallConfigManagedRulesetsOwaspRcePtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspRcePtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspRceArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspRcePtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspRcePtrOutput() FirewallConfigManagedRulesetsOwaspRcePtrOutput
+	ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspRcePtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspRcePtrType FirewallConfigManagedRulesetsOwaspRceArgs
+
+func FirewallConfigManagedRulesetsOwaspRcePtr(v *FirewallConfigManagedRulesetsOwaspRceArgs) FirewallConfigManagedRulesetsOwaspRcePtrInput {
+	return (*firewallConfigManagedRulesetsOwaspRcePtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspRcePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspRce)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspRcePtrType) ToFirewallConfigManagedRulesetsOwaspRcePtrOutput() FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspRcePtrType) ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspRcePtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspRceOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspRceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRce)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRceOutput) ToFirewallConfigManagedRulesetsOwaspRceOutput() FirewallConfigManagedRulesetsOwaspRceOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRceOutput) ToFirewallConfigManagedRulesetsOwaspRceOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRceOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRceOutput) ToFirewallConfigManagedRulesetsOwaspRcePtrOutput() FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRceOutput) ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspRce) *FirewallConfigManagedRulesetsOwaspRce {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspRcePtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRceOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspRce) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRceOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspRce) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspRcePtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspRcePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspRce)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRcePtrOutput) ToFirewallConfigManagedRulesetsOwaspRcePtrOutput() FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRcePtrOutput) ToFirewallConfigManagedRulesetsOwaspRcePtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRcePtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRcePtrOutput) Elem() FirewallConfigManagedRulesetsOwaspRceOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspRce) FirewallConfigManagedRulesetsOwaspRce {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspRce
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspRceOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRcePtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspRce) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRcePtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspRce) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspRfi struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspRfiInput is an input type that accepts FirewallConfigManagedRulesetsOwaspRfiArgs and FirewallConfigManagedRulesetsOwaspRfiOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspRfiInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspRfiArgs{...}
+type FirewallConfigManagedRulesetsOwaspRfiInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspRfiOutput() FirewallConfigManagedRulesetsOwaspRfiOutput
+	ToFirewallConfigManagedRulesetsOwaspRfiOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspRfiOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspRfiArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspRfiArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRfi)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRfiArgs) ToFirewallConfigManagedRulesetsOwaspRfiOutput() FirewallConfigManagedRulesetsOwaspRfiOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspRfiOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRfiArgs) ToFirewallConfigManagedRulesetsOwaspRfiOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRfiOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspRfiOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRfiArgs) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutput() FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspRfiArgs) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspRfiOutput).ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspRfiPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspRfiArgs, FirewallConfigManagedRulesetsOwaspRfiPtr and FirewallConfigManagedRulesetsOwaspRfiPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspRfiPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspRfiArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspRfiPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspRfiPtrOutput() FirewallConfigManagedRulesetsOwaspRfiPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspRfiPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspRfiPtrType FirewallConfigManagedRulesetsOwaspRfiArgs
+
+func FirewallConfigManagedRulesetsOwaspRfiPtr(v *FirewallConfigManagedRulesetsOwaspRfiArgs) FirewallConfigManagedRulesetsOwaspRfiPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspRfiPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspRfiPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspRfi)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspRfiPtrType) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutput() FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspRfiPtrType) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspRfiPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspRfiOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspRfiOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRfi)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiOutput) ToFirewallConfigManagedRulesetsOwaspRfiOutput() FirewallConfigManagedRulesetsOwaspRfiOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiOutput) ToFirewallConfigManagedRulesetsOwaspRfiOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRfiOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiOutput) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutput() FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiOutput) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspRfi) *FirewallConfigManagedRulesetsOwaspRfi {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspRfiPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspRfi) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspRfi) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspRfiPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspRfiPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspRfi)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiPtrOutput) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutput() FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiPtrOutput) ToFirewallConfigManagedRulesetsOwaspRfiPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspRfiPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspRfiOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspRfi) FirewallConfigManagedRulesetsOwaspRfi {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspRfi
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspRfiOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspRfi) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspRfiPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspRfi) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspSd struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspSdInput is an input type that accepts FirewallConfigManagedRulesetsOwaspSdArgs and FirewallConfigManagedRulesetsOwaspSdOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspSdInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspSdArgs{...}
+type FirewallConfigManagedRulesetsOwaspSdInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspSdOutput() FirewallConfigManagedRulesetsOwaspSdOutput
+	ToFirewallConfigManagedRulesetsOwaspSdOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspSdOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspSdArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspSdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSd)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSdArgs) ToFirewallConfigManagedRulesetsOwaspSdOutput() FirewallConfigManagedRulesetsOwaspSdOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspSdOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSdArgs) ToFirewallConfigManagedRulesetsOwaspSdOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspSdOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSdArgs) ToFirewallConfigManagedRulesetsOwaspSdPtrOutput() FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSdArgs) ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspSdOutput).ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspSdPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspSdArgs, FirewallConfigManagedRulesetsOwaspSdPtr and FirewallConfigManagedRulesetsOwaspSdPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspSdPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspSdArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspSdPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspSdPtrOutput() FirewallConfigManagedRulesetsOwaspSdPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspSdPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspSdPtrType FirewallConfigManagedRulesetsOwaspSdArgs
+
+func FirewallConfigManagedRulesetsOwaspSdPtr(v *FirewallConfigManagedRulesetsOwaspSdArgs) FirewallConfigManagedRulesetsOwaspSdPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspSdPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspSdPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspSd)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspSdPtrType) ToFirewallConfigManagedRulesetsOwaspSdPtrOutput() FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspSdPtrType) ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspSdPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspSdOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspSdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSd)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdOutput) ToFirewallConfigManagedRulesetsOwaspSdOutput() FirewallConfigManagedRulesetsOwaspSdOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdOutput) ToFirewallConfigManagedRulesetsOwaspSdOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSdOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdOutput) ToFirewallConfigManagedRulesetsOwaspSdPtrOutput() FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdOutput) ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspSd) *FirewallConfigManagedRulesetsOwaspSd {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspSdPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspSd) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspSd) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspSdPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspSdPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspSd)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdPtrOutput) ToFirewallConfigManagedRulesetsOwaspSdPtrOutput() FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdPtrOutput) ToFirewallConfigManagedRulesetsOwaspSdPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSdPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspSdOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspSd) FirewallConfigManagedRulesetsOwaspSd {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspSd
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspSdOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspSd) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSdPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspSd) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspSqli struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspSqliInput is an input type that accepts FirewallConfigManagedRulesetsOwaspSqliArgs and FirewallConfigManagedRulesetsOwaspSqliOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspSqliInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspSqliArgs{...}
+type FirewallConfigManagedRulesetsOwaspSqliInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspSqliOutput() FirewallConfigManagedRulesetsOwaspSqliOutput
+	ToFirewallConfigManagedRulesetsOwaspSqliOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspSqliOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspSqliArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspSqliArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSqli)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSqliArgs) ToFirewallConfigManagedRulesetsOwaspSqliOutput() FirewallConfigManagedRulesetsOwaspSqliOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspSqliOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSqliArgs) ToFirewallConfigManagedRulesetsOwaspSqliOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSqliOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspSqliOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSqliArgs) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutput() FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspSqliArgs) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspSqliOutput).ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspSqliPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspSqliArgs, FirewallConfigManagedRulesetsOwaspSqliPtr and FirewallConfigManagedRulesetsOwaspSqliPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspSqliPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspSqliArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspSqliPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspSqliPtrOutput() FirewallConfigManagedRulesetsOwaspSqliPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspSqliPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspSqliPtrType FirewallConfigManagedRulesetsOwaspSqliArgs
+
+func FirewallConfigManagedRulesetsOwaspSqliPtr(v *FirewallConfigManagedRulesetsOwaspSqliArgs) FirewallConfigManagedRulesetsOwaspSqliPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspSqliPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspSqliPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspSqli)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspSqliPtrType) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutput() FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspSqliPtrType) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspSqliPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspSqliOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspSqliOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSqli)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliOutput) ToFirewallConfigManagedRulesetsOwaspSqliOutput() FirewallConfigManagedRulesetsOwaspSqliOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliOutput) ToFirewallConfigManagedRulesetsOwaspSqliOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSqliOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliOutput) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutput() FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliOutput) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspSqli) *FirewallConfigManagedRulesetsOwaspSqli {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspSqliPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspSqli) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspSqli) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspSqliPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspSqliPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspSqli)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliPtrOutput) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutput() FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliPtrOutput) ToFirewallConfigManagedRulesetsOwaspSqliPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspSqliPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspSqliOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspSqli) FirewallConfigManagedRulesetsOwaspSqli {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspSqli
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspSqliOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspSqli) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspSqliPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspSqli) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspXss struct {
+	Action string `pulumi:"action"`
+	Active *bool  `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsOwaspXssInput is an input type that accepts FirewallConfigManagedRulesetsOwaspXssArgs and FirewallConfigManagedRulesetsOwaspXssOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspXssInput` via:
+//
+//	FirewallConfigManagedRulesetsOwaspXssArgs{...}
+type FirewallConfigManagedRulesetsOwaspXssInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspXssOutput() FirewallConfigManagedRulesetsOwaspXssOutput
+	ToFirewallConfigManagedRulesetsOwaspXssOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspXssOutput
+}
+
+type FirewallConfigManagedRulesetsOwaspXssArgs struct {
+	Action pulumi.StringInput  `pulumi:"action"`
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsOwaspXssArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspXss)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsOwaspXssArgs) ToFirewallConfigManagedRulesetsOwaspXssOutput() FirewallConfigManagedRulesetsOwaspXssOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspXssOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspXssArgs) ToFirewallConfigManagedRulesetsOwaspXssOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspXssOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspXssOutput)
+}
+
+func (i FirewallConfigManagedRulesetsOwaspXssArgs) ToFirewallConfigManagedRulesetsOwaspXssPtrOutput() FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsOwaspXssArgs) ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspXssOutput).ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsOwaspXssPtrInput is an input type that accepts FirewallConfigManagedRulesetsOwaspXssArgs, FirewallConfigManagedRulesetsOwaspXssPtr and FirewallConfigManagedRulesetsOwaspXssPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsOwaspXssPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsOwaspXssArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsOwaspXssPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsOwaspXssPtrOutput() FirewallConfigManagedRulesetsOwaspXssPtrOutput
+	ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsOwaspXssPtrOutput
+}
+
+type firewallConfigManagedRulesetsOwaspXssPtrType FirewallConfigManagedRulesetsOwaspXssArgs
+
+func FirewallConfigManagedRulesetsOwaspXssPtr(v *FirewallConfigManagedRulesetsOwaspXssArgs) FirewallConfigManagedRulesetsOwaspXssPtrInput {
+	return (*firewallConfigManagedRulesetsOwaspXssPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsOwaspXssPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspXss)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsOwaspXssPtrType) ToFirewallConfigManagedRulesetsOwaspXssPtrOutput() FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsOwaspXssPtrType) ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsOwaspXssPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspXssOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspXssOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspXss)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssOutput) ToFirewallConfigManagedRulesetsOwaspXssOutput() FirewallConfigManagedRulesetsOwaspXssOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssOutput) ToFirewallConfigManagedRulesetsOwaspXssOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspXssOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssOutput) ToFirewallConfigManagedRulesetsOwaspXssPtrOutput() FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssOutput) ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsOwaspXss) *FirewallConfigManagedRulesetsOwaspXss {
+		return &v
+	}).(FirewallConfigManagedRulesetsOwaspXssPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspXss) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsOwaspXss) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsOwaspXssPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsOwaspXssPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsOwaspXss)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssPtrOutput) ToFirewallConfigManagedRulesetsOwaspXssPtrOutput() FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssPtrOutput) ToFirewallConfigManagedRulesetsOwaspXssPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsOwaspXssPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssPtrOutput) Elem() FirewallConfigManagedRulesetsOwaspXssOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspXss) FirewallConfigManagedRulesetsOwaspXss {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsOwaspXss
+		return ret
+	}).(FirewallConfigManagedRulesetsOwaspXssOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspXss) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsOwaspXssPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsOwaspXss) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigRules struct {
+	Rules []FirewallConfigRulesRule `pulumi:"rules"`
+}
+
+// FirewallConfigRulesInput is an input type that accepts FirewallConfigRulesArgs and FirewallConfigRulesOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesInput` via:
+//
+//	FirewallConfigRulesArgs{...}
+type FirewallConfigRulesInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesOutput() FirewallConfigRulesOutput
+	ToFirewallConfigRulesOutputWithContext(context.Context) FirewallConfigRulesOutput
+}
+
+type FirewallConfigRulesArgs struct {
+	Rules FirewallConfigRulesRuleArrayInput `pulumi:"rules"`
+}
+
+func (FirewallConfigRulesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRules)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesArgs) ToFirewallConfigRulesOutput() FirewallConfigRulesOutput {
+	return i.ToFirewallConfigRulesOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesArgs) ToFirewallConfigRulesOutputWithContext(ctx context.Context) FirewallConfigRulesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesOutput)
+}
+
+func (i FirewallConfigRulesArgs) ToFirewallConfigRulesPtrOutput() FirewallConfigRulesPtrOutput {
+	return i.ToFirewallConfigRulesPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesArgs) ToFirewallConfigRulesPtrOutputWithContext(ctx context.Context) FirewallConfigRulesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesOutput).ToFirewallConfigRulesPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigRulesPtrInput is an input type that accepts FirewallConfigRulesArgs, FirewallConfigRulesPtr and FirewallConfigRulesPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesPtrInput` via:
+//
+//	        FirewallConfigRulesArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigRulesPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesPtrOutput() FirewallConfigRulesPtrOutput
+	ToFirewallConfigRulesPtrOutputWithContext(context.Context) FirewallConfigRulesPtrOutput
+}
+
+type firewallConfigRulesPtrType FirewallConfigRulesArgs
+
+func FirewallConfigRulesPtr(v *FirewallConfigRulesArgs) FirewallConfigRulesPtrInput {
+	return (*firewallConfigRulesPtrType)(v)
+}
+
+func (*firewallConfigRulesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigRules)(nil)).Elem()
+}
+
+func (i *firewallConfigRulesPtrType) ToFirewallConfigRulesPtrOutput() FirewallConfigRulesPtrOutput {
+	return i.ToFirewallConfigRulesPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigRulesPtrType) ToFirewallConfigRulesPtrOutputWithContext(ctx context.Context) FirewallConfigRulesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesPtrOutput)
+}
+
+type FirewallConfigRulesOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRules)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesOutput) ToFirewallConfigRulesOutput() FirewallConfigRulesOutput {
+	return o
+}
+
+func (o FirewallConfigRulesOutput) ToFirewallConfigRulesOutputWithContext(ctx context.Context) FirewallConfigRulesOutput {
+	return o
+}
+
+func (o FirewallConfigRulesOutput) ToFirewallConfigRulesPtrOutput() FirewallConfigRulesPtrOutput {
+	return o.ToFirewallConfigRulesPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigRulesOutput) ToFirewallConfigRulesPtrOutputWithContext(ctx context.Context) FirewallConfigRulesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigRules) *FirewallConfigRules {
+		return &v
+	}).(FirewallConfigRulesPtrOutput)
+}
+
+func (o FirewallConfigRulesOutput) Rules() FirewallConfigRulesRuleArrayOutput {
+	return o.ApplyT(func(v FirewallConfigRules) []FirewallConfigRulesRule { return v.Rules }).(FirewallConfigRulesRuleArrayOutput)
+}
+
+type FirewallConfigRulesPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigRules)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesPtrOutput) ToFirewallConfigRulesPtrOutput() FirewallConfigRulesPtrOutput {
+	return o
+}
+
+func (o FirewallConfigRulesPtrOutput) ToFirewallConfigRulesPtrOutputWithContext(ctx context.Context) FirewallConfigRulesPtrOutput {
+	return o
+}
+
+func (o FirewallConfigRulesPtrOutput) Elem() FirewallConfigRulesOutput {
+	return o.ApplyT(func(v *FirewallConfigRules) FirewallConfigRules {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigRules
+		return ret
+	}).(FirewallConfigRulesOutput)
+}
+
+func (o FirewallConfigRulesPtrOutput) Rules() FirewallConfigRulesRuleArrayOutput {
+	return o.ApplyT(func(v *FirewallConfigRules) []FirewallConfigRulesRule {
+		if v == nil {
+			return nil
+		}
+		return v.Rules
+	}).(FirewallConfigRulesRuleArrayOutput)
+}
+
+type FirewallConfigRulesRule struct {
+	// Actions to take when the condition groups match a request
+	Action FirewallConfigRulesRuleAction `pulumi:"action"`
+	// Rule is active or disabled
+	Active *bool `pulumi:"active"`
+	// Sets of conditions that may match a request
+	ConditionGroups []FirewallConfigRulesRuleConditionGroup `pulumi:"conditionGroups"`
+	Description     *string                                 `pulumi:"description"`
+	// The ID of this resource.
+	Id *string `pulumi:"id"`
+	// Name to identify the rule
+	Name string `pulumi:"name"`
+}
+
+// FirewallConfigRulesRuleInput is an input type that accepts FirewallConfigRulesRuleArgs and FirewallConfigRulesRuleOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleInput` via:
+//
+//	FirewallConfigRulesRuleArgs{...}
+type FirewallConfigRulesRuleInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleOutput() FirewallConfigRulesRuleOutput
+	ToFirewallConfigRulesRuleOutputWithContext(context.Context) FirewallConfigRulesRuleOutput
+}
+
+type FirewallConfigRulesRuleArgs struct {
+	// Actions to take when the condition groups match a request
+	Action FirewallConfigRulesRuleActionInput `pulumi:"action"`
+	// Rule is active or disabled
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+	// Sets of conditions that may match a request
+	ConditionGroups FirewallConfigRulesRuleConditionGroupArrayInput `pulumi:"conditionGroups"`
+	Description     pulumi.StringPtrInput                           `pulumi:"description"`
+	// The ID of this resource.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Name to identify the rule
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (FirewallConfigRulesRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRule)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleArgs) ToFirewallConfigRulesRuleOutput() FirewallConfigRulesRuleOutput {
+	return i.ToFirewallConfigRulesRuleOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleArgs) ToFirewallConfigRulesRuleOutputWithContext(ctx context.Context) FirewallConfigRulesRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleOutput)
+}
+
+// FirewallConfigRulesRuleArrayInput is an input type that accepts FirewallConfigRulesRuleArray and FirewallConfigRulesRuleArrayOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleArrayInput` via:
+//
+//	FirewallConfigRulesRuleArray{ FirewallConfigRulesRuleArgs{...} }
+type FirewallConfigRulesRuleArrayInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleArrayOutput() FirewallConfigRulesRuleArrayOutput
+	ToFirewallConfigRulesRuleArrayOutputWithContext(context.Context) FirewallConfigRulesRuleArrayOutput
+}
+
+type FirewallConfigRulesRuleArray []FirewallConfigRulesRuleInput
+
+func (FirewallConfigRulesRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigRulesRule)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleArray) ToFirewallConfigRulesRuleArrayOutput() FirewallConfigRulesRuleArrayOutput {
+	return i.ToFirewallConfigRulesRuleArrayOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleArray) ToFirewallConfigRulesRuleArrayOutputWithContext(ctx context.Context) FirewallConfigRulesRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleArrayOutput)
+}
+
+type FirewallConfigRulesRuleOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRule)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleOutput) ToFirewallConfigRulesRuleOutput() FirewallConfigRulesRuleOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleOutput) ToFirewallConfigRulesRuleOutputWithContext(ctx context.Context) FirewallConfigRulesRuleOutput {
+	return o
+}
+
+// Actions to take when the condition groups match a request
+func (o FirewallConfigRulesRuleOutput) Action() FirewallConfigRulesRuleActionOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRule) FirewallConfigRulesRuleAction { return v.Action }).(FirewallConfigRulesRuleActionOutput)
+}
+
+// Rule is active or disabled
+func (o FirewallConfigRulesRuleOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRule) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+// Sets of conditions that may match a request
+func (o FirewallConfigRulesRuleOutput) ConditionGroups() FirewallConfigRulesRuleConditionGroupArrayOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRule) []FirewallConfigRulesRuleConditionGroup { return v.ConditionGroups }).(FirewallConfigRulesRuleConditionGroupArrayOutput)
+}
+
+func (o FirewallConfigRulesRuleOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRule) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The ID of this resource.
+func (o FirewallConfigRulesRuleOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRule) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Name to identify the rule
+func (o FirewallConfigRulesRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRule) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type FirewallConfigRulesRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigRulesRule)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleArrayOutput) ToFirewallConfigRulesRuleArrayOutput() FirewallConfigRulesRuleArrayOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleArrayOutput) ToFirewallConfigRulesRuleArrayOutputWithContext(ctx context.Context) FirewallConfigRulesRuleArrayOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallConfigRulesRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FirewallConfigRulesRule {
+		return vs[0].([]FirewallConfigRulesRule)[vs[1].(int)]
+	}).(FirewallConfigRulesRuleOutput)
+}
+
+type FirewallConfigRulesRuleAction struct {
+	// Base action
+	Action string `pulumi:"action"`
+	// Forward persistence of a rule aciton
+	ActionDuration *string `pulumi:"actionDuration"`
+	// Behavior or a rate limiting action. Required if action is rate*limit
+	RateLimit *FirewallConfigRulesRuleActionRateLimit `pulumi:"rateLimit"`
+	// How to redirect a request. Required if action is redirect
+	Redirect *FirewallConfigRulesRuleActionRedirect `pulumi:"redirect"`
+}
+
+// FirewallConfigRulesRuleActionInput is an input type that accepts FirewallConfigRulesRuleActionArgs and FirewallConfigRulesRuleActionOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleActionInput` via:
+//
+//	FirewallConfigRulesRuleActionArgs{...}
+type FirewallConfigRulesRuleActionInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleActionOutput() FirewallConfigRulesRuleActionOutput
+	ToFirewallConfigRulesRuleActionOutputWithContext(context.Context) FirewallConfigRulesRuleActionOutput
+}
+
+type FirewallConfigRulesRuleActionArgs struct {
+	// Base action
+	Action pulumi.StringInput `pulumi:"action"`
+	// Forward persistence of a rule aciton
+	ActionDuration pulumi.StringPtrInput `pulumi:"actionDuration"`
+	// Behavior or a rate limiting action. Required if action is rate*limit
+	RateLimit FirewallConfigRulesRuleActionRateLimitPtrInput `pulumi:"rateLimit"`
+	// How to redirect a request. Required if action is redirect
+	Redirect FirewallConfigRulesRuleActionRedirectPtrInput `pulumi:"redirect"`
+}
+
+func (FirewallConfigRulesRuleActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleAction)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleActionArgs) ToFirewallConfigRulesRuleActionOutput() FirewallConfigRulesRuleActionOutput {
+	return i.ToFirewallConfigRulesRuleActionOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleActionArgs) ToFirewallConfigRulesRuleActionOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionOutput)
+}
+
+type FirewallConfigRulesRuleActionOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleAction)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleActionOutput) ToFirewallConfigRulesRuleActionOutput() FirewallConfigRulesRuleActionOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionOutput) ToFirewallConfigRulesRuleActionOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionOutput {
+	return o
+}
+
+// Base action
+func (o FirewallConfigRulesRuleActionOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleAction) string { return v.Action }).(pulumi.StringOutput)
+}
+
+// Forward persistence of a rule aciton
+func (o FirewallConfigRulesRuleActionOutput) ActionDuration() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *string { return v.ActionDuration }).(pulumi.StringPtrOutput)
+}
+
+// Behavior or a rate limiting action. Required if action is rate*limit
+func (o FirewallConfigRulesRuleActionOutput) RateLimit() FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *FirewallConfigRulesRuleActionRateLimit { return v.RateLimit }).(FirewallConfigRulesRuleActionRateLimitPtrOutput)
+}
+
+// How to redirect a request. Required if action is redirect
+func (o FirewallConfigRulesRuleActionOutput) Redirect() FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *FirewallConfigRulesRuleActionRedirect { return v.Redirect }).(FirewallConfigRulesRuleActionRedirectPtrOutput)
+}
+
+type FirewallConfigRulesRuleActionRateLimit struct {
+	// Action to take when rate limit is exceeded
+	Action string `pulumi:"action"`
+	// Rate limiting algorithm
+	Algo string `pulumi:"algo"`
+	// Keys used to bucket an individual client
+	Keys []string `pulumi:"keys"`
+	// number of requests allowed in the window
+	Limit int `pulumi:"limit"`
+	// Time window in seconds
+	Window int `pulumi:"window"`
+}
+
+// FirewallConfigRulesRuleActionRateLimitInput is an input type that accepts FirewallConfigRulesRuleActionRateLimitArgs and FirewallConfigRulesRuleActionRateLimitOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleActionRateLimitInput` via:
+//
+//	FirewallConfigRulesRuleActionRateLimitArgs{...}
+type FirewallConfigRulesRuleActionRateLimitInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleActionRateLimitOutput() FirewallConfigRulesRuleActionRateLimitOutput
+	ToFirewallConfigRulesRuleActionRateLimitOutputWithContext(context.Context) FirewallConfigRulesRuleActionRateLimitOutput
+}
+
+type FirewallConfigRulesRuleActionRateLimitArgs struct {
+	// Action to take when rate limit is exceeded
+	Action pulumi.StringInput `pulumi:"action"`
+	// Rate limiting algorithm
+	Algo pulumi.StringInput `pulumi:"algo"`
+	// Keys used to bucket an individual client
+	Keys pulumi.StringArrayInput `pulumi:"keys"`
+	// number of requests allowed in the window
+	Limit pulumi.IntInput `pulumi:"limit"`
+	// Time window in seconds
+	Window pulumi.IntInput `pulumi:"window"`
+}
+
+func (FirewallConfigRulesRuleActionRateLimitArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleActionRateLimit)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleActionRateLimitArgs) ToFirewallConfigRulesRuleActionRateLimitOutput() FirewallConfigRulesRuleActionRateLimitOutput {
+	return i.ToFirewallConfigRulesRuleActionRateLimitOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleActionRateLimitArgs) ToFirewallConfigRulesRuleActionRateLimitOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRateLimitOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionRateLimitOutput)
+}
+
+func (i FirewallConfigRulesRuleActionRateLimitArgs) ToFirewallConfigRulesRuleActionRateLimitPtrOutput() FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return i.ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleActionRateLimitArgs) ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionRateLimitOutput).ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigRulesRuleActionRateLimitPtrInput is an input type that accepts FirewallConfigRulesRuleActionRateLimitArgs, FirewallConfigRulesRuleActionRateLimitPtr and FirewallConfigRulesRuleActionRateLimitPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleActionRateLimitPtrInput` via:
+//
+//	        FirewallConfigRulesRuleActionRateLimitArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigRulesRuleActionRateLimitPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleActionRateLimitPtrOutput() FirewallConfigRulesRuleActionRateLimitPtrOutput
+	ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(context.Context) FirewallConfigRulesRuleActionRateLimitPtrOutput
+}
+
+type firewallConfigRulesRuleActionRateLimitPtrType FirewallConfigRulesRuleActionRateLimitArgs
+
+func FirewallConfigRulesRuleActionRateLimitPtr(v *FirewallConfigRulesRuleActionRateLimitArgs) FirewallConfigRulesRuleActionRateLimitPtrInput {
+	return (*firewallConfigRulesRuleActionRateLimitPtrType)(v)
+}
+
+func (*firewallConfigRulesRuleActionRateLimitPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigRulesRuleActionRateLimit)(nil)).Elem()
+}
+
+func (i *firewallConfigRulesRuleActionRateLimitPtrType) ToFirewallConfigRulesRuleActionRateLimitPtrOutput() FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return i.ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigRulesRuleActionRateLimitPtrType) ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionRateLimitPtrOutput)
+}
+
+type FirewallConfigRulesRuleActionRateLimitOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleActionRateLimitOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleActionRateLimit)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitOutput) ToFirewallConfigRulesRuleActionRateLimitOutput() FirewallConfigRulesRuleActionRateLimitOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitOutput) ToFirewallConfigRulesRuleActionRateLimitOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRateLimitOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitOutput) ToFirewallConfigRulesRuleActionRateLimitPtrOutput() FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return o.ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitOutput) ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigRulesRuleActionRateLimit) *FirewallConfigRulesRuleActionRateLimit {
+		return &v
+	}).(FirewallConfigRulesRuleActionRateLimitPtrOutput)
+}
+
+// Action to take when rate limit is exceeded
+func (o FirewallConfigRulesRuleActionRateLimitOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRateLimit) string { return v.Action }).(pulumi.StringOutput)
+}
+
+// Rate limiting algorithm
+func (o FirewallConfigRulesRuleActionRateLimitOutput) Algo() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRateLimit) string { return v.Algo }).(pulumi.StringOutput)
+}
+
+// Keys used to bucket an individual client
+func (o FirewallConfigRulesRuleActionRateLimitOutput) Keys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRateLimit) []string { return v.Keys }).(pulumi.StringArrayOutput)
+}
+
+// number of requests allowed in the window
+func (o FirewallConfigRulesRuleActionRateLimitOutput) Limit() pulumi.IntOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRateLimit) int { return v.Limit }).(pulumi.IntOutput)
+}
+
+// Time window in seconds
+func (o FirewallConfigRulesRuleActionRateLimitOutput) Window() pulumi.IntOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRateLimit) int { return v.Window }).(pulumi.IntOutput)
+}
+
+type FirewallConfigRulesRuleActionRateLimitPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleActionRateLimitPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigRulesRuleActionRateLimit)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) ToFirewallConfigRulesRuleActionRateLimitPtrOutput() FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) ToFirewallConfigRulesRuleActionRateLimitPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRateLimitPtrOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) Elem() FirewallConfigRulesRuleActionRateLimitOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRateLimit) FirewallConfigRulesRuleActionRateLimit {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigRulesRuleActionRateLimit
+		return ret
+	}).(FirewallConfigRulesRuleActionRateLimitOutput)
+}
+
+// Action to take when rate limit is exceeded
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRateLimit) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+// Rate limiting algorithm
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) Algo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRateLimit) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Algo
+	}).(pulumi.StringPtrOutput)
+}
+
+// Keys used to bucket an individual client
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) Keys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRateLimit) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Keys
+	}).(pulumi.StringArrayOutput)
+}
+
+// number of requests allowed in the window
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRateLimit) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Limit
+	}).(pulumi.IntPtrOutput)
+}
+
+// Time window in seconds
+func (o FirewallConfigRulesRuleActionRateLimitPtrOutput) Window() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRateLimit) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Window
+	}).(pulumi.IntPtrOutput)
+}
+
+type FirewallConfigRulesRuleActionRedirect struct {
+	Location  string `pulumi:"location"`
+	Permanent bool   `pulumi:"permanent"`
+}
+
+// FirewallConfigRulesRuleActionRedirectInput is an input type that accepts FirewallConfigRulesRuleActionRedirectArgs and FirewallConfigRulesRuleActionRedirectOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleActionRedirectInput` via:
+//
+//	FirewallConfigRulesRuleActionRedirectArgs{...}
+type FirewallConfigRulesRuleActionRedirectInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleActionRedirectOutput() FirewallConfigRulesRuleActionRedirectOutput
+	ToFirewallConfigRulesRuleActionRedirectOutputWithContext(context.Context) FirewallConfigRulesRuleActionRedirectOutput
+}
+
+type FirewallConfigRulesRuleActionRedirectArgs struct {
+	Location  pulumi.StringInput `pulumi:"location"`
+	Permanent pulumi.BoolInput   `pulumi:"permanent"`
+}
+
+func (FirewallConfigRulesRuleActionRedirectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleActionRedirect)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleActionRedirectArgs) ToFirewallConfigRulesRuleActionRedirectOutput() FirewallConfigRulesRuleActionRedirectOutput {
+	return i.ToFirewallConfigRulesRuleActionRedirectOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleActionRedirectArgs) ToFirewallConfigRulesRuleActionRedirectOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRedirectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionRedirectOutput)
+}
+
+func (i FirewallConfigRulesRuleActionRedirectArgs) ToFirewallConfigRulesRuleActionRedirectPtrOutput() FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return i.ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleActionRedirectArgs) ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionRedirectOutput).ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigRulesRuleActionRedirectPtrInput is an input type that accepts FirewallConfigRulesRuleActionRedirectArgs, FirewallConfigRulesRuleActionRedirectPtr and FirewallConfigRulesRuleActionRedirectPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleActionRedirectPtrInput` via:
+//
+//	        FirewallConfigRulesRuleActionRedirectArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigRulesRuleActionRedirectPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleActionRedirectPtrOutput() FirewallConfigRulesRuleActionRedirectPtrOutput
+	ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(context.Context) FirewallConfigRulesRuleActionRedirectPtrOutput
+}
+
+type firewallConfigRulesRuleActionRedirectPtrType FirewallConfigRulesRuleActionRedirectArgs
+
+func FirewallConfigRulesRuleActionRedirectPtr(v *FirewallConfigRulesRuleActionRedirectArgs) FirewallConfigRulesRuleActionRedirectPtrInput {
+	return (*firewallConfigRulesRuleActionRedirectPtrType)(v)
+}
+
+func (*firewallConfigRulesRuleActionRedirectPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigRulesRuleActionRedirect)(nil)).Elem()
+}
+
+func (i *firewallConfigRulesRuleActionRedirectPtrType) ToFirewallConfigRulesRuleActionRedirectPtrOutput() FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return i.ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigRulesRuleActionRedirectPtrType) ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleActionRedirectPtrOutput)
+}
+
+type FirewallConfigRulesRuleActionRedirectOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleActionRedirectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleActionRedirect)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleActionRedirectOutput) ToFirewallConfigRulesRuleActionRedirectOutput() FirewallConfigRulesRuleActionRedirectOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRedirectOutput) ToFirewallConfigRulesRuleActionRedirectOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRedirectOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRedirectOutput) ToFirewallConfigRulesRuleActionRedirectPtrOutput() FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return o.ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigRulesRuleActionRedirectOutput) ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigRulesRuleActionRedirect) *FirewallConfigRulesRuleActionRedirect {
+		return &v
+	}).(FirewallConfigRulesRuleActionRedirectPtrOutput)
+}
+
+func (o FirewallConfigRulesRuleActionRedirectOutput) Location() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRedirect) string { return v.Location }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigRulesRuleActionRedirectOutput) Permanent() pulumi.BoolOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleActionRedirect) bool { return v.Permanent }).(pulumi.BoolOutput)
+}
+
+type FirewallConfigRulesRuleActionRedirectPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleActionRedirectPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigRulesRuleActionRedirect)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleActionRedirectPtrOutput) ToFirewallConfigRulesRuleActionRedirectPtrOutput() FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRedirectPtrOutput) ToFirewallConfigRulesRuleActionRedirectPtrOutputWithContext(ctx context.Context) FirewallConfigRulesRuleActionRedirectPtrOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleActionRedirectPtrOutput) Elem() FirewallConfigRulesRuleActionRedirectOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRedirect) FirewallConfigRulesRuleActionRedirect {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigRulesRuleActionRedirect
+		return ret
+	}).(FirewallConfigRulesRuleActionRedirectOutput)
+}
+
+func (o FirewallConfigRulesRuleActionRedirectPtrOutput) Location() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRedirect) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Location
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigRulesRuleActionRedirectPtrOutput) Permanent() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigRulesRuleActionRedirect) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Permanent
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigRulesRuleConditionGroup struct {
+	// Conditions that must all match within a group
+	Conditions []FirewallConfigRulesRuleConditionGroupCondition `pulumi:"conditions"`
+}
+
+// FirewallConfigRulesRuleConditionGroupInput is an input type that accepts FirewallConfigRulesRuleConditionGroupArgs and FirewallConfigRulesRuleConditionGroupOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleConditionGroupInput` via:
+//
+//	FirewallConfigRulesRuleConditionGroupArgs{...}
+type FirewallConfigRulesRuleConditionGroupInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleConditionGroupOutput() FirewallConfigRulesRuleConditionGroupOutput
+	ToFirewallConfigRulesRuleConditionGroupOutputWithContext(context.Context) FirewallConfigRulesRuleConditionGroupOutput
+}
+
+type FirewallConfigRulesRuleConditionGroupArgs struct {
+	// Conditions that must all match within a group
+	Conditions FirewallConfigRulesRuleConditionGroupConditionArrayInput `pulumi:"conditions"`
+}
+
+func (FirewallConfigRulesRuleConditionGroupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleConditionGroup)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleConditionGroupArgs) ToFirewallConfigRulesRuleConditionGroupOutput() FirewallConfigRulesRuleConditionGroupOutput {
+	return i.ToFirewallConfigRulesRuleConditionGroupOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleConditionGroupArgs) ToFirewallConfigRulesRuleConditionGroupOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleConditionGroupOutput)
+}
+
+// FirewallConfigRulesRuleConditionGroupArrayInput is an input type that accepts FirewallConfigRulesRuleConditionGroupArray and FirewallConfigRulesRuleConditionGroupArrayOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleConditionGroupArrayInput` via:
+//
+//	FirewallConfigRulesRuleConditionGroupArray{ FirewallConfigRulesRuleConditionGroupArgs{...} }
+type FirewallConfigRulesRuleConditionGroupArrayInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleConditionGroupArrayOutput() FirewallConfigRulesRuleConditionGroupArrayOutput
+	ToFirewallConfigRulesRuleConditionGroupArrayOutputWithContext(context.Context) FirewallConfigRulesRuleConditionGroupArrayOutput
+}
+
+type FirewallConfigRulesRuleConditionGroupArray []FirewallConfigRulesRuleConditionGroupInput
+
+func (FirewallConfigRulesRuleConditionGroupArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigRulesRuleConditionGroup)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleConditionGroupArray) ToFirewallConfigRulesRuleConditionGroupArrayOutput() FirewallConfigRulesRuleConditionGroupArrayOutput {
+	return i.ToFirewallConfigRulesRuleConditionGroupArrayOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleConditionGroupArray) ToFirewallConfigRulesRuleConditionGroupArrayOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleConditionGroupArrayOutput)
+}
+
+type FirewallConfigRulesRuleConditionGroupOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleConditionGroupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleConditionGroup)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleConditionGroupOutput) ToFirewallConfigRulesRuleConditionGroupOutput() FirewallConfigRulesRuleConditionGroupOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleConditionGroupOutput) ToFirewallConfigRulesRuleConditionGroupOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupOutput {
+	return o
+}
+
+// Conditions that must all match within a group
+func (o FirewallConfigRulesRuleConditionGroupOutput) Conditions() FirewallConfigRulesRuleConditionGroupConditionArrayOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroup) []FirewallConfigRulesRuleConditionGroupCondition {
+		return v.Conditions
+	}).(FirewallConfigRulesRuleConditionGroupConditionArrayOutput)
+}
+
+type FirewallConfigRulesRuleConditionGroupArrayOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleConditionGroupArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigRulesRuleConditionGroup)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleConditionGroupArrayOutput) ToFirewallConfigRulesRuleConditionGroupArrayOutput() FirewallConfigRulesRuleConditionGroupArrayOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleConditionGroupArrayOutput) ToFirewallConfigRulesRuleConditionGroupArrayOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupArrayOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleConditionGroupArrayOutput) Index(i pulumi.IntInput) FirewallConfigRulesRuleConditionGroupOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FirewallConfigRulesRuleConditionGroup {
+		return vs[0].([]FirewallConfigRulesRuleConditionGroup)[vs[1].(int)]
+	}).(FirewallConfigRulesRuleConditionGroupOutput)
+}
+
+type FirewallConfigRulesRuleConditionGroupCondition struct {
+	// Key within type to match against
+	Key *string `pulumi:"key"`
+	Neg *bool   `pulumi:"neg"`
+	// How to comparse type to value
+	Op string `pulumi:"op"`
+	// Request key type to match against
+	Type  string  `pulumi:"type"`
+	Value *string `pulumi:"value"`
+}
+
+// FirewallConfigRulesRuleConditionGroupConditionInput is an input type that accepts FirewallConfigRulesRuleConditionGroupConditionArgs and FirewallConfigRulesRuleConditionGroupConditionOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleConditionGroupConditionInput` via:
+//
+//	FirewallConfigRulesRuleConditionGroupConditionArgs{...}
+type FirewallConfigRulesRuleConditionGroupConditionInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleConditionGroupConditionOutput() FirewallConfigRulesRuleConditionGroupConditionOutput
+	ToFirewallConfigRulesRuleConditionGroupConditionOutputWithContext(context.Context) FirewallConfigRulesRuleConditionGroupConditionOutput
+}
+
+type FirewallConfigRulesRuleConditionGroupConditionArgs struct {
+	// Key within type to match against
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	Neg pulumi.BoolPtrInput   `pulumi:"neg"`
+	// How to comparse type to value
+	Op pulumi.StringInput `pulumi:"op"`
+	// Request key type to match against
+	Type  pulumi.StringInput    `pulumi:"type"`
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (FirewallConfigRulesRuleConditionGroupConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupCondition)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleConditionGroupConditionArgs) ToFirewallConfigRulesRuleConditionGroupConditionOutput() FirewallConfigRulesRuleConditionGroupConditionOutput {
+	return i.ToFirewallConfigRulesRuleConditionGroupConditionOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleConditionGroupConditionArgs) ToFirewallConfigRulesRuleConditionGroupConditionOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleConditionGroupConditionOutput)
+}
+
+// FirewallConfigRulesRuleConditionGroupConditionArrayInput is an input type that accepts FirewallConfigRulesRuleConditionGroupConditionArray and FirewallConfigRulesRuleConditionGroupConditionArrayOutput values.
+// You can construct a concrete instance of `FirewallConfigRulesRuleConditionGroupConditionArrayInput` via:
+//
+//	FirewallConfigRulesRuleConditionGroupConditionArray{ FirewallConfigRulesRuleConditionGroupConditionArgs{...} }
+type FirewallConfigRulesRuleConditionGroupConditionArrayInput interface {
+	pulumi.Input
+
+	ToFirewallConfigRulesRuleConditionGroupConditionArrayOutput() FirewallConfigRulesRuleConditionGroupConditionArrayOutput
+	ToFirewallConfigRulesRuleConditionGroupConditionArrayOutputWithContext(context.Context) FirewallConfigRulesRuleConditionGroupConditionArrayOutput
+}
+
+type FirewallConfigRulesRuleConditionGroupConditionArray []FirewallConfigRulesRuleConditionGroupConditionInput
+
+func (FirewallConfigRulesRuleConditionGroupConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigRulesRuleConditionGroupCondition)(nil)).Elem()
+}
+
+func (i FirewallConfigRulesRuleConditionGroupConditionArray) ToFirewallConfigRulesRuleConditionGroupConditionArrayOutput() FirewallConfigRulesRuleConditionGroupConditionArrayOutput {
+	return i.ToFirewallConfigRulesRuleConditionGroupConditionArrayOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigRulesRuleConditionGroupConditionArray) ToFirewallConfigRulesRuleConditionGroupConditionArrayOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigRulesRuleConditionGroupConditionArrayOutput)
+}
+
+type FirewallConfigRulesRuleConditionGroupConditionOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleConditionGroupConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupCondition)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) ToFirewallConfigRulesRuleConditionGroupConditionOutput() FirewallConfigRulesRuleConditionGroupConditionOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) ToFirewallConfigRulesRuleConditionGroupConditionOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupConditionOutput {
+	return o
+}
+
+// Key within type to match against
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Neg() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *bool { return v.Neg }).(pulumi.BoolPtrOutput)
+}
+
+// How to comparse type to value
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Op() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) string { return v.Op }).(pulumi.StringOutput)
+}
+
+// Request key type to match against
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type FirewallConfigRulesRuleConditionGroupConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigRulesRuleConditionGroupConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FirewallConfigRulesRuleConditionGroupCondition)(nil)).Elem()
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) ToFirewallConfigRulesRuleConditionGroupConditionArrayOutput() FirewallConfigRulesRuleConditionGroupConditionArrayOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) ToFirewallConfigRulesRuleConditionGroupConditionArrayOutputWithContext(ctx context.Context) FirewallConfigRulesRuleConditionGroupConditionArrayOutput {
+	return o
+}
+
+func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) Index(i pulumi.IntInput) FirewallConfigRulesRuleConditionGroupConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FirewallConfigRulesRuleConditionGroupCondition {
+		return vs[0].([]FirewallConfigRulesRuleConditionGroupCondition)[vs[1].(int)]
+	}).(FirewallConfigRulesRuleConditionGroupConditionOutput)
+}
+
 type ProjectEnvironment struct {
 	// The git branch of the Environment Variable.
 	GitBranch *string `pulumi:"gitBranch"`
@@ -3081,6 +6204,47 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsPtrInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvInput)(nil)).Elem(), DnsRecordSrvArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvPtrInput)(nil)).Elem(), DnsRecordSrvArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesInput)(nil)).Elem(), FirewallConfigIpRulesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesPtrInput)(nil)).Elem(), FirewallConfigIpRulesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesRuleInput)(nil)).Elem(), FirewallConfigIpRulesRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesRuleArrayInput)(nil)).Elem(), FirewallConfigIpRulesRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspGenInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspGenArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspGenPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspGenArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspJavaInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspJavaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspJavaPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspJavaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspLfiInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspLfiArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspLfiPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspLfiArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspMaInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspMaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspMaPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspMaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPhpInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspPhpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPhpPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspPhpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRceInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspRceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRcePtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspRceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRfiInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspRfiArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspRfiPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspRfiArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSdInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspSdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSdPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspSdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSqliInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspSqliArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspSqliPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspSqliArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspXssInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspXssArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspXssPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspXssArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesInput)(nil)).Elem(), FirewallConfigRulesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesPtrInput)(nil)).Elem(), FirewallConfigRulesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleInput)(nil)).Elem(), FirewallConfigRulesRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleArrayInput)(nil)).Elem(), FirewallConfigRulesRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleActionInput)(nil)).Elem(), FirewallConfigRulesRuleActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleActionRateLimitInput)(nil)).Elem(), FirewallConfigRulesRuleActionRateLimitArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleActionRateLimitPtrInput)(nil)).Elem(), FirewallConfigRulesRuleActionRateLimitArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleActionRedirectInput)(nil)).Elem(), FirewallConfigRulesRuleActionRedirectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleActionRedirectPtrInput)(nil)).Elem(), FirewallConfigRulesRuleActionRedirectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentArrayInput)(nil)).Elem(), ProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsInput)(nil)).Elem(), ProjectGitCommentsArgs{})
@@ -3125,6 +6289,47 @@ func init() {
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigIpRulesOutput{})
+	pulumi.RegisterOutputType(FirewallConfigIpRulesPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigIpRulesRuleOutput{})
+	pulumi.RegisterOutputType(FirewallConfigIpRulesRuleArrayOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspGenOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspGenPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspJavaOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspJavaPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspLfiOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspLfiPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspMaOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspMaPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspPhpOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspPhpPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspRceOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspRcePtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspRfiOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspRfiPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspSdOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspSdPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspSqliOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspSqliPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspXssOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspXssPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleArrayOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleActionOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleActionRateLimitOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleActionRateLimitPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleActionRedirectOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleActionRedirectPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupArrayOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionOutput{})
+	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(ProjectGitCommentsOutput{})

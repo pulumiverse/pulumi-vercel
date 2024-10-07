@@ -67,7 +67,7 @@ export class AttackChallengeMode extends pulumi.CustomResource {
      */
     public readonly enabled!: pulumi.Output<boolean>;
     /**
-     * The ID of the Project to adjust the CPU for.
+     * The ID of the Project to toggle Attack Challenge Mode on.
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
@@ -117,7 +117,7 @@ export interface AttackChallengeModeState {
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * The ID of the Project to adjust the CPU for.
+     * The ID of the Project to toggle Attack Challenge Mode on.
      */
     projectId?: pulumi.Input<string>;
     /**
@@ -135,7 +135,7 @@ export interface AttackChallengeModeArgs {
      */
     enabled: pulumi.Input<boolean>;
     /**
-     * The ID of the Project to adjust the CPU for.
+     * The ID of the Project to toggle Attack Challenge Mode on.
      */
     projectId: pulumi.Input<string>;
     /**

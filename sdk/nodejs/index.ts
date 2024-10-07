@@ -40,6 +40,11 @@ export type EdgeConfigToken = import("./edgeConfigToken").EdgeConfigToken;
 export const EdgeConfigToken: typeof import("./edgeConfigToken").EdgeConfigToken = null as any;
 utilities.lazyLoad(exports, ["EdgeConfigToken"], () => require("./edgeConfigToken"));
 
+export { FirewallConfigArgs, FirewallConfigState } from "./firewallConfig";
+export type FirewallConfig = import("./firewallConfig").FirewallConfig;
+export const FirewallConfig: typeof import("./firewallConfig").FirewallConfig = null as any;
+utilities.lazyLoad(exports, ["FirewallConfig"], () => require("./firewallConfig"));
+
 export { GetAliasArgs, GetAliasResult, GetAliasOutputArgs } from "./getAlias";
 export const getAlias: typeof import("./getAlias").getAlias = null as any;
 export const getAliasOutput: typeof import("./getAlias").getAliasOutput = null as any;
@@ -188,6 +193,8 @@ const _module = {
                 return new EdgeConfigSchema(name, <any>undefined, { urn })
             case "vercel:index/edgeConfigToken:EdgeConfigToken":
                 return new EdgeConfigToken(name, <any>undefined, { urn })
+            case "vercel:index/firewallConfig:FirewallConfig":
+                return new FirewallConfig(name, <any>undefined, { urn })
             case "vercel:index/logDrain:LogDrain":
                 return new LogDrain(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
@@ -216,6 +223,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/firewallConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)

@@ -8,7 +8,7 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.44.1
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.91.1
 	github.com/pulumi/pulumi/sdk/v3 v3.135.0
-	github.com/vercel/terraform-provider-vercel v1.14.0
+	github.com/vercel/terraform-provider-vercel v1.14.1
 	golang.org/x/text v0.19.0
 )
 
@@ -116,6 +116,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.20.0 // indirect
 	github.com/hashicorp/hil v0.0.0-20190212132231-97b3a9cdfa93 // indirect
 	github.com/hashicorp/terraform-plugin-framework v1.12.0 // indirect
+	github.com/hashicorp/terraform-plugin-framework-validators v0.13.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.24.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.2.3 // indirect

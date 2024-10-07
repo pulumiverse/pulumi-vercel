@@ -13,6 +13,27 @@ from . import outputs
 __all__ = [
     'DeploymentProjectSettings',
     'DnsRecordSrv',
+    'FirewallConfigIpRules',
+    'FirewallConfigIpRulesRule',
+    'FirewallConfigManagedRulesets',
+    'FirewallConfigManagedRulesetsOwasp',
+    'FirewallConfigManagedRulesetsOwaspGen',
+    'FirewallConfigManagedRulesetsOwaspJava',
+    'FirewallConfigManagedRulesetsOwaspLfi',
+    'FirewallConfigManagedRulesetsOwaspMa',
+    'FirewallConfigManagedRulesetsOwaspPhp',
+    'FirewallConfigManagedRulesetsOwaspRce',
+    'FirewallConfigManagedRulesetsOwaspRfi',
+    'FirewallConfigManagedRulesetsOwaspSd',
+    'FirewallConfigManagedRulesetsOwaspSqli',
+    'FirewallConfigManagedRulesetsOwaspXss',
+    'FirewallConfigRules',
+    'FirewallConfigRulesRule',
+    'FirewallConfigRulesRuleAction',
+    'FirewallConfigRulesRuleActionRateLimit',
+    'FirewallConfigRulesRuleActionRedirect',
+    'FirewallConfigRulesRuleConditionGroup',
+    'FirewallConfigRulesRuleConditionGroupCondition',
     'ProjectEnvironment',
     'ProjectGitComments',
     'ProjectGitRepository',
@@ -178,6 +199,752 @@ class DnsRecordSrv(dict):
         A relative weight for records with the same priority, higher value means higher chance of getting picked.
         """
         return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
+class FirewallConfigIpRules(dict):
+    def __init__(__self__, *,
+                 rules: Optional[Sequence['outputs.FirewallConfigIpRulesRule']] = None):
+        if rules is not None:
+            pulumi.set(__self__, "rules", rules)
+
+    @property
+    @pulumi.getter
+    def rules(self) -> Optional[Sequence['outputs.FirewallConfigIpRulesRule']]:
+        return pulumi.get(self, "rules")
+
+
+@pulumi.output_type
+class FirewallConfigIpRulesRule(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 hostname: str,
+                 ip: str,
+                 id: Optional[str] = None,
+                 notes: Optional[str] = None):
+        """
+        :param str hostname: Hosts to apply these rules to
+        :param str ip: IP or CIDR to block
+        :param str id: The ID of this resource.
+        """
+        pulumi.set(__self__, "action", action)
+        pulumi.set(__self__, "hostname", hostname)
+        pulumi.set(__self__, "ip", ip)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if notes is not None:
+            pulumi.set(__self__, "notes", notes)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> str:
+        """
+        Hosts to apply these rules to
+        """
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter
+    def ip(self) -> str:
+        """
+        IP or CIDR to block
+        """
+        return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        The ID of this resource.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def notes(self) -> Optional[str]:
+        return pulumi.get(self, "notes")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesets(dict):
+    def __init__(__self__, *,
+                 owasp: Optional['outputs.FirewallConfigManagedRulesetsOwasp'] = None):
+        """
+        :param 'FirewallConfigManagedRulesetsOwaspArgs' owasp: Enable the owasp managed rulesets and select ruleset behaviors
+        """
+        if owasp is not None:
+            pulumi.set(__self__, "owasp", owasp)
+
+    @property
+    @pulumi.getter
+    def owasp(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwasp']:
+        """
+        Enable the owasp managed rulesets and select ruleset behaviors
+        """
+        return pulumi.get(self, "owasp")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwasp(dict):
+    def __init__(__self__, *,
+                 gen: Optional['outputs.FirewallConfigManagedRulesetsOwaspGen'] = None,
+                 java: Optional['outputs.FirewallConfigManagedRulesetsOwaspJava'] = None,
+                 lfi: Optional['outputs.FirewallConfigManagedRulesetsOwaspLfi'] = None,
+                 ma: Optional['outputs.FirewallConfigManagedRulesetsOwaspMa'] = None,
+                 php: Optional['outputs.FirewallConfigManagedRulesetsOwaspPhp'] = None,
+                 rce: Optional['outputs.FirewallConfigManagedRulesetsOwaspRce'] = None,
+                 rfi: Optional['outputs.FirewallConfigManagedRulesetsOwaspRfi'] = None,
+                 sd: Optional['outputs.FirewallConfigManagedRulesetsOwaspSd'] = None,
+                 sqli: Optional['outputs.FirewallConfigManagedRulesetsOwaspSqli'] = None,
+                 xss: Optional['outputs.FirewallConfigManagedRulesetsOwaspXss'] = None):
+        """
+        :param 'FirewallConfigManagedRulesetsOwaspGenArgs' gen: Generic Attack Detection
+        :param 'FirewallConfigManagedRulesetsOwaspJavaArgs' java: Java Attack Detection
+        :param 'FirewallConfigManagedRulesetsOwaspLfiArgs' lfi: Local File Inclusion Rules
+        :param 'FirewallConfigManagedRulesetsOwaspMaArgs' ma: Multipart Rules
+        :param 'FirewallConfigManagedRulesetsOwaspPhpArgs' php: PHP Attack Detection
+        :param 'FirewallConfigManagedRulesetsOwaspRceArgs' rce: Remote Code Execution Rules
+        :param 'FirewallConfigManagedRulesetsOwaspRfiArgs' rfi: Remote File Inclusion Rules
+        :param 'FirewallConfigManagedRulesetsOwaspSdArgs' sd: Scanner Detection Rules
+        :param 'FirewallConfigManagedRulesetsOwaspSqliArgs' sqli: SQL Injection Rules
+        :param 'FirewallConfigManagedRulesetsOwaspXssArgs' xss: Cross Site Scripting Rules
+        """
+        if gen is not None:
+            pulumi.set(__self__, "gen", gen)
+        if java is not None:
+            pulumi.set(__self__, "java", java)
+        if lfi is not None:
+            pulumi.set(__self__, "lfi", lfi)
+        if ma is not None:
+            pulumi.set(__self__, "ma", ma)
+        if php is not None:
+            pulumi.set(__self__, "php", php)
+        if rce is not None:
+            pulumi.set(__self__, "rce", rce)
+        if rfi is not None:
+            pulumi.set(__self__, "rfi", rfi)
+        if sd is not None:
+            pulumi.set(__self__, "sd", sd)
+        if sqli is not None:
+            pulumi.set(__self__, "sqli", sqli)
+        if xss is not None:
+            pulumi.set(__self__, "xss", xss)
+
+    @property
+    @pulumi.getter
+    def gen(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspGen']:
+        """
+        Generic Attack Detection
+        """
+        return pulumi.get(self, "gen")
+
+    @property
+    @pulumi.getter
+    def java(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspJava']:
+        """
+        Java Attack Detection
+        """
+        return pulumi.get(self, "java")
+
+    @property
+    @pulumi.getter
+    def lfi(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspLfi']:
+        """
+        Local File Inclusion Rules
+        """
+        return pulumi.get(self, "lfi")
+
+    @property
+    @pulumi.getter
+    def ma(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspMa']:
+        """
+        Multipart Rules
+        """
+        return pulumi.get(self, "ma")
+
+    @property
+    @pulumi.getter
+    def php(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspPhp']:
+        """
+        PHP Attack Detection
+        """
+        return pulumi.get(self, "php")
+
+    @property
+    @pulumi.getter
+    def rce(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspRce']:
+        """
+        Remote Code Execution Rules
+        """
+        return pulumi.get(self, "rce")
+
+    @property
+    @pulumi.getter
+    def rfi(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspRfi']:
+        """
+        Remote File Inclusion Rules
+        """
+        return pulumi.get(self, "rfi")
+
+    @property
+    @pulumi.getter
+    def sd(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspSd']:
+        """
+        Scanner Detection Rules
+        """
+        return pulumi.get(self, "sd")
+
+    @property
+    @pulumi.getter
+    def sqli(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspSqli']:
+        """
+        SQL Injection Rules
+        """
+        return pulumi.get(self, "sqli")
+
+    @property
+    @pulumi.getter
+    def xss(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspXss']:
+        """
+        Cross Site Scripting Rules
+        """
+        return pulumi.get(self, "xss")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspGen(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspJava(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspLfi(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspMa(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspPhp(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspRce(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspRfi(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspSd(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspSqli(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspXss(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 active: Optional[bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigRules(dict):
+    def __init__(__self__, *,
+                 rules: Optional[Sequence['outputs.FirewallConfigRulesRule']] = None):
+        if rules is not None:
+            pulumi.set(__self__, "rules", rules)
+
+    @property
+    @pulumi.getter
+    def rules(self) -> Optional[Sequence['outputs.FirewallConfigRulesRule']]:
+        return pulumi.get(self, "rules")
+
+
+@pulumi.output_type
+class FirewallConfigRulesRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "conditionGroups":
+            suggest = "condition_groups"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FirewallConfigRulesRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FirewallConfigRulesRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FirewallConfigRulesRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 action: 'outputs.FirewallConfigRulesRuleAction',
+                 condition_groups: Sequence['outputs.FirewallConfigRulesRuleConditionGroup'],
+                 name: str,
+                 active: Optional[bool] = None,
+                 description: Optional[str] = None,
+                 id: Optional[str] = None):
+        """
+        :param 'FirewallConfigRulesRuleActionArgs' action: Actions to take when the condition groups match a request
+        :param Sequence['FirewallConfigRulesRuleConditionGroupArgs'] condition_groups: Sets of conditions that may match a request
+        :param str name: Name to identify the rule
+        :param bool active: Rule is active or disabled
+        :param str id: The ID of this resource.
+        """
+        pulumi.set(__self__, "action", action)
+        pulumi.set(__self__, "condition_groups", condition_groups)
+        pulumi.set(__self__, "name", name)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+
+    @property
+    @pulumi.getter
+    def action(self) -> 'outputs.FirewallConfigRulesRuleAction':
+        """
+        Actions to take when the condition groups match a request
+        """
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter(name="conditionGroups")
+    def condition_groups(self) -> Sequence['outputs.FirewallConfigRulesRuleConditionGroup']:
+        """
+        Sets of conditions that may match a request
+        """
+        return pulumi.get(self, "condition_groups")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name to identify the rule
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        """
+        Rule is active or disabled
+        """
+        return pulumi.get(self, "active")
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[str]:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        The ID of this resource.
+        """
+        return pulumi.get(self, "id")
+
+
+@pulumi.output_type
+class FirewallConfigRulesRuleAction(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "actionDuration":
+            suggest = "action_duration"
+        elif key == "rateLimit":
+            suggest = "rate_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FirewallConfigRulesRuleAction. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FirewallConfigRulesRuleAction.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FirewallConfigRulesRuleAction.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 action: str,
+                 action_duration: Optional[str] = None,
+                 rate_limit: Optional['outputs.FirewallConfigRulesRuleActionRateLimit'] = None,
+                 redirect: Optional['outputs.FirewallConfigRulesRuleActionRedirect'] = None):
+        """
+        :param str action: Base action
+        :param str action_duration: Forward persistence of a rule aciton
+        :param 'FirewallConfigRulesRuleActionRateLimitArgs' rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
+        :param 'FirewallConfigRulesRuleActionRedirectArgs' redirect: How to redirect a request. Required if action is redirect
+        """
+        pulumi.set(__self__, "action", action)
+        if action_duration is not None:
+            pulumi.set(__self__, "action_duration", action_duration)
+        if rate_limit is not None:
+            pulumi.set(__self__, "rate_limit", rate_limit)
+        if redirect is not None:
+            pulumi.set(__self__, "redirect", redirect)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        """
+        Base action
+        """
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter(name="actionDuration")
+    def action_duration(self) -> Optional[str]:
+        """
+        Forward persistence of a rule aciton
+        """
+        return pulumi.get(self, "action_duration")
+
+    @property
+    @pulumi.getter(name="rateLimit")
+    def rate_limit(self) -> Optional['outputs.FirewallConfigRulesRuleActionRateLimit']:
+        """
+        Behavior or a rate limiting action. Required if action is rate*limit
+        """
+        return pulumi.get(self, "rate_limit")
+
+    @property
+    @pulumi.getter
+    def redirect(self) -> Optional['outputs.FirewallConfigRulesRuleActionRedirect']:
+        """
+        How to redirect a request. Required if action is redirect
+        """
+        return pulumi.get(self, "redirect")
+
+
+@pulumi.output_type
+class FirewallConfigRulesRuleActionRateLimit(dict):
+    def __init__(__self__, *,
+                 action: str,
+                 algo: str,
+                 keys: Sequence[str],
+                 limit: int,
+                 window: int):
+        """
+        :param str action: Action to take when rate limit is exceeded
+        :param str algo: Rate limiting algorithm
+        :param Sequence[str] keys: Keys used to bucket an individual client
+        :param int limit: number of requests allowed in the window
+        :param int window: Time window in seconds
+        """
+        pulumi.set(__self__, "action", action)
+        pulumi.set(__self__, "algo", algo)
+        pulumi.set(__self__, "keys", keys)
+        pulumi.set(__self__, "limit", limit)
+        pulumi.set(__self__, "window", window)
+
+    @property
+    @pulumi.getter
+    def action(self) -> str:
+        """
+        Action to take when rate limit is exceeded
+        """
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def algo(self) -> str:
+        """
+        Rate limiting algorithm
+        """
+        return pulumi.get(self, "algo")
+
+    @property
+    @pulumi.getter
+    def keys(self) -> Sequence[str]:
+        """
+        Keys used to bucket an individual client
+        """
+        return pulumi.get(self, "keys")
+
+    @property
+    @pulumi.getter
+    def limit(self) -> int:
+        """
+        number of requests allowed in the window
+        """
+        return pulumi.get(self, "limit")
+
+    @property
+    @pulumi.getter
+    def window(self) -> int:
+        """
+        Time window in seconds
+        """
+        return pulumi.get(self, "window")
+
+
+@pulumi.output_type
+class FirewallConfigRulesRuleActionRedirect(dict):
+    def __init__(__self__, *,
+                 location: str,
+                 permanent: bool):
+        pulumi.set(__self__, "location", location)
+        pulumi.set(__self__, "permanent", permanent)
+
+    @property
+    @pulumi.getter
+    def location(self) -> str:
+        return pulumi.get(self, "location")
+
+    @property
+    @pulumi.getter
+    def permanent(self) -> bool:
+        return pulumi.get(self, "permanent")
+
+
+@pulumi.output_type
+class FirewallConfigRulesRuleConditionGroup(dict):
+    def __init__(__self__, *,
+                 conditions: Sequence['outputs.FirewallConfigRulesRuleConditionGroupCondition']):
+        """
+        :param Sequence['FirewallConfigRulesRuleConditionGroupConditionArgs'] conditions: Conditions that must all match within a group
+        """
+        pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Sequence['outputs.FirewallConfigRulesRuleConditionGroupCondition']:
+        """
+        Conditions that must all match within a group
+        """
+        return pulumi.get(self, "conditions")
+
+
+@pulumi.output_type
+class FirewallConfigRulesRuleConditionGroupCondition(dict):
+    def __init__(__self__, *,
+                 op: str,
+                 type: str,
+                 key: Optional[str] = None,
+                 neg: Optional[bool] = None,
+                 value: Optional[str] = None):
+        """
+        :param str op: How to comparse type to value
+        :param str type: Request key type to match against
+        :param str key: Key within type to match against
+        """
+        pulumi.set(__self__, "op", op)
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if neg is not None:
+            pulumi.set(__self__, "neg", neg)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def op(self) -> str:
+        """
+        How to comparse type to value
+        """
+        return pulumi.get(self, "op")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        Request key type to match against
+        """
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        """
+        Key within type to match against
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def neg(self) -> Optional[bool]:
+        return pulumi.get(self, "neg")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
+        return pulumi.get(self, "value")
 
 
 @pulumi.output_type

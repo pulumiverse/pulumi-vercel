@@ -63,7 +63,7 @@ type AttackChallengeMode struct {
 
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
-	// The ID of the Project to adjust the CPU for.
+	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -107,7 +107,7 @@ func GetAttackChallengeMode(ctx *pulumi.Context,
 type attackChallengeModeState struct {
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
-	// The ID of the Project to adjust the CPU for.
+	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId *string `pulumi:"projectId"`
 	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -116,7 +116,7 @@ type attackChallengeModeState struct {
 type AttackChallengeModeState struct {
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled pulumi.BoolPtrInput
-	// The ID of the Project to adjust the CPU for.
+	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId pulumi.StringPtrInput
 	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -129,7 +129,7 @@ func (AttackChallengeModeState) ElementType() reflect.Type {
 type attackChallengeModeArgs struct {
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled bool `pulumi:"enabled"`
-	// The ID of the Project to adjust the CPU for.
+	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId string `pulumi:"projectId"`
 	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -139,7 +139,7 @@ type attackChallengeModeArgs struct {
 type AttackChallengeModeArgs struct {
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled pulumi.BoolInput
-	// The ID of the Project to adjust the CPU for.
+	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId pulumi.StringInput
 	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -237,7 +237,7 @@ func (o AttackChallengeModeOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *AttackChallengeMode) pulumi.BoolOutput { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// The ID of the Project to adjust the CPU for.
+// The ID of the Project to toggle Attack Challenge Mode on.
 func (o AttackChallengeModeOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *AttackChallengeMode) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
