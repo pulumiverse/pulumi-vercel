@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -79,12 +84,16 @@ def get_prebuilt_project(path: Optional[str] = None,
         id=pulumi.get(__ret__, 'id'),
         output=pulumi.get(__ret__, 'output'),
         path=pulumi.get(__ret__, 'path'))
-
-
-@_utilities.lift_output_func(get_prebuilt_project)
 def get_prebuilt_project_output(path: Optional[pulumi.Input[str]] = None,
                                 opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetPrebuiltProjectResult]:
     """
     Use this data source to access information about an existing resource.
     """
-    ...
+    __args__ = dict()
+    __args__['path'] = path
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getPrebuiltProject:getPrebuiltProject', __args__, opts=opts, typ=GetPrebuiltProjectResult)
+    return __ret__.apply(lambda __response__: GetPrebuiltProjectResult(
+        id=pulumi.get(__response__, 'id'),
+        output=pulumi.get(__response__, 'output'),
+        path=pulumi.get(__response__, 'path')))

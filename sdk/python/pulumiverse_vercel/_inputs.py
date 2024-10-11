@@ -4,48 +4,115 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
     'DeploymentProjectSettingsArgs',
+    'DeploymentProjectSettingsArgsDict',
     'DnsRecordSrvArgs',
+    'DnsRecordSrvArgsDict',
     'FirewallConfigIpRulesArgs',
+    'FirewallConfigIpRulesArgsDict',
     'FirewallConfigIpRulesRuleArgs',
+    'FirewallConfigIpRulesRuleArgsDict',
     'FirewallConfigManagedRulesetsArgs',
+    'FirewallConfigManagedRulesetsArgsDict',
     'FirewallConfigManagedRulesetsOwaspArgs',
+    'FirewallConfigManagedRulesetsOwaspArgsDict',
     'FirewallConfigManagedRulesetsOwaspGenArgs',
+    'FirewallConfigManagedRulesetsOwaspGenArgsDict',
     'FirewallConfigManagedRulesetsOwaspJavaArgs',
+    'FirewallConfigManagedRulesetsOwaspJavaArgsDict',
     'FirewallConfigManagedRulesetsOwaspLfiArgs',
+    'FirewallConfigManagedRulesetsOwaspLfiArgsDict',
     'FirewallConfigManagedRulesetsOwaspMaArgs',
+    'FirewallConfigManagedRulesetsOwaspMaArgsDict',
     'FirewallConfigManagedRulesetsOwaspPhpArgs',
+    'FirewallConfigManagedRulesetsOwaspPhpArgsDict',
     'FirewallConfigManagedRulesetsOwaspRceArgs',
+    'FirewallConfigManagedRulesetsOwaspRceArgsDict',
     'FirewallConfigManagedRulesetsOwaspRfiArgs',
+    'FirewallConfigManagedRulesetsOwaspRfiArgsDict',
     'FirewallConfigManagedRulesetsOwaspSdArgs',
+    'FirewallConfigManagedRulesetsOwaspSdArgsDict',
     'FirewallConfigManagedRulesetsOwaspSqliArgs',
+    'FirewallConfigManagedRulesetsOwaspSqliArgsDict',
     'FirewallConfigManagedRulesetsOwaspXssArgs',
+    'FirewallConfigManagedRulesetsOwaspXssArgsDict',
     'FirewallConfigRulesArgs',
+    'FirewallConfigRulesArgsDict',
     'FirewallConfigRulesRuleArgs',
+    'FirewallConfigRulesRuleArgsDict',
     'FirewallConfigRulesRuleActionArgs',
+    'FirewallConfigRulesRuleActionArgsDict',
     'FirewallConfigRulesRuleActionRateLimitArgs',
+    'FirewallConfigRulesRuleActionRateLimitArgsDict',
     'FirewallConfigRulesRuleActionRedirectArgs',
+    'FirewallConfigRulesRuleActionRedirectArgsDict',
     'FirewallConfigRulesRuleConditionGroupArgs',
+    'FirewallConfigRulesRuleConditionGroupArgsDict',
     'FirewallConfigRulesRuleConditionGroupConditionArgs',
+    'FirewallConfigRulesRuleConditionGroupConditionArgsDict',
     'ProjectEnvironmentArgs',
+    'ProjectEnvironmentArgsDict',
     'ProjectGitCommentsArgs',
+    'ProjectGitCommentsArgsDict',
     'ProjectGitRepositoryArgs',
+    'ProjectGitRepositoryArgsDict',
     'ProjectGitRepositoryDeployHookArgs',
+    'ProjectGitRepositoryDeployHookArgsDict',
     'ProjectOidcTokenConfigArgs',
+    'ProjectOidcTokenConfigArgsDict',
     'ProjectOptionsAllowlistArgs',
+    'ProjectOptionsAllowlistArgsDict',
     'ProjectOptionsAllowlistPathArgs',
+    'ProjectOptionsAllowlistPathArgsDict',
     'ProjectPasswordProtectionArgs',
+    'ProjectPasswordProtectionArgsDict',
     'ProjectResourceConfigArgs',
+    'ProjectResourceConfigArgsDict',
     'ProjectTrustedIpsArgs',
+    'ProjectTrustedIpsArgsDict',
     'ProjectTrustedIpsAddressArgs',
+    'ProjectTrustedIpsAddressArgsDict',
     'ProjectVercelAuthenticationArgs',
+    'ProjectVercelAuthenticationArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class DeploymentProjectSettingsArgsDict(TypedDict):
+        build_command: NotRequired[pulumi.Input[str]]
+        """
+        The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+        """
+        framework: NotRequired[pulumi.Input[str]]
+        """
+        The framework that is being used for this deployment. If omitted, no framework is selected.
+        """
+        install_command: NotRequired[pulumi.Input[str]]
+        """
+        The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+        """
+        output_directory: NotRequired[pulumi.Input[str]]
+        """
+        The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
+        """
+        root_directory: NotRequired[pulumi.Input[str]]
+        """
+        The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+        """
+elif False:
+    DeploymentProjectSettingsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class DeploymentProjectSettingsArgs:
@@ -134,6 +201,27 @@ class DeploymentProjectSettingsArgs:
         pulumi.set(self, "root_directory", value)
 
 
+if not MYPY:
+    class DnsRecordSrvArgsDict(TypedDict):
+        port: pulumi.Input[int]
+        """
+        The TCP or UDP port on which the service is to be found.
+        """
+        priority: pulumi.Input[int]
+        """
+        The priority of the target host, lower value means more preferred.
+        """
+        target: pulumi.Input[str]
+        """
+        The canonical hostname of the machine providing the service, ending in a dot.
+        """
+        weight: pulumi.Input[int]
+        """
+        A relative weight for records with the same priority, higher value means higher chance of getting picked.
+        """
+elif False:
+    DnsRecordSrvArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class DnsRecordSrvArgs:
     def __init__(__self__, *,
@@ -201,6 +289,12 @@ class DnsRecordSrvArgs:
         pulumi.set(self, "weight", value)
 
 
+if not MYPY:
+    class FirewallConfigIpRulesArgsDict(TypedDict):
+        rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['FirewallConfigIpRulesRuleArgsDict']]]]
+elif False:
+    FirewallConfigIpRulesArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigIpRulesArgs:
     def __init__(__self__, *,
@@ -217,6 +311,25 @@ class FirewallConfigIpRulesArgs:
     def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['FirewallConfigIpRulesRuleArgs']]]]):
         pulumi.set(self, "rules", value)
 
+
+if not MYPY:
+    class FirewallConfigIpRulesRuleArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        hostname: pulumi.Input[str]
+        """
+        Hosts to apply these rules to
+        """
+        ip: pulumi.Input[str]
+        """
+        IP or CIDR to block
+        """
+        id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of this resource.
+        """
+        notes: NotRequired[pulumi.Input[str]]
+elif False:
+    FirewallConfigIpRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigIpRulesRuleArgs:
@@ -294,6 +407,15 @@ class FirewallConfigIpRulesRuleArgs:
         pulumi.set(self, "notes", value)
 
 
+if not MYPY:
+    class FirewallConfigManagedRulesetsArgsDict(TypedDict):
+        owasp: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgsDict']]
+        """
+        Enable the owasp managed rulesets and select ruleset behaviors
+        """
+elif False:
+    FirewallConfigManagedRulesetsArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigManagedRulesetsArgs:
     def __init__(__self__, *,
@@ -316,6 +438,51 @@ class FirewallConfigManagedRulesetsArgs:
     def owasp(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']]):
         pulumi.set(self, "owasp", value)
 
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspArgsDict(TypedDict):
+        gen: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspGenArgsDict']]
+        """
+        Generic Attack Detection
+        """
+        java: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspJavaArgsDict']]
+        """
+        Java Attack Detection
+        """
+        lfi: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspLfiArgsDict']]
+        """
+        Local File Inclusion Rules
+        """
+        ma: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspMaArgsDict']]
+        """
+        Multipart Rules
+        """
+        php: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspPhpArgsDict']]
+        """
+        PHP Attack Detection
+        """
+        rce: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspRceArgsDict']]
+        """
+        Remote Code Execution Rules
+        """
+        rfi: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspRfiArgsDict']]
+        """
+        Remote File Inclusion Rules
+        """
+        sd: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSdArgsDict']]
+        """
+        Scanner Detection Rules
+        """
+        sqli: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSqliArgsDict']]
+        """
+        SQL Injection Rules
+        """
+        xss: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspXssArgsDict']]
+        """
+        Cross Site Scripting Rules
+        """
+elif False:
+    FirewallConfigManagedRulesetsOwaspArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspArgs:
@@ -484,6 +651,13 @@ class FirewallConfigManagedRulesetsOwaspArgs:
         pulumi.set(self, "xss", value)
 
 
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspGenArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspGenArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspGenArgs:
     def __init__(__self__, *,
@@ -511,6 +685,13 @@ class FirewallConfigManagedRulesetsOwaspGenArgs:
     def active(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "active", value)
 
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspJavaArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspJavaArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspJavaArgs:
@@ -540,6 +721,13 @@ class FirewallConfigManagedRulesetsOwaspJavaArgs:
         pulumi.set(self, "active", value)
 
 
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspLfiArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspLfiArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspLfiArgs:
     def __init__(__self__, *,
@@ -567,6 +755,13 @@ class FirewallConfigManagedRulesetsOwaspLfiArgs:
     def active(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "active", value)
 
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspMaArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspMaArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspMaArgs:
@@ -596,6 +791,13 @@ class FirewallConfigManagedRulesetsOwaspMaArgs:
         pulumi.set(self, "active", value)
 
 
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspPhpArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspPhpArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspPhpArgs:
     def __init__(__self__, *,
@@ -623,6 +825,13 @@ class FirewallConfigManagedRulesetsOwaspPhpArgs:
     def active(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "active", value)
 
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspRceArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspRceArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspRceArgs:
@@ -652,6 +861,13 @@ class FirewallConfigManagedRulesetsOwaspRceArgs:
         pulumi.set(self, "active", value)
 
 
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspRfiArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspRfiArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspRfiArgs:
     def __init__(__self__, *,
@@ -679,6 +895,13 @@ class FirewallConfigManagedRulesetsOwaspRfiArgs:
     def active(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "active", value)
 
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspSdArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspSdArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspSdArgs:
@@ -708,6 +931,13 @@ class FirewallConfigManagedRulesetsOwaspSdArgs:
         pulumi.set(self, "active", value)
 
 
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspSqliArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspSqliArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspSqliArgs:
     def __init__(__self__, *,
@@ -735,6 +965,13 @@ class FirewallConfigManagedRulesetsOwaspSqliArgs:
     def active(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "active", value)
 
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspXssArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspXssArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspXssArgs:
@@ -764,6 +1001,12 @@ class FirewallConfigManagedRulesetsOwaspXssArgs:
         pulumi.set(self, "active", value)
 
 
+if not MYPY:
+    class FirewallConfigRulesArgsDict(TypedDict):
+        rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleArgsDict']]]]
+elif False:
+    FirewallConfigRulesArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigRulesArgs:
     def __init__(__self__, *,
@@ -780,6 +1023,32 @@ class FirewallConfigRulesArgs:
     def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleArgs']]]]):
         pulumi.set(self, "rules", value)
 
+
+if not MYPY:
+    class FirewallConfigRulesRuleArgsDict(TypedDict):
+        action: pulumi.Input['FirewallConfigRulesRuleActionArgsDict']
+        """
+        Actions to take when the condition groups match a request
+        """
+        condition_groups: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupArgsDict']]]
+        """
+        Sets of conditions that may match a request
+        """
+        name: pulumi.Input[str]
+        """
+        Name to identify the rule
+        """
+        active: NotRequired[pulumi.Input[bool]]
+        """
+        Rule is active or disabled
+        """
+        description: NotRequired[pulumi.Input[str]]
+        id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of this resource.
+        """
+elif False:
+    FirewallConfigRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigRulesRuleArgs:
@@ -877,6 +1146,27 @@ class FirewallConfigRulesRuleArgs:
         pulumi.set(self, "id", value)
 
 
+if not MYPY:
+    class FirewallConfigRulesRuleActionArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        """
+        Base action
+        """
+        action_duration: NotRequired[pulumi.Input[str]]
+        """
+        Forward persistence of a rule aciton
+        """
+        rate_limit: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgsDict']]
+        """
+        Behavior or a rate limiting action. Required if action is rate*limit
+        """
+        redirect: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgsDict']]
+        """
+        How to redirect a request. Required if action is redirect
+        """
+elif False:
+    FirewallConfigRulesRuleActionArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigRulesRuleActionArgs:
     def __init__(__self__, *,
@@ -946,6 +1236,31 @@ class FirewallConfigRulesRuleActionArgs:
     def redirect(self, value: Optional[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgs']]):
         pulumi.set(self, "redirect", value)
 
+
+if not MYPY:
+    class FirewallConfigRulesRuleActionRateLimitArgsDict(TypedDict):
+        action: pulumi.Input[str]
+        """
+        Action to take when rate limit is exceeded
+        """
+        algo: pulumi.Input[str]
+        """
+        Rate limiting algorithm
+        """
+        keys: pulumi.Input[Sequence[pulumi.Input[str]]]
+        """
+        Keys used to bucket an individual client
+        """
+        limit: pulumi.Input[int]
+        """
+        number of requests allowed in the window
+        """
+        window: pulumi.Input[int]
+        """
+        Time window in seconds
+        """
+elif False:
+    FirewallConfigRulesRuleActionRateLimitArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigRulesRuleActionRateLimitArgs:
@@ -1029,6 +1344,13 @@ class FirewallConfigRulesRuleActionRateLimitArgs:
         pulumi.set(self, "window", value)
 
 
+if not MYPY:
+    class FirewallConfigRulesRuleActionRedirectArgsDict(TypedDict):
+        location: pulumi.Input[str]
+        permanent: pulumi.Input[bool]
+elif False:
+    FirewallConfigRulesRuleActionRedirectArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigRulesRuleActionRedirectArgs:
     def __init__(__self__, *,
@@ -1056,6 +1378,15 @@ class FirewallConfigRulesRuleActionRedirectArgs:
         pulumi.set(self, "permanent", value)
 
 
+if not MYPY:
+    class FirewallConfigRulesRuleConditionGroupArgsDict(TypedDict):
+        conditions: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupConditionArgsDict']]]
+        """
+        Conditions that must all match within a group
+        """
+elif False:
+    FirewallConfigRulesRuleConditionGroupArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class FirewallConfigRulesRuleConditionGroupArgs:
     def __init__(__self__, *,
@@ -1077,6 +1408,25 @@ class FirewallConfigRulesRuleConditionGroupArgs:
     def conditions(self, value: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupConditionArgs']]]):
         pulumi.set(self, "conditions", value)
 
+
+if not MYPY:
+    class FirewallConfigRulesRuleConditionGroupConditionArgsDict(TypedDict):
+        op: pulumi.Input[str]
+        """
+        How to comparse type to value
+        """
+        type: pulumi.Input[str]
+        """
+        Request key type to match against
+        """
+        key: NotRequired[pulumi.Input[str]]
+        """
+        Key within type to match against
+        """
+        neg: NotRequired[pulumi.Input[bool]]
+        value: NotRequired[pulumi.Input[str]]
+elif False:
+    FirewallConfigRulesRuleConditionGroupConditionArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FirewallConfigRulesRuleConditionGroupConditionArgs:
@@ -1154,6 +1504,35 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
     def value(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "value", value)
 
+
+if not MYPY:
+    class ProjectEnvironmentArgsDict(TypedDict):
+        key: pulumi.Input[str]
+        """
+        The name of the Environment Variable.
+        """
+        targets: pulumi.Input[Sequence[pulumi.Input[str]]]
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        """
+        value: pulumi.Input[str]
+        """
+        The value of the Environment Variable.
+        """
+        git_branch: NotRequired[pulumi.Input[str]]
+        """
+        The git branch of the Environment Variable.
+        """
+        id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of the Environment Variable.
+        """
+        sensitive: NotRequired[pulumi.Input[bool]]
+        """
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        """
+elif False:
+    ProjectEnvironmentArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectEnvironmentArgs:
@@ -1255,6 +1634,19 @@ class ProjectEnvironmentArgs:
         pulumi.set(self, "sensitive", value)
 
 
+if not MYPY:
+    class ProjectGitCommentsArgsDict(TypedDict):
+        on_commit: pulumi.Input[bool]
+        """
+        Whether Commit comments are enabled
+        """
+        on_pull_request: pulumi.Input[bool]
+        """
+        Whether Pull Request comments are enabled
+        """
+elif False:
+    ProjectGitCommentsArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ProjectGitCommentsArgs:
     def __init__(__self__, *,
@@ -1291,6 +1683,27 @@ class ProjectGitCommentsArgs:
     def on_pull_request(self, value: pulumi.Input[bool]):
         pulumi.set(self, "on_pull_request", value)
 
+
+if not MYPY:
+    class ProjectGitRepositoryArgsDict(TypedDict):
+        repo: pulumi.Input[str]
+        """
+        The name of the git repository. For example: `vercel/next.js`.
+        """
+        type: pulumi.Input[str]
+        """
+        The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+        """
+        deploy_hooks: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgsDict']]]]
+        """
+        Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+        """
+        production_branch: NotRequired[pulumi.Input[str]]
+        """
+        By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
+        """
+elif False:
+    ProjectGitRepositoryArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectGitRepositoryArgs:
@@ -1361,6 +1774,27 @@ class ProjectGitRepositoryArgs:
         pulumi.set(self, "production_branch", value)
 
 
+if not MYPY:
+    class ProjectGitRepositoryDeployHookArgsDict(TypedDict):
+        name: pulumi.Input[str]
+        """
+        The name of the deploy hook.
+        """
+        ref: pulumi.Input[str]
+        """
+        The branch or commit hash that should be deployed.
+        """
+        id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of the deploy hook.
+        """
+        url: NotRequired[pulumi.Input[str]]
+        """
+        A URL that, when a POST request is made to, will trigger a new deployment.
+        """
+elif False:
+    ProjectGitRepositoryDeployHookArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ProjectGitRepositoryDeployHookArgs:
     def __init__(__self__, *,
@@ -1430,6 +1864,15 @@ class ProjectGitRepositoryDeployHookArgs:
         pulumi.set(self, "url", value)
 
 
+if not MYPY:
+    class ProjectOidcTokenConfigArgsDict(TypedDict):
+        enabled: pulumi.Input[bool]
+        """
+        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+elif False:
+    ProjectOidcTokenConfigArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ProjectOidcTokenConfigArgs:
     def __init__(__self__, *,
@@ -1451,6 +1894,15 @@ class ProjectOidcTokenConfigArgs:
     def enabled(self, value: pulumi.Input[bool]):
         pulumi.set(self, "enabled", value)
 
+
+if not MYPY:
+    class ProjectOptionsAllowlistArgsDict(TypedDict):
+        paths: pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgsDict']]]
+        """
+        The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+        """
+elif False:
+    ProjectOptionsAllowlistArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectOptionsAllowlistArgs:
@@ -1474,6 +1926,15 @@ class ProjectOptionsAllowlistArgs:
         pulumi.set(self, "paths", value)
 
 
+if not MYPY:
+    class ProjectOptionsAllowlistPathArgsDict(TypedDict):
+        value: pulumi.Input[str]
+        """
+        The path prefix to compare with the incoming request path.
+        """
+elif False:
+    ProjectOptionsAllowlistPathArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ProjectOptionsAllowlistPathArgs:
     def __init__(__self__, *,
@@ -1495,6 +1956,19 @@ class ProjectOptionsAllowlistPathArgs:
     def value(self, value: pulumi.Input[str]):
         pulumi.set(self, "value", value)
 
+
+if not MYPY:
+    class ProjectPasswordProtectionArgsDict(TypedDict):
+        deployment_type: pulumi.Input[str]
+        """
+        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        """
+        password: pulumi.Input[str]
+        """
+        The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
+        """
+elif False:
+    ProjectPasswordProtectionArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectPasswordProtectionArgs:
@@ -1532,6 +2006,19 @@ class ProjectPasswordProtectionArgs:
     def password(self, value: pulumi.Input[str]):
         pulumi.set(self, "password", value)
 
+
+if not MYPY:
+    class ProjectResourceConfigArgsDict(TypedDict):
+        function_default_cpu_type: NotRequired[pulumi.Input[str]]
+        """
+        The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+        """
+        function_default_timeout: NotRequired[pulumi.Input[int]]
+        """
+        The default timeout for Serverless Functions.
+        """
+elif False:
+    ProjectResourceConfigArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectResourceConfigArgs:
@@ -1571,6 +2058,23 @@ class ProjectResourceConfigArgs:
     def function_default_timeout(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "function_default_timeout", value)
 
+
+if not MYPY:
+    class ProjectTrustedIpsArgsDict(TypedDict):
+        addresses: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgsDict']]]
+        """
+        The allowed IP addressses and CIDR ranges with optional descriptions.
+        """
+        deployment_type: pulumi.Input[str]
+        """
+        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        """
+        protection_mode: NotRequired[pulumi.Input[str]]
+        """
+        Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
+        """
+elif False:
+    ProjectTrustedIpsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectTrustedIpsArgs:
@@ -1625,6 +2129,19 @@ class ProjectTrustedIpsArgs:
         pulumi.set(self, "protection_mode", value)
 
 
+if not MYPY:
+    class ProjectTrustedIpsAddressArgsDict(TypedDict):
+        value: pulumi.Input[str]
+        """
+        The address or CIDR range that can access deployments.
+        """
+        note: NotRequired[pulumi.Input[str]]
+        """
+        A description for the value
+        """
+elif False:
+    ProjectTrustedIpsAddressArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ProjectTrustedIpsAddressArgs:
     def __init__(__self__, *,
@@ -1662,6 +2179,15 @@ class ProjectTrustedIpsAddressArgs:
     def note(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "note", value)
 
+
+if not MYPY:
+    class ProjectVercelAuthenticationArgsDict(TypedDict):
+        deployment_type: pulumi.Input[str]
+        """
+        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        """
+elif False:
+    ProjectVercelAuthenticationArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectVercelAuthenticationArgs:

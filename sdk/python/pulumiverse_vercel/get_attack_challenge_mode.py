@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -112,9 +117,6 @@ def get_attack_challenge_mode(project_id: Optional[str] = None,
         id=pulumi.get(__ret__, 'id'),
         project_id=pulumi.get(__ret__, 'project_id'),
         team_id=pulumi.get(__ret__, 'team_id'))
-
-
-@_utilities.lift_output_func(get_attack_challenge_mode)
 def get_attack_challenge_mode_output(project_id: Optional[pulumi.Input[str]] = None,
                                      team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAttackChallengeModeResult]:
@@ -136,4 +138,13 @@ def get_attack_challenge_mode_output(project_id: Optional[pulumi.Input[str]] = N
     :param str project_id: The ID of the Project to adjust the CPU for.
     :param str team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
     """
-    ...
+    __args__ = dict()
+    __args__['projectId'] = project_id
+    __args__['teamId'] = team_id
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getAttackChallengeMode:getAttackChallengeMode', __args__, opts=opts, typ=GetAttackChallengeModeResult)
+    return __ret__.apply(lambda __response__: GetAttackChallengeModeResult(
+        enabled=pulumi.get(__response__, 'enabled'),
+        id=pulumi.get(__response__, 'id'),
+        project_id=pulumi.get(__response__, 'project_id'),
+        team_id=pulumi.get(__response__, 'team_id')))

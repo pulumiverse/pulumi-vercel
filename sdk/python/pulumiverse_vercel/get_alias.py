@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -103,9 +108,6 @@ def get_alias(alias: Optional[str] = None,
         deployment_id=pulumi.get(__ret__, 'deployment_id'),
         id=pulumi.get(__ret__, 'id'),
         team_id=pulumi.get(__ret__, 'team_id'))
-
-
-@_utilities.lift_output_func(get_alias)
 def get_alias_output(alias: Optional[pulumi.Input[str]] = None,
                      team_id: Optional[pulumi.Input[Optional[str]]] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAliasResult]:
@@ -118,4 +120,13 @@ def get_alias_output(alias: Optional[pulumi.Input[str]] = None,
     :param str alias: The Alias or Alias ID to be retrieved.
     :param str team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
-    ...
+    __args__ = dict()
+    __args__['alias'] = alias
+    __args__['teamId'] = team_id
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getAlias:getAlias', __args__, opts=opts, typ=GetAliasResult)
+    return __ret__.apply(lambda __response__: GetAliasResult(
+        alias=pulumi.get(__response__, 'alias'),
+        deployment_id=pulumi.get(__response__, 'deployment_id'),
+        id=pulumi.get(__response__, 'id'),
+        team_id=pulumi.get(__response__, 'team_id')))
