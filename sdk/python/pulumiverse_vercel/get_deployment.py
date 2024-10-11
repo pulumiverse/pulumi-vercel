@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -151,9 +156,6 @@ def get_deployment(id: Optional[str] = None,
         ref=pulumi.get(__ret__, 'ref'),
         team_id=pulumi.get(__ret__, 'team_id'),
         url=pulumi.get(__ret__, 'url'))
-
-
-@_utilities.lift_output_func(get_deployment)
 def get_deployment_output(id: Optional[pulumi.Input[str]] = None,
                           team_id: Optional[pulumi.Input[Optional[str]]] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDeploymentResult]:
@@ -175,4 +177,16 @@ def get_deployment_output(id: Optional[pulumi.Input[str]] = None,
     :param str id: The ID or URL of the Deployment to read.
     :param str team_id: The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
     """
-    ...
+    __args__ = dict()
+    __args__['id'] = id
+    __args__['teamId'] = team_id
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getDeployment:getDeployment', __args__, opts=opts, typ=GetDeploymentResult)
+    return __ret__.apply(lambda __response__: GetDeploymentResult(
+        domains=pulumi.get(__response__, 'domains'),
+        id=pulumi.get(__response__, 'id'),
+        production=pulumi.get(__response__, 'production'),
+        project_id=pulumi.get(__response__, 'project_id'),
+        ref=pulumi.get(__response__, 'ref'),
+        team_id=pulumi.get(__response__, 'team_id'),
+        url=pulumi.get(__response__, 'url')))

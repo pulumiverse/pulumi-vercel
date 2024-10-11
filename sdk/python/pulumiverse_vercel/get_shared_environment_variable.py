@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -164,9 +169,6 @@ def get_shared_environment_variable(id: Optional[str] = None,
         targets=pulumi.get(__ret__, 'targets'),
         team_id=pulumi.get(__ret__, 'team_id'),
         value=pulumi.get(__ret__, 'value'))
-
-
-@_utilities.lift_output_func(get_shared_environment_variable)
 def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[str]]] = None,
                                            key: Optional[pulumi.Input[Optional[str]]] = None,
                                            targets: Optional[pulumi.Input[Optional[Sequence[str]]]] = None,
@@ -199,4 +201,18 @@ def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[st
     :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
     :param str team_id: The ID of the Vercel team. Shared environment variables require a team.
     """
-    ...
+    __args__ = dict()
+    __args__['id'] = id
+    __args__['key'] = key
+    __args__['targets'] = targets
+    __args__['teamId'] = team_id
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable', __args__, opts=opts, typ=GetSharedEnvironmentVariableResult)
+    return __ret__.apply(lambda __response__: GetSharedEnvironmentVariableResult(
+        id=pulumi.get(__response__, 'id'),
+        key=pulumi.get(__response__, 'key'),
+        project_ids=pulumi.get(__response__, 'project_ids'),
+        sensitive=pulumi.get(__response__, 'sensitive'),
+        targets=pulumi.get(__response__, 'targets'),
+        team_id=pulumi.get(__response__, 'team_id'),
+        value=pulumi.get(__response__, 'value')))

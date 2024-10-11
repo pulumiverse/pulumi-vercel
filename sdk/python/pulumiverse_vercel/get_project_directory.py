@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -79,12 +84,16 @@ def get_project_directory(path: Optional[str] = None,
         files=pulumi.get(__ret__, 'files'),
         id=pulumi.get(__ret__, 'id'),
         path=pulumi.get(__ret__, 'path'))
-
-
-@_utilities.lift_output_func(get_project_directory)
 def get_project_directory_output(path: Optional[pulumi.Input[str]] = None,
                                  opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectDirectoryResult]:
     """
     Use this data source to access information about an existing resource.
     """
-    ...
+    __args__ = dict()
+    __args__['path'] = path
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getProjectDirectory:getProjectDirectory', __args__, opts=opts, typ=GetProjectDirectoryResult)
+    return __ret__.apply(lambda __response__: GetProjectDirectoryResult(
+        files=pulumi.get(__response__, 'files'),
+        id=pulumi.get(__response__, 'id'),
+        path=pulumi.get(__response__, 'path')))

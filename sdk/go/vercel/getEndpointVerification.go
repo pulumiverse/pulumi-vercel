@@ -27,7 +27,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.GetEndpointVerification(ctx, nil, nil)
+//			_, err := vercel.GetEndpointVerification(ctx, &vercel.GetEndpointVerificationArgs{}, nil)
 //			if err != nil {
 //				return err
 //			}

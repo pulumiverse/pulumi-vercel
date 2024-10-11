@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -144,9 +149,6 @@ def get_edge_config_token(edge_config_id: Optional[str] = None,
         label=pulumi.get(__ret__, 'label'),
         team_id=pulumi.get(__ret__, 'team_id'),
         token=pulumi.get(__ret__, 'token'))
-
-
-@_utilities.lift_output_func(get_edge_config_token)
 def get_edge_config_token_output(edge_config_id: Optional[pulumi.Input[str]] = None,
                                  team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                  token: Optional[pulumi.Input[str]] = None,
@@ -173,4 +175,16 @@ def get_edge_config_token_output(edge_config_id: Optional[pulumi.Input[str]] = N
     :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     :param str token: A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
     """
-    ...
+    __args__ = dict()
+    __args__['edgeConfigId'] = edge_config_id
+    __args__['teamId'] = team_id
+    __args__['token'] = token
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getEdgeConfigToken:getEdgeConfigToken', __args__, opts=opts, typ=GetEdgeConfigTokenResult)
+    return __ret__.apply(lambda __response__: GetEdgeConfigTokenResult(
+        connection_string=pulumi.get(__response__, 'connection_string'),
+        edge_config_id=pulumi.get(__response__, 'edge_config_id'),
+        id=pulumi.get(__response__, 'id'),
+        label=pulumi.get(__response__, 'label'),
+        team_id=pulumi.get(__response__, 'team_id'),
+        token=pulumi.get(__response__, 'token')))

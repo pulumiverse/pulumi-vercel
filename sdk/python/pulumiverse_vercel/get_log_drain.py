@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -182,9 +187,6 @@ def get_log_drain(endpoint: Optional[str] = None,
         sampling_rate=pulumi.get(__ret__, 'sampling_rate'),
         sources=pulumi.get(__ret__, 'sources'),
         team_id=pulumi.get(__ret__, 'team_id'))
-
-
-@_utilities.lift_output_func(get_log_drain)
 def get_log_drain_output(endpoint: Optional[pulumi.Input[str]] = None,
                          id: Optional[pulumi.Input[str]] = None,
                          team_id: Optional[pulumi.Input[Optional[str]]] = None,
@@ -210,4 +212,19 @@ def get_log_drain_output(endpoint: Optional[pulumi.Input[str]] = None,
     :param str id: The ID of the Log Drain.
     :param str team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
-    ...
+    __args__ = dict()
+    __args__['endpoint'] = endpoint
+    __args__['id'] = id
+    __args__['teamId'] = team_id
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getLogDrain:getLogDrain', __args__, opts=opts, typ=GetLogDrainResult)
+    return __ret__.apply(lambda __response__: GetLogDrainResult(
+        delivery_format=pulumi.get(__response__, 'delivery_format'),
+        endpoint=pulumi.get(__response__, 'endpoint'),
+        environments=pulumi.get(__response__, 'environments'),
+        headers=pulumi.get(__response__, 'headers'),
+        id=pulumi.get(__response__, 'id'),
+        project_ids=pulumi.get(__response__, 'project_ids'),
+        sampling_rate=pulumi.get(__response__, 'sampling_rate'),
+        sources=pulumi.get(__response__, 'sources'),
+        team_id=pulumi.get(__response__, 'team_id')))

@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 from . import outputs
 
@@ -480,9 +485,6 @@ def get_project(name: Optional[str] = None,
         team_id=pulumi.get(__ret__, 'team_id'),
         trusted_ips=pulumi.get(__ret__, 'trusted_ips'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))
-
-
-@_utilities.lift_output_func(get_project)
 def get_project_output(name: Optional[pulumi.Input[str]] = None,
                        team_id: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectResult]:
@@ -507,4 +509,41 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
     :param str name: The name of the project.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
-    ...
+    __args__ = dict()
+    __args__['name'] = name
+    __args__['teamId'] = team_id
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('vercel:index/getProject:getProject', __args__, opts=opts, typ=GetProjectResult)
+    return __ret__.apply(lambda __response__: GetProjectResult(
+        auto_assign_custom_domains=pulumi.get(__response__, 'auto_assign_custom_domains'),
+        automatically_expose_system_environment_variables=pulumi.get(__response__, 'automatically_expose_system_environment_variables'),
+        build_command=pulumi.get(__response__, 'build_command'),
+        customer_success_code_visibility=pulumi.get(__response__, 'customer_success_code_visibility'),
+        dev_command=pulumi.get(__response__, 'dev_command'),
+        directory_listing=pulumi.get(__response__, 'directory_listing'),
+        environments=pulumi.get(__response__, 'environments'),
+        framework=pulumi.get(__response__, 'framework'),
+        function_failover=pulumi.get(__response__, 'function_failover'),
+        git_comments=pulumi.get(__response__, 'git_comments'),
+        git_fork_protection=pulumi.get(__response__, 'git_fork_protection'),
+        git_lfs=pulumi.get(__response__, 'git_lfs'),
+        git_repository=pulumi.get(__response__, 'git_repository'),
+        id=pulumi.get(__response__, 'id'),
+        ignore_command=pulumi.get(__response__, 'ignore_command'),
+        install_command=pulumi.get(__response__, 'install_command'),
+        name=pulumi.get(__response__, 'name'),
+        oidc_token_config=pulumi.get(__response__, 'oidc_token_config'),
+        options_allowlist=pulumi.get(__response__, 'options_allowlist'),
+        output_directory=pulumi.get(__response__, 'output_directory'),
+        password_protection=pulumi.get(__response__, 'password_protection'),
+        preview_comments=pulumi.get(__response__, 'preview_comments'),
+        prioritise_production_builds=pulumi.get(__response__, 'prioritise_production_builds'),
+        protection_bypass_for_automation=pulumi.get(__response__, 'protection_bypass_for_automation'),
+        public_source=pulumi.get(__response__, 'public_source'),
+        resource_config=pulumi.get(__response__, 'resource_config'),
+        root_directory=pulumi.get(__response__, 'root_directory'),
+        serverless_function_region=pulumi.get(__response__, 'serverless_function_region'),
+        skew_protection=pulumi.get(__response__, 'skew_protection'),
+        team_id=pulumi.get(__response__, 'team_id'),
+        trusted_ips=pulumi.get(__response__, 'trusted_ips'),
+        vercel_authentication=pulumi.get(__response__, 'vercel_authentication')))
