@@ -57,9 +57,6 @@ export interface FirewallConfigIpRulesRule {
      * Hosts to apply these rules to
      */
     hostname: string;
-    /**
-     * The ID of this resource.
-     */
     id: string;
     /**
      * IP or CIDR to block
@@ -186,9 +183,6 @@ export interface FirewallConfigRulesRule {
      */
     conditionGroups: outputs.FirewallConfigRulesRuleConditionGroup[];
     description?: string;
-    /**
-     * The ID of this resource.
-     */
     id: string;
     /**
      * Name to identify the rule
@@ -269,6 +263,10 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
 
 export interface GetProjectEnvironment {
     /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment: string;
+    /**
      * The git branch of the environment variable.
      */
     gitBranch: string;
@@ -348,6 +346,10 @@ export interface GetProjectOidcTokenConfig {
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
      */
     enabled: boolean;
+    /**
+     * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+     */
+    issuerMode: string;
 }
 
 export interface GetProjectOptionsAllowlist {
@@ -406,7 +408,18 @@ export interface GetProjectVercelAuthentication {
     deploymentType: string;
 }
 
+export interface GetTeamConfigRemoteCaching {
+    /**
+     * Indicates if Remote Caching is enabled.
+     */
+    enabled: boolean;
+}
+
 export interface ProjectEnvironment {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment: string;
     /**
      * The git branch of the Environment Variable.
      */
@@ -487,6 +500,10 @@ export interface ProjectOidcTokenConfig {
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
      */
     enabled: boolean;
+    /**
+     * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+     */
+    issuerMode: string;
 }
 
 export interface ProjectOptionsAllowlist {
@@ -556,5 +573,12 @@ export interface ProjectVercelAuthentication {
      * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType: string;
+}
+
+export interface TeamConfigRemoteCaching {
+    /**
+     * Indicates if Remote Caching is enabled.
+     */
+    enabled: boolean;
 }
 

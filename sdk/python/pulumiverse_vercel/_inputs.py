@@ -85,6 +85,8 @@ __all__ = [
     'ProjectTrustedIpsAddressArgsDict',
     'ProjectVercelAuthenticationArgs',
     'ProjectVercelAuthenticationArgsDict',
+    'TeamConfigRemoteCachingArgs',
+    'TeamConfigRemoteCachingArgsDict',
 ]
 
 MYPY = False
@@ -324,9 +326,6 @@ if not MYPY:
         IP or CIDR to block
         """
         id: NotRequired[pulumi.Input[str]]
-        """
-        The ID of this resource.
-        """
         notes: NotRequired[pulumi.Input[str]]
 elif False:
     FirewallConfigIpRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
@@ -342,7 +341,6 @@ class FirewallConfigIpRulesRuleArgs:
         """
         :param pulumi.Input[str] hostname: Hosts to apply these rules to
         :param pulumi.Input[str] ip: IP or CIDR to block
-        :param pulumi.Input[str] id: The ID of this resource.
         """
         pulumi.set(__self__, "action", action)
         pulumi.set(__self__, "hostname", hostname)
@@ -388,9 +386,6 @@ class FirewallConfigIpRulesRuleArgs:
     @property
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @id.setter
@@ -1044,9 +1039,6 @@ if not MYPY:
         """
         description: NotRequired[pulumi.Input[str]]
         id: NotRequired[pulumi.Input[str]]
-        """
-        The ID of this resource.
-        """
 elif False:
     FirewallConfigRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1064,7 +1056,6 @@ class FirewallConfigRulesRuleArgs:
         :param pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupArgs']]] condition_groups: Sets of conditions that may match a request
         :param pulumi.Input[str] name: Name to identify the rule
         :param pulumi.Input[bool] active: Rule is active or disabled
-        :param pulumi.Input[str] id: The ID of this resource.
         """
         pulumi.set(__self__, "action", action)
         pulumi.set(__self__, "condition_groups", condition_groups)
@@ -1136,9 +1127,6 @@ class FirewallConfigRulesRuleArgs:
     @property
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @id.setter
@@ -1519,6 +1507,10 @@ if not MYPY:
         """
         The value of the Environment Variable.
         """
+        comment: NotRequired[pulumi.Input[str]]
+        """
+        A comment explaining what the environment variable is for.
+        """
         git_branch: NotRequired[pulumi.Input[str]]
         """
         The git branch of the Environment Variable.
@@ -1540,6 +1532,7 @@ class ProjectEnvironmentArgs:
                  key: pulumi.Input[str],
                  targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
+                 comment: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None):
@@ -1547,6 +1540,7 @@ class ProjectEnvironmentArgs:
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] id: The ID of the Environment Variable.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -1554,6 +1548,8 @@ class ProjectEnvironmentArgs:
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
@@ -1596,6 +1592,18 @@ class ProjectEnvironmentArgs:
     @value.setter
     def value(self, value: pulumi.Input[str]):
         pulumi.set(self, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1870,17 +1878,25 @@ if not MYPY:
         """
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
+        issuer_mode: NotRequired[pulumi.Input[str]]
+        """
+        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        """
 elif False:
     ProjectOidcTokenConfigArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectOidcTokenConfigArgs:
     def __init__(__self__, *,
-                 enabled: pulumi.Input[bool]):
+                 enabled: pulumi.Input[bool],
+                 issuer_mode: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[bool] enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        :param pulumi.Input[str] issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
         pulumi.set(__self__, "enabled", enabled)
+        if issuer_mode is not None:
+            pulumi.set(__self__, "issuer_mode", issuer_mode)
 
     @property
     @pulumi.getter
@@ -1893,6 +1909,18 @@ class ProjectOidcTokenConfigArgs:
     @enabled.setter
     def enabled(self, value: pulumi.Input[bool]):
         pulumi.set(self, "enabled", value)
+
+    @property
+    @pulumi.getter(name="issuerMode")
+    def issuer_mode(self) -> Optional[pulumi.Input[str]]:
+        """
+        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        """
+        return pulumi.get(self, "issuer_mode")
+
+    @issuer_mode.setter
+    def issuer_mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "issuer_mode", value)
 
 
 if not MYPY:
@@ -2209,5 +2237,37 @@ class ProjectVercelAuthenticationArgs:
     @deployment_type.setter
     def deployment_type(self, value: pulumi.Input[str]):
         pulumi.set(self, "deployment_type", value)
+
+
+if not MYPY:
+    class TeamConfigRemoteCachingArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[bool]]
+        """
+        Indicates if Remote Caching is enabled.
+        """
+elif False:
+    TeamConfigRemoteCachingArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TeamConfigRemoteCachingArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        """
+        :param pulumi.Input[bool] enabled: Indicates if Remote Caching is enabled.
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Indicates if Remote Caching is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
 
 

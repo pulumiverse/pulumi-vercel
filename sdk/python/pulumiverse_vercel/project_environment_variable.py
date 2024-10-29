@@ -23,6 +23,7 @@ class ProjectEnvironmentVariableArgs:
                  project_id: pulumi.Input[str],
                  targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
+                 comment: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
                  team_id: Optional[pulumi.Input[str]] = None):
@@ -32,6 +33,7 @@ class ProjectEnvironmentVariableArgs:
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
@@ -40,6 +42,8 @@ class ProjectEnvironmentVariableArgs:
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if sensitive is not None:
@@ -96,6 +100,18 @@ class ProjectEnvironmentVariableArgs:
         pulumi.set(self, "value", value)
 
     @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
+
+    @property
     @pulumi.getter(name="gitBranch")
     def git_branch(self) -> Optional[pulumi.Input[str]]:
         """
@@ -135,6 +151,7 @@ class ProjectEnvironmentVariableArgs:
 @pulumi.input_type
 class _ProjectEnvironmentVariableState:
     def __init__(__self__, *,
+                 comment: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -144,6 +161,7 @@ class _ProjectEnvironmentVariableState:
                  value: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
@@ -152,6 +170,8 @@ class _ProjectEnvironmentVariableState:
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if key is not None:
@@ -166,6 +186,18 @@ class _ProjectEnvironmentVariableState:
             pulumi.set(__self__, "team_id", team_id)
         if value is not None:
             pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -257,6 +289,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 comment: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -282,7 +315,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             project_id=example_project.id,
             key="foo",
             value="bar",
-            targets=["production"])
+            targets=["production"],
+            comment="a production secret")
         # An environment variable that will be created
         # for this project for the "preview" environment when the branch is "staging".
         example_git_branch = vercel.ProjectEnvironmentVariable("exampleGitBranch",
@@ -290,7 +324,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             key="foo",
             value="bar-staging",
             targets=["preview"],
-            git_branch="staging")
+            git_branch="staging",
+            comment="a staging secret")
         # A sensitive environment variable that will be created
         # for this project for the "production" environment.
         example_sensitive = vercel.ProjectEnvironmentVariable("exampleSensitive",
@@ -298,7 +333,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             key="foo",
             value="bar-production",
             targets=["production"],
-            sensitive=True)
+            sensitive=True,
+            comment="a sensitive production secret")
         ```
 
         ## Import
@@ -343,6 +379,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
@@ -374,7 +411,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             project_id=example_project.id,
             key="foo",
             value="bar",
-            targets=["production"])
+            targets=["production"],
+            comment="a production secret")
         # An environment variable that will be created
         # for this project for the "preview" environment when the branch is "staging".
         example_git_branch = vercel.ProjectEnvironmentVariable("exampleGitBranch",
@@ -382,7 +420,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             key="foo",
             value="bar-staging",
             targets=["preview"],
-            git_branch="staging")
+            git_branch="staging",
+            comment="a staging secret")
         # A sensitive environment variable that will be created
         # for this project for the "production" environment.
         example_sensitive = vercel.ProjectEnvironmentVariable("exampleSensitive",
@@ -390,7 +429,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             key="foo",
             value="bar-production",
             targets=["production"],
-            sensitive=True)
+            sensitive=True,
+            comment="a sensitive production secret")
         ```
 
         ## Import
@@ -448,6 +488,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 comment: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -464,6 +505,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProjectEnvironmentVariableArgs.__new__(ProjectEnvironmentVariableArgs)
 
+            __props__.__dict__["comment"] = comment
             __props__.__dict__["git_branch"] = git_branch
             if key is None and not opts.urn:
                 raise TypeError("Missing required property 'key'")
@@ -491,6 +533,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            comment: Optional[pulumi.Input[str]] = None,
             git_branch: Optional[pulumi.Input[str]] = None,
             key: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
@@ -505,6 +548,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
@@ -517,6 +561,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
 
         __props__ = _ProjectEnvironmentVariableState.__new__(_ProjectEnvironmentVariableState)
 
+        __props__.__dict__["comment"] = comment
         __props__.__dict__["git_branch"] = git_branch
         __props__.__dict__["key"] = key
         __props__.__dict__["project_id"] = project_id
@@ -525,6 +570,14 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["value"] = value
         return ProjectEnvironmentVariable(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> pulumi.Output[str]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter(name="gitBranch")

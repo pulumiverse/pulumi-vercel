@@ -67,6 +67,10 @@ export interface GetSharedEnvironmentVariableArgs {
  */
 export interface GetSharedEnvironmentVariableResult {
     /**
+     * A comment explaining what the environment variable is for.
+     */
+    readonly comment: string;
+    /**
      * The ID of the Environment Variable.
      */
     readonly id: string;

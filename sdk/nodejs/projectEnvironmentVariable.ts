@@ -22,6 +22,7 @@ import * as utilities from "./utilities";
  *     key: "foo",
  *     value: "bar",
  *     targets: ["production"],
+ *     comment: "a production secret",
  * });
  * // An environment variable that will be created
  * // for this project for the "preview" environment when the branch is "staging".
@@ -31,6 +32,7 @@ import * as utilities from "./utilities";
  *     value: "bar-staging",
  *     targets: ["preview"],
  *     gitBranch: "staging",
+ *     comment: "a staging secret",
  * });
  * // A sensitive environment variable that will be created
  * // for this project for the "production" environment.
@@ -40,6 +42,7 @@ import * as utilities from "./utilities";
  *     value: "bar-production",
  *     targets: ["production"],
  *     sensitive: true,
+ *     comment: "a sensitive production secret",
  * });
  * ```
  *
@@ -112,6 +115,10 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
     }
 
     /**
+     * A comment explaining what the environment variable is for.
+     */
+    public readonly comment!: pulumi.Output<string>;
+    /**
      * The git branch of the Environment Variable.
      */
     public readonly gitBranch!: pulumi.Output<string | undefined>;
@@ -153,6 +160,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ProjectEnvironmentVariableState | undefined;
+            resourceInputs["comment"] = state ? state.comment : undefined;
             resourceInputs["gitBranch"] = state ? state.gitBranch : undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
@@ -174,6 +182,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
+            resourceInputs["comment"] = args ? args.comment : undefined;
             resourceInputs["gitBranch"] = args ? args.gitBranch : undefined;
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
@@ -193,6 +202,10 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
  * Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
  */
 export interface ProjectEnvironmentVariableState {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
     /**
      * The git branch of the Environment Variable.
      */
@@ -227,6 +240,10 @@ export interface ProjectEnvironmentVariableState {
  * The set of arguments for constructing a ProjectEnvironmentVariable resource.
  */
 export interface ProjectEnvironmentVariableArgs {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
     /**
      * The git branch of the Environment Variable.
      */

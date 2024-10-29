@@ -26,7 +26,10 @@ class GetSharedEnvironmentVariableResult:
     """
     A collection of values returned by getSharedEnvironmentVariable.
     """
-    def __init__(__self__, id=None, key=None, project_ids=None, sensitive=None, targets=None, team_id=None, value=None):
+    def __init__(__self__, comment=None, id=None, key=None, project_ids=None, sensitive=None, targets=None, team_id=None, value=None):
+        if comment and not isinstance(comment, str):
+            raise TypeError("Expected argument 'comment' to be a str")
+        pulumi.set(__self__, "comment", comment)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -48,6 +51,14 @@ class GetSharedEnvironmentVariableResult:
         if value and not isinstance(value, str):
             raise TypeError("Expected argument 'value' to be a str")
         pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> str:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter
@@ -112,6 +123,7 @@ class AwaitableGetSharedEnvironmentVariableResult(GetSharedEnvironmentVariableRe
         if False:
             yield self
         return GetSharedEnvironmentVariableResult(
+            comment=self.comment,
             id=self.id,
             key=self.key,
             project_ids=self.project_ids,
@@ -162,6 +174,7 @@ def get_shared_environment_variable(id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable', __args__, opts=opts, typ=GetSharedEnvironmentVariableResult).value
 
     return AwaitableGetSharedEnvironmentVariableResult(
+        comment=pulumi.get(__ret__, 'comment'),
         id=pulumi.get(__ret__, 'id'),
         key=pulumi.get(__ret__, 'key'),
         project_ids=pulumi.get(__ret__, 'project_ids'),
@@ -209,6 +222,7 @@ def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[st
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable', __args__, opts=opts, typ=GetSharedEnvironmentVariableResult)
     return __ret__.apply(lambda __response__: GetSharedEnvironmentVariableResult(
+        comment=pulumi.get(__response__, 'comment'),
         id=pulumi.get(__response__, 'id'),
         key=pulumi.get(__response__, 'key'),
         project_ids=pulumi.get(__response__, 'project_ids'),

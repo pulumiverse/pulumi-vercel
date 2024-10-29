@@ -27,6 +27,7 @@ import * as utilities from "./utilities";
  *     key: "EXAMPLE",
  *     value: "some_value",
  *     targets: ["production"],
+ *     comment: "an example shared variable",
  *     projectIds: [exampleProject.id],
  * });
  * ```
@@ -76,6 +77,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
     }
 
     /**
+     * A comment explaining what the environment variable is for.
+     */
+    public readonly comment!: pulumi.Output<string>;
+    /**
      * The name of the Environment Variable.
      */
     public readonly key!: pulumi.Output<string>;
@@ -113,6 +118,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as SharedEnvironmentVariableState | undefined;
+            resourceInputs["comment"] = state ? state.comment : undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["projectIds"] = state ? state.projectIds : undefined;
             resourceInputs["sensitive"] = state ? state.sensitive : undefined;
@@ -133,6 +139,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
+            resourceInputs["comment"] = args ? args.comment : undefined;
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["projectIds"] = args ? args.projectIds : undefined;
             resourceInputs["sensitive"] = args ? args.sensitive : undefined;
@@ -151,6 +158,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
  * Input properties used for looking up and filtering SharedEnvironmentVariable resources.
  */
 export interface SharedEnvironmentVariableState {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
     /**
      * The name of the Environment Variable.
      */
@@ -181,6 +192,10 @@ export interface SharedEnvironmentVariableState {
  * The set of arguments for constructing a SharedEnvironmentVariable resource.
  */
 export interface SharedEnvironmentVariableArgs {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
     /**
      * The name of the Environment Variable.
      */

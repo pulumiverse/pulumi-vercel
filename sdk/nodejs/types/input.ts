@@ -57,9 +57,6 @@ export interface FirewallConfigIpRulesRule {
      * Hosts to apply these rules to
      */
     hostname: pulumi.Input<string>;
-    /**
-     * The ID of this resource.
-     */
     id?: pulumi.Input<string>;
     /**
      * IP or CIDR to block
@@ -186,9 +183,6 @@ export interface FirewallConfigRulesRule {
      */
     conditionGroups: pulumi.Input<pulumi.Input<inputs.FirewallConfigRulesRuleConditionGroup>[]>;
     description?: pulumi.Input<string>;
-    /**
-     * The ID of this resource.
-     */
     id?: pulumi.Input<string>;
     /**
      * Name to identify the rule
@@ -269,6 +263,10 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
 
 export interface ProjectEnvironment {
     /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
+    /**
      * The git branch of the Environment Variable.
      */
     gitBranch?: pulumi.Input<string>;
@@ -348,6 +346,10 @@ export interface ProjectOidcTokenConfig {
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
      */
     enabled: pulumi.Input<boolean>;
+    /**
+     * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+     */
+    issuerMode?: pulumi.Input<string>;
 }
 
 export interface ProjectOptionsAllowlist {
@@ -417,4 +419,11 @@ export interface ProjectVercelAuthentication {
      * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType: pulumi.Input<string>;
+}
+
+export interface TeamConfigRemoteCaching {
+    /**
+     * Indicates if Remote Caching is enabled.
+     */
+    enabled?: pulumi.Input<boolean>;
 }

@@ -27,6 +27,10 @@
                 "current": "vercel:index/edgeConfig:EdgeConfig",
                 "majorVersion": 1
             },
+            "vercel_edge_config_item": {
+                "current": "vercel:index/edgeConfigItem:EdgeConfigItem",
+                "majorVersion": 1
+            },
             "vercel_edge_config_schema": {
                 "current": "vercel:index/edgeConfigSchema:EdgeConfigSchema",
                 "majorVersion": 1
@@ -149,10 +153,6 @@
                     }
                 }
             },
-            "vercel_project_function_cpu": {
-                "current": "vercel:index/projectFunctionCpu:ProjectFunctionCpu",
-                "majorVersion": 1
-            },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable",
                 "majorVersion": 1,
@@ -164,6 +164,10 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_team_config": {
+                "current": "vercel:index/teamConfig:TeamConfig",
+                "majorVersion": 1
             },
             "vercel_webhook": {
                 "current": "vercel:index/webhook:Webhook",
@@ -198,6 +202,10 @@
             },
             "vercel_edge_config": {
                 "current": "vercel:index/getEdgeConfig:getEdgeConfig",
+                "majorVersion": 1
+            },
+            "vercel_edge_config_item": {
+                "current": "vercel:index/getEdgeConfigItem:getEdgeConfigItem",
                 "majorVersion": 1
             },
             "vercel_edge_config_schema": {
@@ -280,10 +288,6 @@
                 "current": "vercel:index/getProjectDirectory:getProjectDirectory",
                 "majorVersion": 1
             },
-            "vercel_project_function_cpu": {
-                "current": "vercel:index/getProjectFunctionCpu:getProjectFunctionCpu",
-                "majorVersion": 1
-            },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable",
                 "majorVersion": 1,
@@ -295,6 +299,10 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_team_config": {
+                "current": "vercel:index/getTeamConfig:getTeamConfig",
+                "majorVersion": 1
             }
         }
     },

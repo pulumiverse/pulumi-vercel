@@ -23,6 +23,7 @@ class SharedEnvironmentVariableArgs:
                  project_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
                  targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
+                 comment: Optional[pulumi.Input[str]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
                  team_id: Optional[pulumi.Input[str]] = None):
         """
@@ -31,6 +32,7 @@ class SharedEnvironmentVariableArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         """
@@ -38,6 +40,8 @@ class SharedEnvironmentVariableArgs:
         pulumi.set(__self__, "project_ids", project_ids)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
         if team_id is not None:
@@ -93,6 +97,18 @@ class SharedEnvironmentVariableArgs:
 
     @property
     @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
+
+    @property
+    @pulumi.getter
     def sensitive(self) -> Optional[pulumi.Input[bool]]:
         """
         Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -119,6 +135,7 @@ class SharedEnvironmentVariableArgs:
 @pulumi.input_type
 class _SharedEnvironmentVariableState:
     def __init__(__self__, *,
+                 comment: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
@@ -127,6 +144,7 @@ class _SharedEnvironmentVariableState:
                  value: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering SharedEnvironmentVariable resources.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -134,6 +152,8 @@ class _SharedEnvironmentVariableState:
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if key is not None:
             pulumi.set(__self__, "key", key)
         if project_ids is not None:
@@ -146,6 +166,18 @@ class _SharedEnvironmentVariableState:
             pulumi.set(__self__, "team_id", team_id)
         if value is not None:
             pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
 
     @property
     @pulumi.getter
@@ -225,6 +257,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 comment: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
@@ -255,6 +288,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             key="EXAMPLE",
             value="some_value",
             targets=["production"],
+            comment="an example shared variable",
             project_ids=[example_project.id])
         ```
 
@@ -276,6 +310,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -312,6 +347,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             key="EXAMPLE",
             value="some_value",
             targets=["production"],
+            comment="an example shared variable",
             project_ids=[example_project.id])
         ```
 
@@ -346,6 +382,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 comment: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
@@ -361,6 +398,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = SharedEnvironmentVariableArgs.__new__(SharedEnvironmentVariableArgs)
 
+            __props__.__dict__["comment"] = comment
             if key is None and not opts.urn:
                 raise TypeError("Missing required property 'key'")
             __props__.__dict__["key"] = key
@@ -387,6 +425,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            comment: Optional[pulumi.Input[str]] = None,
             key: Optional[pulumi.Input[str]] = None,
             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             sensitive: Optional[pulumi.Input[bool]] = None,
@@ -400,6 +439,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -411,6 +451,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
         __props__ = _SharedEnvironmentVariableState.__new__(_SharedEnvironmentVariableState)
 
+        __props__.__dict__["comment"] = comment
         __props__.__dict__["key"] = key
         __props__.__dict__["project_ids"] = project_ids
         __props__.__dict__["sensitive"] = sensitive
@@ -418,6 +459,14 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["value"] = value
         return SharedEnvironmentVariable(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> pulumi.Output[str]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter

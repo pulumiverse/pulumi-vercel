@@ -143,8 +143,7 @@
                     "description": "Hosts to apply these rules to\n"
                 },
                 "id": {
-                    "type": "string",
-                    "description": "The ID of this resource.\n"
+                    "type": "string"
                 },
                 "ip": {
                     "type": "string",
@@ -397,8 +396,7 @@
                     "type": "string"
                 },
                 "id": {
-                    "type": "string",
-                    "description": "The ID of this resource.\n"
+                    "type": "string"
                 },
                 "name": {
                     "type": "string",
@@ -540,6 +538,10 @@
         },
         "vercel:index/ProjectEnvironment:ProjectEnvironment": {
             "properties": {
+                "comment": {
+                    "type": "string",
+                    "description": "A comment explaining what the environment variable is for.\n"
+                },
                 "gitBranch": {
                     "type": "string",
                     "description": "The git branch of the Environment Variable.\n"
@@ -578,6 +580,7 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
+                        "comment",
                         "id",
                         "key",
                         "sensitive",
@@ -682,12 +685,24 @@
                 "enabled": {
                     "type": "boolean",
                     "description": "When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.\n"
+                },
+                "issuerMode": {
+                    "type": "string",
+                    "description": "Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`\n"
                 }
             },
             "type": "object",
             "required": [
                 "enabled"
-            ]
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "enabled",
+                        "issuerMode"
+                    ]
+                }
+            }
         },
         "vercel:index/ProjectOptionsAllowlist:ProjectOptionsAllowlist": {
             "properties": {
@@ -817,8 +832,28 @@
                 "deploymentType"
             ]
         },
+        "vercel:index/TeamConfigRemoteCaching:TeamConfigRemoteCaching": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Indicates if Remote Caching is enabled.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "enabled"
+                    ]
+                }
+            }
+        },
         "vercel:index/getProjectEnvironment:getProjectEnvironment": {
             "properties": {
+                "comment": {
+                    "type": "string",
+                    "description": "A comment explaining what the environment variable is for.\n"
+                },
                 "gitBranch": {
                     "type": "string",
                     "description": "The git branch of the environment variable.\n"
@@ -849,6 +884,7 @@
             },
             "type": "object",
             "required": [
+                "comment",
                 "gitBranch",
                 "id",
                 "key",
@@ -957,11 +993,16 @@
                 "enabled": {
                     "type": "boolean",
                     "description": "When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.\n"
+                },
+                "issuerMode": {
+                    "type": "string",
+                    "description": "Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`\n"
                 }
             },
             "type": "object",
             "required": [
-                "enabled"
+                "enabled",
+                "issuerMode"
             ],
             "language": {
                 "nodejs": {
@@ -1104,6 +1145,23 @@
             "type": "object",
             "required": [
                 "deploymentType"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getTeamConfigRemoteCaching:getTeamConfigRemoteCaching": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Indicates if Remote Caching is enabled.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled"
             ],
             "language": {
                 "nodejs": {
@@ -1610,6 +1668,78 @@
                 "type": "object"
             }
         },
+        "vercel:index/edgeConfigItem:EdgeConfigItem": {
+            "description": "Provides an Edge Config Item.\n\nAn Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.\n\nAn Edge Config Item is a value within an Edge Config.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleEdgeConfig = new vercel.EdgeConfig(\"exampleEdgeConfig\", {});\nconst exampleEdgeConfigItem = new vercel.EdgeConfigItem(\"exampleEdgeConfigItem\", {\n    edgeConfigId: exampleEdgeConfig.id,\n    key: \"foobar\",\n    value: \"baz\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_edge_config = vercel.EdgeConfig(\"exampleEdgeConfig\")\nexample_edge_config_item = vercel.EdgeConfigItem(\"exampleEdgeConfigItem\",\n    edge_config_id=example_edge_config.id,\n    key=\"foobar\",\n    value=\"baz\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleEdgeConfig = new Vercel.EdgeConfig(\"exampleEdgeConfig\");\n\n    var exampleEdgeConfigItem = new Vercel.EdgeConfigItem(\"exampleEdgeConfigItem\", new()\n    {\n        EdgeConfigId = exampleEdgeConfig.Id,\n        Key = \"foobar\",\n        Value = \"baz\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleEdgeConfig, err := vercel.NewEdgeConfig(ctx, \"exampleEdgeConfig\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewEdgeConfigItem(ctx, \"exampleEdgeConfigItem\", \u0026vercel.EdgeConfigItemArgs{\n\t\t\tEdgeConfigId: exampleEdgeConfig.ID(),\n\t\t\tKey:          pulumi.String(\"foobar\"),\n\t\t\tValue:        pulumi.String(\"baz\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.EdgeConfig;\nimport com.pulumi.vercel.EdgeConfigItem;\nimport com.pulumi.vercel.EdgeConfigItemArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleEdgeConfig = new EdgeConfig(\"exampleEdgeConfig\");\n\n        var exampleEdgeConfigItem = new EdgeConfigItem(\"exampleEdgeConfigItem\", EdgeConfigItemArgs.builder()\n            .edgeConfigId(exampleEdgeConfig.id())\n            .key(\"foobar\")\n            .value(\"baz\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleEdgeConfig:\n    type: vercel:EdgeConfig\n  exampleEdgeConfigItem:\n    type: vercel:EdgeConfigItem\n    properties:\n      edgeConfigId: ${exampleEdgeConfig.id}\n      key: foobar\n      value: baz\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the edge config id and the key of the item to import.\n\n- edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.\n\n- key is the key of teh item to import.\n\n```sh\n$ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key\n```\n\nAlternatively, you can import via the team_id, edge_config_id and the key of the item to import.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.\n\n- key is the key of the item to import.\n\n```sh\n$ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key\n```\n\n",
+            "properties": {
+                "edgeConfigId": {
+                    "type": "string",
+                    "description": "The ID of the Edge Config store.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The name of the key you want to add to or update within your Edge Config.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value you want to assign to the key.\n"
+                }
+            },
+            "required": [
+                "edgeConfigId",
+                "key",
+                "teamId",
+                "value"
+            ],
+            "inputProperties": {
+                "edgeConfigId": {
+                    "type": "string",
+                    "description": "The ID of the Edge Config store.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The name of the key you want to add to or update within your Edge Config.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value you want to assign to the key.\n"
+                }
+            },
+            "requiredInputs": [
+                "edgeConfigId",
+                "key",
+                "value"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering EdgeConfigItem resources.\n",
+                "properties": {
+                    "edgeConfigId": {
+                        "type": "string",
+                        "description": "The ID of the Edge Config store.\n"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The name of the key you want to add to or update within your Edge Config.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "The value you want to assign to the key.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "vercel:index/edgeConfigSchema:EdgeConfigSchema": {
             "description": "An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```yaml\nresources:\n  exampleEdgeConfig:\n    type: vercel:EdgeConfig\n  exampleEdgeConfigSchema:\n    type: vercel:EdgeConfigSchema\n    properties:\n      id: ${exampleEdgeConfig.id}\n      definition: |\n        {\n          \"title\": \"Greeting\",\n          \"type\": \"object\",\n          \"properties\": {\n            \"greeting\": {\n              \"description\": \"A friendly greeting\",\n              \"type\": \"string\"\n            }\n          }\n        }\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the edge config id.\n\n- edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.\n\n```sh\n$ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via the team_id and edge_config_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.\n\n```sh\n$ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
@@ -1731,7 +1861,7 @@
             }
         },
         "vercel:index/firewallConfig:FirewallConfig": {
-            "description": "Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.FirewallConfig;\nimport com.pulumi.vercel.FirewallConfigArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleFirewallConfig = new FirewallConfig(\"exampleFirewallConfig\", FirewallConfigArgs.builder()\n            .projectId(exampleProject.id())\n            .rules(FirewallConfigRulesArgs.builder()\n                .rules(                \n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Bypass Known request\")\n                        .description(\"Bypass requests using internal bearer tokens\")\n                        .conditionGroups(                        \n                            FirewallConfigRulesRuleConditionGroupArgs.builder()\n                                .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"header\")\n                                    .key(\"Authorization\")\n                                    .op(\"eq\")\n                                    .value(\"Bearer internaltoken\")\n                                    .build())\n                                .build(),\n                            FirewallConfigRulesRuleConditionGroupArgs.builder()\n                                .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"header\")\n                                    .key(\"Authorization\")\n                                    .op(\"eq\")\n                                    .value(\"Bearer internaltoken2\")\n                                    .build())\n                                .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"bypass\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Challenge curl\")\n                        .description(\"Challenge user agents containing 'curl'\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                .type(\"user_agent\")\n                                .op(\"sub\")\n                                .value(\"curl\")\n                                .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"challenge\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Deny cookieless requests\")\n                        .description(\"requests to /api that are missing a session cookie\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(                            \n                                FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"path\")\n                                    .op(\"eq\")\n                                    .value(\"/api\")\n                                    .build(),\n                                FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"cookie\")\n                                    .key(\"_session\")\n                                    .neg(true)\n                                    .op(\"ex\")\n                                    .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"challenge\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Rate limit API\")\n                        .description(\"apply ratelimit to requests under /api\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                .type(\"path\")\n                                .op(\"pre\")\n                                .value(\"/api\")\n                                .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"rate_limit\")\n                            .rate_limit(%!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference))\n                            .actionDuration(\"5m\")\n                            .build())\n                        .build())\n                .build())\n            .build());\n\n        var managedExample = new Project(\"managedExample\");\n\n        var managed = new FirewallConfig(\"managed\", FirewallConfigArgs.builder()\n            .projectId(vercel_project.managed().id())\n            .managedRulesets(FirewallConfigManagedRulesetsArgs.builder()\n                .owasp(FirewallConfigManagedRulesetsOwaspArgs.builder()\n                    .xss(FirewallConfigManagedRulesetsOwaspXssArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .sqli(FirewallConfigManagedRulesetsOwaspSqliArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .rce(FirewallConfigManagedRulesetsOwaspRceArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .php(FirewallConfigManagedRulesetsOwaspPhpArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .java(FirewallConfigManagedRulesetsOwaspJavaArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .lfi(FirewallConfigManagedRulesetsOwaspLfiArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .rfi(FirewallConfigManagedRulesetsOwaspRfiArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .gen(FirewallConfigManagedRulesetsOwaspGenArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .build())\n                .build())\n            .build());\n\n        var ipExample = new Project(\"ipExample\");\n\n        var ip_blocking = new FirewallConfig(\"ip-blocking\", FirewallConfigArgs.builder()\n            .projectId(ipExample.id())\n            .ipRules(FirewallConfigIpRulesArgs.builder()\n                .rules(                \n                    FirewallConfigIpRulesRuleArgs.builder()\n                        .action(\"deny\")\n                        .ip(\"51.85.0.0/16\")\n                        .hostname(\"*\")\n                        .build(),\n                    FirewallConfigIpRulesRuleArgs.builder()\n                        .action(\"challenge\")\n                        .ip(\"1.2.3.4\")\n                        .hostname(\"example.com\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleFirewallConfig:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${exampleProject.id}\n      rules:\n        - rules:\n            - name: Bypass Known request\n              description: Bypass requests using internal bearer tokens\n              conditionGroups:\n                - conditions:\n                    - type: header\n                      key: Authorization\n                      op: eq\n                      value: Bearer internaltoken\n                - conditions:\n                    - type: header\n                      key: Authorization\n                      op: eq\n                      value: Bearer internaltoken2\n              action:\n                action: bypass\n            - name: Challenge curl\n              description: Challenge user agents containing 'curl'\n              conditionGroups:\n                - conditions:\n                    - type: user_agent\n                      op: sub\n                      value: curl\n              action:\n                action: challenge\n            - name: Deny cookieless requests\n              description: requests to /api that are missing a session cookie\n              conditionGroups:\n                - conditions:\n                    - type: path\n                      op: eq\n                      value: /api\n                    - type: cookie\n                      key: _session\n                      neg: true\n                      op: ex\n              action:\n                action: challenge\n            - name: Rate limit API\n              description: apply ratelimit to requests under /api\n              conditionGroups:\n                - conditions:\n                    - type: path\n                      op: pre\n                      value: /api\n              action:\n                action: rate_limit\n                rate_limit:\n                  limit: 100\n                  window: 300\n                  keys:\n                    - ip\n                    - ja4\n                  algo: fixed_window\n                  action: deny\n                actionDuration: 5m\n  managedExample:\n    type: vercel:Project\n  managed:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${vercel_project.managed.id}\n      managedRulesets:\n        - owasp:\n            - xss:\n                action: deny\n              sqli:\n                action: deny\n              rce:\n                action: deny\n              php:\n                action: deny\n              java:\n                action: deny\n              lfi:\n                action: deny\n              rfi:\n                action: deny\n              gen:\n                action: deny\n  ipExample:\n    type: vercel:Project\n  ip-blocking:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${ipExample.id}\n      ipRules:\n        - rules:\n            - action: deny\n              ip: 51.85.0.0/16\n              hostname: '*'\n            - action: challenge\n              ip: 1.2.3.4\n              hostname: example.com\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\n```sh\n$ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "description": "Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.FirewallConfig;\nimport com.pulumi.vercel.FirewallConfigArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleFirewallConfig = new FirewallConfig(\"exampleFirewallConfig\", FirewallConfigArgs.builder()\n            .projectId(exampleProject.id())\n            .rules(FirewallConfigRulesArgs.builder()\n                .rules(                \n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Bypass Known request\")\n                        .description(\"Bypass requests using internal bearer tokens\")\n                        .conditionGroups(                        \n                            FirewallConfigRulesRuleConditionGroupArgs.builder()\n                                .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"header\")\n                                    .key(\"Authorization\")\n                                    .op(\"eq\")\n                                    .value(\"Bearer internaltoken\")\n                                    .build())\n                                .build(),\n                            FirewallConfigRulesRuleConditionGroupArgs.builder()\n                                .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"header\")\n                                    .key(\"Authorization\")\n                                    .op(\"eq\")\n                                    .value(\"Bearer internaltoken2\")\n                                    .build())\n                                .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"bypass\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Challenge curl\")\n                        .description(\"Challenge user agents containing 'curl'\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                .type(\"user_agent\")\n                                .op(\"sub\")\n                                .value(\"curl\")\n                                .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"challenge\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Deny cookieless requests\")\n                        .description(\"requests to /api that are missing a session cookie\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(                            \n                                FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"path\")\n                                    .op(\"eq\")\n                                    .value(\"/api\")\n                                    .build(),\n                                FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                    .type(\"cookie\")\n                                    .key(\"_session\")\n                                    .neg(true)\n                                    .op(\"ex\")\n                                    .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"challenge\")\n                            .build())\n                        .build(),\n                    FirewallConfigRulesRuleArgs.builder()\n                        .name(\"Rate limit API\")\n                        .description(\"apply ratelimit to requests under /api\")\n                        .conditionGroups(FirewallConfigRulesRuleConditionGroupArgs.builder()\n                            .conditions(FirewallConfigRulesRuleConditionGroupConditionArgs.builder()\n                                .type(\"path\")\n                                .op(\"pre\")\n                                .value(\"/api\")\n                                .build())\n                            .build())\n                        .action(FirewallConfigRulesRuleActionArgs.builder()\n                            .action(\"rate_limit\")\n                            .rate_limit(%!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference))\n                            .action_duration(\"5m\")\n                            .build())\n                        .build())\n                .build())\n            .build());\n\n        var managedExample = new Project(\"managedExample\");\n\n        var managed = new FirewallConfig(\"managed\", FirewallConfigArgs.builder()\n            .projectId(vercel_project.managed().id())\n            .managedRulesets(FirewallConfigManagedRulesetsArgs.builder()\n                .owasp(FirewallConfigManagedRulesetsOwaspArgs.builder()\n                    .xss(FirewallConfigManagedRulesetsOwaspXssArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .sqli(FirewallConfigManagedRulesetsOwaspSqliArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .rce(FirewallConfigManagedRulesetsOwaspRceArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .php(FirewallConfigManagedRulesetsOwaspPhpArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .java(FirewallConfigManagedRulesetsOwaspJavaArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .lfi(FirewallConfigManagedRulesetsOwaspLfiArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .rfi(FirewallConfigManagedRulesetsOwaspRfiArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .gen(FirewallConfigManagedRulesetsOwaspGenArgs.builder()\n                        .action(\"deny\")\n                        .build())\n                    .build())\n                .build())\n            .build());\n\n        var ipExample = new Project(\"ipExample\");\n\n        var ip_blocking = new FirewallConfig(\"ip-blocking\", FirewallConfigArgs.builder()\n            .projectId(ipExample.id())\n            .ipRules(FirewallConfigIpRulesArgs.builder()\n                .rules(                \n                    FirewallConfigIpRulesRuleArgs.builder()\n                        .action(\"deny\")\n                        .ip(\"51.85.0.0/16\")\n                        .hostname(\"*\")\n                        .build(),\n                    FirewallConfigIpRulesRuleArgs.builder()\n                        .action(\"challenge\")\n                        .ip(\"1.2.3.4\")\n                        .hostname(\"example.com\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleFirewallConfig:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${exampleProject.id}\n      rules:\n        - rules:\n            - name: Bypass Known request\n              description: Bypass requests using internal bearer tokens\n              conditionGroups:\n                - conditions:\n                    - type: header\n                      key: Authorization\n                      op: eq\n                      value: Bearer internaltoken\n                - conditions:\n                    - type: header\n                      key: Authorization\n                      op: eq\n                      value: Bearer internaltoken2\n              action:\n                action: bypass\n            - name: Challenge curl\n              description: Challenge user agents containing 'curl'\n              conditionGroups:\n                - conditions:\n                    - type: user_agent\n                      op: sub\n                      value: curl\n              action:\n                action: challenge\n            - name: Deny cookieless requests\n              description: requests to /api that are missing a session cookie\n              conditionGroups:\n                - conditions:\n                    - type: path\n                      op: eq\n                      value: /api\n                    - type: cookie\n                      key: _session\n                      neg: true\n                      op: ex\n              action:\n                action: challenge\n            - name: Rate limit API\n              description: apply ratelimit to requests under /api\n              conditionGroups:\n                - conditions:\n                    - type: path\n                      op: pre\n                      value: /api\n              action:\n                action: rate_limit\n                rate_limit:\n                  limit: 100\n                  window: 300\n                  keys:\n                    - ip\n                    - ja4\n                  algo: fixed_window\n                  action: deny\n                action_duration: 5m\n  managedExample:\n    type: vercel:Project\n  managed:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${vercel_project.managed.id}\n      managedRulesets:\n        - owasp:\n            - xss:\n                action: deny\n              sqli:\n                action: deny\n              rce:\n                action: deny\n              php:\n                action: deny\n              java:\n                action: deny\n              lfi:\n                action: deny\n              rfi:\n                action: deny\n              gen:\n                action: deny\n  ipExample:\n    type: vercel:Project\n  ip-blocking:\n    type: vercel:FirewallConfig\n    properties:\n      projectId: ${ipExample.id}\n      ipRules:\n        - rules:\n            - action: deny\n              ip: 51.85.0.0/16\n              hostname: '*'\n            - action: challenge\n              ip: 1.2.3.4\n              hostname: example.com\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\n```sh\n$ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -2607,8 +2737,12 @@
             }
         },
         "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable": {
-            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {gitRepository: {\n    type: \"github\",\n    repo: \"vercel/some-repo\",\n}});\n// An environment variable that will be created\n// for this project for the \"production\" environment.\nconst exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\", {\n    projectId: exampleProject.id,\n    key: \"foo\",\n    value: \"bar\",\n    targets: [\"production\"],\n});\n// An environment variable that will be created\n// for this project for the \"preview\" environment when the branch is \"staging\".\nconst exampleGitBranch = new vercel.ProjectEnvironmentVariable(\"exampleGitBranch\", {\n    projectId: exampleProject.id,\n    key: \"foo\",\n    value: \"bar-staging\",\n    targets: [\"preview\"],\n    gitBranch: \"staging\",\n});\n// A sensitive environment variable that will be created\n// for this project for the \"production\" environment.\nconst exampleSensitive = new vercel.ProjectEnvironmentVariable(\"exampleSensitive\", {\n    projectId: exampleProject.id,\n    key: \"foo\",\n    value: \"bar-production\",\n    targets: [\"production\"],\n    sensitive: true,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\", git_repository={\n    \"type\": \"github\",\n    \"repo\": \"vercel/some-repo\",\n})\n# An environment variable that will be created\n# for this project for the \"production\" environment.\nexample_project_environment_variable = vercel.ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\",\n    project_id=example_project.id,\n    key=\"foo\",\n    value=\"bar\",\n    targets=[\"production\"])\n# An environment variable that will be created\n# for this project for the \"preview\" environment when the branch is \"staging\".\nexample_git_branch = vercel.ProjectEnvironmentVariable(\"exampleGitBranch\",\n    project_id=example_project.id,\n    key=\"foo\",\n    value=\"bar-staging\",\n    targets=[\"preview\"],\n    git_branch=\"staging\")\n# A sensitive environment variable that will be created\n# for this project for the \"production\" environment.\nexample_sensitive = vercel.ProjectEnvironmentVariable(\"exampleSensitive\",\n    project_id=example_project.id,\n    key=\"foo\",\n    value=\"bar-production\",\n    targets=[\"production\"],\n    sensitive=True)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\", new()\n    {\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // An environment variable that will be created\n    // for this project for the \"production\" environment.\n    var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Key = \"foo\",\n        Value = \"bar\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n    });\n\n    // An environment variable that will be created\n    // for this project for the \"preview\" environment when the branch is \"staging\".\n    var exampleGitBranch = new Vercel.ProjectEnvironmentVariable(\"exampleGitBranch\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Key = \"foo\",\n        Value = \"bar-staging\",\n        Targets = new[]\n        {\n            \"preview\",\n        },\n        GitBranch = \"staging\",\n    });\n\n    // A sensitive environment variable that will be created\n    // for this project for the \"production\" environment.\n    var exampleSensitive = new Vercel.ProjectEnvironmentVariable(\"exampleSensitive\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Key = \"foo\",\n        Value = \"bar-production\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n        Sensitive = true,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", \u0026vercel.ProjectArgs{\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An environment variable that will be created\n\t\t// for this project for the \"production\" environment.\n\t\t_, err = vercel.NewProjectEnvironmentVariable(ctx, \"exampleProjectEnvironmentVariable\", \u0026vercel.ProjectEnvironmentVariableArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tKey:       pulumi.String(\"foo\"),\n\t\t\tValue:     pulumi.String(\"bar\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An environment variable that will be created\n\t\t// for this project for the \"preview\" environment when the branch is \"staging\".\n\t\t_, err = vercel.NewProjectEnvironmentVariable(ctx, \"exampleGitBranch\", \u0026vercel.ProjectEnvironmentVariableArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tKey:       pulumi.String(\"foo\"),\n\t\t\tValue:     pulumi.String(\"bar-staging\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"preview\"),\n\t\t\t},\n\t\t\tGitBranch: pulumi.String(\"staging\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A sensitive environment variable that will be created\n\t\t// for this project for the \"production\" environment.\n\t\t_, err = vercel.NewProjectEnvironmentVariable(ctx, \"exampleSensitive\", \u0026vercel.ProjectEnvironmentVariableArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tKey:       pulumi.String(\"foo\"),\n\t\t\tValue:     pulumi.String(\"bar-production\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tSensitive: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.ProjectEnvironmentVariable;\nimport com.pulumi.vercel.ProjectEnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\", ProjectArgs.builder()\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // An environment variable that will be created\n        // for this project for the \"production\" environment.\n        var exampleProjectEnvironmentVariable = new ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\", ProjectEnvironmentVariableArgs.builder()\n            .projectId(exampleProject.id())\n            .key(\"foo\")\n            .value(\"bar\")\n            .targets(\"production\")\n            .build());\n\n        // An environment variable that will be created\n        // for this project for the \"preview\" environment when the branch is \"staging\".\n        var exampleGitBranch = new ProjectEnvironmentVariable(\"exampleGitBranch\", ProjectEnvironmentVariableArgs.builder()\n            .projectId(exampleProject.id())\n            .key(\"foo\")\n            .value(\"bar-staging\")\n            .targets(\"preview\")\n            .gitBranch(\"staging\")\n            .build());\n\n        // A sensitive environment variable that will be created\n        // for this project for the \"production\" environment.\n        var exampleSensitive = new ProjectEnvironmentVariable(\"exampleSensitive\", ProjectEnvironmentVariableArgs.builder()\n            .projectId(exampleProject.id())\n            .key(\"foo\")\n            .value(\"bar-production\")\n            .targets(\"production\")\n            .sensitive(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n    properties:\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # An environment variable that will be created\n  # for this project for the \"production\" environment.\n  exampleProjectEnvironmentVariable:\n    type: vercel:ProjectEnvironmentVariable\n    properties:\n      projectId: ${exampleProject.id}\n      key: foo\n      value: bar\n      targets:\n        - production\n  # An environment variable that will be created\n  # for this project for the \"preview\" environment when the branch is \"staging\".\n  exampleGitBranch:\n    type: vercel:ProjectEnvironmentVariable\n    properties:\n      projectId: ${exampleProject.id}\n      key: foo\n      value: bar-staging\n      targets:\n        - preview\n      gitBranch: staging\n  # A sensitive environment variable that will be created\n  # for this project for the \"production\" environment.\n  exampleSensitive:\n    type: vercel:ProjectEnvironmentVariable\n    properties:\n      projectId: ${exampleProject.id}\n      key: foo\n      value: bar-production\n      targets:\n        - production\n      sensitive: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the project_id and environment variable id.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page,\n\nor can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt\n```\n\nAlternatively, you can import via the team_id, project_id and\n\nenvironment variable id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page,\n\nor can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt\n```\n\n",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {gitRepository: {\n    type: \"github\",\n    repo: \"vercel/some-repo\",\n}});\n// An environment variable that will be created\n// for this project for the \"production\" environment.\nconst exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\", {\n    projectId: exampleProject.id,\n    key: \"foo\",\n    value: \"bar\",\n    targets: [\"production\"],\n    comment: \"a production secret\",\n});\n// An environment variable that will be created\n// for this project for the \"preview\" environment when the branch is \"staging\".\nconst exampleGitBranch = new vercel.ProjectEnvironmentVariable(\"exampleGitBranch\", {\n    projectId: exampleProject.id,\n    key: \"foo\",\n    value: \"bar-staging\",\n    targets: [\"preview\"],\n    gitBranch: \"staging\",\n    comment: \"a staging secret\",\n});\n// A sensitive environment variable that will be created\n// for this project for the \"production\" environment.\nconst exampleSensitive = new vercel.ProjectEnvironmentVariable(\"exampleSensitive\", {\n    projectId: exampleProject.id,\n    key: \"foo\",\n    value: \"bar-production\",\n    targets: [\"production\"],\n    sensitive: true,\n    comment: \"a sensitive production secret\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\", git_repository={\n    \"type\": \"github\",\n    \"repo\": \"vercel/some-repo\",\n})\n# An environment variable that will be created\n# for this project for the \"production\" environment.\nexample_project_environment_variable = vercel.ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\",\n    project_id=example_project.id,\n    key=\"foo\",\n    value=\"bar\",\n    targets=[\"production\"],\n    comment=\"a production secret\")\n# An environment variable that will be created\n# for this project for the \"preview\" environment when the branch is \"staging\".\nexample_git_branch = vercel.ProjectEnvironmentVariable(\"exampleGitBranch\",\n    project_id=example_project.id,\n    key=\"foo\",\n    value=\"bar-staging\",\n    targets=[\"preview\"],\n    git_branch=\"staging\",\n    comment=\"a staging secret\")\n# A sensitive environment variable that will be created\n# for this project for the \"production\" environment.\nexample_sensitive = vercel.ProjectEnvironmentVariable(\"exampleSensitive\",\n    project_id=example_project.id,\n    key=\"foo\",\n    value=\"bar-production\",\n    targets=[\"production\"],\n    sensitive=True,\n    comment=\"a sensitive production secret\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\", new()\n    {\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // An environment variable that will be created\n    // for this project for the \"production\" environment.\n    var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Key = \"foo\",\n        Value = \"bar\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n        Comment = \"a production secret\",\n    });\n\n    // An environment variable that will be created\n    // for this project for the \"preview\" environment when the branch is \"staging\".\n    var exampleGitBranch = new Vercel.ProjectEnvironmentVariable(\"exampleGitBranch\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Key = \"foo\",\n        Value = \"bar-staging\",\n        Targets = new[]\n        {\n            \"preview\",\n        },\n        GitBranch = \"staging\",\n        Comment = \"a staging secret\",\n    });\n\n    // A sensitive environment variable that will be created\n    // for this project for the \"production\" environment.\n    var exampleSensitive = new Vercel.ProjectEnvironmentVariable(\"exampleSensitive\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Key = \"foo\",\n        Value = \"bar-production\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n        Sensitive = true,\n        Comment = \"a sensitive production secret\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", \u0026vercel.ProjectArgs{\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An environment variable that will be created\n\t\t// for this project for the \"production\" environment.\n\t\t_, err = vercel.NewProjectEnvironmentVariable(ctx, \"exampleProjectEnvironmentVariable\", \u0026vercel.ProjectEnvironmentVariableArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tKey:       pulumi.String(\"foo\"),\n\t\t\tValue:     pulumi.String(\"bar\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tComment: pulumi.String(\"a production secret\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An environment variable that will be created\n\t\t// for this project for the \"preview\" environment when the branch is \"staging\".\n\t\t_, err = vercel.NewProjectEnvironmentVariable(ctx, \"exampleGitBranch\", \u0026vercel.ProjectEnvironmentVariableArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tKey:       pulumi.String(\"foo\"),\n\t\t\tValue:     pulumi.String(\"bar-staging\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"preview\"),\n\t\t\t},\n\t\t\tGitBranch: pulumi.String(\"staging\"),\n\t\t\tComment:   pulumi.String(\"a staging secret\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A sensitive environment variable that will be created\n\t\t// for this project for the \"production\" environment.\n\t\t_, err = vercel.NewProjectEnvironmentVariable(ctx, \"exampleSensitive\", \u0026vercel.ProjectEnvironmentVariableArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tKey:       pulumi.String(\"foo\"),\n\t\t\tValue:     pulumi.String(\"bar-production\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tSensitive: pulumi.Bool(true),\n\t\t\tComment:   pulumi.String(\"a sensitive production secret\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.ProjectEnvironmentVariable;\nimport com.pulumi.vercel.ProjectEnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\", ProjectArgs.builder()\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // An environment variable that will be created\n        // for this project for the \"production\" environment.\n        var exampleProjectEnvironmentVariable = new ProjectEnvironmentVariable(\"exampleProjectEnvironmentVariable\", ProjectEnvironmentVariableArgs.builder()\n            .projectId(exampleProject.id())\n            .key(\"foo\")\n            .value(\"bar\")\n            .targets(\"production\")\n            .comment(\"a production secret\")\n            .build());\n\n        // An environment variable that will be created\n        // for this project for the \"preview\" environment when the branch is \"staging\".\n        var exampleGitBranch = new ProjectEnvironmentVariable(\"exampleGitBranch\", ProjectEnvironmentVariableArgs.builder()\n            .projectId(exampleProject.id())\n            .key(\"foo\")\n            .value(\"bar-staging\")\n            .targets(\"preview\")\n            .gitBranch(\"staging\")\n            .comment(\"a staging secret\")\n            .build());\n\n        // A sensitive environment variable that will be created\n        // for this project for the \"production\" environment.\n        var exampleSensitive = new ProjectEnvironmentVariable(\"exampleSensitive\", ProjectEnvironmentVariableArgs.builder()\n            .projectId(exampleProject.id())\n            .key(\"foo\")\n            .value(\"bar-production\")\n            .targets(\"production\")\n            .sensitive(true)\n            .comment(\"a sensitive production secret\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n    properties:\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # An environment variable that will be created\n  # for this project for the \"production\" environment.\n  exampleProjectEnvironmentVariable:\n    type: vercel:ProjectEnvironmentVariable\n    properties:\n      projectId: ${exampleProject.id}\n      key: foo\n      value: bar\n      targets:\n        - production\n      comment: a production secret\n  # An environment variable that will be created\n  # for this project for the \"preview\" environment when the branch is \"staging\".\n  exampleGitBranch:\n    type: vercel:ProjectEnvironmentVariable\n    properties:\n      projectId: ${exampleProject.id}\n      key: foo\n      value: bar-staging\n      targets:\n        - preview\n      gitBranch: staging\n      comment: a staging secret\n  # A sensitive environment variable that will be created\n  # for this project for the \"production\" environment.\n  exampleSensitive:\n    type: vercel:ProjectEnvironmentVariable\n    properties:\n      projectId: ${exampleProject.id}\n      key: foo\n      value: bar-production\n      targets:\n        - production\n      sensitive: true\n      comment: a sensitive production secret\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nIf importing into a personal account, or with a team configured on\n\nthe provider, simply use the project_id and environment variable id.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page,\n\nor can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt\n```\n\nAlternatively, you can import via the team_id, project_id and\n\nenvironment variable id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page,\n\nor can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt\n```\n\n",
             "properties": {
+                "comment": {
+                    "type": "string",
+                    "description": "A comment explaining what the environment variable is for.\n"
+                },
                 "gitBranch": {
                     "type": "string",
                     "description": "The git branch of the Environment Variable.\n"
@@ -2643,6 +2777,7 @@
                 }
             },
             "required": [
+                "comment",
                 "key",
                 "projectId",
                 "sensitive",
@@ -2651,6 +2786,10 @@
                 "value"
             ],
             "inputProperties": {
+                "comment": {
+                    "type": "string",
+                    "description": "A comment explaining what the environment variable is for.\n"
+                },
                 "gitBranch": {
                     "type": "string",
                     "description": "The git branch of the Environment Variable.\n"
@@ -2693,6 +2832,10 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering ProjectEnvironmentVariable resources.\n",
                 "properties": {
+                    "comment": {
+                        "type": "string",
+                        "description": "A comment explaining what the environment variable is for.\n"
+                    },
                     "gitBranch": {
                         "type": "string",
                         "description": "The git branch of the Environment Variable.\n"
@@ -2729,67 +2872,13 @@
                 "type": "object"
             }
         },
-        "vercel:index/projectFunctionCpu:ProjectFunctionCpu": {
-            "description": "\u003e This resource has been deprecated and no longer works. Please use the `vercel.Project` resource and its `resource_config` attribute instead.\n\nProvides a Function CPU resource for a Project.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\nA new Deployment is required for your changes to take effect.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {});\nconst exampleProjectFunctionCpu = new vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", {\n    projectId: exampleProject.id,\n    cpu: \"performance\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\")\nexample_project_function_cpu = vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\",\n    project_id=example_project.id,\n    cpu=\"performance\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\");\n\n    var exampleProjectFunctionCpu = new Vercel.ProjectFunctionCpu(\"exampleProjectFunctionCpu\", new()\n    {\n        ProjectId = exampleProject.Id,\n        Cpu = \"performance\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewProjectFunctionCpu(ctx, \"exampleProjectFunctionCpu\", \u0026vercel.ProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.ID(),\n\t\t\tCpu:       pulumi.String(\"performance\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectFunctionCpu;\nimport com.pulumi.vercel.ProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\");\n\n        var exampleProjectFunctionCpu = new ProjectFunctionCpu(\"exampleProjectFunctionCpu\", ProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.id())\n            .cpu(\"performance\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n  exampleProjectFunctionCpu:\n    type: vercel:ProjectFunctionCpu\n    properties:\n      projectId: ${exampleProject.id}\n      cpu: performance\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectFunctionCpu:ProjectFunctionCpu example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
-            "properties": {
-                "cpu": {
-                    "type": "string",
-                    "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
-                },
-                "projectId": {
-                    "type": "string",
-                    "description": "The ID of the Project to adjust the CPU for.\n"
-                },
-                "teamId": {
-                    "type": "string",
-                    "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                }
-            },
-            "required": [
-                "cpu",
-                "projectId",
-                "teamId"
-            ],
-            "inputProperties": {
-                "cpu": {
-                    "type": "string",
-                    "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
-                },
-                "projectId": {
-                    "type": "string",
-                    "description": "The ID of the Project to adjust the CPU for.\n"
-                },
-                "teamId": {
-                    "type": "string",
-                    "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                }
-            },
-            "requiredInputs": [
-                "cpu",
-                "projectId"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering ProjectFunctionCpu resources.\n",
-                "properties": {
-                    "cpu": {
-                        "type": "string",
-                        "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
-                    },
-                    "projectId": {
-                        "type": "string",
-                        "description": "The ID of the Project to adjust the CPU for.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
         "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": {
-            "description": "Provides a Shared Environment Variable resource.\n\nA Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {gitRepository: {\n    type: \"github\",\n    repo: \"vercel/some-repo\",\n}});\n// A shared environment variable that will be created\n// and associated with the \"example\" project.\nconst exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", {\n    key: \"EXAMPLE\",\n    value: \"some_value\",\n    targets: [\"production\"],\n    projectIds: [exampleProject.id],\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\", git_repository={\n    \"type\": \"github\",\n    \"repo\": \"vercel/some-repo\",\n})\n# A shared environment variable that will be created\n# and associated with the \"example\" project.\nexample_shared_environment_variable = vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\",\n    key=\"EXAMPLE\",\n    value=\"some_value\",\n    targets=[\"production\"],\n    project_ids=[example_project.id])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\", new()\n    {\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // A shared environment variable that will be created\n    // and associated with the \"example\" project.\n    var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", new()\n    {\n        Key = \"EXAMPLE\",\n        Value = \"some_value\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n        ProjectIds = new[]\n        {\n            exampleProject.Id,\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", \u0026vercel.ProjectArgs{\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A shared environment variable that will be created\n\t\t// and associated with the \"example\" project.\n\t\t_, err = vercel.NewSharedEnvironmentVariable(ctx, \"exampleSharedEnvironmentVariable\", \u0026vercel.SharedEnvironmentVariableArgs{\n\t\t\tKey:   pulumi.String(\"EXAMPLE\"),\n\t\t\tValue: pulumi.String(\"some_value\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tProjectIds: pulumi.StringArray{\n\t\t\t\texampleProject.ID(),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.SharedEnvironmentVariable;\nimport com.pulumi.vercel.SharedEnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\", ProjectArgs.builder()\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // A shared environment variable that will be created\n        // and associated with the \"example\" project.\n        var exampleSharedEnvironmentVariable = new SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", SharedEnvironmentVariableArgs.builder()\n            .key(\"EXAMPLE\")\n            .value(\"some_value\")\n            .targets(\"production\")\n            .projectIds(exampleProject.id())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n    properties:\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # A shared environment variable that will be created\n  # and associated with the \"example\" project.\n  exampleSharedEnvironmentVariable:\n    type: vercel:SharedEnvironmentVariable\n    properties:\n      key: EXAMPLE\n      value: some_value\n      targets:\n        - production\n      projectIds:\n        - ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and environment variable id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page.\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy\n```\n\n",
+            "description": "Provides a Shared Environment Variable resource.\n\nA Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst exampleProject = new vercel.Project(\"exampleProject\", {gitRepository: {\n    type: \"github\",\n    repo: \"vercel/some-repo\",\n}});\n// A shared environment variable that will be created\n// and associated with the \"example\" project.\nconst exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", {\n    key: \"EXAMPLE\",\n    value: \"some_value\",\n    targets: [\"production\"],\n    comment: \"an example shared variable\",\n    projectIds: [exampleProject.id],\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample_project = vercel.Project(\"exampleProject\", git_repository={\n    \"type\": \"github\",\n    \"repo\": \"vercel/some-repo\",\n})\n# A shared environment variable that will be created\n# and associated with the \"example\" project.\nexample_shared_environment_variable = vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\",\n    key=\"EXAMPLE\",\n    value=\"some_value\",\n    targets=[\"production\"],\n    comment=\"an example shared variable\",\n    project_ids=[example_project.id])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = new Vercel.Project(\"exampleProject\", new()\n    {\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // A shared environment variable that will be created\n    // and associated with the \"example\" project.\n    var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", new()\n    {\n        Key = \"EXAMPLE\",\n        Value = \"some_value\",\n        Targets = new[]\n        {\n            \"production\",\n        },\n        Comment = \"an example shared variable\",\n        ProjectIds = new[]\n        {\n            exampleProject.Id,\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.NewProject(ctx, \"exampleProject\", \u0026vercel.ProjectArgs{\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A shared environment variable that will be created\n\t\t// and associated with the \"example\" project.\n\t\t_, err = vercel.NewSharedEnvironmentVariable(ctx, \"exampleSharedEnvironmentVariable\", \u0026vercel.SharedEnvironmentVariableArgs{\n\t\t\tKey:   pulumi.String(\"EXAMPLE\"),\n\t\t\tValue: pulumi.String(\"some_value\"),\n\t\t\tTargets: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tComment: pulumi.String(\"an example shared variable\"),\n\t\t\tProjectIds: pulumi.StringArray{\n\t\t\t\texampleProject.ID(),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.Project;\nimport com.pulumi.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.SharedEnvironmentVariable;\nimport com.pulumi.vercel.SharedEnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleProject = new Project(\"exampleProject\", ProjectArgs.builder()\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // A shared environment variable that will be created\n        // and associated with the \"example\" project.\n        var exampleSharedEnvironmentVariable = new SharedEnvironmentVariable(\"exampleSharedEnvironmentVariable\", SharedEnvironmentVariableArgs.builder()\n            .key(\"EXAMPLE\")\n            .value(\"some_value\")\n            .targets(\"production\")\n            .comment(\"an example shared variable\")\n            .projectIds(exampleProject.id())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleProject:\n    type: vercel:Project\n    properties:\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # A shared environment variable that will be created\n  # and associated with the \"example\" project.\n  exampleSharedEnvironmentVariable:\n    type: vercel:SharedEnvironmentVariable\n    properties:\n      key: EXAMPLE\n      value: some_value\n      targets:\n        - production\n      comment: an example shared variable\n      projectIds:\n        - ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and environment variable id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- environment variable id can be taken from the network tab inside developer tools, while you are on the project page.\n\n#\n\nNote also, that the value field for sensitive environment variables will be imported as `null`.\n\n```sh\n$ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy\n```\n\n",
             "properties": {
+                "comment": {
+                    "type": "string",
+                    "description": "A comment explaining what the environment variable is for.\n"
+                },
                 "key": {
                     "type": "string",
                     "description": "The name of the Environment Variable.\n"
@@ -2823,6 +2912,7 @@
                 }
             },
             "required": [
+                "comment",
                 "key",
                 "projectIds",
                 "sensitive",
@@ -2831,6 +2921,10 @@
                 "value"
             ],
             "inputProperties": {
+                "comment": {
+                    "type": "string",
+                    "description": "A comment explaining what the environment variable is for.\n"
+                },
                 "key": {
                     "type": "string",
                     "description": "The name of the Environment Variable.\n"
@@ -2872,6 +2966,10 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering SharedEnvironmentVariable resources.\n",
                 "properties": {
+                    "comment": {
+                        "type": "string",
+                        "description": "A comment explaining what the environment variable is for.\n"
+                    },
                     "key": {
                         "type": "string",
                         "description": "The name of the Environment Variable.\n"
@@ -2902,6 +3000,185 @@
                         "type": "string",
                         "description": "The value of the Environment Variable.\n",
                         "secret": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/teamConfig:TeamConfig": {
+            "description": "Manages the configuration of an existing Vercel Team.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```yaml\nresources:\n  exampleTeamConfig:\n    type: vercel:TeamConfig\n    properties:\n      id: team_xxxxxxxxxxxxxxxxxxxxxxxx\n      avatar: ${exampleFile.file}\n      slug: vercel-terraform-example\n      description: Vercel Terraform Example\n      sensitiveEnvironmentVariablePolicy: off\n      remoteCaching:\n        enabled: true\n      enablePreviewFeedback: off\n      enableProductionFeedback: off\n      hideIpAddresses: true\n      hideIpAddressesInLogDrains: true\nvariables:\n  exampleFile:\n    fn::invoke:\n      Function: vercel:getFile\n      Arguments:\n        path: example/avatar.png\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "avatar": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "The `avatar` should be a the 'file' attribute from a vercel.getFile data source.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the team.\n"
+                },
+                "emailDomain": {
+                    "type": "string",
+                    "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
+                },
+                "enablePreviewFeedback": {
+                    "type": "string"
+                },
+                "enableProductionFeedback": {
+                    "type": "string"
+                },
+                "hideIpAddresses": {
+                    "type": "boolean",
+                    "description": "Indicates if ip addresses should be accessible in o11y tooling.\n"
+                },
+                "hideIpAddressesInLogDrains": {
+                    "type": "boolean",
+                    "description": "Indicates if ip addresses should be accessible in log drains.\n"
+                },
+                "inviteCode": {
+                    "type": "string",
+                    "description": "A code that can be used to join this team. Only visible to Team owners.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the team.\n"
+                },
+                "previewDeploymentSuffix": {
+                    "type": "string",
+                    "description": "The hostname that is used as the preview deployment suffix.\n"
+                },
+                "remoteCaching": {
+                    "$ref": "#/types/vercel:index/TeamConfigRemoteCaching:TeamConfigRemoteCaching",
+                    "description": "Configuration for Remote Caching.\n"
+                },
+                "sensitiveEnvironmentVariablePolicy": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "The slug of the team. Will be used in the URL of the team's dashboard.\n"
+                }
+            },
+            "required": [
+                "description",
+                "emailDomain",
+                "enablePreviewFeedback",
+                "enableProductionFeedback",
+                "hideIpAddresses",
+                "hideIpAddressesInLogDrains",
+                "inviteCode",
+                "name",
+                "previewDeploymentSuffix",
+                "remoteCaching",
+                "sensitiveEnvironmentVariablePolicy",
+                "slug"
+            ],
+            "inputProperties": {
+                "avatar": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "The `avatar` should be a the 'file' attribute from a vercel.getFile data source.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the team.\n"
+                },
+                "emailDomain": {
+                    "type": "string",
+                    "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
+                },
+                "enablePreviewFeedback": {
+                    "type": "string"
+                },
+                "enableProductionFeedback": {
+                    "type": "string"
+                },
+                "hideIpAddresses": {
+                    "type": "boolean",
+                    "description": "Indicates if ip addresses should be accessible in o11y tooling.\n"
+                },
+                "hideIpAddressesInLogDrains": {
+                    "type": "boolean",
+                    "description": "Indicates if ip addresses should be accessible in log drains.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the team.\n"
+                },
+                "previewDeploymentSuffix": {
+                    "type": "string",
+                    "description": "The hostname that is used as the preview deployment suffix.\n"
+                },
+                "remoteCaching": {
+                    "$ref": "#/types/vercel:index/TeamConfigRemoteCaching:TeamConfigRemoteCaching",
+                    "description": "Configuration for Remote Caching.\n"
+                },
+                "sensitiveEnvironmentVariablePolicy": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "The slug of the team. Will be used in the URL of the team's dashboard.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TeamConfig resources.\n",
+                "properties": {
+                    "avatar": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "The `avatar` should be a the 'file' attribute from a vercel.getFile data source.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the team.\n"
+                    },
+                    "emailDomain": {
+                        "type": "string",
+                        "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
+                    },
+                    "enablePreviewFeedback": {
+                        "type": "string"
+                    },
+                    "enableProductionFeedback": {
+                        "type": "string"
+                    },
+                    "hideIpAddresses": {
+                        "type": "boolean",
+                        "description": "Indicates if ip addresses should be accessible in o11y tooling.\n"
+                    },
+                    "hideIpAddressesInLogDrains": {
+                        "type": "boolean",
+                        "description": "Indicates if ip addresses should be accessible in log drains.\n"
+                    },
+                    "inviteCode": {
+                        "type": "string",
+                        "description": "A code that can be used to join this team. Only visible to Team owners.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the team.\n"
+                    },
+                    "previewDeploymentSuffix": {
+                        "type": "string",
+                        "description": "The hostname that is used as the preview deployment suffix.\n"
+                    },
+                    "remoteCaching": {
+                        "$ref": "#/types/vercel:index/TeamConfigRemoteCaching:TeamConfigRemoteCaching",
+                        "description": "Configuration for Remote Caching.\n"
+                    },
+                    "sensitiveEnvironmentVariablePolicy": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "The slug of the team. Will be used in the URL of the team's dashboard.\n"
                     }
                 },
                 "type": "object"
@@ -3210,6 +3487,59 @@
                     "id",
                     "name",
                     "teamId"
+                ]
+            }
+        },
+        "vercel:index/getEdgeConfigItem:getEdgeConfigItem": {
+            "description": "Provides the value of an existing Edge Config Item.\n\nAn Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.\n\nAn Edge Config Item is a value within an Edge Config.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst example = vercel.getEdgeConfig({\n    id: \"ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n});\nconst test = example.then(example =\u003e vercel.getEdgeConfigItem({\n    id: example.id,\n    key: \"foobar\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_edge_config(id=\"ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\")\ntest = vercel.get_edge_config_item(id=example.id,\n    key=\"foobar\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetEdgeConfig.Invoke(new()\n    {\n        Id = \"ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n    });\n\n    var test = Vercel.GetEdgeConfigItem.Invoke(new()\n    {\n        Id = example.Apply(getEdgeConfigResult =\u003e getEdgeConfigResult.Id),\n        Key = \"foobar\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.LookupEdgeConfig(ctx, \u0026vercel.LookupEdgeConfigArgs{\n\t\t\tId: \"ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.LookupEdgeConfigItem(ctx, \u0026vercel.LookupEdgeConfigItemArgs{\n\t\t\tId:  example.Id,\n\t\t\tKey: \"foobar\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetEdgeConfigArgs;\nimport com.pulumi.vercel.inputs.GetEdgeConfigItemArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getEdgeConfig(GetEdgeConfigArgs.builder()\n            .id(\"ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\")\n            .build());\n\n        final var test = VercelFunctions.getEdgeConfigItem(GetEdgeConfigItemArgs.builder()\n            .id(example.applyValue(getEdgeConfigResult -\u003e getEdgeConfigResult.id()))\n            .key(\"foobar\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: vercel:getEdgeConfig\n      Arguments:\n        id: ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n  test:\n    fn::invoke:\n      Function: vercel:getEdgeConfigItem\n      Arguments:\n        id: ${example.id}\n        key: foobar\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getEdgeConfigItem.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the Edge Config that the item should exist under.\n"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The name of the key you want to retrieve within your Edge Config.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "key"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getEdgeConfigItem.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the Edge Config that the item should exist under.\n"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The name of the key you want to retrieve within your Edge Config.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "The value assigned to the key.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "key",
+                    "teamId",
+                    "value"
                 ]
             }
         },
@@ -3817,54 +4147,6 @@
                 ]
             }
         },
-        "vercel:index/getProjectFunctionCpu:getProjectFunctionCpu": {
-            "description": "\u003e This data source has been deprecated and no longer works. Please use the `vercel.Project` data source and its `resource_config` attribute instead.\n\nProvides information about a Project's Function CPU setting.\n\nThis controls the maximum amount of CPU utilization your Serverless Functions can use while executing. Standard is optimal for most frontend workloads. You can override this per function using the vercel.json file.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst exampleProject = vercel.getProject({\n    name: \"example\",\n});\nconst exampleProjectFunctionCpu = exampleProject.then(exampleProject =\u003e vercel.getProjectFunctionCpu({\n    projectId: exampleProject.id,\n}));\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample_project = vercel.get_project(name=\"example\")\nexample_project_function_cpu = vercel.get_project_function_cpu(project_id=example_project.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = Vercel.GetProject.Invoke(new()\n    {\n        Name = \"example\",\n    });\n\n    var exampleProjectFunctionCpu = Vercel.GetProjectFunctionCpu.Invoke(new()\n    {\n        ProjectId = exampleProject.Apply(getProjectResult =\u003e getProjectResult.Id),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texampleProject, err := vercel.LookupProject(ctx, \u0026vercel.LookupProjectArgs{\n\t\t\tName: \"example\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.LookupProjectFunctionCpu(ctx, \u0026vercel.LookupProjectFunctionCpuArgs{\n\t\t\tProjectId: exampleProject.Id,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetProjectArgs;\nimport com.pulumi.vercel.inputs.GetProjectFunctionCpuArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleProject = VercelFunctions.getProject(GetProjectArgs.builder()\n            .name(\"example\")\n            .build());\n\n        final var exampleProjectFunctionCpu = VercelFunctions.getProjectFunctionCpu(GetProjectFunctionCpuArgs.builder()\n            .projectId(exampleProject.applyValue(getProjectResult -\u003e getProjectResult.id()))\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  exampleProject:\n    fn::invoke:\n      Function: vercel:getProject\n      Arguments:\n        name: example\n  exampleProjectFunctionCpu:\n    fn::invoke:\n      Function: vercel:getProjectFunctionCpu\n      Arguments:\n        projectId: ${exampleProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
-            "inputs": {
-                "description": "A collection of arguments for invoking getProjectFunctionCpu.\n",
-                "properties": {
-                    "projectId": {
-                        "type": "string",
-                        "description": "The ID of the Project to read the Function CPU setting for.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "projectId"
-                ]
-            },
-            "outputs": {
-                "description": "A collection of values returned by getProjectFunctionCpu.\n",
-                "properties": {
-                    "cpu": {
-                        "type": "string",
-                        "description": "The amount of CPU available to your Serverless Functions. Should be one of 'basic' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).\n"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of the resource.\n"
-                    },
-                    "projectId": {
-                        "type": "string",
-                        "description": "The ID of the Project to read the Function CPU setting for.\n"
-                    },
-                    "teamId": {
-                        "type": "string",
-                        "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "cpu",
-                    "id",
-                    "projectId",
-                    "teamId"
-                ]
-            }
-        },
         "vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable": {
             "description": "Provides information about an existing Shared Environment Variable within Vercel.\n\nA Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst example = vercel.getSharedEnvironmentVariable({\n    id: \"xxxxxxxxxxxxxxx\",\n});\nconst exampleByKeyAndTarget = vercel.getSharedEnvironmentVariable({\n    key: \"MY_ENV_VAR\",\n    targets: [\n        \"production\",\n        \"preview\",\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_shared_environment_variable(id=\"xxxxxxxxxxxxxxx\")\nexample_by_key_and_target = vercel.get_shared_environment_variable(key=\"MY_ENV_VAR\",\n    targets=[\n        \"production\",\n        \"preview\",\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetSharedEnvironmentVariable.Invoke(new()\n    {\n        Id = \"xxxxxxxxxxxxxxx\",\n    });\n\n    var exampleByKeyAndTarget = Vercel.GetSharedEnvironmentVariable.Invoke(new()\n    {\n        Key = \"MY_ENV_VAR\",\n        Targets = new[]\n        {\n            \"production\",\n            \"preview\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.LookupSharedEnvironmentVariable(ctx, \u0026vercel.LookupSharedEnvironmentVariableArgs{\n\t\t\tId: pulumi.StringRef(\"xxxxxxxxxxxxxxx\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.LookupSharedEnvironmentVariable(ctx, \u0026vercel.LookupSharedEnvironmentVariableArgs{\n\t\t\tKey: pulumi.StringRef(\"MY_ENV_VAR\"),\n\t\t\tTargets: []string{\n\t\t\t\t\"production\",\n\t\t\t\t\"preview\",\n\t\t\t},\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetSharedEnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getSharedEnvironmentVariable(GetSharedEnvironmentVariableArgs.builder()\n            .id(\"xxxxxxxxxxxxxxx\")\n            .build());\n\n        final var exampleByKeyAndTarget = VercelFunctions.getSharedEnvironmentVariable(GetSharedEnvironmentVariableArgs.builder()\n            .key(\"MY_ENV_VAR\")\n            .targets(            \n                \"production\",\n                \"preview\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: vercel:getSharedEnvironmentVariable\n      Arguments:\n        id: xxxxxxxxxxxxxxx\n  exampleByKeyAndTarget:\n    fn::invoke:\n      Function: vercel:getSharedEnvironmentVariable\n      Arguments:\n        key: MY_ENV_VAR\n        targets:\n          - production\n          - preview\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "inputs": {
@@ -3895,6 +4177,10 @@
             "outputs": {
                 "description": "A collection of values returned by getSharedEnvironmentVariable.\n",
                 "properties": {
+                    "comment": {
+                        "type": "string",
+                        "description": "A comment explaining what the environment variable is for.\n"
+                    },
                     "id": {
                         "type": "string",
                         "description": "The ID of the Environment Variable.\n"
@@ -3933,6 +4219,7 @@
                 },
                 "type": "object",
                 "required": [
+                    "comment",
                     "id",
                     "key",
                     "projectIds",
@@ -3940,6 +4227,95 @@
                     "targets",
                     "teamId",
                     "value"
+                ]
+            }
+        },
+        "vercel:index/getTeamConfig:getTeamConfig": {
+            "description": "Retrieves the configuration of an existing Vercel Team.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumi/vercel\";\n\nconst example = vercel.getTeamConfig({\n    id: \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_team_config(id=\"team_xxxxxxxxxxxxxxxxxxxxxxxx\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumi.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetTeamConfig.Invoke(new()\n    {\n        Id = \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.LookupTeamConfig(ctx, \u0026vercel.LookupTeamConfigArgs{\n\t\t\tId: \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetTeamConfigArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getTeamConfig(GetTeamConfigArgs.builder()\n            .id(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      Function: vercel:getTeamConfig\n      Arguments:\n        id: team_xxxxxxxxxxxxxxxxxxxxxxxx\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getTeamConfig.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Team.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTeamConfig.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the team.\n"
+                    },
+                    "emailDomain": {
+                        "type": "string",
+                        "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
+                    },
+                    "enablePreviewFeedback": {
+                        "type": "string",
+                        "description": "Preview feedback configuration.\n"
+                    },
+                    "enableProductionFeedback": {
+                        "type": "string",
+                        "description": "Production feedback configuration.\n"
+                    },
+                    "hideIpAddresses": {
+                        "type": "boolean",
+                        "description": "Indicates if ip addresses should be accessible in o11y tooling.\n"
+                    },
+                    "hideIpAddressesInLogDrains": {
+                        "type": "boolean",
+                        "description": "Indicates if ip addresses should be accessible in log drains.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Team.\n"
+                    },
+                    "inviteCode": {
+                        "type": "string",
+                        "description": "A code that can be used to join this team. Only visible to Team owners.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the team.\n"
+                    },
+                    "previewDeploymentSuffix": {
+                        "type": "string",
+                        "description": "The hostname that is used as the preview deployment suffix.\n"
+                    },
+                    "remoteCaching": {
+                        "$ref": "#/types/vercel:index/getTeamConfigRemoteCaching:getTeamConfigRemoteCaching",
+                        "description": "Configuration for Remote Caching.\n"
+                    },
+                    "sensitiveEnvironmentVariablePolicy": {
+                        "type": "string",
+                        "description": "The policy for sensitive environment variables.\n"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "The slug of the team. Used in the URL of the team's dashboard.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "emailDomain",
+                    "enablePreviewFeedback",
+                    "enableProductionFeedback",
+                    "hideIpAddresses",
+                    "hideIpAddressesInLogDrains",
+                    "id",
+                    "inviteCode",
+                    "name",
+                    "previewDeploymentSuffix",
+                    "remoteCaching",
+                    "sensitiveEnvironmentVariablePolicy",
+                    "slug"
                 ]
             }
         }
