@@ -10,11 +10,6 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
-    /// <summary>
-    /// Provides an Alias resource.
-    /// 
-    /// An Alias allows a `vercel.Deployment` to be accessed through a different URL.
-    /// </summary>
     [VercelResourceType("vercel:index/alias:Alias")]
     public partial class Alias : global::Pulumi.CustomResource
     {
@@ -31,7 +26,8 @@ namespace Pulumiverse.Vercel
         public Output<string> DeploymentId { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
+        /// not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -96,7 +92,8 @@ namespace Pulumiverse.Vercel
         public Input<string> DeploymentId { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
+        /// not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -122,7 +119,8 @@ namespace Pulumiverse.Vercel
         public Input<string>? DeploymentId { get; set; }
 
         /// <summary>
-        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
+        /// not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

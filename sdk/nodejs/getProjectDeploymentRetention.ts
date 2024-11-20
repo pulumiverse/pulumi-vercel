@@ -4,13 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides a Project Deployment Retention datasource.
- *
- * A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
- */
 export function getProjectDeploymentRetention(args: GetProjectDeploymentRetentionArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectDeploymentRetentionResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", {
@@ -23,13 +16,7 @@ export function getProjectDeploymentRetention(args: GetProjectDeploymentRetentio
  * A collection of arguments for invoking getProjectDeploymentRetention.
  */
 export interface GetProjectDeploymentRetentionArgs {
-    /**
-     * The ID of the Project for the retention policy
-     */
     projectId: string;
-    /**
-     * The ID of the Vercel team.
-     */
     teamId?: string;
 }
 
@@ -37,42 +24,14 @@ export interface GetProjectDeploymentRetentionArgs {
  * A collection of values returned by getProjectDeploymentRetention.
  */
 export interface GetProjectDeploymentRetentionResult {
-    /**
-     * The retention period for canceled deployments.
-     */
     readonly expirationCanceled: string;
-    /**
-     * The retention period for errored deployments.
-     */
     readonly expirationErrored: string;
-    /**
-     * The retention period for preview deployments.
-     */
     readonly expirationPreview: string;
-    /**
-     * The retention period for production deployments.
-     */
     readonly expirationProduction: string;
-    /**
-     * The ID of this resource.
-     */
     readonly id: string;
-    /**
-     * The ID of the Project for the retention policy
-     */
     readonly projectId: string;
-    /**
-     * The ID of the Vercel team.
-     */
     readonly teamId: string;
 }
-/**
- * Provides a Project Deployment Retention datasource.
- *
- * A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
- */
 export function getProjectDeploymentRetentionOutput(args: GetProjectDeploymentRetentionOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectDeploymentRetentionResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", {
@@ -85,12 +44,6 @@ export function getProjectDeploymentRetentionOutput(args: GetProjectDeploymentRe
  * A collection of arguments for invoking getProjectDeploymentRetention.
  */
 export interface GetProjectDeploymentRetentionOutputArgs {
-    /**
-     * The ID of the Project for the retention policy
-     */
     projectId: pulumi.Input<string>;
-    /**
-     * The ID of the Vercel team.
-     */
     teamId?: pulumi.Input<string>;
 }

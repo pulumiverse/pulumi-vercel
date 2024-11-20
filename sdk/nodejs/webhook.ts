@@ -4,41 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * A webhook is a trigger-based HTTP endpoint configured to receive HTTP POST requests through events.
- *
- * When an event happens, a webhook is sent to a third-party app, which can then take appropriate action.
- *
- * > Only Pro and Enterprise teams are able to configure these webhooks at the account level.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const example = new vercel.Project("example", {});
- * const example2 = new vercel.Project("example2", {});
- * const withProjectIds = new vercel.Webhook("withProjectIds", {
- *     events: [
- *         "deployment.created",
- *         "deployment.succeeded",
- *     ],
- *     endpoint: "https://example.com/endpoint",
- *     projectIds: [
- *         example.id,
- *         example2.id,
- *     ],
- * });
- * const withoutProjectIds = new vercel.Webhook("withoutProjectIds", {
- *     events: [
- *         "deployment.created",
- *         "deployment.succeeded",
- *     ],
- *     endpoint: "https://example.com/endpoint",
- * });
- * ```
- */
 export class Webhook extends pulumi.CustomResource {
     /**
      * Get an existing Webhook resource's state with the given name, ID, and optional extra
@@ -76,15 +41,19 @@ export class Webhook extends pulumi.CustomResource {
      */
     public readonly events!: pulumi.Output<string[]>;
     /**
-     * A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+     * A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+     * endpoint.
      */
     public readonly projectIds!: pulumi.Output<string[] | undefined>;
     /**
-     * A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+     * A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
+     * the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
+     * details.
      */
     public /*out*/ readonly secret!: pulumi.Output<string>;
     /**
-     * The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+     * been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -140,15 +109,19 @@ export interface WebhookState {
      */
     events?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+     * A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+     * endpoint.
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+     * A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
+     * the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
+     * details.
      */
     secret?: pulumi.Input<string>;
     /**
-     * The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+     * been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -166,11 +139,13 @@ export interface WebhookArgs {
      */
     events: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+     * A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+     * endpoint.
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+     * been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

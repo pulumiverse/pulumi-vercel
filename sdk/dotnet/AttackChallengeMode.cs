@@ -10,44 +10,6 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
-    /// <summary>
-    /// Provides an Attack Challenge Mode resource.
-    /// 
-    /// Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Vercel = Pulumiverse.Vercel;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     var exampleAttackChallengeMode = new Vercel.AttackChallengeMode("exampleAttackChallengeMode", new()
-    ///     {
-    ///         ProjectId = exampleProject.Id,
-    ///         Enabled = true,
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// You can import via the team_id and project_id.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
-    /// - project_id can be found in the project `settings` tab in the Vercel UI.
-    /// 
-    /// ```sh
-    /// $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    /// ```
-    /// </summary>
     [VercelResourceType("vercel:index/attackChallengeMode:AttackChallengeMode")]
     public partial class AttackChallengeMode : global::Pulumi.CustomResource
     {
@@ -64,7 +26,8 @@ namespace Pulumiverse.Vercel
         public Output<string> ProjectId { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+        /// set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -129,7 +92,8 @@ namespace Pulumiverse.Vercel
         public Input<string> ProjectId { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+        /// set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -155,7 +119,8 @@ namespace Pulumiverse.Vercel
         public Input<string>? ProjectId { get; set; }
 
         /// <summary>
-        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+        /// set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

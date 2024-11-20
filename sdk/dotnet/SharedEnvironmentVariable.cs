@@ -10,70 +10,15 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
-    /// <summary>
-    /// Provides a Shared Environment Variable resource.
-    /// 
-    /// A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
-    /// 
-    /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Vercel = Pulumiverse.Vercel;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject", new()
-    ///     {
-    ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
-    ///         {
-    ///             Type = "github",
-    ///             Repo = "vercel/some-repo",
-    ///         },
-    ///     });
-    /// 
-    ///     // A shared environment variable that will be created
-    ///     // and associated with the "example" project.
-    ///     var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable", new()
-    ///     {
-    ///         Key = "EXAMPLE",
-    ///         Value = "some_value",
-    ///         Targets = new[]
-    ///         {
-    ///             "production",
-    ///         },
-    ///         ProjectIds = new[]
-    ///         {
-    ///             exampleProject.Id,
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// You can import via the team_id and environment variable id.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
-    /// - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
-    /// 
-    /// # 
-    /// 
-    /// Note also, that the value field for sensitive environment variables will be imported as `null`.
-    /// 
-    /// ```sh
-    /// $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
-    /// ```
-    /// </summary>
     [VercelResourceType("vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable")]
     public partial class SharedEnvironmentVariable : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// A comment explaining what the environment variable is for.
+        /// </summary>
+        [Output("comment")]
+        public Output<string> Comment { get; private set; } = null!;
+
         /// <summary>
         /// The name of the Environment Variable.
         /// </summary>
@@ -87,13 +32,15 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
+        /// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Output("sensitive")]
         public Output<bool> Sensitive { get; private set; } = null!;
 
         /// <summary>
-        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
+        /// or `development`.
         /// </summary>
         [Output("targets")]
         public Output<ImmutableArray<string>> Targets { get; private set; } = null!;
@@ -162,6 +109,12 @@ namespace Pulumiverse.Vercel
     public sealed class SharedEnvironmentVariableArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// A comment explaining what the environment variable is for.
+        /// </summary>
+        [Input("comment")]
+        public Input<string>? Comment { get; set; }
+
+        /// <summary>
         /// The name of the Environment Variable.
         /// </summary>
         [Input("key", required: true)]
@@ -180,7 +133,8 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
+        /// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }
@@ -189,7 +143,8 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _targets;
 
         /// <summary>
-        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
+        /// or `development`.
         /// </summary>
         public InputList<string> Targets
         {
@@ -228,6 +183,12 @@ namespace Pulumiverse.Vercel
     public sealed class SharedEnvironmentVariableState : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// A comment explaining what the environment variable is for.
+        /// </summary>
+        [Input("comment")]
+        public Input<string>? Comment { get; set; }
+
+        /// <summary>
         /// The name of the Environment Variable.
         /// </summary>
         [Input("key")]
@@ -246,7 +207,8 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
+        /// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         /// </summary>
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }
@@ -255,7 +217,8 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _targets;
 
         /// <summary>
-        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
+        /// or `development`.
         /// </summary>
         public InputList<string> Targets
         {

@@ -12,61 +12,9 @@ namespace Pulumiverse.Vercel
 {
     public static class GetEdgeConfigToken
     {
-        /// <summary>
-        /// Provides information about an existing Edge Config Token.
-        /// 
-        /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-        /// 
-        /// An Edge Config token is used to authenticate against an Edge Config's endpoint.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var test = Vercel.GetEdgeConfigToken.Invoke(new()
-        ///     {
-        ///         EdgeConfigId = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        ///         Token = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Task<GetEdgeConfigTokenResult> InvokeAsync(GetEdgeConfigTokenArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetEdgeConfigTokenResult>("vercel:index/getEdgeConfigToken:getEdgeConfigToken", args ?? new GetEdgeConfigTokenArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Provides information about an existing Edge Config Token.
-        /// 
-        /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-        /// 
-        /// An Edge Config token is used to authenticate against an Edge Config's endpoint.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var test = Vercel.GetEdgeConfigToken.Invoke(new()
-        ///     {
-        ///         EdgeConfigId = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        ///         Token = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Output<GetEdgeConfigTokenResult> Invoke(GetEdgeConfigTokenInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetEdgeConfigTokenResult>("vercel:index/getEdgeConfigToken:getEdgeConfigToken", args ?? new GetEdgeConfigTokenInvokeArgs(), options.WithDefaults());
     }
@@ -74,21 +22,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEdgeConfigTokenArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The label of the Edge Config Token.
-        /// </summary>
         [Input("edgeConfigId", required: true)]
         public string EdgeConfigId { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
-        /// <summary>
-        /// A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
-        /// </summary>
         [Input("token", required: true)]
         public string Token { get; set; } = null!;
 
@@ -100,21 +39,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEdgeConfigTokenInvokeArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The label of the Edge Config Token.
-        /// </summary>
         [Input("edgeConfigId", required: true)]
         public Input<string> EdgeConfigId { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
-        /// <summary>
-        /// A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
-        /// </summary>
         [Input("token", required: true)]
         public Input<string> Token { get; set; } = null!;
 
@@ -128,29 +58,11 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetEdgeConfigTokenResult
     {
-        /// <summary>
-        /// A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
-        /// </summary>
         public readonly string ConnectionString;
-        /// <summary>
-        /// The label of the Edge Config Token.
-        /// </summary>
         public readonly string EdgeConfigId;
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// The label of the Edge Config Token.
-        /// </summary>
         public readonly string Label;
-        /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        /// </summary>
         public readonly string TeamId;
-        /// <summary>
-        /// A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
-        /// </summary>
         public readonly string Token;
 
         [OutputConstructor]

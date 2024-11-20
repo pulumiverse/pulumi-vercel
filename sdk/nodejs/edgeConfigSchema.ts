@@ -4,31 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
- *
- * ## Import
- *
- * If importing into a personal account, or with a team configured on
- *
- * the provider, simply use the edge config id.
- *
- * - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
- *
- * ```sh
- * $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- *
- * Alternatively, you can import via the team_id and edge_config_id.
- *
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- *
- * - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
- *
- * ```sh
- * $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- */
 export class EdgeConfigSchema extends pulumi.CustomResource {
     /**
      * Get an existing EdgeConfigSchema resource's state with the given name, ID, and optional extra
@@ -62,7 +37,8 @@ export class EdgeConfigSchema extends pulumi.CustomResource {
      */
     public readonly definition!: pulumi.Output<string>;
     /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+     * not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -103,7 +79,8 @@ export interface EdgeConfigSchemaState {
      */
     definition?: pulumi.Input<string>;
     /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+     * not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -117,7 +94,8 @@ export interface EdgeConfigSchemaArgs {
      */
     definition: pulumi.Input<string>;
     /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+     * not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

@@ -29,7 +29,7 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	"github.com/vercel/terraform-provider-vercel/vercel"
+	"github.com/vercel/terraform-provider-vercel/v2/vercel"
 )
 
 // all of the token components used below.
@@ -88,6 +88,22 @@ func Provider() tfbridge.ProviderInfo {
 				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_edge_config_item": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["id"].StringValue(), state["key"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_team_config": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["id"].StringValue()), nil
+				},
+			},
+			"vercel_project_environment_variables": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["project_id"].StringValue()), nil
 				},
 			},
 		},

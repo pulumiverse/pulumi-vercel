@@ -556,9 +556,8 @@ func (o FirewallConfigIpRulesPtrOutput) Rules() FirewallConfigIpRulesRuleArrayOu
 type FirewallConfigIpRulesRule struct {
 	Action string `pulumi:"action"`
 	// Hosts to apply these rules to
-	Hostname string `pulumi:"hostname"`
-	// The ID of this resource.
-	Id *string `pulumi:"id"`
+	Hostname string  `pulumi:"hostname"`
+	Id       *string `pulumi:"id"`
 	// IP or CIDR to block
 	Ip    string  `pulumi:"ip"`
 	Notes *string `pulumi:"notes"`
@@ -578,9 +577,8 @@ type FirewallConfigIpRulesRuleInput interface {
 type FirewallConfigIpRulesRuleArgs struct {
 	Action pulumi.StringInput `pulumi:"action"`
 	// Hosts to apply these rules to
-	Hostname pulumi.StringInput `pulumi:"hostname"`
-	// The ID of this resource.
-	Id pulumi.StringPtrInput `pulumi:"id"`
+	Hostname pulumi.StringInput    `pulumi:"hostname"`
+	Id       pulumi.StringPtrInput `pulumi:"id"`
 	// IP or CIDR to block
 	Ip    pulumi.StringInput    `pulumi:"ip"`
 	Notes pulumi.StringPtrInput `pulumi:"notes"`
@@ -646,7 +644,6 @@ func (o FirewallConfigIpRulesRuleOutput) Hostname() pulumi.StringOutput {
 	return o.ApplyT(func(v FirewallConfigIpRulesRule) string { return v.Hostname }).(pulumi.StringOutput)
 }
 
-// The ID of this resource.
 func (o FirewallConfigIpRulesRuleOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigIpRulesRule) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
@@ -2746,8 +2743,7 @@ type FirewallConfigRulesRule struct {
 	// Sets of conditions that may match a request
 	ConditionGroups []FirewallConfigRulesRuleConditionGroup `pulumi:"conditionGroups"`
 	Description     *string                                 `pulumi:"description"`
-	// The ID of this resource.
-	Id *string `pulumi:"id"`
+	Id              *string                                 `pulumi:"id"`
 	// Name to identify the rule
 	Name string `pulumi:"name"`
 }
@@ -2771,8 +2767,7 @@ type FirewallConfigRulesRuleArgs struct {
 	// Sets of conditions that may match a request
 	ConditionGroups FirewallConfigRulesRuleConditionGroupArrayInput `pulumi:"conditionGroups"`
 	Description     pulumi.StringPtrInput                           `pulumi:"description"`
-	// The ID of this resource.
-	Id pulumi.StringPtrInput `pulumi:"id"`
+	Id              pulumi.StringPtrInput                           `pulumi:"id"`
 	// Name to identify the rule
 	Name pulumi.StringInput `pulumi:"name"`
 }
@@ -2847,7 +2842,6 @@ func (o FirewallConfigRulesRuleOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRule) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// The ID of this resource.
 func (o FirewallConfigRulesRuleOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRule) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
@@ -2882,7 +2876,7 @@ type FirewallConfigRulesRuleAction struct {
 	Action string `pulumi:"action"`
 	// Forward persistence of a rule aciton
 	ActionDuration *string `pulumi:"actionDuration"`
-	// Behavior or a rate limiting action. Required if action is rate*limit
+	// Behavior or a rate limiting action. Required if action is rate_limit
 	RateLimit *FirewallConfigRulesRuleActionRateLimit `pulumi:"rateLimit"`
 	// How to redirect a request. Required if action is redirect
 	Redirect *FirewallConfigRulesRuleActionRedirect `pulumi:"redirect"`
@@ -2904,7 +2898,7 @@ type FirewallConfigRulesRuleActionArgs struct {
 	Action pulumi.StringInput `pulumi:"action"`
 	// Forward persistence of a rule aciton
 	ActionDuration pulumi.StringPtrInput `pulumi:"actionDuration"`
-	// Behavior or a rate limiting action. Required if action is rate*limit
+	// Behavior or a rate limiting action. Required if action is rate_limit
 	RateLimit FirewallConfigRulesRuleActionRateLimitPtrInput `pulumi:"rateLimit"`
 	// How to redirect a request. Required if action is redirect
 	Redirect FirewallConfigRulesRuleActionRedirectPtrInput `pulumi:"redirect"`
@@ -2946,7 +2940,7 @@ func (o FirewallConfigRulesRuleActionOutput) ActionDuration() pulumi.StringPtrOu
 	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *string { return v.ActionDuration }).(pulumi.StringPtrOutput)
 }
 
-// Behavior or a rate limiting action. Required if action is rate*limit
+// Behavior or a rate limiting action. Required if action is rate_limit
 func (o FirewallConfigRulesRuleActionOutput) RateLimit() FirewallConfigRulesRuleActionRateLimitPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *FirewallConfigRulesRuleActionRateLimit { return v.RateLimit }).(FirewallConfigRulesRuleActionRateLimitPtrOutput)
 }
@@ -3544,6 +3538,8 @@ func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) Index(i pulum
 }
 
 type ProjectEnvironment struct {
+	// A comment explaining what the environment variable is for.
+	Comment *string `pulumi:"comment"`
 	// The git branch of the Environment Variable.
 	GitBranch *string `pulumi:"gitBranch"`
 	// The ID of the Environment Variable.
@@ -3570,6 +3566,8 @@ type ProjectEnvironmentInput interface {
 }
 
 type ProjectEnvironmentArgs struct {
+	// A comment explaining what the environment variable is for.
+	Comment pulumi.StringPtrInput `pulumi:"comment"`
 	// The git branch of the Environment Variable.
 	GitBranch pulumi.StringPtrInput `pulumi:"gitBranch"`
 	// The ID of the Environment Variable.
@@ -3635,6 +3633,11 @@ func (o ProjectEnvironmentOutput) ToProjectEnvironmentOutputWithContext(ctx cont
 	return o
 }
 
+// A comment explaining what the environment variable is for.
+func (o ProjectEnvironmentOutput) Comment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironment) *string { return v.Comment }).(pulumi.StringPtrOutput)
+}
+
 // The git branch of the Environment Variable.
 func (o ProjectEnvironmentOutput) GitBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *string { return v.GitBranch }).(pulumi.StringPtrOutput)
@@ -3683,6 +3686,157 @@ func (o ProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) ProjectEnvironme
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectEnvironment {
 		return vs[0].([]ProjectEnvironment)[vs[1].(int)]
 	}).(ProjectEnvironmentOutput)
+}
+
+type ProjectEnvironmentVariablesVariable struct {
+	// A comment explaining what the environment variable is for.
+	Comment *string `pulumi:"comment"`
+	// The git branch of the Environment Variable.
+	GitBranch *string `pulumi:"gitBranch"`
+	// The ID of the Environment Variable.
+	Id *string `pulumi:"id"`
+	// The name of the Environment Variable.
+	Key string `pulumi:"key"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive *bool `pulumi:"sensitive"`
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Targets []string `pulumi:"targets"`
+	// The value of the Environment Variable.
+	Value string `pulumi:"value"`
+}
+
+// ProjectEnvironmentVariablesVariableInput is an input type that accepts ProjectEnvironmentVariablesVariableArgs and ProjectEnvironmentVariablesVariableOutput values.
+// You can construct a concrete instance of `ProjectEnvironmentVariablesVariableInput` via:
+//
+//	ProjectEnvironmentVariablesVariableArgs{...}
+type ProjectEnvironmentVariablesVariableInput interface {
+	pulumi.Input
+
+	ToProjectEnvironmentVariablesVariableOutput() ProjectEnvironmentVariablesVariableOutput
+	ToProjectEnvironmentVariablesVariableOutputWithContext(context.Context) ProjectEnvironmentVariablesVariableOutput
+}
+
+type ProjectEnvironmentVariablesVariableArgs struct {
+	// A comment explaining what the environment variable is for.
+	Comment pulumi.StringPtrInput `pulumi:"comment"`
+	// The git branch of the Environment Variable.
+	GitBranch pulumi.StringPtrInput `pulumi:"gitBranch"`
+	// The ID of the Environment Variable.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// The name of the Environment Variable.
+	Key pulumi.StringInput `pulumi:"key"`
+	// Whether the Environment Variable is sensitive or not.
+	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Targets pulumi.StringArrayInput `pulumi:"targets"`
+	// The value of the Environment Variable.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ProjectEnvironmentVariablesVariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectEnvironmentVariablesVariable)(nil)).Elem()
+}
+
+func (i ProjectEnvironmentVariablesVariableArgs) ToProjectEnvironmentVariablesVariableOutput() ProjectEnvironmentVariablesVariableOutput {
+	return i.ToProjectEnvironmentVariablesVariableOutputWithContext(context.Background())
+}
+
+func (i ProjectEnvironmentVariablesVariableArgs) ToProjectEnvironmentVariablesVariableOutputWithContext(ctx context.Context) ProjectEnvironmentVariablesVariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentVariablesVariableOutput)
+}
+
+// ProjectEnvironmentVariablesVariableArrayInput is an input type that accepts ProjectEnvironmentVariablesVariableArray and ProjectEnvironmentVariablesVariableArrayOutput values.
+// You can construct a concrete instance of `ProjectEnvironmentVariablesVariableArrayInput` via:
+//
+//	ProjectEnvironmentVariablesVariableArray{ ProjectEnvironmentVariablesVariableArgs{...} }
+type ProjectEnvironmentVariablesVariableArrayInput interface {
+	pulumi.Input
+
+	ToProjectEnvironmentVariablesVariableArrayOutput() ProjectEnvironmentVariablesVariableArrayOutput
+	ToProjectEnvironmentVariablesVariableArrayOutputWithContext(context.Context) ProjectEnvironmentVariablesVariableArrayOutput
+}
+
+type ProjectEnvironmentVariablesVariableArray []ProjectEnvironmentVariablesVariableInput
+
+func (ProjectEnvironmentVariablesVariableArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectEnvironmentVariablesVariable)(nil)).Elem()
+}
+
+func (i ProjectEnvironmentVariablesVariableArray) ToProjectEnvironmentVariablesVariableArrayOutput() ProjectEnvironmentVariablesVariableArrayOutput {
+	return i.ToProjectEnvironmentVariablesVariableArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectEnvironmentVariablesVariableArray) ToProjectEnvironmentVariablesVariableArrayOutputWithContext(ctx context.Context) ProjectEnvironmentVariablesVariableArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectEnvironmentVariablesVariableArrayOutput)
+}
+
+type ProjectEnvironmentVariablesVariableOutput struct{ *pulumi.OutputState }
+
+func (ProjectEnvironmentVariablesVariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectEnvironmentVariablesVariable)(nil)).Elem()
+}
+
+func (o ProjectEnvironmentVariablesVariableOutput) ToProjectEnvironmentVariablesVariableOutput() ProjectEnvironmentVariablesVariableOutput {
+	return o
+}
+
+func (o ProjectEnvironmentVariablesVariableOutput) ToProjectEnvironmentVariablesVariableOutputWithContext(ctx context.Context) ProjectEnvironmentVariablesVariableOutput {
+	return o
+}
+
+// A comment explaining what the environment variable is for.
+func (o ProjectEnvironmentVariablesVariableOutput) Comment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *string { return v.Comment }).(pulumi.StringPtrOutput)
+}
+
+// The git branch of the Environment Variable.
+func (o ProjectEnvironmentVariablesVariableOutput) GitBranch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *string { return v.GitBranch }).(pulumi.StringPtrOutput)
+}
+
+// The ID of the Environment Variable.
+func (o ProjectEnvironmentVariablesVariableOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// The name of the Environment Variable.
+func (o ProjectEnvironmentVariablesVariableOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// Whether the Environment Variable is sensitive or not.
+func (o ProjectEnvironmentVariablesVariableOutput) Sensitive() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
+}
+
+// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+func (o ProjectEnvironmentVariablesVariableOutput) Targets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) []string { return v.Targets }).(pulumi.StringArrayOutput)
+}
+
+// The value of the Environment Variable.
+func (o ProjectEnvironmentVariablesVariableOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ProjectEnvironmentVariablesVariableArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectEnvironmentVariablesVariableArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectEnvironmentVariablesVariable)(nil)).Elem()
+}
+
+func (o ProjectEnvironmentVariablesVariableArrayOutput) ToProjectEnvironmentVariablesVariableArrayOutput() ProjectEnvironmentVariablesVariableArrayOutput {
+	return o
+}
+
+func (o ProjectEnvironmentVariablesVariableArrayOutput) ToProjectEnvironmentVariablesVariableArrayOutputWithContext(ctx context.Context) ProjectEnvironmentVariablesVariableArrayOutput {
+	return o
+}
+
+func (o ProjectEnvironmentVariablesVariableArrayOutput) Index(i pulumi.IntInput) ProjectEnvironmentVariablesVariableOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectEnvironmentVariablesVariable {
+		return vs[0].([]ProjectEnvironmentVariablesVariable)[vs[1].(int)]
+	}).(ProjectEnvironmentVariablesVariableOutput)
 }
 
 type ProjectGitComments struct {
@@ -4162,6 +4316,8 @@ func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) Proj
 type ProjectOidcTokenConfig struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
 	Enabled bool `pulumi:"enabled"`
+	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+	IssuerMode *string `pulumi:"issuerMode"`
 }
 
 // ProjectOidcTokenConfigInput is an input type that accepts ProjectOidcTokenConfigArgs and ProjectOidcTokenConfigOutput values.
@@ -4178,6 +4334,8 @@ type ProjectOidcTokenConfigInput interface {
 type ProjectOidcTokenConfigArgs struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
 	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+	IssuerMode pulumi.StringPtrInput `pulumi:"issuerMode"`
 }
 
 func (ProjectOidcTokenConfigArgs) ElementType() reflect.Type {
@@ -4262,6 +4420,11 @@ func (o ProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v ProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
+// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+func (o ProjectOidcTokenConfigOutput) IssuerMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectOidcTokenConfig) *string { return v.IssuerMode }).(pulumi.StringPtrOutput)
+}
+
 type ProjectOidcTokenConfigPtrOutput struct{ *pulumi.OutputState }
 
 func (ProjectOidcTokenConfigPtrOutput) ElementType() reflect.Type {
@@ -4294,6 +4457,16 @@ func (o ProjectOidcTokenConfigPtrOutput) Enabled() pulumi.BoolPtrOutput {
 		}
 		return &v.Enabled
 	}).(pulumi.BoolPtrOutput)
+}
+
+// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+func (o ProjectOidcTokenConfigPtrOutput) IssuerMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectOidcTokenConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IssuerMode
+	}).(pulumi.StringPtrOutput)
 }
 
 type ProjectOptionsAllowlist struct {
@@ -5260,7 +5433,321 @@ func (o ProjectVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrO
 	}).(pulumi.StringPtrOutput)
 }
 
+type TeamConfigRemoteCaching struct {
+	// Indicates if Remote Caching is enabled.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// TeamConfigRemoteCachingInput is an input type that accepts TeamConfigRemoteCachingArgs and TeamConfigRemoteCachingOutput values.
+// You can construct a concrete instance of `TeamConfigRemoteCachingInput` via:
+//
+//	TeamConfigRemoteCachingArgs{...}
+type TeamConfigRemoteCachingInput interface {
+	pulumi.Input
+
+	ToTeamConfigRemoteCachingOutput() TeamConfigRemoteCachingOutput
+	ToTeamConfigRemoteCachingOutputWithContext(context.Context) TeamConfigRemoteCachingOutput
+}
+
+type TeamConfigRemoteCachingArgs struct {
+	// Indicates if Remote Caching is enabled.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (TeamConfigRemoteCachingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigRemoteCaching)(nil)).Elem()
+}
+
+func (i TeamConfigRemoteCachingArgs) ToTeamConfigRemoteCachingOutput() TeamConfigRemoteCachingOutput {
+	return i.ToTeamConfigRemoteCachingOutputWithContext(context.Background())
+}
+
+func (i TeamConfigRemoteCachingArgs) ToTeamConfigRemoteCachingOutputWithContext(ctx context.Context) TeamConfigRemoteCachingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigRemoteCachingOutput)
+}
+
+func (i TeamConfigRemoteCachingArgs) ToTeamConfigRemoteCachingPtrOutput() TeamConfigRemoteCachingPtrOutput {
+	return i.ToTeamConfigRemoteCachingPtrOutputWithContext(context.Background())
+}
+
+func (i TeamConfigRemoteCachingArgs) ToTeamConfigRemoteCachingPtrOutputWithContext(ctx context.Context) TeamConfigRemoteCachingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigRemoteCachingOutput).ToTeamConfigRemoteCachingPtrOutputWithContext(ctx)
+}
+
+// TeamConfigRemoteCachingPtrInput is an input type that accepts TeamConfigRemoteCachingArgs, TeamConfigRemoteCachingPtr and TeamConfigRemoteCachingPtrOutput values.
+// You can construct a concrete instance of `TeamConfigRemoteCachingPtrInput` via:
+//
+//	        TeamConfigRemoteCachingArgs{...}
+//
+//	or:
+//
+//	        nil
+type TeamConfigRemoteCachingPtrInput interface {
+	pulumi.Input
+
+	ToTeamConfigRemoteCachingPtrOutput() TeamConfigRemoteCachingPtrOutput
+	ToTeamConfigRemoteCachingPtrOutputWithContext(context.Context) TeamConfigRemoteCachingPtrOutput
+}
+
+type teamConfigRemoteCachingPtrType TeamConfigRemoteCachingArgs
+
+func TeamConfigRemoteCachingPtr(v *TeamConfigRemoteCachingArgs) TeamConfigRemoteCachingPtrInput {
+	return (*teamConfigRemoteCachingPtrType)(v)
+}
+
+func (*teamConfigRemoteCachingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigRemoteCaching)(nil)).Elem()
+}
+
+func (i *teamConfigRemoteCachingPtrType) ToTeamConfigRemoteCachingPtrOutput() TeamConfigRemoteCachingPtrOutput {
+	return i.ToTeamConfigRemoteCachingPtrOutputWithContext(context.Background())
+}
+
+func (i *teamConfigRemoteCachingPtrType) ToTeamConfigRemoteCachingPtrOutputWithContext(ctx context.Context) TeamConfigRemoteCachingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigRemoteCachingPtrOutput)
+}
+
+type TeamConfigRemoteCachingOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigRemoteCachingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigRemoteCaching)(nil)).Elem()
+}
+
+func (o TeamConfigRemoteCachingOutput) ToTeamConfigRemoteCachingOutput() TeamConfigRemoteCachingOutput {
+	return o
+}
+
+func (o TeamConfigRemoteCachingOutput) ToTeamConfigRemoteCachingOutputWithContext(ctx context.Context) TeamConfigRemoteCachingOutput {
+	return o
+}
+
+func (o TeamConfigRemoteCachingOutput) ToTeamConfigRemoteCachingPtrOutput() TeamConfigRemoteCachingPtrOutput {
+	return o.ToTeamConfigRemoteCachingPtrOutputWithContext(context.Background())
+}
+
+func (o TeamConfigRemoteCachingOutput) ToTeamConfigRemoteCachingPtrOutputWithContext(ctx context.Context) TeamConfigRemoteCachingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TeamConfigRemoteCaching) *TeamConfigRemoteCaching {
+		return &v
+	}).(TeamConfigRemoteCachingPtrOutput)
+}
+
+// Indicates if Remote Caching is enabled.
+func (o TeamConfigRemoteCachingOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TeamConfigRemoteCaching) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type TeamConfigRemoteCachingPtrOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigRemoteCachingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigRemoteCaching)(nil)).Elem()
+}
+
+func (o TeamConfigRemoteCachingPtrOutput) ToTeamConfigRemoteCachingPtrOutput() TeamConfigRemoteCachingPtrOutput {
+	return o
+}
+
+func (o TeamConfigRemoteCachingPtrOutput) ToTeamConfigRemoteCachingPtrOutputWithContext(ctx context.Context) TeamConfigRemoteCachingPtrOutput {
+	return o
+}
+
+func (o TeamConfigRemoteCachingPtrOutput) Elem() TeamConfigRemoteCachingOutput {
+	return o.ApplyT(func(v *TeamConfigRemoteCaching) TeamConfigRemoteCaching {
+		if v != nil {
+			return *v
+		}
+		var ret TeamConfigRemoteCaching
+		return ret
+	}).(TeamConfigRemoteCachingOutput)
+}
+
+// Indicates if Remote Caching is enabled.
+func (o TeamConfigRemoteCachingPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TeamConfigRemoteCaching) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type TeamConfigSaml struct {
+	// The ID of the access group to use for the team.
+	AccessGroupId *string `pulumi:"accessGroupId"`
+	// Indicates if SAML is enforced for the team.
+	Enforced bool `pulumi:"enforced"`
+	// Directory groups to role or access group mappings.
+	Roles map[string]string `pulumi:"roles"`
+}
+
+// TeamConfigSamlInput is an input type that accepts TeamConfigSamlArgs and TeamConfigSamlOutput values.
+// You can construct a concrete instance of `TeamConfigSamlInput` via:
+//
+//	TeamConfigSamlArgs{...}
+type TeamConfigSamlInput interface {
+	pulumi.Input
+
+	ToTeamConfigSamlOutput() TeamConfigSamlOutput
+	ToTeamConfigSamlOutputWithContext(context.Context) TeamConfigSamlOutput
+}
+
+type TeamConfigSamlArgs struct {
+	// The ID of the access group to use for the team.
+	AccessGroupId pulumi.StringPtrInput `pulumi:"accessGroupId"`
+	// Indicates if SAML is enforced for the team.
+	Enforced pulumi.BoolInput `pulumi:"enforced"`
+	// Directory groups to role or access group mappings.
+	Roles pulumi.StringMapInput `pulumi:"roles"`
+}
+
+func (TeamConfigSamlArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigSaml)(nil)).Elem()
+}
+
+func (i TeamConfigSamlArgs) ToTeamConfigSamlOutput() TeamConfigSamlOutput {
+	return i.ToTeamConfigSamlOutputWithContext(context.Background())
+}
+
+func (i TeamConfigSamlArgs) ToTeamConfigSamlOutputWithContext(ctx context.Context) TeamConfigSamlOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigSamlOutput)
+}
+
+func (i TeamConfigSamlArgs) ToTeamConfigSamlPtrOutput() TeamConfigSamlPtrOutput {
+	return i.ToTeamConfigSamlPtrOutputWithContext(context.Background())
+}
+
+func (i TeamConfigSamlArgs) ToTeamConfigSamlPtrOutputWithContext(ctx context.Context) TeamConfigSamlPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigSamlOutput).ToTeamConfigSamlPtrOutputWithContext(ctx)
+}
+
+// TeamConfigSamlPtrInput is an input type that accepts TeamConfigSamlArgs, TeamConfigSamlPtr and TeamConfigSamlPtrOutput values.
+// You can construct a concrete instance of `TeamConfigSamlPtrInput` via:
+//
+//	        TeamConfigSamlArgs{...}
+//
+//	or:
+//
+//	        nil
+type TeamConfigSamlPtrInput interface {
+	pulumi.Input
+
+	ToTeamConfigSamlPtrOutput() TeamConfigSamlPtrOutput
+	ToTeamConfigSamlPtrOutputWithContext(context.Context) TeamConfigSamlPtrOutput
+}
+
+type teamConfigSamlPtrType TeamConfigSamlArgs
+
+func TeamConfigSamlPtr(v *TeamConfigSamlArgs) TeamConfigSamlPtrInput {
+	return (*teamConfigSamlPtrType)(v)
+}
+
+func (*teamConfigSamlPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigSaml)(nil)).Elem()
+}
+
+func (i *teamConfigSamlPtrType) ToTeamConfigSamlPtrOutput() TeamConfigSamlPtrOutput {
+	return i.ToTeamConfigSamlPtrOutputWithContext(context.Background())
+}
+
+func (i *teamConfigSamlPtrType) ToTeamConfigSamlPtrOutputWithContext(ctx context.Context) TeamConfigSamlPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigSamlPtrOutput)
+}
+
+type TeamConfigSamlOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigSamlOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigSaml)(nil)).Elem()
+}
+
+func (o TeamConfigSamlOutput) ToTeamConfigSamlOutput() TeamConfigSamlOutput {
+	return o
+}
+
+func (o TeamConfigSamlOutput) ToTeamConfigSamlOutputWithContext(ctx context.Context) TeamConfigSamlOutput {
+	return o
+}
+
+func (o TeamConfigSamlOutput) ToTeamConfigSamlPtrOutput() TeamConfigSamlPtrOutput {
+	return o.ToTeamConfigSamlPtrOutputWithContext(context.Background())
+}
+
+func (o TeamConfigSamlOutput) ToTeamConfigSamlPtrOutputWithContext(ctx context.Context) TeamConfigSamlPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TeamConfigSaml) *TeamConfigSaml {
+		return &v
+	}).(TeamConfigSamlPtrOutput)
+}
+
+// The ID of the access group to use for the team.
+func (o TeamConfigSamlOutput) AccessGroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TeamConfigSaml) *string { return v.AccessGroupId }).(pulumi.StringPtrOutput)
+}
+
+// Indicates if SAML is enforced for the team.
+func (o TeamConfigSamlOutput) Enforced() pulumi.BoolOutput {
+	return o.ApplyT(func(v TeamConfigSaml) bool { return v.Enforced }).(pulumi.BoolOutput)
+}
+
+// Directory groups to role or access group mappings.
+func (o TeamConfigSamlOutput) Roles() pulumi.StringMapOutput {
+	return o.ApplyT(func(v TeamConfigSaml) map[string]string { return v.Roles }).(pulumi.StringMapOutput)
+}
+
+type TeamConfigSamlPtrOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigSamlPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigSaml)(nil)).Elem()
+}
+
+func (o TeamConfigSamlPtrOutput) ToTeamConfigSamlPtrOutput() TeamConfigSamlPtrOutput {
+	return o
+}
+
+func (o TeamConfigSamlPtrOutput) ToTeamConfigSamlPtrOutputWithContext(ctx context.Context) TeamConfigSamlPtrOutput {
+	return o
+}
+
+func (o TeamConfigSamlPtrOutput) Elem() TeamConfigSamlOutput {
+	return o.ApplyT(func(v *TeamConfigSaml) TeamConfigSaml {
+		if v != nil {
+			return *v
+		}
+		var ret TeamConfigSaml
+		return ret
+	}).(TeamConfigSamlOutput)
+}
+
+// The ID of the access group to use for the team.
+func (o TeamConfigSamlPtrOutput) AccessGroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TeamConfigSaml) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccessGroupId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Indicates if SAML is enforced for the team.
+func (o TeamConfigSamlPtrOutput) Enforced() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TeamConfigSaml) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enforced
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Directory groups to role or access group mappings.
+func (o TeamConfigSamlPtrOutput) Roles() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *TeamConfigSaml) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Roles
+	}).(pulumi.StringMapOutput)
+}
+
 type GetProjectEnvironment struct {
+	// A comment explaining what the environment variable is for.
+	Comment string `pulumi:"comment"`
 	// The git branch of the environment variable.
 	GitBranch string `pulumi:"gitBranch"`
 	// The ID of the environment variable
@@ -5287,6 +5774,8 @@ type GetProjectEnvironmentInput interface {
 }
 
 type GetProjectEnvironmentArgs struct {
+	// A comment explaining what the environment variable is for.
+	Comment pulumi.StringInput `pulumi:"comment"`
 	// The git branch of the environment variable.
 	GitBranch pulumi.StringInput `pulumi:"gitBranch"`
 	// The ID of the environment variable
@@ -5350,6 +5839,11 @@ func (o GetProjectEnvironmentOutput) ToGetProjectEnvironmentOutput() GetProjectE
 
 func (o GetProjectEnvironmentOutput) ToGetProjectEnvironmentOutputWithContext(ctx context.Context) GetProjectEnvironmentOutput {
 	return o
+}
+
+// A comment explaining what the environment variable is for.
+func (o GetProjectEnvironmentOutput) Comment() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Comment }).(pulumi.StringOutput)
 }
 
 // The git branch of the environment variable.
@@ -5669,6 +6163,8 @@ func (o GetProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) G
 type GetProjectOidcTokenConfig struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
 	Enabled bool `pulumi:"enabled"`
+	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+	IssuerMode string `pulumi:"issuerMode"`
 }
 
 // GetProjectOidcTokenConfigInput is an input type that accepts GetProjectOidcTokenConfigArgs and GetProjectOidcTokenConfigOutput values.
@@ -5685,6 +6181,8 @@ type GetProjectOidcTokenConfigInput interface {
 type GetProjectOidcTokenConfigArgs struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
 	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+	IssuerMode pulumi.StringInput `pulumi:"issuerMode"`
 }
 
 func (GetProjectOidcTokenConfigArgs) ElementType() reflect.Type {
@@ -5716,6 +6214,11 @@ func (o GetProjectOidcTokenConfigOutput) ToGetProjectOidcTokenConfigOutputWithCo
 // When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
 func (o GetProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+func (o GetProjectOidcTokenConfigOutput) IssuerMode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectOidcTokenConfig) string { return v.IssuerMode }).(pulumi.StringOutput)
 }
 
 type GetProjectOptionsAllowlist struct {
@@ -6199,6 +6702,128 @@ func (o GetProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringOutp
 	return o.ApplyT(func(v GetProjectVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
+type GetTeamConfigRemoteCaching struct {
+	// Indicates if Remote Caching is enabled.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetTeamConfigRemoteCachingInput is an input type that accepts GetTeamConfigRemoteCachingArgs and GetTeamConfigRemoteCachingOutput values.
+// You can construct a concrete instance of `GetTeamConfigRemoteCachingInput` via:
+//
+//	GetTeamConfigRemoteCachingArgs{...}
+type GetTeamConfigRemoteCachingInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigRemoteCachingOutput() GetTeamConfigRemoteCachingOutput
+	ToGetTeamConfigRemoteCachingOutputWithContext(context.Context) GetTeamConfigRemoteCachingOutput
+}
+
+type GetTeamConfigRemoteCachingArgs struct {
+	// Indicates if Remote Caching is enabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetTeamConfigRemoteCachingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigRemoteCaching)(nil)).Elem()
+}
+
+func (i GetTeamConfigRemoteCachingArgs) ToGetTeamConfigRemoteCachingOutput() GetTeamConfigRemoteCachingOutput {
+	return i.ToGetTeamConfigRemoteCachingOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigRemoteCachingArgs) ToGetTeamConfigRemoteCachingOutputWithContext(ctx context.Context) GetTeamConfigRemoteCachingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigRemoteCachingOutput)
+}
+
+type GetTeamConfigRemoteCachingOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigRemoteCachingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigRemoteCaching)(nil)).Elem()
+}
+
+func (o GetTeamConfigRemoteCachingOutput) ToGetTeamConfigRemoteCachingOutput() GetTeamConfigRemoteCachingOutput {
+	return o
+}
+
+func (o GetTeamConfigRemoteCachingOutput) ToGetTeamConfigRemoteCachingOutputWithContext(ctx context.Context) GetTeamConfigRemoteCachingOutput {
+	return o
+}
+
+// Indicates if Remote Caching is enabled.
+func (o GetTeamConfigRemoteCachingOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetTeamConfigRemoteCaching) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetTeamConfigSaml struct {
+	// The ID of the access group to use for the team.
+	AccessGroupId string `pulumi:"accessGroupId"`
+	// Indicates if SAML is enforced for the team.
+	Enforced bool `pulumi:"enforced"`
+	// Directory groups to role or access group mappings.
+	Roles map[string]string `pulumi:"roles"`
+}
+
+// GetTeamConfigSamlInput is an input type that accepts GetTeamConfigSamlArgs and GetTeamConfigSamlOutput values.
+// You can construct a concrete instance of `GetTeamConfigSamlInput` via:
+//
+//	GetTeamConfigSamlArgs{...}
+type GetTeamConfigSamlInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigSamlOutput() GetTeamConfigSamlOutput
+	ToGetTeamConfigSamlOutputWithContext(context.Context) GetTeamConfigSamlOutput
+}
+
+type GetTeamConfigSamlArgs struct {
+	// The ID of the access group to use for the team.
+	AccessGroupId pulumi.StringInput `pulumi:"accessGroupId"`
+	// Indicates if SAML is enforced for the team.
+	Enforced pulumi.BoolInput `pulumi:"enforced"`
+	// Directory groups to role or access group mappings.
+	Roles pulumi.StringMapInput `pulumi:"roles"`
+}
+
+func (GetTeamConfigSamlArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigSaml)(nil)).Elem()
+}
+
+func (i GetTeamConfigSamlArgs) ToGetTeamConfigSamlOutput() GetTeamConfigSamlOutput {
+	return i.ToGetTeamConfigSamlOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigSamlArgs) ToGetTeamConfigSamlOutputWithContext(ctx context.Context) GetTeamConfigSamlOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigSamlOutput)
+}
+
+type GetTeamConfigSamlOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigSamlOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigSaml)(nil)).Elem()
+}
+
+func (o GetTeamConfigSamlOutput) ToGetTeamConfigSamlOutput() GetTeamConfigSamlOutput {
+	return o
+}
+
+func (o GetTeamConfigSamlOutput) ToGetTeamConfigSamlOutputWithContext(ctx context.Context) GetTeamConfigSamlOutput {
+	return o
+}
+
+// The ID of the access group to use for the team.
+func (o GetTeamConfigSamlOutput) AccessGroupId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamConfigSaml) string { return v.AccessGroupId }).(pulumi.StringOutput)
+}
+
+// Indicates if SAML is enforced for the team.
+func (o GetTeamConfigSamlOutput) Enforced() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetTeamConfigSaml) bool { return v.Enforced }).(pulumi.BoolOutput)
+}
+
+// Directory groups to role or access group mappings.
+func (o GetTeamConfigSamlOutput) Roles() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetTeamConfigSaml) map[string]string { return v.Roles }).(pulumi.StringMapOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsPtrInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
@@ -6247,6 +6872,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentArrayInput)(nil)).Elem(), ProjectEnvironmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentVariablesVariableInput)(nil)).Elem(), ProjectEnvironmentVariablesVariableArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentVariablesVariableArrayInput)(nil)).Elem(), ProjectEnvironmentVariablesVariableArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsInput)(nil)).Elem(), ProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsPtrInput)(nil)).Elem(), ProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
@@ -6269,6 +6896,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressArrayInput)(nil)).Elem(), ProjectTrustedIpsAddressArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationPtrInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingPtrInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlInput)(nil)).Elem(), TeamConfigSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlPtrInput)(nil)).Elem(), TeamConfigSamlArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitCommentsInput)(nil)).Elem(), GetProjectGitCommentsArgs{})
@@ -6285,6 +6916,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressInput)(nil)).Elem(), GetProjectTrustedIpsAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressArrayInput)(nil)).Elem(), GetProjectTrustedIpsAddressArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigRemoteCachingInput)(nil)).Elem(), GetTeamConfigRemoteCachingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlInput)(nil)).Elem(), GetTeamConfigSamlArgs{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvOutput{})
@@ -6332,6 +6965,8 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentArrayOutput{})
+	pulumi.RegisterOutputType(ProjectEnvironmentVariablesVariableOutput{})
+	pulumi.RegisterOutputType(ProjectEnvironmentVariablesVariableArrayOutput{})
 	pulumi.RegisterOutputType(ProjectGitCommentsOutput{})
 	pulumi.RegisterOutputType(ProjectGitCommentsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryOutput{})
@@ -6354,6 +6989,10 @@ func init() {
 	pulumi.RegisterOutputType(ProjectTrustedIpsAddressArrayOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationPtrOutput{})
+	pulumi.RegisterOutputType(TeamConfigRemoteCachingOutput{})
+	pulumi.RegisterOutputType(TeamConfigRemoteCachingPtrOutput{})
+	pulumi.RegisterOutputType(TeamConfigSamlOutput{})
+	pulumi.RegisterOutputType(TeamConfigSamlPtrOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectGitCommentsOutput{})
@@ -6370,4 +7009,6 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigRemoteCachingOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigSamlOutput{})
 }

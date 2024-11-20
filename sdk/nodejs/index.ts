@@ -30,6 +30,11 @@ export type EdgeConfig = import("./edgeConfig").EdgeConfig;
 export const EdgeConfig: typeof import("./edgeConfig").EdgeConfig = null as any;
 utilities.lazyLoad(exports, ["EdgeConfig"], () => require("./edgeConfig"));
 
+export { EdgeConfigItemArgs, EdgeConfigItemState } from "./edgeConfigItem";
+export type EdgeConfigItem = import("./edgeConfigItem").EdgeConfigItem;
+export const EdgeConfigItem: typeof import("./edgeConfigItem").EdgeConfigItem = null as any;
+utilities.lazyLoad(exports, ["EdgeConfigItem"], () => require("./edgeConfigItem"));
+
 export { EdgeConfigSchemaArgs, EdgeConfigSchemaState } from "./edgeConfigSchema";
 export type EdgeConfigSchema = import("./edgeConfigSchema").EdgeConfigSchema;
 export const EdgeConfigSchema: typeof import("./edgeConfigSchema").EdgeConfigSchema = null as any;
@@ -64,6 +69,11 @@ export { GetEdgeConfigArgs, GetEdgeConfigResult, GetEdgeConfigOutputArgs } from 
 export const getEdgeConfig: typeof import("./getEdgeConfig").getEdgeConfig = null as any;
 export const getEdgeConfigOutput: typeof import("./getEdgeConfig").getEdgeConfigOutput = null as any;
 utilities.lazyLoad(exports, ["getEdgeConfig","getEdgeConfigOutput"], () => require("./getEdgeConfig"));
+
+export { GetEdgeConfigItemArgs, GetEdgeConfigItemResult, GetEdgeConfigItemOutputArgs } from "./getEdgeConfigItem";
+export const getEdgeConfigItem: typeof import("./getEdgeConfigItem").getEdgeConfigItem = null as any;
+export const getEdgeConfigItemOutput: typeof import("./getEdgeConfigItem").getEdgeConfigItemOutput = null as any;
+utilities.lazyLoad(exports, ["getEdgeConfigItem","getEdgeConfigItemOutput"], () => require("./getEdgeConfigItem"));
 
 export { GetEdgeConfigSchemaArgs, GetEdgeConfigSchemaResult, GetEdgeConfigSchemaOutputArgs } from "./getEdgeConfigSchema";
 export const getEdgeConfigSchema: typeof import("./getEdgeConfigSchema").getEdgeConfigSchema = null as any;
@@ -110,15 +120,15 @@ export const getProjectDirectory: typeof import("./getProjectDirectory").getProj
 export const getProjectDirectoryOutput: typeof import("./getProjectDirectory").getProjectDirectoryOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectDirectory","getProjectDirectoryOutput"], () => require("./getProjectDirectory"));
 
-export { GetProjectFunctionCpuArgs, GetProjectFunctionCpuResult, GetProjectFunctionCpuOutputArgs } from "./getProjectFunctionCpu";
-export const getProjectFunctionCpu: typeof import("./getProjectFunctionCpu").getProjectFunctionCpu = null as any;
-export const getProjectFunctionCpuOutput: typeof import("./getProjectFunctionCpu").getProjectFunctionCpuOutput = null as any;
-utilities.lazyLoad(exports, ["getProjectFunctionCpu","getProjectFunctionCpuOutput"], () => require("./getProjectFunctionCpu"));
-
 export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
 export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
 export const getSharedEnvironmentVariableOutput: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariableOutput = null as any;
 utilities.lazyLoad(exports, ["getSharedEnvironmentVariable","getSharedEnvironmentVariableOutput"], () => require("./getSharedEnvironmentVariable"));
+
+export { GetTeamConfigArgs, GetTeamConfigResult, GetTeamConfigOutputArgs } from "./getTeamConfig";
+export const getTeamConfig: typeof import("./getTeamConfig").getTeamConfig = null as any;
+export const getTeamConfigOutput: typeof import("./getTeamConfig").getTeamConfigOutput = null as any;
+utilities.lazyLoad(exports, ["getTeamConfig","getTeamConfigOutput"], () => require("./getTeamConfig"));
 
 export { LogDrainArgs, LogDrainState } from "./logDrain";
 export type LogDrain = import("./logDrain").LogDrain;
@@ -145,10 +155,10 @@ export type ProjectEnvironmentVariable = import("./projectEnvironmentVariable").
 export const ProjectEnvironmentVariable: typeof import("./projectEnvironmentVariable").ProjectEnvironmentVariable = null as any;
 utilities.lazyLoad(exports, ["ProjectEnvironmentVariable"], () => require("./projectEnvironmentVariable"));
 
-export { ProjectFunctionCpuArgs, ProjectFunctionCpuState } from "./projectFunctionCpu";
-export type ProjectFunctionCpu = import("./projectFunctionCpu").ProjectFunctionCpu;
-export const ProjectFunctionCpu: typeof import("./projectFunctionCpu").ProjectFunctionCpu = null as any;
-utilities.lazyLoad(exports, ["ProjectFunctionCpu"], () => require("./projectFunctionCpu"));
+export { ProjectEnvironmentVariablesArgs, ProjectEnvironmentVariablesState } from "./projectEnvironmentVariables";
+export type ProjectEnvironmentVariables = import("./projectEnvironmentVariables").ProjectEnvironmentVariables;
+export const ProjectEnvironmentVariables: typeof import("./projectEnvironmentVariables").ProjectEnvironmentVariables = null as any;
+utilities.lazyLoad(exports, ["ProjectEnvironmentVariables"], () => require("./projectEnvironmentVariables"));
 
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
@@ -159,6 +169,11 @@ export { SharedEnvironmentVariableArgs, SharedEnvironmentVariableState } from ".
 export type SharedEnvironmentVariable = import("./sharedEnvironmentVariable").SharedEnvironmentVariable;
 export const SharedEnvironmentVariable: typeof import("./sharedEnvironmentVariable").SharedEnvironmentVariable = null as any;
 utilities.lazyLoad(exports, ["SharedEnvironmentVariable"], () => require("./sharedEnvironmentVariable"));
+
+export { TeamConfigArgs, TeamConfigState } from "./teamConfig";
+export type TeamConfig = import("./teamConfig").TeamConfig;
+export const TeamConfig: typeof import("./teamConfig").TeamConfig = null as any;
+utilities.lazyLoad(exports, ["TeamConfig"], () => require("./teamConfig"));
 
 export { WebhookArgs, WebhookState } from "./webhook";
 export type Webhook = import("./webhook").Webhook;
@@ -189,6 +204,8 @@ const _module = {
                 return new DnsRecord(name, <any>undefined, { urn })
             case "vercel:index/edgeConfig:EdgeConfig":
                 return new EdgeConfig(name, <any>undefined, { urn })
+            case "vercel:index/edgeConfigItem:EdgeConfigItem":
+                return new EdgeConfigItem(name, <any>undefined, { urn })
             case "vercel:index/edgeConfigSchema:EdgeConfigSchema":
                 return new EdgeConfigSchema(name, <any>undefined, { urn })
             case "vercel:index/edgeConfigToken:EdgeConfigToken":
@@ -205,10 +222,12 @@ const _module = {
                 return new ProjectDomain(name, <any>undefined, { urn })
             case "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable":
                 return new ProjectEnvironmentVariable(name, <any>undefined, { urn })
-            case "vercel:index/projectFunctionCpu:ProjectFunctionCpu":
-                return new ProjectFunctionCpu(name, <any>undefined, { urn })
+            case "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables":
+                return new ProjectEnvironmentVariables(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
+            case "vercel:index/teamConfig:TeamConfig":
+                return new TeamConfig(name, <any>undefined, { urn })
             case "vercel:index/webhook:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
@@ -221,6 +240,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _mo
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigItem", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/firewallConfig", _module)
@@ -229,8 +249,9 @@ pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
-pulumi.runtime.registerResourceModule("vercel", "index/projectFunctionCpu", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariables", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("vercel", {
     version: utilities.getVersion(),

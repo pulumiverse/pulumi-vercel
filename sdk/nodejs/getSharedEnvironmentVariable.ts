@@ -4,31 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides information about an existing Shared Environment Variable within Vercel.
- *
- * A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumi/vercel";
- *
- * const example = vercel.getSharedEnvironmentVariable({
- *     id: "xxxxxxxxxxxxxxx",
- * });
- * const exampleByKeyAndTarget = vercel.getSharedEnvironmentVariable({
- *     key: "MY_ENV_VAR",
- *     targets: [
- *         "production",
- *         "preview",
- *     ],
- * });
- * ```
- */
 export function getSharedEnvironmentVariable(args?: GetSharedEnvironmentVariableArgs, opts?: pulumi.InvokeOptions): Promise<GetSharedEnvironmentVariableResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -44,21 +19,9 @@ export function getSharedEnvironmentVariable(args?: GetSharedEnvironmentVariable
  * A collection of arguments for invoking getSharedEnvironmentVariable.
  */
 export interface GetSharedEnvironmentVariableArgs {
-    /**
-     * The ID of the Environment Variable.
-     */
     id?: string;
-    /**
-     * The name of the Environment Variable.
-     */
     key?: string;
-    /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-     */
     targets?: string[];
-    /**
-     * The ID of the Vercel team. Shared environment variables require a team.
-     */
     teamId?: string;
 }
 
@@ -66,60 +29,15 @@ export interface GetSharedEnvironmentVariableArgs {
  * A collection of values returned by getSharedEnvironmentVariable.
  */
 export interface GetSharedEnvironmentVariableResult {
-    /**
-     * The ID of the Environment Variable.
-     */
+    readonly comment: string;
     readonly id: string;
-    /**
-     * The name of the Environment Variable.
-     */
     readonly key: string;
-    /**
-     * The ID of the Vercel project.
-     */
     readonly projectIds: string[];
-    /**
-     * Whether the Environment Variable is sensitive or not.
-     */
     readonly sensitive: boolean;
-    /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-     */
     readonly targets: string[];
-    /**
-     * The ID of the Vercel team. Shared environment variables require a team.
-     */
     readonly teamId: string;
-    /**
-     * The value of the Environment Variable.
-     */
     readonly value: string;
 }
-/**
- * Provides information about an existing Shared Environment Variable within Vercel.
- *
- * A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumi/vercel";
- *
- * const example = vercel.getSharedEnvironmentVariable({
- *     id: "xxxxxxxxxxxxxxx",
- * });
- * const exampleByKeyAndTarget = vercel.getSharedEnvironmentVariable({
- *     key: "MY_ENV_VAR",
- *     targets: [
- *         "production",
- *         "preview",
- *     ],
- * });
- * ```
- */
 export function getSharedEnvironmentVariableOutput(args?: GetSharedEnvironmentVariableOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSharedEnvironmentVariableResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -135,20 +53,8 @@ export function getSharedEnvironmentVariableOutput(args?: GetSharedEnvironmentVa
  * A collection of arguments for invoking getSharedEnvironmentVariable.
  */
 export interface GetSharedEnvironmentVariableOutputArgs {
-    /**
-     * The ID of the Environment Variable.
-     */
     id?: pulumi.Input<string>;
-    /**
-     * The name of the Environment Variable.
-     */
     key?: pulumi.Input<string>;
-    /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-     */
     targets?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * The ID of the Vercel team. Shared environment variables require a team.
-     */
     teamId?: pulumi.Input<string>;
 }

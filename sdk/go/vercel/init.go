@@ -31,6 +31,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &DnsRecord{}
 	case "vercel:index/edgeConfig:EdgeConfig":
 		r = &EdgeConfig{}
+	case "vercel:index/edgeConfigItem:EdgeConfigItem":
+		r = &EdgeConfigItem{}
 	case "vercel:index/edgeConfigSchema:EdgeConfigSchema":
 		r = &EdgeConfigSchema{}
 	case "vercel:index/edgeConfigToken:EdgeConfigToken":
@@ -47,10 +49,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectDomain{}
 	case "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable":
 		r = &ProjectEnvironmentVariable{}
-	case "vercel:index/projectFunctionCpu:ProjectFunctionCpu":
-		r = &ProjectFunctionCpu{}
+	case "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables":
+		r = &ProjectEnvironmentVariables{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
+	case "vercel:index/teamConfig:TeamConfig":
+		r = &TeamConfig{}
 	case "vercel:index/webhook:Webhook":
 		r = &Webhook{}
 	default:
@@ -111,6 +115,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/edgeConfigItem",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/edgeConfigSchema",
 		&module{version},
 	)
@@ -151,12 +160,17 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
-		"index/projectFunctionCpu",
+		"index/projectEnvironmentVariables",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/sharedEnvironmentVariable",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/teamConfig",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

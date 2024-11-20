@@ -4,22 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides information about an existing Edge Config.
- *
- * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumi/vercel";
- *
- * const example = vercel.getEdgeConfig({
- *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
- * });
- * ```
- */
 export function getEdgeConfig(args: GetEdgeConfigArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getEdgeConfig:getEdgeConfig", {
@@ -32,13 +16,7 @@ export function getEdgeConfig(args: GetEdgeConfigArgs, opts?: pulumi.InvokeOptio
  * A collection of arguments for invoking getEdgeConfig.
  */
 export interface GetEdgeConfigArgs {
-    /**
-     * The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
-     */
     id: string;
-    /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-     */
     teamId?: string;
 }
 
@@ -46,35 +24,10 @@ export interface GetEdgeConfigArgs {
  * A collection of values returned by getEdgeConfig.
  */
 export interface GetEdgeConfigResult {
-    /**
-     * The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
-     */
     readonly id: string;
-    /**
-     * The name/slug of the Edge Config.
-     */
     readonly name: string;
-    /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-     */
     readonly teamId: string;
 }
-/**
- * Provides information about an existing Edge Config.
- *
- * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumi/vercel";
- *
- * const example = vercel.getEdgeConfig({
- *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
- * });
- * ```
- */
 export function getEdgeConfigOutput(args: GetEdgeConfigOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getEdgeConfig:getEdgeConfig", {
@@ -87,12 +40,6 @@ export function getEdgeConfigOutput(args: GetEdgeConfigOutputArgs, opts?: pulumi
  * A collection of arguments for invoking getEdgeConfig.
  */
 export interface GetEdgeConfigOutputArgs {
-    /**
-     * The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
-     */
     id: pulumi.Input<string>;
-    /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-     */
     teamId?: pulumi.Input<string>;
 }

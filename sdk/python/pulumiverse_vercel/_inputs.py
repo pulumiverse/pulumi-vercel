@@ -63,6 +63,8 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroupConditionArgsDict',
     'ProjectEnvironmentArgs',
     'ProjectEnvironmentArgsDict',
+    'ProjectEnvironmentVariablesVariableArgs',
+    'ProjectEnvironmentVariablesVariableArgsDict',
     'ProjectGitCommentsArgs',
     'ProjectGitCommentsArgsDict',
     'ProjectGitRepositoryArgs',
@@ -85,6 +87,10 @@ __all__ = [
     'ProjectTrustedIpsAddressArgsDict',
     'ProjectVercelAuthenticationArgs',
     'ProjectVercelAuthenticationArgsDict',
+    'TeamConfigRemoteCachingArgs',
+    'TeamConfigRemoteCachingArgsDict',
+    'TeamConfigSamlArgs',
+    'TeamConfigSamlArgsDict',
 ]
 
 MYPY = False
@@ -324,9 +330,6 @@ if not MYPY:
         IP or CIDR to block
         """
         id: NotRequired[pulumi.Input[str]]
-        """
-        The ID of this resource.
-        """
         notes: NotRequired[pulumi.Input[str]]
 elif False:
     FirewallConfigIpRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
@@ -342,7 +345,6 @@ class FirewallConfigIpRulesRuleArgs:
         """
         :param pulumi.Input[str] hostname: Hosts to apply these rules to
         :param pulumi.Input[str] ip: IP or CIDR to block
-        :param pulumi.Input[str] id: The ID of this resource.
         """
         pulumi.set(__self__, "action", action)
         pulumi.set(__self__, "hostname", hostname)
@@ -388,9 +390,6 @@ class FirewallConfigIpRulesRuleArgs:
     @property
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @id.setter
@@ -1044,9 +1043,6 @@ if not MYPY:
         """
         description: NotRequired[pulumi.Input[str]]
         id: NotRequired[pulumi.Input[str]]
-        """
-        The ID of this resource.
-        """
 elif False:
     FirewallConfigRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1064,7 +1060,6 @@ class FirewallConfigRulesRuleArgs:
         :param pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupArgs']]] condition_groups: Sets of conditions that may match a request
         :param pulumi.Input[str] name: Name to identify the rule
         :param pulumi.Input[bool] active: Rule is active or disabled
-        :param pulumi.Input[str] id: The ID of this resource.
         """
         pulumi.set(__self__, "action", action)
         pulumi.set(__self__, "condition_groups", condition_groups)
@@ -1136,9 +1131,6 @@ class FirewallConfigRulesRuleArgs:
     @property
     @pulumi.getter
     def id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @id.setter
@@ -1158,7 +1150,7 @@ if not MYPY:
         """
         rate_limit: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgsDict']]
         """
-        Behavior or a rate limiting action. Required if action is rate*limit
+        Behavior or a rate limiting action. Required if action is rate_limit
         """
         redirect: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgsDict']]
         """
@@ -1177,7 +1169,7 @@ class FirewallConfigRulesRuleActionArgs:
         """
         :param pulumi.Input[str] action: Base action
         :param pulumi.Input[str] action_duration: Forward persistence of a rule aciton
-        :param pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs'] rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
+        :param pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs'] rate_limit: Behavior or a rate limiting action. Required if action is rate_limit
         :param pulumi.Input['FirewallConfigRulesRuleActionRedirectArgs'] redirect: How to redirect a request. Required if action is redirect
         """
         pulumi.set(__self__, "action", action)
@@ -1216,7 +1208,7 @@ class FirewallConfigRulesRuleActionArgs:
     @pulumi.getter(name="rateLimit")
     def rate_limit(self) -> Optional[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs']]:
         """
-        Behavior or a rate limiting action. Required if action is rate*limit
+        Behavior or a rate limiting action. Required if action is rate_limit
         """
         return pulumi.get(self, "rate_limit")
 
@@ -1519,6 +1511,10 @@ if not MYPY:
         """
         The value of the Environment Variable.
         """
+        comment: NotRequired[pulumi.Input[str]]
+        """
+        A comment explaining what the environment variable is for.
+        """
         git_branch: NotRequired[pulumi.Input[str]]
         """
         The git branch of the Environment Variable.
@@ -1540,6 +1536,7 @@ class ProjectEnvironmentArgs:
                  key: pulumi.Input[str],
                  targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
+                 comment: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None):
@@ -1547,6 +1544,7 @@ class ProjectEnvironmentArgs:
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] id: The ID of the Environment Variable.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -1554,6 +1552,8 @@ class ProjectEnvironmentArgs:
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
@@ -1598,6 +1598,18 @@ class ProjectEnvironmentArgs:
         pulumi.set(self, "value", value)
 
     @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
+
+    @property
     @pulumi.getter(name="gitBranch")
     def git_branch(self) -> Optional[pulumi.Input[str]]:
         """
@@ -1626,6 +1638,155 @@ class ProjectEnvironmentArgs:
     def sensitive(self) -> Optional[pulumi.Input[bool]]:
         """
         Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        """
+        return pulumi.get(self, "sensitive")
+
+    @sensitive.setter
+    def sensitive(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "sensitive", value)
+
+
+if not MYPY:
+    class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
+        key: pulumi.Input[str]
+        """
+        The name of the Environment Variable.
+        """
+        targets: pulumi.Input[Sequence[pulumi.Input[str]]]
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        """
+        value: pulumi.Input[str]
+        """
+        The value of the Environment Variable.
+        """
+        comment: NotRequired[pulumi.Input[str]]
+        """
+        A comment explaining what the environment variable is for.
+        """
+        git_branch: NotRequired[pulumi.Input[str]]
+        """
+        The git branch of the Environment Variable.
+        """
+        id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of the Environment Variable.
+        """
+        sensitive: NotRequired[pulumi.Input[bool]]
+        """
+        Whether the Environment Variable is sensitive or not.
+        """
+elif False:
+    ProjectEnvironmentVariablesVariableArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ProjectEnvironmentVariablesVariableArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[str],
+                 targets: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 value: pulumi.Input[str],
+                 comment: Optional[pulumi.Input[str]] = None,
+                 git_branch: Optional[pulumi.Input[str]] = None,
+                 id: Optional[pulumi.Input[str]] = None,
+                 sensitive: Optional[pulumi.Input[bool]] = None):
+        """
+        :param pulumi.Input[str] key: The name of the Environment Variable.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        :param pulumi.Input[str] value: The value of the Environment Variable.
+        :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
+        :param pulumi.Input[str] id: The ID of the Environment Variable.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not.
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "targets", targets)
+        pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
+        if git_branch is not None:
+            pulumi.set(__self__, "git_branch", git_branch)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if sensitive is not None:
+            pulumi.set(__self__, "sensitive", sensitive)
+
+    @property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[str]:
+        """
+        The name of the Environment Variable.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def targets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        """
+        return pulumi.get(self, "targets")
+
+    @targets.setter
+    def targets(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "targets", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        """
+        The value of the Environment Variable.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[pulumi.Input[str]]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @comment.setter
+    def comment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "comment", value)
+
+    @property
+    @pulumi.getter(name="gitBranch")
+    def git_branch(self) -> Optional[pulumi.Input[str]]:
+        """
+        The git branch of the Environment Variable.
+        """
+        return pulumi.get(self, "git_branch")
+
+    @git_branch.setter
+    def git_branch(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "git_branch", value)
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the Environment Variable.
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "id", value)
+
+    @property
+    @pulumi.getter
+    def sensitive(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the Environment Variable is sensitive or not.
         """
         return pulumi.get(self, "sensitive")
 
@@ -1870,17 +2031,25 @@ if not MYPY:
         """
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
+        issuer_mode: NotRequired[pulumi.Input[str]]
+        """
+        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        """
 elif False:
     ProjectOidcTokenConfigArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ProjectOidcTokenConfigArgs:
     def __init__(__self__, *,
-                 enabled: pulumi.Input[bool]):
+                 enabled: pulumi.Input[bool],
+                 issuer_mode: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[bool] enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        :param pulumi.Input[str] issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
         pulumi.set(__self__, "enabled", enabled)
+        if issuer_mode is not None:
+            pulumi.set(__self__, "issuer_mode", issuer_mode)
 
     @property
     @pulumi.getter
@@ -1893,6 +2062,18 @@ class ProjectOidcTokenConfigArgs:
     @enabled.setter
     def enabled(self, value: pulumi.Input[bool]):
         pulumi.set(self, "enabled", value)
+
+    @property
+    @pulumi.getter(name="issuerMode")
+    def issuer_mode(self) -> Optional[pulumi.Input[str]]:
+        """
+        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        """
+        return pulumi.get(self, "issuer_mode")
+
+    @issuer_mode.setter
+    def issuer_mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "issuer_mode", value)
 
 
 if not MYPY:
@@ -2209,5 +2390,108 @@ class ProjectVercelAuthenticationArgs:
     @deployment_type.setter
     def deployment_type(self, value: pulumi.Input[str]):
         pulumi.set(self, "deployment_type", value)
+
+
+if not MYPY:
+    class TeamConfigRemoteCachingArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[bool]]
+        """
+        Indicates if Remote Caching is enabled.
+        """
+elif False:
+    TeamConfigRemoteCachingArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TeamConfigRemoteCachingArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        """
+        :param pulumi.Input[bool] enabled: Indicates if Remote Caching is enabled.
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Indicates if Remote Caching is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+if not MYPY:
+    class TeamConfigSamlArgsDict(TypedDict):
+        enforced: pulumi.Input[bool]
+        """
+        Indicates if SAML is enforced for the team.
+        """
+        access_group_id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of the access group to use for the team.
+        """
+        roles: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+        """
+        Directory groups to role or access group mappings.
+        """
+elif False:
+    TeamConfigSamlArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TeamConfigSamlArgs:
+    def __init__(__self__, *,
+                 enforced: pulumi.Input[bool],
+                 access_group_id: Optional[pulumi.Input[str]] = None,
+                 roles: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        """
+        :param pulumi.Input[bool] enforced: Indicates if SAML is enforced for the team.
+        :param pulumi.Input[str] access_group_id: The ID of the access group to use for the team.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] roles: Directory groups to role or access group mappings.
+        """
+        pulumi.set(__self__, "enforced", enforced)
+        if access_group_id is not None:
+            pulumi.set(__self__, "access_group_id", access_group_id)
+        if roles is not None:
+            pulumi.set(__self__, "roles", roles)
+
+    @property
+    @pulumi.getter
+    def enforced(self) -> pulumi.Input[bool]:
+        """
+        Indicates if SAML is enforced for the team.
+        """
+        return pulumi.get(self, "enforced")
+
+    @enforced.setter
+    def enforced(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "enforced", value)
+
+    @property
+    @pulumi.getter(name="accessGroupId")
+    def access_group_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the access group to use for the team.
+        """
+        return pulumi.get(self, "access_group_id")
+
+    @access_group_id.setter
+    def access_group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "access_group_id", value)
+
+    @property
+    @pulumi.getter
+    def roles(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        Directory groups to role or access group mappings.
+        """
+        return pulumi.get(self, "roles")
+
+    @roles.setter
+    def roles(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "roles", value)
 
 

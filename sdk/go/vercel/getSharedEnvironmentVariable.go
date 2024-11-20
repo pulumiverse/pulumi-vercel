@@ -11,47 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// Provides information about an existing Shared Environment Variable within Vercel.
-//
-// A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
-//
-// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.LookupSharedEnvironmentVariable(ctx, &vercel.LookupSharedEnvironmentVariableArgs{
-//				Id: pulumi.StringRef("xxxxxxxxxxxxxxx"),
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			_, err = vercel.LookupSharedEnvironmentVariable(ctx, &vercel.LookupSharedEnvironmentVariableArgs{
-//				Key: pulumi.StringRef("MY_ENV_VAR"),
-//				Targets: []string{
-//					"production",
-//					"preview",
-//				},
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func LookupSharedEnvironmentVariable(ctx *pulumi.Context, args *LookupSharedEnvironmentVariableArgs, opts ...pulumi.InvokeOption) (*LookupSharedEnvironmentVariableResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupSharedEnvironmentVariableResult
@@ -64,32 +23,22 @@ func LookupSharedEnvironmentVariable(ctx *pulumi.Context, args *LookupSharedEnvi
 
 // A collection of arguments for invoking getSharedEnvironmentVariable.
 type LookupSharedEnvironmentVariableArgs struct {
-	// The ID of the Environment Variable.
-	Id *string `pulumi:"id"`
-	// The name of the Environment Variable.
-	Key *string `pulumi:"key"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Id      *string  `pulumi:"id"`
+	Key     *string  `pulumi:"key"`
 	Targets []string `pulumi:"targets"`
-	// The ID of the Vercel team. Shared environment variables require a team.
-	TeamId *string `pulumi:"teamId"`
+	TeamId  *string  `pulumi:"teamId"`
 }
 
 // A collection of values returned by getSharedEnvironmentVariable.
 type LookupSharedEnvironmentVariableResult struct {
-	// The ID of the Environment Variable.
-	Id string `pulumi:"id"`
-	// The name of the Environment Variable.
-	Key string `pulumi:"key"`
-	// The ID of the Vercel project.
+	Comment    string   `pulumi:"comment"`
+	Id         string   `pulumi:"id"`
+	Key        string   `pulumi:"key"`
 	ProjectIds []string `pulumi:"projectIds"`
-	// Whether the Environment Variable is sensitive or not.
-	Sensitive bool `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-	Targets []string `pulumi:"targets"`
-	// The ID of the Vercel team. Shared environment variables require a team.
-	TeamId string `pulumi:"teamId"`
-	// The value of the Environment Variable.
-	Value string `pulumi:"value"`
+	Sensitive  bool     `pulumi:"sensitive"`
+	Targets    []string `pulumi:"targets"`
+	TeamId     string   `pulumi:"teamId"`
+	Value      string   `pulumi:"value"`
 }
 
 func LookupSharedEnvironmentVariableOutput(ctx *pulumi.Context, args LookupSharedEnvironmentVariableOutputArgs, opts ...pulumi.InvokeOption) LookupSharedEnvironmentVariableResultOutput {
@@ -113,14 +62,10 @@ func LookupSharedEnvironmentVariableOutput(ctx *pulumi.Context, args LookupShare
 
 // A collection of arguments for invoking getSharedEnvironmentVariable.
 type LookupSharedEnvironmentVariableOutputArgs struct {
-	// The ID of the Environment Variable.
-	Id pulumi.StringPtrInput `pulumi:"id"`
-	// The name of the Environment Variable.
-	Key pulumi.StringPtrInput `pulumi:"key"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	Id      pulumi.StringPtrInput   `pulumi:"id"`
+	Key     pulumi.StringPtrInput   `pulumi:"key"`
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
-	// The ID of the Vercel team. Shared environment variables require a team.
-	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
+	TeamId  pulumi.StringPtrInput   `pulumi:"teamId"`
 }
 
 func (LookupSharedEnvironmentVariableOutputArgs) ElementType() reflect.Type {
@@ -142,37 +87,34 @@ func (o LookupSharedEnvironmentVariableResultOutput) ToLookupSharedEnvironmentVa
 	return o
 }
 
-// The ID of the Environment Variable.
+func (o LookupSharedEnvironmentVariableResultOutput) Comment() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) string { return v.Comment }).(pulumi.StringOutput)
+}
+
 func (o LookupSharedEnvironmentVariableResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The name of the Environment Variable.
 func (o LookupSharedEnvironmentVariableResultOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// The ID of the Vercel project.
 func (o LookupSharedEnvironmentVariableResultOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
 }
 
-// Whether the Environment Variable is sensitive or not.
 func (o LookupSharedEnvironmentVariableResultOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) bool { return v.Sensitive }).(pulumi.BoolOutput)
 }
 
-// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 func (o LookupSharedEnvironmentVariableResultOutput) Targets() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) []string { return v.Targets }).(pulumi.StringArrayOutput)
 }
 
-// The ID of the Vercel team. Shared environment variables require a team.
 func (o LookupSharedEnvironmentVariableResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The value of the Environment Variable.
 func (o LookupSharedEnvironmentVariableResultOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) string { return v.Value }).(pulumi.StringOutput)
 }

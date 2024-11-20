@@ -4,30 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides information about a file on disk.
- *
- * This will read a single file, providing metadata for use with a `vercel.Deployment`.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumi/vercel";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const exampleFile = vercel.getFile({
- *     path: "index.html",
- * });
- * const exampleProject = vercel.getProject({
- *     name: "my-project",
- * });
- * const exampleDeployment = new vercel.Deployment("exampleDeployment", {
- *     projectId: exampleProject.then(exampleProject => exampleProject.id),
- *     files: exampleFile.then(exampleFile => exampleFile.file),
- * });
- * ```
- */
 export function getFile(args: GetFileArgs, opts?: pulumi.InvokeOptions): Promise<GetFileResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getFile:getFile", {
@@ -46,40 +22,10 @@ export interface GetFileArgs {
  * A collection of values returned by getFile.
  */
 export interface GetFileResult {
-    /**
-     * A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
-     */
     readonly file: {[key: string]: string};
-    /**
-     * The ID of this resource.
-     */
     readonly id: string;
     readonly path: string;
 }
-/**
- * Provides information about a file on disk.
- *
- * This will read a single file, providing metadata for use with a `vercel.Deployment`.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumi/vercel";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const exampleFile = vercel.getFile({
- *     path: "index.html",
- * });
- * const exampleProject = vercel.getProject({
- *     name: "my-project",
- * });
- * const exampleDeployment = new vercel.Deployment("exampleDeployment", {
- *     projectId: exampleProject.then(exampleProject => exampleProject.id),
- *     files: exampleFile.then(exampleFile => exampleFile.file),
- * });
- * ```
- */
 export function getFileOutput(args: GetFileOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetFileResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getFile:getFile", {

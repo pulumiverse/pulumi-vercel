@@ -28,11 +28,9 @@ type GetProjectDirectoryArgs struct {
 
 // A collection of values returned by getProjectDirectory.
 type GetProjectDirectoryResult struct {
-	// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 	Files map[string]string `pulumi:"files"`
-	// The ID of this resource.
-	Id   string `pulumi:"id"`
-	Path string `pulumi:"path"`
+	Id    string            `pulumi:"id"`
+	Path  string            `pulumi:"path"`
 }
 
 func GetProjectDirectoryOutput(ctx *pulumi.Context, args GetProjectDirectoryOutputArgs, opts ...pulumi.InvokeOption) GetProjectDirectoryResultOutput {
@@ -78,12 +76,10 @@ func (o GetProjectDirectoryResultOutput) ToGetProjectDirectoryResultOutputWithCo
 	return o
 }
 
-// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 func (o GetProjectDirectoryResultOutput) Files() pulumi.StringMapOutput {
 	return o.ApplyT(func(v GetProjectDirectoryResult) map[string]string { return v.Files }).(pulumi.StringMapOutput)
 }
 
-// The ID of this resource.
 func (o GetProjectDirectoryResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectDirectoryResult) string { return v.Id }).(pulumi.StringOutput)
 }

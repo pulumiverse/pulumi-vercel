@@ -11,9 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// Provides information about an existing Alias resource.
-//
-// An Alias allows a `Deployment` to be accessed through a different URL.
 func LookupAlias(ctx *pulumi.Context, args *LookupAliasArgs, opts ...pulumi.InvokeOption) (*LookupAliasResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupAliasResult
@@ -26,22 +23,16 @@ func LookupAlias(ctx *pulumi.Context, args *LookupAliasArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getAlias.
 type LookupAliasArgs struct {
-	// The Alias or Alias ID to be retrieved.
-	Alias string `pulumi:"alias"`
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	Alias  string  `pulumi:"alias"`
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getAlias.
 type LookupAliasResult struct {
-	// The Alias or Alias ID to be retrieved.
-	Alias string `pulumi:"alias"`
-	// The ID of the Deployment the Alias is associated with.
+	Alias        string `pulumi:"alias"`
 	DeploymentId string `pulumi:"deploymentId"`
-	// The ID of this resource.
-	Id string `pulumi:"id"`
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
-	TeamId string `pulumi:"teamId"`
+	Id           string `pulumi:"id"`
+	TeamId       string `pulumi:"teamId"`
 }
 
 func LookupAliasOutput(ctx *pulumi.Context, args LookupAliasOutputArgs, opts ...pulumi.InvokeOption) LookupAliasResultOutput {
@@ -65,9 +56,7 @@ func LookupAliasOutput(ctx *pulumi.Context, args LookupAliasOutputArgs, opts ...
 
 // A collection of arguments for invoking getAlias.
 type LookupAliasOutputArgs struct {
-	// The Alias or Alias ID to be retrieved.
-	Alias pulumi.StringInput `pulumi:"alias"`
-	// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	Alias  pulumi.StringInput    `pulumi:"alias"`
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -90,22 +79,18 @@ func (o LookupAliasResultOutput) ToLookupAliasResultOutputWithContext(ctx contex
 	return o
 }
 
-// The Alias or Alias ID to be retrieved.
 func (o LookupAliasResultOutput) Alias() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAliasResult) string { return v.Alias }).(pulumi.StringOutput)
 }
 
-// The ID of the Deployment the Alias is associated with.
 func (o LookupAliasResultOutput) DeploymentId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAliasResult) string { return v.DeploymentId }).(pulumi.StringOutput)
 }
 
-// The ID of this resource.
 func (o LookupAliasResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAliasResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupAliasResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAliasResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

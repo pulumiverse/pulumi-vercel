@@ -57,9 +57,6 @@ export interface FirewallConfigIpRulesRule {
      * Hosts to apply these rules to
      */
     hostname: string;
-    /**
-     * The ID of this resource.
-     */
     id: string;
     /**
      * IP or CIDR to block
@@ -186,9 +183,6 @@ export interface FirewallConfigRulesRule {
      */
     conditionGroups: outputs.FirewallConfigRulesRuleConditionGroup[];
     description?: string;
-    /**
-     * The ID of this resource.
-     */
     id: string;
     /**
      * Name to identify the rule
@@ -206,7 +200,7 @@ export interface FirewallConfigRulesRuleAction {
      */
     actionDuration?: string;
     /**
-     * Behavior or a rate limiting action. Required if action is rate*limit
+     * Behavior or a rate limiting action. Required if action is rate_limit
      */
     rateLimit?: outputs.FirewallConfigRulesRuleActionRateLimit;
     /**
@@ -268,6 +262,10 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
 }
 
 export interface GetProjectEnvironment {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment: string;
     /**
      * The git branch of the environment variable.
      */
@@ -348,6 +346,10 @@ export interface GetProjectOidcTokenConfig {
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
      */
     enabled: boolean;
+    /**
+     * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+     */
+    issuerMode: string;
 }
 
 export interface GetProjectOptionsAllowlist {
@@ -406,7 +408,33 @@ export interface GetProjectVercelAuthentication {
     deploymentType: string;
 }
 
+export interface GetTeamConfigRemoteCaching {
+    /**
+     * Indicates if Remote Caching is enabled.
+     */
+    enabled: boolean;
+}
+
+export interface GetTeamConfigSaml {
+    /**
+     * The ID of the access group to use for the team.
+     */
+    accessGroupId: string;
+    /**
+     * Indicates if SAML is enforced for the team.
+     */
+    enforced: boolean;
+    /**
+     * Directory groups to role or access group mappings.
+     */
+    roles: {[key: string]: string};
+}
+
 export interface ProjectEnvironment {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment: string;
     /**
      * The git branch of the Environment Variable.
      */
@@ -421,6 +449,37 @@ export interface ProjectEnvironment {
     key: string;
     /**
      * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     */
+    sensitive: boolean;
+    /**
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+     */
+    targets: string[];
+    /**
+     * The value of the Environment Variable.
+     */
+    value: string;
+}
+
+export interface ProjectEnvironmentVariablesVariable {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment: string;
+    /**
+     * The git branch of the Environment Variable.
+     */
+    gitBranch?: string;
+    /**
+     * The ID of the Environment Variable.
+     */
+    id: string;
+    /**
+     * The name of the Environment Variable.
+     */
+    key: string;
+    /**
+     * Whether the Environment Variable is sensitive or not.
      */
     sensitive: boolean;
     /**
@@ -487,6 +546,10 @@ export interface ProjectOidcTokenConfig {
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
      */
     enabled: boolean;
+    /**
+     * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+     */
+    issuerMode: string;
 }
 
 export interface ProjectOptionsAllowlist {
@@ -556,5 +619,27 @@ export interface ProjectVercelAuthentication {
      * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType: string;
+}
+
+export interface TeamConfigRemoteCaching {
+    /**
+     * Indicates if Remote Caching is enabled.
+     */
+    enabled: boolean;
+}
+
+export interface TeamConfigSaml {
+    /**
+     * The ID of the access group to use for the team.
+     */
+    accessGroupId?: string;
+    /**
+     * Indicates if SAML is enforced for the team.
+     */
+    enforced: boolean;
+    /**
+     * Directory groups to role or access group mappings.
+     */
+    roles?: {[key: string]: string};
 }
 

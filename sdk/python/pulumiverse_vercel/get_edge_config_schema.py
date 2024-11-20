@@ -40,25 +40,16 @@ class GetEdgeConfigSchemaResult:
     @property
     @pulumi.getter
     def definition(self) -> str:
-        """
-        A JSON schema that will be used to validate data in the Edge Config.
-        """
         return pulumi.get(self, "definition")
 
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The ID of the Edge Config that the schema should be for.
-        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
-        """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        """
         return pulumi.get(self, "team_id")
 
 
@@ -77,20 +68,7 @@ def get_edge_config_schema(id: Optional[str] = None,
                            team_id: Optional[str] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetEdgeConfigSchemaResult:
     """
-    An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_vercel as vercel
-
-    test = vercel.get_edge_config_schema(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-    ```
-
-
-    :param str id: The ID of the Edge Config that the schema should be for.
-    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -106,20 +84,7 @@ def get_edge_config_schema_output(id: Optional[pulumi.Input[str]] = None,
                                   team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                   opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetEdgeConfigSchemaResult]:
     """
-    An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_vercel as vercel
-
-    test = vercel.get_edge_config_schema(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-    ```
-
-
-    :param str id: The ID of the Edge Config that the schema should be for.
-    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['id'] = id

@@ -27,9 +27,6 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.FirewallConfigRulesRuleConditionGroup> ConditionGroups;
         public readonly string? Description;
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         public readonly string? Id;
         /// <summary>
         /// Name to identify the rule

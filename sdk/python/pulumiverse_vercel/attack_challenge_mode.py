@@ -26,7 +26,8 @@ class AttackChallengeModeArgs:
         The set of arguments for constructing a AttackChallengeMode resource.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
-        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+               set in the provider.
         """
         pulumi.set(__self__, "enabled", enabled)
         pulumi.set(__self__, "project_id", project_id)
@@ -61,7 +62,8 @@ class AttackChallengeModeArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+        set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -80,7 +82,8 @@ class _AttackChallengeModeState:
         Input properties used for looking up and filtering AttackChallengeMode resources.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
-        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+               set in the provider.
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -117,7 +120,8 @@ class _AttackChallengeModeState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+        set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -136,39 +140,13 @@ class AttackChallengeMode(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Provides an Attack Challenge Mode resource.
-
-        Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_vercel as vercel
-
-        example_project = vercel.Project("exampleProject")
-        example_attack_challenge_mode = vercel.AttackChallengeMode("exampleAttackChallengeMode",
-            project_id=example_project.id,
-            enabled=True)
-        ```
-
-        ## Import
-
-        You can import via the team_id and project_id.
-
-        - team_id can be found in the team `settings` tab in the Vercel UI.
-
-        - project_id can be found in the project `settings` tab in the Vercel UI.
-
-        ```sh
-        $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
+        Create a AttackChallengeMode resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
-        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+               set in the provider.
         """
         ...
     @overload
@@ -177,34 +155,7 @@ class AttackChallengeMode(pulumi.CustomResource):
                  args: AttackChallengeModeArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Provides an Attack Challenge Mode resource.
-
-        Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_vercel as vercel
-
-        example_project = vercel.Project("exampleProject")
-        example_attack_challenge_mode = vercel.AttackChallengeMode("exampleAttackChallengeMode",
-            project_id=example_project.id,
-            enabled=True)
-        ```
-
-        ## Import
-
-        You can import via the team_id and project_id.
-
-        - team_id can be found in the team `settings` tab in the Vercel UI.
-
-        - project_id can be found in the project `settings` tab in the Vercel UI.
-
-        ```sh
-        $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
+        Create a AttackChallengeMode resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param AttackChallengeModeArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -261,7 +212,8 @@ class AttackChallengeMode(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
-        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+               set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -292,7 +244,8 @@ class AttackChallengeMode(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+        set in the provider.
         """
         return pulumi.get(self, "team_id")
 

@@ -4,57 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides a Project Deployment Retention resource.
- *
- * A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const example = new vercel.Project("example", {gitRepository: {
- *     type: "github",
- *     repo: "vercel/some-repo",
- * }});
- * // An unlimited deployment retention policy that will be created
- * // for this project for all deployments.
- * const exampleUnlimited = new vercel.ProjectDeploymentRetention("exampleUnlimited", {
- *     projectId: example.id,
- *     teamId: example.teamId,
- *     expirationPreview: "unlimited",
- *     expirationProduction: "unlimited",
- *     expirationCanceled: "unlimited",
- *     expirationErrored: "unlimited",
- * });
- * // A customized deployment retention policy that will be created
- * // for this project for all deployments.
- * const exampleCustomized = new vercel.ProjectDeploymentRetention("exampleCustomized", {
- *     projectId: example.id,
- *     teamId: example.teamId,
- *     expirationPreview: "3m",
- *     expirationProduction: "1y",
- *     expirationCanceled: "1m",
- *     expirationErrored: "2m",
- * });
- * ```
- *
- * ## Import
- *
- * You can import via the team_id and project_id.
- *
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- *
- * - project_id can be found in the project `settings` tab in the Vercel UI.
- *
- * ```sh
- * $ pulumi import vercel:index/projectDeploymentRetention:ProjectDeploymentRetention example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- */
 export class ProjectDeploymentRetention extends pulumi.CustomResource {
     /**
      * Get an existing ProjectDeploymentRetention resource's state with the given name, ID, and optional extra

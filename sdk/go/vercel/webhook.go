@@ -12,63 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// A webhook is a trigger-based HTTP endpoint configured to receive HTTP POST requests through events.
-//
-// When an event happens, a webhook is sent to a third-party app, which can then take appropriate action.
-//
-// > Only Pro and Enterprise teams are able to configure these webhooks at the account level.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			example, err := vercel.NewProject(ctx, "example", nil)
-//			if err != nil {
-//				return err
-//			}
-//			example2, err := vercel.NewProject(ctx, "example2", nil)
-//			if err != nil {
-//				return err
-//			}
-//			_, err = vercel.NewWebhook(ctx, "withProjectIds", &vercel.WebhookArgs{
-//				Events: pulumi.StringArray{
-//					pulumi.String("deployment.created"),
-//					pulumi.String("deployment.succeeded"),
-//				},
-//				Endpoint: pulumi.String("https://example.com/endpoint"),
-//				ProjectIds: pulumi.StringArray{
-//					example.ID(),
-//					example2.ID(),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = vercel.NewWebhook(ctx, "withoutProjectIds", &vercel.WebhookArgs{
-//				Events: pulumi.StringArray{
-//					pulumi.String("deployment.created"),
-//					pulumi.String("deployment.succeeded"),
-//				},
-//				Endpoint: pulumi.String("https://example.com/endpoint"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Webhook struct {
 	pulumi.CustomResourceState
 
@@ -76,11 +19,15 @@ type Webhook struct {
 	Endpoint pulumi.StringOutput `pulumi:"endpoint"`
 	// A list of the events the webhook will listen to. At least one must be present.
 	Events pulumi.StringArrayOutput `pulumi:"events"`
-	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+	// endpoint.
 	ProjectIds pulumi.StringArrayOutput `pulumi:"projectIds"`
-	// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+	// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
+	// the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
+	// details.
 	Secret pulumi.StringOutput `pulumi:"secret"`
-	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+	// been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -128,11 +75,15 @@ type webhookState struct {
 	Endpoint *string `pulumi:"endpoint"`
 	// A list of the events the webhook will listen to. At least one must be present.
 	Events []string `pulumi:"events"`
-	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+	// endpoint.
 	ProjectIds []string `pulumi:"projectIds"`
-	// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+	// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
+	// the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
+	// details.
 	Secret *string `pulumi:"secret"`
-	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+	// been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -141,11 +92,15 @@ type WebhookState struct {
 	Endpoint pulumi.StringPtrInput
 	// A list of the events the webhook will listen to. At least one must be present.
 	Events pulumi.StringArrayInput
-	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+	// endpoint.
 	ProjectIds pulumi.StringArrayInput
-	// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+	// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
+	// the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
+	// details.
 	Secret pulumi.StringPtrInput
-	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+	// been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -158,9 +113,11 @@ type webhookArgs struct {
 	Endpoint string `pulumi:"endpoint"`
 	// A list of the events the webhook will listen to. At least one must be present.
 	Events []string `pulumi:"events"`
-	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+	// endpoint.
 	ProjectIds []string `pulumi:"projectIds"`
-	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+	// been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -170,9 +127,11 @@ type WebhookArgs struct {
 	Endpoint pulumi.StringInput
 	// A list of the events the webhook will listen to. At least one must be present.
 	Events pulumi.StringArrayInput
-	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+	// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+	// endpoint.
 	ProjectIds pulumi.StringArrayInput
-	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+	// been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -273,17 +232,21 @@ func (o WebhookOutput) Events() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Webhook) pulumi.StringArrayOutput { return v.Events }).(pulumi.StringArrayOutput)
 }
 
-// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
+// endpoint.
 func (o WebhookOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Webhook) pulumi.StringArrayOutput { return v.ProjectIds }).(pulumi.StringArrayOutput)
 }
 
-// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
+// the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
+// details.
 func (o WebhookOutput) Secret() pulumi.StringOutput {
 	return o.ApplyT(func(v *Webhook) pulumi.StringOutput { return v.Secret }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
+// been set in the provider.
 func (o WebhookOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Webhook) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

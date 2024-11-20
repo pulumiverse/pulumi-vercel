@@ -11,35 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// Provides an Attack Challenge Mode resource.
-//
-// Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.LookupAttackChallengeMode(ctx, &vercel.LookupAttackChallengeModeArgs{
-//				ProjectId: vercel_project.Example.Id,
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func LookupAttackChallengeMode(ctx *pulumi.Context, args *LookupAttackChallengeModeArgs, opts ...pulumi.InvokeOption) (*LookupAttackChallengeModeResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupAttackChallengeModeResult
@@ -52,22 +23,16 @@ func LookupAttackChallengeMode(ctx *pulumi.Context, args *LookupAttackChallengeM
 
 // A collection of arguments for invoking getAttackChallengeMode.
 type LookupAttackChallengeModeArgs struct {
-	// The ID of the Project to adjust the CPU for.
-	ProjectId string `pulumi:"projectId"`
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
-	TeamId *string `pulumi:"teamId"`
+	ProjectId string  `pulumi:"projectId"`
+	TeamId    *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getAttackChallengeMode.
 type LookupAttackChallengeModeResult struct {
-	// Whether Attack Challenge Mode is enabled or not.
-	Enabled bool `pulumi:"enabled"`
-	// The resource identifier.
-	Id string `pulumi:"id"`
-	// The ID of the Project to adjust the CPU for.
+	Enabled   bool   `pulumi:"enabled"`
+	Id        string `pulumi:"id"`
 	ProjectId string `pulumi:"projectId"`
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
-	TeamId string `pulumi:"teamId"`
+	TeamId    string `pulumi:"teamId"`
 }
 
 func LookupAttackChallengeModeOutput(ctx *pulumi.Context, args LookupAttackChallengeModeOutputArgs, opts ...pulumi.InvokeOption) LookupAttackChallengeModeResultOutput {
@@ -91,10 +56,8 @@ func LookupAttackChallengeModeOutput(ctx *pulumi.Context, args LookupAttackChall
 
 // A collection of arguments for invoking getAttackChallengeMode.
 type LookupAttackChallengeModeOutputArgs struct {
-	// The ID of the Project to adjust the CPU for.
-	ProjectId pulumi.StringInput `pulumi:"projectId"`
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
-	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
+	ProjectId pulumi.StringInput    `pulumi:"projectId"`
+	TeamId    pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
 func (LookupAttackChallengeModeOutputArgs) ElementType() reflect.Type {
@@ -116,22 +79,18 @@ func (o LookupAttackChallengeModeResultOutput) ToLookupAttackChallengeModeResult
 	return o
 }
 
-// Whether Attack Challenge Mode is enabled or not.
 func (o LookupAttackChallengeModeResultOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupAttackChallengeModeResult) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// The resource identifier.
 func (o LookupAttackChallengeModeResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAttackChallengeModeResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The ID of the Project to adjust the CPU for.
 func (o LookupAttackChallengeModeResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAttackChallengeModeResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupAttackChallengeModeResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAttackChallengeModeResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

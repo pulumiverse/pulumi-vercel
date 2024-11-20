@@ -19,9 +19,6 @@ namespace Pulumiverse.Vercel.Outputs
         /// Hosts to apply these rules to
         /// </summary>
         public readonly string Hostname;
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         public readonly string? Id;
         /// <summary>
         /// IP or CIDR to block

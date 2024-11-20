@@ -26,7 +26,7 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string>? ActionDuration { get; set; }
 
         /// <summary>
-        /// Behavior or a rate limiting action. Required if action is rate*limit
+        /// Behavior or a rate limiting action. Required if action is rate_limit
         /// </summary>
         [Input("rateLimit")]
         public Input<Inputs.FirewallConfigRulesRuleActionRateLimitGetArgs>? RateLimit { get; set; }
