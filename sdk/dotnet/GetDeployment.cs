@@ -12,55 +12,9 @@ namespace Pulumiverse.Vercel
 {
     public static class GetDeployment
     {
-        /// <summary>
-        /// Provides information about an existing Deployment.
-        /// 
-        /// A Deployment is the result of building your Project and making it available through a live URL.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = Vercel.GetDeployment.Invoke(new()
-        ///     {
-        ///         Id = "https://my-vercel-project.vercel.app",
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Task<GetDeploymentResult> InvokeAsync(GetDeploymentArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetDeploymentResult>("vercel:index/getDeployment:getDeployment", args ?? new GetDeploymentArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Provides information about an existing Deployment.
-        /// 
-        /// A Deployment is the result of building your Project and making it available through a live URL.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = Vercel.GetDeployment.Invoke(new()
-        ///     {
-        ///         Id = "https://my-vercel-project.vercel.app",
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Output<GetDeploymentResult> Invoke(GetDeploymentInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetDeploymentResult>("vercel:index/getDeployment:getDeployment", args ?? new GetDeploymentInvokeArgs(), options.WithDefaults());
     }
@@ -68,15 +22,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetDeploymentArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The ID or URL of the Deployment to read.
-        /// </summary>
         [Input("id", required: true)]
         public string Id { get; set; } = null!;
 
-        /// <summary>
-        /// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
-        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -88,15 +36,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetDeploymentInvokeArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The ID or URL of the Deployment to read.
-        /// </summary>
         [Input("id", required: true)]
         public Input<string> Id { get; set; } = null!;
 
-        /// <summary>
-        /// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
-        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -110,33 +52,12 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetDeploymentResult
     {
-        /// <summary>
-        /// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
-        /// </summary>
         public readonly ImmutableArray<string> Domains;
-        /// <summary>
-        /// The ID or URL of the Deployment to read.
-        /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// true if the deployment is a production deployment, meaning production aliases will be assigned.
-        /// </summary>
         public readonly bool Production;
-        /// <summary>
-        /// The project ID to add the deployment to.
-        /// </summary>
         public readonly string ProjectId;
-        /// <summary>
-        /// The branch or commit hash that has been deployed. Note this will only work if the project is configured to use a Git repository.
-        /// </summary>
         public readonly string Ref;
-        /// <summary>
-        /// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
-        /// </summary>
         public readonly string TeamId;
-        /// <summary>
-        /// A unique URL that is automatically generated for a deployment.
-        /// </summary>
         public readonly string Url;
 
         [OutputConstructor]

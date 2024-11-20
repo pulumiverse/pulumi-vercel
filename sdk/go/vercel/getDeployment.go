@@ -11,35 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// Provides information about an existing Deployment.
-//
-// A Deployment is the result of building your Project and making it available through a live URL.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.LookupDeployment(ctx, &vercel.LookupDeploymentArgs{
-//				Id: "https://my-vercel-project.vercel.app",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func LookupDeployment(ctx *pulumi.Context, args *LookupDeploymentArgs, opts ...pulumi.InvokeOption) (*LookupDeploymentResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupDeploymentResult
@@ -52,28 +23,19 @@ func LookupDeployment(ctx *pulumi.Context, args *LookupDeploymentArgs, opts ...p
 
 // A collection of arguments for invoking getDeployment.
 type LookupDeploymentArgs struct {
-	// The ID or URL of the Deployment to read.
-	Id string `pulumi:"id"`
-	// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
+	Id     string  `pulumi:"id"`
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getDeployment.
 type LookupDeploymentResult struct {
-	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
-	Domains []string `pulumi:"domains"`
-	// The ID or URL of the Deployment to read.
-	Id string `pulumi:"id"`
-	// true if the deployment is a production deployment, meaning production aliases will be assigned.
-	Production bool `pulumi:"production"`
-	// The project ID to add the deployment to.
-	ProjectId string `pulumi:"projectId"`
-	// The branch or commit hash that has been deployed. Note this will only work if the project is configured to use a Git repository.
-	Ref string `pulumi:"ref"`
-	// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
-	TeamId string `pulumi:"teamId"`
-	// A unique URL that is automatically generated for a deployment.
-	Url string `pulumi:"url"`
+	Domains    []string `pulumi:"domains"`
+	Id         string   `pulumi:"id"`
+	Production bool     `pulumi:"production"`
+	ProjectId  string   `pulumi:"projectId"`
+	Ref        string   `pulumi:"ref"`
+	TeamId     string   `pulumi:"teamId"`
+	Url        string   `pulumi:"url"`
 }
 
 func LookupDeploymentOutput(ctx *pulumi.Context, args LookupDeploymentOutputArgs, opts ...pulumi.InvokeOption) LookupDeploymentResultOutput {
@@ -97,9 +59,7 @@ func LookupDeploymentOutput(ctx *pulumi.Context, args LookupDeploymentOutputArgs
 
 // A collection of arguments for invoking getDeployment.
 type LookupDeploymentOutputArgs struct {
-	// The ID or URL of the Deployment to read.
-	Id pulumi.StringInput `pulumi:"id"`
-	// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
+	Id     pulumi.StringInput    `pulumi:"id"`
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -122,37 +82,30 @@ func (o LookupDeploymentResultOutput) ToLookupDeploymentResultOutputWithContext(
 	return o
 }
 
-// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 func (o LookupDeploymentResultOutput) Domains() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) []string { return v.Domains }).(pulumi.StringArrayOutput)
 }
 
-// The ID or URL of the Deployment to read.
 func (o LookupDeploymentResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// true if the deployment is a production deployment, meaning production aliases will be assigned.
 func (o LookupDeploymentResultOutput) Production() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) bool { return v.Production }).(pulumi.BoolOutput)
 }
 
-// The project ID to add the deployment to.
 func (o LookupDeploymentResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// The branch or commit hash that has been deployed. Note this will only work if the project is configured to use a Git repository.
 func (o LookupDeploymentResultOutput) Ref() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) string { return v.Ref }).(pulumi.StringOutput)
 }
 
-// The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
 func (o LookupDeploymentResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// A unique URL that is automatically generated for a deployment.
 func (o LookupDeploymentResultOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) string { return v.Url }).(pulumi.StringOutput)
 }

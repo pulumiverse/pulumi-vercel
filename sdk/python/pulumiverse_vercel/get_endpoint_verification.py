@@ -40,25 +40,16 @@ class GetEndpointVerificationResult:
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
-        """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        """
         return pulumi.get(self, "team_id")
 
     @property
     @pulumi.getter(name="verificationCode")
     def verification_code(self) -> str:
-        """
-        A verification code that should be set in the `x-vercel-verify` response header for your API. This is used to verify that the endpoint belongs to you.
-        """
         return pulumi.get(self, "verification_code")
 
 
@@ -76,19 +67,7 @@ class AwaitableGetEndpointVerificationResult(GetEndpointVerificationResult):
 def get_endpoint_verification(team_id: Optional[str] = None,
                               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetEndpointVerificationResult:
     """
-    Provides a verification code that can be used to prove ownership over an API.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_vercel as vercel
-
-    example = vercel.get_endpoint_verification()
-    ```
-
-
-    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['teamId'] = team_id
@@ -102,19 +81,7 @@ def get_endpoint_verification(team_id: Optional[str] = None,
 def get_endpoint_verification_output(team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetEndpointVerificationResult]:
     """
-    Provides a verification code that can be used to prove ownership over an API.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_vercel as vercel
-
-    example = vercel.get_endpoint_verification()
-    ```
-
-
-    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['teamId'] = team_id

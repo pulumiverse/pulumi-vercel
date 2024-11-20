@@ -4,58 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides a Project Domain resource.
- *
- * A Project Domain is used to associate a domain name with a `vercel.Project`.
- *
- * By default, Project Domains will be automatically applied to any `production` deployments.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const exampleProject = new vercel.Project("exampleProject", {});
- * // A simple domain that will be automatically
- * // applied to each production deployment
- * const exampleProjectDomain = new vercel.ProjectDomain("exampleProjectDomain", {
- *     projectId: exampleProject.id,
- *     domain: "i-love.vercel.app",
- * });
- * // A redirect of a domain name to a second domain name.
- * // The status_code can optionally be controlled.
- * const exampleRedirect = new vercel.ProjectDomain("exampleRedirect", {
- *     projectId: exampleProject.id,
- *     domain: "i-also-love.vercel.app",
- *     redirect: exampleProjectDomain.domain,
- *     redirectStatusCode: 307,
- * });
- * ```
- *
- * ## Import
- *
- * If importing into a personal account, or with a team configured on
- *
- * the provider, simply use the project ID and domain.
- *
- * - project_id can be found in the project `settings` tab in the Vercel UI.
- *
- * ```sh
- * $ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
- * ```
- *
- * Alternatively, you can import via the team_id, project_id and domain name.
- *
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- *
- * - project_id can be found in the project `settings` tab in the Vercel UI.
- *
- * ```sh
- * $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
- * ```
- */
 export class ProjectDomain extends pulumi.CustomResource {
     /**
      * Get an existing ProjectDomain resource's state with the given name, ID, and optional extra
@@ -105,7 +53,8 @@ export class ProjectDomain extends pulumi.CustomResource {
      */
     public readonly redirectStatusCode!: pulumi.Output<number | undefined>;
     /**
-     * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
+     * set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -173,7 +122,8 @@ export interface ProjectDomainState {
      */
     redirectStatusCode?: pulumi.Input<number>;
     /**
-     * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
+     * set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -203,7 +153,8 @@ export interface ProjectDomainArgs {
      */
     redirectStatusCode?: pulumi.Input<number>;
     /**
-     * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
+     * set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

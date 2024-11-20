@@ -12,79 +12,9 @@ namespace Pulumiverse.Vercel
 {
     public static class GetFile
     {
-        /// <summary>
-        /// Provides information about a file on disk.
-        /// 
-        /// This will read a single file, providing metadata for use with a `vercel.Deployment`.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// using Vercel = Pulumiverse.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var exampleFile = Vercel.GetFile.Invoke(new()
-        ///     {
-        ///         Path = "index.html",
-        ///     });
-        /// 
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
-        ///     {
-        ///         Name = "my-project",
-        ///     });
-        /// 
-        ///     var exampleDeployment = new Vercel.Deployment("exampleDeployment", new()
-        ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
-        ///         Files = exampleFile.Apply(getFileResult =&gt; getFileResult.File),
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Task<GetFileResult> InvokeAsync(GetFileArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetFileResult>("vercel:index/getFile:getFile", args ?? new GetFileArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Provides information about a file on disk.
-        /// 
-        /// This will read a single file, providing metadata for use with a `vercel.Deployment`.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// using Vercel = Pulumiverse.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var exampleFile = Vercel.GetFile.Invoke(new()
-        ///     {
-        ///         Path = "index.html",
-        ///     });
-        /// 
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
-        ///     {
-        ///         Name = "my-project",
-        ///     });
-        /// 
-        ///     var exampleDeployment = new Vercel.Deployment("exampleDeployment", new()
-        ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
-        ///         Files = exampleFile.Apply(getFileResult =&gt; getFileResult.File),
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Output<GetFileResult> Invoke(GetFileInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetFileResult>("vercel:index/getFile:getFile", args ?? new GetFileInvokeArgs(), options.WithDefaults());
     }
@@ -116,13 +46,7 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetFileResult
     {
-        /// <summary>
-        /// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
-        /// </summary>
         public readonly ImmutableDictionary<string, string> File;
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         public readonly string Id;
         public readonly string Path;
 

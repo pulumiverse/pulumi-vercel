@@ -40,6 +40,7 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroup',
     'FirewallConfigRulesRuleConditionGroupCondition',
     'ProjectEnvironment',
+    'ProjectEnvironmentVariablesVariable',
     'ProjectGitComments',
     'ProjectGitRepository',
     'ProjectGitRepositoryDeployHook',
@@ -51,6 +52,8 @@ __all__ = [
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
     'ProjectVercelAuthentication',
+    'TeamConfigRemoteCaching',
+    'TeamConfigSaml',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
@@ -63,6 +66,8 @@ __all__ = [
     'GetProjectTrustedIpsResult',
     'GetProjectTrustedIpsAddressResult',
     'GetProjectVercelAuthenticationResult',
+    'GetTeamConfigRemoteCachingResult',
+    'GetTeamConfigSamlResult',
 ]
 
 @pulumi.output_type
@@ -230,7 +235,6 @@ class FirewallConfigIpRulesRule(dict):
         """
         :param str hostname: Hosts to apply these rules to
         :param str ip: IP or CIDR to block
-        :param str id: The ID of this resource.
         """
         pulumi.set(__self__, "action", action)
         pulumi.set(__self__, "hostname", hostname)
@@ -264,9 +268,6 @@ class FirewallConfigIpRulesRule(dict):
     @property
     @pulumi.getter
     def id(self) -> Optional[str]:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @property
@@ -665,7 +666,6 @@ class FirewallConfigRulesRule(dict):
         :param Sequence['FirewallConfigRulesRuleConditionGroupArgs'] condition_groups: Sets of conditions that may match a request
         :param str name: Name to identify the rule
         :param bool active: Rule is active or disabled
-        :param str id: The ID of this resource.
         """
         pulumi.set(__self__, "action", action)
         pulumi.set(__self__, "condition_groups", condition_groups)
@@ -717,9 +717,6 @@ class FirewallConfigRulesRule(dict):
     @property
     @pulumi.getter
     def id(self) -> Optional[str]:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
 
@@ -752,7 +749,7 @@ class FirewallConfigRulesRuleAction(dict):
         """
         :param str action: Base action
         :param str action_duration: Forward persistence of a rule aciton
-        :param 'FirewallConfigRulesRuleActionRateLimitArgs' rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
+        :param 'FirewallConfigRulesRuleActionRateLimitArgs' rate_limit: Behavior or a rate limiting action. Required if action is rate_limit
         :param 'FirewallConfigRulesRuleActionRedirectArgs' redirect: How to redirect a request. Required if action is redirect
         """
         pulumi.set(__self__, "action", action)
@@ -783,7 +780,7 @@ class FirewallConfigRulesRuleAction(dict):
     @pulumi.getter(name="rateLimit")
     def rate_limit(self) -> Optional['outputs.FirewallConfigRulesRuleActionRateLimit']:
         """
-        Behavior or a rate limiting action. Required if action is rate*limit
+        Behavior or a rate limiting action. Required if action is rate_limit
         """
         return pulumi.get(self, "rate_limit")
 
@@ -975,6 +972,7 @@ class ProjectEnvironment(dict):
                  key: str,
                  targets: Sequence[str],
                  value: str,
+                 comment: Optional[str] = None,
                  git_branch: Optional[str] = None,
                  id: Optional[str] = None,
                  sensitive: Optional[bool] = None):
@@ -982,6 +980,7 @@ class ProjectEnvironment(dict):
         :param str key: The name of the Environment Variable.
         :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the Environment Variable.
+        :param str comment: A comment explaining what the environment variable is for.
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
         :param bool sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
@@ -989,6 +988,8 @@ class ProjectEnvironment(dict):
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
@@ -1021,6 +1022,14 @@ class ProjectEnvironment(dict):
         return pulumi.get(self, "value")
 
     @property
+    @pulumi.getter
+    def comment(self) -> Optional[str]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @property
     @pulumi.getter(name="gitBranch")
     def git_branch(self) -> Optional[str]:
         """
@@ -1041,6 +1050,111 @@ class ProjectEnvironment(dict):
     def sensitive(self) -> Optional[bool]:
         """
         Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        """
+        return pulumi.get(self, "sensitive")
+
+
+@pulumi.output_type
+class ProjectEnvironmentVariablesVariable(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "gitBranch":
+            suggest = "git_branch"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectEnvironmentVariablesVariable. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectEnvironmentVariablesVariable.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectEnvironmentVariablesVariable.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 key: str,
+                 targets: Sequence[str],
+                 value: str,
+                 comment: Optional[str] = None,
+                 git_branch: Optional[str] = None,
+                 id: Optional[str] = None,
+                 sensitive: Optional[bool] = None):
+        """
+        :param str key: The name of the Environment Variable.
+        :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        :param str value: The value of the Environment Variable.
+        :param str comment: A comment explaining what the environment variable is for.
+        :param str git_branch: The git branch of the Environment Variable.
+        :param str id: The ID of the Environment Variable.
+        :param bool sensitive: Whether the Environment Variable is sensitive or not.
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "targets", targets)
+        pulumi.set(__self__, "value", value)
+        if comment is not None:
+            pulumi.set(__self__, "comment", comment)
+        if git_branch is not None:
+            pulumi.set(__self__, "git_branch", git_branch)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if sensitive is not None:
+            pulumi.set(__self__, "sensitive", sensitive)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        """
+        The name of the Environment Variable.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def targets(self) -> Sequence[str]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        """
+        return pulumi.get(self, "targets")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        """
+        The value of the Environment Variable.
+        """
+        return pulumi.get(self, "value")
+
+    @property
+    @pulumi.getter
+    def comment(self) -> Optional[str]:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
+
+    @property
+    @pulumi.getter(name="gitBranch")
+    def git_branch(self) -> Optional[str]:
+        """
+        The git branch of the Environment Variable.
+        """
+        return pulumi.get(self, "git_branch")
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        """
+        The ID of the Environment Variable.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def sensitive(self) -> Optional[bool]:
+        """
+        Whether the Environment Variable is sensitive or not.
         """
         return pulumi.get(self, "sensitive")
 
@@ -1220,12 +1334,33 @@ class ProjectGitRepositoryDeployHook(dict):
 
 @pulumi.output_type
 class ProjectOidcTokenConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "issuerMode":
+            suggest = "issuer_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectOidcTokenConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectOidcTokenConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectOidcTokenConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
-                 enabled: bool):
+                 enabled: bool,
+                 issuer_mode: Optional[str] = None):
         """
         :param bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        :param str issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
         pulumi.set(__self__, "enabled", enabled)
+        if issuer_mode is not None:
+            pulumi.set(__self__, "issuer_mode", issuer_mode)
 
     @property
     @pulumi.getter
@@ -1234,6 +1369,14 @@ class ProjectOidcTokenConfig(dict):
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
         return pulumi.get(self, "enabled")
+
+    @property
+    @pulumi.getter(name="issuerMode")
+    def issuer_mode(self) -> Optional[str]:
+        """
+        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        """
+        return pulumi.get(self, "issuer_mode")
 
 
 @pulumi.output_type
@@ -1494,8 +1637,87 @@ class ProjectVercelAuthentication(dict):
 
 
 @pulumi.output_type
+class TeamConfigRemoteCaching(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[bool] = None):
+        """
+        :param bool enabled: Indicates if Remote Caching is enabled.
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        """
+        Indicates if Remote Caching is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class TeamConfigSaml(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessGroupId":
+            suggest = "access_group_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TeamConfigSaml. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TeamConfigSaml.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TeamConfigSaml.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enforced: bool,
+                 access_group_id: Optional[str] = None,
+                 roles: Optional[Mapping[str, str]] = None):
+        """
+        :param bool enforced: Indicates if SAML is enforced for the team.
+        :param str access_group_id: The ID of the access group to use for the team.
+        :param Mapping[str, str] roles: Directory groups to role or access group mappings.
+        """
+        pulumi.set(__self__, "enforced", enforced)
+        if access_group_id is not None:
+            pulumi.set(__self__, "access_group_id", access_group_id)
+        if roles is not None:
+            pulumi.set(__self__, "roles", roles)
+
+    @property
+    @pulumi.getter
+    def enforced(self) -> bool:
+        """
+        Indicates if SAML is enforced for the team.
+        """
+        return pulumi.get(self, "enforced")
+
+    @property
+    @pulumi.getter(name="accessGroupId")
+    def access_group_id(self) -> Optional[str]:
+        """
+        The ID of the access group to use for the team.
+        """
+        return pulumi.get(self, "access_group_id")
+
+    @property
+    @pulumi.getter
+    def roles(self) -> Optional[Mapping[str, str]]:
+        """
+        Directory groups to role or access group mappings.
+        """
+        return pulumi.get(self, "roles")
+
+
+@pulumi.output_type
 class GetProjectEnvironmentResult(dict):
     def __init__(__self__, *,
+                 comment: str,
                  git_branch: str,
                  id: str,
                  key: str,
@@ -1503,6 +1725,7 @@ class GetProjectEnvironmentResult(dict):
                  targets: Sequence[str],
                  value: str):
         """
+        :param str comment: A comment explaining what the environment variable is for.
         :param str git_branch: The git branch of the environment variable.
         :param str id: The ID of the environment variable
         :param str key: The name of the environment variable.
@@ -1510,12 +1733,21 @@ class GetProjectEnvironmentResult(dict):
         :param Sequence[str] targets: The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the environment variable.
         """
+        pulumi.set(__self__, "comment", comment)
         pulumi.set(__self__, "git_branch", git_branch)
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def comment(self) -> str:
+        """
+        A comment explaining what the environment variable is for.
+        """
+        return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1700,11 +1932,14 @@ class GetProjectGitRepositoryDeployHookResult(dict):
 @pulumi.output_type
 class GetProjectOidcTokenConfigResult(dict):
     def __init__(__self__, *,
-                 enabled: bool):
+                 enabled: bool,
+                 issuer_mode: str):
         """
         :param bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        :param str issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
         pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "issuer_mode", issuer_mode)
 
     @property
     @pulumi.getter
@@ -1713,6 +1948,14 @@ class GetProjectOidcTokenConfigResult(dict):
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
         return pulumi.get(self, "enabled")
+
+    @property
+    @pulumi.getter(name="issuerMode")
+    def issuer_mode(self) -> str:
+        """
+        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        """
+        return pulumi.get(self, "issuer_mode")
 
 
 @pulumi.output_type
@@ -1867,5 +2110,63 @@ class GetProjectVercelAuthenticationResult(dict):
         The deployment environment that will be protected.
         """
         return pulumi.get(self, "deployment_type")
+
+
+@pulumi.output_type
+class GetTeamConfigRemoteCachingResult(dict):
+    def __init__(__self__, *,
+                 enabled: bool):
+        """
+        :param bool enabled: Indicates if Remote Caching is enabled.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> bool:
+        """
+        Indicates if Remote Caching is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetTeamConfigSamlResult(dict):
+    def __init__(__self__, *,
+                 access_group_id: str,
+                 enforced: bool,
+                 roles: Mapping[str, str]):
+        """
+        :param str access_group_id: The ID of the access group to use for the team.
+        :param bool enforced: Indicates if SAML is enforced for the team.
+        :param Mapping[str, str] roles: Directory groups to role or access group mappings.
+        """
+        pulumi.set(__self__, "access_group_id", access_group_id)
+        pulumi.set(__self__, "enforced", enforced)
+        pulumi.set(__self__, "roles", roles)
+
+    @property
+    @pulumi.getter(name="accessGroupId")
+    def access_group_id(self) -> str:
+        """
+        The ID of the access group to use for the team.
+        """
+        return pulumi.get(self, "access_group_id")
+
+    @property
+    @pulumi.getter
+    def enforced(self) -> bool:
+        """
+        Indicates if SAML is enforced for the team.
+        """
+        return pulumi.get(self, "enforced")
+
+    @property
+    @pulumi.getter
+    def roles(self) -> Mapping[str, str]:
+        """
+        Directory groups to role or access group mappings.
+        """
+        return pulumi.get(self, "roles")
 
 

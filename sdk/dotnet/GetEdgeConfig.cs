@@ -12,55 +12,9 @@ namespace Pulumiverse.Vercel
 {
     public static class GetEdgeConfig
     {
-        /// <summary>
-        /// Provides information about an existing Edge Config.
-        /// 
-        /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = Vercel.GetEdgeConfig.Invoke(new()
-        ///     {
-        ///         Id = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Task<GetEdgeConfigResult> InvokeAsync(GetEdgeConfigArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetEdgeConfigResult>("vercel:index/getEdgeConfig:getEdgeConfig", args ?? new GetEdgeConfigArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Provides information about an existing Edge Config.
-        /// 
-        /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-        /// 
-        /// ## Example Usage
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Vercel = Pulumi.Vercel;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = Vercel.GetEdgeConfig.Invoke(new()
-        ///     {
-        ///         Id = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// </summary>
         public static Output<GetEdgeConfigResult> Invoke(GetEdgeConfigInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetEdgeConfigResult>("vercel:index/getEdgeConfig:getEdgeConfig", args ?? new GetEdgeConfigInvokeArgs(), options.WithDefaults());
     }
@@ -68,15 +22,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEdgeConfigArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
-        /// </summary>
         [Input("id", required: true)]
         public string Id { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -88,15 +36,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEdgeConfigInvokeArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
-        /// </summary>
         [Input("id", required: true)]
         public Input<string> Id { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -110,17 +52,8 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetEdgeConfigResult
     {
-        /// <summary>
-        /// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
-        /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// The name/slug of the Edge Config.
-        /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

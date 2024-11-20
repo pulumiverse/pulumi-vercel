@@ -24,7 +24,8 @@ class EdgeConfigArgs:
         """
         The set of arguments for constructing a EdgeConfig resource.
         :param pulumi.Input[str] name: The name/slug of the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -47,7 +48,8 @@ class EdgeConfigArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -64,7 +66,8 @@ class _EdgeConfigState:
         """
         Input properties used for looking up and filtering EdgeConfig resources.
         :param pulumi.Input[str] name: The name/slug of the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -87,7 +90,8 @@ class _EdgeConfigState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -105,58 +109,12 @@ class EdgeConfig(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Provides an Edge Config resource.
-
-        An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_vercel as vercel
-
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_project = vercel.Project("exampleProject")
-        example_edge_config_token = vercel.EdgeConfigToken("exampleEdgeConfigToken",
-            edge_config_id=example_edge_config.id,
-            label="example token")
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
-            project_id=example_project.id,
-            targets=[
-                "production",
-                "preview",
-                "development",
-            ],
-            key="EDGE_CONFIG",
-            value=example_edge_config_token.connection_string)
-        ```
-
-        ## Import
-
-        If importing into a personal account, or with a team configured on
-
-        the provider, simply use the edge config id.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfig:EdgeConfig example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
-        Alternatively, you can import via the team_id and edge_config_id.
-
-        - team_id can be found in the team `settings` tab in the Vercel UI.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfig:EdgeConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
+        Create a EdgeConfig resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: The name/slug of the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         """
         ...
     @overload
@@ -165,54 +123,7 @@ class EdgeConfig(pulumi.CustomResource):
                  args: Optional[EdgeConfigArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Provides an Edge Config resource.
-
-        An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_vercel as vercel
-
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_project = vercel.Project("exampleProject")
-        example_edge_config_token = vercel.EdgeConfigToken("exampleEdgeConfigToken",
-            edge_config_id=example_edge_config.id,
-            label="example token")
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
-            project_id=example_project.id,
-            targets=[
-                "production",
-                "preview",
-                "development",
-            ],
-            key="EDGE_CONFIG",
-            value=example_edge_config_token.connection_string)
-        ```
-
-        ## Import
-
-        If importing into a personal account, or with a team configured on
-
-        the provider, simply use the edge config id.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfig:EdgeConfig example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
-        Alternatively, you can import via the team_id and edge_config_id.
-
-        - team_id can be found in the team `settings` tab in the Vercel UI.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfig:EdgeConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
+        Create a EdgeConfig resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param EdgeConfigArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -261,7 +172,8 @@ class EdgeConfig(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: The name/slug of the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -283,7 +195,8 @@ class EdgeConfig(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

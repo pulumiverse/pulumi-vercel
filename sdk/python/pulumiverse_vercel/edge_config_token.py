@@ -26,7 +26,8 @@ class EdgeConfigTokenArgs:
         The set of arguments for constructing a EdgeConfigToken resource.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] label: The label of the Edge Config Token.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         """
         pulumi.set(__self__, "edge_config_id", edge_config_id)
         pulumi.set(__self__, "label", label)
@@ -61,7 +62,8 @@ class EdgeConfigTokenArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -80,10 +82,12 @@ class _EdgeConfigTokenState:
                  token: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering EdgeConfigToken resources.
-        :param pulumi.Input[str] connection_string: A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        :param pulumi.Input[str] connection_string: A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our
+               Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] label: The label of the Edge Config Token.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         :param pulumi.Input[str] token: A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
         """
         if connection_string is not None:
@@ -101,7 +105,8 @@ class _EdgeConfigTokenState:
     @pulumi.getter(name="connectionString")
     def connection_string(self) -> Optional[pulumi.Input[str]]:
         """
-        A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our
+        Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         """
         return pulumi.get(self, "connection_string")
 
@@ -137,7 +142,8 @@ class _EdgeConfigTokenState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -168,65 +174,13 @@ class EdgeConfigToken(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Provides an Edge Config Token resource.
-
-        An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-
-        An Edge Config token is used to authenticate against an Edge Config's endpoint.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_vercel as vercel
-
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_project = vercel.Project("exampleProject")
-        example_edge_config_token = vercel.EdgeConfigToken("exampleEdgeConfigToken",
-            edge_config_id=example_edge_config.id,
-            label="example token")
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
-            project_id=example_project.id,
-            targets=[
-                "production",
-                "preview",
-                "development",
-            ],
-            key="EDGE_CONFIG",
-            value=example_edge_config_token.connection_string)
-        ```
-
-        ## Import
-
-        If importing into a personal account, or with a team configured on
-
-        the provider, simply use the edge config id and token value.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        ```
-
-        Alternatively, you can import via the team_id and edge_config_id.
-
-        - team_id can be found in the team `settings` tab in the Vercel UI.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        ```
-
+        Create a EdgeConfigToken resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] label: The label of the Edge Config Token.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         """
         ...
     @overload
@@ -235,60 +189,7 @@ class EdgeConfigToken(pulumi.CustomResource):
                  args: EdgeConfigTokenArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Provides an Edge Config Token resource.
-
-        An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-
-        An Edge Config token is used to authenticate against an Edge Config's endpoint.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_vercel as vercel
-
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_project = vercel.Project("exampleProject")
-        example_edge_config_token = vercel.EdgeConfigToken("exampleEdgeConfigToken",
-            edge_config_id=example_edge_config.id,
-            label="example token")
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
-            project_id=example_project.id,
-            targets=[
-                "production",
-                "preview",
-                "development",
-            ],
-            key="EDGE_CONFIG",
-            value=example_edge_config_token.connection_string)
-        ```
-
-        ## Import
-
-        If importing into a personal account, or with a team configured on
-
-        the provider, simply use the edge config id and token value.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        ```
-
-        Alternatively, you can import via the team_id and edge_config_id.
-
-        - team_id can be found in the team `settings` tab in the Vercel UI.
-
-        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
-        - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
-
-        ```sh
-        $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        ```
-
+        Create a EdgeConfigToken resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param EdgeConfigTokenArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -347,10 +248,12 @@ class EdgeConfigToken(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] connection_string: A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        :param pulumi.Input[str] connection_string: A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our
+               Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] label: The label of the Edge Config Token.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+               not been set in the provider.
         :param pulumi.Input[str] token: A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -368,7 +271,8 @@ class EdgeConfigToken(pulumi.CustomResource):
     @pulumi.getter(name="connectionString")
     def connection_string(self) -> pulumi.Output[str]:
         """
-        A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our
+        Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         """
         return pulumi.get(self, "connection_string")
 
@@ -392,7 +296,8 @@ class EdgeConfigToken(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

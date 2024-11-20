@@ -238,14 +238,7 @@ class FirewallConfig(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.
-
-        ## Import
-
-        ```sh
-        $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
+        Create a FirewallConfig resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] enabled: Whether firewall is enabled or not.
@@ -262,14 +255,7 @@ class FirewallConfig(pulumi.CustomResource):
                  args: FirewallConfigArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.
-
-        ## Import
-
-        ```sh
-        $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ```
-
+        Create a FirewallConfig resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param FirewallConfigArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

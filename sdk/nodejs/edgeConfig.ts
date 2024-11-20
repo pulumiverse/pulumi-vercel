@@ -4,57 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides an Edge Config resource.
- *
- * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const exampleEdgeConfig = new vercel.EdgeConfig("exampleEdgeConfig", {});
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleEdgeConfigToken = new vercel.EdgeConfigToken("exampleEdgeConfigToken", {
- *     edgeConfigId: exampleEdgeConfig.id,
- *     label: "example token",
- * });
- * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", {
- *     projectId: exampleProject.id,
- *     targets: [
- *         "production",
- *         "preview",
- *         "development",
- *     ],
- *     key: "EDGE_CONFIG",
- *     value: exampleEdgeConfigToken.connectionString,
- * });
- * ```
- *
- * ## Import
- *
- * If importing into a personal account, or with a team configured on
- *
- * the provider, simply use the edge config id.
- *
- * - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
- *
- * ```sh
- * $ pulumi import vercel:index/edgeConfig:EdgeConfig example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- *
- * Alternatively, you can import via the team_id and edge_config_id.
- *
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- *
- * - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
- *
- * ```sh
- * $ pulumi import vercel:index/edgeConfig:EdgeConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- */
 export class EdgeConfig extends pulumi.CustomResource {
     /**
      * Get an existing EdgeConfig resource's state with the given name, ID, and optional extra
@@ -88,7 +37,8 @@ export class EdgeConfig extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+     * not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -126,7 +76,8 @@ export interface EdgeConfigState {
      */
     name?: pulumi.Input<string>;
     /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+     * not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -140,7 +91,8 @@ export interface EdgeConfigArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+     * not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

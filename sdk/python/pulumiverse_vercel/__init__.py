@@ -10,6 +10,7 @@ from .attack_challenge_mode import *
 from .deployment import *
 from .dns_record import *
 from .edge_config import *
+from .edge_config_item import *
 from .edge_config_schema import *
 from .edge_config_token import *
 from .firewall_config import *
@@ -17,6 +18,7 @@ from .get_alias import *
 from .get_attack_challenge_mode import *
 from .get_deployment import *
 from .get_edge_config import *
+from .get_edge_config_item import *
 from .get_edge_config_schema import *
 from .get_edge_config_token import *
 from .get_endpoint_verification import *
@@ -26,16 +28,17 @@ from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_deployment_retention import *
 from .get_project_directory import *
-from .get_project_function_cpu import *
 from .get_shared_environment_variable import *
+from .get_team_config import *
 from .log_drain import *
 from .project import *
 from .project_deployment_retention import *
 from .project_domain import *
 from .project_environment_variable import *
-from .project_function_cpu import *
+from .project_environment_variables import *
 from .provider import *
 from .shared_environment_variable import *
+from .team_config import *
 from .webhook import *
 from ._inputs import *
 from . import outputs
@@ -88,6 +91,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/edgeConfig:EdgeConfig": "EdgeConfig"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/edgeConfigItem",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/edgeConfigItem:EdgeConfigItem": "EdgeConfigItem"
   }
  },
  {
@@ -156,10 +167,10 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
-  "mod": "index/projectFunctionCpu",
+  "mod": "index/projectEnvironmentVariables",
   "fqn": "pulumiverse_vercel",
   "classes": {
-   "vercel:index/projectFunctionCpu:ProjectFunctionCpu": "ProjectFunctionCpu"
+   "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables": "ProjectEnvironmentVariables"
   }
  },
  {
@@ -168,6 +179,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": "SharedEnvironmentVariable"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/teamConfig",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/teamConfig:TeamConfig": "TeamConfig"
   }
  },
  {

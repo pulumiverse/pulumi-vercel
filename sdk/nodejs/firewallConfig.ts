@@ -6,15 +6,6 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
-/**
- * Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.
- *
- * ## Import
- *
- * ```sh
- * $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- */
 export class FirewallConfig extends pulumi.CustomResource {
     /**
      * Get an existing FirewallConfig resource's state with the given name, ID, and optional extra

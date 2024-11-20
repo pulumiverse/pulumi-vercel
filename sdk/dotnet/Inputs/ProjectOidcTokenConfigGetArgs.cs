@@ -19,6 +19,12 @@ namespace Pulumiverse.Vercel.Inputs
         [Input("enabled", required: true)]
         public Input<bool> Enabled { get; set; } = null!;
 
+        /// <summary>
+        /// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+        /// </summary>
+        [Input("issuerMode")]
+        public Input<string>? IssuerMode { get; set; }
+
         public ProjectOidcTokenConfigGetArgs()
         {
         }

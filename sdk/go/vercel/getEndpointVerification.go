@@ -11,31 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// Provides a verification code that can be used to prove ownership over an API.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.GetEndpointVerification(ctx, &vercel.GetEndpointVerificationArgs{}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func GetEndpointVerification(ctx *pulumi.Context, args *GetEndpointVerificationArgs, opts ...pulumi.InvokeOption) (*GetEndpointVerificationResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetEndpointVerificationResult
@@ -48,17 +23,13 @@ func GetEndpointVerification(ctx *pulumi.Context, args *GetEndpointVerificationA
 
 // A collection of arguments for invoking getEndpointVerification.
 type GetEndpointVerificationArgs struct {
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getEndpointVerification.
 type GetEndpointVerificationResult struct {
-	// The ID of this resource.
-	Id string `pulumi:"id"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-	TeamId string `pulumi:"teamId"`
-	// A verification code that should be set in the `x-vercel-verify` response header for your API. This is used to verify that the endpoint belongs to you.
+	Id               string `pulumi:"id"`
+	TeamId           string `pulumi:"teamId"`
 	VerificationCode string `pulumi:"verificationCode"`
 }
 
@@ -83,7 +54,6 @@ func GetEndpointVerificationOutput(ctx *pulumi.Context, args GetEndpointVerifica
 
 // A collection of arguments for invoking getEndpointVerification.
 type GetEndpointVerificationOutputArgs struct {
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -106,17 +76,14 @@ func (o GetEndpointVerificationResultOutput) ToGetEndpointVerificationResultOutp
 	return o
 }
 
-// The ID of this resource.
 func (o GetEndpointVerificationResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetEndpointVerificationResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o GetEndpointVerificationResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetEndpointVerificationResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// A verification code that should be set in the `x-vercel-verify` response header for your API. This is used to verify that the endpoint belongs to you.
 func (o GetEndpointVerificationResultOutput) VerificationCode() pulumi.StringOutput {
 	return o.ApplyT(func(v GetEndpointVerificationResult) string { return v.VerificationCode }).(pulumi.StringOutput)
 }

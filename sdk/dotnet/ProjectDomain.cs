@@ -10,68 +10,6 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
-    /// <summary>
-    /// Provides a Project Domain resource.
-    /// 
-    /// A Project Domain is used to associate a domain name with a `vercel.Project`.
-    /// 
-    /// By default, Project Domains will be automatically applied to any `production` deployments.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Vercel = Pulumiverse.Vercel;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     // A simple domain that will be automatically
-    ///     // applied to each production deployment
-    ///     var exampleProjectDomain = new Vercel.ProjectDomain("exampleProjectDomain", new()
-    ///     {
-    ///         ProjectId = exampleProject.Id,
-    ///         Domain = "i-love.vercel.app",
-    ///     });
-    /// 
-    ///     // A redirect of a domain name to a second domain name.
-    ///     // The status_code can optionally be controlled.
-    ///     var exampleRedirect = new Vercel.ProjectDomain("exampleRedirect", new()
-    ///     {
-    ///         ProjectId = exampleProject.Id,
-    ///         Domain = "i-also-love.vercel.app",
-    ///         Redirect = exampleProjectDomain.Domain,
-    ///         RedirectStatusCode = 307,
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// If importing into a personal account, or with a team configured on
-    /// 
-    /// the provider, simply use the project ID and domain.
-    /// 
-    /// - project_id can be found in the project `settings` tab in the Vercel UI.
-    /// 
-    /// ```sh
-    /// $ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
-    /// ```
-    /// 
-    /// Alternatively, you can import via the team_id, project_id and domain name.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
-    /// - project_id can be found in the project `settings` tab in the Vercel UI.
-    /// 
-    /// ```sh
-    /// $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
-    /// ```
-    /// </summary>
     [VercelResourceType("vercel:index/projectDomain:ProjectDomain")]
     public partial class ProjectDomain : global::Pulumi.CustomResource
     {
@@ -106,7 +44,8 @@ namespace Pulumiverse.Vercel
         public Output<int?> RedirectStatusCode { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
+        /// set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -189,7 +128,8 @@ namespace Pulumiverse.Vercel
         public Input<int>? RedirectStatusCode { get; set; }
 
         /// <summary>
-        /// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
+        /// set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -233,7 +173,8 @@ namespace Pulumiverse.Vercel
         public Input<int>? RedirectStatusCode { get; set; }
 
         /// <summary>
-        /// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
+        /// set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

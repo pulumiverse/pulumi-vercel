@@ -12,23 +12,9 @@ namespace Pulumiverse.Vercel
 {
     public static class GetProjectDeploymentRetention
     {
-        /// <summary>
-        /// Provides a Project Deployment Retention datasource.
-        /// 
-        /// A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
-        /// 
-        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
-        /// </summary>
         public static Task<GetProjectDeploymentRetentionResult> InvokeAsync(GetProjectDeploymentRetentionArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectDeploymentRetentionResult>("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", args ?? new GetProjectDeploymentRetentionArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Provides a Project Deployment Retention datasource.
-        /// 
-        /// A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
-        /// 
-        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
-        /// </summary>
         public static Output<GetProjectDeploymentRetentionResult> Invoke(GetProjectDeploymentRetentionInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectDeploymentRetentionResult>("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", args ?? new GetProjectDeploymentRetentionInvokeArgs(), options.WithDefaults());
     }
@@ -36,15 +22,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectDeploymentRetentionArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The ID of the Project for the retention policy
-        /// </summary>
         [Input("projectId", required: true)]
         public string ProjectId { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the Vercel team.
-        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -56,15 +36,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectDeploymentRetentionInvokeArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// The ID of the Project for the retention policy
-        /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the Vercel team.
-        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -78,33 +52,12 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetProjectDeploymentRetentionResult
     {
-        /// <summary>
-        /// The retention period for canceled deployments.
-        /// </summary>
         public readonly string ExpirationCanceled;
-        /// <summary>
-        /// The retention period for errored deployments.
-        /// </summary>
         public readonly string ExpirationErrored;
-        /// <summary>
-        /// The retention period for preview deployments.
-        /// </summary>
         public readonly string ExpirationPreview;
-        /// <summary>
-        /// The retention period for production deployments.
-        /// </summary>
         public readonly string ExpirationProduction;
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// The ID of the Project for the retention policy
-        /// </summary>
         public readonly string ProjectId;
-        /// <summary>
-        /// The ID of the Vercel team.
-        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

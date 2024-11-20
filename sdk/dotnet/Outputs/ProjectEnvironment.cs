@@ -15,6 +15,10 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class ProjectEnvironment
     {
         /// <summary>
+        /// A comment explaining what the environment variable is for.
+        /// </summary>
+        public readonly string? Comment;
+        /// <summary>
         /// The git branch of the Environment Variable.
         /// </summary>
         public readonly string? GitBranch;
@@ -41,6 +45,8 @@ namespace Pulumiverse.Vercel.Outputs
 
         [OutputConstructor]
         private ProjectEnvironment(
+            string? comment,
+
             string? gitBranch,
 
             string? id,
@@ -53,6 +59,7 @@ namespace Pulumiverse.Vercel.Outputs
 
             string value)
         {
+            Comment = comment;
             GitBranch = gitBranch;
             Id = id;
             Key = key;

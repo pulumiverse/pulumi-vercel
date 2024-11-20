@@ -22,9 +22,6 @@ namespace Pulumiverse.Vercel.Inputs
         [Input("hostname", required: true)]
         public Input<string> Hostname { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         [Input("id")]
         public Input<string>? Id { get; set; }
 

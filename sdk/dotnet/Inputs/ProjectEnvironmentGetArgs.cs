@@ -14,6 +14,12 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectEnvironmentGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// A comment explaining what the environment variable is for.
+        /// </summary>
+        [Input("comment")]
+        public Input<string>? Comment { get; set; }
+
+        /// <summary>
         /// The git branch of the Environment Variable.
         /// </summary>
         [Input("gitBranch")]

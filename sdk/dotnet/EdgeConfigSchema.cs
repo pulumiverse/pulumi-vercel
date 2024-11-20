@@ -10,31 +10,6 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
-    /// <summary>
-    /// An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
-    /// 
-    /// ## Import
-    /// 
-    /// If importing into a personal account, or with a team configured on
-    /// 
-    /// the provider, simply use the edge config id.
-    /// 
-    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-    /// 
-    /// ```sh
-    /// $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    /// ```
-    /// 
-    /// Alternatively, you can import via the team_id and edge_config_id.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
-    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-    /// 
-    /// ```sh
-    /// $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    /// ```
-    /// </summary>
     [VercelResourceType("vercel:index/edgeConfigSchema:EdgeConfigSchema")]
     public partial class EdgeConfigSchema : global::Pulumi.CustomResource
     {
@@ -45,7 +20,8 @@ namespace Pulumiverse.Vercel
         public Output<string> Definition { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        /// not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -104,7 +80,8 @@ namespace Pulumiverse.Vercel
         public Input<string> Definition { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        /// not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -124,7 +101,8 @@ namespace Pulumiverse.Vercel
         public Input<string>? Definition { get; set; }
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+        /// not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

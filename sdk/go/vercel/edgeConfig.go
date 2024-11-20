@@ -11,85 +11,13 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
 )
 
-// Provides an Edge Config resource.
-//
-// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleEdgeConfig, err := vercel.NewEdgeConfig(ctx, "exampleEdgeConfig", nil)
-//			if err != nil {
-//				return err
-//			}
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
-//			if err != nil {
-//				return err
-//			}
-//			exampleEdgeConfigToken, err := vercel.NewEdgeConfigToken(ctx, "exampleEdgeConfigToken", &vercel.EdgeConfigTokenArgs{
-//				EdgeConfigId: exampleEdgeConfig.ID(),
-//				Label:        pulumi.String("example token"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleProjectEnvironmentVariable", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: exampleProject.ID(),
-//				Targets: pulumi.StringArray{
-//					pulumi.String("production"),
-//					pulumi.String("preview"),
-//					pulumi.String("development"),
-//				},
-//				Key:   pulumi.String("EDGE_CONFIG"),
-//				Value: exampleEdgeConfigToken.ConnectionString,
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// # If importing into a personal account, or with a team configured on
-//
-// the provider, simply use the edge config id.
-//
-// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-//
-// ```sh
-// $ pulumi import vercel:index/edgeConfig:EdgeConfig example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// ```
-//
-// Alternatively, you can import via the team_id and edge_config_id.
-//
-// - team_id can be found in the team `settings` tab in the Vercel UI.
-//
-// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-//
-// ```sh
-// $ pulumi import vercel:index/edgeConfig:EdgeConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// ```
 type EdgeConfig struct {
 	pulumi.CustomResourceState
 
 	// The name/slug of the Edge Config.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+	// not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -125,14 +53,16 @@ func GetEdgeConfig(ctx *pulumi.Context,
 type edgeConfigState struct {
 	// The name/slug of the Edge Config.
 	Name *string `pulumi:"name"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+	// not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 type EdgeConfigState struct {
 	// The name/slug of the Edge Config.
 	Name pulumi.StringPtrInput
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+	// not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -143,7 +73,8 @@ func (EdgeConfigState) ElementType() reflect.Type {
 type edgeConfigArgs struct {
 	// The name/slug of the Edge Config.
 	Name *string `pulumi:"name"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+	// not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -151,7 +82,8 @@ type edgeConfigArgs struct {
 type EdgeConfigArgs struct {
 	// The name/slug of the Edge Config.
 	Name pulumi.StringPtrInput
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+	// not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -247,7 +179,8 @@ func (o EdgeConfigOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfig) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
+// not been set in the provider.
 func (o EdgeConfigOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfig) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

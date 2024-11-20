@@ -128,257 +128,161 @@ class GetProjectResult:
     @property
     @pulumi.getter(name="autoAssignCustomDomains")
     def auto_assign_custom_domains(self) -> bool:
-        """
-        Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
-        """
         return pulumi.get(self, "auto_assign_custom_domains")
 
     @property
     @pulumi.getter(name="automaticallyExposeSystemEnvironmentVariables")
     def automatically_expose_system_environment_variables(self) -> bool:
-        """
-        Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
-        """
         return pulumi.get(self, "automatically_expose_system_environment_variables")
 
     @property
     @pulumi.getter(name="buildCommand")
     def build_command(self) -> str:
-        """
-        The build command for this project. If omitted, this value will be automatically detected.
-        """
         return pulumi.get(self, "build_command")
 
     @property
     @pulumi.getter(name="customerSuccessCodeVisibility")
     def customer_success_code_visibility(self) -> bool:
-        """
-        Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
-        """
         return pulumi.get(self, "customer_success_code_visibility")
 
     @property
     @pulumi.getter(name="devCommand")
     def dev_command(self) -> str:
-        """
-        The dev command for this project. If omitted, this value will be automatically detected.
-        """
         return pulumi.get(self, "dev_command")
 
     @property
     @pulumi.getter(name="directoryListing")
     def directory_listing(self) -> bool:
-        """
-        If no index file is present within a directory, the directory contents will be displayed.
-        """
         return pulumi.get(self, "directory_listing")
 
     @property
     @pulumi.getter
     def environments(self) -> Sequence['outputs.GetProjectEnvironmentResult']:
-        """
-        A list of environment variables that should be configured for the project.
-        """
         return pulumi.get(self, "environments")
 
     @property
     @pulumi.getter
     def framework(self) -> str:
-        """
-        The framework that is being used for this project. If omitted, no framework is selected.
-        """
         return pulumi.get(self, "framework")
 
     @property
     @pulumi.getter(name="functionFailover")
     def function_failover(self) -> bool:
-        """
-        Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        """
         return pulumi.get(self, "function_failover")
 
     @property
     @pulumi.getter(name="gitComments")
     def git_comments(self) -> 'outputs.GetProjectGitCommentsResult':
-        """
-        Configuration for Git Comments.
-        """
         return pulumi.get(self, "git_comments")
 
     @property
     @pulumi.getter(name="gitForkProtection")
     def git_fork_protection(self) -> bool:
-        """
-        Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json.
-        """
         return pulumi.get(self, "git_fork_protection")
 
     @property
     @pulumi.getter(name="gitLfs")
     def git_lfs(self) -> bool:
-        """
-        Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
-        """
         return pulumi.get(self, "git_lfs")
 
     @property
     @pulumi.getter(name="gitRepository")
     def git_repository(self) -> 'outputs.GetProjectGitRepositoryResult':
-        """
-        The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
-        """
         return pulumi.get(self, "git_repository")
 
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="ignoreCommand")
     def ignore_command(self) -> str:
-        """
-        When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
-        """
         return pulumi.get(self, "ignore_command")
 
     @property
     @pulumi.getter(name="installCommand")
     def install_command(self) -> str:
-        """
-        The install command for this project. If omitted, this value will be automatically detected.
-        """
         return pulumi.get(self, "install_command")
 
     @property
     @pulumi.getter
     def name(self) -> str:
-        """
-        The name of the project.
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="oidcTokenConfig")
     def oidc_token_config(self) -> 'outputs.GetProjectOidcTokenConfigResult':
-        """
-        Configuration for OpenID Connect (OIDC) tokens.
-        """
         return pulumi.get(self, "oidc_token_config")
 
     @property
     @pulumi.getter(name="optionsAllowlist")
     def options_allowlist(self) -> 'outputs.GetProjectOptionsAllowlistResult':
-        """
-        Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
-        """
         return pulumi.get(self, "options_allowlist")
 
     @property
     @pulumi.getter(name="outputDirectory")
     def output_directory(self) -> str:
-        """
-        The output directory of the project. When null is used this value will be automatically detected.
-        """
         return pulumi.get(self, "output_directory")
 
     @property
     @pulumi.getter(name="passwordProtection")
     def password_protection(self) -> 'outputs.GetProjectPasswordProtectionResult':
-        """
-        Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        """
         return pulumi.get(self, "password_protection")
 
     @property
     @pulumi.getter(name="previewComments")
     def preview_comments(self) -> bool:
-        """
-        Whether comments are enabled on your Preview Deployments.
-        """
         return pulumi.get(self, "preview_comments")
 
     @property
     @pulumi.getter(name="prioritiseProductionBuilds")
     def prioritise_production_builds(self) -> bool:
-        """
-        If enabled, builds for the Production environment will be prioritized over Preview environments.
-        """
         return pulumi.get(self, "prioritise_production_builds")
 
     @property
     @pulumi.getter(name="protectionBypassForAutomation")
     def protection_bypass_for_automation(self) -> bool:
-        """
-        Allows automation services to bypass Vercel Authentication and Password Protection for both Preview and Production Deployments on this project when using an HTTP header named `x-vercel-protection-bypass`.
-        """
         return pulumi.get(self, "protection_bypass_for_automation")
 
     @property
     @pulumi.getter(name="publicSource")
     def public_source(self) -> bool:
-        """
-        Specifies whether the source code and logs of the deployments for this project should be public or not.
-        """
         return pulumi.get(self, "public_source")
 
     @property
     @pulumi.getter(name="resourceConfig")
     def resource_config(self) -> 'outputs.GetProjectResourceConfigResult':
-        """
-        Resource Configuration for the project.
-        """
         return pulumi.get(self, "resource_config")
 
     @property
     @pulumi.getter(name="rootDirectory")
     def root_directory(self) -> str:
-        """
-        The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
-        """
         return pulumi.get(self, "root_directory")
 
     @property
     @pulumi.getter(name="serverlessFunctionRegion")
     def serverless_function_region(self) -> str:
-        """
-        The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
-        """
         return pulumi.get(self, "serverless_function_region")
 
     @property
     @pulumi.getter(name="skewProtection")
     def skew_protection(self) -> str:
-        """
-        Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
-        """
         return pulumi.get(self, "skew_protection")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
-        """
-        The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
-        """
         return pulumi.get(self, "team_id")
 
     @property
     @pulumi.getter(name="trustedIps")
     def trusted_ips(self) -> 'outputs.GetProjectTrustedIpsResult':
-        """
-        Ensures only visitors from an allowed IP address can access your deployment.
-        """
         return pulumi.get(self, "trusted_ips")
 
     @property
     @pulumi.getter(name="vercelAuthentication")
     def vercel_authentication(self) -> 'outputs.GetProjectVercelAuthenticationResult':
-        """
-        Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
-        """
         return pulumi.get(self, "vercel_authentication")
 
 
@@ -426,25 +330,7 @@ def get_project(name: Optional[str] = None,
                 team_id: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectResult:
     """
-    Provides information about an existing project within Vercel.
-
-    A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
-
-    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_vercel as vercel
-
-    foo = vercel.get_project(name="my-existing-project")
-    pulumi.export("projectId", foo.id)
-    ```
-
-
-    :param str name: The name of the project.
-    :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -489,25 +375,7 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
                        team_id: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectResult]:
     """
-    Provides information about an existing project within Vercel.
-
-    A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
-
-    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_vercel as vercel
-
-    foo = vercel.get_project(name="my-existing-project")
-    pulumi.export("projectId", foo.id)
-    ```
-
-
-    :param str name: The name of the project.
-    :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name

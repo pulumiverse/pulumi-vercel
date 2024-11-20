@@ -4,36 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Provides an Attack Challenge Mode resource.
- *
- * Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleAttackChallengeMode = new vercel.AttackChallengeMode("exampleAttackChallengeMode", {
- *     projectId: exampleProject.id,
- *     enabled: true,
- * });
- * ```
- *
- * ## Import
- *
- * You can import via the team_id and project_id.
- *
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- *
- * - project_id can be found in the project `settings` tab in the Vercel UI.
- *
- * ```sh
- * $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * ```
- */
 export class AttackChallengeMode extends pulumi.CustomResource {
     /**
      * Get an existing AttackChallengeMode resource's state with the given name, ID, and optional extra
@@ -71,7 +41,8 @@ export class AttackChallengeMode extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+     * set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -121,7 +92,8 @@ export interface AttackChallengeModeState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+     * set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -139,7 +111,8 @@ export interface AttackChallengeModeArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+     * The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
+     * set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

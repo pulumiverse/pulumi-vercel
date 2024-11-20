@@ -52,57 +52,36 @@ class GetProjectDeploymentRetentionResult:
     @property
     @pulumi.getter(name="expirationCanceled")
     def expiration_canceled(self) -> str:
-        """
-        The retention period for canceled deployments.
-        """
         return pulumi.get(self, "expiration_canceled")
 
     @property
     @pulumi.getter(name="expirationErrored")
     def expiration_errored(self) -> str:
-        """
-        The retention period for errored deployments.
-        """
         return pulumi.get(self, "expiration_errored")
 
     @property
     @pulumi.getter(name="expirationPreview")
     def expiration_preview(self) -> str:
-        """
-        The retention period for preview deployments.
-        """
         return pulumi.get(self, "expiration_preview")
 
     @property
     @pulumi.getter(name="expirationProduction")
     def expiration_production(self) -> str:
-        """
-        The retention period for production deployments.
-        """
         return pulumi.get(self, "expiration_production")
 
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> str:
-        """
-        The ID of the Project for the retention policy
-        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
-        """
-        The ID of the Vercel team.
-        """
         return pulumi.get(self, "team_id")
 
 
@@ -125,15 +104,7 @@ def get_project_deployment_retention(project_id: Optional[str] = None,
                                      team_id: Optional[str] = None,
                                      opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectDeploymentRetentionResult:
     """
-    Provides a Project Deployment Retention datasource.
-
-    A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
-
-    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
-
-
-    :param str project_id: The ID of the Project for the retention policy
-    :param str team_id: The ID of the Vercel team.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['projectId'] = project_id
@@ -153,15 +124,7 @@ def get_project_deployment_retention_output(project_id: Optional[pulumi.Input[st
                                             team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                             opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectDeploymentRetentionResult]:
     """
-    Provides a Project Deployment Retention datasource.
-
-    A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
-
-    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
-
-
-    :param str project_id: The ID of the Project for the retention policy
-    :param str team_id: The ID of the Vercel team.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['projectId'] = project_id

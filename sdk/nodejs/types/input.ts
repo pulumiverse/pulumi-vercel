@@ -57,9 +57,6 @@ export interface FirewallConfigIpRulesRule {
      * Hosts to apply these rules to
      */
     hostname: pulumi.Input<string>;
-    /**
-     * The ID of this resource.
-     */
     id?: pulumi.Input<string>;
     /**
      * IP or CIDR to block
@@ -186,9 +183,6 @@ export interface FirewallConfigRulesRule {
      */
     conditionGroups: pulumi.Input<pulumi.Input<inputs.FirewallConfigRulesRuleConditionGroup>[]>;
     description?: pulumi.Input<string>;
-    /**
-     * The ID of this resource.
-     */
     id?: pulumi.Input<string>;
     /**
      * Name to identify the rule
@@ -206,7 +200,7 @@ export interface FirewallConfigRulesRuleAction {
      */
     actionDuration?: pulumi.Input<string>;
     /**
-     * Behavior or a rate limiting action. Required if action is rate*limit
+     * Behavior or a rate limiting action. Required if action is rate_limit
      */
     rateLimit?: pulumi.Input<inputs.FirewallConfigRulesRuleActionRateLimit>;
     /**
@@ -269,6 +263,10 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
 
 export interface ProjectEnvironment {
     /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
+    /**
      * The git branch of the Environment Variable.
      */
     gitBranch?: pulumi.Input<string>;
@@ -282,6 +280,37 @@ export interface ProjectEnvironment {
     key: pulumi.Input<string>;
     /**
      * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     */
+    sensitive?: pulumi.Input<boolean>;
+    /**
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+     */
+    targets: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The value of the Environment Variable.
+     */
+    value: pulumi.Input<string>;
+}
+
+export interface ProjectEnvironmentVariablesVariable {
+    /**
+     * A comment explaining what the environment variable is for.
+     */
+    comment?: pulumi.Input<string>;
+    /**
+     * The git branch of the Environment Variable.
+     */
+    gitBranch?: pulumi.Input<string>;
+    /**
+     * The ID of the Environment Variable.
+     */
+    id?: pulumi.Input<string>;
+    /**
+     * The name of the Environment Variable.
+     */
+    key: pulumi.Input<string>;
+    /**
+     * Whether the Environment Variable is sensitive or not.
      */
     sensitive?: pulumi.Input<boolean>;
     /**
@@ -348,6 +377,10 @@ export interface ProjectOidcTokenConfig {
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
      */
     enabled: pulumi.Input<boolean>;
+    /**
+     * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
+     */
+    issuerMode?: pulumi.Input<string>;
 }
 
 export interface ProjectOptionsAllowlist {
@@ -417,4 +450,26 @@ export interface ProjectVercelAuthentication {
      * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType: pulumi.Input<string>;
+}
+
+export interface TeamConfigRemoteCaching {
+    /**
+     * Indicates if Remote Caching is enabled.
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface TeamConfigSaml {
+    /**
+     * The ID of the access group to use for the team.
+     */
+    accessGroupId?: pulumi.Input<string>;
+    /**
+     * Indicates if SAML is enforced for the team.
+     */
+    enforced: pulumi.Input<boolean>;
+    /**
+     * Directory groups to role or access group mappings.
+     */
+    roles?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
 }
