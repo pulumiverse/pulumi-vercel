@@ -9,7 +9,7 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
 	github.com/pulumi/pulumi/sdk/v3 v3.142.0
 	github.com/vercel/terraform-provider-vercel/v2 v2.3.0
-	golang.org/x/text v0.20.0
+	golang.org/x/text v0.21.0
 )
 
 require github.com/Masterminds/semver v1.5.0 // indirect
@@ -171,7 +171,7 @@ require (
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/net v0.30.0 // indirect
 	golang.org/x/oauth2 v0.22.0 // indirect
-	golang.org/x/sync v0.9.0 // indirect
+	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/sys v0.26.0 // indirect
 	golang.org/x/term v0.25.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
