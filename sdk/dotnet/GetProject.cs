@@ -76,6 +76,7 @@ namespace Pulumiverse.Vercel
         public readonly bool PreviewComments;
         public readonly bool PrioritiseProductionBuilds;
         public readonly bool ProtectionBypassForAutomation;
+        public readonly string ProtectionBypassForAutomationSecret;
         public readonly bool PublicSource;
         public readonly Outputs.GetProjectResourceConfigResult ResourceConfig;
         public readonly string RootDirectory;
@@ -135,6 +136,8 @@ namespace Pulumiverse.Vercel
 
             bool protectionBypassForAutomation,
 
+            string protectionBypassForAutomationSecret,
+
             bool publicSource,
 
             Outputs.GetProjectResourceConfigResult resourceConfig,
@@ -175,6 +178,7 @@ namespace Pulumiverse.Vercel
             PreviewComments = previewComments;
             PrioritiseProductionBuilds = prioritiseProductionBuilds;
             ProtectionBypassForAutomation = protectionBypassForAutomation;
+            ProtectionBypassForAutomationSecret = protectionBypassForAutomationSecret;
             PublicSource = publicSource;
             ResourceConfig = resourceConfig;
             RootDirectory = rootDirectory;

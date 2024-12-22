@@ -21,10 +21,16 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "vercel:index/accessGroup:AccessGroup":
+		r = &AccessGroup{}
+	case "vercel:index/accessGroupProject:AccessGroupProject":
+		r = &AccessGroupProject{}
 	case "vercel:index/alias:Alias":
 		r = &Alias{}
 	case "vercel:index/attackChallengeMode:AttackChallengeMode":
 		r = &AttackChallengeMode{}
+	case "vercel:index/customEnvironment:CustomEnvironment":
+		r = &CustomEnvironment{}
 	case "vercel:index/deployment:Deployment":
 		r = &Deployment{}
 	case "vercel:index/dnsRecord:DnsRecord":
@@ -51,10 +57,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectEnvironmentVariable{}
 	case "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables":
 		r = &ProjectEnvironmentVariables{}
+	case "vercel:index/projectMembers:ProjectMembers":
+		r = &ProjectMembers{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
 	case "vercel:index/teamConfig:TeamConfig":
 		r = &TeamConfig{}
+	case "vercel:index/teamMember:TeamMember":
+		r = &TeamMember{}
 	case "vercel:index/webhook:Webhook":
 		r = &Webhook{}
 	default:
@@ -90,12 +100,27 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/accessGroup",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/accessGroupProject",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/alias",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/attackChallengeMode",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/customEnvironment",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -165,12 +190,22 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/projectMembers",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/sharedEnvironmentVariable",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/teamConfig",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/teamMember",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

@@ -13,6 +13,162 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type CustomEnvironmentBranchTracking struct {
+	// The pattern of the branch name to track.
+	Pattern string `pulumi:"pattern"`
+	// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+	Type string `pulumi:"type"`
+}
+
+// CustomEnvironmentBranchTrackingInput is an input type that accepts CustomEnvironmentBranchTrackingArgs and CustomEnvironmentBranchTrackingOutput values.
+// You can construct a concrete instance of `CustomEnvironmentBranchTrackingInput` via:
+//
+//	CustomEnvironmentBranchTrackingArgs{...}
+type CustomEnvironmentBranchTrackingInput interface {
+	pulumi.Input
+
+	ToCustomEnvironmentBranchTrackingOutput() CustomEnvironmentBranchTrackingOutput
+	ToCustomEnvironmentBranchTrackingOutputWithContext(context.Context) CustomEnvironmentBranchTrackingOutput
+}
+
+type CustomEnvironmentBranchTrackingArgs struct {
+	// The pattern of the branch name to track.
+	Pattern pulumi.StringInput `pulumi:"pattern"`
+	// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (CustomEnvironmentBranchTrackingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomEnvironmentBranchTracking)(nil)).Elem()
+}
+
+func (i CustomEnvironmentBranchTrackingArgs) ToCustomEnvironmentBranchTrackingOutput() CustomEnvironmentBranchTrackingOutput {
+	return i.ToCustomEnvironmentBranchTrackingOutputWithContext(context.Background())
+}
+
+func (i CustomEnvironmentBranchTrackingArgs) ToCustomEnvironmentBranchTrackingOutputWithContext(ctx context.Context) CustomEnvironmentBranchTrackingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomEnvironmentBranchTrackingOutput)
+}
+
+func (i CustomEnvironmentBranchTrackingArgs) ToCustomEnvironmentBranchTrackingPtrOutput() CustomEnvironmentBranchTrackingPtrOutput {
+	return i.ToCustomEnvironmentBranchTrackingPtrOutputWithContext(context.Background())
+}
+
+func (i CustomEnvironmentBranchTrackingArgs) ToCustomEnvironmentBranchTrackingPtrOutputWithContext(ctx context.Context) CustomEnvironmentBranchTrackingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomEnvironmentBranchTrackingOutput).ToCustomEnvironmentBranchTrackingPtrOutputWithContext(ctx)
+}
+
+// CustomEnvironmentBranchTrackingPtrInput is an input type that accepts CustomEnvironmentBranchTrackingArgs, CustomEnvironmentBranchTrackingPtr and CustomEnvironmentBranchTrackingPtrOutput values.
+// You can construct a concrete instance of `CustomEnvironmentBranchTrackingPtrInput` via:
+//
+//	        CustomEnvironmentBranchTrackingArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomEnvironmentBranchTrackingPtrInput interface {
+	pulumi.Input
+
+	ToCustomEnvironmentBranchTrackingPtrOutput() CustomEnvironmentBranchTrackingPtrOutput
+	ToCustomEnvironmentBranchTrackingPtrOutputWithContext(context.Context) CustomEnvironmentBranchTrackingPtrOutput
+}
+
+type customEnvironmentBranchTrackingPtrType CustomEnvironmentBranchTrackingArgs
+
+func CustomEnvironmentBranchTrackingPtr(v *CustomEnvironmentBranchTrackingArgs) CustomEnvironmentBranchTrackingPtrInput {
+	return (*customEnvironmentBranchTrackingPtrType)(v)
+}
+
+func (*customEnvironmentBranchTrackingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomEnvironmentBranchTracking)(nil)).Elem()
+}
+
+func (i *customEnvironmentBranchTrackingPtrType) ToCustomEnvironmentBranchTrackingPtrOutput() CustomEnvironmentBranchTrackingPtrOutput {
+	return i.ToCustomEnvironmentBranchTrackingPtrOutputWithContext(context.Background())
+}
+
+func (i *customEnvironmentBranchTrackingPtrType) ToCustomEnvironmentBranchTrackingPtrOutputWithContext(ctx context.Context) CustomEnvironmentBranchTrackingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomEnvironmentBranchTrackingPtrOutput)
+}
+
+type CustomEnvironmentBranchTrackingOutput struct{ *pulumi.OutputState }
+
+func (CustomEnvironmentBranchTrackingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomEnvironmentBranchTracking)(nil)).Elem()
+}
+
+func (o CustomEnvironmentBranchTrackingOutput) ToCustomEnvironmentBranchTrackingOutput() CustomEnvironmentBranchTrackingOutput {
+	return o
+}
+
+func (o CustomEnvironmentBranchTrackingOutput) ToCustomEnvironmentBranchTrackingOutputWithContext(ctx context.Context) CustomEnvironmentBranchTrackingOutput {
+	return o
+}
+
+func (o CustomEnvironmentBranchTrackingOutput) ToCustomEnvironmentBranchTrackingPtrOutput() CustomEnvironmentBranchTrackingPtrOutput {
+	return o.ToCustomEnvironmentBranchTrackingPtrOutputWithContext(context.Background())
+}
+
+func (o CustomEnvironmentBranchTrackingOutput) ToCustomEnvironmentBranchTrackingPtrOutputWithContext(ctx context.Context) CustomEnvironmentBranchTrackingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomEnvironmentBranchTracking) *CustomEnvironmentBranchTracking {
+		return &v
+	}).(CustomEnvironmentBranchTrackingPtrOutput)
+}
+
+// The pattern of the branch name to track.
+func (o CustomEnvironmentBranchTrackingOutput) Pattern() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomEnvironmentBranchTracking) string { return v.Pattern }).(pulumi.StringOutput)
+}
+
+// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+func (o CustomEnvironmentBranchTrackingOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomEnvironmentBranchTracking) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type CustomEnvironmentBranchTrackingPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomEnvironmentBranchTrackingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomEnvironmentBranchTracking)(nil)).Elem()
+}
+
+func (o CustomEnvironmentBranchTrackingPtrOutput) ToCustomEnvironmentBranchTrackingPtrOutput() CustomEnvironmentBranchTrackingPtrOutput {
+	return o
+}
+
+func (o CustomEnvironmentBranchTrackingPtrOutput) ToCustomEnvironmentBranchTrackingPtrOutputWithContext(ctx context.Context) CustomEnvironmentBranchTrackingPtrOutput {
+	return o
+}
+
+func (o CustomEnvironmentBranchTrackingPtrOutput) Elem() CustomEnvironmentBranchTrackingOutput {
+	return o.ApplyT(func(v *CustomEnvironmentBranchTracking) CustomEnvironmentBranchTracking {
+		if v != nil {
+			return *v
+		}
+		var ret CustomEnvironmentBranchTracking
+		return ret
+	}).(CustomEnvironmentBranchTrackingOutput)
+}
+
+// The pattern of the branch name to track.
+func (o CustomEnvironmentBranchTrackingPtrOutput) Pattern() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomEnvironmentBranchTracking) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Pattern
+	}).(pulumi.StringPtrOutput)
+}
+
+// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+func (o CustomEnvironmentBranchTrackingPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomEnvironmentBranchTracking) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
 type DeploymentProjectSettings struct {
 	// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
@@ -3540,6 +3696,8 @@ func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) Index(i pulum
 type ProjectEnvironment struct {
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+	CustomEnvironmentIds []string `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch *string `pulumi:"gitBranch"`
 	// The ID of the Environment Variable.
@@ -3548,7 +3706,7 @@ type ProjectEnvironment struct {
 	Key string `pulumi:"key"`
 	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive *bool `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value string `pulumi:"value"`
@@ -3568,6 +3726,8 @@ type ProjectEnvironmentInput interface {
 type ProjectEnvironmentArgs struct {
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringPtrInput `pulumi:"comment"`
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+	CustomEnvironmentIds pulumi.StringArrayInput `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch pulumi.StringPtrInput `pulumi:"gitBranch"`
 	// The ID of the Environment Variable.
@@ -3576,7 +3736,7 @@ type ProjectEnvironmentArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -3638,6 +3798,11 @@ func (o ProjectEnvironmentOutput) Comment() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *string { return v.Comment }).(pulumi.StringPtrOutput)
 }
 
+// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+func (o ProjectEnvironmentOutput) CustomEnvironmentIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectEnvironment) []string { return v.CustomEnvironmentIds }).(pulumi.StringArrayOutput)
+}
+
 // The git branch of the Environment Variable.
 func (o ProjectEnvironmentOutput) GitBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *string { return v.GitBranch }).(pulumi.StringPtrOutput)
@@ -3658,7 +3823,7 @@ func (o ProjectEnvironmentOutput) Sensitive() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironment) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
 }
 
-// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 func (o ProjectEnvironmentOutput) Targets() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ProjectEnvironment) []string { return v.Targets }).(pulumi.StringArrayOutput)
 }
@@ -3691,6 +3856,8 @@ func (o ProjectEnvironmentArrayOutput) Index(i pulumi.IntInput) ProjectEnvironme
 type ProjectEnvironmentVariablesVariable struct {
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+	CustomEnvironmentIds []string `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch *string `pulumi:"gitBranch"`
 	// The ID of the Environment Variable.
@@ -3699,7 +3866,7 @@ type ProjectEnvironmentVariablesVariable struct {
 	Key string `pulumi:"key"`
 	// Whether the Environment Variable is sensitive or not.
 	Sensitive *bool `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value string `pulumi:"value"`
@@ -3719,6 +3886,8 @@ type ProjectEnvironmentVariablesVariableInput interface {
 type ProjectEnvironmentVariablesVariableArgs struct {
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringPtrInput `pulumi:"comment"`
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+	CustomEnvironmentIds pulumi.StringArrayInput `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch pulumi.StringPtrInput `pulumi:"gitBranch"`
 	// The ID of the Environment Variable.
@@ -3727,7 +3896,7 @@ type ProjectEnvironmentVariablesVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// Whether the Environment Variable is sensitive or not.
 	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -3789,6 +3958,11 @@ func (o ProjectEnvironmentVariablesVariableOutput) Comment() pulumi.StringPtrOut
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *string { return v.Comment }).(pulumi.StringPtrOutput)
 }
 
+// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+func (o ProjectEnvironmentVariablesVariableOutput) CustomEnvironmentIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) []string { return v.CustomEnvironmentIds }).(pulumi.StringArrayOutput)
+}
+
 // The git branch of the Environment Variable.
 func (o ProjectEnvironmentVariablesVariableOutput) GitBranch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *string { return v.GitBranch }).(pulumi.StringPtrOutput)
@@ -3809,7 +3983,7 @@ func (o ProjectEnvironmentVariablesVariableOutput) Sensitive() pulumi.BoolPtrOut
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
 }
 
-// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 func (o ProjectEnvironmentVariablesVariableOutput) Targets() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) []string { return v.Targets }).(pulumi.StringArrayOutput)
 }
@@ -4311,6 +4485,130 @@ func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) Proj
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectGitRepositoryDeployHook {
 		return vs[0].([]ProjectGitRepositoryDeployHook)[vs[1].(int)]
 	}).(ProjectGitRepositoryDeployHookOutput)
+}
+
+type ProjectMembersMember struct {
+	// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+	Email *string `pulumi:"email"`
+	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	Role string `pulumi:"role"`
+	// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+	UserId *string `pulumi:"userId"`
+	// The username of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+	Username *string `pulumi:"username"`
+}
+
+// ProjectMembersMemberInput is an input type that accepts ProjectMembersMemberArgs and ProjectMembersMemberOutput values.
+// You can construct a concrete instance of `ProjectMembersMemberInput` via:
+//
+//	ProjectMembersMemberArgs{...}
+type ProjectMembersMemberInput interface {
+	pulumi.Input
+
+	ToProjectMembersMemberOutput() ProjectMembersMemberOutput
+	ToProjectMembersMemberOutputWithContext(context.Context) ProjectMembersMemberOutput
+}
+
+type ProjectMembersMemberArgs struct {
+	// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+	Email pulumi.StringPtrInput `pulumi:"email"`
+	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	Role pulumi.StringInput `pulumi:"role"`
+	// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+	UserId pulumi.StringPtrInput `pulumi:"userId"`
+	// The username of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+	Username pulumi.StringPtrInput `pulumi:"username"`
+}
+
+func (ProjectMembersMemberArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectMembersMember)(nil)).Elem()
+}
+
+func (i ProjectMembersMemberArgs) ToProjectMembersMemberOutput() ProjectMembersMemberOutput {
+	return i.ToProjectMembersMemberOutputWithContext(context.Background())
+}
+
+func (i ProjectMembersMemberArgs) ToProjectMembersMemberOutputWithContext(ctx context.Context) ProjectMembersMemberOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectMembersMemberOutput)
+}
+
+// ProjectMembersMemberArrayInput is an input type that accepts ProjectMembersMemberArray and ProjectMembersMemberArrayOutput values.
+// You can construct a concrete instance of `ProjectMembersMemberArrayInput` via:
+//
+//	ProjectMembersMemberArray{ ProjectMembersMemberArgs{...} }
+type ProjectMembersMemberArrayInput interface {
+	pulumi.Input
+
+	ToProjectMembersMemberArrayOutput() ProjectMembersMemberArrayOutput
+	ToProjectMembersMemberArrayOutputWithContext(context.Context) ProjectMembersMemberArrayOutput
+}
+
+type ProjectMembersMemberArray []ProjectMembersMemberInput
+
+func (ProjectMembersMemberArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectMembersMember)(nil)).Elem()
+}
+
+func (i ProjectMembersMemberArray) ToProjectMembersMemberArrayOutput() ProjectMembersMemberArrayOutput {
+	return i.ToProjectMembersMemberArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectMembersMemberArray) ToProjectMembersMemberArrayOutputWithContext(ctx context.Context) ProjectMembersMemberArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectMembersMemberArrayOutput)
+}
+
+type ProjectMembersMemberOutput struct{ *pulumi.OutputState }
+
+func (ProjectMembersMemberOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectMembersMember)(nil)).Elem()
+}
+
+func (o ProjectMembersMemberOutput) ToProjectMembersMemberOutput() ProjectMembersMemberOutput {
+	return o
+}
+
+func (o ProjectMembersMemberOutput) ToProjectMembersMemberOutputWithContext(ctx context.Context) ProjectMembersMemberOutput {
+	return o
+}
+
+// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+func (o ProjectMembersMemberOutput) Email() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectMembersMember) *string { return v.Email }).(pulumi.StringPtrOutput)
+}
+
+// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+func (o ProjectMembersMemberOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectMembersMember) string { return v.Role }).(pulumi.StringOutput)
+}
+
+// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+func (o ProjectMembersMemberOutput) UserId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectMembersMember) *string { return v.UserId }).(pulumi.StringPtrOutput)
+}
+
+// The username of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+func (o ProjectMembersMemberOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectMembersMember) *string { return v.Username }).(pulumi.StringPtrOutput)
+}
+
+type ProjectMembersMemberArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectMembersMemberArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectMembersMember)(nil)).Elem()
+}
+
+func (o ProjectMembersMemberArrayOutput) ToProjectMembersMemberArrayOutput() ProjectMembersMemberArrayOutput {
+	return o
+}
+
+func (o ProjectMembersMemberArrayOutput) ToProjectMembersMemberArrayOutputWithContext(ctx context.Context) ProjectMembersMemberArrayOutput {
+	return o
+}
+
+func (o ProjectMembersMemberArrayOutput) Index(i pulumi.IntInput) ProjectMembersMemberOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectMembersMember {
+		return vs[0].([]ProjectMembersMember)[vs[1].(int)]
+	}).(ProjectMembersMemberOutput)
 }
 
 type ProjectOidcTokenConfig struct {
@@ -5745,9 +6043,178 @@ func (o TeamConfigSamlPtrOutput) Roles() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
+type TeamMemberProject struct {
+	// The ID of the project that the user should be granted access to.
+	ProjectId string `pulumi:"projectId"`
+	// The role that the user should have in the project.
+	Role string `pulumi:"role"`
+}
+
+// TeamMemberProjectInput is an input type that accepts TeamMemberProjectArgs and TeamMemberProjectOutput values.
+// You can construct a concrete instance of `TeamMemberProjectInput` via:
+//
+//	TeamMemberProjectArgs{...}
+type TeamMemberProjectInput interface {
+	pulumi.Input
+
+	ToTeamMemberProjectOutput() TeamMemberProjectOutput
+	ToTeamMemberProjectOutputWithContext(context.Context) TeamMemberProjectOutput
+}
+
+type TeamMemberProjectArgs struct {
+	// The ID of the project that the user should be granted access to.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The role that the user should have in the project.
+	Role pulumi.StringInput `pulumi:"role"`
+}
+
+func (TeamMemberProjectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamMemberProject)(nil)).Elem()
+}
+
+func (i TeamMemberProjectArgs) ToTeamMemberProjectOutput() TeamMemberProjectOutput {
+	return i.ToTeamMemberProjectOutputWithContext(context.Background())
+}
+
+func (i TeamMemberProjectArgs) ToTeamMemberProjectOutputWithContext(ctx context.Context) TeamMemberProjectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamMemberProjectOutput)
+}
+
+// TeamMemberProjectArrayInput is an input type that accepts TeamMemberProjectArray and TeamMemberProjectArrayOutput values.
+// You can construct a concrete instance of `TeamMemberProjectArrayInput` via:
+//
+//	TeamMemberProjectArray{ TeamMemberProjectArgs{...} }
+type TeamMemberProjectArrayInput interface {
+	pulumi.Input
+
+	ToTeamMemberProjectArrayOutput() TeamMemberProjectArrayOutput
+	ToTeamMemberProjectArrayOutputWithContext(context.Context) TeamMemberProjectArrayOutput
+}
+
+type TeamMemberProjectArray []TeamMemberProjectInput
+
+func (TeamMemberProjectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TeamMemberProject)(nil)).Elem()
+}
+
+func (i TeamMemberProjectArray) ToTeamMemberProjectArrayOutput() TeamMemberProjectArrayOutput {
+	return i.ToTeamMemberProjectArrayOutputWithContext(context.Background())
+}
+
+func (i TeamMemberProjectArray) ToTeamMemberProjectArrayOutputWithContext(ctx context.Context) TeamMemberProjectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamMemberProjectArrayOutput)
+}
+
+type TeamMemberProjectOutput struct{ *pulumi.OutputState }
+
+func (TeamMemberProjectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamMemberProject)(nil)).Elem()
+}
+
+func (o TeamMemberProjectOutput) ToTeamMemberProjectOutput() TeamMemberProjectOutput {
+	return o
+}
+
+func (o TeamMemberProjectOutput) ToTeamMemberProjectOutputWithContext(ctx context.Context) TeamMemberProjectOutput {
+	return o
+}
+
+// The ID of the project that the user should be granted access to.
+func (o TeamMemberProjectOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v TeamMemberProject) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// The role that the user should have in the project.
+func (o TeamMemberProjectOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v TeamMemberProject) string { return v.Role }).(pulumi.StringOutput)
+}
+
+type TeamMemberProjectArrayOutput struct{ *pulumi.OutputState }
+
+func (TeamMemberProjectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TeamMemberProject)(nil)).Elem()
+}
+
+func (o TeamMemberProjectArrayOutput) ToTeamMemberProjectArrayOutput() TeamMemberProjectArrayOutput {
+	return o
+}
+
+func (o TeamMemberProjectArrayOutput) ToTeamMemberProjectArrayOutputWithContext(ctx context.Context) TeamMemberProjectArrayOutput {
+	return o
+}
+
+func (o TeamMemberProjectArrayOutput) Index(i pulumi.IntInput) TeamMemberProjectOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TeamMemberProject {
+		return vs[0].([]TeamMemberProject)[vs[1].(int)]
+	}).(TeamMemberProjectOutput)
+}
+
+type GetCustomEnvironmentBranchTracking struct {
+	// The pattern of the branch name to track.
+	Pattern string `pulumi:"pattern"`
+	// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+	Type string `pulumi:"type"`
+}
+
+// GetCustomEnvironmentBranchTrackingInput is an input type that accepts GetCustomEnvironmentBranchTrackingArgs and GetCustomEnvironmentBranchTrackingOutput values.
+// You can construct a concrete instance of `GetCustomEnvironmentBranchTrackingInput` via:
+//
+//	GetCustomEnvironmentBranchTrackingArgs{...}
+type GetCustomEnvironmentBranchTrackingInput interface {
+	pulumi.Input
+
+	ToGetCustomEnvironmentBranchTrackingOutput() GetCustomEnvironmentBranchTrackingOutput
+	ToGetCustomEnvironmentBranchTrackingOutputWithContext(context.Context) GetCustomEnvironmentBranchTrackingOutput
+}
+
+type GetCustomEnvironmentBranchTrackingArgs struct {
+	// The pattern of the branch name to track.
+	Pattern pulumi.StringInput `pulumi:"pattern"`
+	// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (GetCustomEnvironmentBranchTrackingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetCustomEnvironmentBranchTracking)(nil)).Elem()
+}
+
+func (i GetCustomEnvironmentBranchTrackingArgs) ToGetCustomEnvironmentBranchTrackingOutput() GetCustomEnvironmentBranchTrackingOutput {
+	return i.ToGetCustomEnvironmentBranchTrackingOutputWithContext(context.Background())
+}
+
+func (i GetCustomEnvironmentBranchTrackingArgs) ToGetCustomEnvironmentBranchTrackingOutputWithContext(ctx context.Context) GetCustomEnvironmentBranchTrackingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetCustomEnvironmentBranchTrackingOutput)
+}
+
+type GetCustomEnvironmentBranchTrackingOutput struct{ *pulumi.OutputState }
+
+func (GetCustomEnvironmentBranchTrackingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetCustomEnvironmentBranchTracking)(nil)).Elem()
+}
+
+func (o GetCustomEnvironmentBranchTrackingOutput) ToGetCustomEnvironmentBranchTrackingOutput() GetCustomEnvironmentBranchTrackingOutput {
+	return o
+}
+
+func (o GetCustomEnvironmentBranchTrackingOutput) ToGetCustomEnvironmentBranchTrackingOutputWithContext(ctx context.Context) GetCustomEnvironmentBranchTrackingOutput {
+	return o
+}
+
+// The pattern of the branch name to track.
+func (o GetCustomEnvironmentBranchTrackingOutput) Pattern() pulumi.StringOutput {
+	return o.ApplyT(func(v GetCustomEnvironmentBranchTracking) string { return v.Pattern }).(pulumi.StringOutput)
+}
+
+// How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+func (o GetCustomEnvironmentBranchTrackingOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetCustomEnvironmentBranchTracking) string { return v.Type }).(pulumi.StringOutput)
+}
+
 type GetProjectEnvironment struct {
 	// A comment explaining what the environment variable is for.
 	Comment string `pulumi:"comment"`
+	// The IDs of Custom Environments that the Environment Variable should be present on.
+	CustomEnvironmentIds []string `pulumi:"customEnvironmentIds"`
 	// The git branch of the environment variable.
 	GitBranch string `pulumi:"gitBranch"`
 	// The ID of the environment variable
@@ -5776,6 +6243,8 @@ type GetProjectEnvironmentInput interface {
 type GetProjectEnvironmentArgs struct {
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringInput `pulumi:"comment"`
+	// The IDs of Custom Environments that the Environment Variable should be present on.
+	CustomEnvironmentIds pulumi.StringArrayInput `pulumi:"customEnvironmentIds"`
 	// The git branch of the environment variable.
 	GitBranch pulumi.StringInput `pulumi:"gitBranch"`
 	// The ID of the environment variable
@@ -5844,6 +6313,11 @@ func (o GetProjectEnvironmentOutput) ToGetProjectEnvironmentOutputWithContext(ct
 // A comment explaining what the environment variable is for.
 func (o GetProjectEnvironmentOutput) Comment() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Comment }).(pulumi.StringOutput)
+}
+
+// The IDs of Custom Environments that the Environment Variable should be present on.
+func (o GetProjectEnvironmentOutput) CustomEnvironmentIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectEnvironment) []string { return v.CustomEnvironmentIds }).(pulumi.StringArrayOutput)
 }
 
 // The git branch of the environment variable.
@@ -6158,6 +6632,130 @@ func (o GetProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) G
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectGitRepositoryDeployHook {
 		return vs[0].([]GetProjectGitRepositoryDeployHook)[vs[1].(int)]
 	}).(GetProjectGitRepositoryDeployHookOutput)
+}
+
+type GetProjectMembersMember struct {
+	// The email of the user.
+	Email string `pulumi:"email"`
+	// The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	Role string `pulumi:"role"`
+	// The ID of the user.
+	UserId string `pulumi:"userId"`
+	// The username of the user.
+	Username string `pulumi:"username"`
+}
+
+// GetProjectMembersMemberInput is an input type that accepts GetProjectMembersMemberArgs and GetProjectMembersMemberOutput values.
+// You can construct a concrete instance of `GetProjectMembersMemberInput` via:
+//
+//	GetProjectMembersMemberArgs{...}
+type GetProjectMembersMemberInput interface {
+	pulumi.Input
+
+	ToGetProjectMembersMemberOutput() GetProjectMembersMemberOutput
+	ToGetProjectMembersMemberOutputWithContext(context.Context) GetProjectMembersMemberOutput
+}
+
+type GetProjectMembersMemberArgs struct {
+	// The email of the user.
+	Email pulumi.StringInput `pulumi:"email"`
+	// The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	Role pulumi.StringInput `pulumi:"role"`
+	// The ID of the user.
+	UserId pulumi.StringInput `pulumi:"userId"`
+	// The username of the user.
+	Username pulumi.StringInput `pulumi:"username"`
+}
+
+func (GetProjectMembersMemberArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectMembersMember)(nil)).Elem()
+}
+
+func (i GetProjectMembersMemberArgs) ToGetProjectMembersMemberOutput() GetProjectMembersMemberOutput {
+	return i.ToGetProjectMembersMemberOutputWithContext(context.Background())
+}
+
+func (i GetProjectMembersMemberArgs) ToGetProjectMembersMemberOutputWithContext(ctx context.Context) GetProjectMembersMemberOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectMembersMemberOutput)
+}
+
+// GetProjectMembersMemberArrayInput is an input type that accepts GetProjectMembersMemberArray and GetProjectMembersMemberArrayOutput values.
+// You can construct a concrete instance of `GetProjectMembersMemberArrayInput` via:
+//
+//	GetProjectMembersMemberArray{ GetProjectMembersMemberArgs{...} }
+type GetProjectMembersMemberArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectMembersMemberArrayOutput() GetProjectMembersMemberArrayOutput
+	ToGetProjectMembersMemberArrayOutputWithContext(context.Context) GetProjectMembersMemberArrayOutput
+}
+
+type GetProjectMembersMemberArray []GetProjectMembersMemberInput
+
+func (GetProjectMembersMemberArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectMembersMember)(nil)).Elem()
+}
+
+func (i GetProjectMembersMemberArray) ToGetProjectMembersMemberArrayOutput() GetProjectMembersMemberArrayOutput {
+	return i.ToGetProjectMembersMemberArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectMembersMemberArray) ToGetProjectMembersMemberArrayOutputWithContext(ctx context.Context) GetProjectMembersMemberArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectMembersMemberArrayOutput)
+}
+
+type GetProjectMembersMemberOutput struct{ *pulumi.OutputState }
+
+func (GetProjectMembersMemberOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectMembersMember)(nil)).Elem()
+}
+
+func (o GetProjectMembersMemberOutput) ToGetProjectMembersMemberOutput() GetProjectMembersMemberOutput {
+	return o
+}
+
+func (o GetProjectMembersMemberOutput) ToGetProjectMembersMemberOutputWithContext(ctx context.Context) GetProjectMembersMemberOutput {
+	return o
+}
+
+// The email of the user.
+func (o GetProjectMembersMemberOutput) Email() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Email }).(pulumi.StringOutput)
+}
+
+// The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+func (o GetProjectMembersMemberOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Role }).(pulumi.StringOutput)
+}
+
+// The ID of the user.
+func (o GetProjectMembersMemberOutput) UserId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectMembersMember) string { return v.UserId }).(pulumi.StringOutput)
+}
+
+// The username of the user.
+func (o GetProjectMembersMemberOutput) Username() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Username }).(pulumi.StringOutput)
+}
+
+type GetProjectMembersMemberArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectMembersMemberArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectMembersMember)(nil)).Elem()
+}
+
+func (o GetProjectMembersMemberArrayOutput) ToGetProjectMembersMemberArrayOutput() GetProjectMembersMemberArrayOutput {
+	return o
+}
+
+func (o GetProjectMembersMemberArrayOutput) ToGetProjectMembersMemberArrayOutputWithContext(ctx context.Context) GetProjectMembersMemberArrayOutput {
+	return o
+}
+
+func (o GetProjectMembersMemberArrayOutput) Index(i pulumi.IntInput) GetProjectMembersMemberOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectMembersMember {
+		return vs[0].([]GetProjectMembersMember)[vs[1].(int)]
+	}).(GetProjectMembersMemberOutput)
 }
 
 type GetProjectOidcTokenConfig struct {
@@ -6824,7 +7422,115 @@ func (o GetTeamConfigSamlOutput) Roles() pulumi.StringMapOutput {
 	return o.ApplyT(func(v GetTeamConfigSaml) map[string]string { return v.Roles }).(pulumi.StringMapOutput)
 }
 
+type GetTeamMemberProject struct {
+	// The ID of the project that the user should be granted access to.
+	ProjectId string `pulumi:"projectId"`
+	// The role that the user should have in the project.
+	Role string `pulumi:"role"`
+}
+
+// GetTeamMemberProjectInput is an input type that accepts GetTeamMemberProjectArgs and GetTeamMemberProjectOutput values.
+// You can construct a concrete instance of `GetTeamMemberProjectInput` via:
+//
+//	GetTeamMemberProjectArgs{...}
+type GetTeamMemberProjectInput interface {
+	pulumi.Input
+
+	ToGetTeamMemberProjectOutput() GetTeamMemberProjectOutput
+	ToGetTeamMemberProjectOutputWithContext(context.Context) GetTeamMemberProjectOutput
+}
+
+type GetTeamMemberProjectArgs struct {
+	// The ID of the project that the user should be granted access to.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The role that the user should have in the project.
+	Role pulumi.StringInput `pulumi:"role"`
+}
+
+func (GetTeamMemberProjectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamMemberProject)(nil)).Elem()
+}
+
+func (i GetTeamMemberProjectArgs) ToGetTeamMemberProjectOutput() GetTeamMemberProjectOutput {
+	return i.ToGetTeamMemberProjectOutputWithContext(context.Background())
+}
+
+func (i GetTeamMemberProjectArgs) ToGetTeamMemberProjectOutputWithContext(ctx context.Context) GetTeamMemberProjectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamMemberProjectOutput)
+}
+
+// GetTeamMemberProjectArrayInput is an input type that accepts GetTeamMemberProjectArray and GetTeamMemberProjectArrayOutput values.
+// You can construct a concrete instance of `GetTeamMemberProjectArrayInput` via:
+//
+//	GetTeamMemberProjectArray{ GetTeamMemberProjectArgs{...} }
+type GetTeamMemberProjectArrayInput interface {
+	pulumi.Input
+
+	ToGetTeamMemberProjectArrayOutput() GetTeamMemberProjectArrayOutput
+	ToGetTeamMemberProjectArrayOutputWithContext(context.Context) GetTeamMemberProjectArrayOutput
+}
+
+type GetTeamMemberProjectArray []GetTeamMemberProjectInput
+
+func (GetTeamMemberProjectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTeamMemberProject)(nil)).Elem()
+}
+
+func (i GetTeamMemberProjectArray) ToGetTeamMemberProjectArrayOutput() GetTeamMemberProjectArrayOutput {
+	return i.ToGetTeamMemberProjectArrayOutputWithContext(context.Background())
+}
+
+func (i GetTeamMemberProjectArray) ToGetTeamMemberProjectArrayOutputWithContext(ctx context.Context) GetTeamMemberProjectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamMemberProjectArrayOutput)
+}
+
+type GetTeamMemberProjectOutput struct{ *pulumi.OutputState }
+
+func (GetTeamMemberProjectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamMemberProject)(nil)).Elem()
+}
+
+func (o GetTeamMemberProjectOutput) ToGetTeamMemberProjectOutput() GetTeamMemberProjectOutput {
+	return o
+}
+
+func (o GetTeamMemberProjectOutput) ToGetTeamMemberProjectOutputWithContext(ctx context.Context) GetTeamMemberProjectOutput {
+	return o
+}
+
+// The ID of the project that the user should be granted access to.
+func (o GetTeamMemberProjectOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamMemberProject) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// The role that the user should have in the project.
+func (o GetTeamMemberProjectOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamMemberProject) string { return v.Role }).(pulumi.StringOutput)
+}
+
+type GetTeamMemberProjectArrayOutput struct{ *pulumi.OutputState }
+
+func (GetTeamMemberProjectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTeamMemberProject)(nil)).Elem()
+}
+
+func (o GetTeamMemberProjectArrayOutput) ToGetTeamMemberProjectArrayOutput() GetTeamMemberProjectArrayOutput {
+	return o
+}
+
+func (o GetTeamMemberProjectArrayOutput) ToGetTeamMemberProjectArrayOutputWithContext(ctx context.Context) GetTeamMemberProjectArrayOutput {
+	return o
+}
+
+func (o GetTeamMemberProjectArrayOutput) Index(i pulumi.IntInput) GetTeamMemberProjectOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetTeamMemberProject {
+		return vs[0].([]GetTeamMemberProject)[vs[1].(int)]
+	}).(GetTeamMemberProjectOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingPtrInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsPtrInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvInput)(nil)).Elem(), DnsRecordSrvArgs{})
@@ -6880,6 +7586,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectMembersMemberInput)(nil)).Elem(), ProjectMembersMemberArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectMembersMemberArrayInput)(nil)).Elem(), ProjectMembersMemberArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOidcTokenConfigInput)(nil)).Elem(), ProjectOidcTokenConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOidcTokenConfigPtrInput)(nil)).Elem(), ProjectOidcTokenConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
@@ -6900,12 +7608,17 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingPtrInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlInput)(nil)).Elem(), TeamConfigSamlArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlPtrInput)(nil)).Elem(), TeamConfigSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectInput)(nil)).Elem(), TeamMemberProjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectArrayInput)(nil)).Elem(), TeamMemberProjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetCustomEnvironmentBranchTrackingInput)(nil)).Elem(), GetCustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitCommentsInput)(nil)).Elem(), GetProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectMembersMemberInput)(nil)).Elem(), GetProjectMembersMemberArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectMembersMemberArrayInput)(nil)).Elem(), GetProjectMembersMemberArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOidcTokenConfigInput)(nil)).Elem(), GetProjectOidcTokenConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistInput)(nil)).Elem(), GetProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArgs{})
@@ -6918,6 +7631,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigRemoteCachingInput)(nil)).Elem(), GetTeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlInput)(nil)).Elem(), GetTeamConfigSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectInput)(nil)).Elem(), GetTeamMemberProjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectArrayInput)(nil)).Elem(), GetTeamMemberProjectArray{})
+	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})
+	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingPtrOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvOutput{})
@@ -6973,6 +7690,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookArrayOutput{})
+	pulumi.RegisterOutputType(ProjectMembersMemberOutput{})
+	pulumi.RegisterOutputType(ProjectMembersMemberArrayOutput{})
 	pulumi.RegisterOutputType(ProjectOidcTokenConfigOutput{})
 	pulumi.RegisterOutputType(ProjectOidcTokenConfigPtrOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistOutput{})
@@ -6993,12 +7712,17 @@ func init() {
 	pulumi.RegisterOutputType(TeamConfigRemoteCachingPtrOutput{})
 	pulumi.RegisterOutputType(TeamConfigSamlOutput{})
 	pulumi.RegisterOutputType(TeamConfigSamlPtrOutput{})
+	pulumi.RegisterOutputType(TeamMemberProjectOutput{})
+	pulumi.RegisterOutputType(TeamMemberProjectArrayOutput{})
+	pulumi.RegisterOutputType(GetCustomEnvironmentBranchTrackingOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectGitCommentsOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectMembersMemberOutput{})
+	pulumi.RegisterOutputType(GetProjectMembersMemberArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectOidcTokenConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathOutput{})
@@ -7011,4 +7735,6 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigRemoteCachingOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigSamlOutput{})
+	pulumi.RegisterOutputType(GetTeamMemberProjectOutput{})
+	pulumi.RegisterOutputType(GetTeamMemberProjectArrayOutput{})
 }

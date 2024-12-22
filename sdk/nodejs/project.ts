@@ -135,16 +135,15 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly prioritiseProductionBuilds!: pulumi.Output<boolean>;
     /**
-     * Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
-     * Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
-     * `passwordProtectionForAutomationSecret` field.
+     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
+     * `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
      */
     public readonly protectionBypassForAutomation!: pulumi.Output<boolean | undefined>;
     /**
-     * If `protectionBypassForAutomation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
-     * Vercel Authentication and Password Protection for both Preview and Production Deployments.
+     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a
+     * secret will be generated.
      */
-    public /*out*/ readonly protectionBypassForAutomationSecret!: pulumi.Output<string>;
+    public readonly protectionBypassForAutomationSecret!: pulumi.Output<string>;
     /**
      * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
      * Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
@@ -255,6 +254,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["previewComments"] = args ? args.previewComments : undefined;
             resourceInputs["prioritiseProductionBuilds"] = args ? args.prioritiseProductionBuilds : undefined;
             resourceInputs["protectionBypassForAutomation"] = args ? args.protectionBypassForAutomation : undefined;
+            resourceInputs["protectionBypassForAutomationSecret"] = args?.protectionBypassForAutomationSecret ? pulumi.secret(args.protectionBypassForAutomationSecret) : undefined;
             resourceInputs["publicSource"] = args ? args.publicSource : undefined;
             resourceInputs["resourceConfig"] = args ? args.resourceConfig : undefined;
             resourceInputs["rootDirectory"] = args ? args.rootDirectory : undefined;
@@ -263,9 +263,10 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["teamId"] = args ? args.teamId : undefined;
             resourceInputs["trustedIps"] = args ? args.trustedIps : undefined;
             resourceInputs["vercelAuthentication"] = args ? args.vercelAuthentication : undefined;
-            resourceInputs["protectionBypassForAutomationSecret"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["protectionBypassForAutomationSecret"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Project.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -375,14 +376,13 @@ export interface ProjectState {
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
     /**
-     * Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
-     * Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
-     * `passwordProtectionForAutomationSecret` field.
+     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
+     * `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
      */
     protectionBypassForAutomation?: pulumi.Input<boolean>;
     /**
-     * If `protectionBypassForAutomation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
-     * Vercel Authentication and Password Protection for both Preview and Production Deployments.
+     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a
+     * secret will be generated.
      */
     protectionBypassForAutomationSecret?: pulumi.Input<string>;
     /**
@@ -531,11 +531,15 @@ export interface ProjectArgs {
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
     /**
-     * Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
-     * Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
-     * `passwordProtectionForAutomationSecret` field.
+     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
+     * `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
      */
     protectionBypassForAutomation?: pulumi.Input<boolean>;
+    /**
+     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a
+     * secret will be generated.
+     */
+    protectionBypassForAutomationSecret?: pulumi.Input<string>;
     /**
      * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
      * Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting

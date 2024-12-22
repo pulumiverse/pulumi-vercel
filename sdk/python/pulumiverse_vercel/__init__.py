@@ -5,8 +5,11 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .access_group import *
+from .access_group_project import *
 from .alias import *
 from .attack_challenge_mode import *
+from .custom_environment import *
 from .deployment import *
 from .dns_record import *
 from .edge_config import *
@@ -14,8 +17,11 @@ from .edge_config_item import *
 from .edge_config_schema import *
 from .edge_config_token import *
 from .firewall_config import *
+from .get_access_group import *
+from .get_access_group_project import *
 from .get_alias import *
 from .get_attack_challenge_mode import *
+from .get_custom_environment import *
 from .get_deployment import *
 from .get_edge_config import *
 from .get_edge_config_item import *
@@ -28,17 +34,21 @@ from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_deployment_retention import *
 from .get_project_directory import *
+from .get_project_members import *
 from .get_shared_environment_variable import *
 from .get_team_config import *
+from .get_team_member import *
 from .log_drain import *
 from .project import *
 from .project_deployment_retention import *
 from .project_domain import *
 from .project_environment_variable import *
 from .project_environment_variables import *
+from .project_members import *
 from .provider import *
 from .shared_environment_variable import *
 from .team_config import *
+from .team_member import *
 from .webhook import *
 from ._inputs import *
 from . import outputs
@@ -55,6 +65,22 @@ _utilities.register(
 [
  {
   "pkg": "vercel",
+  "mod": "index/accessGroup",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/accessGroup:AccessGroup": "AccessGroup"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/accessGroupProject",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/accessGroupProject:AccessGroupProject": "AccessGroupProject"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/alias",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -67,6 +93,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/attackChallengeMode:AttackChallengeMode": "AttackChallengeMode"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/customEnvironment",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/customEnvironment:CustomEnvironment": "CustomEnvironment"
   }
  },
  {
@@ -175,6 +209,14 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/projectMembers",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectMembers:ProjectMembers": "ProjectMembers"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/sharedEnvironmentVariable",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -187,6 +229,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/teamConfig:TeamConfig": "TeamConfig"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/teamMember",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/teamMember:TeamMember": "TeamMember"
   }
  },
  {

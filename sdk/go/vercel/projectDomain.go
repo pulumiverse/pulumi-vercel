@@ -15,6 +15,9 @@ import (
 type ProjectDomain struct {
 	pulumi.CustomResourceState
 
+	// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+	// assigned the domain name.
+	CustomEnvironmentId pulumi.StringPtrOutput `pulumi:"customEnvironmentId"`
 	// The domain name to associate with the project.
 	Domain pulumi.StringOutput `pulumi:"domain"`
 	// Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
@@ -66,6 +69,9 @@ func GetProjectDomain(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering ProjectDomain resources.
 type projectDomainState struct {
+	// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+	// assigned the domain name.
+	CustomEnvironmentId *string `pulumi:"customEnvironmentId"`
 	// The domain name to associate with the project.
 	Domain *string `pulumi:"domain"`
 	// Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
@@ -82,6 +88,9 @@ type projectDomainState struct {
 }
 
 type ProjectDomainState struct {
+	// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+	// assigned the domain name.
+	CustomEnvironmentId pulumi.StringPtrInput
 	// The domain name to associate with the project.
 	Domain pulumi.StringPtrInput
 	// Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
@@ -102,6 +111,9 @@ func (ProjectDomainState) ElementType() reflect.Type {
 }
 
 type projectDomainArgs struct {
+	// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+	// assigned the domain name.
+	CustomEnvironmentId *string `pulumi:"customEnvironmentId"`
 	// The domain name to associate with the project.
 	Domain string `pulumi:"domain"`
 	// Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
@@ -119,6 +131,9 @@ type projectDomainArgs struct {
 
 // The set of arguments for constructing a ProjectDomain resource.
 type ProjectDomainArgs struct {
+	// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+	// assigned the domain name.
+	CustomEnvironmentId pulumi.StringPtrInput
 	// The domain name to associate with the project.
 	Domain pulumi.StringInput
 	// Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
@@ -219,6 +234,12 @@ func (o ProjectDomainOutput) ToProjectDomainOutput() ProjectDomainOutput {
 
 func (o ProjectDomainOutput) ToProjectDomainOutputWithContext(ctx context.Context) ProjectDomainOutput {
 	return o
+}
+
+// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+// assigned the domain name.
+func (o ProjectDomainOutput) CustomEnvironmentId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDomain) pulumi.StringPtrOutput { return v.CustomEnvironmentId }).(pulumi.StringPtrOutput)
 }
 
 // The domain name to associate with the project.

@@ -5,6 +5,17 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface CustomEnvironmentBranchTracking {
+    /**
+     * The pattern of the branch name to track.
+     */
+    pattern: string;
+    /**
+     * How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+     */
+    type: string;
+}
+
 export interface DeploymentProjectSettings {
     /**
      * The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
@@ -261,11 +272,26 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
     value?: string;
 }
 
+export interface GetCustomEnvironmentBranchTracking {
+    /**
+     * The pattern of the branch name to track.
+     */
+    pattern: string;
+    /**
+     * How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+     */
+    type: string;
+}
+
 export interface GetProjectEnvironment {
     /**
      * A comment explaining what the environment variable is for.
      */
     comment: string;
+    /**
+     * The IDs of Custom Environments that the Environment Variable should be present on.
+     */
+    customEnvironmentIds: string[];
     /**
      * The git branch of the environment variable.
      */
@@ -339,6 +365,25 @@ export interface GetProjectGitRepositoryDeployHook {
      * A URL that, when a POST request is made to, will trigger a new deployment.
      */
     url: string;
+}
+
+export interface GetProjectMembersMember {
+    /**
+     * The email of the user.
+     */
+    email: string;
+    /**
+     * The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+     */
+    role: string;
+    /**
+     * The ID of the user.
+     */
+    userId: string;
+    /**
+     * The username of the user.
+     */
+    username: string;
 }
 
 export interface GetProjectOidcTokenConfig {
@@ -430,11 +475,26 @@ export interface GetTeamConfigSaml {
     roles: {[key: string]: string};
 }
 
+export interface GetTeamMemberProject {
+    /**
+     * The ID of the project that the user should be granted access to.
+     */
+    projectId: string;
+    /**
+     * The role that the user should have in the project.
+     */
+    role: string;
+}
+
 export interface ProjectEnvironment {
     /**
      * A comment explaining what the environment variable is for.
      */
     comment: string;
+    /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+     */
+    customEnvironmentIds: string[];
     /**
      * The git branch of the Environment Variable.
      */
@@ -452,7 +512,7 @@ export interface ProjectEnvironment {
      */
     sensitive: boolean;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     targets: string[];
     /**
@@ -466,6 +526,10 @@ export interface ProjectEnvironmentVariablesVariable {
      * A comment explaining what the environment variable is for.
      */
     comment: string;
+    /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+     */
+    customEnvironmentIds: string[];
     /**
      * The git branch of the Environment Variable.
      */
@@ -483,7 +547,7 @@ export interface ProjectEnvironmentVariablesVariable {
      */
     sensitive: boolean;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     targets: string[];
     /**
@@ -539,6 +603,25 @@ export interface ProjectGitRepositoryDeployHook {
      * A URL that, when a POST request is made to, will trigger a new deployment.
      */
     url: string;
+}
+
+export interface ProjectMembersMember {
+    /**
+     * The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+     */
+    email: string;
+    /**
+     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+     */
+    role: string;
+    /**
+     * The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+     */
+    userId: string;
+    /**
+     * The username of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+     */
+    username: string;
 }
 
 export interface ProjectOidcTokenConfig {
@@ -641,5 +724,16 @@ export interface TeamConfigSaml {
      * Directory groups to role or access group mappings.
      */
     roles?: {[key: string]: string};
+}
+
+export interface TeamMemberProject {
+    /**
+     * The ID of the project that the user should be granted access to.
+     */
+    projectId: string;
+    /**
+     * The role that the user should have in the project.
+     */
+    role: string;
 }
 

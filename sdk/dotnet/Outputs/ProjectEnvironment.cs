@@ -19,6 +19,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? Comment;
         /// <summary>
+        /// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+        /// </summary>
+        public readonly ImmutableArray<string> CustomEnvironmentIds;
+        /// <summary>
         /// The git branch of the Environment Variable.
         /// </summary>
         public readonly string? GitBranch;
@@ -35,7 +39,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly bool? Sensitive;
         /// <summary>
-        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         /// </summary>
         public readonly ImmutableArray<string> Targets;
         /// <summary>
@@ -46,6 +50,8 @@ namespace Pulumiverse.Vercel.Outputs
         [OutputConstructor]
         private ProjectEnvironment(
             string? comment,
+
+            ImmutableArray<string> customEnvironmentIds,
 
             string? gitBranch,
 
@@ -60,6 +66,7 @@ namespace Pulumiverse.Vercel.Outputs
             string value)
         {
             Comment = comment;
+            CustomEnvironmentIds = customEnvironmentIds;
             GitBranch = gitBranch;
             Id = id;
             Key = key;

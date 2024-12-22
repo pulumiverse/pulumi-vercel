@@ -33,6 +33,11 @@ export class ProjectDomain extends pulumi.CustomResource {
     }
 
     /**
+     * The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+     * assigned the domain name.
+     */
+    public readonly customEnvironmentId!: pulumi.Output<string | undefined>;
+    /**
      * The domain name to associate with the project.
      */
     public readonly domain!: pulumi.Output<string>;
@@ -71,6 +76,7 @@ export class ProjectDomain extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ProjectDomainState | undefined;
+            resourceInputs["customEnvironmentId"] = state ? state.customEnvironmentId : undefined;
             resourceInputs["domain"] = state ? state.domain : undefined;
             resourceInputs["gitBranch"] = state ? state.gitBranch : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
@@ -85,6 +91,7 @@ export class ProjectDomain extends pulumi.CustomResource {
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
+            resourceInputs["customEnvironmentId"] = args ? args.customEnvironmentId : undefined;
             resourceInputs["domain"] = args ? args.domain : undefined;
             resourceInputs["gitBranch"] = args ? args.gitBranch : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
@@ -101,6 +108,11 @@ export class ProjectDomain extends pulumi.CustomResource {
  * Input properties used for looking up and filtering ProjectDomain resources.
  */
 export interface ProjectDomainState {
+    /**
+     * The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+     * assigned the domain name.
+     */
+    customEnvironmentId?: pulumi.Input<string>;
     /**
      * The domain name to associate with the project.
      */
@@ -132,6 +144,11 @@ export interface ProjectDomainState {
  * The set of arguments for constructing a ProjectDomain resource.
  */
 export interface ProjectDomainArgs {
+    /**
+     * The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+     * assigned the domain name.
+     */
+    customEnvironmentId?: pulumi.Input<string>;
     /**
      * The domain name to associate with the project.
      */

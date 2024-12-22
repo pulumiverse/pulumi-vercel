@@ -39,12 +39,16 @@ class TeamConfigArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
         :param pulumi.Input[str] description: A description of the team.
         :param pulumi.Input[str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
+        :param pulumi.Input[str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        :param pulumi.Input[str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[bool] hide_ip_addresses: Indicates if ip addresses should be accessible in o11y tooling.
         :param pulumi.Input[bool] hide_ip_addresses_in_log_drains: Indicates if ip addresses should be accessible in log drains.
         :param pulumi.Input[str] name: The name of the team.
         :param pulumi.Input[str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input['TeamConfigRemoteCachingArgs'] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input['TeamConfigSamlArgs'] saml: Configuration for SAML authentication.
+        :param pulumi.Input[str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+               Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         :param pulumi.Input[str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         if avatar is not None:
@@ -113,6 +117,9 @@ class TeamConfigArgs:
     @property
     @pulumi.getter(name="enablePreviewFeedback")
     def enable_preview_feedback(self) -> Optional[pulumi.Input[str]]:
+        """
+        Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        """
         return pulumi.get(self, "enable_preview_feedback")
 
     @enable_preview_feedback.setter
@@ -122,6 +129,9 @@ class TeamConfigArgs:
     @property
     @pulumi.getter(name="enableProductionFeedback")
     def enable_production_feedback(self) -> Optional[pulumi.Input[str]]:
+        """
+        Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        """
         return pulumi.get(self, "enable_production_feedback")
 
     @enable_production_feedback.setter
@@ -203,6 +213,10 @@ class TeamConfigArgs:
     @property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
     def sensitive_environment_variable_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+        Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
     @sensitive_environment_variable_policy.setter
@@ -244,6 +258,8 @@ class _TeamConfigState:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
         :param pulumi.Input[str] description: A description of the team.
         :param pulumi.Input[str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
+        :param pulumi.Input[str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        :param pulumi.Input[str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[bool] hide_ip_addresses: Indicates if ip addresses should be accessible in o11y tooling.
         :param pulumi.Input[bool] hide_ip_addresses_in_log_drains: Indicates if ip addresses should be accessible in log drains.
         :param pulumi.Input[str] invite_code: A code that can be used to join this team. Only visible to Team owners.
@@ -251,6 +267,8 @@ class _TeamConfigState:
         :param pulumi.Input[str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input['TeamConfigRemoteCachingArgs'] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input['TeamConfigSamlArgs'] saml: Configuration for SAML authentication.
+        :param pulumi.Input[str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+               Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         :param pulumi.Input[str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         if avatar is not None:
@@ -321,6 +339,9 @@ class _TeamConfigState:
     @property
     @pulumi.getter(name="enablePreviewFeedback")
     def enable_preview_feedback(self) -> Optional[pulumi.Input[str]]:
+        """
+        Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        """
         return pulumi.get(self, "enable_preview_feedback")
 
     @enable_preview_feedback.setter
@@ -330,6 +351,9 @@ class _TeamConfigState:
     @property
     @pulumi.getter(name="enableProductionFeedback")
     def enable_production_feedback(self) -> Optional[pulumi.Input[str]]:
+        """
+        Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        """
         return pulumi.get(self, "enable_production_feedback")
 
     @enable_production_feedback.setter
@@ -423,6 +447,10 @@ class _TeamConfigState:
     @property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
     def sensitive_environment_variable_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+        Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
     @sensitive_environment_variable_policy.setter
@@ -468,12 +496,16 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
         :param pulumi.Input[str] description: A description of the team.
         :param pulumi.Input[str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
+        :param pulumi.Input[str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        :param pulumi.Input[str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[bool] hide_ip_addresses: Indicates if ip addresses should be accessible in o11y tooling.
         :param pulumi.Input[bool] hide_ip_addresses_in_log_drains: Indicates if ip addresses should be accessible in log drains.
         :param pulumi.Input[str] name: The name of the team.
         :param pulumi.Input[str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input[Union['TeamConfigRemoteCachingArgs', 'TeamConfigRemoteCachingArgsDict']] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input[Union['TeamConfigSamlArgs', 'TeamConfigSamlArgsDict']] saml: Configuration for SAML authentication.
+        :param pulumi.Input[str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+               Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         :param pulumi.Input[str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         ...
@@ -569,6 +601,8 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
         :param pulumi.Input[str] description: A description of the team.
         :param pulumi.Input[str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
+        :param pulumi.Input[str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        :param pulumi.Input[str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[bool] hide_ip_addresses: Indicates if ip addresses should be accessible in o11y tooling.
         :param pulumi.Input[bool] hide_ip_addresses_in_log_drains: Indicates if ip addresses should be accessible in log drains.
         :param pulumi.Input[str] invite_code: A code that can be used to join this team. Only visible to Team owners.
@@ -576,6 +610,8 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input[Union['TeamConfigRemoteCachingArgs', 'TeamConfigRemoteCachingArgsDict']] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input[Union['TeamConfigSamlArgs', 'TeamConfigSamlArgsDict']] saml: Configuration for SAML authentication.
+        :param pulumi.Input[str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+               Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         :param pulumi.Input[str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -625,11 +661,17 @@ class TeamConfig(pulumi.CustomResource):
     @property
     @pulumi.getter(name="enablePreviewFeedback")
     def enable_preview_feedback(self) -> pulumi.Output[str]:
+        """
+        Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        """
         return pulumi.get(self, "enable_preview_feedback")
 
     @property
     @pulumi.getter(name="enableProductionFeedback")
     def enable_production_feedback(self) -> pulumi.Output[str]:
+        """
+        Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        """
         return pulumi.get(self, "enable_production_feedback")
 
     @property
@@ -691,6 +733,10 @@ class TeamConfig(pulumi.CustomResource):
     @property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
     def sensitive_environment_variable_policy(self) -> pulumi.Output[str]:
+        """
+        Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+        Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
     @property

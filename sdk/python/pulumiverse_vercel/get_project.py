@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, oidc_token_config=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, oidc_token_config=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -100,6 +100,9 @@ class GetProjectResult:
         if protection_bypass_for_automation and not isinstance(protection_bypass_for_automation, bool):
             raise TypeError("Expected argument 'protection_bypass_for_automation' to be a bool")
         pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
+        if protection_bypass_for_automation_secret and not isinstance(protection_bypass_for_automation_secret, str):
+            raise TypeError("Expected argument 'protection_bypass_for_automation_secret' to be a str")
+        pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
         if public_source and not isinstance(public_source, bool):
             raise TypeError("Expected argument 'public_source' to be a bool")
         pulumi.set(__self__, "public_source", public_source)
@@ -246,6 +249,11 @@ class GetProjectResult:
         return pulumi.get(self, "protection_bypass_for_automation")
 
     @property
+    @pulumi.getter(name="protectionBypassForAutomationSecret")
+    def protection_bypass_for_automation_secret(self) -> str:
+        return pulumi.get(self, "protection_bypass_for_automation_secret")
+
+    @property
     @pulumi.getter(name="publicSource")
     def public_source(self) -> bool:
         return pulumi.get(self, "public_source")
@@ -316,6 +324,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             preview_comments=self.preview_comments,
             prioritise_production_builds=self.prioritise_production_builds,
             protection_bypass_for_automation=self.protection_bypass_for_automation,
+            protection_bypass_for_automation_secret=self.protection_bypass_for_automation_secret,
             public_source=self.public_source,
             resource_config=self.resource_config,
             root_directory=self.root_directory,
@@ -363,6 +372,7 @@ def get_project(name: Optional[str] = None,
         preview_comments=pulumi.get(__ret__, 'preview_comments'),
         prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
+        protection_bypass_for_automation_secret=pulumi.get(__ret__, 'protection_bypass_for_automation_secret'),
         public_source=pulumi.get(__ret__, 'public_source'),
         resource_config=pulumi.get(__ret__, 'resource_config'),
         root_directory=pulumi.get(__ret__, 'root_directory'),
@@ -407,6 +417,7 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
         preview_comments=pulumi.get(__response__, 'preview_comments'),
         prioritise_production_builds=pulumi.get(__response__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__response__, 'protection_bypass_for_automation'),
+        protection_bypass_for_automation_secret=pulumi.get(__response__, 'protection_bypass_for_automation_secret'),
         public_source=pulumi.get(__response__, 'public_source'),
         resource_config=pulumi.get(__response__, 'resource_config'),
         root_directory=pulumi.get(__response__, 'root_directory'),

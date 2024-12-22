@@ -53,6 +53,7 @@ type LookupProjectResult struct {
 	PreviewComments                               bool                           `pulumi:"previewComments"`
 	PrioritiseProductionBuilds                    bool                           `pulumi:"prioritiseProductionBuilds"`
 	ProtectionBypassForAutomation                 bool                           `pulumi:"protectionBypassForAutomation"`
+	ProtectionBypassForAutomationSecret           string                         `pulumi:"protectionBypassForAutomationSecret"`
 	PublicSource                                  bool                           `pulumi:"publicSource"`
 	ResourceConfig                                GetProjectResourceConfig       `pulumi:"resourceConfig"`
 	RootDirectory                                 string                         `pulumi:"rootDirectory"`
@@ -201,6 +202,10 @@ func (o LookupProjectResultOutput) PrioritiseProductionBuilds() pulumi.BoolOutpu
 
 func (o LookupProjectResultOutput) ProtectionBypassForAutomation() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.ProtectionBypassForAutomation }).(pulumi.BoolOutput)
+}
+
+func (o LookupProjectResultOutput) ProtectionBypassForAutomationSecret() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupProjectResult) string { return v.ProtectionBypassForAutomationSecret }).(pulumi.StringOutput)
 }
 
 func (o LookupProjectResultOutput) PublicSource() pulumi.BoolOutput {

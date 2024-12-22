@@ -21,6 +21,7 @@ class ProjectDomainArgs:
     def __init__(__self__, *,
                  domain: pulumi.Input[str],
                  project_id: pulumi.Input[str],
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  redirect: Optional[pulumi.Input[str]] = None,
                  redirect_status_code: Optional[pulumi.Input[int]] = None,
@@ -29,6 +30,8 @@ class ProjectDomainArgs:
         The set of arguments for constructing a ProjectDomain resource.
         :param pulumi.Input[str] domain: The domain name to associate with the project.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
+        :param pulumi.Input[str] custom_environment_id: The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+               assigned the domain name.
         :param pulumi.Input[str] git_branch: Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
         :param pulumi.Input[str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[int] redirect_status_code: The HTTP status code to use when serving as a redirect.
@@ -37,6 +40,8 @@ class ProjectDomainArgs:
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "project_id", project_id)
+        if custom_environment_id is not None:
+            pulumi.set(__self__, "custom_environment_id", custom_environment_id)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if redirect is not None:
@@ -69,6 +74,19 @@ class ProjectDomainArgs:
     @project_id.setter
     def project_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+        assigned the domain name.
+        """
+        return pulumi.get(self, "custom_environment_id")
+
+    @custom_environment_id.setter
+    def custom_environment_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "custom_environment_id", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -123,6 +141,7 @@ class ProjectDomainArgs:
 @pulumi.input_type
 class _ProjectDomainState:
     def __init__(__self__, *,
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -131,6 +150,8 @@ class _ProjectDomainState:
                  team_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ProjectDomain resources.
+        :param pulumi.Input[str] custom_environment_id: The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+               assigned the domain name.
         :param pulumi.Input[str] domain: The domain name to associate with the project.
         :param pulumi.Input[str] git_branch: Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
@@ -139,6 +160,8 @@ class _ProjectDomainState:
         :param pulumi.Input[str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been
                set in the provider.
         """
+        if custom_environment_id is not None:
+            pulumi.set(__self__, "custom_environment_id", custom_environment_id)
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
         if git_branch is not None:
@@ -151,6 +174,19 @@ class _ProjectDomainState:
             pulumi.set(__self__, "redirect_status_code", redirect_status_code)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+
+    @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+        assigned the domain name.
+        """
+        return pulumi.get(self, "custom_environment_id")
+
+    @custom_environment_id.setter
+    def custom_environment_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "custom_environment_id", value)
 
     @property
     @pulumi.getter
@@ -231,6 +267,7 @@ class ProjectDomain(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -242,6 +279,8 @@ class ProjectDomain(pulumi.CustomResource):
         Create a ProjectDomain resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] custom_environment_id: The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+               assigned the domain name.
         :param pulumi.Input[str] domain: The domain name to associate with the project.
         :param pulumi.Input[str] git_branch: Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
@@ -273,6 +312,7 @@ class ProjectDomain(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -288,6 +328,7 @@ class ProjectDomain(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProjectDomainArgs.__new__(ProjectDomainArgs)
 
+            __props__.__dict__["custom_environment_id"] = custom_environment_id
             if domain is None and not opts.urn:
                 raise TypeError("Missing required property 'domain'")
             __props__.__dict__["domain"] = domain
@@ -308,6 +349,7 @@ class ProjectDomain(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            custom_environment_id: Optional[pulumi.Input[str]] = None,
             domain: Optional[pulumi.Input[str]] = None,
             git_branch: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
@@ -321,6 +363,8 @@ class ProjectDomain(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] custom_environment_id: The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+               assigned the domain name.
         :param pulumi.Input[str] domain: The domain name to associate with the project.
         :param pulumi.Input[str] git_branch: Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
@@ -333,6 +377,7 @@ class ProjectDomain(pulumi.CustomResource):
 
         __props__ = _ProjectDomainState.__new__(_ProjectDomainState)
 
+        __props__.__dict__["custom_environment_id"] = custom_environment_id
         __props__.__dict__["domain"] = domain
         __props__.__dict__["git_branch"] = git_branch
         __props__.__dict__["project_id"] = project_id
@@ -340,6 +385,15 @@ class ProjectDomain(pulumi.CustomResource):
         __props__.__dict__["redirect_status_code"] = redirect_status_code
         __props__.__dict__["team_id"] = team_id
         return ProjectDomain(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+        assigned the domain name.
+        """
+        return pulumi.get(self, "custom_environment_id")
 
     @property
     @pulumi.getter

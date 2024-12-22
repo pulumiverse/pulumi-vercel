@@ -15,6 +15,8 @@ else:
 from . import _utilities
 
 __all__ = [
+    'CustomEnvironmentBranchTrackingArgs',
+    'CustomEnvironmentBranchTrackingArgsDict',
     'DeploymentProjectSettingsArgs',
     'DeploymentProjectSettingsArgsDict',
     'DnsRecordSrvArgs',
@@ -71,6 +73,8 @@ __all__ = [
     'ProjectGitRepositoryArgsDict',
     'ProjectGitRepositoryDeployHookArgs',
     'ProjectGitRepositoryDeployHookArgsDict',
+    'ProjectMembersMemberArgs',
+    'ProjectMembersMemberArgsDict',
     'ProjectOidcTokenConfigArgs',
     'ProjectOidcTokenConfigArgsDict',
     'ProjectOptionsAllowlistArgs',
@@ -91,9 +95,61 @@ __all__ = [
     'TeamConfigRemoteCachingArgsDict',
     'TeamConfigSamlArgs',
     'TeamConfigSamlArgsDict',
+    'TeamMemberProjectArgs',
+    'TeamMemberProjectArgsDict',
 ]
 
 MYPY = False
+
+if not MYPY:
+    class CustomEnvironmentBranchTrackingArgsDict(TypedDict):
+        pattern: pulumi.Input[str]
+        """
+        The pattern of the branch name to track.
+        """
+        type: pulumi.Input[str]
+        """
+        How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+elif False:
+    CustomEnvironmentBranchTrackingArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class CustomEnvironmentBranchTrackingArgs:
+    def __init__(__self__, *,
+                 pattern: pulumi.Input[str],
+                 type: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] pattern: The pattern of the branch name to track.
+        :param pulumi.Input[str] type: How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+        pulumi.set(__self__, "pattern", pattern)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def pattern(self) -> pulumi.Input[str]:
+        """
+        The pattern of the branch name to track.
+        """
+        return pulumi.get(self, "pattern")
+
+    @pattern.setter
+    def pattern(self, value: pulumi.Input[str]):
+        pulumi.set(self, "pattern", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        """
+        How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
 
 if not MYPY:
     class DeploymentProjectSettingsArgsDict(TypedDict):
@@ -1503,10 +1559,6 @@ if not MYPY:
         """
         The name of the Environment Variable.
         """
-        targets: pulumi.Input[Sequence[pulumi.Input[str]]]
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-        """
         value: pulumi.Input[str]
         """
         The value of the Environment Variable.
@@ -1514,6 +1566,10 @@ if not MYPY:
         comment: NotRequired[pulumi.Input[str]]
         """
         A comment explaining what the environment variable is for.
+        """
+        custom_environment_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         """
         git_branch: NotRequired[pulumi.Input[str]]
         """
@@ -1526,6 +1582,10 @@ if not MYPY:
         sensitive: NotRequired[pulumi.Input[bool]]
         """
         Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        """
+        targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
 elif False:
     ProjectEnvironmentArgsDict: TypeAlias = Mapping[str, Any]
@@ -1534,32 +1594,37 @@ elif False:
 class ProjectEnvironmentArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
-                 targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
                  comment: Optional[pulumi.Input[str]] = None,
+                 custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
-                 sensitive: Optional[pulumi.Input[bool]] = None):
+                 sensitive: Optional[pulumi.Input[bool]] = None,
+                 targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         :param pulumi.Input[str] key: The name of the Environment Variable.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] id: The ID of the Environment Variable.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if custom_environment_ids is not None:
+            pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
+        if targets is not None:
+            pulumi.set(__self__, "targets", targets)
 
     @property
     @pulumi.getter
@@ -1572,18 +1637,6 @@ class ProjectEnvironmentArgs:
     @key.setter
     def key(self, value: pulumi.Input[str]):
         pulumi.set(self, "key", value)
-
-    @property
-    @pulumi.getter
-    def targets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-        """
-        return pulumi.get(self, "targets")
-
-    @targets.setter
-    def targets(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "targets", value)
 
     @property
     @pulumi.getter
@@ -1608,6 +1661,18 @@ class ProjectEnvironmentArgs:
     @comment.setter
     def comment(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "comment", value)
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
+
+    @custom_environment_ids.setter
+    def custom_environment_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "custom_environment_ids", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1645,16 +1710,24 @@ class ProjectEnvironmentArgs:
     def sensitive(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "sensitive", value)
 
+    @property
+    @pulumi.getter
+    def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "targets")
+
+    @targets.setter
+    def targets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "targets", value)
+
 
 if not MYPY:
     class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
         key: pulumi.Input[str]
         """
         The name of the Environment Variable.
-        """
-        targets: pulumi.Input[Sequence[pulumi.Input[str]]]
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         """
         value: pulumi.Input[str]
         """
@@ -1663,6 +1736,10 @@ if not MYPY:
         comment: NotRequired[pulumi.Input[str]]
         """
         A comment explaining what the environment variable is for.
+        """
+        custom_environment_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         """
         git_branch: NotRequired[pulumi.Input[str]]
         """
@@ -1676,6 +1753,10 @@ if not MYPY:
         """
         Whether the Environment Variable is sensitive or not.
         """
+        targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        """
 elif False:
     ProjectEnvironmentVariablesVariableArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1683,32 +1764,37 @@ elif False:
 class ProjectEnvironmentVariablesVariableArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
-                 targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
                  comment: Optional[pulumi.Input[str]] = None,
+                 custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
-                 sensitive: Optional[pulumi.Input[bool]] = None):
+                 sensitive: Optional[pulumi.Input[bool]] = None,
+                 targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         :param pulumi.Input[str] key: The name of the Environment Variable.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] id: The ID of the Environment Variable.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if custom_environment_ids is not None:
+            pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
+        if targets is not None:
+            pulumi.set(__self__, "targets", targets)
 
     @property
     @pulumi.getter
@@ -1721,18 +1807,6 @@ class ProjectEnvironmentVariablesVariableArgs:
     @key.setter
     def key(self, value: pulumi.Input[str]):
         pulumi.set(self, "key", value)
-
-    @property
-    @pulumi.getter
-    def targets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-        """
-        return pulumi.get(self, "targets")
-
-    @targets.setter
-    def targets(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "targets", value)
 
     @property
     @pulumi.getter
@@ -1757,6 +1831,18 @@ class ProjectEnvironmentVariablesVariableArgs:
     @comment.setter
     def comment(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "comment", value)
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
+
+    @custom_environment_ids.setter
+    def custom_environment_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "custom_environment_ids", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1793,6 +1879,18 @@ class ProjectEnvironmentVariablesVariableArgs:
     @sensitive.setter
     def sensitive(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "sensitive", value)
+
+    @property
+    @pulumi.getter
+    def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "targets")
+
+    @targets.setter
+    def targets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "targets", value)
 
 
 if not MYPY:
@@ -2023,6 +2121,97 @@ class ProjectGitRepositoryDeployHookArgs:
     @url.setter
     def url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "url", value)
+
+
+if not MYPY:
+    class ProjectMembersMemberArgsDict(TypedDict):
+        role: pulumi.Input[str]
+        """
+        The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        """
+        email: NotRequired[pulumi.Input[str]]
+        """
+        The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        user_id: NotRequired[pulumi.Input[str]]
+        """
+        The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        username: NotRequired[pulumi.Input[str]]
+        """
+        The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+elif False:
+    ProjectMembersMemberArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ProjectMembersMemberArgs:
+    def __init__(__self__, *,
+                 role: pulumi.Input[str],
+                 email: Optional[pulumi.Input[str]] = None,
+                 user_id: Optional[pulumi.Input[str]] = None,
+                 username: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        :param pulumi.Input[str] email: The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        :param pulumi.Input[str] user_id: The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        :param pulumi.Input[str] username: The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        pulumi.set(__self__, "role", role)
+        if email is not None:
+            pulumi.set(__self__, "email", email)
+        if user_id is not None:
+            pulumi.set(__self__, "user_id", user_id)
+        if username is not None:
+            pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter
+    def role(self) -> pulumi.Input[str]:
+        """
+        The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        """
+        return pulumi.get(self, "role")
+
+    @role.setter
+    def role(self, value: pulumi.Input[str]):
+        pulumi.set(self, "role", value)
+
+    @property
+    @pulumi.getter
+    def email(self) -> Optional[pulumi.Input[str]]:
+        """
+        The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        return pulumi.get(self, "email")
+
+    @email.setter
+    def email(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "email", value)
+
+    @property
+    @pulumi.getter(name="userId")
+    def user_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        return pulumi.get(self, "user_id")
+
+    @user_id.setter
+    def user_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user_id", value)
+
+    @property
+    @pulumi.getter
+    def username(self) -> Optional[pulumi.Input[str]]:
+        """
+        The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        return pulumi.get(self, "username")
+
+    @username.setter
+    def username(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "username", value)
 
 
 if not MYPY:
@@ -2493,5 +2682,55 @@ class TeamConfigSamlArgs:
     @roles.setter
     def roles(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "roles", value)
+
+
+if not MYPY:
+    class TeamMemberProjectArgsDict(TypedDict):
+        project_id: pulumi.Input[str]
+        """
+        The ID of the project that the user should be granted access to.
+        """
+        role: pulumi.Input[str]
+        """
+        The role that the user should have in the project.
+        """
+elif False:
+    TeamMemberProjectArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TeamMemberProjectArgs:
+    def __init__(__self__, *,
+                 project_id: pulumi.Input[str],
+                 role: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] project_id: The ID of the project that the user should be granted access to.
+        :param pulumi.Input[str] role: The role that the user should have in the project.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "role", role)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the project that the user should be granted access to.
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def role(self) -> pulumi.Input[str]:
+        """
+        The role that the user should have in the project.
+        """
+        return pulumi.get(self, "role")
+
+    @role.setter
+    def role(self, value: pulumi.Input[str]):
+        pulumi.set(self, "role", value)
 
 

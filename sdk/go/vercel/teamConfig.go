@@ -19,8 +19,10 @@ type TeamConfig struct {
 	// A description of the team.
 	Description pulumi.StringOutput `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
-	EmailDomain              pulumi.StringOutput `pulumi:"emailDomain"`
-	EnablePreviewFeedback    pulumi.StringOutput `pulumi:"enablePreviewFeedback"`
+	EmailDomain pulumi.StringOutput `pulumi:"emailDomain"`
+	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+	EnablePreviewFeedback pulumi.StringOutput `pulumi:"enablePreviewFeedback"`
+	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback pulumi.StringOutput `pulumi:"enableProductionFeedback"`
 	// Indicates if ip addresses should be accessible in o11y tooling.
 	HideIpAddresses pulumi.BoolOutput `pulumi:"hideIpAddresses"`
@@ -35,8 +37,10 @@ type TeamConfig struct {
 	// Configuration for Remote Caching.
 	RemoteCaching TeamConfigRemoteCachingOutput `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
-	Saml                               TeamConfigSamlOutput `pulumi:"saml"`
-	SensitiveEnvironmentVariablePolicy pulumi.StringOutput  `pulumi:"sensitiveEnvironmentVariablePolicy"`
+	Saml TeamConfigSamlOutput `pulumi:"saml"`
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	SensitiveEnvironmentVariablePolicy pulumi.StringOutput `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringOutput `pulumi:"slug"`
 }
@@ -76,8 +80,10 @@ type teamConfigState struct {
 	// A description of the team.
 	Description *string `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
-	EmailDomain              *string `pulumi:"emailDomain"`
-	EnablePreviewFeedback    *string `pulumi:"enablePreviewFeedback"`
+	EmailDomain *string `pulumi:"emailDomain"`
+	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+	EnablePreviewFeedback *string `pulumi:"enablePreviewFeedback"`
+	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback *string `pulumi:"enableProductionFeedback"`
 	// Indicates if ip addresses should be accessible in o11y tooling.
 	HideIpAddresses *bool `pulumi:"hideIpAddresses"`
@@ -92,8 +98,10 @@ type teamConfigState struct {
 	// Configuration for Remote Caching.
 	RemoteCaching *TeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
-	Saml                               *TeamConfigSaml `pulumi:"saml"`
-	SensitiveEnvironmentVariablePolicy *string         `pulumi:"sensitiveEnvironmentVariablePolicy"`
+	Saml *TeamConfigSaml `pulumi:"saml"`
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	SensitiveEnvironmentVariablePolicy *string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug *string `pulumi:"slug"`
 }
@@ -104,8 +112,10 @@ type TeamConfigState struct {
 	// A description of the team.
 	Description pulumi.StringPtrInput
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
-	EmailDomain              pulumi.StringPtrInput
-	EnablePreviewFeedback    pulumi.StringPtrInput
+	EmailDomain pulumi.StringPtrInput
+	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+	EnablePreviewFeedback pulumi.StringPtrInput
+	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback pulumi.StringPtrInput
 	// Indicates if ip addresses should be accessible in o11y tooling.
 	HideIpAddresses pulumi.BoolPtrInput
@@ -120,7 +130,9 @@ type TeamConfigState struct {
 	// Configuration for Remote Caching.
 	RemoteCaching TeamConfigRemoteCachingPtrInput
 	// Configuration for SAML authentication.
-	Saml                               TeamConfigSamlPtrInput
+	Saml TeamConfigSamlPtrInput
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy pulumi.StringPtrInput
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringPtrInput
@@ -136,8 +148,10 @@ type teamConfigArgs struct {
 	// A description of the team.
 	Description *string `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
-	EmailDomain              *string `pulumi:"emailDomain"`
-	EnablePreviewFeedback    *string `pulumi:"enablePreviewFeedback"`
+	EmailDomain *string `pulumi:"emailDomain"`
+	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+	EnablePreviewFeedback *string `pulumi:"enablePreviewFeedback"`
+	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback *string `pulumi:"enableProductionFeedback"`
 	// Indicates if ip addresses should be accessible in o11y tooling.
 	HideIpAddresses *bool `pulumi:"hideIpAddresses"`
@@ -150,8 +164,10 @@ type teamConfigArgs struct {
 	// Configuration for Remote Caching.
 	RemoteCaching *TeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
-	Saml                               *TeamConfigSaml `pulumi:"saml"`
-	SensitiveEnvironmentVariablePolicy *string         `pulumi:"sensitiveEnvironmentVariablePolicy"`
+	Saml *TeamConfigSaml `pulumi:"saml"`
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	SensitiveEnvironmentVariablePolicy *string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug *string `pulumi:"slug"`
 }
@@ -163,8 +179,10 @@ type TeamConfigArgs struct {
 	// A description of the team.
 	Description pulumi.StringPtrInput
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
-	EmailDomain              pulumi.StringPtrInput
-	EnablePreviewFeedback    pulumi.StringPtrInput
+	EmailDomain pulumi.StringPtrInput
+	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+	EnablePreviewFeedback pulumi.StringPtrInput
+	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback pulumi.StringPtrInput
 	// Indicates if ip addresses should be accessible in o11y tooling.
 	HideIpAddresses pulumi.BoolPtrInput
@@ -177,7 +195,9 @@ type TeamConfigArgs struct {
 	// Configuration for Remote Caching.
 	RemoteCaching TeamConfigRemoteCachingPtrInput
 	// Configuration for SAML authentication.
-	Saml                               TeamConfigSamlPtrInput
+	Saml TeamConfigSamlPtrInput
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy pulumi.StringPtrInput
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringPtrInput
@@ -285,10 +305,12 @@ func (o TeamConfigOutput) EmailDomain() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.EmailDomain }).(pulumi.StringOutput)
 }
 
+// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
 func (o TeamConfigOutput) EnablePreviewFeedback() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.EnablePreviewFeedback }).(pulumi.StringOutput)
 }
 
+// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 func (o TeamConfigOutput) EnableProductionFeedback() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.EnableProductionFeedback }).(pulumi.StringOutput)
 }
@@ -328,6 +350,8 @@ func (o TeamConfigOutput) Saml() TeamConfigSamlOutput {
 	return o.ApplyT(func(v *TeamConfig) TeamConfigSamlOutput { return v.Saml }).(TeamConfigSamlOutput)
 }
 
+// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 func (o TeamConfigOutput) SensitiveEnvironmentVariablePolicy() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.SensitiveEnvironmentVariablePolicy }).(pulumi.StringOutput)
 }

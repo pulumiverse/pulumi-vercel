@@ -21,35 +21,41 @@ class ProjectEnvironmentVariableArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
                  project_id: pulumi.Input[str],
-                 targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
                  comment: Optional[pulumi.Input[str]] = None,
+                 custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
+                 targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  team_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a ProjectEnvironmentVariable resource.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+               `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
                policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
+               or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "project_id", project_id)
-        pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if custom_environment_ids is not None:
+            pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
+        if targets is not None:
+            pulumi.set(__self__, "targets", targets)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
 
@@ -79,19 +85,6 @@ class ProjectEnvironmentVariableArgs:
 
     @property
     @pulumi.getter
-    def targets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`.
-        """
-        return pulumi.get(self, "targets")
-
-    @targets.setter
-    def targets(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "targets", value)
-
-    @property
-    @pulumi.getter
     def value(self) -> pulumi.Input[str]:
         """
         The value of the Environment Variable.
@@ -113,6 +106,19 @@ class ProjectEnvironmentVariableArgs:
     @comment.setter
     def comment(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "comment", value)
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+        `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
+
+    @custom_environment_ids.setter
+    def custom_environment_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "custom_environment_ids", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -140,6 +146,19 @@ class ProjectEnvironmentVariableArgs:
         pulumi.set(self, "sensitive", value)
 
     @property
+    @pulumi.getter
+    def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
+        or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "targets")
+
+    @targets.setter
+    def targets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "targets", value)
+
+    @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -156,6 +175,7 @@ class ProjectEnvironmentVariableArgs:
 class _ProjectEnvironmentVariableState:
     def __init__(__self__, *,
                  comment: Optional[pulumi.Input[str]] = None,
+                 custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -166,18 +186,22 @@ class _ProjectEnvironmentVariableState:
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+               `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
                policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+               or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if custom_environment_ids is not None:
+            pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if key is not None:
@@ -204,6 +228,19 @@ class _ProjectEnvironmentVariableState:
     @comment.setter
     def comment(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "comment", value)
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+        `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
+
+    @custom_environment_ids.setter
+    def custom_environment_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "custom_environment_ids", value)
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -259,7 +296,7 @@ class _ProjectEnvironmentVariableState:
     def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`.
+        or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
 
@@ -298,6 +335,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  comment: Optional[pulumi.Input[str]] = None,
+                 custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -311,13 +349,15 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+               `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
                policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+               or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -345,6 +385,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  comment: Optional[pulumi.Input[str]] = None,
+                 custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  git_branch: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -362,6 +403,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             __props__ = ProjectEnvironmentVariableArgs.__new__(ProjectEnvironmentVariableArgs)
 
             __props__.__dict__["comment"] = comment
+            __props__.__dict__["custom_environment_ids"] = custom_environment_ids
             __props__.__dict__["git_branch"] = git_branch
             if key is None and not opts.urn:
                 raise TypeError("Missing required property 'key'")
@@ -370,8 +412,6 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
             __props__.__dict__["sensitive"] = sensitive
-            if targets is None and not opts.urn:
-                raise TypeError("Missing required property 'targets'")
             __props__.__dict__["targets"] = targets
             __props__.__dict__["team_id"] = team_id
             if value is None and not opts.urn:
@@ -390,6 +430,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             comment: Optional[pulumi.Input[str]] = None,
+            custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             git_branch: Optional[pulumi.Input[str]] = None,
             key: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
@@ -405,13 +446,15 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+               `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
                policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+               or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -420,6 +463,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         __props__ = _ProjectEnvironmentVariableState.__new__(_ProjectEnvironmentVariableState)
 
         __props__.__dict__["comment"] = comment
+        __props__.__dict__["custom_environment_ids"] = custom_environment_ids
         __props__.__dict__["git_branch"] = git_branch
         __props__.__dict__["key"] = key
         __props__.__dict__["project_id"] = project_id
@@ -436,6 +480,15 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         A comment explaining what the environment variable is for.
         """
         return pulumi.get(self, "comment")
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> pulumi.Output[Sequence[str]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+        `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -475,7 +528,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     def targets(self) -> pulumi.Output[Sequence[str]]:
         """
         The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`.
+        or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
 
