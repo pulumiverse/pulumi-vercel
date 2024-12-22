@@ -37,6 +37,11 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly comment!: pulumi.Output<string>;
     /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+     * `customEnvironmentIds` must be set.
+     */
+    public readonly customEnvironmentIds!: pulumi.Output<string[]>;
+    /**
      * The git branch of the Environment Variable.
      */
     public readonly gitBranch!: pulumi.Output<string | undefined>;
@@ -55,7 +60,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
     public readonly sensitive!: pulumi.Output<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     public readonly targets!: pulumi.Output<string[]>;
     /**
@@ -81,6 +86,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as ProjectEnvironmentVariableState | undefined;
             resourceInputs["comment"] = state ? state.comment : undefined;
+            resourceInputs["customEnvironmentIds"] = state ? state.customEnvironmentIds : undefined;
             resourceInputs["gitBranch"] = state ? state.gitBranch : undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
@@ -96,13 +102,11 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
-            if ((!args || args.targets === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'targets'");
-            }
             if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
             resourceInputs["comment"] = args ? args.comment : undefined;
+            resourceInputs["customEnvironmentIds"] = args ? args.customEnvironmentIds : undefined;
             resourceInputs["gitBranch"] = args ? args.gitBranch : undefined;
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
@@ -127,6 +131,11 @@ export interface ProjectEnvironmentVariableState {
      */
     comment?: pulumi.Input<string>;
     /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+     * `customEnvironmentIds` must be set.
+     */
+    customEnvironmentIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
      * The git branch of the Environment Variable.
      */
     gitBranch?: pulumi.Input<string>;
@@ -145,7 +154,7 @@ export interface ProjectEnvironmentVariableState {
     sensitive?: pulumi.Input<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -167,6 +176,11 @@ export interface ProjectEnvironmentVariableArgs {
      */
     comment?: pulumi.Input<string>;
     /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+     * `customEnvironmentIds` must be set.
+     */
+    customEnvironmentIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
      * The git branch of the Environment Variable.
      */
     gitBranch?: pulumi.Input<string>;
@@ -185,9 +199,9 @@ export interface ProjectEnvironmentVariableArgs {
     sensitive?: pulumi.Input<boolean>;
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
-    targets: pulumi.Input<pulumi.Input<string>[]>;
+    targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
      */

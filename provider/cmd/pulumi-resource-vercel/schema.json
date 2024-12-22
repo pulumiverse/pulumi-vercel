@@ -70,6 +70,23 @@
         }
     },
     "types": {
+        "vercel:index/CustomEnvironmentBranchTracking:CustomEnvironmentBranchTracking": {
+            "properties": {
+                "pattern": {
+                    "type": "string",
+                    "description": "The pattern of the branch name to track.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "pattern",
+                "type"
+            ]
+        },
         "vercel:index/DeploymentProjectSettings:DeploymentProjectSettings": {
             "properties": {
                 "buildCommand": {
@@ -542,6 +559,13 @@
                     "type": "string",
                     "description": "A comment explaining what the environment variable is for.\n"
                 },
+                "customEnvironmentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.\n"
+                },
                 "gitBranch": {
                     "type": "string",
                     "description": "The git branch of the Environment Variable.\n"
@@ -563,7 +587,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.\n"
+                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.\n"
                 },
                 "value": {
                     "type": "string",
@@ -574,13 +598,13 @@
             "type": "object",
             "required": [
                 "key",
-                "targets",
                 "value"
             ],
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
                         "comment",
+                        "customEnvironmentIds",
                         "id",
                         "key",
                         "sensitive",
@@ -595,6 +619,13 @@
                 "comment": {
                     "type": "string",
                     "description": "A comment explaining what the environment variable is for.\n"
+                },
+                "customEnvironmentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.\n"
                 },
                 "gitBranch": {
                     "type": "string",
@@ -617,7 +648,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.\n"
+                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.\n"
                 },
                 "value": {
                     "type": "string",
@@ -627,13 +658,13 @@
             "type": "object",
             "required": [
                 "key",
-                "targets",
                 "value"
             ],
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
                         "comment",
+                        "customEnvironmentIds",
                         "id",
                         "key",
                         "sensitive",
@@ -729,6 +760,40 @@
                         "name",
                         "ref",
                         "url"
+                    ]
+                }
+            }
+        },
+        "vercel:index/ProjectMembersMember:ProjectMembersMember": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.\n"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.\n"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "role"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "email",
+                        "role",
+                        "userId",
+                        "username"
                     ]
                 }
             }
@@ -924,11 +989,57 @@
                 "enforced"
             ]
         },
+        "vercel:index/TeamMemberProject:TeamMemberProject": {
+            "properties": {
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project that the user should be granted access to.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role that the user should have in the project.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "projectId",
+                "role"
+            ]
+        },
+        "vercel:index/getCustomEnvironmentBranchTracking:getCustomEnvironmentBranchTracking": {
+            "properties": {
+                "pattern": {
+                    "type": "string",
+                    "description": "The pattern of the branch name to track.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "pattern",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
         "vercel:index/getProjectEnvironment:getProjectEnvironment": {
             "properties": {
                 "comment": {
                     "type": "string",
                     "description": "A comment explaining what the environment variable is for.\n"
+                },
+                "customEnvironmentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of Custom Environments that the Environment Variable should be present on.\n"
                 },
                 "gitBranch": {
                     "type": "string",
@@ -961,6 +1072,7 @@
             "type": "object",
             "required": [
                 "comment",
+                "customEnvironmentIds",
                 "gitBranch",
                 "id",
                 "key",
@@ -1057,6 +1169,38 @@
                 "name",
                 "ref",
                 "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "vercel:index/getProjectMembersMember:getProjectMembersMember": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "The email of the user.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.\n"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The ID of the user.\n"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "The username of the user.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "email",
+                "role",
+                "userId",
+                "username"
             ],
             "language": {
                 "nodejs": {
@@ -1274,6 +1418,28 @@
                     "requiredInputs": []
                 }
             }
+        },
+        "vercel:index/getTeamMemberProject:getTeamMemberProject": {
+            "properties": {
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project that the user should be granted access to.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role that the user should have in the project.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "projectId",
+                "role"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
         }
     },
     "provider": {
@@ -1302,6 +1468,117 @@
         }
     },
     "resources": {
+        "vercel:index/accessGroup:AccessGroup": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the Access Group\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has\nnot been set in the provider.\n"
+                }
+            },
+            "required": [
+                "name",
+                "teamId"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the Access Group\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has\nnot been set in the provider.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AccessGroup resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Access Group\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has\nnot been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/accessGroupProject:AccessGroupProject": {
+            "properties": {
+                "accessGroupId": {
+                    "type": "string",
+                    "description": "The ID of the Access Group.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The Project ID to assign to the access group.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the access group project should exist under. Required when configuring a team resource if a default\nteam has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "accessGroupId",
+                "projectId",
+                "role",
+                "teamId"
+            ],
+            "inputProperties": {
+                "accessGroupId": {
+                    "type": "string",
+                    "description": "The ID of the Access Group.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The Project ID to assign to the access group.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the access group project should exist under. Required when configuring a team resource if a default\nteam has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "accessGroupId",
+                "projectId",
+                "role"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AccessGroupProject resources.\n",
+                "properties": {
+                    "accessGroupId": {
+                        "type": "string",
+                        "description": "The ID of the Access Group.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The Project ID to assign to the access group.\n"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the access group project should exist under. Required when configuring a team resource if a default\nteam has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "vercel:index/alias:Alias": {
             "properties": {
                 "alias": {
@@ -1426,6 +1703,88 @@
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been\nset in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/customEnvironment:CustomEnvironment": {
+            "properties": {
+                "branchTracking": {
+                    "$ref": "#/types/vercel:index/CustomEnvironmentBranchTracking:CustomEnvironmentBranchTracking",
+                    "description": "The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of what the environment is.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the environment.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Project.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the\nprovider.\n"
+                }
+            },
+            "required": [
+                "branchTracking",
+                "description",
+                "name",
+                "projectId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "branchTracking": {
+                    "$ref": "#/types/vercel:index/CustomEnvironmentBranchTracking:CustomEnvironmentBranchTracking",
+                    "description": "The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of what the environment is.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the environment.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Project.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the\nprovider.\n"
+                }
+            },
+            "requiredInputs": [
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering CustomEnvironment resources.\n",
+                "properties": {
+                    "branchTracking": {
+                        "$ref": "#/types/vercel:index/CustomEnvironmentBranchTracking:CustomEnvironmentBranchTracking",
+                        "description": "The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of what the environment is.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the environment.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Project.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the\nprovider.\n"
                     }
                 },
                 "type": "object"
@@ -2319,11 +2678,12 @@
                 },
                 "protectionBypassForAutomation": {
                     "type": "boolean",
-                    "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production\nDeployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the\n`password_protection_for_automation_secret` field.\n"
+                    "description": "Allow automation services to bypass Deployment Protection on this project when using an HTTP header named\n`x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.\n"
                 },
                 "protectionBypassForAutomationSecret": {
                     "type": "string",
-                    "description": "If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass\nVercel Authentication and Password Protection for both Preview and Production Deployments.\n"
+                    "description": "If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise\na secret will be generated.\n",
+                    "secret": true
                 },
                 "publicSource": {
                     "type": "boolean",
@@ -2469,7 +2829,12 @@
                 },
                 "protectionBypassForAutomation": {
                     "type": "boolean",
-                    "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production\nDeployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the\n`password_protection_for_automation_secret` field.\n"
+                    "description": "Allow automation services to bypass Deployment Protection on this project when using an HTTP header named\n`x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.\n"
+                },
+                "protectionBypassForAutomationSecret": {
+                    "type": "string",
+                    "description": "If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise\na secret will be generated.\n",
+                    "secret": true
                 },
                 "publicSource": {
                     "type": "boolean",
@@ -2600,11 +2965,12 @@
                     },
                     "protectionBypassForAutomation": {
                         "type": "boolean",
-                        "description": "Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production\nDeployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the\n`password_protection_for_automation_secret` field.\n"
+                        "description": "Allow automation services to bypass Deployment Protection on this project when using an HTTP header named\n`x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.\n"
                     },
                     "protectionBypassForAutomationSecret": {
                         "type": "string",
-                        "description": "If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass\nVercel Authentication and Password Protection for both Preview and Production Deployments.\n"
+                        "description": "If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise\na secret will be generated.\n",
+                        "secret": true
                     },
                     "publicSource": {
                         "type": "boolean",
@@ -2739,6 +3105,10 @@
         },
         "vercel:index/projectDomain:ProjectDomain": {
             "properties": {
+                "customEnvironmentId": {
+                    "type": "string",
+                    "description": "The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be\nassigned the domain name.\n"
+                },
                 "domain": {
                     "type": "string",
                     "description": "The domain name to associate with the project.\n"
@@ -2770,6 +3140,10 @@
                 "teamId"
             ],
             "inputProperties": {
+                "customEnvironmentId": {
+                    "type": "string",
+                    "description": "The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be\nassigned the domain name.\n"
+                },
                 "domain": {
                     "type": "string",
                     "description": "The domain name to associate with the project.\n"
@@ -2802,6 +3176,10 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering ProjectDomain resources.\n",
                 "properties": {
+                    "customEnvironmentId": {
+                        "type": "string",
+                        "description": "The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be\nassigned the domain name.\n"
+                    },
                     "domain": {
                         "type": "string",
                         "description": "The domain name to associate with the project.\n"
@@ -2836,6 +3214,13 @@
                     "type": "string",
                     "description": "A comment explaining what the environment variable is for.\n"
                 },
+                "customEnvironmentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or\n`custom_environment_ids` must be set.\n"
+                },
                 "gitBranch": {
                     "type": "string",
                     "description": "The git branch of the Environment Variable.\n"
@@ -2857,7 +3242,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,\nor `development`.\n"
+                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,\nor `development`. At least one of `target` or `custom_environment_ids` must be set.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -2871,6 +3256,7 @@
             },
             "required": [
                 "comment",
+                "customEnvironmentIds",
                 "key",
                 "projectId",
                 "sensitive",
@@ -2882,6 +3268,13 @@
                 "comment": {
                     "type": "string",
                     "description": "A comment explaining what the environment variable is for.\n"
+                },
+                "customEnvironmentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or\n`custom_environment_ids` must be set.\n"
                 },
                 "gitBranch": {
                     "type": "string",
@@ -2904,7 +3297,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,\nor `development`.\n"
+                    "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,\nor `development`. At least one of `target` or `custom_environment_ids` must be set.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -2919,7 +3312,6 @@
             "requiredInputs": [
                 "key",
                 "projectId",
-                "targets",
                 "value"
             ],
             "stateInputs": {
@@ -2928,6 +3320,13 @@
                     "comment": {
                         "type": "string",
                         "description": "A comment explaining what the environment variable is for.\n"
+                    },
+                    "customEnvironmentIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or\n`custom_environment_ids` must be set.\n"
                     },
                     "gitBranch": {
                         "type": "string",
@@ -2950,7 +3349,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,\nor `development`.\n"
+                        "description": "The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,\nor `development`. At least one of `target` or `custom_environment_ids` must be set.\n"
                     },
                     "teamId": {
                         "type": "string",
@@ -3026,6 +3425,72 @@
                             "$ref": "#/types/vercel:index/ProjectEnvironmentVariablesVariable:ProjectEnvironmentVariablesVariable"
                         },
                         "description": "A set of Environment Variables that should be configured for the project.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/projectMembers:ProjectMembers": {
+            "properties": {
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/ProjectMembersMember:ProjectMembersMember"
+                    },
+                    "description": "The set of members to manage for this project.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Project.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the\nprovider.\n"
+                }
+            },
+            "required": [
+                "members",
+                "projectId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/ProjectMembersMember:ProjectMembersMember"
+                    },
+                    "description": "The set of members to manage for this project.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Project.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the\nprovider.\n"
+                }
+            },
+            "requiredInputs": [
+                "members",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ProjectMembers resources.\n",
+                "properties": {
+                    "members": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/ProjectMembersMember:ProjectMembersMember"
+                        },
+                        "description": "The set of members to manage for this project.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Project.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the\nprovider.\n"
                     }
                 },
                 "type": "object"
@@ -3181,10 +3646,12 @@
                     "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
                 },
                 "enablePreviewFeedback": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Enables the Vercel Toolbar on your preview deployments: one of on, off or default.\n"
                 },
                 "enableProductionFeedback": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Enables the Vercel Toolbar on your production deployments: one of on, off or default.\n"
                 },
                 "hideIpAddresses": {
                     "type": "boolean",
@@ -3215,7 +3682,8 @@
                     "description": "Configuration for SAML authentication.\n"
                 },
                 "sensitiveEnvironmentVariablePolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Ensures that all environment variables created by members of this team will be created as Sensitive Environment\nVariables which can only be decrypted by Vercel's deployment system.: one of on, off or default.\n"
                 },
                 "slug": {
                     "type": "string",
@@ -3254,10 +3722,12 @@
                     "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
                 },
                 "enablePreviewFeedback": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Enables the Vercel Toolbar on your preview deployments: one of on, off or default.\n"
                 },
                 "enableProductionFeedback": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Enables the Vercel Toolbar on your production deployments: one of on, off or default.\n"
                 },
                 "hideIpAddresses": {
                     "type": "boolean",
@@ -3284,7 +3754,8 @@
                     "description": "Configuration for SAML authentication.\n"
                 },
                 "sensitiveEnvironmentVariablePolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Ensures that all environment variables created by members of this team will be created as Sensitive Environment\nVariables which can only be decrypted by Vercel's deployment system.: one of on, off or default.\n"
                 },
                 "slug": {
                     "type": "string",
@@ -3310,10 +3781,12 @@
                         "description": "Hostname that'll be matched with emails on sign-up to automatically join the Team.\n"
                     },
                     "enablePreviewFeedback": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Enables the Vercel Toolbar on your preview deployments: one of on, off or default.\n"
                     },
                     "enableProductionFeedback": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Enables the Vercel Toolbar on your production deployments: one of on, off or default.\n"
                     },
                     "hideIpAddresses": {
                         "type": "boolean",
@@ -3344,11 +3817,114 @@
                         "description": "Configuration for SAML authentication.\n"
                     },
                     "sensitiveEnvironmentVariablePolicy": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Ensures that all environment variables created by members of this team will be created as Sensitive Environment\nVariables which can only be decrypted by Vercel's deployment system.: one of on, off or default.\n"
                     },
                     "slug": {
                         "type": "string",
                         "description": "The slug of the team. Will be used in the URL of the team's dashboard.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/teamMember:TeamMember": {
+            "properties": {
+                "accessGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be\nspecified. A set of access groups IDs that the user should be granted access to.\n"
+                },
+                "projects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/TeamMemberProject:TeamMemberProject"
+                    },
+                    "description": "If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be\nspecified. A set of projects that the user should be granted access to, along with their role in each project.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or\n'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Team.\n"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The ID of the user to add to the team.\n"
+                }
+            },
+            "required": [
+                "accessGroups",
+                "projects",
+                "role",
+                "teamId",
+                "userId"
+            ],
+            "inputProperties": {
+                "accessGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be\nspecified. A set of access groups IDs that the user should be granted access to.\n"
+                },
+                "projects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/TeamMemberProject:TeamMemberProject"
+                    },
+                    "description": "If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be\nspecified. A set of projects that the user should be granted access to, along with their role in each project.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or\n'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Team.\n"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The ID of the user to add to the team.\n"
+                }
+            },
+            "requiredInputs": [
+                "role",
+                "teamId",
+                "userId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TeamMember resources.\n",
+                "properties": {
+                    "accessGroups": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be\nspecified. A set of access groups IDs that the user should be granted access to.\n"
+                    },
+                    "projects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/TeamMemberProject:TeamMemberProject"
+                        },
+                        "description": "If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be\nspecified. A set of projects that the user should be granted access to, along with their role in each project.\n"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or\n'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Team.\n"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "description": "The ID of the user to add to the team.\n"
                     }
                 },
                 "type": "object"
@@ -3454,6 +4030,93 @@
         }
     },
     "functions": {
+        "vercel:index/getAccessGroup:getAccessGroup": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getAccessGroup.\n",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAccessGroup.\n",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "teamId"
+                ]
+            }
+        },
+        "vercel:index/getAccessGroupProject:getAccessGroupProject": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getAccessGroupProject.\n",
+                "properties": {
+                    "accessGroupId": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accessGroupId",
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAccessGroupProject.\n",
+                "properties": {
+                    "accessGroupId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accessGroupId",
+                    "projectId",
+                    "role",
+                    "teamId",
+                    "id"
+                ]
+            }
+        },
         "vercel:index/getAlias:getAlias": {
             "inputs": {
                 "description": "A collection of arguments for invoking getAlias.\n",
@@ -3531,6 +4194,59 @@
                 "required": [
                     "enabled",
                     "id",
+                    "projectId",
+                    "teamId"
+                ]
+            }
+        },
+        "vercel:index/getCustomEnvironment:getCustomEnvironment": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getCustomEnvironment.\n",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getCustomEnvironment.\n",
+                "properties": {
+                    "branchTracking": {
+                        "$ref": "#/types/vercel:index/getCustomEnvironmentBranchTracking:getCustomEnvironmentBranchTracking"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "branchTracking",
+                    "description",
+                    "id",
+                    "name",
                     "projectId",
                     "teamId"
                 ]
@@ -4040,6 +4756,10 @@
                     "protectionBypassForAutomation": {
                         "type": "boolean"
                     },
+                    "protectionBypassForAutomationSecret": {
+                        "type": "string",
+                        "secret": true
+                    },
                     "publicSource": {
                         "type": "boolean"
                     },
@@ -4091,6 +4811,7 @@
                     "previewComments",
                     "prioritiseProductionBuilds",
                     "protectionBypassForAutomation",
+                    "protectionBypassForAutomationSecret",
                     "publicSource",
                     "resourceConfig",
                     "rootDirectory",
@@ -4189,6 +4910,50 @@
                     "files",
                     "id",
                     "path"
+                ]
+            }
+        },
+        "vercel:index/getProjectMembers:getProjectMembers": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getProjectMembers.\n",
+                "properties": {
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProjectMembers.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "members": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/getProjectMembersMember:getProjectMembersMember"
+                        }
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "members",
+                    "projectId",
+                    "id"
                 ]
             }
         },
@@ -4337,6 +5102,62 @@
                     "saml",
                     "sensitiveEnvironmentVariablePolicy",
                     "slug"
+                ]
+            }
+        },
+        "vercel:index/getTeamMember:getTeamMember": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getTeamMember.\n",
+                "properties": {
+                    "teamId": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "teamId",
+                    "userId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTeamMember.\n",
+                "properties": {
+                    "accessGroups": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "projects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/getTeamMemberProject:getTeamMemberProject"
+                        }
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accessGroups",
+                    "id",
+                    "projects",
+                    "role",
+                    "teamId",
+                    "userId"
                 ]
             }
         }

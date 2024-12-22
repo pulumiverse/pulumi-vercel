@@ -19,6 +19,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string Comment;
         /// <summary>
+        /// The IDs of Custom Environments that the Environment Variable should be present on.
+        /// </summary>
+        public readonly ImmutableArray<string> CustomEnvironmentIds;
+        /// <summary>
         /// The git branch of the environment variable.
         /// </summary>
         public readonly string GitBranch;
@@ -47,6 +51,8 @@ namespace Pulumiverse.Vercel.Outputs
         private GetProjectEnvironmentResult(
             string comment,
 
+            ImmutableArray<string> customEnvironmentIds,
+
             string gitBranch,
 
             string id,
@@ -60,6 +66,7 @@ namespace Pulumiverse.Vercel.Outputs
             string value)
         {
             Comment = comment;
+            CustomEnvironmentIds = customEnvironmentIds;
             GitBranch = gitBranch;
             Id = id;
             Key = key;

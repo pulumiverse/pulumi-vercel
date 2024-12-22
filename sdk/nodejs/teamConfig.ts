@@ -46,7 +46,13 @@ export class TeamConfig extends pulumi.CustomResource {
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
     public readonly emailDomain!: pulumi.Output<string>;
+    /**
+     * Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+     */
     public readonly enablePreviewFeedback!: pulumi.Output<string>;
+    /**
+     * Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+     */
     public readonly enableProductionFeedback!: pulumi.Output<string>;
     /**
      * Indicates if ip addresses should be accessible in o11y tooling.
@@ -76,6 +82,10 @@ export class TeamConfig extends pulumi.CustomResource {
      * Configuration for SAML authentication.
      */
     public readonly saml!: pulumi.Output<outputs.TeamConfigSaml>;
+    /**
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+     * Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     */
     public readonly sensitiveEnvironmentVariablePolicy!: pulumi.Output<string>;
     /**
      * The slug of the team. Will be used in the URL of the team's dashboard.
@@ -147,7 +157,13 @@ export interface TeamConfigState {
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
     emailDomain?: pulumi.Input<string>;
+    /**
+     * Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+     */
     enablePreviewFeedback?: pulumi.Input<string>;
+    /**
+     * Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+     */
     enableProductionFeedback?: pulumi.Input<string>;
     /**
      * Indicates if ip addresses should be accessible in o11y tooling.
@@ -177,6 +193,10 @@ export interface TeamConfigState {
      * Configuration for SAML authentication.
      */
     saml?: pulumi.Input<inputs.TeamConfigSaml>;
+    /**
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+     * Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     */
     sensitiveEnvironmentVariablePolicy?: pulumi.Input<string>;
     /**
      * The slug of the team. Will be used in the URL of the team's dashboard.
@@ -200,7 +220,13 @@ export interface TeamConfigArgs {
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
     emailDomain?: pulumi.Input<string>;
+    /**
+     * Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+     */
     enablePreviewFeedback?: pulumi.Input<string>;
+    /**
+     * Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+     */
     enableProductionFeedback?: pulumi.Input<string>;
     /**
      * Indicates if ip addresses should be accessible in o11y tooling.
@@ -226,6 +252,10 @@ export interface TeamConfigArgs {
      * Configuration for SAML authentication.
      */
     saml?: pulumi.Input<inputs.TeamConfigSaml>;
+    /**
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+     * Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     */
     sensitiveEnvironmentVariablePolicy?: pulumi.Input<string>;
     /**
      * The slug of the team. Will be used in the URL of the team's dashboard.

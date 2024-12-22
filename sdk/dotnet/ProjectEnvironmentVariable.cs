@@ -20,6 +20,13 @@ namespace Pulumiverse.Vercel
         public Output<string> Comment { get; private set; } = null!;
 
         /// <summary>
+        /// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+        /// `custom_environment_ids` must be set.
+        /// </summary>
+        [Output("customEnvironmentIds")]
+        public Output<ImmutableArray<string>> CustomEnvironmentIds { get; private set; } = null!;
+
+        /// <summary>
         /// The git branch of the Environment Variable.
         /// </summary>
         [Output("gitBranch")]
@@ -46,7 +53,7 @@ namespace Pulumiverse.Vercel
 
         /// <summary>
         /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        /// or `development`.
+        /// or `development`. At least one of `target` or `custom_environment_ids` must be set.
         /// </summary>
         [Output("targets")]
         public Output<ImmutableArray<string>> Targets { get; private set; } = null!;
@@ -120,6 +127,19 @@ namespace Pulumiverse.Vercel
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
+        [Input("customEnvironmentIds")]
+        private InputList<string>? _customEnvironmentIds;
+
+        /// <summary>
+        /// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+        /// `custom_environment_ids` must be set.
+        /// </summary>
+        public InputList<string> CustomEnvironmentIds
+        {
+            get => _customEnvironmentIds ?? (_customEnvironmentIds = new InputList<string>());
+            set => _customEnvironmentIds = value;
+        }
+
         /// <summary>
         /// The git branch of the Environment Variable.
         /// </summary>
@@ -145,12 +165,12 @@ namespace Pulumiverse.Vercel
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }
 
-        [Input("targets", required: true)]
+        [Input("targets")]
         private InputList<string>? _targets;
 
         /// <summary>
         /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        /// or `development`.
+        /// or `development`. At least one of `target` or `custom_environment_ids` must be set.
         /// </summary>
         public InputList<string> Targets
         {
@@ -194,6 +214,19 @@ namespace Pulumiverse.Vercel
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
+        [Input("customEnvironmentIds")]
+        private InputList<string>? _customEnvironmentIds;
+
+        /// <summary>
+        /// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
+        /// `custom_environment_ids` must be set.
+        /// </summary>
+        public InputList<string> CustomEnvironmentIds
+        {
+            get => _customEnvironmentIds ?? (_customEnvironmentIds = new InputList<string>());
+            set => _customEnvironmentIds = value;
+        }
+
         /// <summary>
         /// The git branch of the Environment Variable.
         /// </summary>
@@ -224,7 +257,7 @@ namespace Pulumiverse.Vercel
 
         /// <summary>
         /// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        /// or `development`.
+        /// or `development`. At least one of `target` or `custom_environment_ids` must be set.
         /// </summary>
         public InputList<string> Targets
         {

@@ -14,6 +14,13 @@ namespace Pulumiverse.Vercel
     public partial class ProjectDomain : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+        /// assigned the domain name.
+        /// </summary>
+        [Output("customEnvironmentId")]
+        public Output<string?> CustomEnvironmentId { get; private set; } = null!;
+
+        /// <summary>
         /// The domain name to associate with the project.
         /// </summary>
         [Output("domain")]
@@ -98,6 +105,13 @@ namespace Pulumiverse.Vercel
     public sealed class ProjectDomainArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+        /// assigned the domain name.
+        /// </summary>
+        [Input("customEnvironmentId")]
+        public Input<string>? CustomEnvironmentId { get; set; }
+
+        /// <summary>
         /// The domain name to associate with the project.
         /// </summary>
         [Input("domain", required: true)]
@@ -142,6 +156,13 @@ namespace Pulumiverse.Vercel
 
     public sealed class ProjectDomainState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be
+        /// assigned the domain name.
+        /// </summary>
+        [Input("customEnvironmentId")]
+        public Input<string>? CustomEnvironmentId { get; set; }
+
         /// <summary>
         /// The domain name to associate with the project.
         /// </summary>

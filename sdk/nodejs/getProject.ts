@@ -50,6 +50,7 @@ export interface GetProjectResult {
     readonly previewComments: boolean;
     readonly prioritiseProductionBuilds: boolean;
     readonly protectionBypassForAutomation: boolean;
+    readonly protectionBypassForAutomationSecret: string;
     readonly publicSource: boolean;
     readonly resourceConfig: outputs.GetProjectResourceConfig;
     readonly rootDirectory: string;

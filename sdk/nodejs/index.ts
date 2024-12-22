@@ -5,6 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export { AccessGroupArgs, AccessGroupState } from "./accessGroup";
+export type AccessGroup = import("./accessGroup").AccessGroup;
+export const AccessGroup: typeof import("./accessGroup").AccessGroup = null as any;
+utilities.lazyLoad(exports, ["AccessGroup"], () => require("./accessGroup"));
+
+export { AccessGroupProjectArgs, AccessGroupProjectState } from "./accessGroupProject";
+export type AccessGroupProject = import("./accessGroupProject").AccessGroupProject;
+export const AccessGroupProject: typeof import("./accessGroupProject").AccessGroupProject = null as any;
+utilities.lazyLoad(exports, ["AccessGroupProject"], () => require("./accessGroupProject"));
+
 export { AliasArgs, AliasState } from "./alias";
 export type Alias = import("./alias").Alias;
 export const Alias: typeof import("./alias").Alias = null as any;
@@ -14,6 +24,11 @@ export { AttackChallengeModeArgs, AttackChallengeModeState } from "./attackChall
 export type AttackChallengeMode = import("./attackChallengeMode").AttackChallengeMode;
 export const AttackChallengeMode: typeof import("./attackChallengeMode").AttackChallengeMode = null as any;
 utilities.lazyLoad(exports, ["AttackChallengeMode"], () => require("./attackChallengeMode"));
+
+export { CustomEnvironmentArgs, CustomEnvironmentState } from "./customEnvironment";
+export type CustomEnvironment = import("./customEnvironment").CustomEnvironment;
+export const CustomEnvironment: typeof import("./customEnvironment").CustomEnvironment = null as any;
+utilities.lazyLoad(exports, ["CustomEnvironment"], () => require("./customEnvironment"));
 
 export { DeploymentArgs, DeploymentState } from "./deployment";
 export type Deployment = import("./deployment").Deployment;
@@ -50,6 +65,16 @@ export type FirewallConfig = import("./firewallConfig").FirewallConfig;
 export const FirewallConfig: typeof import("./firewallConfig").FirewallConfig = null as any;
 utilities.lazyLoad(exports, ["FirewallConfig"], () => require("./firewallConfig"));
 
+export { GetAccessGroupArgs, GetAccessGroupResult, GetAccessGroupOutputArgs } from "./getAccessGroup";
+export const getAccessGroup: typeof import("./getAccessGroup").getAccessGroup = null as any;
+export const getAccessGroupOutput: typeof import("./getAccessGroup").getAccessGroupOutput = null as any;
+utilities.lazyLoad(exports, ["getAccessGroup","getAccessGroupOutput"], () => require("./getAccessGroup"));
+
+export { GetAccessGroupProjectArgs, GetAccessGroupProjectResult, GetAccessGroupProjectOutputArgs } from "./getAccessGroupProject";
+export const getAccessGroupProject: typeof import("./getAccessGroupProject").getAccessGroupProject = null as any;
+export const getAccessGroupProjectOutput: typeof import("./getAccessGroupProject").getAccessGroupProjectOutput = null as any;
+utilities.lazyLoad(exports, ["getAccessGroupProject","getAccessGroupProjectOutput"], () => require("./getAccessGroupProject"));
+
 export { GetAliasArgs, GetAliasResult, GetAliasOutputArgs } from "./getAlias";
 export const getAlias: typeof import("./getAlias").getAlias = null as any;
 export const getAliasOutput: typeof import("./getAlias").getAliasOutput = null as any;
@@ -59,6 +84,11 @@ export { GetAttackChallengeModeArgs, GetAttackChallengeModeResult, GetAttackChal
 export const getAttackChallengeMode: typeof import("./getAttackChallengeMode").getAttackChallengeMode = null as any;
 export const getAttackChallengeModeOutput: typeof import("./getAttackChallengeMode").getAttackChallengeModeOutput = null as any;
 utilities.lazyLoad(exports, ["getAttackChallengeMode","getAttackChallengeModeOutput"], () => require("./getAttackChallengeMode"));
+
+export { GetCustomEnvironmentArgs, GetCustomEnvironmentResult, GetCustomEnvironmentOutputArgs } from "./getCustomEnvironment";
+export const getCustomEnvironment: typeof import("./getCustomEnvironment").getCustomEnvironment = null as any;
+export const getCustomEnvironmentOutput: typeof import("./getCustomEnvironment").getCustomEnvironmentOutput = null as any;
+utilities.lazyLoad(exports, ["getCustomEnvironment","getCustomEnvironmentOutput"], () => require("./getCustomEnvironment"));
 
 export { GetDeploymentArgs, GetDeploymentResult, GetDeploymentOutputArgs } from "./getDeployment";
 export const getDeployment: typeof import("./getDeployment").getDeployment = null as any;
@@ -120,6 +150,11 @@ export const getProjectDirectory: typeof import("./getProjectDirectory").getProj
 export const getProjectDirectoryOutput: typeof import("./getProjectDirectory").getProjectDirectoryOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectDirectory","getProjectDirectoryOutput"], () => require("./getProjectDirectory"));
 
+export { GetProjectMembersArgs, GetProjectMembersResult, GetProjectMembersOutputArgs } from "./getProjectMembers";
+export const getProjectMembers: typeof import("./getProjectMembers").getProjectMembers = null as any;
+export const getProjectMembersOutput: typeof import("./getProjectMembers").getProjectMembersOutput = null as any;
+utilities.lazyLoad(exports, ["getProjectMembers","getProjectMembersOutput"], () => require("./getProjectMembers"));
+
 export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
 export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
 export const getSharedEnvironmentVariableOutput: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariableOutput = null as any;
@@ -129,6 +164,11 @@ export { GetTeamConfigArgs, GetTeamConfigResult, GetTeamConfigOutputArgs } from 
 export const getTeamConfig: typeof import("./getTeamConfig").getTeamConfig = null as any;
 export const getTeamConfigOutput: typeof import("./getTeamConfig").getTeamConfigOutput = null as any;
 utilities.lazyLoad(exports, ["getTeamConfig","getTeamConfigOutput"], () => require("./getTeamConfig"));
+
+export { GetTeamMemberArgs, GetTeamMemberResult, GetTeamMemberOutputArgs } from "./getTeamMember";
+export const getTeamMember: typeof import("./getTeamMember").getTeamMember = null as any;
+export const getTeamMemberOutput: typeof import("./getTeamMember").getTeamMemberOutput = null as any;
+utilities.lazyLoad(exports, ["getTeamMember","getTeamMemberOutput"], () => require("./getTeamMember"));
 
 export { LogDrainArgs, LogDrainState } from "./logDrain";
 export type LogDrain = import("./logDrain").LogDrain;
@@ -160,6 +200,11 @@ export type ProjectEnvironmentVariables = import("./projectEnvironmentVariables"
 export const ProjectEnvironmentVariables: typeof import("./projectEnvironmentVariables").ProjectEnvironmentVariables = null as any;
 utilities.lazyLoad(exports, ["ProjectEnvironmentVariables"], () => require("./projectEnvironmentVariables"));
 
+export { ProjectMembersArgs, ProjectMembersState } from "./projectMembers";
+export type ProjectMembers = import("./projectMembers").ProjectMembers;
+export const ProjectMembers: typeof import("./projectMembers").ProjectMembers = null as any;
+utilities.lazyLoad(exports, ["ProjectMembers"], () => require("./projectMembers"));
+
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
@@ -174,6 +219,11 @@ export { TeamConfigArgs, TeamConfigState } from "./teamConfig";
 export type TeamConfig = import("./teamConfig").TeamConfig;
 export const TeamConfig: typeof import("./teamConfig").TeamConfig = null as any;
 utilities.lazyLoad(exports, ["TeamConfig"], () => require("./teamConfig"));
+
+export { TeamMemberArgs, TeamMemberState } from "./teamMember";
+export type TeamMember = import("./teamMember").TeamMember;
+export const TeamMember: typeof import("./teamMember").TeamMember = null as any;
+utilities.lazyLoad(exports, ["TeamMember"], () => require("./teamMember"));
 
 export { WebhookArgs, WebhookState } from "./webhook";
 export type Webhook = import("./webhook").Webhook;
@@ -194,10 +244,16 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "vercel:index/accessGroup:AccessGroup":
+                return new AccessGroup(name, <any>undefined, { urn })
+            case "vercel:index/accessGroupProject:AccessGroupProject":
+                return new AccessGroupProject(name, <any>undefined, { urn })
             case "vercel:index/alias:Alias":
                 return new Alias(name, <any>undefined, { urn })
             case "vercel:index/attackChallengeMode:AttackChallengeMode":
                 return new AttackChallengeMode(name, <any>undefined, { urn })
+            case "vercel:index/customEnvironment:CustomEnvironment":
+                return new CustomEnvironment(name, <any>undefined, { urn })
             case "vercel:index/deployment:Deployment":
                 return new Deployment(name, <any>undefined, { urn })
             case "vercel:index/dnsRecord:DnsRecord":
@@ -224,10 +280,14 @@ const _module = {
                 return new ProjectEnvironmentVariable(name, <any>undefined, { urn })
             case "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables":
                 return new ProjectEnvironmentVariables(name, <any>undefined, { urn })
+            case "vercel:index/projectMembers:ProjectMembers":
+                return new ProjectMembers(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
             case "vercel:index/teamConfig:TeamConfig":
                 return new TeamConfig(name, <any>undefined, { urn })
+            case "vercel:index/teamMember:TeamMember":
+                return new TeamMember(name, <any>undefined, { urn })
             case "vercel:index/webhook:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
@@ -235,8 +295,11 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("vercel", "index/accessGroup", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/customEnvironment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
@@ -250,8 +313,10 @@ pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetentio
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariables", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectMembers", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/teamMember", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("vercel", {
     version: utilities.getVersion(),

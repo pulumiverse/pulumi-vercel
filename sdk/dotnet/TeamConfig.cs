@@ -31,9 +31,15 @@ namespace Pulumiverse.Vercel
         [Output("emailDomain")]
         public Output<string> EmailDomain { get; private set; } = null!;
 
+        /// <summary>
+        /// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        /// </summary>
         [Output("enablePreviewFeedback")]
         public Output<string> EnablePreviewFeedback { get; private set; } = null!;
 
+        /// <summary>
+        /// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        /// </summary>
         [Output("enableProductionFeedback")]
         public Output<string> EnableProductionFeedback { get; private set; } = null!;
 
@@ -79,6 +85,10 @@ namespace Pulumiverse.Vercel
         [Output("saml")]
         public Output<Outputs.TeamConfigSaml> Saml { get; private set; } = null!;
 
+        /// <summary>
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+        /// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// </summary>
         [Output("sensitiveEnvironmentVariablePolicy")]
         public Output<string> SensitiveEnvironmentVariablePolicy { get; private set; } = null!;
 
@@ -159,9 +169,15 @@ namespace Pulumiverse.Vercel
         [Input("emailDomain")]
         public Input<string>? EmailDomain { get; set; }
 
+        /// <summary>
+        /// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        /// </summary>
         [Input("enablePreviewFeedback")]
         public Input<string>? EnablePreviewFeedback { get; set; }
 
+        /// <summary>
+        /// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        /// </summary>
         [Input("enableProductionFeedback")]
         public Input<string>? EnableProductionFeedback { get; set; }
 
@@ -201,6 +217,10 @@ namespace Pulumiverse.Vercel
         [Input("saml")]
         public Input<Inputs.TeamConfigSamlArgs>? Saml { get; set; }
 
+        /// <summary>
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+        /// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// </summary>
         [Input("sensitiveEnvironmentVariablePolicy")]
         public Input<string>? SensitiveEnvironmentVariablePolicy { get; set; }
 
@@ -242,9 +262,15 @@ namespace Pulumiverse.Vercel
         [Input("emailDomain")]
         public Input<string>? EmailDomain { get; set; }
 
+        /// <summary>
+        /// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
+        /// </summary>
         [Input("enablePreviewFeedback")]
         public Input<string>? EnablePreviewFeedback { get; set; }
 
+        /// <summary>
+        /// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        /// </summary>
         [Input("enableProductionFeedback")]
         public Input<string>? EnableProductionFeedback { get; set; }
 
@@ -290,6 +316,10 @@ namespace Pulumiverse.Vercel
         [Input("saml")]
         public Input<Inputs.TeamConfigSamlGetArgs>? Saml { get; set; }
 
+        /// <summary>
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
+        /// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// </summary>
         [Input("sensitiveEnvironmentVariablePolicy")]
         public Input<string>? SensitiveEnvironmentVariablePolicy { get; set; }
 

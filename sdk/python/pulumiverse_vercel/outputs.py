@@ -16,6 +16,7 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'CustomEnvironmentBranchTracking',
     'DeploymentProjectSettings',
     'DnsRecordSrv',
     'FirewallConfigIpRules',
@@ -44,6 +45,7 @@ __all__ = [
     'ProjectGitComments',
     'ProjectGitRepository',
     'ProjectGitRepositoryDeployHook',
+    'ProjectMembersMember',
     'ProjectOidcTokenConfig',
     'ProjectOptionsAllowlist',
     'ProjectOptionsAllowlistPath',
@@ -54,10 +56,13 @@ __all__ = [
     'ProjectVercelAuthentication',
     'TeamConfigRemoteCaching',
     'TeamConfigSaml',
+    'TeamMemberProject',
+    'GetCustomEnvironmentBranchTrackingResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
     'GetProjectGitRepositoryDeployHookResult',
+    'GetProjectMembersMemberResult',
     'GetProjectOidcTokenConfigResult',
     'GetProjectOptionsAllowlistResult',
     'GetProjectOptionsAllowlistPathResult',
@@ -68,7 +73,37 @@ __all__ = [
     'GetProjectVercelAuthenticationResult',
     'GetTeamConfigRemoteCachingResult',
     'GetTeamConfigSamlResult',
+    'GetTeamMemberProjectResult',
 ]
+
+@pulumi.output_type
+class CustomEnvironmentBranchTracking(dict):
+    def __init__(__self__, *,
+                 pattern: str,
+                 type: str):
+        """
+        :param str pattern: The pattern of the branch name to track.
+        :param str type: How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+        pulumi.set(__self__, "pattern", pattern)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def pattern(self) -> str:
+        """
+        The pattern of the branch name to track.
+        """
+        return pulumi.get(self, "pattern")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+        return pulumi.get(self, "type")
+
 
 @pulumi.output_type
 class DeploymentProjectSettings(dict):
@@ -954,7 +989,9 @@ class ProjectEnvironment(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "gitBranch":
+        if key == "customEnvironmentIds":
+            suggest = "custom_environment_ids"
+        elif key == "gitBranch":
             suggest = "git_branch"
 
         if suggest:
@@ -970,32 +1007,37 @@ class ProjectEnvironment(dict):
 
     def __init__(__self__, *,
                  key: str,
-                 targets: Sequence[str],
                  value: str,
                  comment: Optional[str] = None,
+                 custom_environment_ids: Optional[Sequence[str]] = None,
                  git_branch: Optional[str] = None,
                  id: Optional[str] = None,
-                 sensitive: Optional[bool] = None):
+                 sensitive: Optional[bool] = None,
+                 targets: Optional[Sequence[str]] = None):
         """
         :param str key: The name of the Environment Variable.
-        :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the Environment Variable.
         :param str comment: A comment explaining what the environment variable is for.
+        :param Sequence[str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
         :param bool sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if custom_environment_ids is not None:
+            pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
+        if targets is not None:
+            pulumi.set(__self__, "targets", targets)
 
     @property
     @pulumi.getter
@@ -1004,14 +1046,6 @@ class ProjectEnvironment(dict):
         The name of the Environment Variable.
         """
         return pulumi.get(self, "key")
-
-    @property
-    @pulumi.getter
-    def targets(self) -> Sequence[str]:
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-        """
-        return pulumi.get(self, "targets")
 
     @property
     @pulumi.getter
@@ -1028,6 +1062,14 @@ class ProjectEnvironment(dict):
         A comment explaining what the environment variable is for.
         """
         return pulumi.get(self, "comment")
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Optional[Sequence[str]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1053,13 +1095,23 @@ class ProjectEnvironment(dict):
         """
         return pulumi.get(self, "sensitive")
 
+    @property
+    @pulumi.getter
+    def targets(self) -> Optional[Sequence[str]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "targets")
+
 
 @pulumi.output_type
 class ProjectEnvironmentVariablesVariable(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "gitBranch":
+        if key == "customEnvironmentIds":
+            suggest = "custom_environment_ids"
+        elif key == "gitBranch":
             suggest = "git_branch"
 
         if suggest:
@@ -1075,32 +1127,37 @@ class ProjectEnvironmentVariablesVariable(dict):
 
     def __init__(__self__, *,
                  key: str,
-                 targets: Sequence[str],
                  value: str,
                  comment: Optional[str] = None,
+                 custom_environment_ids: Optional[Sequence[str]] = None,
                  git_branch: Optional[str] = None,
                  id: Optional[str] = None,
-                 sensitive: Optional[bool] = None):
+                 sensitive: Optional[bool] = None,
+                 targets: Optional[Sequence[str]] = None):
         """
         :param str key: The name of the Environment Variable.
-        :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param str value: The value of the Environment Variable.
         :param str comment: A comment explaining what the environment variable is for.
+        :param Sequence[str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param str git_branch: The git branch of the Environment Variable.
         :param str id: The ID of the Environment Variable.
         :param bool sensitive: Whether the Environment Variable is sensitive or not.
+        :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if custom_environment_ids is not None:
+            pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         if git_branch is not None:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
+        if targets is not None:
+            pulumi.set(__self__, "targets", targets)
 
     @property
     @pulumi.getter
@@ -1109,14 +1166,6 @@ class ProjectEnvironmentVariablesVariable(dict):
         The name of the Environment Variable.
         """
         return pulumi.get(self, "key")
-
-    @property
-    @pulumi.getter
-    def targets(self) -> Sequence[str]:
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-        """
-        return pulumi.get(self, "targets")
 
     @property
     @pulumi.getter
@@ -1133,6 +1182,14 @@ class ProjectEnvironmentVariablesVariable(dict):
         A comment explaining what the environment variable is for.
         """
         return pulumi.get(self, "comment")
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Optional[Sequence[str]]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "custom_environment_ids")
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1157,6 +1214,14 @@ class ProjectEnvironmentVariablesVariable(dict):
         Whether the Environment Variable is sensitive or not.
         """
         return pulumi.get(self, "sensitive")
+
+    @property
+    @pulumi.getter
+    def targets(self) -> Optional[Sequence[str]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        """
+        return pulumi.get(self, "targets")
 
 
 @pulumi.output_type
@@ -1330,6 +1395,77 @@ class ProjectGitRepositoryDeployHook(dict):
         A URL that, when a POST request is made to, will trigger a new deployment.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class ProjectMembersMember(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "userId":
+            suggest = "user_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectMembersMember. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectMembersMember.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectMembersMember.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 role: str,
+                 email: Optional[str] = None,
+                 user_id: Optional[str] = None,
+                 username: Optional[str] = None):
+        """
+        :param str role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        :param str email: The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        :param str user_id: The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        :param str username: The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        pulumi.set(__self__, "role", role)
+        if email is not None:
+            pulumi.set(__self__, "email", email)
+        if user_id is not None:
+            pulumi.set(__self__, "user_id", user_id)
+        if username is not None:
+            pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        """
+        The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        """
+        return pulumi.get(self, "role")
+
+    @property
+    @pulumi.getter
+    def email(self) -> Optional[str]:
+        """
+        The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        return pulumi.get(self, "email")
+
+    @property
+    @pulumi.getter(name="userId")
+    def user_id(self) -> Optional[str]:
+        """
+        The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        return pulumi.get(self, "user_id")
+
+    @property
+    @pulumi.getter
+    def username(self) -> Optional[str]:
+        """
+        The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+        """
+        return pulumi.get(self, "username")
 
 
 @pulumi.output_type
@@ -1715,9 +1851,85 @@ class TeamConfigSaml(dict):
 
 
 @pulumi.output_type
+class TeamMemberProject(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectId":
+            suggest = "project_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TeamMemberProject. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TeamMemberProject.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TeamMemberProject.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 project_id: str,
+                 role: str):
+        """
+        :param str project_id: The ID of the project that the user should be granted access to.
+        :param str role: The role that the user should have in the project.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "role", role)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> str:
+        """
+        The ID of the project that the user should be granted access to.
+        """
+        return pulumi.get(self, "project_id")
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        """
+        The role that the user should have in the project.
+        """
+        return pulumi.get(self, "role")
+
+
+@pulumi.output_type
+class GetCustomEnvironmentBranchTrackingResult(dict):
+    def __init__(__self__, *,
+                 pattern: str,
+                 type: str):
+        """
+        :param str pattern: The pattern of the branch name to track.
+        :param str type: How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+        pulumi.set(__self__, "pattern", pattern)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def pattern(self) -> str:
+        """
+        The pattern of the branch name to track.
+        """
+        return pulumi.get(self, "pattern")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class GetProjectEnvironmentResult(dict):
     def __init__(__self__, *,
                  comment: str,
+                 custom_environment_ids: Sequence[str],
                  git_branch: str,
                  id: str,
                  key: str,
@@ -1726,6 +1938,7 @@ class GetProjectEnvironmentResult(dict):
                  value: str):
         """
         :param str comment: A comment explaining what the environment variable is for.
+        :param Sequence[str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on.
         :param str git_branch: The git branch of the environment variable.
         :param str id: The ID of the environment variable
         :param str key: The name of the environment variable.
@@ -1734,6 +1947,7 @@ class GetProjectEnvironmentResult(dict):
         :param str value: The value of the environment variable.
         """
         pulumi.set(__self__, "comment", comment)
+        pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
         pulumi.set(__self__, "git_branch", git_branch)
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "key", key)
@@ -1748,6 +1962,14 @@ class GetProjectEnvironmentResult(dict):
         A comment explaining what the environment variable is for.
         """
         return pulumi.get(self, "comment")
+
+    @property
+    @pulumi.getter(name="customEnvironmentIds")
+    def custom_environment_ids(self) -> Sequence[str]:
+        """
+        The IDs of Custom Environments that the Environment Variable should be present on.
+        """
+        return pulumi.get(self, "custom_environment_ids")
 
     @property
     @pulumi.getter(name="gitBranch")
@@ -1927,6 +2149,57 @@ class GetProjectGitRepositoryDeployHookResult(dict):
         A URL that, when a POST request is made to, will trigger a new deployment.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class GetProjectMembersMemberResult(dict):
+    def __init__(__self__, *,
+                 email: str,
+                 role: str,
+                 user_id: str,
+                 username: str):
+        """
+        :param str email: The email of the user.
+        :param str role: The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        :param str user_id: The ID of the user.
+        :param str username: The username of the user.
+        """
+        pulumi.set(__self__, "email", email)
+        pulumi.set(__self__, "role", role)
+        pulumi.set(__self__, "user_id", user_id)
+        pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter
+    def email(self) -> str:
+        """
+        The email of the user.
+        """
+        return pulumi.get(self, "email")
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        """
+        The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        """
+        return pulumi.get(self, "role")
+
+    @property
+    @pulumi.getter(name="userId")
+    def user_id(self) -> str:
+        """
+        The ID of the user.
+        """
+        return pulumi.get(self, "user_id")
+
+    @property
+    @pulumi.getter
+    def username(self) -> str:
+        """
+        The username of the user.
+        """
+        return pulumi.get(self, "username")
 
 
 @pulumi.output_type
@@ -2168,5 +2441,34 @@ class GetTeamConfigSamlResult(dict):
         Directory groups to role or access group mappings.
         """
         return pulumi.get(self, "roles")
+
+
+@pulumi.output_type
+class GetTeamMemberProjectResult(dict):
+    def __init__(__self__, *,
+                 project_id: str,
+                 role: str):
+        """
+        :param str project_id: The ID of the project that the user should be granted access to.
+        :param str role: The role that the user should have in the project.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "role", role)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> str:
+        """
+        The ID of the project that the user should be granted access to.
+        """
+        return pulumi.get(self, "project_id")
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        """
+        The role that the user should have in the project.
+        """
+        return pulumi.get(self, "role")
 
 

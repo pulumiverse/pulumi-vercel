@@ -5,6 +5,17 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface CustomEnvironmentBranchTracking {
+    /**
+     * The pattern of the branch name to track.
+     */
+    pattern: pulumi.Input<string>;
+    /**
+     * How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+     */
+    type: pulumi.Input<string>;
+}
+
 export interface DeploymentProjectSettings {
     /**
      * The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
@@ -267,6 +278,10 @@ export interface ProjectEnvironment {
      */
     comment?: pulumi.Input<string>;
     /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+     */
+    customEnvironmentIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
      * The git branch of the Environment Variable.
      */
     gitBranch?: pulumi.Input<string>;
@@ -283,9 +298,9 @@ export interface ProjectEnvironment {
      */
     sensitive?: pulumi.Input<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
-    targets: pulumi.Input<pulumi.Input<string>[]>;
+    targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The value of the Environment Variable.
      */
@@ -297,6 +312,10 @@ export interface ProjectEnvironmentVariablesVariable {
      * A comment explaining what the environment variable is for.
      */
     comment?: pulumi.Input<string>;
+    /**
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
+     */
+    customEnvironmentIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The git branch of the Environment Variable.
      */
@@ -314,9 +333,9 @@ export interface ProjectEnvironmentVariablesVariable {
      */
     sensitive?: pulumi.Input<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
-    targets: pulumi.Input<pulumi.Input<string>[]>;
+    targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The value of the Environment Variable.
      */
@@ -370,6 +389,25 @@ export interface ProjectGitRepositoryDeployHook {
      * A URL that, when a POST request is made to, will trigger a new deployment.
      */
     url?: pulumi.Input<string>;
+}
+
+export interface ProjectMembersMember {
+    /**
+     * The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+     */
+    email?: pulumi.Input<string>;
+    /**
+     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+     */
+    role: pulumi.Input<string>;
+    /**
+     * The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+     */
+    userId?: pulumi.Input<string>;
+    /**
+     * The username of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
+     */
+    username?: pulumi.Input<string>;
 }
 
 export interface ProjectOidcTokenConfig {
@@ -472,4 +510,15 @@ export interface TeamConfigSaml {
      * Directory groups to role or access group mappings.
      */
     roles?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+}
+
+export interface TeamMemberProject {
+    /**
+     * The ID of the project that the user should be granted access to.
+     */
+    projectId: pulumi.Input<string>;
+    /**
+     * The role that the user should have in the project.
+     */
+    role: pulumi.Input<string>;
 }

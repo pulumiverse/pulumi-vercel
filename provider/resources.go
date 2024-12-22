@@ -106,6 +106,23 @@ func Provider() tfbridge.ProviderInfo {
 					return resource.ID(state["project_id"].StringValue()), nil
 				},
 			},
+			"vercel_project_members": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["project_id"].StringValue()), nil
+				},
+			},
+			"vercel_access_group_project": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["access_group_id"].StringValue(), state["project_id"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_team_member": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["team_id"].StringValue(), state["email"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: fmt.Sprintf("@%s/%s", publisher, mainPkg),

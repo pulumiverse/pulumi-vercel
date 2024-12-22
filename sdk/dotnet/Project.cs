@@ -158,16 +158,15 @@ namespace Pulumiverse.Vercel
         public Output<bool> PrioritiseProductionBuilds { get; private set; } = null!;
 
         /// <summary>
-        /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
-        /// Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
-        /// `password_protection_for_automation_secret` field.
+        /// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
+        /// `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         /// </summary>
         [Output("protectionBypassForAutomation")]
         public Output<bool?> ProtectionBypassForAutomation { get; private set; } = null!;
 
         /// <summary>
-        /// If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
-        /// Vercel Authentication and Password Protection for both Preview and Production Deployments.
+        /// If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise
+        /// a secret will be generated.
         /// </summary>
         [Output("protectionBypassForAutomationSecret")]
         public Output<string> ProtectionBypassForAutomationSecret { get; private set; } = null!;
@@ -252,6 +251,10 @@ namespace Pulumiverse.Vercel
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "protectionBypassForAutomationSecret",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -426,12 +429,28 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PrioritiseProductionBuilds { get; set; }
 
         /// <summary>
-        /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
-        /// Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
-        /// `password_protection_for_automation_secret` field.
+        /// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
+        /// `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         /// </summary>
         [Input("protectionBypassForAutomation")]
         public Input<bool>? ProtectionBypassForAutomation { get; set; }
+
+        [Input("protectionBypassForAutomationSecret")]
+        private Input<string>? _protectionBypassForAutomationSecret;
+
+        /// <summary>
+        /// If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise
+        /// a secret will be generated.
+        /// </summary>
+        public Input<string>? ProtectionBypassForAutomationSecret
+        {
+            get => _protectionBypassForAutomationSecret;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _protectionBypassForAutomationSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
@@ -648,19 +667,28 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PrioritiseProductionBuilds { get; set; }
 
         /// <summary>
-        /// Allow automation services to bypass Vercel Authentication and Password Protection for both Preview and Production
-        /// Deployments on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the
-        /// `password_protection_for_automation_secret` field.
+        /// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
+        /// `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         /// </summary>
         [Input("protectionBypassForAutomation")]
         public Input<bool>? ProtectionBypassForAutomation { get; set; }
 
-        /// <summary>
-        /// If `protection_bypass_for_automation` is enabled, use this value in the `x-vercel-protection-bypass` header to bypass
-        /// Vercel Authentication and Password Protection for both Preview and Production Deployments.
-        /// </summary>
         [Input("protectionBypassForAutomationSecret")]
-        public Input<string>? ProtectionBypassForAutomationSecret { get; set; }
+        private Input<string>? _protectionBypassForAutomationSecret;
+
+        /// <summary>
+        /// If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise
+        /// a secret will be generated.
+        /// </summary>
+        public Input<string>? ProtectionBypassForAutomationSecret
+        {
+            get => _protectionBypassForAutomationSecret;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _protectionBypassForAutomationSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with

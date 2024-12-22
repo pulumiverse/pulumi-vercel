@@ -2,12 +2,24 @@
     "attribution": "This Pulumi package is based on the [`vercel` Terraform Provider](https://github.com/vercel/terraform-provider-vercel).",
     "auto-aliasing": {
         "resources": {
+            "vercel_access_group": {
+                "current": "vercel:index/accessGroup:AccessGroup",
+                "majorVersion": 1
+            },
+            "vercel_access_group_project": {
+                "current": "vercel:index/accessGroupProject:AccessGroupProject",
+                "majorVersion": 1
+            },
             "vercel_alias": {
                 "current": "vercel:index/alias:Alias",
                 "majorVersion": 1
             },
             "vercel_attack_challenge_mode": {
                 "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
+                "majorVersion": 1
+            },
+            "vercel_custom_environment": {
+                "current": "vercel:index/customEnvironment:CustomEnvironment",
                 "majorVersion": 1
             },
             "vercel_deployment": {
@@ -107,6 +119,9 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
+                                "custom_environment_ids": {
+                                    "maxItemsOne": false
+                                },
                                 "target": {
                                     "maxItemsOne": false
                                 }
@@ -148,6 +163,9 @@
                 "current": "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable",
                 "majorVersion": 1,
                 "fields": {
+                    "custom_environment_ids": {
+                        "maxItemsOne": false
+                    },
                     "target": {
                         "maxItemsOne": false
                     }
@@ -161,11 +179,23 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
+                                "custom_environment_ids": {
+                                    "maxItemsOne": false
+                                },
                                 "target": {
                                     "maxItemsOne": false
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "vercel_project_members": {
+                "current": "vercel:index/projectMembers:ProjectMembers",
+                "majorVersion": 1,
+                "fields": {
+                    "members": {
+                        "maxItemsOne": false
                     }
                 }
             },
@@ -185,6 +215,18 @@
                 "current": "vercel:index/teamConfig:TeamConfig",
                 "majorVersion": 1
             },
+            "vercel_team_member": {
+                "current": "vercel:index/teamMember:TeamMember",
+                "majorVersion": 1,
+                "fields": {
+                    "access_groups": {
+                        "maxItemsOne": false
+                    },
+                    "projects": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_webhook": {
                 "current": "vercel:index/webhook:Webhook",
                 "majorVersion": 1,
@@ -199,12 +241,24 @@
             }
         },
         "datasources": {
+            "vercel_access_group": {
+                "current": "vercel:index/getAccessGroup:getAccessGroup",
+                "majorVersion": 1
+            },
+            "vercel_access_group_project": {
+                "current": "vercel:index/getAccessGroupProject:getAccessGroupProject",
+                "majorVersion": 1
+            },
             "vercel_alias": {
                 "current": "vercel:index/getAlias:getAlias",
                 "majorVersion": 1
             },
             "vercel_attack_challenge_mode": {
                 "current": "vercel:index/getAttackChallengeMode:getAttackChallengeMode",
+                "majorVersion": 1
+            },
+            "vercel_custom_environment": {
+                "current": "vercel:index/getCustomEnvironment:getCustomEnvironment",
                 "majorVersion": 1
             },
             "vercel_deployment": {
@@ -267,6 +321,9 @@
                         "maxItemsOne": false,
                         "elem": {
                             "fields": {
+                                "custom_environment_ids": {
+                                    "maxItemsOne": false
+                                },
                                 "target": {
                                     "maxItemsOne": false
                                 }
@@ -304,6 +361,15 @@
                 "current": "vercel:index/getProjectDirectory:getProjectDirectory",
                 "majorVersion": 1
             },
+            "vercel_project_members": {
+                "current": "vercel:index/getProjectMembers:getProjectMembers",
+                "majorVersion": 1,
+                "fields": {
+                    "members": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable",
                 "majorVersion": 1,
@@ -319,6 +385,18 @@
             "vercel_team_config": {
                 "current": "vercel:index/getTeamConfig:getTeamConfig",
                 "majorVersion": 1
+            },
+            "vercel_team_member": {
+                "current": "vercel:index/getTeamMember:getTeamMember",
+                "majorVersion": 1,
+                "fields": {
+                    "access_groups": {
+                        "maxItemsOne": false
+                    },
+                    "projects": {
+                        "maxItemsOne": false
+                    }
+                }
             }
         }
     },
