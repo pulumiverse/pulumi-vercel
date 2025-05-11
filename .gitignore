@@ -21,3 +21,7 @@ provider/**/schema-embed.json
 **/version.txt
 **/nuget
 **/dist
+
+
+# Ignore local build tracking directory
+.make
