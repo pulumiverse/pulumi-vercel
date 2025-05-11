@@ -6,6 +6,29 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const exampleProject = new vercel.Project("exampleProject", {});
+ * const exampleProjectMembers = new vercel.ProjectMembers("exampleProjectMembers", {
+ *     projectId: exampleProject.id,
+ *     members: [
+ *         {
+ *             email: "user@example.com",
+ *             role: "PROJECT_VIEWER",
+ *         },
+ *         {
+ *             username: "some-example-user",
+ *             role: "PROJECT_DEVELOPER",
+ *         },
+ *     ],
+ * });
+ * ```
+ */
 export class ProjectMembers extends pulumi.CustomResource {
     /**
      * Get an existing ProjectMembers resource's state with the given name, ID, and optional extra
@@ -43,8 +66,7 @@ export class ProjectMembers extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -94,8 +116,7 @@ export interface ProjectMembersState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -113,8 +134,7 @@ export interface ProjectMembersArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

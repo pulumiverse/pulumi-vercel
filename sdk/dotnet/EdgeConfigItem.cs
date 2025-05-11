@@ -10,6 +10,61 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides an Edge Config Item.
+    /// 
+    /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+    /// 
+    /// An Edge Config Item is a value within an Edge Config.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleEdgeConfig = new Vercel.EdgeConfig("exampleEdgeConfig");
+    /// 
+    ///     var exampleEdgeConfigItem = new Vercel.EdgeConfigItem("exampleEdgeConfigItem", new()
+    ///     {
+    ///         EdgeConfigId = exampleEdgeConfig.Id,
+    ///         Key = "foobar",
+    ///         Value = "baz",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the edge config id and the key of the item to import.
+    /// 
+    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+    /// 
+    /// - key is the key of teh item to import.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+    /// ```
+    /// 
+    /// Alternatively, you can import via the team_id, edge_config_id and the key of the item to import.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+    /// 
+    /// - key is the key of the item to import.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/edgeConfigItem:EdgeConfigItem")]
     public partial class EdgeConfigItem : global::Pulumi.CustomResource
     {
@@ -26,8 +81,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Key { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -98,8 +152,7 @@ namespace Pulumiverse.Vercel
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -131,8 +184,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Key { get; set; }
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

@@ -9,9 +9,77 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Environments help manage the deployment lifecycle on the Vercel platform.
+//
+// By default, all teams use three environments when developing their project: Production, Preview, and Development. However, teams can also create custom environments to suit their needs. To learn more about the limits for each plan, see limits.
+//
+// Custom environments allow you to configure customized, pre-production environments for your project, such as staging or QA, with branch rules that will automatically deploy your branch when the branch name matches the rule. With custom environments you can also attach a domain to your environment, set environment variables, or import environment variables from another environment.
+//
+// Custom environments are designed as pre-production environments intended for long-running use. This contrasts with regular preview environments, which are designed for creating ephemeral, short-lived deployments.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewCustomEnvironment(ctx, "exampleCustomEnvironment", &vercel.CustomEnvironmentArgs{
+//				ProjectId:   exampleProject.ID(),
+//				Description: pulumi.String("A description of the custom environment"),
+//				BranchTracking: &vercel.CustomEnvironmentBranchTrackingArgs{
+//					Pattern: pulumi.String("staging-"),
+//					Type:    pulumi.String("startsWith"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, simply use the project_id and custom environment name.
+//
+// - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// ```sh
+// $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+// ```
+//
+// Alternatively, you can import via the team_id, project_id and environment variable id.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// #
+//
+// Note also, that the value field for sensitive environment variables will be imported as `null`.
+//
+// ```sh
+// $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+// ```
 type CustomEnvironment struct {
 	pulumi.CustomResourceState
 
@@ -23,8 +91,7 @@ type CustomEnvironment struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The ID of the existing Vercel Project.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -69,8 +136,7 @@ type customEnvironmentState struct {
 	Name *string `pulumi:"name"`
 	// The ID of the existing Vercel Project.
 	ProjectId *string `pulumi:"projectId"`
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -83,8 +149,7 @@ type CustomEnvironmentState struct {
 	Name pulumi.StringPtrInput
 	// The ID of the existing Vercel Project.
 	ProjectId pulumi.StringPtrInput
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -101,8 +166,7 @@ type customEnvironmentArgs struct {
 	Name *string `pulumi:"name"`
 	// The ID of the existing Vercel Project.
 	ProjectId string `pulumi:"projectId"`
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -116,8 +180,7 @@ type CustomEnvironmentArgs struct {
 	Name pulumi.StringPtrInput
 	// The ID of the existing Vercel Project.
 	ProjectId pulumi.StringInput
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -228,8 +291,7 @@ func (o CustomEnvironmentOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *CustomEnvironment) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-// provider.
+// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 func (o CustomEnvironmentOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *CustomEnvironment) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

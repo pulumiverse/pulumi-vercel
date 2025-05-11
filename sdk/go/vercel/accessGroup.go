@@ -8,16 +8,60 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides an Access Group Resource.
+//
+// Access Groups provide a way to manage groups of Vercel users across projects on your team. They are a set of project role assignations, a combination of Vercel users and the projects they work on.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.NewAccessGroup(ctx, "example", nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, simply use the access_group_id.
+//
+// ```sh
+// $ pulumi import vercel:index/accessGroup:AccessGroup example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
+//
+// If importing to a team, use the team_id and access_group_id.
+//
+// ```sh
+// $ pulumi import vercel:index/accessGroup:AccessGroup example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
 type AccessGroup struct {
 	pulumi.CustomResourceState
 
 	// The name of the Access Group
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -53,16 +97,14 @@ func GetAccessGroup(ctx *pulumi.Context,
 type accessGroupState struct {
 	// The name of the Access Group
 	Name *string `pulumi:"name"`
-	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 type AccessGroupState struct {
 	// The name of the Access Group
 	Name pulumi.StringPtrInput
-	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -73,8 +115,7 @@ func (AccessGroupState) ElementType() reflect.Type {
 type accessGroupArgs struct {
 	// The name of the Access Group
 	Name *string `pulumi:"name"`
-	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -82,8 +123,7 @@ type accessGroupArgs struct {
 type AccessGroupArgs struct {
 	// The name of the Access Group
 	Name pulumi.StringPtrInput
-	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -179,8 +219,7 @@ func (o AccessGroupOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *AccessGroup) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-// not been set in the provider.
+// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o AccessGroupOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *AccessGroup) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

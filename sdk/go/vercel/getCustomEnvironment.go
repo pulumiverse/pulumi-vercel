@@ -8,9 +8,45 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides information about an existing CustomEnvironment resource.
+//
+// An CustomEnvironment allows a `Deployment` to be accessed through a different URL.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//				Name: "example-project-with-custom-env",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.LookupCustomEnvironment(ctx, &vercel.LookupCustomEnvironmentArgs{
+//				ProjectId: exampleProject.Id,
+//				Name:      "example-custom-env",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupCustomEnvironment(ctx *pulumi.Context, args *LookupCustomEnvironmentArgs, opts ...pulumi.InvokeOption) (*LookupCustomEnvironmentResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupCustomEnvironmentResult
@@ -23,19 +59,28 @@ func LookupCustomEnvironment(ctx *pulumi.Context, args *LookupCustomEnvironmentA
 
 // A collection of arguments for invoking getCustomEnvironment.
 type LookupCustomEnvironmentArgs struct {
-	Name      string  `pulumi:"name"`
-	ProjectId string  `pulumi:"projectId"`
-	TeamId    *string `pulumi:"teamId"`
+	// The name of the environment.
+	Name string `pulumi:"name"`
+	// The ID of the existing Vercel Project.
+	ProjectId string `pulumi:"projectId"`
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getCustomEnvironment.
 type LookupCustomEnvironmentResult struct {
+	// The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
 	BranchTracking GetCustomEnvironmentBranchTracking `pulumi:"branchTracking"`
-	Description    string                             `pulumi:"description"`
-	Id             string                             `pulumi:"id"`
-	Name           string                             `pulumi:"name"`
-	ProjectId      string                             `pulumi:"projectId"`
-	TeamId         string                             `pulumi:"teamId"`
+	// A description of what the environment is.
+	Description string `pulumi:"description"`
+	// The ID of the environment.
+	Id string `pulumi:"id"`
+	// The name of the environment.
+	Name string `pulumi:"name"`
+	// The ID of the existing Vercel Project.
+	ProjectId string `pulumi:"projectId"`
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId string `pulumi:"teamId"`
 }
 
 func LookupCustomEnvironmentOutput(ctx *pulumi.Context, args LookupCustomEnvironmentOutputArgs, opts ...pulumi.InvokeOption) LookupCustomEnvironmentResultOutput {
@@ -59,9 +104,12 @@ func LookupCustomEnvironmentOutput(ctx *pulumi.Context, args LookupCustomEnviron
 
 // A collection of arguments for invoking getCustomEnvironment.
 type LookupCustomEnvironmentOutputArgs struct {
-	Name      pulumi.StringInput    `pulumi:"name"`
-	ProjectId pulumi.StringInput    `pulumi:"projectId"`
-	TeamId    pulumi.StringPtrInput `pulumi:"teamId"`
+	// The name of the environment.
+	Name pulumi.StringInput `pulumi:"name"`
+	// The ID of the existing Vercel Project.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
 func (LookupCustomEnvironmentOutputArgs) ElementType() reflect.Type {
@@ -83,26 +131,32 @@ func (o LookupCustomEnvironmentResultOutput) ToLookupCustomEnvironmentResultOutp
 	return o
 }
 
+// The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
 func (o LookupCustomEnvironmentResultOutput) BranchTracking() GetCustomEnvironmentBranchTrackingOutput {
 	return o.ApplyT(func(v LookupCustomEnvironmentResult) GetCustomEnvironmentBranchTracking { return v.BranchTracking }).(GetCustomEnvironmentBranchTrackingOutput)
 }
 
+// A description of what the environment is.
 func (o LookupCustomEnvironmentResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupCustomEnvironmentResult) string { return v.Description }).(pulumi.StringOutput)
 }
 
+// The ID of the environment.
 func (o LookupCustomEnvironmentResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupCustomEnvironmentResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the environment.
 func (o LookupCustomEnvironmentResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupCustomEnvironmentResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// The ID of the existing Vercel Project.
 func (o LookupCustomEnvironmentResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupCustomEnvironmentResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
+// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupCustomEnvironmentResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupCustomEnvironmentResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

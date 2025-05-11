@@ -6,6 +6,30 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Provider a resource for managing a team member.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const example = new vercel.TeamMember("example", {
+ *     role: "MEMBER",
+ *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+ *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * To import, use the team_id and user_id.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/teamMember:TeamMember example team_xxxxxxxxxxxxxxxxxxxxxxxx/uuuuuuuuuuuuuuuuuuuuuuuuuu
+ * ```
+ */
 export class TeamMember extends pulumi.CustomResource {
     /**
      * Get an existing TeamMember resource's state with the given name, ID, and optional extra
@@ -35,18 +59,15 @@ export class TeamMember extends pulumi.CustomResource {
     }
 
     /**
-     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be
-     * specified. A set of access groups IDs that the user should be granted access to.
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
      */
     public readonly accessGroups!: pulumi.Output<string[]>;
     /**
-     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be
-     * specified. A set of projects that the user should be granted access to, along with their role in each project.
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
      */
     public readonly projects!: pulumi.Output<outputs.TeamMemberProject[]>;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-     * 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
     public readonly role!: pulumi.Output<string>;
     /**
@@ -103,18 +124,15 @@ export class TeamMember extends pulumi.CustomResource {
  */
 export interface TeamMemberState {
     /**
-     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be
-     * specified. A set of access groups IDs that the user should be granted access to.
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
      */
     accessGroups?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be
-     * specified. A set of projects that the user should be granted access to, along with their role in each project.
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
      */
     projects?: pulumi.Input<pulumi.Input<inputs.TeamMemberProject>[]>;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-     * 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
     role?: pulumi.Input<string>;
     /**
@@ -132,18 +150,15 @@ export interface TeamMemberState {
  */
 export interface TeamMemberArgs {
     /**
-     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be
-     * specified. A set of access groups IDs that the user should be granted access to.
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
      */
     accessGroups?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be
-     * specified. A set of projects that the user should be granted access to, along with their role in each project.
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
      */
     projects?: pulumi.Input<pulumi.Input<inputs.TeamMemberProject>[]>;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-     * 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
     role: pulumi.Input<string>;
     /**

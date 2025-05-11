@@ -8,9 +8,37 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provider a datasource for managing a team member.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.LookupTeamMember(ctx, &vercel.LookupTeamMemberArgs{
+//				TeamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+//				UserId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupTeamMember(ctx *pulumi.Context, args *LookupTeamMemberArgs, opts ...pulumi.InvokeOption) (*LookupTeamMemberResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupTeamMemberResult
@@ -23,18 +51,26 @@ func LookupTeamMember(ctx *pulumi.Context, args *LookupTeamMemberArgs, opts ...p
 
 // A collection of arguments for invoking getTeamMember.
 type LookupTeamMemberArgs struct {
+	// The ID of the existing Vercel Team.
 	TeamId string `pulumi:"teamId"`
+	// The ID of the existing Vercel Team Member.
 	UserId string `pulumi:"userId"`
 }
 
 // A collection of values returned by getTeamMember.
 type LookupTeamMemberResult struct {
-	AccessGroups []string               `pulumi:"accessGroups"`
-	Id           string                 `pulumi:"id"`
-	Projects     []GetTeamMemberProject `pulumi:"projects"`
-	Role         string                 `pulumi:"role"`
-	TeamId       string                 `pulumi:"teamId"`
-	UserId       string                 `pulumi:"userId"`
+	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+	AccessGroups []string `pulumi:"accessGroups"`
+	// The ID of this resource.
+	Id string `pulumi:"id"`
+	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+	Projects []GetTeamMemberProject `pulumi:"projects"`
+	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+	Role string `pulumi:"role"`
+	// The ID of the existing Vercel Team.
+	TeamId string `pulumi:"teamId"`
+	// The ID of the existing Vercel Team Member.
+	UserId string `pulumi:"userId"`
 }
 
 func LookupTeamMemberOutput(ctx *pulumi.Context, args LookupTeamMemberOutputArgs, opts ...pulumi.InvokeOption) LookupTeamMemberResultOutput {
@@ -58,7 +94,9 @@ func LookupTeamMemberOutput(ctx *pulumi.Context, args LookupTeamMemberOutputArgs
 
 // A collection of arguments for invoking getTeamMember.
 type LookupTeamMemberOutputArgs struct {
+	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringInput `pulumi:"teamId"`
+	// The ID of the existing Vercel Team Member.
 	UserId pulumi.StringInput `pulumi:"userId"`
 }
 
@@ -81,26 +119,32 @@ func (o LookupTeamMemberResultOutput) ToLookupTeamMemberResultOutputWithContext(
 	return o
 }
 
+// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 func (o LookupTeamMemberResultOutput) AccessGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) []string { return v.AccessGroups }).(pulumi.StringArrayOutput)
 }
 
+// The ID of this resource.
 func (o LookupTeamMemberResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 func (o LookupTeamMemberResultOutput) Projects() GetTeamMemberProjectArrayOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) []GetTeamMemberProject { return v.Projects }).(GetTeamMemberProjectArrayOutput)
 }
 
+// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 func (o LookupTeamMemberResultOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) string { return v.Role }).(pulumi.StringOutput)
 }
 
+// The ID of the existing Vercel Team.
 func (o LookupTeamMemberResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
+// The ID of the existing Vercel Team Member.
 func (o LookupTeamMemberResultOutput) UserId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) string { return v.UserId }).(pulumi.StringOutput)
 }

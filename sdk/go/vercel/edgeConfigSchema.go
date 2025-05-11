@@ -9,16 +9,38 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, simply use the edge config id.
+//
+// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+//
+// ```sh
+// $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
+//
+// Alternatively, you can import via the team_id and edge_config_id.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+//
+// ```sh
+// $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
 type EdgeConfigSchema struct {
 	pulumi.CustomResourceState
 
 	// A JSON schema that will be used to validate data in the Edge Config.
 	Definition pulumi.StringOutput `pulumi:"definition"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -57,16 +79,14 @@ func GetEdgeConfigSchema(ctx *pulumi.Context,
 type edgeConfigSchemaState struct {
 	// A JSON schema that will be used to validate data in the Edge Config.
 	Definition *string `pulumi:"definition"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 type EdgeConfigSchemaState struct {
 	// A JSON schema that will be used to validate data in the Edge Config.
 	Definition pulumi.StringPtrInput
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -77,8 +97,7 @@ func (EdgeConfigSchemaState) ElementType() reflect.Type {
 type edgeConfigSchemaArgs struct {
 	// A JSON schema that will be used to validate data in the Edge Config.
 	Definition string `pulumi:"definition"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -86,8 +105,7 @@ type edgeConfigSchemaArgs struct {
 type EdgeConfigSchemaArgs struct {
 	// A JSON schema that will be used to validate data in the Edge Config.
 	Definition pulumi.StringInput
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -183,8 +201,7 @@ func (o EdgeConfigSchemaOutput) Definition() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfigSchema) pulumi.StringOutput { return v.Definition }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-// not been set in the provider.
+// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o EdgeConfigSchemaOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfigSchema) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

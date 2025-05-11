@@ -9,9 +9,48 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewProjectMembers(ctx, "exampleProjectMembers", &vercel.ProjectMembersArgs{
+//				ProjectId: exampleProject.ID(),
+//				Members: vercel.ProjectMembersMemberArray{
+//					&vercel.ProjectMembersMemberArgs{
+//						Email: pulumi.String("user@example.com"),
+//						Role:  pulumi.String("PROJECT_VIEWER"),
+//					},
+//					&vercel.ProjectMembersMemberArgs{
+//						Username: pulumi.String("some-example-user"),
+//						Role:     pulumi.String("PROJECT_DEVELOPER"),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type ProjectMembers struct {
 	pulumi.CustomResourceState
 
@@ -19,8 +58,7 @@ type ProjectMembers struct {
 	Members ProjectMembersMemberArrayOutput `pulumi:"members"`
 	// The ID of the existing Vercel Project.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -64,8 +102,7 @@ type projectMembersState struct {
 	Members []ProjectMembersMember `pulumi:"members"`
 	// The ID of the existing Vercel Project.
 	ProjectId *string `pulumi:"projectId"`
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -74,8 +111,7 @@ type ProjectMembersState struct {
 	Members ProjectMembersMemberArrayInput
 	// The ID of the existing Vercel Project.
 	ProjectId pulumi.StringPtrInput
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -88,8 +124,7 @@ type projectMembersArgs struct {
 	Members []ProjectMembersMember `pulumi:"members"`
 	// The ID of the existing Vercel Project.
 	ProjectId string `pulumi:"projectId"`
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -99,8 +134,7 @@ type ProjectMembersArgs struct {
 	Members ProjectMembersMemberArrayInput
 	// The ID of the existing Vercel Project.
 	ProjectId pulumi.StringInput
-	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-	// provider.
+	// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -201,8 +235,7 @@ func (o ProjectMembersOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectMembers) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-// provider.
+// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
 func (o ProjectMembersOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectMembers) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

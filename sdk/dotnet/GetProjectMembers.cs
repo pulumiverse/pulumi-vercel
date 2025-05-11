@@ -12,9 +12,61 @@ namespace Pulumiverse.Vercel
 {
     public static class GetProjectMembers
     {
+        /// <summary>
+        /// Retrieves members and their roles for a Vercel Project.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "example-with-members",
+        ///     });
+        /// 
+        ///     var exampleProjectMembers = Vercel.GetProjectMembers.Invoke(new()
+        ///     {
+        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetProjectMembersResult> InvokeAsync(GetProjectMembersArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectMembersResult>("vercel:index/getProjectMembers:getProjectMembers", args ?? new GetProjectMembersArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Retrieves members and their roles for a Vercel Project.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "example-with-members",
+        ///     });
+        /// 
+        ///     var exampleProjectMembers = Vercel.GetProjectMembers.Invoke(new()
+        ///     {
+        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetProjectMembersResult> Invoke(GetProjectMembersInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectMembersResult>("vercel:index/getProjectMembers:getProjectMembers", args ?? new GetProjectMembersInvokeArgs(), options.WithDefaults());
     }
@@ -22,9 +74,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectMembersArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Vercel Project.
+        /// </summary>
         [Input("projectId", required: true)]
         public string ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -36,9 +94,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectMembersInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Vercel Project.
+        /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -56,8 +120,17 @@ namespace Pulumiverse.Vercel
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The set of members in this project.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetProjectMembersMemberResult> Members;
+        /// <summary>
+        /// The ID of the Vercel Project.
+        /// </summary>
         public readonly string ProjectId;
+        /// <summary>
+        /// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+        /// </summary>
         public readonly string? TeamId;
 
         [OutputConstructor]

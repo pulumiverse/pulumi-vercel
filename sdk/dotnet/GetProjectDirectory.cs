@@ -46,7 +46,13 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetProjectDirectoryResult
     {
+        /// <summary>
+        /// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+        /// </summary>
         public readonly ImmutableDictionary<string, string> Files;
+        /// <summary>
+        /// The ID of this resource.
+        /// </summary>
         public readonly string Id;
         public readonly string Path;
 

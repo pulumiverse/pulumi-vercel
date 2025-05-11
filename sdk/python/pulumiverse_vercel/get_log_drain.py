@@ -58,46 +58,73 @@ class GetLogDrainResult:
     @property
     @pulumi.getter(name="deliveryFormat")
     def delivery_format(self) -> str:
+        """
+        The format log data should be delivered in. Can be `json` or `ndjson`.
+        """
         return pulumi.get(self, "delivery_format")
 
     @property
     @pulumi.getter
     def endpoint(self) -> str:
+        """
+        Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
+        """
         return pulumi.get(self, "endpoint")
 
     @property
     @pulumi.getter
     def environments(self) -> Sequence[str]:
+        """
+        Logs from the selected environments will be forwarded to your webhook. At least one must be present.
+        """
         return pulumi.get(self, "environments")
 
     @property
     @pulumi.getter
     def headers(self) -> Mapping[str, str]:
+        """
+        Custom headers to include in requests to the log drain endpoint.
+        """
         return pulumi.get(self, "headers")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of the Log Drain.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> Sequence[str]:
+        """
+        A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
+        """
         return pulumi.get(self, "project_ids")
 
     @property
     @pulumi.getter(name="samplingRate")
     def sampling_rate(self) -> float:
+        """
+        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        """
         return pulumi.get(self, "sampling_rate")
 
     @property
     @pulumi.getter
     def sources(self) -> Sequence[str]:
+        """
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `function`.
+        """
         return pulumi.get(self, "sources")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -123,7 +150,25 @@ def get_log_drain(endpoint: Optional[str] = None,
                   team_id: Optional[str] = None,
                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetLogDrainResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Log Drain.
+
+    Log Drains collect all of your logs using a service specializing in storing app logs.
+
+    Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_log_drain(id="lg_xxxxxxx_xxxxxx_xxxxx")
+    ```
+
+
+    :param str endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
+    :param str id: The ID of the Log Drain.
+    :param str team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['endpoint'] = endpoint
@@ -147,7 +192,25 @@ def get_log_drain_output(endpoint: Optional[pulumi.Input[str]] = None,
                          team_id: Optional[pulumi.Input[Optional[str]]] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetLogDrainResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Log Drain.
+
+    Log Drains collect all of your logs using a service specializing in storing app logs.
+
+    Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_log_drain(id="lg_xxxxxxx_xxxxxx_xxxxx")
+    ```
+
+
+    :param str endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
+    :param str id: The ID of the Log Drain.
+    :param str team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['endpoint'] = endpoint

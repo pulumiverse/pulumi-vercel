@@ -12,9 +12,71 @@ namespace Pulumiverse.Vercel
 {
     public static class GetEdgeConfigItem
     {
+        /// <summary>
+        /// Provides the value of an existing Edge Config Item.
+        /// 
+        /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+        /// 
+        /// An Edge Config Item is a value within an Edge Config.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetEdgeConfig.Invoke(new()
+        ///     {
+        ///         Id = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ///     });
+        /// 
+        ///     var test = Vercel.GetEdgeConfigItem.Invoke(new()
+        ///     {
+        ///         Id = example.Apply(getEdgeConfigResult =&gt; getEdgeConfigResult.Id),
+        ///         Key = "foobar",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetEdgeConfigItemResult> InvokeAsync(GetEdgeConfigItemArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetEdgeConfigItemResult>("vercel:index/getEdgeConfigItem:getEdgeConfigItem", args ?? new GetEdgeConfigItemArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides the value of an existing Edge Config Item.
+        /// 
+        /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+        /// 
+        /// An Edge Config Item is a value within an Edge Config.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetEdgeConfig.Invoke(new()
+        ///     {
+        ///         Id = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ///     });
+        /// 
+        ///     var test = Vercel.GetEdgeConfigItem.Invoke(new()
+        ///     {
+        ///         Id = example.Apply(getEdgeConfigResult =&gt; getEdgeConfigResult.Id),
+        ///         Key = "foobar",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetEdgeConfigItemResult> Invoke(GetEdgeConfigItemInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetEdgeConfigItemResult>("vercel:index/getEdgeConfigItem:getEdgeConfigItem", args ?? new GetEdgeConfigItemInvokeArgs(), options.WithDefaults());
     }
@@ -22,12 +84,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEdgeConfigItemArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Edge Config that the item should exist under.
+        /// </summary>
         [Input("id", required: true)]
         public string Id { get; set; } = null!;
 
+        /// <summary>
+        /// The name of the key you want to retrieve within your Edge Config.
+        /// </summary>
         [Input("key", required: true)]
         public string Key { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -39,12 +110,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEdgeConfigItemInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Edge Config that the item should exist under.
+        /// </summary>
         [Input("id", required: true)]
         public Input<string> Id { get; set; } = null!;
 
+        /// <summary>
+        /// The name of the key you want to retrieve within your Edge Config.
+        /// </summary>
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -58,9 +138,21 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetEdgeConfigItemResult
     {
+        /// <summary>
+        /// The ID of the Edge Config that the item should exist under.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The name of the key you want to retrieve within your Edge Config.
+        /// </summary>
         public readonly string Key;
+        /// <summary>
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
+        /// <summary>
+        /// The value assigned to the key.
+        /// </summary>
         public readonly string Value;
 
         [OutputConstructor]

@@ -12,9 +12,55 @@ namespace Pulumiverse.Vercel
 {
     public static class GetAccessGroup
     {
+        /// <summary>
+        /// Provides information about an existing Access Group.
+        /// 
+        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetAccessGroup.Invoke(new()
+        ///     {
+        ///         Id = "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetAccessGroupResult> InvokeAsync(GetAccessGroupArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAccessGroupResult>("vercel:index/getAccessGroup:getAccessGroup", args ?? new GetAccessGroupArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about an existing Access Group.
+        /// 
+        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetAccessGroup.Invoke(new()
+        ///     {
+        ///         Id = "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetAccessGroupResult> Invoke(GetAccessGroupInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAccessGroupResult>("vercel:index/getAccessGroup:getAccessGroup", args ?? new GetAccessGroupInvokeArgs(), options.WithDefaults());
     }
@@ -22,9 +68,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAccessGroupArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The Access Group ID to be retrieved.
+        /// </summary>
         [Input("id", required: true)]
         public string Id { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -36,9 +88,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAccessGroupInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The Access Group ID to be retrieved.
+        /// </summary>
         [Input("id", required: true)]
         public Input<string> Id { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -52,8 +110,17 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetAccessGroupResult
     {
+        /// <summary>
+        /// The Access Group ID to be retrieved.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The name of the Access Group.
+        /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

@@ -28,8 +28,7 @@ class ProjectMembersArgs:
         The set of arguments for constructing a ProjectMembers resource.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectMembersMemberArgs']]] members: The set of members to manage for this project.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "members", members)
         pulumi.set(__self__, "project_id", project_id)
@@ -64,8 +63,7 @@ class ProjectMembersArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        provider.
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -84,8 +82,7 @@ class _ProjectMembersState:
         Input properties used for looking up and filtering ProjectMembers resources.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectMembersMemberArgs']]] members: The set of members to manage for this project.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if members is not None:
             pulumi.set(__self__, "members", members)
@@ -122,8 +119,7 @@ class _ProjectMembersState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        provider.
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -142,13 +138,32 @@ class ProjectMembers(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a ProjectMembers resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        example_project_members = vercel.ProjectMembers("exampleProjectMembers",
+            project_id=example_project.id,
+            members=[
+                {
+                    "email": "user@example.com",
+                    "role": "PROJECT_VIEWER",
+                },
+                {
+                    "username": "some-example-user",
+                    "role": "PROJECT_DEVELOPER",
+                },
+            ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectMembersMemberArgs', 'ProjectMembersMemberArgsDict']]]] members: The set of members to manage for this project.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -157,7 +172,27 @@ class ProjectMembers(pulumi.CustomResource):
                  args: ProjectMembersArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ProjectMembers resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        example_project_members = vercel.ProjectMembers("exampleProjectMembers",
+            project_id=example_project.id,
+            members=[
+                {
+                    "email": "user@example.com",
+                    "role": "PROJECT_VIEWER",
+                },
+                {
+                    "username": "some-example-user",
+                    "role": "PROJECT_DEVELOPER",
+                },
+            ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param ProjectMembersArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -214,8 +249,7 @@ class ProjectMembers(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectMembersMemberArgs', 'ProjectMembersMemberArgsDict']]]] members: The set of members to manage for this project.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -246,8 +280,7 @@ class ProjectMembers(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        provider.
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

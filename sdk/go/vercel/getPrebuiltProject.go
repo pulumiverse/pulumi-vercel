@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
 func GetPrebuiltProject(ctx *pulumi.Context, args *GetPrebuiltProjectArgs, opts ...pulumi.InvokeOption) (*GetPrebuiltProjectResult, error) {
@@ -28,7 +28,9 @@ type GetPrebuiltProjectArgs struct {
 
 // A collection of values returned by getPrebuiltProject.
 type GetPrebuiltProjectResult struct {
-	Id     string            `pulumi:"id"`
+	// The ID of this resource.
+	Id string `pulumi:"id"`
+	// A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 	Output map[string]string `pulumi:"output"`
 	Path   string            `pulumi:"path"`
 }
@@ -76,10 +78,12 @@ func (o GetPrebuiltProjectResultOutput) ToGetPrebuiltProjectResultOutputWithCont
 	return o
 }
 
+// The ID of this resource.
 func (o GetPrebuiltProjectResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetPrebuiltProjectResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 func (o GetPrebuiltProjectResultOutput) Output() pulumi.StringMapOutput {
 	return o.ApplyT(func(v GetPrebuiltProjectResult) map[string]string { return v.Output }).(pulumi.StringMapOutput)
 }

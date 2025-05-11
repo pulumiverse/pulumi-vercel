@@ -34,13 +34,10 @@ class ProjectEnvironmentVariableArgs:
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-               `custom_environment_ids` must be set.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "key", key)
@@ -111,8 +108,7 @@ class ProjectEnvironmentVariableArgs:
     @pulumi.getter(name="customEnvironmentIds")
     def custom_environment_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-        `custom_environment_ids` must be set.
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "custom_environment_ids")
 
@@ -136,8 +132,7 @@ class ProjectEnvironmentVariableArgs:
     @pulumi.getter
     def sensitive(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-        policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -149,8 +144,7 @@ class ProjectEnvironmentVariableArgs:
     @pulumi.getter
     def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
 
@@ -186,15 +180,12 @@ class _ProjectEnvironmentVariableState:
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-               `custom_environment_ids` must be set.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -233,8 +224,7 @@ class _ProjectEnvironmentVariableState:
     @pulumi.getter(name="customEnvironmentIds")
     def custom_environment_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-        `custom_environment_ids` must be set.
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "custom_environment_ids")
 
@@ -282,8 +272,7 @@ class _ProjectEnvironmentVariableState:
     @pulumi.getter
     def sensitive(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-        policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -295,8 +284,7 @@ class _ProjectEnvironmentVariableState:
     @pulumi.getter
     def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
 
@@ -345,19 +333,93 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  value: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a ProjectEnvironmentVariable resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
+        # An environment variable that will be created
+        # for this project for the "production" environment.
+        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
+            project_id=example_project.id,
+            key="foo",
+            value="bar",
+            targets=["production"],
+            comment="a production secret")
+        # An environment variable that will be created
+        # for this project for the "preview" environment when the branch is "staging".
+        example_git_branch = vercel.ProjectEnvironmentVariable("exampleGitBranch",
+            project_id=example_project.id,
+            key="foo",
+            value="bar-staging",
+            targets=["preview"],
+            git_branch="staging",
+            comment="a staging secret")
+        # A sensitive environment variable that will be created
+        # for this project for the "production" environment.
+        example_sensitive = vercel.ProjectEnvironmentVariable("exampleSensitive",
+            project_id=example_project.id,
+            key="foo",
+            value="bar-production",
+            targets=["production"],
+            sensitive=True,
+            comment="a sensitive production secret")
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the project_id and environment variable id.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+        ```
+
+        Alternatively, you can import via the team_id, project_id and
+
+        environment variable id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-               `custom_environment_ids` must be set.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -368,7 +430,84 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  args: ProjectEnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ProjectEnvironmentVariable resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
+        # An environment variable that will be created
+        # for this project for the "production" environment.
+        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
+            project_id=example_project.id,
+            key="foo",
+            value="bar",
+            targets=["production"],
+            comment="a production secret")
+        # An environment variable that will be created
+        # for this project for the "preview" environment when the branch is "staging".
+        example_git_branch = vercel.ProjectEnvironmentVariable("exampleGitBranch",
+            project_id=example_project.id,
+            key="foo",
+            value="bar-staging",
+            targets=["preview"],
+            git_branch="staging",
+            comment="a staging secret")
+        # A sensitive environment variable that will be created
+        # for this project for the "production" environment.
+        example_sensitive = vercel.ProjectEnvironmentVariable("exampleSensitive",
+            project_id=example_project.id,
+            key="foo",
+            value="bar-production",
+            targets=["production"],
+            sensitive=True,
+            comment="a sensitive production secret")
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the project_id and environment variable id.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+        ```
+
+        Alternatively, you can import via the team_id, project_id and
+
+        environment variable id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+
+        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+        ```
+
         :param str resource_name: The name of the resource.
         :param ProjectEnvironmentVariableArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -446,15 +585,12 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-               `custom_environment_ids` must be set.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -485,8 +621,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     @pulumi.getter(name="customEnvironmentIds")
     def custom_environment_ids(self) -> pulumi.Output[Sequence[str]]:
         """
-        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-        `custom_environment_ids` must be set.
+        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "custom_environment_ids")
 
@@ -518,8 +653,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     @pulumi.getter
     def sensitive(self) -> pulumi.Output[bool]:
         """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-        policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -527,8 +661,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     @pulumi.getter
     def targets(self) -> pulumi.Output[Sequence[str]]:
         """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
 

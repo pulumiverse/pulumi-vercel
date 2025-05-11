@@ -23,7 +23,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? ActionDuration;
         /// <summary>
-        /// Behavior or a rate limiting action. Required if action is rate_limit
+        /// Behavior or a rate limiting action. Required if action is rate*limit
         /// </summary>
         public readonly Outputs.FirewallConfigRulesRuleActionRateLimit? RateLimit;
         /// <summary>

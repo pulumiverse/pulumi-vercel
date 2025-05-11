@@ -43,21 +43,33 @@ class GetAliasResult:
     @property
     @pulumi.getter
     def alias(self) -> str:
+        """
+        The Alias or Alias ID to be retrieved.
+        """
         return pulumi.get(self, "alias")
 
     @property
     @pulumi.getter(name="deploymentId")
     def deployment_id(self) -> str:
+        """
+        The ID of the Deployment the Alias is associated with.
+        """
         return pulumi.get(self, "deployment_id")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of this resource.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -77,7 +89,13 @@ def get_alias(alias: Optional[str] = None,
               team_id: Optional[str] = None,
               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAliasResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Alias resource.
+
+    An Alias allows a `Deployment` to be accessed through a different URL.
+
+
+    :param str alias: The Alias or Alias ID to be retrieved.
+    :param str team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['alias'] = alias
@@ -94,7 +112,13 @@ def get_alias_output(alias: Optional[pulumi.Input[str]] = None,
                      team_id: Optional[pulumi.Input[Optional[str]]] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAliasResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Alias resource.
+
+    An Alias allows a `Deployment` to be accessed through a different URL.
+
+
+    :param str alias: The Alias or Alias ID to be retrieved.
+    :param str team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['alias'] = alias

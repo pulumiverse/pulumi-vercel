@@ -40,16 +40,25 @@ class GetAccessGroupResult:
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The Access Group ID to be retrieved.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        The name of the Access Group.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -68,7 +77,22 @@ def get_access_group(id: Optional[str] = None,
                      team_id: Optional[str] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAccessGroupResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Access Group.
+
+    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_access_group(id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    ```
+
+
+    :param str id: The Access Group ID to be retrieved.
+    :param str team_id: The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -84,7 +108,22 @@ def get_access_group_output(id: Optional[pulumi.Input[str]] = None,
                             team_id: Optional[pulumi.Input[Optional[str]]] = None,
                             opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAccessGroupResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Access Group.
+
+    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_access_group(id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    ```
+
+
+    :param str id: The Access Group ID to be retrieved.
+    :param str team_id: The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['id'] = id

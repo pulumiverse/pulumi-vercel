@@ -10,6 +10,9 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Manages the configuration of an existing Vercel Team.
+    /// </summary>
     [VercelResourceType("vercel:index/teamConfig:TeamConfig")]
     public partial class TeamConfig : global::Pulumi.CustomResource
     {
@@ -86,8 +89,7 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.TeamConfigSaml> Saml { get; private set; } = null!;
 
         /// <summary>
-        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-        /// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         /// </summary>
         [Output("sensitiveEnvironmentVariablePolicy")]
         public Output<string> SensitiveEnvironmentVariablePolicy { get; private set; } = null!;
@@ -218,8 +220,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.TeamConfigSamlArgs>? Saml { get; set; }
 
         /// <summary>
-        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-        /// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         /// </summary>
         [Input("sensitiveEnvironmentVariablePolicy")]
         public Input<string>? SensitiveEnvironmentVariablePolicy { get; set; }
@@ -317,8 +318,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.TeamConfigSamlGetArgs>? Saml { get; set; }
 
         /// <summary>
-        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-        /// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
         /// </summary>
         [Input("sensitiveEnvironmentVariablePolicy")]
         public Input<string>? SensitiveEnvironmentVariablePolicy { get; set; }

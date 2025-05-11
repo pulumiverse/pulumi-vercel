@@ -4,4 +4,12 @@ organization: pulumiverse
 major-version: 2
 providerDefaultBranch: main
 upstreamProviderOrg: vercel
-pulumiConvert: 1
+pulumiConvert: 0
+languages:
+  - dotnet
+  - go
+  - nodejs
+  - python
+publish:
+  sdk: "all,!java"
+  cdn: false

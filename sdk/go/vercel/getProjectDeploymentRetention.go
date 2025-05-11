@@ -8,9 +8,14 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides a Project Deployment Retention datasource.
+//
+// A Project Deployment Retention datasource details information about Deployment Retention on a Vercel Project.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
 func LookupProjectDeploymentRetention(ctx *pulumi.Context, args *LookupProjectDeploymentRetentionArgs, opts ...pulumi.InvokeOption) (*LookupProjectDeploymentRetentionResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupProjectDeploymentRetentionResult
@@ -23,19 +28,28 @@ func LookupProjectDeploymentRetention(ctx *pulumi.Context, args *LookupProjectDe
 
 // A collection of arguments for invoking getProjectDeploymentRetention.
 type LookupProjectDeploymentRetentionArgs struct {
-	ProjectId string  `pulumi:"projectId"`
-	TeamId    *string `pulumi:"teamId"`
+	// The ID of the Project for the retention policy
+	ProjectId string `pulumi:"projectId"`
+	// The ID of the Vercel team.
+	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getProjectDeploymentRetention.
 type LookupProjectDeploymentRetentionResult struct {
-	ExpirationCanceled   string `pulumi:"expirationCanceled"`
-	ExpirationErrored    string `pulumi:"expirationErrored"`
-	ExpirationPreview    string `pulumi:"expirationPreview"`
+	// The retention period for canceled deployments.
+	ExpirationCanceled string `pulumi:"expirationCanceled"`
+	// The retention period for errored deployments.
+	ExpirationErrored string `pulumi:"expirationErrored"`
+	// The retention period for preview deployments.
+	ExpirationPreview string `pulumi:"expirationPreview"`
+	// The retention period for production deployments.
 	ExpirationProduction string `pulumi:"expirationProduction"`
-	Id                   string `pulumi:"id"`
-	ProjectId            string `pulumi:"projectId"`
-	TeamId               string `pulumi:"teamId"`
+	// The ID of this resource.
+	Id string `pulumi:"id"`
+	// The ID of the Project for the retention policy
+	ProjectId string `pulumi:"projectId"`
+	// The ID of the Vercel team.
+	TeamId string `pulumi:"teamId"`
 }
 
 func LookupProjectDeploymentRetentionOutput(ctx *pulumi.Context, args LookupProjectDeploymentRetentionOutputArgs, opts ...pulumi.InvokeOption) LookupProjectDeploymentRetentionResultOutput {
@@ -59,8 +73,10 @@ func LookupProjectDeploymentRetentionOutput(ctx *pulumi.Context, args LookupProj
 
 // A collection of arguments for invoking getProjectDeploymentRetention.
 type LookupProjectDeploymentRetentionOutputArgs struct {
-	ProjectId pulumi.StringInput    `pulumi:"projectId"`
-	TeamId    pulumi.StringPtrInput `pulumi:"teamId"`
+	// The ID of the Project for the retention policy
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The ID of the Vercel team.
+	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
 func (LookupProjectDeploymentRetentionOutputArgs) ElementType() reflect.Type {
@@ -82,30 +98,37 @@ func (o LookupProjectDeploymentRetentionResultOutput) ToLookupProjectDeploymentR
 	return o
 }
 
+// The retention period for canceled deployments.
 func (o LookupProjectDeploymentRetentionResultOutput) ExpirationCanceled() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.ExpirationCanceled }).(pulumi.StringOutput)
 }
 
+// The retention period for errored deployments.
 func (o LookupProjectDeploymentRetentionResultOutput) ExpirationErrored() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.ExpirationErrored }).(pulumi.StringOutput)
 }
 
+// The retention period for preview deployments.
 func (o LookupProjectDeploymentRetentionResultOutput) ExpirationPreview() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.ExpirationPreview }).(pulumi.StringOutput)
 }
 
+// The retention period for production deployments.
 func (o LookupProjectDeploymentRetentionResultOutput) ExpirationProduction() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.ExpirationProduction }).(pulumi.StringOutput)
 }
 
+// The ID of this resource.
 func (o LookupProjectDeploymentRetentionResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The ID of the Project for the retention policy
 func (o LookupProjectDeploymentRetentionResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
+// The ID of the Vercel team.
 func (o LookupProjectDeploymentRetentionResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectDeploymentRetentionResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

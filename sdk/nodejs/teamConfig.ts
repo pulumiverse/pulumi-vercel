@@ -6,6 +6,9 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Manages the configuration of an existing Vercel Team.
+ */
 export class TeamConfig extends pulumi.CustomResource {
     /**
      * Get an existing TeamConfig resource's state with the given name, ID, and optional extra
@@ -83,8 +86,7 @@ export class TeamConfig extends pulumi.CustomResource {
      */
     public readonly saml!: pulumi.Output<outputs.TeamConfigSaml>;
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-     * Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
      */
     public readonly sensitiveEnvironmentVariablePolicy!: pulumi.Output<string>;
     /**
@@ -194,8 +196,7 @@ export interface TeamConfigState {
      */
     saml?: pulumi.Input<inputs.TeamConfigSaml>;
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-     * Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
      */
     sensitiveEnvironmentVariablePolicy?: pulumi.Input<string>;
     /**
@@ -253,8 +254,7 @@ export interface TeamConfigArgs {
      */
     saml?: pulumi.Input<inputs.TeamConfigSaml>;
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-     * Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
      */
     sensitiveEnvironmentVariablePolicy?: pulumi.Input<string>;
     /**

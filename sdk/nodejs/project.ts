@@ -6,6 +6,51 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * // A project that is connected to a git repository.
+ * // Deployments will be created automatically
+ * // on every branch push and merges onto the Production Branch.
+ * const withGit = new vercel.Project("withGit", {
+ *     framework: "nextjs",
+ *     gitRepository: {
+ *         repo: "vercel/some-repo",
+ *         type: "github",
+ *     },
+ * });
+ * // A project that is not connected to a git repository.
+ * // Deployments will need to be created manually through
+ * // terraform, or via the vercel CLI.
+ * const example = new vercel.Project("example", {framework: "nextjs"});
+ * ```
+ *
+ * ## Import
+ *
+ * If importing into a personal account, or with a team configured on
+ *
+ * the provider, simply use the project ID.
+ *
+ * - project_id can be found in the project `settings` tab in the Vercel UI.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ *
+ * Alternatively, you can import via the team_id and project_id.
+ *
+ * - team_id can be found in the team `settings` tab in the Vercel UI.
+ *
+ * - project_id can be found in the project `settings` tab in the Vercel UI.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ */
 export class Project extends pulumi.CustomResource {
     /**
      * Get an existing Project resource's state with the given name, ID, and optional extra
@@ -35,13 +80,11 @@ export class Project extends pulumi.CustomResource {
     }
 
     /**
-     * Automatically assign custom production domains after each Production deployment via merge to the production branch or
-     * Vercel CLI deploy with --prod. Defaults to `true`
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
      */
     public readonly autoAssignCustomDomains!: pulumi.Output<boolean>;
     /**
-     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the
-     * Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     public readonly automaticallyExposeSystemEnvironmentVariables!: pulumi.Output<boolean>;
     /**
@@ -69,8 +112,7 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly framework!: pulumi.Output<string | undefined>;
     /**
-     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new
-     * Deployment is required for your changes to take effect.
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
      */
     public readonly functionFailover!: pulumi.Output<boolean>;
     /**
@@ -78,27 +120,19 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly gitComments!: pulumi.Output<outputs.ProjectGitComments | undefined>;
     /**
-     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if
-     * your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
      */
     public readonly gitForkProtection!: pulumi.Output<boolean>;
     /**
-     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text
-     * pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
      */
     public readonly gitLfs!: pulumi.Output<boolean>;
     /**
-     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected
-     * Git Repository will be automatically deployed. This requires the corresponding Vercel for
-     * [Github](https://vercel.com/docs/concepts/git/vercel-for-github),
-     * [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or
-     * [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     public readonly gitRepository!: pulumi.Output<outputs.ProjectGitRepository | undefined>;
     /**
-     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build
-     * has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a
-     * command that exits with code 1 (new Build needed) or code 0.
+     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
      */
     public readonly ignoreCommand!: pulumi.Output<string | undefined>;
     /**
@@ -126,8 +160,7 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly passwordProtection!: pulumi.Output<outputs.ProjectPasswordProtection | undefined>;
     /**
-     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default
-     * behaviour).
+     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
      */
     public readonly previewComments!: pulumi.Output<boolean | undefined>;
     /**
@@ -135,19 +168,15 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly prioritiseProductionBuilds!: pulumi.Output<boolean>;
     /**
-     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
-     * `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
+     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
      */
     public readonly protectionBypassForAutomation!: pulumi.Output<boolean | undefined>;
     /**
-     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a
-     * secret will be generated.
+     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
      */
     public readonly protectionBypassForAutomationSecret!: pulumi.Output<string>;
     /**
-     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
-     * Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
-     * `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
      */
     public readonly publicSource!: pulumi.Output<boolean | undefined>;
     /**
@@ -155,24 +184,19 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly resourceConfig!: pulumi.Output<outputs.ProjectResourceConfig>;
     /**
-     * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project
-     * root.
+     * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
      */
     public readonly rootDirectory!: pulumi.Output<string | undefined>;
     /**
-     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source
-     * your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see
-     * [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
      */
     public readonly serverlessFunctionRegion!: pulumi.Output<string>;
     /**
-     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long
-     * Vercel keeps Skew Protection active.
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
      */
     public readonly skewProtection!: pulumi.Output<string | undefined>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
@@ -276,13 +300,11 @@ export class Project extends pulumi.CustomResource {
  */
 export interface ProjectState {
     /**
-     * Automatically assign custom production domains after each Production deployment via merge to the production branch or
-     * Vercel CLI deploy with --prod. Defaults to `true`
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
      */
     autoAssignCustomDomains?: pulumi.Input<boolean>;
     /**
-     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the
-     * Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     automaticallyExposeSystemEnvironmentVariables?: pulumi.Input<boolean>;
     /**
@@ -310,8 +332,7 @@ export interface ProjectState {
      */
     framework?: pulumi.Input<string>;
     /**
-     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new
-     * Deployment is required for your changes to take effect.
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
      */
     functionFailover?: pulumi.Input<boolean>;
     /**
@@ -319,27 +340,19 @@ export interface ProjectState {
      */
     gitComments?: pulumi.Input<inputs.ProjectGitComments>;
     /**
-     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if
-     * your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
      */
     gitForkProtection?: pulumi.Input<boolean>;
     /**
-     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text
-     * pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
      */
     gitLfs?: pulumi.Input<boolean>;
     /**
-     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected
-     * Git Repository will be automatically deployed. This requires the corresponding Vercel for
-     * [Github](https://vercel.com/docs/concepts/git/vercel-for-github),
-     * [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or
-     * [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     gitRepository?: pulumi.Input<inputs.ProjectGitRepository>;
     /**
-     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build
-     * has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a
-     * command that exits with code 1 (new Build needed) or code 0.
+     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
      */
     ignoreCommand?: pulumi.Input<string>;
     /**
@@ -367,8 +380,7 @@ export interface ProjectState {
      */
     passwordProtection?: pulumi.Input<inputs.ProjectPasswordProtection>;
     /**
-     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default
-     * behaviour).
+     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
      */
     previewComments?: pulumi.Input<boolean>;
     /**
@@ -376,19 +388,15 @@ export interface ProjectState {
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
     /**
-     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
-     * `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
+     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
      */
     protectionBypassForAutomation?: pulumi.Input<boolean>;
     /**
-     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a
-     * secret will be generated.
+     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
      */
     protectionBypassForAutomationSecret?: pulumi.Input<string>;
     /**
-     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
-     * Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
-     * `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
      */
     publicSource?: pulumi.Input<boolean>;
     /**
@@ -396,24 +404,19 @@ export interface ProjectState {
      */
     resourceConfig?: pulumi.Input<inputs.ProjectResourceConfig>;
     /**
-     * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project
-     * root.
+     * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
      */
     rootDirectory?: pulumi.Input<string>;
     /**
-     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source
-     * your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see
-     * [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
      */
     serverlessFunctionRegion?: pulumi.Input<string>;
     /**
-     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long
-     * Vercel keeps Skew Protection active.
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
      */
     skewProtection?: pulumi.Input<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
     /**
@@ -431,13 +434,11 @@ export interface ProjectState {
  */
 export interface ProjectArgs {
     /**
-     * Automatically assign custom production domains after each Production deployment via merge to the production branch or
-     * Vercel CLI deploy with --prod. Defaults to `true`
+     * Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
      */
     autoAssignCustomDomains?: pulumi.Input<boolean>;
     /**
-     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the
-     * Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+     * Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
      */
     automaticallyExposeSystemEnvironmentVariables?: pulumi.Input<boolean>;
     /**
@@ -465,8 +466,7 @@ export interface ProjectArgs {
      */
     framework?: pulumi.Input<string>;
     /**
-     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new
-     * Deployment is required for your changes to take effect.
+     * Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
      */
     functionFailover?: pulumi.Input<boolean>;
     /**
@@ -474,27 +474,19 @@ export interface ProjectArgs {
      */
     gitComments?: pulumi.Input<inputs.ProjectGitComments>;
     /**
-     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if
-     * your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
+     * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
      */
     gitForkProtection?: pulumi.Input<boolean>;
     /**
-     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text
-     * pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+     * Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
      */
     gitLfs?: pulumi.Input<boolean>;
     /**
-     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected
-     * Git Repository will be automatically deployed. This requires the corresponding Vercel for
-     * [Github](https://vercel.com/docs/concepts/git/vercel-for-github),
-     * [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or
-     * [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+     * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     gitRepository?: pulumi.Input<inputs.ProjectGitRepository>;
     /**
-     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build
-     * has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a
-     * command that exits with code 1 (new Build needed) or code 0.
+     * When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
      */
     ignoreCommand?: pulumi.Input<string>;
     /**
@@ -522,8 +514,7 @@ export interface ProjectArgs {
      */
     passwordProtection?: pulumi.Input<inputs.ProjectPasswordProtection>;
     /**
-     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default
-     * behaviour).
+     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
      */
     previewComments?: pulumi.Input<boolean>;
     /**
@@ -531,19 +522,15 @@ export interface ProjectArgs {
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
     /**
-     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named
-     * `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
+     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
      */
     protectionBypassForAutomation?: pulumi.Input<boolean>;
     /**
-     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a
-     * secret will be generated.
+     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
      */
     protectionBypassForAutomationSecret?: pulumi.Input<string>;
     /**
-     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with
-     * Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting
-     * `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
      */
     publicSource?: pulumi.Input<boolean>;
     /**
@@ -551,24 +538,19 @@ export interface ProjectArgs {
      */
     resourceConfig?: pulumi.Input<inputs.ProjectResourceConfig>;
     /**
-     * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project
-     * root.
+     * The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
      */
     rootDirectory?: pulumi.Input<string>;
     /**
-     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source
-     * your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see
-     * [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
      */
     serverlessFunctionRegion?: pulumi.Input<string>;
     /**
-     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long
-     * Vercel keeps Skew Protection active.
+     * Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
      */
     skewProtection?: pulumi.Input<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
     /**

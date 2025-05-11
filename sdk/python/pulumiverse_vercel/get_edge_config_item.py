@@ -43,21 +43,33 @@ class GetEdgeConfigItemResult:
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of the Edge Config that the item should exist under.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def key(self) -> str:
+        """
+        The name of the key you want to retrieve within your Edge Config.
+        """
         return pulumi.get(self, "key")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
     @property
     @pulumi.getter
     def value(self) -> str:
+        """
+        The value assigned to the key.
+        """
         return pulumi.get(self, "value")
 
 
@@ -78,7 +90,27 @@ def get_edge_config_item(id: Optional[str] = None,
                          team_id: Optional[str] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetEdgeConfigItemResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides the value of an existing Edge Config Item.
+
+    An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+    An Edge Config Item is a value within an Edge Config.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    test = vercel.get_edge_config_item(id=example.id,
+        key="foobar")
+    ```
+
+
+    :param str id: The ID of the Edge Config that the item should exist under.
+    :param str key: The name of the key you want to retrieve within your Edge Config.
+    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -97,7 +129,27 @@ def get_edge_config_item_output(id: Optional[pulumi.Input[str]] = None,
                                 team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                 opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetEdgeConfigItemResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides the value of an existing Edge Config Item.
+
+    An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+    An Edge Config Item is a value within an Edge Config.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    test = vercel.get_edge_config_item(id=example.id,
+        key="foobar")
+    ```
+
+
+    :param str id: The ID of the Edge Config that the item should exist under.
+    :param str key: The name of the key you want to retrieve within your Edge Config.
+    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['id'] = id

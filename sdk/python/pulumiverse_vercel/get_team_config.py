@@ -74,71 +74,113 @@ class GetTeamConfigResult:
     @property
     @pulumi.getter
     def description(self) -> str:
+        """
+        A description of the team.
+        """
         return pulumi.get(self, "description")
 
     @property
     @pulumi.getter(name="emailDomain")
     def email_domain(self) -> str:
+        """
+        Hostname that'll be matched with emails on sign-up to automatically join the Team.
+        """
         return pulumi.get(self, "email_domain")
 
     @property
     @pulumi.getter(name="enablePreviewFeedback")
     def enable_preview_feedback(self) -> str:
+        """
+        Preview feedback configuration.
+        """
         return pulumi.get(self, "enable_preview_feedback")
 
     @property
     @pulumi.getter(name="enableProductionFeedback")
     def enable_production_feedback(self) -> str:
+        """
+        Production feedback configuration.
+        """
         return pulumi.get(self, "enable_production_feedback")
 
     @property
     @pulumi.getter(name="hideIpAddresses")
     def hide_ip_addresses(self) -> bool:
+        """
+        Indicates if ip addresses should be accessible in o11y tooling.
+        """
         return pulumi.get(self, "hide_ip_addresses")
 
     @property
     @pulumi.getter(name="hideIpAddressesInLogDrains")
     def hide_ip_addresses_in_log_drains(self) -> bool:
+        """
+        Indicates if ip addresses should be accessible in log drains.
+        """
         return pulumi.get(self, "hide_ip_addresses_in_log_drains")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of the existing Vercel Team.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="inviteCode")
     def invite_code(self) -> str:
+        """
+        A code that can be used to join this team. Only visible to Team owners.
+        """
         return pulumi.get(self, "invite_code")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        The name of the team.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="previewDeploymentSuffix")
     def preview_deployment_suffix(self) -> str:
+        """
+        The hostname that is used as the preview deployment suffix.
+        """
         return pulumi.get(self, "preview_deployment_suffix")
 
     @property
     @pulumi.getter(name="remoteCaching")
     def remote_caching(self) -> 'outputs.GetTeamConfigRemoteCachingResult':
+        """
+        Configuration for Remote Caching.
+        """
         return pulumi.get(self, "remote_caching")
 
     @property
     @pulumi.getter
     def saml(self) -> 'outputs.GetTeamConfigSamlResult':
+        """
+        Configuration for SAML authentication.
+        """
         return pulumi.get(self, "saml")
 
     @property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
     def sensitive_environment_variable_policy(self) -> str:
+        """
+        The policy for sensitive environment variables.
+        """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
     @property
     @pulumi.getter
     def slug(self) -> str:
+        """
+        The slug of the team. Used in the URL of the team's dashboard.
+        """
         return pulumi.get(self, "slug")
 
 
@@ -167,7 +209,19 @@ class AwaitableGetTeamConfigResult(GetTeamConfigResult):
 def get_team_config(id: Optional[str] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetTeamConfigResult:
     """
-    Use this data source to access information about an existing resource.
+    Retrieves the configuration of an existing Vercel Team.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_team_config(id="team_xxxxxxxxxxxxxxxxxxxxxxxx")
+    ```
+
+
+    :param str id: The ID of the existing Vercel Team.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -192,7 +246,19 @@ def get_team_config(id: Optional[str] = None,
 def get_team_config_output(id: Optional[pulumi.Input[str]] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetTeamConfigResult]:
     """
-    Use this data source to access information about an existing resource.
+    Retrieves the configuration of an existing Vercel Team.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_team_config(id="team_xxxxxxxxxxxxxxxxxxxxxxxx")
+    ```
+
+
+    :param str id: The ID of the existing Vercel Team.
     """
     __args__ = dict()
     __args__['id'] = id

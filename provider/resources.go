@@ -25,7 +25,7 @@ import (
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumiverse/pulumi-vercel/provider/pkg/version"
+	"github.com/pulumiverse/pulumi-vercel/provider/v2/pkg/version"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
@@ -54,16 +54,17 @@ func Provider() tfbridge.ProviderInfo {
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:                 p,
-		Name:              mainPkg,
-		DisplayName:       caser.String(mainPkg),
-		Publisher:         caser.String(publisher),
-		Version:           version.Version,
-		PluginDownloadURL: "github://api.github.com/pulumiverse",
-		Keywords:          []string{"pulumi", "vercel", "category/cloud"},
-		License:           "Apache-2.0",
-		GitHubOrg:         "vercel",
-		Repository:        "https://github.com/pulumiverse/pulumi-vercel",
+		P:                       p,
+		Name:                    mainPkg,
+		DisplayName:             caser.String(mainPkg),
+		Publisher:               caser.String(publisher),
+		Version:                 version.Version,
+		PluginDownloadURL:       "github://api.github.com/pulumiverse",
+		Keywords:                []string{"pulumi", "vercel", "category/cloud"},
+		License:                 "Apache-2.0",
+		GitHubOrg:               "vercel",
+		TFProviderModuleVersion: "v2",
+		Repository:              "https://github.com/pulumiverse/pulumi-vercel",
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"vercel_alias": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
@@ -74,51 +75,51 @@ func Provider() tfbridge.ProviderInfo {
 				},
 			},
 			"vercel_project_deployment_retention": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 			"vercel_edge_config_schema": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					return resource.ID(state["id"].StringValue()), nil
 				},
 			},
 			"vercel_firewall_config": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 			"vercel_edge_config_item": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["id"].StringValue(), state["key"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 			"vercel_team_config": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					return resource.ID(state["id"].StringValue()), nil
 				},
 			},
 			"vercel_project_environment_variables": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					return resource.ID(state["project_id"].StringValue()), nil
 				},
 			},
 			"vercel_project_members": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					return resource.ID(state["project_id"].StringValue()), nil
 				},
 			},
 			"vercel_access_group_project": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["access_group_id"].StringValue(), state["project_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 			"vercel_team_member": {
-				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["email"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},

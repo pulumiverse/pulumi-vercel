@@ -12,9 +12,45 @@ namespace Pulumiverse.Vercel
 {
     public static class GetEndpointVerification
     {
+        /// <summary>
+        /// Provides a verification code that can be used to prove ownership over an API.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetEndpointVerification.Invoke();
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetEndpointVerificationResult> InvokeAsync(GetEndpointVerificationArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetEndpointVerificationResult>("vercel:index/getEndpointVerification:getEndpointVerification", args ?? new GetEndpointVerificationArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides a verification code that can be used to prove ownership over an API.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetEndpointVerification.Invoke();
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetEndpointVerificationResult> Invoke(GetEndpointVerificationInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetEndpointVerificationResult>("vercel:index/getEndpointVerification:getEndpointVerification", args ?? new GetEndpointVerificationInvokeArgs(), options.WithDefaults());
     }
@@ -22,6 +58,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEndpointVerificationArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -33,6 +72,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetEndpointVerificationInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -46,8 +88,17 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetEndpointVerificationResult
     {
+        /// <summary>
+        /// The ID of this resource.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
+        /// <summary>
+        /// A verification code that should be set in the `x-vercel-verify` response header for your API. This is used to verify that the endpoint belongs to you.
+        /// </summary>
         public readonly string VerificationCode;
 
         [OutputConstructor]

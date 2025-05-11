@@ -10,6 +10,55 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// A webhook is a trigger-based HTTP endpoint configured to receive HTTP POST requests through events.
+    /// 
+    /// When an event happens, a webhook is sent to a third-party app, which can then take appropriate action.
+    /// 
+    /// &gt; Only Pro and Enterprise teams are able to configure these webhooks at the account level.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example = new Vercel.Project("example");
+    /// 
+    ///     var example2 = new Vercel.Project("example2");
+    /// 
+    ///     var withProjectIds = new Vercel.Webhook("withProjectIds", new()
+    ///     {
+    ///         Events = new[]
+    ///         {
+    ///             "deployment.created",
+    ///             "deployment.succeeded",
+    ///         },
+    ///         Endpoint = "https://example.com/endpoint",
+    ///         ProjectIds = new[]
+    ///         {
+    ///             example.Id,
+    ///             example2.Id,
+    ///         },
+    ///     });
+    /// 
+    ///     var withoutProjectIds = new Vercel.Webhook("withoutProjectIds", new()
+    ///     {
+    ///         Events = new[]
+    ///         {
+    ///             "deployment.created",
+    ///             "deployment.succeeded",
+    ///         },
+    ///         Endpoint = "https://example.com/endpoint",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/webhook:Webhook")]
     public partial class Webhook : global::Pulumi.CustomResource
     {
@@ -26,23 +75,19 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<string>> Events { get; private set; } = null!;
 
         /// <summary>
-        /// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-        /// endpoint.
+        /// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
         /// </summary>
         [Output("projectIds")]
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
 
         /// <summary>
-        /// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
-        /// the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
-        /// details.
+        /// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
         /// </summary>
         [Output("secret")]
         public Output<string> Secret { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-        /// been set in the provider.
+        /// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -120,8 +165,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _projectIds;
 
         /// <summary>
-        /// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-        /// endpoint.
+        /// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
         /// </summary>
         public InputList<string> ProjectIds
         {
@@ -130,8 +174,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-        /// been set in the provider.
+        /// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -166,8 +209,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _projectIds;
 
         /// <summary>
-        /// A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-        /// endpoint.
+        /// A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
         /// </summary>
         public InputList<string> ProjectIds
         {
@@ -179,9 +221,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _secret;
 
         /// <summary>
-        /// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
-        /// the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
-        /// details.
+        /// A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
         /// </summary>
         public Input<string>? Secret
         {
@@ -194,8 +234,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-        /// been set in the provider.
+        /// The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

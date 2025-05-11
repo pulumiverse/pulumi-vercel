@@ -50,31 +50,49 @@ class GetTeamMemberResult:
     @property
     @pulumi.getter(name="accessGroups")
     def access_groups(self) -> Sequence[str]:
+        """
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        """
         return pulumi.get(self, "access_groups")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of this resource.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def projects(self) -> Sequence['outputs.GetTeamMemberProjectResult']:
+        """
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+        """
         return pulumi.get(self, "projects")
 
     @property
     @pulumi.getter
     def role(self) -> str:
+        """
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        """
         return pulumi.get(self, "role")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the existing Vercel Team.
+        """
         return pulumi.get(self, "team_id")
 
     @property
     @pulumi.getter(name="userId")
     def user_id(self) -> str:
+        """
+        The ID of the existing Vercel Team Member.
+        """
         return pulumi.get(self, "user_id")
 
 
@@ -96,7 +114,21 @@ def get_team_member(team_id: Optional[str] = None,
                     user_id: Optional[str] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetTeamMemberResult:
     """
-    Use this data source to access information about an existing resource.
+    Provider a datasource for managing a team member.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_team_member(team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
+        user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+    ```
+
+
+    :param str team_id: The ID of the existing Vercel Team.
+    :param str user_id: The ID of the existing Vercel Team Member.
     """
     __args__ = dict()
     __args__['teamId'] = team_id
@@ -115,7 +147,21 @@ def get_team_member_output(team_id: Optional[pulumi.Input[str]] = None,
                            user_id: Optional[pulumi.Input[str]] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetTeamMemberResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provider a datasource for managing a team member.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_team_member(team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
+        user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+    ```
+
+
+    :param str team_id: The ID of the existing Vercel Team.
+    :param str user_id: The ID of the existing Vercel Team Member.
     """
     __args__ = dict()
     __args__['teamId'] = team_id

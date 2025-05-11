@@ -40,16 +40,25 @@ class GetEdgeConfigResult:
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        The name/slug of the Edge Config.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -68,7 +77,22 @@ def get_edge_config(id: Optional[str] = None,
                     team_id: Optional[str] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetEdgeConfigResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Edge Config.
+
+    An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    ```
+
+
+    :param str id: The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
+    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -84,7 +108,22 @@ def get_edge_config_output(id: Optional[pulumi.Input[str]] = None,
                            team_id: Optional[pulumi.Input[Optional[str]]] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetEdgeConfigResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Edge Config.
+
+    An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    ```
+
+
+    :param str id: The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
+    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['id'] = id

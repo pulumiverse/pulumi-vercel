@@ -49,31 +49,49 @@ class GetEdgeConfigTokenResult:
     @property
     @pulumi.getter(name="connectionString")
     def connection_string(self) -> str:
+        """
+        A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        """
         return pulumi.get(self, "connection_string")
 
     @property
     @pulumi.getter(name="edgeConfigId")
     def edge_config_id(self) -> str:
+        """
+        The label of the Edge Config Token.
+        """
         return pulumi.get(self, "edge_config_id")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of this resource.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def label(self) -> str:
+        """
+        The label of the Edge Config Token.
+        """
         return pulumi.get(self, "label")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
     @property
     @pulumi.getter
     def token(self) -> str:
+        """
+        A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
+        """
         return pulumi.get(self, "token")
 
 
@@ -96,7 +114,26 @@ def get_edge_config_token(edge_config_id: Optional[str] = None,
                           token: Optional[str] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetEdgeConfigTokenResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Edge Config Token.
+
+    An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+    An Edge Config token is used to authenticate against an Edge Config's endpoint.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    test = vercel.get_edge_config_token(edge_config_id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        token="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    ```
+
+
+    :param str edge_config_id: The label of the Edge Config Token.
+    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+    :param str token: A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
     """
     __args__ = dict()
     __args__['edgeConfigId'] = edge_config_id
@@ -117,7 +154,26 @@ def get_edge_config_token_output(edge_config_id: Optional[pulumi.Input[str]] = N
                                  token: Optional[pulumi.Input[str]] = None,
                                  opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetEdgeConfigTokenResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Edge Config Token.
+
+    An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+    An Edge Config token is used to authenticate against an Edge Config's endpoint.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    test = vercel.get_edge_config_token(edge_config_id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        token="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    ```
+
+
+    :param str edge_config_id: The label of the Edge Config Token.
+    :param str team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+    :param str token: A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
     """
     __args__ = dict()
     __args__['edgeConfigId'] = edge_config_id

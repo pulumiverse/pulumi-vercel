@@ -40,11 +40,17 @@ class GetFileResult:
     @property
     @pulumi.getter
     def file(self) -> Mapping[str, str]:
+        """
+        A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+        """
         return pulumi.get(self, "file")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of this resource.
+        """
         return pulumi.get(self, "id")
 
     @property
@@ -67,7 +73,23 @@ class AwaitableGetFileResult(GetFileResult):
 def get_file(path: Optional[str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetFileResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about a file on disk.
+
+    This will read a single file, providing metadata for use with a `Deployment`.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+    import pulumiverse_vercel as vercel
+
+    example_file = vercel.get_file(path="index.html")
+    example_project = vercel.get_project(name="my-project")
+    example_deployment = vercel.Deployment("exampleDeployment",
+        project_id=example_project.id,
+        files=example_file.file)
+    ```
     """
     __args__ = dict()
     __args__['path'] = path
@@ -81,7 +103,23 @@ def get_file(path: Optional[str] = None,
 def get_file_output(path: Optional[pulumi.Input[str]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetFileResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about a file on disk.
+
+    This will read a single file, providing metadata for use with a `Deployment`.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+    import pulumiverse_vercel as vercel
+
+    example_file = vercel.get_file(path="index.html")
+    example_project = vercel.get_project(name="my-project")
+    example_deployment = vercel.Deployment("exampleDeployment",
+        project_id=example_project.id,
+        files=example_file.file)
+    ```
     """
     __args__ = dict()
     __args__['path'] = path

@@ -8,9 +8,45 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides information about an existing Access Group Project Assignment.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//				Name: "my-existing-project",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.LookupAccessGroupProject(ctx, &vercel.LookupAccessGroupProjectArgs{
+//				AccessGroupId: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+//				ProjectId:     vercel_project.Example.Id,
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupAccessGroupProject(ctx *pulumi.Context, args *LookupAccessGroupProjectArgs, opts ...pulumi.InvokeOption) (*LookupAccessGroupProjectResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupAccessGroupProjectResult
@@ -23,19 +59,26 @@ func LookupAccessGroupProject(ctx *pulumi.Context, args *LookupAccessGroupProjec
 
 // A collection of arguments for invoking getAccessGroupProject.
 type LookupAccessGroupProjectArgs struct {
-	AccessGroupId string  `pulumi:"accessGroupId"`
-	ProjectId     string  `pulumi:"projectId"`
-	TeamId        *string `pulumi:"teamId"`
+	// The Access Group ID.
+	AccessGroupId string `pulumi:"accessGroupId"`
+	// The Project ID.
+	ProjectId string `pulumi:"projectId"`
+	// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getAccessGroupProject.
 type LookupAccessGroupProjectResult struct {
+	// The Access Group ID.
 	AccessGroupId string `pulumi:"accessGroupId"`
 	// The provider-assigned unique ID for this managed resource.
-	Id        string `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The Project ID.
 	ProjectId string `pulumi:"projectId"`
-	Role      string `pulumi:"role"`
-	TeamId    string `pulumi:"teamId"`
+	// The Access Group Project Role.
+	Role string `pulumi:"role"`
+	// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId string `pulumi:"teamId"`
 }
 
 func LookupAccessGroupProjectOutput(ctx *pulumi.Context, args LookupAccessGroupProjectOutputArgs, opts ...pulumi.InvokeOption) LookupAccessGroupProjectResultOutput {
@@ -59,9 +102,12 @@ func LookupAccessGroupProjectOutput(ctx *pulumi.Context, args LookupAccessGroupP
 
 // A collection of arguments for invoking getAccessGroupProject.
 type LookupAccessGroupProjectOutputArgs struct {
-	AccessGroupId pulumi.StringInput    `pulumi:"accessGroupId"`
-	ProjectId     pulumi.StringInput    `pulumi:"projectId"`
-	TeamId        pulumi.StringPtrInput `pulumi:"teamId"`
+	// The Access Group ID.
+	AccessGroupId pulumi.StringInput `pulumi:"accessGroupId"`
+	// The Project ID.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
 func (LookupAccessGroupProjectOutputArgs) ElementType() reflect.Type {
@@ -83,6 +129,7 @@ func (o LookupAccessGroupProjectResultOutput) ToLookupAccessGroupProjectResultOu
 	return o
 }
 
+// The Access Group ID.
 func (o LookupAccessGroupProjectResultOutput) AccessGroupId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.AccessGroupId }).(pulumi.StringOutput)
 }
@@ -92,14 +139,17 @@ func (o LookupAccessGroupProjectResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The Project ID.
 func (o LookupAccessGroupProjectResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
+// The Access Group Project Role.
 func (o LookupAccessGroupProjectResultOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.Role }).(pulumi.StringOutput)
 }
 
+// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupAccessGroupProjectResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

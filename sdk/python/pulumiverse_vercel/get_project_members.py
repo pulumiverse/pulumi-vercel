@@ -52,16 +52,25 @@ class GetProjectMembersResult:
     @property
     @pulumi.getter
     def members(self) -> Sequence['outputs.GetProjectMembersMemberResult']:
+        """
+        The set of members in this project.
+        """
         return pulumi.get(self, "members")
 
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> str:
+        """
+        The ID of the Vercel Project.
+        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[str]:
+        """
+        The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -81,7 +90,21 @@ def get_project_members(project_id: Optional[str] = None,
                         team_id: Optional[str] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectMembersResult:
     """
-    Use this data source to access information about an existing resource.
+    Retrieves members and their roles for a Vercel Project.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example_project = vercel.get_project(name="example-with-members")
+    example_project_members = vercel.get_project_members(project_id=example_project.id)
+    ```
+
+
+    :param str project_id: The ID of the Vercel Project.
+    :param str team_id: The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['projectId'] = project_id
@@ -98,7 +121,21 @@ def get_project_members_output(project_id: Optional[pulumi.Input[str]] = None,
                                team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectMembersResult]:
     """
-    Use this data source to access information about an existing resource.
+    Retrieves members and their roles for a Vercel Project.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example_project = vercel.get_project(name="example-with-members")
+    example_project_members = vercel.get_project_members(project_id=example_project.id)
+    ```
+
+
+    :param str project_id: The ID of the Vercel Project.
+    :param str team_id: The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['projectId'] = project_id

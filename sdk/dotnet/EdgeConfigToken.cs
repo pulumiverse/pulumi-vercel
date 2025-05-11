@@ -10,12 +10,80 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides an Edge Config Token resource.
+    /// 
+    /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+    /// 
+    /// An Edge Config token is used to authenticate against an Edge Config's endpoint.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleEdgeConfig = new Vercel.EdgeConfig("exampleEdgeConfig");
+    /// 
+    ///     var exampleProject = new Vercel.Project("exampleProject");
+    /// 
+    ///     var exampleEdgeConfigToken = new Vercel.EdgeConfigToken("exampleEdgeConfigToken", new()
+    ///     {
+    ///         EdgeConfigId = exampleEdgeConfig.Id,
+    ///         Label = "example token",
+    ///     });
+    /// 
+    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", new()
+    ///     {
+    ///         ProjectId = exampleProject.Id,
+    ///         Targets = new[]
+    ///         {
+    ///             "production",
+    ///             "preview",
+    ///             "development",
+    ///         },
+    ///         Key = "EDGE_CONFIG",
+    ///         Value = exampleEdgeConfigToken.ConnectionString,
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the edge config id and token value.
+    /// 
+    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+    /// 
+    /// - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    /// ```
+    /// 
+    /// Alternatively, you can import via the team_id and edge_config_id.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+    /// 
+    /// - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/edgeConfigToken:EdgeConfigToken")]
     public partial class EdgeConfigToken : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our
-        /// Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        /// A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         /// </summary>
         [Output("connectionString")]
         public Output<string> ConnectionString { get; private set; } = null!;
@@ -33,8 +101,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Label { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -105,8 +172,7 @@ namespace Pulumiverse.Vercel
         public Input<string> Label { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -120,8 +186,7 @@ namespace Pulumiverse.Vercel
     public sealed class EdgeConfigTokenState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our
-        /// Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+        /// A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         /// </summary>
         [Input("connectionString")]
         public Input<string>? ConnectionString { get; set; }
@@ -139,8 +204,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Label { get; set; }
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

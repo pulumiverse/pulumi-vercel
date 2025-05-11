@@ -12,9 +12,55 @@ namespace Pulumiverse.Vercel
 {
     public static class GetAttackChallengeMode
     {
+        /// <summary>
+        /// Provides an Attack Challenge Mode resource.
+        /// 
+        /// Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetAttackChallengeMode.Invoke(new()
+        ///     {
+        ///         ProjectId = vercel_project.Example.Id,
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetAttackChallengeModeResult> InvokeAsync(GetAttackChallengeModeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAttackChallengeModeResult>("vercel:index/getAttackChallengeMode:getAttackChallengeMode", args ?? new GetAttackChallengeModeArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides an Attack Challenge Mode resource.
+        /// 
+        /// Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetAttackChallengeMode.Invoke(new()
+        ///     {
+        ///         ProjectId = vercel_project.Example.Id,
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetAttackChallengeModeResult> Invoke(GetAttackChallengeModeInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAttackChallengeModeResult>("vercel:index/getAttackChallengeMode:getAttackChallengeMode", args ?? new GetAttackChallengeModeInvokeArgs(), options.WithDefaults());
     }
@@ -22,9 +68,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAttackChallengeModeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Project to adjust the CPU for.
+        /// </summary>
         [Input("projectId", required: true)]
         public string ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -36,9 +88,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAttackChallengeModeInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Project to adjust the CPU for.
+        /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -52,9 +110,21 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetAttackChallengeModeResult
     {
+        /// <summary>
+        /// Whether Attack Challenge Mode is enabled or not.
+        /// </summary>
         public readonly bool Enabled;
+        /// <summary>
+        /// The resource identifier.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The ID of the Project to adjust the CPU for.
+        /// </summary>
         public readonly string ProjectId;
+        /// <summary>
+        /// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

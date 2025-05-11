@@ -28,14 +28,11 @@ class TeamMemberArgs:
                  projects: Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]] = None):
         """
         The set of arguments for constructing a TeamMember resource.
-        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-               'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[str] user_id: The ID of the user to add to the team.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of access groups IDs that the user should be granted access to.
-        :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of projects that the user should be granted access to, along with their role in each project.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         """
         pulumi.set(__self__, "role", role)
         pulumi.set(__self__, "team_id", team_id)
@@ -49,8 +46,7 @@ class TeamMemberArgs:
     @pulumi.getter
     def role(self) -> pulumi.Input[str]:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-        'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         """
         return pulumi.get(self, "role")
 
@@ -86,8 +82,7 @@ class TeamMemberArgs:
     @pulumi.getter(name="accessGroups")
     def access_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        specified. A set of access groups IDs that the user should be granted access to.
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         """
         return pulumi.get(self, "access_groups")
 
@@ -99,8 +94,7 @@ class TeamMemberArgs:
     @pulumi.getter
     def projects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]]:
         """
-        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        specified. A set of projects that the user should be granted access to, along with their role in each project.
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         """
         return pulumi.get(self, "projects")
 
@@ -119,12 +113,9 @@ class _TeamMemberState:
                  user_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering TeamMember resources.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of access groups IDs that the user should be granted access to.
-        :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of projects that the user should be granted access to, along with their role in each project.
-        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-               'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[str] user_id: The ID of the user to add to the team.
         """
@@ -143,8 +134,7 @@ class _TeamMemberState:
     @pulumi.getter(name="accessGroups")
     def access_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        specified. A set of access groups IDs that the user should be granted access to.
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         """
         return pulumi.get(self, "access_groups")
 
@@ -156,8 +146,7 @@ class _TeamMemberState:
     @pulumi.getter
     def projects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]]:
         """
-        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        specified. A set of projects that the user should be granted access to, along with their role in each project.
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         """
         return pulumi.get(self, "projects")
 
@@ -169,8 +158,7 @@ class _TeamMemberState:
     @pulumi.getter
     def role(self) -> Optional[pulumi.Input[str]]:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-        'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         """
         return pulumi.get(self, "role")
 
@@ -215,15 +203,33 @@ class TeamMember(pulumi.CustomResource):
                  user_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a TeamMember resource with the given unique name, props, and options.
+        Provider a resource for managing a team member.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example = vercel.TeamMember("example",
+            role="MEMBER",
+            team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
+            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+        ```
+
+        ## Import
+
+        To import, use the team_id and user_id.
+
+        ```sh
+        $ pulumi import vercel:index/teamMember:TeamMember example team_xxxxxxxxxxxxxxxxxxxxxxxx/uuuuuuuuuuuuuuuuuuuuuuuuuu
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of access groups IDs that the user should be granted access to.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of projects that the user should be granted access to, along with their role in each project.
-        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-               'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[str] user_id: The ID of the user to add to the team.
         """
@@ -234,7 +240,28 @@ class TeamMember(pulumi.CustomResource):
                  args: TeamMemberArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a TeamMember resource with the given unique name, props, and options.
+        Provider a resource for managing a team member.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example = vercel.TeamMember("example",
+            role="MEMBER",
+            team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
+            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+        ```
+
+        ## Import
+
+        To import, use the team_id and user_id.
+
+        ```sh
+        $ pulumi import vercel:index/teamMember:TeamMember example team_xxxxxxxxxxxxxxxxxxxxxxxx/uuuuuuuuuuuuuuuuuuuuuuuuuu
+        ```
+
         :param str resource_name: The name of the resource.
         :param TeamMemberArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -297,12 +324,9 @@ class TeamMember(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of access groups IDs that the user should be granted access to.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-               specified. A set of projects that the user should be granted access to, along with their role in each project.
-        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-               'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[str] user_id: The ID of the user to add to the team.
         """
@@ -321,8 +345,7 @@ class TeamMember(pulumi.CustomResource):
     @pulumi.getter(name="accessGroups")
     def access_groups(self) -> pulumi.Output[Sequence[str]]:
         """
-        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        specified. A set of access groups IDs that the user should be granted access to.
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         """
         return pulumi.get(self, "access_groups")
 
@@ -330,8 +353,7 @@ class TeamMember(pulumi.CustomResource):
     @pulumi.getter
     def projects(self) -> pulumi.Output[Sequence['outputs.TeamMemberProject']]:
         """
-        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        specified. A set of projects that the user should be granted access to, along with their role in each project.
+        If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         """
         return pulumi.get(self, "projects")
 
@@ -339,8 +361,7 @@ class TeamMember(pulumi.CustomResource):
     @pulumi.getter
     def role(self) -> pulumi.Output[str]:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-        'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         """
         return pulumi.get(self, "role")
 

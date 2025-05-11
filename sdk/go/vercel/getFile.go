@@ -8,9 +8,51 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides information about a file on disk.
+//
+// This will read a single file, providing metadata for use with a `Deployment`.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleFile, err := vercel.GetFile(ctx, &vercel.GetFileArgs{
+//				Path: "index.html",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			exampleProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//				Name: "my-project",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewDeployment(ctx, "exampleDeployment", &vercel.DeploymentArgs{
+//				ProjectId: pulumi.String(exampleProject.Id),
+//				Files:     pulumi.StringMap(exampleFile.File),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func GetFile(ctx *pulumi.Context, args *GetFileArgs, opts ...pulumi.InvokeOption) (*GetFileResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetFileResult
@@ -28,9 +70,11 @@ type GetFileArgs struct {
 
 // A collection of values returned by getFile.
 type GetFileResult struct {
+	// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 	File map[string]string `pulumi:"file"`
-	Id   string            `pulumi:"id"`
-	Path string            `pulumi:"path"`
+	// The ID of this resource.
+	Id   string `pulumi:"id"`
+	Path string `pulumi:"path"`
 }
 
 func GetFileOutput(ctx *pulumi.Context, args GetFileOutputArgs, opts ...pulumi.InvokeOption) GetFileResultOutput {
@@ -76,10 +120,12 @@ func (o GetFileResultOutput) ToGetFileResultOutputWithContext(ctx context.Contex
 	return o
 }
 
+// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 func (o GetFileResultOutput) File() pulumi.StringMapOutput {
 	return o.ApplyT(func(v GetFileResult) map[string]string { return v.File }).(pulumi.StringMapOutput)
 }
 
+// The ID of this resource.
 func (o GetFileResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFileResult) string { return v.Id }).(pulumi.StringOutput)
 }

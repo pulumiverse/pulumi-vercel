@@ -10,6 +10,67 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Environments help manage the deployment lifecycle on the Vercel platform.
+    /// 
+    /// By default, all teams use three environments when developing their project: Production, Preview, and Development. However, teams can also create custom environments to suit their needs. To learn more about the limits for each plan, see limits.
+    /// 
+    /// Custom environments allow you to configure customized, pre-production environments for your project, such as staging or QA, with branch rules that will automatically deploy your branch when the branch name matches the rule. With custom environments you can also attach a domain to your environment, set environment variables, or import environment variables from another environment.
+    /// 
+    /// Custom environments are designed as pre-production environments intended for long-running use. This contrasts with regular preview environments, which are designed for creating ephemeral, short-lived deployments.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleProject = new Vercel.Project("exampleProject");
+    /// 
+    ///     var exampleCustomEnvironment = new Vercel.CustomEnvironment("exampleCustomEnvironment", new()
+    ///     {
+    ///         ProjectId = exampleProject.Id,
+    ///         Description = "A description of the custom environment",
+    ///         BranchTracking = new Vercel.Inputs.CustomEnvironmentBranchTrackingArgs
+    ///         {
+    ///             Pattern = "staging-",
+    ///             Type = "startsWith",
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the project_id and custom environment name.
+    /// 
+    /// - project_id can be found in the project `settings` tab in the Vercel UI.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+    /// ```
+    /// 
+    /// Alternatively, you can import via the team_id, project_id and environment variable id.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// - project_id can be found in the project `settings` tab in the Vercel UI.
+    /// 
+    /// # 
+    /// 
+    /// Note also, that the value field for sensitive environment variables will be imported as `null`.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/customEnvironment:CustomEnvironment")]
     public partial class CustomEnvironment : global::Pulumi.CustomResource
     {
@@ -38,8 +99,7 @@ namespace Pulumiverse.Vercel
         public Output<string> ProjectId { get; private set; } = null!;
 
         /// <summary>
-        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        /// provider.
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -116,8 +176,7 @@ namespace Pulumiverse.Vercel
         public Input<string> ProjectId { get; set; } = null!;
 
         /// <summary>
-        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        /// provider.
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -155,8 +214,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? ProjectId { get; set; }
 
         /// <summary>
-        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        /// provider.
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

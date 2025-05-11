@@ -1206,7 +1206,7 @@ if not MYPY:
         """
         rate_limit: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgsDict']]
         """
-        Behavior or a rate limiting action. Required if action is rate_limit
+        Behavior or a rate limiting action. Required if action is rate*limit
         """
         redirect: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgsDict']]
         """
@@ -1225,7 +1225,7 @@ class FirewallConfigRulesRuleActionArgs:
         """
         :param pulumi.Input[str] action: Base action
         :param pulumi.Input[str] action_duration: Forward persistence of a rule aciton
-        :param pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs'] rate_limit: Behavior or a rate limiting action. Required if action is rate_limit
+        :param pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs'] rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
         :param pulumi.Input['FirewallConfigRulesRuleActionRedirectArgs'] redirect: How to redirect a request. Required if action is redirect
         """
         pulumi.set(__self__, "action", action)
@@ -1264,7 +1264,7 @@ class FirewallConfigRulesRuleActionArgs:
     @pulumi.getter(name="rateLimit")
     def rate_limit(self) -> Optional[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs']]:
         """
-        Behavior or a rate limiting action. Required if action is rate_limit
+        Behavior or a rate limiting action. Required if action is rate*limit
         """
         return pulumi.get(self, "rate_limit")
 
@@ -2127,7 +2127,7 @@ if not MYPY:
     class ProjectMembersMemberArgsDict(TypedDict):
         role: pulumi.Input[str]
         """
-        The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         email: NotRequired[pulumi.Input[str]]
         """
@@ -2152,7 +2152,7 @@ class ProjectMembersMemberArgs:
                  user_id: Optional[pulumi.Input[str]] = None,
                  username: Optional[pulumi.Input[str]] = None):
         """
-        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         :param pulumi.Input[str] email: The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param pulumi.Input[str] user_id: The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param pulumi.Input[str] username: The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
@@ -2169,7 +2169,7 @@ class ProjectMembersMemberArgs:
     @pulumi.getter
     def role(self) -> pulumi.Input[str]:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         return pulumi.get(self, "role")
 

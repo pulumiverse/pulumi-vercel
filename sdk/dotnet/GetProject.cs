@@ -12,9 +12,59 @@ namespace Pulumiverse.Vercel
 {
     public static class GetProject
     {
+        /// <summary>
+        /// Provides information about an existing project within Vercel.
+        /// 
+        /// A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
+        /// 
+        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "my-existing-project",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetProjectResult> InvokeAsync(GetProjectArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("vercel:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about an existing project within Vercel.
+        /// 
+        /// A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
+        /// 
+        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "my-existing-project",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectResult>("vercel:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());
     }
@@ -22,9 +72,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The name of the project.
+        /// </summary>
         [Input("name", required: true)]
         public string Name { get; set; } = null!;
 
+        /// <summary>
+        /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -36,9 +92,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The name of the project.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -52,38 +114,137 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetProjectResult
     {
+        /// <summary>
+        /// Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
+        /// </summary>
         public readonly bool AutoAssignCustomDomains;
+        /// <summary>
+        /// Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
+        /// </summary>
         public readonly bool AutomaticallyExposeSystemEnvironmentVariables;
+        /// <summary>
+        /// The build command for this project. If omitted, this value will be automatically detected.
+        /// </summary>
         public readonly string BuildCommand;
+        /// <summary>
+        /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
+        /// </summary>
         public readonly bool CustomerSuccessCodeVisibility;
+        /// <summary>
+        /// The dev command for this project. If omitted, this value will be automatically detected.
+        /// </summary>
         public readonly string DevCommand;
+        /// <summary>
+        /// If no index file is present within a directory, the directory contents will be displayed.
+        /// </summary>
         public readonly bool DirectoryListing;
+        /// <summary>
+        /// A list of environment variables that should be configured for the project.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetProjectEnvironmentResult> Environments;
+        /// <summary>
+        /// The framework that is being used for this project. If omitted, no framework is selected.
+        /// </summary>
         public readonly string Framework;
+        /// <summary>
+        /// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
+        /// </summary>
         public readonly bool FunctionFailover;
+        /// <summary>
+        /// Configuration for Git Comments.
+        /// </summary>
         public readonly Outputs.GetProjectGitCommentsResult GitComments;
+        /// <summary>
+        /// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json.
+        /// </summary>
         public readonly bool GitForkProtection;
+        /// <summary>
+        /// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        /// </summary>
         public readonly bool GitLfs;
+        /// <summary>
+        /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
+        /// </summary>
         public readonly Outputs.GetProjectGitRepositoryResult GitRepository;
+        /// <summary>
+        /// The ID of this resource.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
+        /// </summary>
         public readonly string IgnoreCommand;
+        /// <summary>
+        /// The install command for this project. If omitted, this value will be automatically detected.
+        /// </summary>
         public readonly string InstallCommand;
+        /// <summary>
+        /// The name of the project.
+        /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// Configuration for OpenID Connect (OIDC) tokens.
+        /// </summary>
         public readonly Outputs.GetProjectOidcTokenConfigResult OidcTokenConfig;
+        /// <summary>
+        /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
+        /// </summary>
         public readonly Outputs.GetProjectOptionsAllowlistResult OptionsAllowlist;
+        /// <summary>
+        /// The output directory of the project. When null is used this value will be automatically detected.
+        /// </summary>
         public readonly string OutputDirectory;
+        /// <summary>
+        /// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
+        /// </summary>
         public readonly Outputs.GetProjectPasswordProtectionResult PasswordProtection;
+        /// <summary>
+        /// Whether comments are enabled on your Preview Deployments.
+        /// </summary>
         public readonly bool PreviewComments;
+        /// <summary>
+        /// If enabled, builds for the Production environment will be prioritized over Preview environments.
+        /// </summary>
         public readonly bool PrioritiseProductionBuilds;
+        /// <summary>
+        /// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protection_bypass_for_automation_secret`.
+        /// </summary>
         public readonly bool ProtectionBypassForAutomation;
+        /// <summary>
+        /// If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
+        /// </summary>
         public readonly string ProtectionBypassForAutomationSecret;
+        /// <summary>
+        /// Specifies whether the source code and logs of the deployments for this project should be public or not.
+        /// </summary>
         public readonly bool PublicSource;
+        /// <summary>
+        /// Resource Configuration for the project.
+        /// </summary>
         public readonly Outputs.GetProjectResourceConfigResult ResourceConfig;
+        /// <summary>
+        /// The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+        /// </summary>
         public readonly string RootDirectory;
+        /// <summary>
+        /// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+        /// </summary>
         public readonly string ServerlessFunctionRegion;
+        /// <summary>
+        /// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
+        /// </summary>
         public readonly string SkewProtection;
+        /// <summary>
+        /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
+        /// <summary>
+        /// Ensures only visitors from an allowed IP address can access your deployment.
+        /// </summary>
         public readonly Outputs.GetProjectTrustedIpsResult TrustedIps;
+        /// <summary>
+        /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
+        /// </summary>
         public readonly Outputs.GetProjectVercelAuthenticationResult VercelAuthentication;
 
         [OutputConstructor]

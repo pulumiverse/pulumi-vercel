@@ -32,8 +32,7 @@ class CustomEnvironmentArgs:
         :param pulumi.Input['CustomEnvironmentBranchTrackingArgs'] branch_tracking: The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
         :param pulumi.Input[str] description: A description of what the environment is.
         :param pulumi.Input[str] name: The name of the environment.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "project_id", project_id)
         if branch_tracking is not None:
@@ -97,8 +96,7 @@ class CustomEnvironmentArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        provider.
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -121,8 +119,7 @@ class _CustomEnvironmentState:
         :param pulumi.Input[str] description: A description of what the environment is.
         :param pulumi.Input[str] name: The name of the environment.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if branch_tracking is not None:
             pulumi.set(__self__, "branch_tracking", branch_tracking)
@@ -187,8 +184,7 @@ class _CustomEnvironmentState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        provider.
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -209,15 +205,63 @@ class CustomEnvironment(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a CustomEnvironment resource with the given unique name, props, and options.
+        Environments help manage the deployment lifecycle on the Vercel platform.
+
+        By default, all teams use three environments when developing their project: Production, Preview, and Development. However, teams can also create custom environments to suit their needs. To learn more about the limits for each plan, see limits.
+
+        Custom environments allow you to configure customized, pre-production environments for your project, such as staging or QA, with branch rules that will automatically deploy your branch when the branch name matches the rule. With custom environments you can also attach a domain to your environment, set environment variables, or import environment variables from another environment.
+
+        Custom environments are designed as pre-production environments intended for long-running use. This contrasts with regular preview environments, which are designed for creating ephemeral, short-lived deployments.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        example_custom_environment = vercel.CustomEnvironment("exampleCustomEnvironment",
+            project_id=example_project.id,
+            description="A description of the custom environment",
+            branch_tracking={
+                "pattern": "staging-",
+                "type": "startsWith",
+            })
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the project_id and custom environment name.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        ```sh
+        $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+        ```
+
+        Alternatively, you can import via the team_id, project_id and environment variable id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Union['CustomEnvironmentBranchTrackingArgs', 'CustomEnvironmentBranchTrackingArgsDict']] branch_tracking: The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
         :param pulumi.Input[str] description: A description of what the environment is.
         :param pulumi.Input[str] name: The name of the environment.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -226,7 +270,56 @@ class CustomEnvironment(pulumi.CustomResource):
                  args: CustomEnvironmentArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a CustomEnvironment resource with the given unique name, props, and options.
+        Environments help manage the deployment lifecycle on the Vercel platform.
+
+        By default, all teams use three environments when developing their project: Production, Preview, and Development. However, teams can also create custom environments to suit their needs. To learn more about the limits for each plan, see limits.
+
+        Custom environments allow you to configure customized, pre-production environments for your project, such as staging or QA, with branch rules that will automatically deploy your branch when the branch name matches the rule. With custom environments you can also attach a domain to your environment, set environment variables, or import environment variables from another environment.
+
+        Custom environments are designed as pre-production environments intended for long-running use. This contrasts with regular preview environments, which are designed for creating ephemeral, short-lived deployments.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        example_custom_environment = vercel.CustomEnvironment("exampleCustomEnvironment",
+            project_id=example_project.id,
+            description="A description of the custom environment",
+            branch_tracking={
+                "pattern": "staging-",
+                "type": "startsWith",
+            })
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the project_id and custom environment name.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        ```sh
+        $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+        ```
+
+        Alternatively, you can import via the team_id, project_id and environment variable id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - project_id can be found in the project `settings` tab in the Vercel UI.
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+        ```
+
         :param str resource_name: The name of the resource.
         :param CustomEnvironmentArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -289,8 +382,7 @@ class CustomEnvironment(pulumi.CustomResource):
         :param pulumi.Input[str] description: A description of what the environment is.
         :param pulumi.Input[str] name: The name of the environment.
         :param pulumi.Input[str] project_id: The ID of the existing Vercel Project.
-        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-               provider.
+        :param pulumi.Input[str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -339,8 +431,7 @@ class CustomEnvironment(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        provider.
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
