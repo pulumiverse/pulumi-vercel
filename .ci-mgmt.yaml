@@ -1,2 +1,7 @@
 provider: vercel
-makeTemplate: bridged
+template: external-bridged-provider
+organization: pulumiverse
+major-version: 2
+providerDefaultBranch: main
+upstreamProviderOrg: vercel
+pulumiConvert: 1
