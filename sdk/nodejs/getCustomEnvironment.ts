@@ -6,6 +6,26 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing CustomEnvironment resource.
+ *
+ * An CustomEnvironment allows a `vercel.Deployment` to be accessed through a different URL.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const exampleProject = vercel.getProject({
+ *     name: "example-project-with-custom-env",
+ * });
+ * const exampleCustomEnvironment = exampleProject.then(exampleProject => vercel.getCustomEnvironment({
+ *     projectId: exampleProject.id,
+ *     name: "example-custom-env",
+ * }));
+ * ```
+ */
 export function getCustomEnvironment(args: GetCustomEnvironmentArgs, opts?: pulumi.InvokeOptions): Promise<GetCustomEnvironmentResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getCustomEnvironment:getCustomEnvironment", {
@@ -19,8 +39,17 @@ export function getCustomEnvironment(args: GetCustomEnvironmentArgs, opts?: pulu
  * A collection of arguments for invoking getCustomEnvironment.
  */
 export interface GetCustomEnvironmentArgs {
+    /**
+     * The name of the environment.
+     */
     name: string;
+    /**
+     * The ID of the existing Vercel Project.
+     */
     projectId: string;
+    /**
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -28,14 +57,52 @@ export interface GetCustomEnvironmentArgs {
  * A collection of values returned by getCustomEnvironment.
  */
 export interface GetCustomEnvironmentResult {
+    /**
+     * The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
+     */
     readonly branchTracking: outputs.GetCustomEnvironmentBranchTracking;
+    /**
+     * A description of what the environment is.
+     */
     readonly description: string;
+    /**
+     * The ID of the environment.
+     */
     readonly id: string;
+    /**
+     * The name of the environment.
+     */
     readonly name: string;
+    /**
+     * The ID of the existing Vercel Project.
+     */
     readonly projectId: string;
+    /**
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
 }
-export function getCustomEnvironmentOutput(args: GetCustomEnvironmentOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetCustomEnvironmentResult> {
+/**
+ * Provides information about an existing CustomEnvironment resource.
+ *
+ * An CustomEnvironment allows a `vercel.Deployment` to be accessed through a different URL.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const exampleProject = vercel.getProject({
+ *     name: "example-project-with-custom-env",
+ * });
+ * const exampleCustomEnvironment = exampleProject.then(exampleProject => vercel.getCustomEnvironment({
+ *     projectId: exampleProject.id,
+ *     name: "example-custom-env",
+ * }));
+ * ```
+ */
+export function getCustomEnvironmentOutput(args: GetCustomEnvironmentOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetCustomEnvironmentResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getCustomEnvironment:getCustomEnvironment", {
         "name": args.name,
@@ -48,7 +115,16 @@ export function getCustomEnvironmentOutput(args: GetCustomEnvironmentOutputArgs,
  * A collection of arguments for invoking getCustomEnvironment.
  */
 export interface GetCustomEnvironmentOutputArgs {
+    /**
+     * The name of the environment.
+     */
     name: pulumi.Input<string>;
+    /**
+     * The ID of the existing Vercel Project.
+     */
     projectId: pulumi.Input<string>;
+    /**
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

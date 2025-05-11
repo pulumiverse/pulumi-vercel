@@ -60,6 +60,11 @@ export type EdgeConfigToken = import("./edgeConfigToken").EdgeConfigToken;
 export const EdgeConfigToken: typeof import("./edgeConfigToken").EdgeConfigToken = null as any;
 utilities.lazyLoad(exports, ["EdgeConfigToken"], () => require("./edgeConfigToken"));
 
+export { FirewallBypassArgs, FirewallBypassState } from "./firewallBypass";
+export type FirewallBypass = import("./firewallBypass").FirewallBypass;
+export const FirewallBypass: typeof import("./firewallBypass").FirewallBypass = null as any;
+utilities.lazyLoad(exports, ["FirewallBypass"], () => require("./firewallBypass"));
+
 export { FirewallConfigArgs, FirewallConfigState } from "./firewallConfig";
 export type FirewallConfig = import("./firewallConfig").FirewallConfig;
 export const FirewallConfig: typeof import("./firewallConfig").FirewallConfig = null as any;
@@ -130,6 +135,16 @@ export const getLogDrain: typeof import("./getLogDrain").getLogDrain = null as a
 export const getLogDrainOutput: typeof import("./getLogDrain").getLogDrainOutput = null as any;
 utilities.lazyLoad(exports, ["getLogDrain","getLogDrainOutput"], () => require("./getLogDrain"));
 
+export { GetMicrofrontendGroupArgs, GetMicrofrontendGroupResult, GetMicrofrontendGroupOutputArgs } from "./getMicrofrontendGroup";
+export const getMicrofrontendGroup: typeof import("./getMicrofrontendGroup").getMicrofrontendGroup = null as any;
+export const getMicrofrontendGroupOutput: typeof import("./getMicrofrontendGroup").getMicrofrontendGroupOutput = null as any;
+utilities.lazyLoad(exports, ["getMicrofrontendGroup","getMicrofrontendGroupOutput"], () => require("./getMicrofrontendGroup"));
+
+export { GetMicrofrontendGroupMembershipArgs, GetMicrofrontendGroupMembershipResult, GetMicrofrontendGroupMembershipOutputArgs } from "./getMicrofrontendGroupMembership";
+export const getMicrofrontendGroupMembership: typeof import("./getMicrofrontendGroupMembership").getMicrofrontendGroupMembership = null as any;
+export const getMicrofrontendGroupMembershipOutput: typeof import("./getMicrofrontendGroupMembership").getMicrofrontendGroupMembershipOutput = null as any;
+utilities.lazyLoad(exports, ["getMicrofrontendGroupMembership","getMicrofrontendGroupMembershipOutput"], () => require("./getMicrofrontendGroupMembership"));
+
 export { GetPrebuiltProjectArgs, GetPrebuiltProjectResult, GetPrebuiltProjectOutputArgs } from "./getPrebuiltProject";
 export const getPrebuiltProject: typeof import("./getPrebuiltProject").getPrebuiltProject = null as any;
 export const getPrebuiltProjectOutput: typeof import("./getPrebuiltProject").getPrebuiltProjectOutput = null as any;
@@ -170,10 +185,25 @@ export const getTeamMember: typeof import("./getTeamMember").getTeamMember = nul
 export const getTeamMemberOutput: typeof import("./getTeamMember").getTeamMemberOutput = null as any;
 utilities.lazyLoad(exports, ["getTeamMember","getTeamMemberOutput"], () => require("./getTeamMember"));
 
+export { IntegrationProjectAccessArgs, IntegrationProjectAccessState } from "./integrationProjectAccess";
+export type IntegrationProjectAccess = import("./integrationProjectAccess").IntegrationProjectAccess;
+export const IntegrationProjectAccess: typeof import("./integrationProjectAccess").IntegrationProjectAccess = null as any;
+utilities.lazyLoad(exports, ["IntegrationProjectAccess"], () => require("./integrationProjectAccess"));
+
 export { LogDrainArgs, LogDrainState } from "./logDrain";
 export type LogDrain = import("./logDrain").LogDrain;
 export const LogDrain: typeof import("./logDrain").LogDrain = null as any;
 utilities.lazyLoad(exports, ["LogDrain"], () => require("./logDrain"));
+
+export { MicrofrontendGroupArgs, MicrofrontendGroupState } from "./microfrontendGroup";
+export type MicrofrontendGroup = import("./microfrontendGroup").MicrofrontendGroup;
+export const MicrofrontendGroup: typeof import("./microfrontendGroup").MicrofrontendGroup = null as any;
+utilities.lazyLoad(exports, ["MicrofrontendGroup"], () => require("./microfrontendGroup"));
+
+export { MicrofrontendGroupMembershipArgs, MicrofrontendGroupMembershipState } from "./microfrontendGroupMembership";
+export type MicrofrontendGroupMembership = import("./microfrontendGroupMembership").MicrofrontendGroupMembership;
+export const MicrofrontendGroupMembership: typeof import("./microfrontendGroupMembership").MicrofrontendGroupMembership = null as any;
+utilities.lazyLoad(exports, ["MicrofrontendGroupMembership"], () => require("./microfrontendGroupMembership"));
 
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
@@ -205,15 +235,18 @@ export type ProjectMembers = import("./projectMembers").ProjectMembers;
 export const ProjectMembers: typeof import("./projectMembers").ProjectMembers = null as any;
 utilities.lazyLoad(exports, ["ProjectMembers"], () => require("./projectMembers"));
 
-export { ProviderArgs } from "./provider";
-export type Provider = import("./provider").Provider;
-export const Provider: typeof import("./provider").Provider = null as any;
-utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+export * from "./provider";
+import { Provider } from "./provider";
 
 export { SharedEnvironmentVariableArgs, SharedEnvironmentVariableState } from "./sharedEnvironmentVariable";
 export type SharedEnvironmentVariable = import("./sharedEnvironmentVariable").SharedEnvironmentVariable;
 export const SharedEnvironmentVariable: typeof import("./sharedEnvironmentVariable").SharedEnvironmentVariable = null as any;
 utilities.lazyLoad(exports, ["SharedEnvironmentVariable"], () => require("./sharedEnvironmentVariable"));
+
+export { SharedEnvironmentVariableProjectLinkArgs, SharedEnvironmentVariableProjectLinkState } from "./sharedEnvironmentVariableProjectLink";
+export type SharedEnvironmentVariableProjectLink = import("./sharedEnvironmentVariableProjectLink").SharedEnvironmentVariableProjectLink;
+export const SharedEnvironmentVariableProjectLink: typeof import("./sharedEnvironmentVariableProjectLink").SharedEnvironmentVariableProjectLink = null as any;
+utilities.lazyLoad(exports, ["SharedEnvironmentVariableProjectLink"], () => require("./sharedEnvironmentVariableProjectLink"));
 
 export { TeamConfigArgs, TeamConfigState } from "./teamConfig";
 export type TeamConfig = import("./teamConfig").TeamConfig;
@@ -266,10 +299,18 @@ const _module = {
                 return new EdgeConfigSchema(name, <any>undefined, { urn })
             case "vercel:index/edgeConfigToken:EdgeConfigToken":
                 return new EdgeConfigToken(name, <any>undefined, { urn })
+            case "vercel:index/firewallBypass:FirewallBypass":
+                return new FirewallBypass(name, <any>undefined, { urn })
             case "vercel:index/firewallConfig:FirewallConfig":
                 return new FirewallConfig(name, <any>undefined, { urn })
+            case "vercel:index/integrationProjectAccess:IntegrationProjectAccess":
+                return new IntegrationProjectAccess(name, <any>undefined, { urn })
             case "vercel:index/logDrain:LogDrain":
                 return new LogDrain(name, <any>undefined, { urn })
+            case "vercel:index/microfrontendGroup:MicrofrontendGroup":
+                return new MicrofrontendGroup(name, <any>undefined, { urn })
+            case "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership":
+                return new MicrofrontendGroupMembership(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
@@ -284,6 +325,8 @@ const _module = {
                 return new ProjectMembers(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
+            case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
+                return new SharedEnvironmentVariableProjectLink(name, <any>undefined, { urn })
             case "vercel:index/teamConfig:TeamConfig":
                 return new TeamConfig(name, <any>undefined, { urn })
             case "vercel:index/teamMember:TeamMember":
@@ -306,8 +349,12 @@ pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigItem", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/firewallBypass", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/firewallConfig", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/integrationProjectAccess", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroup", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembership", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
@@ -315,6 +362,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariabl
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariables", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectMembers", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariableProjectLink", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamMember", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)

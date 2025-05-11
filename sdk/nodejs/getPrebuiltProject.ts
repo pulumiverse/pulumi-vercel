@@ -22,11 +22,17 @@ export interface GetPrebuiltProjectArgs {
  * A collection of values returned by getPrebuiltProject.
  */
 export interface GetPrebuiltProjectResult {
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+     */
     readonly output: {[key: string]: string};
     readonly path: string;
 }
-export function getPrebuiltProjectOutput(args: GetPrebuiltProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetPrebuiltProjectResult> {
+export function getPrebuiltProjectOutput(args: GetPrebuiltProjectOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetPrebuiltProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getPrebuiltProject:getPrebuiltProject", {
         "path": args.path,

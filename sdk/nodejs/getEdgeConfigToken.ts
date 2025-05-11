@@ -4,6 +4,25 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing Edge Config Token.
+ *
+ * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+ *
+ * An Edge Config token is used to authenticate against an Edge Config's endpoint.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const test = vercel.getEdgeConfigToken({
+ *     edgeConfigId: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ *     token: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+ * });
+ * ```
+ */
 export function getEdgeConfigToken(args: GetEdgeConfigTokenArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigTokenResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getEdgeConfigToken:getEdgeConfigToken", {
@@ -17,8 +36,17 @@ export function getEdgeConfigToken(args: GetEdgeConfigTokenArgs, opts?: pulumi.I
  * A collection of arguments for invoking getEdgeConfigToken.
  */
 export interface GetEdgeConfigTokenArgs {
+    /**
+     * The label of the Edge Config Token.
+     */
     edgeConfigId: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
+    /**
+     * A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
+     */
     token: string;
 }
 
@@ -26,14 +54,51 @@ export interface GetEdgeConfigTokenArgs {
  * A collection of values returned by getEdgeConfigToken.
  */
 export interface GetEdgeConfigTokenResult {
+    /**
+     * A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
+     */
     readonly connectionString: string;
+    /**
+     * The label of the Edge Config Token.
+     */
     readonly edgeConfigId: string;
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * The label of the Edge Config Token.
+     */
     readonly label: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
+    /**
+     * A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
+     */
     readonly token: string;
 }
-export function getEdgeConfigTokenOutput(args: GetEdgeConfigTokenOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigTokenResult> {
+/**
+ * Provides information about an existing Edge Config Token.
+ *
+ * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+ *
+ * An Edge Config token is used to authenticate against an Edge Config's endpoint.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const test = vercel.getEdgeConfigToken({
+ *     edgeConfigId: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ *     token: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+ * });
+ * ```
+ */
+export function getEdgeConfigTokenOutput(args: GetEdgeConfigTokenOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetEdgeConfigTokenResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getEdgeConfigToken:getEdgeConfigToken", {
         "edgeConfigId": args.edgeConfigId,
@@ -46,7 +111,16 @@ export function getEdgeConfigTokenOutput(args: GetEdgeConfigTokenOutputArgs, opt
  * A collection of arguments for invoking getEdgeConfigToken.
  */
 export interface GetEdgeConfigTokenOutputArgs {
+    /**
+     * The label of the Edge Config Token.
+     */
     edgeConfigId: pulumi.Input<string>;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
+    /**
+     * A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
+     */
     token: pulumi.Input<string>;
 }

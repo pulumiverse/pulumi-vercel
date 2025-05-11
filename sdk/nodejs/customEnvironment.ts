@@ -6,6 +6,56 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Environments help manage the deployment lifecycle on the Vercel platform.
+ *
+ * By default, all teams use three environments when developing their project: Production, Preview, and Development. However, teams can also create custom environments to suit their needs. To learn more about the limits for each plan, see limits.
+ *
+ * Custom environments allow you to configure customized, pre-production environments for your project, such as staging or QA, with branch rules that will automatically deploy your branch when the branch name matches the rule. With custom environments you can also attach a domain to your environment, set environment variables, or import environment variables from another environment.
+ *
+ * Custom environments are designed as pre-production environments intended for long-running use. This contrasts with regular preview environments, which are designed for creating ephemeral, short-lived deployments.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const exampleProject = new vercel.Project("exampleProject", {});
+ * const exampleCustomEnvironment = new vercel.CustomEnvironment("exampleCustomEnvironment", {
+ *     projectId: exampleProject.id,
+ *     description: "A description of the custom environment",
+ *     branchTracking: {
+ *         pattern: "staging-",
+ *         type: "startsWith",
+ *     },
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * If importing into a personal account, or with a team configured on
+ *
+ * the provider, simply use the project_id and custom environment name.
+ *
+ * - project_id can be found in the project `settings` tab in the Vercel UI.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+ * ```
+ *
+ * Alternatively, you can import via the team_id, project_id and environment variable id.
+ *
+ * - team_id can be found in the team `settings` tab in the Vercel UI.
+ *
+ * - project_id can be found in the project `settings` tab in the Vercel UI.
+ *
+ * Note also, that the value field for sensitive environment variables will be imported as `null`.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
+ * ```
+ */
 export class CustomEnvironment extends pulumi.CustomResource {
     /**
      * Get an existing CustomEnvironment resource's state with the given name, ID, and optional extra
@@ -51,8 +101,7 @@ export class CustomEnvironment extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -111,8 +160,7 @@ export interface CustomEnvironmentState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -138,8 +186,7 @@ export interface CustomEnvironmentArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-     * provider.
+     * The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

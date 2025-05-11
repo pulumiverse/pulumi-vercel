@@ -29,7 +29,7 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	"github.com/vercel/terraform-provider-vercel/v2/vercel"
+	"github.com/vercel/terraform-provider-vercel/v3/vercel"
 )
 
 // all of the token components used below.
@@ -54,16 +54,17 @@ func Provider() tfbridge.ProviderInfo {
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:                 p,
-		Name:              mainPkg,
-		DisplayName:       caser.String(mainPkg),
-		Publisher:         caser.String(publisher),
-		Version:           version.Version,
-		PluginDownloadURL: "github://api.github.com/pulumiverse",
-		Keywords:          []string{"pulumi", "vercel", "category/cloud"},
-		License:           "Apache-2.0",
-		GitHubOrg:         "vercel",
-		Repository:        "https://github.com/pulumiverse/pulumi-vercel",
+		P:                       p,
+		Name:                    mainPkg,
+		DisplayName:             caser.String(mainPkg),
+		Publisher:               caser.String(publisher),
+		Version:                 version.Version,
+		PluginDownloadURL:       "github://api.github.com/pulumiverse",
+		Keywords:                []string{"pulumi", "vercel", "category/cloud"},
+		License:                 "Apache-2.0",
+		GitHubOrg:               "vercel",
+		TFProviderModuleVersion: "v3",
+		Repository:              "https://github.com/pulumiverse/pulumi-vercel",
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"vercel_alias": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
@@ -120,6 +121,24 @@ func Provider() tfbridge.ProviderInfo {
 			"vercel_team_member": {
 				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["email"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_integration_project_access": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["team_id"].StringValue(), state["integration_id"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_microfrontend_group_membership": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["team_id"].StringValue(), state["microfrontend_group_id"].StringValue()}
+					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			},
+			"vercel_shared_environment_variable_project_link": {
+				ComputeID: func(ctx context.Context, state resource.PropertyMap) (resource.ID, error) {
+					parts := []string{state["team_id"].StringValue(), state["shared_environment_variable_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},

@@ -4,6 +4,11 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides an Alias resource.
+ *
+ * An Alias allows a `vercel.Deployment` to be accessed through a different URL.
+ */
 export class Alias extends pulumi.CustomResource {
     /**
      * Get an existing Alias resource's state with the given name, ID, and optional extra
@@ -41,8 +46,7 @@ export class Alias extends pulumi.CustomResource {
      */
     public readonly deploymentId!: pulumi.Output<string>;
     /**
-     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-     * not been set in the provider.
+     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -92,8 +96,7 @@ export interface AliasState {
      */
     deploymentId?: pulumi.Input<string>;
     /**
-     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-     * not been set in the provider.
+     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -111,8 +114,7 @@ export interface AliasArgs {
      */
     deploymentId: pulumi.Input<string>;
     /**
-     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-     * not been set in the provider.
+     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

@@ -4,6 +4,48 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides a Shared Environment Variable resource.
+ *
+ * A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const exampleProject = new vercel.Project("exampleProject", {gitRepository: {
+ *     type: "github",
+ *     repo: "vercel/some-repo",
+ * }});
+ * // A shared environment variable that will be created
+ * // and associated with the "example" project.
+ * const exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable", {
+ *     key: "EXAMPLE",
+ *     value: "some_value",
+ *     targets: ["production"],
+ *     comment: "an example shared variable",
+ *     projectIds: [exampleProject.id],
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * You can import via the team_id and environment variable id.
+ *
+ * - team_id can be found in the team `settings` tab in the Vercel UI.
+ *
+ * - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
+ *
+ * Note also, that the value field for sensitive environment variables will be imported as `null`.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
+ * ```
+ */
 export class SharedEnvironmentVariable extends pulumi.CustomResource {
     /**
      * Get an existing SharedEnvironmentVariable resource's state with the given name, ID, and optional extra
@@ -45,13 +87,11 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly projectIds!: pulumi.Output<string[]>;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-     * policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     public readonly sensitive!: pulumi.Output<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     public readonly targets!: pulumi.Output<string[]>;
     /**
@@ -129,13 +169,11 @@ export interface SharedEnvironmentVariableState {
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-     * policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -165,13 +203,11 @@ export interface SharedEnvironmentVariableArgs {
      */
     projectIds: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-     * policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
     targets: pulumi.Input<pulumi.Input<string>[]>;
     /**

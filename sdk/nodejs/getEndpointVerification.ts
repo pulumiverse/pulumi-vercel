@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides a verification code that can be used to prove ownership over an API.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getEndpointVerification({});
+ * ```
+ */
 export function getEndpointVerification(args?: GetEndpointVerificationArgs, opts?: pulumi.InvokeOptions): Promise<GetEndpointVerificationResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -16,6 +28,9 @@ export function getEndpointVerification(args?: GetEndpointVerificationArgs, opts
  * A collection of arguments for invoking getEndpointVerification.
  */
 export interface GetEndpointVerificationArgs {
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -23,11 +38,32 @@ export interface GetEndpointVerificationArgs {
  * A collection of values returned by getEndpointVerification.
  */
 export interface GetEndpointVerificationResult {
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
+    /**
+     * A verification code that should be set in the `x-vercel-verify` response header for your API. This is used to verify that the endpoint belongs to you.
+     */
     readonly verificationCode: string;
 }
-export function getEndpointVerificationOutput(args?: GetEndpointVerificationOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEndpointVerificationResult> {
+/**
+ * Provides a verification code that can be used to prove ownership over an API.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getEndpointVerification({});
+ * ```
+ */
+export function getEndpointVerificationOutput(args?: GetEndpointVerificationOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetEndpointVerificationResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getEndpointVerification:getEndpointVerification", {
@@ -39,5 +75,8 @@ export function getEndpointVerificationOutput(args?: GetEndpointVerificationOutp
  * A collection of arguments for invoking getEndpointVerification.
  */
 export interface GetEndpointVerificationOutputArgs {
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

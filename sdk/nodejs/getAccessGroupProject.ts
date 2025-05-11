@@ -4,6 +4,26 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing Access Group Project Assignment.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const exampleProject = vercel.getProject({
+ *     name: "my-existing-project",
+ * });
+ * const exampleAccessGroupProject = vercel.getAccessGroupProject({
+ *     accessGroupId: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ *     projectId: vercel_project.example.id,
+ * });
+ * ```
+ */
 export function getAccessGroupProject(args: GetAccessGroupProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetAccessGroupProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getAccessGroupProject:getAccessGroupProject", {
@@ -17,8 +37,17 @@ export function getAccessGroupProject(args: GetAccessGroupProjectArgs, opts?: pu
  * A collection of arguments for invoking getAccessGroupProject.
  */
 export interface GetAccessGroupProjectArgs {
+    /**
+     * The Access Group ID.
+     */
     accessGroupId: string;
+    /**
+     * The Project ID.
+     */
     projectId: string;
+    /**
+     * The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -26,16 +55,48 @@ export interface GetAccessGroupProjectArgs {
  * A collection of values returned by getAccessGroupProject.
  */
 export interface GetAccessGroupProjectResult {
+    /**
+     * The Access Group ID.
+     */
     readonly accessGroupId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The Project ID.
+     */
     readonly projectId: string;
+    /**
+     * The Access Group Project Role.
+     */
     readonly role: string;
+    /**
+     * The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
 }
-export function getAccessGroupProjectOutput(args: GetAccessGroupProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAccessGroupProjectResult> {
+/**
+ * Provides information about an existing Access Group Project Assignment.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const exampleProject = vercel.getProject({
+ *     name: "my-existing-project",
+ * });
+ * const exampleAccessGroupProject = vercel.getAccessGroupProject({
+ *     accessGroupId: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ *     projectId: vercel_project.example.id,
+ * });
+ * ```
+ */
+export function getAccessGroupProjectOutput(args: GetAccessGroupProjectOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetAccessGroupProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getAccessGroupProject:getAccessGroupProject", {
         "accessGroupId": args.accessGroupId,
@@ -48,7 +109,16 @@ export function getAccessGroupProjectOutput(args: GetAccessGroupProjectOutputArg
  * A collection of arguments for invoking getAccessGroupProject.
  */
 export interface GetAccessGroupProjectOutputArgs {
+    /**
+     * The Access Group ID.
+     */
     accessGroupId: pulumi.Input<string>;
+    /**
+     * The Project ID.
+     */
     projectId: pulumi.Input<string>;
+    /**
+     * The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

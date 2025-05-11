@@ -4,6 +4,22 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing Deployment.
+ *
+ * A Deployment is the result of building your Project and making it available through a live URL.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getDeployment({
+ *     id: "https://my-vercel-project.vercel.app",
+ * });
+ * ```
+ */
 export function getDeployment(args: GetDeploymentArgs, opts?: pulumi.InvokeOptions): Promise<GetDeploymentResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getDeployment:getDeployment", {
@@ -16,7 +32,13 @@ export function getDeployment(args: GetDeploymentArgs, opts?: pulumi.InvokeOptio
  * A collection of arguments for invoking getDeployment.
  */
 export interface GetDeploymentArgs {
+    /**
+     * The ID or URL of the Deployment to read.
+     */
     id: string;
+    /**
+     * The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -24,15 +46,52 @@ export interface GetDeploymentArgs {
  * A collection of values returned by getDeployment.
  */
 export interface GetDeploymentResult {
+    /**
+     * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
+     */
     readonly domains: string[];
+    /**
+     * The ID or URL of the Deployment to read.
+     */
     readonly id: string;
+    /**
+     * true if the deployment is a production deployment, meaning production aliases will be assigned.
+     */
     readonly production: boolean;
+    /**
+     * The project ID to add the deployment to.
+     */
     readonly projectId: string;
+    /**
+     * The branch or commit hash that has been deployed. Note this will only work if the project is configured to use a Git repository.
+     */
     readonly ref: string;
+    /**
+     * The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
+    /**
+     * A unique URL that is automatically generated for a deployment.
+     */
     readonly url: string;
 }
-export function getDeploymentOutput(args: GetDeploymentOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDeploymentResult> {
+/**
+ * Provides information about an existing Deployment.
+ *
+ * A Deployment is the result of building your Project and making it available through a live URL.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getDeployment({
+ *     id: "https://my-vercel-project.vercel.app",
+ * });
+ * ```
+ */
+export function getDeploymentOutput(args: GetDeploymentOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDeploymentResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getDeployment:getDeployment", {
         "id": args.id,
@@ -44,6 +103,12 @@ export function getDeploymentOutput(args: GetDeploymentOutputArgs, opts?: pulumi
  * A collection of arguments for invoking getDeployment.
  */
 export interface GetDeploymentOutputArgs {
+    /**
+     * The ID or URL of the Deployment to read.
+     */
     id: pulumi.Input<string>;
+    /**
+     * The Team ID to the Deployment belong to. Required when reading a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

@@ -6,6 +6,21 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Provider a datasource for managing a team member.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getTeamMember({
+ *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+ *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ * });
+ * ```
+ */
 export function getTeamMember(args: GetTeamMemberArgs, opts?: pulumi.InvokeOptions): Promise<GetTeamMemberResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getTeamMember:getTeamMember", {
@@ -18,7 +33,13 @@ export function getTeamMember(args: GetTeamMemberArgs, opts?: pulumi.InvokeOptio
  * A collection of arguments for invoking getTeamMember.
  */
 export interface GetTeamMemberArgs {
+    /**
+     * The ID of the existing Vercel Team.
+     */
     teamId: string;
+    /**
+     * The ID of the existing Vercel Team Member.
+     */
     userId: string;
 }
 
@@ -26,14 +47,51 @@ export interface GetTeamMemberArgs {
  * A collection of values returned by getTeamMember.
  */
 export interface GetTeamMemberResult {
+    /**
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+     */
     readonly accessGroups: string[];
+    /**
+     * The email address of the existing Vercel Team Member.
+     */
+    readonly email: string;
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+     */
     readonly projects: outputs.GetTeamMemberProject[];
+    /**
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     */
     readonly role: string;
+    /**
+     * The ID of the existing Vercel Team.
+     */
     readonly teamId: string;
+    /**
+     * The ID of the existing Vercel Team Member.
+     */
     readonly userId: string;
 }
-export function getTeamMemberOutput(args: GetTeamMemberOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetTeamMemberResult> {
+/**
+ * Provider a datasource for managing a team member.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getTeamMember({
+ *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+ *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ * });
+ * ```
+ */
+export function getTeamMemberOutput(args: GetTeamMemberOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetTeamMemberResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getTeamMember:getTeamMember", {
         "teamId": args.teamId,
@@ -45,6 +103,12 @@ export function getTeamMemberOutput(args: GetTeamMemberOutputArgs, opts?: pulumi
  * A collection of arguments for invoking getTeamMember.
  */
 export interface GetTeamMemberOutputArgs {
+    /**
+     * The ID of the existing Vercel Team.
+     */
     teamId: pulumi.Input<string>;
+    /**
+     * The ID of the existing Vercel Team Member.
+     */
     userId: pulumi.Input<string>;
 }

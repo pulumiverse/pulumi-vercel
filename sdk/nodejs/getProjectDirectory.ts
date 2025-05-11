@@ -22,11 +22,17 @@ export interface GetProjectDirectoryArgs {
  * A collection of values returned by getProjectDirectory.
  */
 export interface GetProjectDirectoryResult {
+    /**
+     * A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+     */
     readonly files: {[key: string]: string};
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
     readonly path: string;
 }
-export function getProjectDirectoryOutput(args: GetProjectDirectoryOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectDirectoryResult> {
+export function getProjectDirectoryOutput(args: GetProjectDirectoryOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetProjectDirectoryResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProjectDirectory:getProjectDirectory", {
         "path": args.path,

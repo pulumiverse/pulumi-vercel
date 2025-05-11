@@ -4,6 +4,24 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing Log Drain.
+ *
+ * Log Drains collect all of your logs using a service specializing in storing app logs.
+ *
+ * Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getLogDrain({
+ *     id: "lg_xxxxxxx_xxxxxx_xxxxx",
+ * });
+ * ```
+ */
 export function getLogDrain(args: GetLogDrainArgs, opts?: pulumi.InvokeOptions): Promise<GetLogDrainResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getLogDrain:getLogDrain", {
@@ -17,8 +35,17 @@ export function getLogDrain(args: GetLogDrainArgs, opts?: pulumi.InvokeOptions):
  * A collection of arguments for invoking getLogDrain.
  */
 export interface GetLogDrainArgs {
+    /**
+     * Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
+     */
     endpoint: string;
+    /**
+     * The ID of the Log Drain.
+     */
     id: string;
+    /**
+     * The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -26,17 +53,62 @@ export interface GetLogDrainArgs {
  * A collection of values returned by getLogDrain.
  */
 export interface GetLogDrainResult {
+    /**
+     * The format log data should be delivered in. Can be `json` or `ndjson`.
+     */
     readonly deliveryFormat: string;
+    /**
+     * Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
+     */
     readonly endpoint: string;
+    /**
+     * Logs from the selected environments will be forwarded to your webhook. At least one must be present.
+     */
     readonly environments: string[];
+    /**
+     * Custom headers to include in requests to the log drain endpoint.
+     */
     readonly headers: {[key: string]: string};
+    /**
+     * The ID of the Log Drain.
+     */
     readonly id: string;
+    /**
+     * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
+     */
     readonly projectIds: string[];
+    /**
+     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     */
     readonly samplingRate: number;
+    /**
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `function`.
+     */
     readonly sources: string[];
+    /**
+     * The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
 }
-export function getLogDrainOutput(args: GetLogDrainOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetLogDrainResult> {
+/**
+ * Provides information about an existing Log Drain.
+ *
+ * Log Drains collect all of your logs using a service specializing in storing app logs.
+ *
+ * Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getLogDrain({
+ *     id: "lg_xxxxxxx_xxxxxx_xxxxx",
+ * });
+ * ```
+ */
+export function getLogDrainOutput(args: GetLogDrainOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetLogDrainResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getLogDrain:getLogDrain", {
         "endpoint": args.endpoint,
@@ -49,7 +121,16 @@ export function getLogDrainOutput(args: GetLogDrainOutputArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getLogDrain.
  */
 export interface GetLogDrainOutputArgs {
+    /**
+     * Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
+     */
     endpoint: pulumi.Input<string>;
+    /**
+     * The ID of the Log Drain.
+     */
     id: pulumi.Input<string>;
+    /**
+     * The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

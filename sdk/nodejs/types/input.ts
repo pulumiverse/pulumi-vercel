@@ -78,9 +78,18 @@ export interface FirewallConfigIpRulesRule {
 
 export interface FirewallConfigManagedRulesets {
     /**
+     * Enable the bot*filter managed ruleset and select action
+     */
+    botFilter?: pulumi.Input<inputs.FirewallConfigManagedRulesetsBotFilter>;
+    /**
      * Enable the owasp managed rulesets and select ruleset behaviors
      */
     owasp?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwasp>;
+}
+
+export interface FirewallConfigManagedRulesetsBotFilter {
+    action?: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
 }
 
 export interface FirewallConfigManagedRulesetsOwasp {
@@ -207,11 +216,11 @@ export interface FirewallConfigRulesRuleAction {
      */
     action: pulumi.Input<string>;
     /**
-     * Forward persistence of a rule aciton
+     * Forward persistence of a rule action
      */
     actionDuration?: pulumi.Input<string>;
     /**
-     * Behavior or a rate limiting action. Required if action is rate_limit
+     * Behavior or a rate limiting action. Required if action is rate*limit
      */
     rateLimit?: pulumi.Input<inputs.FirewallConfigRulesRuleActionRateLimit>;
     /**
@@ -260,6 +269,9 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      * Key within type to match against
      */
     key?: pulumi.Input<string>;
+    /**
+     * Negate the condition
+     */
     neg?: pulumi.Input<boolean>;
     /**
      * How to comparse type to value
@@ -269,7 +281,25 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      * Request key type to match against
      */
     type: pulumi.Input<string>;
+    /**
+     * Value to match against
+     */
     value?: pulumi.Input<string>;
+    /**
+     * Values to match against if op is inc, ninc
+     */
+    values?: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface MicrofrontendGroupDefaultApp {
+    /**
+     * The default route for the project. Used for the screenshot of deployments.
+     */
+    defaultRoute?: pulumi.Input<string>;
+    /**
+     * The ID of the project.
+     */
+    projectId: pulumi.Input<string>;
 }
 
 export interface ProjectEnvironment {
@@ -397,7 +427,7 @@ export interface ProjectMembersMember {
      */
     email?: pulumi.Input<string>;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
      */
     role: pulumi.Input<string>;
     /**
@@ -447,6 +477,10 @@ export interface ProjectPasswordProtection {
 }
 
 export interface ProjectResourceConfig {
+    /**
+     * Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+     */
+    fluid?: pulumi.Input<boolean>;
     /**
      * The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
      */
@@ -499,17 +533,24 @@ export interface TeamConfigRemoteCaching {
 
 export interface TeamConfigSaml {
     /**
-     * The ID of the access group to use for the team.
-     */
-    accessGroupId?: pulumi.Input<string>;
-    /**
      * Indicates if SAML is enforced for the team.
      */
     enforced: pulumi.Input<boolean>;
     /**
-     * Directory groups to role or access group mappings.
+     * Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
      */
-    roles?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    roles?: pulumi.Input<{[key: string]: pulumi.Input<inputs.TeamConfigSamlRoles>}>;
+}
+
+export interface TeamConfigSamlRoles {
+    /**
+     * The access group id to assign to the user.
+     */
+    accessGroupId?: pulumi.Input<string>;
+    /**
+     * The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+     */
+    role?: pulumi.Input<string>;
 }
 
 export interface TeamMemberProject {
