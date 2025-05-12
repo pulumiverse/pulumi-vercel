@@ -1,4 +1,4 @@
-module github.com/pulumiverse/pulumi-vercel/examples
+module github.com/pulumiverse/pulumi-vercel/examples/v2
 
 go 1.21
 

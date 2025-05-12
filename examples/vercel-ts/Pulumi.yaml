@@ -1,3 +1,0 @@
-name: vercel-ts
-runtime: nodejs
-description: A minimal TypeScript Pulumi program for Vercel
