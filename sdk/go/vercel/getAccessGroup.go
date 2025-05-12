@@ -8,9 +8,38 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides information about an existing Access Group.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.LookupAccessGroup(ctx, &vercel.LookupAccessGroupArgs{
+//				Id: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupAccessGroup(ctx *pulumi.Context, args *LookupAccessGroupArgs, opts ...pulumi.InvokeOption) (*LookupAccessGroupResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupAccessGroupResult
@@ -23,14 +52,19 @@ func LookupAccessGroup(ctx *pulumi.Context, args *LookupAccessGroupArgs, opts ..
 
 // A collection of arguments for invoking getAccessGroup.
 type LookupAccessGroupArgs struct {
-	Id     string  `pulumi:"id"`
+	// The Access Group ID to be retrieved.
+	Id string `pulumi:"id"`
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getAccessGroup.
 type LookupAccessGroupResult struct {
-	Id     string `pulumi:"id"`
-	Name   string `pulumi:"name"`
+	// The Access Group ID to be retrieved.
+	Id string `pulumi:"id"`
+	// The name of the Access Group.
+	Name string `pulumi:"name"`
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
 }
 
@@ -55,7 +89,9 @@ func LookupAccessGroupOutput(ctx *pulumi.Context, args LookupAccessGroupOutputAr
 
 // A collection of arguments for invoking getAccessGroup.
 type LookupAccessGroupOutputArgs struct {
-	Id     pulumi.StringInput    `pulumi:"id"`
+	// The Access Group ID to be retrieved.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -78,14 +114,17 @@ func (o LookupAccessGroupResultOutput) ToLookupAccessGroupResultOutputWithContex
 	return o
 }
 
+// The Access Group ID to be retrieved.
 func (o LookupAccessGroupResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the Access Group.
 func (o LookupAccessGroupResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupAccessGroupResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

@@ -4,6 +4,22 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing Access Group.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getAccessGroup({
+ *     id: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ * });
+ * ```
+ */
 export function getAccessGroup(args: GetAccessGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetAccessGroupResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getAccessGroup:getAccessGroup", {
@@ -16,7 +32,13 @@ export function getAccessGroup(args: GetAccessGroupArgs, opts?: pulumi.InvokeOpt
  * A collection of arguments for invoking getAccessGroup.
  */
 export interface GetAccessGroupArgs {
+    /**
+     * The Access Group ID to be retrieved.
+     */
     id: string;
+    /**
+     * The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -24,10 +46,35 @@ export interface GetAccessGroupArgs {
  * A collection of values returned by getAccessGroup.
  */
 export interface GetAccessGroupResult {
+    /**
+     * The Access Group ID to be retrieved.
+     */
     readonly id: string;
+    /**
+     * The name of the Access Group.
+     */
     readonly name: string;
+    /**
+     * The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
 }
+/**
+ * Provides information about an existing Access Group.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getAccessGroup({
+ *     id: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ * });
+ * ```
+ */
 export function getAccessGroupOutput(args: GetAccessGroupOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAccessGroupResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getAccessGroup:getAccessGroup", {
@@ -40,6 +87,12 @@ export function getAccessGroupOutput(args: GetAccessGroupOutputArgs, opts?: pulu
  * A collection of arguments for invoking getAccessGroup.
  */
 export interface GetAccessGroupOutputArgs {
+    /**
+     * The Access Group ID to be retrieved.
+     */
     id: pulumi.Input<string>;
+    /**
+     * The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

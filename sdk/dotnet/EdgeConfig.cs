@@ -10,6 +10,69 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides an Edge Config resource.
+    /// 
+    /// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleEdgeConfig = new Vercel.EdgeConfig("exampleEdgeConfig");
+    /// 
+    ///     var exampleProject = new Vercel.Project("exampleProject");
+    /// 
+    ///     var exampleEdgeConfigToken = new Vercel.EdgeConfigToken("exampleEdgeConfigToken", new()
+    ///     {
+    ///         EdgeConfigId = exampleEdgeConfig.Id,
+    ///         Label = "example token",
+    ///     });
+    /// 
+    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", new()
+    ///     {
+    ///         ProjectId = exampleProject.Id,
+    ///         Targets = new[]
+    ///         {
+    ///             "production",
+    ///             "preview",
+    ///             "development",
+    ///         },
+    ///         Key = "EDGE_CONFIG",
+    ///         Value = exampleEdgeConfigToken.ConnectionString,
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the edge config id.
+    /// 
+    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/edgeConfig:EdgeConfig example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// 
+    /// Alternatively, you can import via the team_id and edge_config_id.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/edgeConfig:EdgeConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/edgeConfig:EdgeConfig")]
     public partial class EdgeConfig : global::Pulumi.CustomResource
     {
@@ -20,8 +83,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -80,8 +142,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -101,8 +162,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

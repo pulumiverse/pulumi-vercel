@@ -30,12 +30,10 @@ class SharedEnvironmentVariableArgs:
         The set of arguments for constructing a SharedEnvironmentVariable resource.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         """
         pulumi.set(__self__, "key", key)
@@ -77,8 +75,7 @@ class SharedEnvironmentVariableArgs:
     @pulumi.getter
     def targets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`.
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         """
         return pulumi.get(self, "targets")
 
@@ -114,8 +111,7 @@ class SharedEnvironmentVariableArgs:
     @pulumi.getter
     def sensitive(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-        policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -151,10 +147,8 @@ class _SharedEnvironmentVariableState:
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -213,8 +207,7 @@ class _SharedEnvironmentVariableState:
     @pulumi.getter
     def sensitive(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-        policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -226,8 +219,7 @@ class _SharedEnvironmentVariableState:
     @pulumi.getter
     def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`.
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         """
         return pulumi.get(self, "targets")
 
@@ -274,16 +266,55 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  value: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a SharedEnvironmentVariable resource with the given unique name, props, and options.
+        Provides a Shared Environment Variable resource.
+
+        A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
+        # A shared environment variable that will be created
+        # and associated with the "example" project.
+        example_shared_environment_variable = vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable",
+            key="EXAMPLE",
+            value="some_value",
+            targets=["production"],
+            comment="an example shared variable",
+            project_ids=[example_project.id])
+        ```
+
+        ## Import
+
+        You can import via the team_id and environment variable id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -294,7 +325,48 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  args: SharedEnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a SharedEnvironmentVariable resource with the given unique name, props, and options.
+        Provides a Shared Environment Variable resource.
+
+        A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject", git_repository={
+            "type": "github",
+            "repo": "vercel/some-repo",
+        })
+        # A shared environment variable that will be created
+        # and associated with the "example" project.
+        example_shared_environment_variable = vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable",
+            key="EXAMPLE",
+            value="some_value",
+            targets=["production"],
+            comment="an example shared variable",
+            project_ids=[example_project.id])
+        ```
+
+        ## Import
+
+        You can import via the team_id and environment variable id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
+
+        # 
+
+        Note also, that the value field for sensitive environment variables will be imported as `null`.
+
+        ```sh
+        $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
+        ```
+
         :param str resource_name: The name of the resource.
         :param SharedEnvironmentVariableArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -370,10 +442,8 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
-        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-               policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-               or `development`.
+        :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         """
@@ -418,8 +488,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
     @pulumi.getter
     def sensitive(self) -> pulumi.Output[bool]:
         """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-        policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         """
         return pulumi.get(self, "sensitive")
 
@@ -427,8 +496,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
     @pulumi.getter
     def targets(self) -> pulumi.Output[Sequence[str]]:
         """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-        or `development`.
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         """
         return pulumi.get(self, "targets")
 

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -3032,7 +3032,7 @@ type FirewallConfigRulesRuleAction struct {
 	Action string `pulumi:"action"`
 	// Forward persistence of a rule aciton
 	ActionDuration *string `pulumi:"actionDuration"`
-	// Behavior or a rate limiting action. Required if action is rate_limit
+	// Behavior or a rate limiting action. Required if action is rate*limit
 	RateLimit *FirewallConfigRulesRuleActionRateLimit `pulumi:"rateLimit"`
 	// How to redirect a request. Required if action is redirect
 	Redirect *FirewallConfigRulesRuleActionRedirect `pulumi:"redirect"`
@@ -3054,7 +3054,7 @@ type FirewallConfigRulesRuleActionArgs struct {
 	Action pulumi.StringInput `pulumi:"action"`
 	// Forward persistence of a rule aciton
 	ActionDuration pulumi.StringPtrInput `pulumi:"actionDuration"`
-	// Behavior or a rate limiting action. Required if action is rate_limit
+	// Behavior or a rate limiting action. Required if action is rate*limit
 	RateLimit FirewallConfigRulesRuleActionRateLimitPtrInput `pulumi:"rateLimit"`
 	// How to redirect a request. Required if action is redirect
 	Redirect FirewallConfigRulesRuleActionRedirectPtrInput `pulumi:"redirect"`
@@ -3096,7 +3096,7 @@ func (o FirewallConfigRulesRuleActionOutput) ActionDuration() pulumi.StringPtrOu
 	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *string { return v.ActionDuration }).(pulumi.StringPtrOutput)
 }
 
-// Behavior or a rate limiting action. Required if action is rate_limit
+// Behavior or a rate limiting action. Required if action is rate*limit
 func (o FirewallConfigRulesRuleActionOutput) RateLimit() FirewallConfigRulesRuleActionRateLimitPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *FirewallConfigRulesRuleActionRateLimit { return v.RateLimit }).(FirewallConfigRulesRuleActionRateLimitPtrOutput)
 }
@@ -4490,7 +4490,7 @@ func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) Proj
 type ProjectMembersMember struct {
 	// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	Email *string `pulumi:"email"`
-	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role string `pulumi:"role"`
 	// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	UserId *string `pulumi:"userId"`
@@ -4512,7 +4512,7 @@ type ProjectMembersMemberInput interface {
 type ProjectMembersMemberArgs struct {
 	// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	Email pulumi.StringPtrInput `pulumi:"email"`
-	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role pulumi.StringInput `pulumi:"role"`
 	// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	UserId pulumi.StringPtrInput `pulumi:"userId"`
@@ -4576,7 +4576,7 @@ func (o ProjectMembersMemberOutput) Email() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectMembersMember) *string { return v.Email }).(pulumi.StringPtrOutput)
 }
 
-// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 func (o ProjectMembersMemberOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectMembersMember) string { return v.Role }).(pulumi.StringOutput)
 }
@@ -6637,7 +6637,7 @@ func (o GetProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) G
 type GetProjectMembersMember struct {
 	// The email of the user.
 	Email string `pulumi:"email"`
-	// The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	// The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role string `pulumi:"role"`
 	// The ID of the user.
 	UserId string `pulumi:"userId"`
@@ -6659,7 +6659,7 @@ type GetProjectMembersMemberInput interface {
 type GetProjectMembersMemberArgs struct {
 	// The email of the user.
 	Email pulumi.StringInput `pulumi:"email"`
-	// The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+	// The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role pulumi.StringInput `pulumi:"role"`
 	// The ID of the user.
 	UserId pulumi.StringInput `pulumi:"userId"`
@@ -6723,7 +6723,7 @@ func (o GetProjectMembersMemberOutput) Email() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Email }).(pulumi.StringOutput)
 }
 
-// The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+// The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 func (o GetProjectMembersMemberOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Role }).(pulumi.StringOutput)
 }

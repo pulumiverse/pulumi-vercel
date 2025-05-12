@@ -26,8 +26,7 @@ class AliasArgs:
         The set of arguments for constructing a Alias resource.
         :param pulumi.Input[str] alias: The Alias we want to assign to the deployment defined in the URL.
         :param pulumi.Input[str] deployment_id: The id of the Deployment the Alias should be associated with.
-        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "alias", alias)
         pulumi.set(__self__, "deployment_id", deployment_id)
@@ -62,8 +61,7 @@ class AliasArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -82,8 +80,7 @@ class _AliasState:
         Input properties used for looking up and filtering Alias resources.
         :param pulumi.Input[str] alias: The Alias we want to assign to the deployment defined in the URL.
         :param pulumi.Input[str] deployment_id: The id of the Deployment the Alias should be associated with.
-        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if alias is not None:
             pulumi.set(__self__, "alias", alias)
@@ -120,8 +117,7 @@ class _AliasState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -140,13 +136,15 @@ class Alias(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Alias resource with the given unique name, props, and options.
+        Provides an Alias resource.
+
+        An Alias allows a `Deployment` to be accessed through a different URL.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] alias: The Alias we want to assign to the deployment defined in the URL.
         :param pulumi.Input[str] deployment_id: The id of the Deployment the Alias should be associated with.
-        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -155,7 +153,10 @@ class Alias(pulumi.CustomResource):
                  args: AliasArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Alias resource with the given unique name, props, and options.
+        Provides an Alias resource.
+
+        An Alias allows a `Deployment` to be accessed through a different URL.
+
         :param str resource_name: The name of the resource.
         :param AliasArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -212,8 +213,7 @@ class Alias(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] alias: The Alias we want to assign to the deployment defined in the URL.
         :param pulumi.Input[str] deployment_id: The id of the Deployment the Alias should be associated with.
-        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -244,8 +244,7 @@ class Alias(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

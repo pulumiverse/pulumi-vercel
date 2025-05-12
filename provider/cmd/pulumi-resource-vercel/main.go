@@ -18,10 +18,12 @@ package main
 
 import (
 	"context"
+
 	_ "embed"
 
 	"github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
-	vercel "github.com/pulumiverse/pulumi-vercel/provider"
+
+	vercel "github.com/pulumiverse/pulumi-vercel/provider/v2"
 )
 
 //go:embed schema-embed.json

@@ -36,7 +36,7 @@ setup(name='pulumiverse_vercel',
       },
       install_requires=[
           'parver>=0.2.1',
-          'pulumi>=3.0.0,<4.0.0',
+          'pulumi>=3.136.0,<4.0.0',
           'semver>=2.8.1',
           'typing-extensions>=4.11,<5; python_version < "3.11"'
       ],

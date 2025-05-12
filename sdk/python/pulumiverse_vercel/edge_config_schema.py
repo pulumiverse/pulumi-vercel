@@ -24,8 +24,7 @@ class EdgeConfigSchemaArgs:
         """
         The set of arguments for constructing a EdgeConfigSchema resource.
         :param pulumi.Input[str] definition: A JSON schema that will be used to validate data in the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "definition", definition)
         if team_id is not None:
@@ -47,8 +46,7 @@ class EdgeConfigSchemaArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -65,8 +63,7 @@ class _EdgeConfigSchemaState:
         """
         Input properties used for looking up and filtering EdgeConfigSchema resources.
         :param pulumi.Input[str] definition: A JSON schema that will be used to validate data in the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if definition is not None:
             pulumi.set(__self__, "definition", definition)
@@ -89,8 +86,7 @@ class _EdgeConfigSchemaState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -108,12 +104,34 @@ class EdgeConfigSchema(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a EdgeConfigSchema resource with the given unique name, props, and options.
+        An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the edge config id.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Alternatively, you can import via the team_id and edge_config_id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] definition: A JSON schema that will be used to validate data in the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -122,7 +140,30 @@ class EdgeConfigSchema(pulumi.CustomResource):
                  args: EdgeConfigSchemaArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a EdgeConfigSchema resource with the given unique name, props, and options.
+        An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the edge config id.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Alternatively, you can import via the team_id and edge_config_id.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
         :param str resource_name: The name of the resource.
         :param EdgeConfigSchemaArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -173,8 +214,7 @@ class EdgeConfigSchema(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] definition: A JSON schema that will be used to validate data in the Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -196,8 +236,7 @@ class EdgeConfigSchema(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

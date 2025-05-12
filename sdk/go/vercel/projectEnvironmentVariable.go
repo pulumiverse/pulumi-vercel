@@ -9,16 +9,127 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", &vercel.ProjectArgs{
+//				GitRepository: &vercel.ProjectGitRepositoryArgs{
+//					Type: pulumi.String("github"),
+//					Repo: pulumi.String("vercel/some-repo"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// An environment variable that will be created
+//			// for this project for the "production" environment.
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleProjectEnvironmentVariable", &vercel.ProjectEnvironmentVariableArgs{
+//				ProjectId: exampleProject.ID(),
+//				Key:       pulumi.String("foo"),
+//				Value:     pulumi.String("bar"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//				Comment: pulumi.String("a production secret"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// An environment variable that will be created
+//			// for this project for the "preview" environment when the branch is "staging".
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleGitBranch", &vercel.ProjectEnvironmentVariableArgs{
+//				ProjectId: exampleProject.ID(),
+//				Key:       pulumi.String("foo"),
+//				Value:     pulumi.String("bar-staging"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("preview"),
+//				},
+//				GitBranch: pulumi.String("staging"),
+//				Comment:   pulumi.String("a staging secret"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// A sensitive environment variable that will be created
+//			// for this project for the "production" environment.
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleSensitive", &vercel.ProjectEnvironmentVariableArgs{
+//				ProjectId: exampleProject.ID(),
+//				Key:       pulumi.String("foo"),
+//				Value:     pulumi.String("bar-production"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//				Sensitive: pulumi.Bool(true),
+//				Comment:   pulumi.String("a sensitive production secret"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, simply use the project_id and environment variable id.
+//
+// - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+//
+// or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+//
+// #
+//
+// Note also, that the value field for sensitive environment variables will be imported as `null`.
+//
+// ```sh
+// $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+// ```
+//
+// Alternatively, you can import via the team_id, project_id and
+//
+// environment variable id.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+//
+// or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+//
+// #
+//
+// Note also, that the value field for sensitive environment variables will be imported as `null`.
+//
+// ```sh
+// $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+// ```
 type ProjectEnvironmentVariable struct {
 	pulumi.CustomResourceState
 
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringOutput `pulumi:"comment"`
-	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-	// `customEnvironmentIds` must be set.
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
 	CustomEnvironmentIds pulumi.StringArrayOutput `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch pulumi.StringPtrOutput `pulumi:"gitBranch"`
@@ -26,11 +137,9 @@ type ProjectEnvironmentVariable struct {
 	Key pulumi.StringOutput `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-	// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolOutput `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-	// or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -86,8 +195,7 @@ func GetProjectEnvironmentVariable(ctx *pulumi.Context,
 type projectEnvironmentVariableState struct {
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
-	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-	// `customEnvironmentIds` must be set.
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
 	CustomEnvironmentIds []string `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch *string `pulumi:"gitBranch"`
@@ -95,11 +203,9 @@ type projectEnvironmentVariableState struct {
 	Key *string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId *string `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-	// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive *bool `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-	// or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -110,8 +216,7 @@ type projectEnvironmentVariableState struct {
 type ProjectEnvironmentVariableState struct {
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringPtrInput
-	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-	// `customEnvironmentIds` must be set.
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
 	CustomEnvironmentIds pulumi.StringArrayInput
 	// The git branch of the Environment Variable.
 	GitBranch pulumi.StringPtrInput
@@ -119,11 +224,9 @@ type ProjectEnvironmentVariableState struct {
 	Key pulumi.StringPtrInput
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringPtrInput
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-	// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolPtrInput
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-	// or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -138,8 +241,7 @@ func (ProjectEnvironmentVariableState) ElementType() reflect.Type {
 type projectEnvironmentVariableArgs struct {
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
-	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-	// `customEnvironmentIds` must be set.
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
 	CustomEnvironmentIds []string `pulumi:"customEnvironmentIds"`
 	// The git branch of the Environment Variable.
 	GitBranch *string `pulumi:"gitBranch"`
@@ -147,11 +249,9 @@ type projectEnvironmentVariableArgs struct {
 	Key string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId string `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-	// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive *bool `pulumi:"sensitive"`
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-	// or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -163,8 +263,7 @@ type projectEnvironmentVariableArgs struct {
 type ProjectEnvironmentVariableArgs struct {
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringPtrInput
-	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-	// `customEnvironmentIds` must be set.
+	// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
 	CustomEnvironmentIds pulumi.StringArrayInput
 	// The git branch of the Environment Variable.
 	GitBranch pulumi.StringPtrInput
@@ -172,11 +271,9 @@ type ProjectEnvironmentVariableArgs struct {
 	Key pulumi.StringInput
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringInput
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-	// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 	Sensitive pulumi.BoolPtrInput
-	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-	// or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -276,8 +373,7 @@ func (o ProjectEnvironmentVariableOutput) Comment() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.Comment }).(pulumi.StringOutput)
 }
 
-// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-// `customEnvironmentIds` must be set.
+// The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
 func (o ProjectEnvironmentVariableOutput) CustomEnvironmentIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringArrayOutput { return v.CustomEnvironmentIds }).(pulumi.StringArrayOutput)
 }
@@ -297,14 +393,12 @@ func (o ProjectEnvironmentVariableOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-// policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
 func (o ProjectEnvironmentVariableOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.BoolOutput { return v.Sensitive }).(pulumi.BoolOutput)
 }
 
-// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-// or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 func (o ProjectEnvironmentVariableOutput) Targets() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringArrayOutput { return v.Targets }).(pulumi.StringArrayOutput)
 }

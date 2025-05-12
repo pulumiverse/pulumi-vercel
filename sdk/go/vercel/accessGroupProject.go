@@ -9,9 +9,66 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides an Access Group Project Resource.
+//
+// An Access Group Project resource defines the relationship between a `AccessGroup` and a `Project`.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			if err != nil {
+//				return err
+//			}
+//			exampleAccessGroup, err := vercel.NewAccessGroup(ctx, "exampleAccessGroup", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewAccessGroupProject(ctx, "exampleAccessGroupProject", &vercel.AccessGroupProjectArgs{
+//				ProjectId:     exampleProject.ID(),
+//				AccessGroupId: exampleAccessGroup.ID(),
+//				Role:          pulumi.String("ADMIN"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, use the access_group_id and project_id.
+//
+// ```sh
+// $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
+//
+// If importing to a team, use the team_id, access_group_id and project_id.
+//
+// ```sh
+// $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
 type AccessGroupProject struct {
 	pulumi.CustomResourceState
 
@@ -21,8 +78,7 @@ type AccessGroupProject struct {
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
 	Role pulumi.StringOutput `pulumi:"role"`
-	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-	// team has not been set in the provider.
+	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -71,8 +127,7 @@ type accessGroupProjectState struct {
 	ProjectId *string `pulumi:"projectId"`
 	// The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
 	Role *string `pulumi:"role"`
-	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-	// team has not been set in the provider.
+	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -83,8 +138,7 @@ type AccessGroupProjectState struct {
 	ProjectId pulumi.StringPtrInput
 	// The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
 	Role pulumi.StringPtrInput
-	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-	// team has not been set in the provider.
+	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -99,8 +153,7 @@ type accessGroupProjectArgs struct {
 	ProjectId string `pulumi:"projectId"`
 	// The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
 	Role string `pulumi:"role"`
-	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-	// team has not been set in the provider.
+	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -112,8 +165,7 @@ type AccessGroupProjectArgs struct {
 	ProjectId pulumi.StringInput
 	// The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
 	Role pulumi.StringInput
-	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-	// team has not been set in the provider.
+	// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -219,8 +271,7 @@ func (o AccessGroupProjectOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v *AccessGroupProject) pulumi.StringOutput { return v.Role }).(pulumi.StringOutput)
 }
 
-// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-// team has not been set in the provider.
+// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o AccessGroupProjectOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *AccessGroupProject) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

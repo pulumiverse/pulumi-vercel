@@ -9,24 +9,20 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
 type Deployment struct {
 	pulumi.CustomResourceState
 
 	DeleteOnDestroy pulumi.BoolPtrOutput `pulumi:"deleteOnDestroy"`
-	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-	// creation.
+	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains pulumi.StringArrayOutput `pulumi:"domains"`
-	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-	// `Project` resource.
+	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapOutput `pulumi:"environment"`
-	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data
-	// source. Required if `gitSource` is not set.
+	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files pulumi.StringMapOutput `pulumi:"files"`
-	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this
-	// is omitted, then any leading `../`s will be stripped.
+	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix pulumi.StringPtrOutput `pulumi:"pathPrefix"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
 	Production pulumi.BoolOutput `pulumi:"production"`
@@ -34,11 +30,9 @@ type Deployment struct {
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// Project settings that will be applied to the deployment.
 	ProjectSettings DeploymentProjectSettingsPtrOutput `pulumi:"projectSettings"`
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-	// repository. Required if `files` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref pulumi.StringPtrOutput `pulumi:"ref"`
-	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-	// the provider.
+	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// A unique URL that is automatically generated for a deployment.
 	Url pulumi.StringOutput `pulumi:"url"`
@@ -78,17 +72,13 @@ func GetDeployment(ctx *pulumi.Context,
 // Input properties used for looking up and filtering Deployment resources.
 type deploymentState struct {
 	DeleteOnDestroy *bool `pulumi:"deleteOnDestroy"`
-	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-	// creation.
+	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains []string `pulumi:"domains"`
-	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-	// `Project` resource.
+	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment map[string]string `pulumi:"environment"`
-	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data
-	// source. Required if `gitSource` is not set.
+	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files map[string]string `pulumi:"files"`
-	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this
-	// is omitted, then any leading `../`s will be stripped.
+	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix *string `pulumi:"pathPrefix"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
 	Production *bool `pulumi:"production"`
@@ -96,11 +86,9 @@ type deploymentState struct {
 	ProjectId *string `pulumi:"projectId"`
 	// Project settings that will be applied to the deployment.
 	ProjectSettings *DeploymentProjectSettings `pulumi:"projectSettings"`
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-	// repository. Required if `files` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref *string `pulumi:"ref"`
-	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-	// the provider.
+	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 	// A unique URL that is automatically generated for a deployment.
 	Url *string `pulumi:"url"`
@@ -108,17 +96,13 @@ type deploymentState struct {
 
 type DeploymentState struct {
 	DeleteOnDestroy pulumi.BoolPtrInput
-	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-	// creation.
+	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains pulumi.StringArrayInput
-	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-	// `Project` resource.
+	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapInput
-	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data
-	// source. Required if `gitSource` is not set.
+	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files pulumi.StringMapInput
-	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this
-	// is omitted, then any leading `../`s will be stripped.
+	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix pulumi.StringPtrInput
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
 	Production pulumi.BoolPtrInput
@@ -126,11 +110,9 @@ type DeploymentState struct {
 	ProjectId pulumi.StringPtrInput
 	// Project settings that will be applied to the deployment.
 	ProjectSettings DeploymentProjectSettingsPtrInput
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-	// repository. Required if `files` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref pulumi.StringPtrInput
-	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-	// the provider.
+	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 	// A unique URL that is automatically generated for a deployment.
 	Url pulumi.StringPtrInput
@@ -142,14 +124,11 @@ func (DeploymentState) ElementType() reflect.Type {
 
 type deploymentArgs struct {
 	DeleteOnDestroy *bool `pulumi:"deleteOnDestroy"`
-	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-	// `Project` resource.
+	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment map[string]string `pulumi:"environment"`
-	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data
-	// source. Required if `gitSource` is not set.
+	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files map[string]string `pulumi:"files"`
-	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this
-	// is omitted, then any leading `../`s will be stripped.
+	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix *string `pulumi:"pathPrefix"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
 	Production *bool `pulumi:"production"`
@@ -157,25 +136,20 @@ type deploymentArgs struct {
 	ProjectId string `pulumi:"projectId"`
 	// Project settings that will be applied to the deployment.
 	ProjectSettings *DeploymentProjectSettings `pulumi:"projectSettings"`
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-	// repository. Required if `files` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref *string `pulumi:"ref"`
-	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-	// the provider.
+	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 // The set of arguments for constructing a Deployment resource.
 type DeploymentArgs struct {
 	DeleteOnDestroy pulumi.BoolPtrInput
-	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-	// `Project` resource.
+	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapInput
-	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data
-	// source. Required if `gitSource` is not set.
+	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files pulumi.StringMapInput
-	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this
-	// is omitted, then any leading `../`s will be stripped.
+	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix pulumi.StringPtrInput
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
 	Production pulumi.BoolPtrInput
@@ -183,11 +157,9 @@ type DeploymentArgs struct {
 	ProjectId pulumi.StringInput
 	// Project settings that will be applied to the deployment.
 	ProjectSettings DeploymentProjectSettingsPtrInput
-	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-	// repository. Required if `files` is not set.
+	// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 	Ref pulumi.StringPtrInput
-	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-	// the provider.
+	// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -282,26 +254,22 @@ func (o DeploymentOutput) DeleteOnDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.BoolPtrOutput { return v.DeleteOnDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment
-// creation.
+// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 func (o DeploymentOutput) Domains() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringArrayOutput { return v.Domains }).(pulumi.StringArrayOutput)
 }
 
-// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the
-// `Project` resource.
+// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 func (o DeploymentOutput) Environment() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringMapOutput { return v.Environment }).(pulumi.StringMapOutput)
 }
 
-// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data
-// source. Required if `gitSource` is not set.
+// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 func (o DeploymentOutput) Files() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringMapOutput { return v.Files }).(pulumi.StringMapOutput)
 }
 
-// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this
-// is omitted, then any leading `../`s will be stripped.
+// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 func (o DeploymentOutput) PathPrefix() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.PathPrefix }).(pulumi.StringPtrOutput)
 }
@@ -321,14 +289,12 @@ func (o DeploymentOutput) ProjectSettings() DeploymentProjectSettingsPtrOutput {
 	return o.ApplyT(func(v *Deployment) DeploymentProjectSettingsPtrOutput { return v.ProjectSettings }).(DeploymentProjectSettingsPtrOutput)
 }
 
-// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git
-// repository. Required if `files` is not set.
+// The branch or commit hash that should be deployed. Note this will only work if the project is configured to use a Git repository. Required if `files` is not set.
 func (o DeploymentOutput) Ref() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.Ref }).(pulumi.StringPtrOutput)
 }
 
-// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in
-// the provider.
+// The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
 func (o DeploymentOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

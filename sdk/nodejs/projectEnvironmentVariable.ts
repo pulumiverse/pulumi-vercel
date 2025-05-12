@@ -4,6 +4,88 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const exampleProject = new vercel.Project("exampleProject", {gitRepository: {
+ *     type: "github",
+ *     repo: "vercel/some-repo",
+ * }});
+ * // An environment variable that will be created
+ * // for this project for the "production" environment.
+ * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", {
+ *     projectId: exampleProject.id,
+ *     key: "foo",
+ *     value: "bar",
+ *     targets: ["production"],
+ *     comment: "a production secret",
+ * });
+ * // An environment variable that will be created
+ * // for this project for the "preview" environment when the branch is "staging".
+ * const exampleGitBranch = new vercel.ProjectEnvironmentVariable("exampleGitBranch", {
+ *     projectId: exampleProject.id,
+ *     key: "foo",
+ *     value: "bar-staging",
+ *     targets: ["preview"],
+ *     gitBranch: "staging",
+ *     comment: "a staging secret",
+ * });
+ * // A sensitive environment variable that will be created
+ * // for this project for the "production" environment.
+ * const exampleSensitive = new vercel.ProjectEnvironmentVariable("exampleSensitive", {
+ *     projectId: exampleProject.id,
+ *     key: "foo",
+ *     value: "bar-production",
+ *     targets: ["production"],
+ *     sensitive: true,
+ *     comment: "a sensitive production secret",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * If importing into a personal account, or with a team configured on
+ *
+ * the provider, simply use the project_id and environment variable id.
+ *
+ * - project_id can be found in the project `settings` tab in the Vercel UI.
+ *
+ * - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+ *
+ * or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+ *
+ * # 
+ *
+ * Note also, that the value field for sensitive environment variables will be imported as `null`.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+ * ```
+ *
+ * Alternatively, you can import via the team_id, project_id and
+ *
+ * environment variable id.
+ *
+ * - team_id can be found in the team `settings` tab in the Vercel UI.
+ *
+ * - project_id can be found in the project `settings` tab in the Vercel UI.
+ *
+ * - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
+ *
+ * or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+ *
+ * # 
+ *
+ * Note also, that the value field for sensitive environment variables will be imported as `null`.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+ * ```
+ */
 export class ProjectEnvironmentVariable extends pulumi.CustomResource {
     /**
      * Get an existing ProjectEnvironmentVariable resource's state with the given name, ID, and optional extra
@@ -37,8 +119,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly comment!: pulumi.Output<string>;
     /**
-     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-     * `customEnvironmentIds` must be set.
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
      */
     public readonly customEnvironmentIds!: pulumi.Output<string[]>;
     /**
@@ -54,13 +135,11 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-     * policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     public readonly sensitive!: pulumi.Output<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     public readonly targets!: pulumi.Output<string[]>;
     /**
@@ -131,8 +210,7 @@ export interface ProjectEnvironmentVariableState {
      */
     comment?: pulumi.Input<string>;
     /**
-     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-     * `customEnvironmentIds` must be set.
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
      */
     customEnvironmentIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -148,13 +226,11 @@ export interface ProjectEnvironmentVariableState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-     * policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -176,8 +252,7 @@ export interface ProjectEnvironmentVariableArgs {
      */
     comment?: pulumi.Input<string>;
     /**
-     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or
-     * `customEnvironmentIds` must be set.
+     * The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `customEnvironmentIds` must be set.
      */
     customEnvironmentIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -193,13 +268,11 @@ export interface ProjectEnvironmentVariableArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable
-     * policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
      */
     sensitive?: pulumi.Input<boolean>;
     /**
-     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`,
-     * or `development`. At least one of `target` or `customEnvironmentIds` must be set.
+     * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      */
     targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**

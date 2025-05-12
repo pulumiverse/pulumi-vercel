@@ -784,7 +784,7 @@ class FirewallConfigRulesRuleAction(dict):
         """
         :param str action: Base action
         :param str action_duration: Forward persistence of a rule aciton
-        :param 'FirewallConfigRulesRuleActionRateLimitArgs' rate_limit: Behavior or a rate limiting action. Required if action is rate_limit
+        :param 'FirewallConfigRulesRuleActionRateLimitArgs' rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
         :param 'FirewallConfigRulesRuleActionRedirectArgs' redirect: How to redirect a request. Required if action is redirect
         """
         pulumi.set(__self__, "action", action)
@@ -815,7 +815,7 @@ class FirewallConfigRulesRuleAction(dict):
     @pulumi.getter(name="rateLimit")
     def rate_limit(self) -> Optional['outputs.FirewallConfigRulesRuleActionRateLimit']:
         """
-        Behavior or a rate limiting action. Required if action is rate_limit
+        Behavior or a rate limiting action. Required if action is rate*limit
         """
         return pulumi.get(self, "rate_limit")
 
@@ -1422,7 +1422,7 @@ class ProjectMembersMember(dict):
                  user_id: Optional[str] = None,
                  username: Optional[str] = None):
         """
-        :param str role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        :param str role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         :param str email: The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param str user_id: The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param str username: The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
@@ -1439,7 +1439,7 @@ class ProjectMembersMember(dict):
     @pulumi.getter
     def role(self) -> str:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         return pulumi.get(self, "role")
 
@@ -2160,7 +2160,7 @@ class GetProjectMembersMemberResult(dict):
                  username: str):
         """
         :param str email: The email of the user.
-        :param str role: The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        :param str role: The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         :param str user_id: The ID of the user.
         :param str username: The username of the user.
         """
@@ -2181,7 +2181,7 @@ class GetProjectMembersMemberResult(dict):
     @pulumi.getter
     def role(self) -> str:
         """
-        The role of the user in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         return pulumi.get(self, "role")
 

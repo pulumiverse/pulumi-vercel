@@ -4,6 +4,11 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about an existing Alias resource.
+ *
+ * An Alias allows a `vercel.Deployment` to be accessed through a different URL.
+ */
 export function getAlias(args: GetAliasArgs, opts?: pulumi.InvokeOptions): Promise<GetAliasResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getAlias:getAlias", {
@@ -16,7 +21,13 @@ export function getAlias(args: GetAliasArgs, opts?: pulumi.InvokeOptions): Promi
  * A collection of arguments for invoking getAlias.
  */
 export interface GetAliasArgs {
+    /**
+     * The Alias or Alias ID to be retrieved.
+     */
     alias: string;
+    /**
+     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -24,11 +35,28 @@ export interface GetAliasArgs {
  * A collection of values returned by getAlias.
  */
 export interface GetAliasResult {
+    /**
+     * The Alias or Alias ID to be retrieved.
+     */
     readonly alias: string;
+    /**
+     * The ID of the Deployment the Alias is associated with.
+     */
     readonly deploymentId: string;
+    /**
+     * The ID of this resource.
+     */
     readonly id: string;
+    /**
+     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
 }
+/**
+ * Provides information about an existing Alias resource.
+ *
+ * An Alias allows a `vercel.Deployment` to be accessed through a different URL.
+ */
 export function getAliasOutput(args: GetAliasOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAliasResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getAlias:getAlias", {
@@ -41,6 +69,12 @@ export function getAliasOutput(args: GetAliasOutputArgs, opts?: pulumi.InvokeOpt
  * A collection of arguments for invoking getAlias.
  */
 export interface GetAliasOutputArgs {
+    /**
+     * The Alias or Alias ID to be retrieved.
+     */
     alias: pulumi.Input<string>;
+    /**
+     * The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

@@ -9,37 +9,109 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides a Configurable Log Drain resource.
+//
+// > For Log Drain integrations, please see the [Integration Log Drain docs](https://vercel.com/docs/observability/log-drains#log-drains-integration).
+//
+// Log Drains collect all of your logs using a service specializing in storing app logs.
+//
+// Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
+//
+// > Only Pro and Enterprise teams can create Configurable Log Drains.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.GetEndpointVerification(ctx, &vercel.GetEndpointVerificationArgs{}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewLogDrain(ctx, "exampleLogDrain", &vercel.LogDrainArgs{
+//				DeliveryFormat: pulumi.String("json"),
+//				Environments: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//				Headers: pulumi.StringMap{
+//					"some-key": pulumi.String("some-value"),
+//				},
+//				ProjectIds: pulumi.StringArray{
+//					exampleProject.ID(),
+//				},
+//				SamplingRate: pulumi.Float64(0.8),
+//				Secret:       pulumi.String("a_very_long_and_very_well_specified_secret"),
+//				Sources: pulumi.StringArray{
+//					pulumi.String("static"),
+//				},
+//				Endpoint: pulumi.String("https://example.com/my-log-drain-endpoint"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, simply use the log_drain_id.
+//
+// - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
+//
+// ```sh
+// $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
+//
+// Alternatively, you can import via the team_id and edge_config_id.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
+//
+// ```sh
+// $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
 type LogDrain struct {
 	pulumi.CustomResourceState
 
 	// The format log data should be delivered in. Can be `json` or `ndjson`.
 	DeliveryFormat pulumi.StringOutput `pulumi:"deliveryFormat"`
-	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-	// an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header
-	// should be can be read from the `vercelEndpointVerificationCode` data source.
+	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
 	Endpoint pulumi.StringOutput `pulumi:"endpoint"`
 	// Logs from the selected environments will be forwarded to your webhook. At least one must be present.
 	Environments pulumi.StringArrayOutput `pulumi:"environments"`
 	// Custom headers to include in requests to the log drain endpoint.
 	Headers pulumi.StringMapOutput `pulumi:"headers"`
-	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-	// the specified endpoint. If omitted, logs will be sent for all projects.
+	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds pulumi.StringArrayOutput `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-	// unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate pulumi.Float64PtrOutput `pulumi:"samplingRate"`
-	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-	// Vercel and are not tampered with. See
-	// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringOutput `pulumi:"secret"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-	// `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
 	Sources pulumi.StringArrayOutput `pulumi:"sources"`
-	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-	// been set in the provider.
+	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -94,58 +166,42 @@ func GetLogDrain(ctx *pulumi.Context,
 type logDrainState struct {
 	// The format log data should be delivered in. Can be `json` or `ndjson`.
 	DeliveryFormat *string `pulumi:"deliveryFormat"`
-	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-	// an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header
-	// should be can be read from the `vercelEndpointVerificationCode` data source.
+	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
 	Endpoint *string `pulumi:"endpoint"`
 	// Logs from the selected environments will be forwarded to your webhook. At least one must be present.
 	Environments []string `pulumi:"environments"`
 	// Custom headers to include in requests to the log drain endpoint.
 	Headers map[string]string `pulumi:"headers"`
-	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-	// the specified endpoint. If omitted, logs will be sent for all projects.
+	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds []string `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-	// unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate *float64 `pulumi:"samplingRate"`
-	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-	// Vercel and are not tampered with. See
-	// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret *string `pulumi:"secret"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-	// `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
 	Sources []string `pulumi:"sources"`
-	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-	// been set in the provider.
+	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 type LogDrainState struct {
 	// The format log data should be delivered in. Can be `json` or `ndjson`.
 	DeliveryFormat pulumi.StringPtrInput
-	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-	// an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header
-	// should be can be read from the `vercelEndpointVerificationCode` data source.
+	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
 	Endpoint pulumi.StringPtrInput
 	// Logs from the selected environments will be forwarded to your webhook. At least one must be present.
 	Environments pulumi.StringArrayInput
 	// Custom headers to include in requests to the log drain endpoint.
 	Headers pulumi.StringMapInput
-	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-	// the specified endpoint. If omitted, logs will be sent for all projects.
+	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds pulumi.StringArrayInput
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-	// unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate pulumi.Float64PtrInput
-	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-	// Vercel and are not tampered with. See
-	// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringPtrInput
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-	// `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
 	Sources pulumi.StringArrayInput
-	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-	// been set in the provider.
+	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -156,29 +212,21 @@ func (LogDrainState) ElementType() reflect.Type {
 type logDrainArgs struct {
 	// The format log data should be delivered in. Can be `json` or `ndjson`.
 	DeliveryFormat string `pulumi:"deliveryFormat"`
-	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-	// an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header
-	// should be can be read from the `vercelEndpointVerificationCode` data source.
+	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
 	Endpoint string `pulumi:"endpoint"`
 	// Logs from the selected environments will be forwarded to your webhook. At least one must be present.
 	Environments []string `pulumi:"environments"`
 	// Custom headers to include in requests to the log drain endpoint.
 	Headers map[string]string `pulumi:"headers"`
-	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-	// the specified endpoint. If omitted, logs will be sent for all projects.
+	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds []string `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-	// unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate *float64 `pulumi:"samplingRate"`
-	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-	// Vercel and are not tampered with. See
-	// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret *string `pulumi:"secret"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-	// `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
 	Sources []string `pulumi:"sources"`
-	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-	// been set in the provider.
+	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -186,29 +234,21 @@ type logDrainArgs struct {
 type LogDrainArgs struct {
 	// The format log data should be delivered in. Can be `json` or `ndjson`.
 	DeliveryFormat pulumi.StringInput
-	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-	// an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header
-	// should be can be read from the `vercelEndpointVerificationCode` data source.
+	// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
 	Endpoint pulumi.StringInput
 	// Logs from the selected environments will be forwarded to your webhook. At least one must be present.
 	Environments pulumi.StringArrayInput
 	// Custom headers to include in requests to the log drain endpoint.
 	Headers pulumi.StringMapInput
-	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-	// the specified endpoint. If omitted, logs will be sent for all projects.
+	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds pulumi.StringArrayInput
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-	// unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate pulumi.Float64PtrInput
-	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-	// Vercel and are not tampered with. See
-	// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringPtrInput
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-	// `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
 	Sources pulumi.StringArrayInput
-	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-	// been set in the provider.
+	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -304,9 +344,7 @@ func (o LogDrainOutput) DeliveryFormat() pulumi.StringOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringOutput { return v.DeliveryFormat }).(pulumi.StringOutput)
 }
 
-// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-// an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header
-// should be can be read from the `vercelEndpointVerificationCode` data source.
+// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpointVerification data source. The value the `x-vercel-verify` header should be can be read from the `vercelEndpointVerificationCode` data source.
 func (o LogDrainOutput) Endpoint() pulumi.StringOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringOutput { return v.Endpoint }).(pulumi.StringOutput)
 }
@@ -321,33 +359,27 @@ func (o LogDrainOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringMapOutput { return v.Headers }).(pulumi.StringMapOutput)
 }
 
-// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-// the specified endpoint. If omitted, logs will be sent for all projects.
+// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 func (o LogDrainOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringArrayOutput { return v.ProjectIds }).(pulumi.StringArrayOutput)
 }
 
-// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-// unspecified, all logs are sent.
+// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 func (o LogDrainOutput) SamplingRate() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.Float64PtrOutput { return v.SamplingRate }).(pulumi.Float64PtrOutput)
 }
 
-// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-// Vercel and are not tampered with. See
-// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 func (o LogDrainOutput) Secret() pulumi.StringOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringOutput { return v.Secret }).(pulumi.StringOutput)
 }
 
-// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-// `lambda`.
+// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
 func (o LogDrainOutput) Sources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringArrayOutput { return v.Sources }).(pulumi.StringArrayOutput)
 }
 
-// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-// been set in the provider.
+// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LogDrainOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

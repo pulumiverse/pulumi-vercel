@@ -8,9 +8,42 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Retrieves members and their roles for a Vercel Project.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//				Name: "example-with-members",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.LookupProjectMembers(ctx, &vercel.LookupProjectMembersArgs{
+//				ProjectId: exampleProject.Id,
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupProjectMembers(ctx *pulumi.Context, args *LookupProjectMembersArgs, opts ...pulumi.InvokeOption) (*LookupProjectMembersResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupProjectMembersResult
@@ -23,17 +56,22 @@ func LookupProjectMembers(ctx *pulumi.Context, args *LookupProjectMembersArgs, o
 
 // A collection of arguments for invoking getProjectMembers.
 type LookupProjectMembersArgs struct {
-	ProjectId string  `pulumi:"projectId"`
-	TeamId    *string `pulumi:"teamId"`
+	// The ID of the Vercel Project.
+	ProjectId string `pulumi:"projectId"`
+	// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getProjectMembers.
 type LookupProjectMembersResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id        string                    `pulumi:"id"`
-	Members   []GetProjectMembersMember `pulumi:"members"`
-	ProjectId string                    `pulumi:"projectId"`
-	TeamId    *string                   `pulumi:"teamId"`
+	Id string `pulumi:"id"`
+	// The set of members in this project.
+	Members []GetProjectMembersMember `pulumi:"members"`
+	// The ID of the Vercel Project.
+	ProjectId string `pulumi:"projectId"`
+	// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+	TeamId *string `pulumi:"teamId"`
 }
 
 func LookupProjectMembersOutput(ctx *pulumi.Context, args LookupProjectMembersOutputArgs, opts ...pulumi.InvokeOption) LookupProjectMembersResultOutput {
@@ -57,8 +95,10 @@ func LookupProjectMembersOutput(ctx *pulumi.Context, args LookupProjectMembersOu
 
 // A collection of arguments for invoking getProjectMembers.
 type LookupProjectMembersOutputArgs struct {
-	ProjectId pulumi.StringInput    `pulumi:"projectId"`
-	TeamId    pulumi.StringPtrInput `pulumi:"teamId"`
+	// The ID of the Vercel Project.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
 func (LookupProjectMembersOutputArgs) ElementType() reflect.Type {
@@ -85,14 +125,17 @@ func (o LookupProjectMembersResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectMembersResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The set of members in this project.
 func (o LookupProjectMembersResultOutput) Members() GetProjectMembersMemberArrayOutput {
 	return o.ApplyT(func(v LookupProjectMembersResult) []GetProjectMembersMember { return v.Members }).(GetProjectMembersMemberArrayOutput)
 }
 
+// The ID of the Vercel Project.
 func (o LookupProjectMembersResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectMembersResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
+// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
 func (o LookupProjectMembersResultOutput) TeamId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupProjectMembersResult) *string { return v.TeamId }).(pulumi.StringPtrOutput)
 }

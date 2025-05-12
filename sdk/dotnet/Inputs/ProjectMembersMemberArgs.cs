@@ -20,7 +20,7 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string>? Email { get; set; }
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+        /// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         /// </summary>
         [Input("role", required: true)]
         public Input<string> Role { get; set; } = null!;

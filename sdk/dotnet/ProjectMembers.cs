@@ -10,6 +10,40 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleProject = new Vercel.Project("exampleProject");
+    /// 
+    ///     var exampleProjectMembers = new Vercel.ProjectMembers("exampleProjectMembers", new()
+    ///     {
+    ///         ProjectId = exampleProject.Id,
+    ///         Members = new[]
+    ///         {
+    ///             new Vercel.Inputs.ProjectMembersMemberArgs
+    ///             {
+    ///                 Email = "user@example.com",
+    ///                 Role = "PROJECT_VIEWER",
+    ///             },
+    ///             new Vercel.Inputs.ProjectMembersMemberArgs
+    ///             {
+    ///                 Username = "some-example-user",
+    ///                 Role = "PROJECT_DEVELOPER",
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/projectMembers:ProjectMembers")]
     public partial class ProjectMembers : global::Pulumi.CustomResource
     {
@@ -26,8 +60,7 @@ namespace Pulumiverse.Vercel
         public Output<string> ProjectId { get; private set; } = null!;
 
         /// <summary>
-        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        /// provider.
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -98,8 +131,7 @@ namespace Pulumiverse.Vercel
         public Input<string> ProjectId { get; set; } = null!;
 
         /// <summary>
-        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        /// provider.
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -131,8 +163,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? ProjectId { get; set; }
 
         /// <summary>
-        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the
-        /// provider.
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

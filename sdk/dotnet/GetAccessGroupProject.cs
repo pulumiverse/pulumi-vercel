@@ -12,9 +12,67 @@ namespace Pulumiverse.Vercel
 {
     public static class GetAccessGroupProject
     {
+        /// <summary>
+        /// Provides information about an existing Access Group Project Assignment.
+        /// 
+        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "my-existing-project",
+        ///     });
+        /// 
+        ///     var exampleAccessGroupProject = Vercel.GetAccessGroupProject.Invoke(new()
+        ///     {
+        ///         AccessGroupId = "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ///         ProjectId = vercel_project.Example.Id,
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetAccessGroupProjectResult> InvokeAsync(GetAccessGroupProjectArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAccessGroupProjectResult>("vercel:index/getAccessGroupProject:getAccessGroupProject", args ?? new GetAccessGroupProjectArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about an existing Access Group Project Assignment.
+        /// 
+        /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "my-existing-project",
+        ///     });
+        /// 
+        ///     var exampleAccessGroupProject = Vercel.GetAccessGroupProject.Invoke(new()
+        ///     {
+        ///         AccessGroupId = "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ///         ProjectId = vercel_project.Example.Id,
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetAccessGroupProjectResult> Invoke(GetAccessGroupProjectInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAccessGroupProjectResult>("vercel:index/getAccessGroupProject:getAccessGroupProject", args ?? new GetAccessGroupProjectInvokeArgs(), options.WithDefaults());
     }
@@ -22,12 +80,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAccessGroupProjectArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The Access Group ID.
+        /// </summary>
         [Input("accessGroupId", required: true)]
         public string AccessGroupId { get; set; } = null!;
 
+        /// <summary>
+        /// The Project ID.
+        /// </summary>
         [Input("projectId", required: true)]
         public string ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -39,12 +106,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAccessGroupProjectInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The Access Group ID.
+        /// </summary>
         [Input("accessGroupId", required: true)]
         public Input<string> AccessGroupId { get; set; } = null!;
 
+        /// <summary>
+        /// The Project ID.
+        /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -58,13 +134,25 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetAccessGroupProjectResult
     {
+        /// <summary>
+        /// The Access Group ID.
+        /// </summary>
         public readonly string AccessGroupId;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The Project ID.
+        /// </summary>
         public readonly string ProjectId;
+        /// <summary>
+        /// The Access Group Project Role.
+        /// </summary>
         public readonly string Role;
+        /// <summary>
+        /// The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

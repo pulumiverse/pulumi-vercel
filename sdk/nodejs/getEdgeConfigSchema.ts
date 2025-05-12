@@ -4,6 +4,20 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const test = vercel.getEdgeConfigSchema({
+ *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ * });
+ * ```
+ */
 export function getEdgeConfigSchema(args: GetEdgeConfigSchemaArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigSchemaResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getEdgeConfigSchema:getEdgeConfigSchema", {
@@ -16,7 +30,13 @@ export function getEdgeConfigSchema(args: GetEdgeConfigSchemaArgs, opts?: pulumi
  * A collection of arguments for invoking getEdgeConfigSchema.
  */
 export interface GetEdgeConfigSchemaArgs {
+    /**
+     * The ID of the Edge Config that the schema should be for.
+     */
     id: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -24,10 +44,33 @@ export interface GetEdgeConfigSchemaArgs {
  * A collection of values returned by getEdgeConfigSchema.
  */
 export interface GetEdgeConfigSchemaResult {
+    /**
+     * A JSON schema that will be used to validate data in the Edge Config.
+     */
     readonly definition: string;
+    /**
+     * The ID of the Edge Config that the schema should be for.
+     */
     readonly id: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
 }
+/**
+ * An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const test = vercel.getEdgeConfigSchema({
+ *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ * });
+ * ```
+ */
 export function getEdgeConfigSchemaOutput(args: GetEdgeConfigSchemaOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigSchemaResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getEdgeConfigSchema:getEdgeConfigSchema", {
@@ -40,6 +83,12 @@ export function getEdgeConfigSchemaOutput(args: GetEdgeConfigSchemaOutputArgs, o
  * A collection of arguments for invoking getEdgeConfigSchema.
  */
 export interface GetEdgeConfigSchemaOutputArgs {
+    /**
+     * The ID of the Edge Config that the schema should be for.
+     */
     id: pulumi.Input<string>;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

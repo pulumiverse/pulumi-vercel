@@ -55,41 +55,65 @@ class GetSharedEnvironmentVariableResult:
     @property
     @pulumi.getter
     def comment(self) -> str:
+        """
+        A comment explaining what the environment variable is for.
+        """
         return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of the Environment Variable.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def key(self) -> str:
+        """
+        The name of the Environment Variable.
+        """
         return pulumi.get(self, "key")
 
     @property
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> Sequence[str]:
+        """
+        The ID of the Vercel project.
+        """
         return pulumi.get(self, "project_ids")
 
     @property
     @pulumi.getter
     def sensitive(self) -> bool:
+        """
+        Whether the Environment Variable is sensitive or not.
+        """
         return pulumi.get(self, "sensitive")
 
     @property
     @pulumi.getter
     def targets(self) -> Sequence[str]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        """
         return pulumi.get(self, "targets")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the Vercel team. Shared environment variables require a team.
+        """
         return pulumi.get(self, "team_id")
 
     @property
     @pulumi.getter
     def value(self) -> str:
+        """
+        The value of the Environment Variable.
+        """
         return pulumi.get(self, "value")
 
 
@@ -115,7 +139,31 @@ def get_shared_environment_variable(id: Optional[str] = None,
                                     team_id: Optional[str] = None,
                                     opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSharedEnvironmentVariableResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Shared Environment Variable within Vercel.
+
+    A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+
+    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_shared_environment_variable(id="xxxxxxxxxxxxxxx")
+    example_by_key_and_target = vercel.get_shared_environment_variable(key="MY_ENV_VAR",
+        targets=[
+            "production",
+            "preview",
+        ])
+    ```
+
+
+    :param str id: The ID of the Environment Variable.
+    :param str key: The name of the Environment Variable.
+    :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+    :param str team_id: The ID of the Vercel team. Shared environment variables require a team.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -140,7 +188,31 @@ def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[st
                                            team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSharedEnvironmentVariableResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Shared Environment Variable within Vercel.
+
+    A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+
+    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_shared_environment_variable(id="xxxxxxxxxxxxxxx")
+    example_by_key_and_target = vercel.get_shared_environment_variable(key="MY_ENV_VAR",
+        targets=[
+            "production",
+            "preview",
+        ])
+    ```
+
+
+    :param str id: The ID of the Environment Variable.
+    :param str key: The name of the Environment Variable.
+    :param Sequence[str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+    :param str team_id: The ID of the Vercel team. Shared environment variables require a team.
     """
     __args__ = dict()
     __args__['id'] = id

@@ -43,21 +43,33 @@ class GetAttackChallengeModeResult:
     @property
     @pulumi.getter
     def enabled(self) -> bool:
+        """
+        Whether Attack Challenge Mode is enabled or not.
+        """
         return pulumi.get(self, "enabled")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The resource identifier.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> str:
+        """
+        The ID of the Project to adjust the CPU for.
+        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -77,7 +89,22 @@ def get_attack_challenge_mode(project_id: Optional[str] = None,
                               team_id: Optional[str] = None,
                               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAttackChallengeModeResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides an Attack Challenge Mode resource.
+
+    Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_attack_challenge_mode(project_id=vercel_project["example"]["id"])
+    ```
+
+
+    :param str project_id: The ID of the Project to adjust the CPU for.
+    :param str team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['projectId'] = project_id
@@ -94,7 +121,22 @@ def get_attack_challenge_mode_output(project_id: Optional[pulumi.Input[str]] = N
                                      team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAttackChallengeModeResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides an Attack Challenge Mode resource.
+
+    Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example = vercel.get_attack_challenge_mode(project_id=vercel_project["example"]["id"])
+    ```
+
+
+    :param str project_id: The ID of the Project to adjust the CPU for.
+    :param str team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['projectId'] = project_id

@@ -27,10 +27,8 @@ class WebhookArgs:
         The set of arguments for constructing a Webhook resource.
         :param pulumi.Input[str] endpoint: Webhooks events will be sent as POST requests to this URL.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] events: A list of the events the webhook will listen to. At least one must be present.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-               endpoint.
-        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-               been set in the provider.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "endpoint", endpoint)
         pulumi.set(__self__, "events", events)
@@ -67,8 +65,7 @@ class WebhookArgs:
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-        endpoint.
+        A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
         """
         return pulumi.get(self, "project_ids")
 
@@ -80,8 +77,7 @@ class WebhookArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-        been set in the provider.
+        The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -102,13 +98,9 @@ class _WebhookState:
         Input properties used for looking up and filtering Webhook resources.
         :param pulumi.Input[str] endpoint: Webhooks events will be sent as POST requests to this URL.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] events: A list of the events the webhook will listen to. At least one must be present.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-               endpoint.
-        :param pulumi.Input[str] secret: A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
-               the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
-               details.
-        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-               been set in the provider.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+        :param pulumi.Input[str] secret: A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if endpoint is not None:
             pulumi.set(__self__, "endpoint", endpoint)
@@ -149,8 +141,7 @@ class _WebhookState:
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-        endpoint.
+        A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
         """
         return pulumi.get(self, "project_ids")
 
@@ -162,9 +153,7 @@ class _WebhookState:
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[str]]:
         """
-        A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
-        the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
-        details.
+        A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
         """
         return pulumi.get(self, "secret")
 
@@ -176,8 +165,7 @@ class _WebhookState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-        been set in the provider.
+        The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -197,15 +185,44 @@ class Webhook(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Webhook resource with the given unique name, props, and options.
+        A webhook is a trigger-based HTTP endpoint configured to receive HTTP POST requests through events.
+
+        When an event happens, a webhook is sent to a third-party app, which can then take appropriate action.
+
+        > Only Pro and Enterprise teams are able to configure these webhooks at the account level.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example = vercel.Project("example")
+        example2 = vercel.Project("example2")
+        with_project_ids = vercel.Webhook("withProjectIds",
+            events=[
+                "deployment.created",
+                "deployment.succeeded",
+            ],
+            endpoint="https://example.com/endpoint",
+            project_ids=[
+                example.id,
+                example2.id,
+            ])
+        without_project_ids = vercel.Webhook("withoutProjectIds",
+            events=[
+                "deployment.created",
+                "deployment.succeeded",
+            ],
+            endpoint="https://example.com/endpoint")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] endpoint: Webhooks events will be sent as POST requests to this URL.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] events: A list of the events the webhook will listen to. At least one must be present.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-               endpoint.
-        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-               been set in the provider.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -214,7 +231,38 @@ class Webhook(pulumi.CustomResource):
                  args: WebhookArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Webhook resource with the given unique name, props, and options.
+        A webhook is a trigger-based HTTP endpoint configured to receive HTTP POST requests through events.
+
+        When an event happens, a webhook is sent to a third-party app, which can then take appropriate action.
+
+        > Only Pro and Enterprise teams are able to configure these webhooks at the account level.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example = vercel.Project("example")
+        example2 = vercel.Project("example2")
+        with_project_ids = vercel.Webhook("withProjectIds",
+            events=[
+                "deployment.created",
+                "deployment.succeeded",
+            ],
+            endpoint="https://example.com/endpoint",
+            project_ids=[
+                example.id,
+                example2.id,
+            ])
+        without_project_ids = vercel.Webhook("withoutProjectIds",
+            events=[
+                "deployment.created",
+                "deployment.succeeded",
+            ],
+            endpoint="https://example.com/endpoint")
+        ```
+
         :param str resource_name: The name of the resource.
         :param WebhookArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -278,13 +326,9 @@ class Webhook(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] endpoint: Webhooks events will be sent as POST requests to this URL.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] events: A list of the events the webhook will listen to. At least one must be present.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-               endpoint.
-        :param pulumi.Input[str] secret: A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
-               the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
-               details.
-        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-               been set in the provider.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
+        :param pulumi.Input[str] secret: A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
+        :param pulumi.Input[str] team_id: The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -317,8 +361,7 @@ class Webhook(pulumi.CustomResource):
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
-        A list of project IDs that the webhook should be associated with. These projects should send events to the specified
-        endpoint.
+        A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
         """
         return pulumi.get(self, "project_ids")
 
@@ -326,9 +369,7 @@ class Webhook(pulumi.CustomResource):
     @pulumi.getter
     def secret(self) -> pulumi.Output[str]:
         """
-        A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of
-        the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further
-        details.
+        A secret value which will be provided in the `x-vercel-signature` header and can be used to verify the authenticity of the webhook. See https://vercel.com/docs/observability/webhooks-overview/webhooks-api#securing-webhooks for further details.
         """
         return pulumi.get(self, "secret")
 
@@ -336,8 +377,7 @@ class Webhook(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not
-        been set in the provider.
+        The ID of the team the Webhook should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

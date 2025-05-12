@@ -12,9 +12,67 @@ namespace Pulumiverse.Vercel
 {
     public static class GetCustomEnvironment
     {
+        /// <summary>
+        /// Provides information about an existing CustomEnvironment resource.
+        /// 
+        /// An CustomEnvironment allows a `vercel.Deployment` to be accessed through a different URL.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "example-project-with-custom-env",
+        ///     });
+        /// 
+        ///     var exampleCustomEnvironment = Vercel.GetCustomEnvironment.Invoke(new()
+        ///     {
+        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         Name = "example-custom-env",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetCustomEnvironmentResult> InvokeAsync(GetCustomEnvironmentArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetCustomEnvironmentResult>("vercel:index/getCustomEnvironment:getCustomEnvironment", args ?? new GetCustomEnvironmentArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about an existing CustomEnvironment resource.
+        /// 
+        /// An CustomEnvironment allows a `vercel.Deployment` to be accessed through a different URL.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     {
+        ///         Name = "example-project-with-custom-env",
+        ///     });
+        /// 
+        ///     var exampleCustomEnvironment = Vercel.GetCustomEnvironment.Invoke(new()
+        ///     {
+        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         Name = "example-custom-env",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetCustomEnvironmentResult> Invoke(GetCustomEnvironmentInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetCustomEnvironmentResult>("vercel:index/getCustomEnvironment:getCustomEnvironment", args ?? new GetCustomEnvironmentInvokeArgs(), options.WithDefaults());
     }
@@ -22,12 +80,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetCustomEnvironmentArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The name of the environment.
+        /// </summary>
         [Input("name", required: true)]
         public string Name { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the existing Vercel Project.
+        /// </summary>
         [Input("projectId", required: true)]
         public string ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -39,12 +106,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetCustomEnvironmentInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The name of the environment.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the existing Vercel Project.
+        /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
 
+        /// <summary>
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -58,11 +134,29 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetCustomEnvironmentResult
     {
+        /// <summary>
+        /// The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
+        /// </summary>
         public readonly Outputs.GetCustomEnvironmentBranchTrackingResult BranchTracking;
+        /// <summary>
+        /// A description of what the environment is.
+        /// </summary>
         public readonly string Description;
+        /// <summary>
+        /// The ID of the environment.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The name of the environment.
+        /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// The ID of the existing Vercel Project.
+        /// </summary>
         public readonly string ProjectId;
+        /// <summary>
+        /// The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

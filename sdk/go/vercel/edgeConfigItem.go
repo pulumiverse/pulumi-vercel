@@ -9,9 +9,72 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides an Edge Config Item.
+//
+// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+//
+// An Edge Config Item is a value within an Edge Config.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleEdgeConfig, err := vercel.NewEdgeConfig(ctx, "exampleEdgeConfig", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewEdgeConfigItem(ctx, "exampleEdgeConfigItem", &vercel.EdgeConfigItemArgs{
+//				EdgeConfigId: exampleEdgeConfig.ID(),
+//				Key:          pulumi.String("foobar"),
+//				Value:        pulumi.String("baz"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// # If importing into a personal account, or with a team configured on
+//
+// the provider, simply use the edge config id and the key of the item to import.
+//
+// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+//
+// - key is the key of teh item to import.
+//
+// ```sh
+// $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+// ```
+//
+// Alternatively, you can import via the team_id, edge_config_id and the key of the item to import.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+//
+// - key is the key of the item to import.
+//
+// ```sh
+// $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+// ```
 type EdgeConfigItem struct {
 	pulumi.CustomResourceState
 
@@ -19,8 +82,7 @@ type EdgeConfigItem struct {
 	EdgeConfigId pulumi.StringOutput `pulumi:"edgeConfigId"`
 	// The name of the key you want to add to or update within your Edge Config.
 	Key pulumi.StringOutput `pulumi:"key"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// The value you want to assign to the key.
 	Value pulumi.StringOutput `pulumi:"value"`
@@ -69,8 +131,7 @@ type edgeConfigItemState struct {
 	EdgeConfigId *string `pulumi:"edgeConfigId"`
 	// The name of the key you want to add to or update within your Edge Config.
 	Key *string `pulumi:"key"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 	// The value you want to assign to the key.
 	Value *string `pulumi:"value"`
@@ -81,8 +142,7 @@ type EdgeConfigItemState struct {
 	EdgeConfigId pulumi.StringPtrInput
 	// The name of the key you want to add to or update within your Edge Config.
 	Key pulumi.StringPtrInput
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 	// The value you want to assign to the key.
 	Value pulumi.StringPtrInput
@@ -97,8 +157,7 @@ type edgeConfigItemArgs struct {
 	EdgeConfigId string `pulumi:"edgeConfigId"`
 	// The name of the key you want to add to or update within your Edge Config.
 	Key string `pulumi:"key"`
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 	// The value you want to assign to the key.
 	Value string `pulumi:"value"`
@@ -110,8 +169,7 @@ type EdgeConfigItemArgs struct {
 	EdgeConfigId pulumi.StringInput
 	// The name of the key you want to add to or update within your Edge Config.
 	Key pulumi.StringInput
-	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-	// not been set in the provider.
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 	// The value you want to assign to the key.
 	Value pulumi.StringInput
@@ -214,8 +272,7 @@ func (o EdgeConfigItemOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfigItem) pulumi.StringOutput { return v.Key }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-// not been set in the provider.
+// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o EdgeConfigItemOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfigItem) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

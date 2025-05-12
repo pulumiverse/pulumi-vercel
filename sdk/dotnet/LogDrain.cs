@@ -10,6 +10,81 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides a Configurable Log Drain resource.
+    /// 
+    /// &gt; For Log Drain integrations, please see the [Integration Log Drain docs](https://vercel.com/docs/observability/log-drains#log-drains-integration).
+    /// 
+    /// Log Drains collect all of your logs using a service specializing in storing app logs.
+    /// 
+    /// Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
+    /// 
+    /// &gt; Only Pro and Enterprise teams can create Configurable Log Drains.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumi.Vercel;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleEndpointVerification = Vercel.GetEndpointVerification.Invoke();
+    /// 
+    ///     var exampleProject = new Vercel.Project("exampleProject");
+    /// 
+    ///     var exampleLogDrain = new Vercel.LogDrain("exampleLogDrain", new()
+    ///     {
+    ///         DeliveryFormat = "json",
+    ///         Environments = new[]
+    ///         {
+    ///             "production",
+    ///         },
+    ///         Headers = 
+    ///         {
+    ///             { "some-key", "some-value" },
+    ///         },
+    ///         ProjectIds = new[]
+    ///         {
+    ///             exampleProject.Id,
+    ///         },
+    ///         SamplingRate = 0.8,
+    ///         Secret = "a_very_long_and_very_well_specified_secret",
+    ///         Sources = new[]
+    ///         {
+    ///             "static",
+    ///         },
+    ///         Endpoint = "https://example.com/my-log-drain-endpoint",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the log_drain_id.
+    /// 
+    /// - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// 
+    /// Alternatively, you can import via the team_id and edge_config_id.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/logDrain:LogDrain")]
     public partial class LogDrain : global::Pulumi.CustomResource
     {
@@ -20,9 +95,7 @@ namespace Pulumiverse.Vercel
         public Output<string> DeliveryFormat { get; private set; } = null!;
 
         /// <summary>
-        /// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-        /// an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header
-        /// should be can be read from the `vercel_endpoint_verification_code` data source.
+        /// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         /// </summary>
         [Output("endpoint")]
         public Output<string> Endpoint { get; private set; } = null!;
@@ -40,37 +113,31 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableDictionary<string, string>?> Headers { get; private set; } = null!;
 
         /// <summary>
-        /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-        /// the specified endpoint. If omitted, logs will be sent for all projects.
+        /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         /// </summary>
         [Output("projectIds")]
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
 
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-        /// unspecified, all logs are sent.
+        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         /// </summary>
         [Output("samplingRate")]
         public Output<double?> SamplingRate { get; private set; } = null!;
 
         /// <summary>
-        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-        /// Vercel and are not tampered with. See
-        /// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         /// </summary>
         [Output("secret")]
         public Output<string> Secret { get; private set; } = null!;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-        /// `lambda`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
         /// </summary>
         [Output("sources")]
         public Output<ImmutableArray<string>> Sources { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-        /// been set in the provider.
+        /// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -133,9 +200,7 @@ namespace Pulumiverse.Vercel
         public Input<string> DeliveryFormat { get; set; } = null!;
 
         /// <summary>
-        /// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-        /// an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header
-        /// should be can be read from the `vercel_endpoint_verification_code` data source.
+        /// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         /// </summary>
         [Input("endpoint", required: true)]
         public Input<string> Endpoint { get; set; } = null!;
@@ -168,8 +233,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _projectIds;
 
         /// <summary>
-        /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-        /// the specified endpoint. If omitted, logs will be sent for all projects.
+        /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         /// </summary>
         public InputList<string> ProjectIds
         {
@@ -178,8 +242,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-        /// unspecified, all logs are sent.
+        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         /// </summary>
         [Input("samplingRate")]
         public Input<double>? SamplingRate { get; set; }
@@ -188,9 +251,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _secret;
 
         /// <summary>
-        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-        /// Vercel and are not tampered with. See
-        /// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         /// </summary>
         public Input<string>? Secret
         {
@@ -206,8 +267,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _sources;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-        /// `lambda`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
         /// </summary>
         public InputList<string> Sources
         {
@@ -216,8 +276,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-        /// been set in the provider.
+        /// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -237,9 +296,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? DeliveryFormat { get; set; }
 
         /// <summary>
-        /// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and
-        /// an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header
-        /// should be can be read from the `vercel_endpoint_verification_code` data source.
+        /// Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         /// </summary>
         [Input("endpoint")]
         public Input<string>? Endpoint { get; set; }
@@ -272,8 +329,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _projectIds;
 
         /// <summary>
-        /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to
-        /// the specified endpoint. If omitted, logs will be sent for all projects.
+        /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         /// </summary>
         public InputList<string> ProjectIds
         {
@@ -282,8 +338,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If
-        /// unspecified, all logs are sent.
+        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         /// </summary>
         [Input("samplingRate")]
         public Input<double>? SamplingRate { get; set; }
@@ -292,9 +347,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _secret;
 
         /// <summary>
-        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from
-        /// Vercel and are not tampered with. See
-        /// https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         /// </summary>
         public Input<string>? Secret
         {
@@ -310,8 +363,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _sources;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and
-        /// `lambda`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
         /// </summary>
         public InputList<string> Sources
         {
@@ -320,8 +372,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not
-        /// been set in the provider.
+        /// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

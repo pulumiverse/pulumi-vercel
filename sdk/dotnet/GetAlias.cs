@@ -12,9 +12,19 @@ namespace Pulumiverse.Vercel
 {
     public static class GetAlias
     {
+        /// <summary>
+        /// Provides information about an existing Alias resource.
+        /// 
+        /// An Alias allows a `vercel.Deployment` to be accessed through a different URL.
+        /// </summary>
         public static Task<GetAliasResult> InvokeAsync(GetAliasArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAliasResult>("vercel:index/getAlias:getAlias", args ?? new GetAliasArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about an existing Alias resource.
+        /// 
+        /// An Alias allows a `vercel.Deployment` to be accessed through a different URL.
+        /// </summary>
         public static Output<GetAliasResult> Invoke(GetAliasInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAliasResult>("vercel:index/getAlias:getAlias", args ?? new GetAliasInvokeArgs(), options.WithDefaults());
     }
@@ -22,9 +32,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAliasArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The Alias or Alias ID to be retrieved.
+        /// </summary>
         [Input("alias", required: true)]
         public string Alias { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public string? TeamId { get; set; }
 
@@ -36,9 +52,15 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetAliasInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The Alias or Alias ID to be retrieved.
+        /// </summary>
         [Input("alias", required: true)]
         public Input<string> Alias { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
@@ -52,9 +74,21 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetAliasResult
     {
+        /// <summary>
+        /// The Alias or Alias ID to be retrieved.
+        /// </summary>
         public readonly string Alias;
+        /// <summary>
+        /// The ID of the Deployment the Alias is associated with.
+        /// </summary>
         public readonly string DeploymentId;
+        /// <summary>
+        /// The ID of this resource.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        /// </summary>
         public readonly string TeamId;
 
         [OutputConstructor]

@@ -28,8 +28,7 @@ class AccessGroupProjectArgs:
         :param pulumi.Input[str] access_group_id: The ID of the Access Group.
         :param pulumi.Input[str] project_id: The Project ID to assign to the access group.
         :param pulumi.Input[str] role: The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
-        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-               team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "access_group_id", access_group_id)
         pulumi.set(__self__, "project_id", project_id)
@@ -77,8 +76,7 @@ class AccessGroupProjectArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-        team has not been set in the provider.
+        The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -99,8 +97,7 @@ class _AccessGroupProjectState:
         :param pulumi.Input[str] access_group_id: The ID of the Access Group.
         :param pulumi.Input[str] project_id: The Project ID to assign to the access group.
         :param pulumi.Input[str] role: The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
-        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-               team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if access_group_id is not None:
             pulumi.set(__self__, "access_group_id", access_group_id)
@@ -151,8 +148,7 @@ class _AccessGroupProjectState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-        team has not been set in the provider.
+        The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -172,14 +168,48 @@ class AccessGroupProject(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a AccessGroupProject resource with the given unique name, props, and options.
+        Provides an Access Group Project Resource.
+
+        An Access Group Project resource defines the relationship between a `AccessGroup` and a `Project`.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        example_access_group = vercel.AccessGroup("exampleAccessGroup")
+        example_access_group_project = vercel.AccessGroupProject("exampleAccessGroupProject",
+            project_id=example_project.id,
+            access_group_id=example_access_group.id,
+            role="ADMIN")
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, use the access_group_id and project_id.
+
+        ```sh
+        $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        If importing to a team, use the team_id, access_group_id and project_id.
+
+        ```sh
+        $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] access_group_id: The ID of the Access Group.
         :param pulumi.Input[str] project_id: The Project ID to assign to the access group.
         :param pulumi.Input[str] role: The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
-        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-               team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
     @overload
@@ -188,7 +218,42 @@ class AccessGroupProject(pulumi.CustomResource):
                  args: AccessGroupProjectArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a AccessGroupProject resource with the given unique name, props, and options.
+        Provides an Access Group Project Resource.
+
+        An Access Group Project resource defines the relationship between a `AccessGroup` and a `Project`.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_project = vercel.Project("exampleProject")
+        example_access_group = vercel.AccessGroup("exampleAccessGroup")
+        example_access_group_project = vercel.AccessGroupProject("exampleAccessGroupProject",
+            project_id=example_project.id,
+            access_group_id=example_access_group.id,
+            role="ADMIN")
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, use the access_group_id and project_id.
+
+        ```sh
+        $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        If importing to a team, use the team_id, access_group_id and project_id.
+
+        ```sh
+        $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
         :param str resource_name: The name of the resource.
         :param AccessGroupProjectArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -251,8 +316,7 @@ class AccessGroupProject(pulumi.CustomResource):
         :param pulumi.Input[str] access_group_id: The ID of the Access Group.
         :param pulumi.Input[str] project_id: The Project ID to assign to the access group.
         :param pulumi.Input[str] role: The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
-        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-               team has not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -292,8 +356,7 @@ class AccessGroupProject(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-        team has not been set in the provider.
+        The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

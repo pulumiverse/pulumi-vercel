@@ -10,26 +10,54 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provider a resource for managing a team member.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example = new Vercel.TeamMember("example", new()
+    ///     {
+    ///         Role = "MEMBER",
+    ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+    ///         UserId = "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// To import, use the team_id and user_id.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/teamMember:TeamMember example team_xxxxxxxxxxxxxxxxxxxxxxxx/uuuuuuuuuuuuuuuuuuuuuuuuuu
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/teamMember:TeamMember")]
     public partial class TeamMember : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        /// specified. A set of access groups IDs that the user should be granted access to.
+        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         /// </summary>
         [Output("accessGroups")]
         public Output<ImmutableArray<string>> AccessGroups { get; private set; } = null!;
 
         /// <summary>
-        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        /// specified. A set of projects that the user should be granted access to, along with their role in each project.
+        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         /// </summary>
         [Output("projects")]
         public Output<ImmutableArray<Outputs.TeamMemberProject>> Projects { get; private set; } = null!;
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-        /// 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         /// </summary>
         [Output("role")]
         public Output<string> Role { get; private set; } = null!;
@@ -97,8 +125,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _accessGroups;
 
         /// <summary>
-        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        /// specified. A set of access groups IDs that the user should be granted access to.
+        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         /// </summary>
         public InputList<string> AccessGroups
         {
@@ -110,8 +137,7 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.TeamMemberProjectArgs>? _projects;
 
         /// <summary>
-        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        /// specified. A set of projects that the user should be granted access to, along with their role in each project.
+        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         /// </summary>
         public InputList<Inputs.TeamMemberProjectArgs> Projects
         {
@@ -120,8 +146,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-        /// 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         /// </summary>
         [Input("role", required: true)]
         public Input<string> Role { get; set; } = null!;
@@ -150,8 +175,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _accessGroups;
 
         /// <summary>
-        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        /// specified. A set of access groups IDs that the user should be granted access to.
+        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         /// </summary>
         public InputList<string> AccessGroups
         {
@@ -163,8 +187,7 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.TeamMemberProjectGetArgs>? _projects;
 
         /// <summary>
-        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be
-        /// specified. A set of projects that the user should be granted access to, along with their role in each project.
+        /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         /// </summary>
         public InputList<Inputs.TeamMemberProjectGetArgs> Projects
         {
@@ -173,8 +196,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or
-        /// 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         /// </summary>
         [Input("role")]
         public Input<string>? Role { get; set; }

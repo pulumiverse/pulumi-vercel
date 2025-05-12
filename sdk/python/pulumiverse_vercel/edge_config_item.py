@@ -28,8 +28,7 @@ class EdgeConfigItemArgs:
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[str] value: The value you want to assign to the key.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "edge_config_id", edge_config_id)
         pulumi.set(__self__, "key", key)
@@ -77,8 +76,7 @@ class EdgeConfigItemArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -98,8 +96,7 @@ class _EdgeConfigItemState:
         Input properties used for looking up and filtering EdgeConfigItem resources.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] key: The name of the key you want to add to or update within your Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value you want to assign to the key.
         """
         if edge_config_id is not None:
@@ -139,8 +136,7 @@ class _EdgeConfigItemState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 
@@ -172,13 +168,56 @@ class EdgeConfigItem(pulumi.CustomResource):
                  value: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a EdgeConfigItem resource with the given unique name, props, and options.
+        Provides an Edge Config Item.
+
+        An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+        An Edge Config Item is a value within an Edge Config.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
+        example_edge_config_item = vercel.EdgeConfigItem("exampleEdgeConfigItem",
+            edge_config_id=example_edge_config.id,
+            key="foobar",
+            value="baz")
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the edge config id and the key of the item to import.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        - key is the key of teh item to import.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+        ```
+
+        Alternatively, you can import via the team_id, edge_config_id and the key of the item to import.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        - key is the key of the item to import.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] key: The name of the key you want to add to or update within your Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value you want to assign to the key.
         """
         ...
@@ -188,7 +227,51 @@ class EdgeConfigItem(pulumi.CustomResource):
                  args: EdgeConfigItemArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a EdgeConfigItem resource with the given unique name, props, and options.
+        Provides an Edge Config Item.
+
+        An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+
+        An Edge Config Item is a value within an Edge Config.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
+        example_edge_config_item = vercel.EdgeConfigItem("exampleEdgeConfigItem",
+            edge_config_id=example_edge_config.id,
+            key="foobar",
+            value="baz")
+        ```
+
+        ## Import
+
+        If importing into a personal account, or with a team configured on
+
+        the provider, simply use the edge config id and the key of the item to import.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        - key is the key of teh item to import.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+        ```
+
+        Alternatively, you can import via the team_id, edge_config_id and the key of the item to import.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+
+        - key is the key of the item to import.
+
+        ```sh
+        $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
+        ```
+
         :param str resource_name: The name of the resource.
         :param EdgeConfigItemArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -250,8 +333,7 @@ class EdgeConfigItem(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[str] key: The name of the key you want to add to or update within your Edge Config.
-        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-               not been set in the provider.
+        :param pulumi.Input[str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] value: The value you want to assign to the key.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -284,8 +366,7 @@ class EdgeConfigItem(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has
-        not been set in the provider.
+        The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
 

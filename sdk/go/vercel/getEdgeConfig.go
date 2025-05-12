@@ -8,9 +8,38 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides information about an existing Edge Config.
+//
+// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.LookupEdgeConfig(ctx, &vercel.LookupEdgeConfigArgs{
+//				Id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupEdgeConfig(ctx *pulumi.Context, args *LookupEdgeConfigArgs, opts ...pulumi.InvokeOption) (*LookupEdgeConfigResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupEdgeConfigResult
@@ -23,14 +52,19 @@ func LookupEdgeConfig(ctx *pulumi.Context, args *LookupEdgeConfigArgs, opts ...p
 
 // A collection of arguments for invoking getEdgeConfig.
 type LookupEdgeConfigArgs struct {
-	Id     string  `pulumi:"id"`
+	// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
+	Id string `pulumi:"id"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getEdgeConfig.
 type LookupEdgeConfigResult struct {
-	Id     string `pulumi:"id"`
-	Name   string `pulumi:"name"`
+	// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
+	Id string `pulumi:"id"`
+	// The name/slug of the Edge Config.
+	Name string `pulumi:"name"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
 }
 
@@ -55,7 +89,9 @@ func LookupEdgeConfigOutput(ctx *pulumi.Context, args LookupEdgeConfigOutputArgs
 
 // A collection of arguments for invoking getEdgeConfig.
 type LookupEdgeConfigOutputArgs struct {
-	Id     pulumi.StringInput    `pulumi:"id"`
+	// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -78,14 +114,17 @@ func (o LookupEdgeConfigResultOutput) ToLookupEdgeConfigResultOutputWithContext(
 	return o
 }
 
+// The Edge Config ID to be retrieved. This can be found by navigating to the Edge Config in the Vercel UI and looking at the URL. It should begin with `ecfg_`.
 func (o LookupEdgeConfigResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name/slug of the Edge Config.
 func (o LookupEdgeConfigResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupEdgeConfigResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

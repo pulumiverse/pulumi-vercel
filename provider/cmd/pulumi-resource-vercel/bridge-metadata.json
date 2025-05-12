@@ -4,27 +4,27 @@
         "resources": {
             "vercel_access_group": {
                 "current": "vercel:index/accessGroup:AccessGroup",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_access_group_project": {
                 "current": "vercel:index/accessGroupProject:AccessGroupProject",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_alias": {
                 "current": "vercel:index/alias:Alias",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_attack_challenge_mode": {
                 "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_custom_environment": {
                 "current": "vercel:index/customEnvironment:CustomEnvironment",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_deployment": {
                 "current": "vercel:index/deployment:Deployment",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "domains": {
                         "maxItemsOne": false
@@ -33,27 +33,27 @@
             },
             "vercel_dns_record": {
                 "current": "vercel:index/dnsRecord:DnsRecord",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config": {
                 "current": "vercel:index/edgeConfig:EdgeConfig",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config_item": {
                 "current": "vercel:index/edgeConfigItem:EdgeConfigItem",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config_schema": {
                 "current": "vercel:index/edgeConfigSchema:EdgeConfigSchema",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config_token": {
                 "current": "vercel:index/edgeConfigToken:EdgeConfigToken",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_firewall_config": {
                 "current": "vercel:index/firewallConfig:FirewallConfig",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "ip_rules": {
                         "fields": {
@@ -98,7 +98,7 @@
             },
             "vercel_log_drain": {
                 "current": "vercel:index/logDrain:LogDrain",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "environments": {
                         "maxItemsOne": false
@@ -113,7 +113,7 @@
             },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "environment": {
                         "maxItemsOne": false,
@@ -153,15 +153,15 @@
             },
             "vercel_project_deployment_retention": {
                 "current": "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_project_domain": {
                 "current": "vercel:index/projectDomain:ProjectDomain",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_project_environment_variable": {
                 "current": "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "custom_environment_ids": {
                         "maxItemsOne": false
@@ -173,7 +173,7 @@
             },
             "vercel_project_environment_variables": {
                 "current": "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "variables": {
                         "maxItemsOne": false,
@@ -192,7 +192,7 @@
             },
             "vercel_project_members": {
                 "current": "vercel:index/projectMembers:ProjectMembers",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "members": {
                         "maxItemsOne": false
@@ -201,7 +201,7 @@
             },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "project_ids": {
                         "maxItemsOne": false
@@ -213,11 +213,11 @@
             },
             "vercel_team_config": {
                 "current": "vercel:index/teamConfig:TeamConfig",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_team_member": {
                 "current": "vercel:index/teamMember:TeamMember",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "access_groups": {
                         "maxItemsOne": false
@@ -229,7 +229,7 @@
             },
             "vercel_webhook": {
                 "current": "vercel:index/webhook:Webhook",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "events": {
                         "maxItemsOne": false
@@ -243,27 +243,27 @@
         "datasources": {
             "vercel_access_group": {
                 "current": "vercel:index/getAccessGroup:getAccessGroup",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_access_group_project": {
                 "current": "vercel:index/getAccessGroupProject:getAccessGroupProject",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_alias": {
                 "current": "vercel:index/getAlias:getAlias",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_attack_challenge_mode": {
                 "current": "vercel:index/getAttackChallengeMode:getAttackChallengeMode",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_custom_environment": {
                 "current": "vercel:index/getCustomEnvironment:getCustomEnvironment",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_deployment": {
                 "current": "vercel:index/getDeployment:getDeployment",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "domains": {
                         "maxItemsOne": false
@@ -272,31 +272,31 @@
             },
             "vercel_edge_config": {
                 "current": "vercel:index/getEdgeConfig:getEdgeConfig",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config_item": {
                 "current": "vercel:index/getEdgeConfigItem:getEdgeConfigItem",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config_schema": {
                 "current": "vercel:index/getEdgeConfigSchema:getEdgeConfigSchema",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_edge_config_token": {
                 "current": "vercel:index/getEdgeConfigToken:getEdgeConfigToken",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_endpoint_verification": {
                 "current": "vercel:index/getEndpointVerification:getEndpointVerification",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_file": {
                 "current": "vercel:index/getFile:getFile",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_log_drain": {
                 "current": "vercel:index/getLogDrain:getLogDrain",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "environments": {
                         "maxItemsOne": false
@@ -311,11 +311,11 @@
             },
             "vercel_prebuilt_project": {
                 "current": "vercel:index/getPrebuiltProject:getPrebuiltProject",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_project": {
                 "current": "vercel:index/getProject:getProject",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "environment": {
                         "maxItemsOne": false,
@@ -355,15 +355,15 @@
             },
             "vercel_project_deployment_retention": {
                 "current": "vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_project_directory": {
                 "current": "vercel:index/getProjectDirectory:getProjectDirectory",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_project_members": {
                 "current": "vercel:index/getProjectMembers:getProjectMembers",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "members": {
                         "maxItemsOne": false
@@ -372,7 +372,7 @@
             },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "project_ids": {
                         "maxItemsOne": false
@@ -384,11 +384,11 @@
             },
             "vercel_team_config": {
                 "current": "vercel:index/getTeamConfig:getTeamConfig",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "vercel_team_member": {
                 "current": "vercel:index/getTeamMember:getTeamMember",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "access_groups": {
                         "maxItemsOne": false

@@ -10,6 +10,44 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides an Access Group Resource.
+    /// 
+    /// Access Groups provide a way to manage groups of Vercel users across projects on your team. They are a set of project role assignations, a combination of Vercel users and the projects they work on.
+    /// 
+    /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example = new Vercel.AccessGroup("example");
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the access_group_id.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/accessGroup:AccessGroup example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// 
+    /// If importing to a team, use the team_id and access_group_id.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/accessGroup:AccessGroup example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/accessGroup:AccessGroup")]
     public partial class AccessGroup : global::Pulumi.CustomResource
     {
@@ -20,8 +58,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -80,8 +117,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -101,8 +137,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

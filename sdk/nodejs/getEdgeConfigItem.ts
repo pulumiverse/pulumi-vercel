@@ -4,6 +4,28 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides the value of an existing Edge Config Item.
+ *
+ * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+ *
+ * An Edge Config Item is a value within an Edge Config.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getEdgeConfig({
+ *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ * });
+ * const test = example.then(example => vercel.getEdgeConfigItem({
+ *     id: example.id,
+ *     key: "foobar",
+ * }));
+ * ```
+ */
 export function getEdgeConfigItem(args: GetEdgeConfigItemArgs, opts?: pulumi.InvokeOptions): Promise<GetEdgeConfigItemResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getEdgeConfigItem:getEdgeConfigItem", {
@@ -17,8 +39,17 @@ export function getEdgeConfigItem(args: GetEdgeConfigItemArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getEdgeConfigItem.
  */
 export interface GetEdgeConfigItemArgs {
+    /**
+     * The ID of the Edge Config that the item should exist under.
+     */
     id: string;
+    /**
+     * The name of the key you want to retrieve within your Edge Config.
+     */
     key: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -26,11 +57,45 @@ export interface GetEdgeConfigItemArgs {
  * A collection of values returned by getEdgeConfigItem.
  */
 export interface GetEdgeConfigItemResult {
+    /**
+     * The ID of the Edge Config that the item should exist under.
+     */
     readonly id: string;
+    /**
+     * The name of the key you want to retrieve within your Edge Config.
+     */
     readonly key: string;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     readonly teamId: string;
+    /**
+     * The value assigned to the key.
+     */
     readonly value: string;
 }
+/**
+ * Provides the value of an existing Edge Config Item.
+ *
+ * An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+ *
+ * An Edge Config Item is a value within an Edge Config.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const example = vercel.getEdgeConfig({
+ *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+ * });
+ * const test = example.then(example => vercel.getEdgeConfigItem({
+ *     id: example.id,
+ *     key: "foobar",
+ * }));
+ * ```
+ */
 export function getEdgeConfigItemOutput(args: GetEdgeConfigItemOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetEdgeConfigItemResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getEdgeConfigItem:getEdgeConfigItem", {
@@ -44,7 +109,16 @@ export function getEdgeConfigItemOutput(args: GetEdgeConfigItemOutputArgs, opts?
  * A collection of arguments for invoking getEdgeConfigItem.
  */
 export interface GetEdgeConfigItemOutputArgs {
+    /**
+     * The ID of the Edge Config that the item should exist under.
+     */
     id: pulumi.Input<string>;
+    /**
+     * The name of the key you want to retrieve within your Edge Config.
+     */
     key: pulumi.Input<string>;
+    /**
+     * The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

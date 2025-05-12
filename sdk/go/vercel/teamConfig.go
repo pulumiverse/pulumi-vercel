@@ -8,9 +8,10 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Manages the configuration of an existing Vercel Team.
 type TeamConfig struct {
 	pulumi.CustomResourceState
 
@@ -38,8 +39,7 @@ type TeamConfig struct {
 	RemoteCaching TeamConfigRemoteCachingOutput `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml TeamConfigSamlOutput `pulumi:"saml"`
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy pulumi.StringOutput `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringOutput `pulumi:"slug"`
@@ -99,8 +99,7 @@ type teamConfigState struct {
 	RemoteCaching *TeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml *TeamConfigSaml `pulumi:"saml"`
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy *string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug *string `pulumi:"slug"`
@@ -131,8 +130,7 @@ type TeamConfigState struct {
 	RemoteCaching TeamConfigRemoteCachingPtrInput
 	// Configuration for SAML authentication.
 	Saml TeamConfigSamlPtrInput
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy pulumi.StringPtrInput
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringPtrInput
@@ -165,8 +163,7 @@ type teamConfigArgs struct {
 	RemoteCaching *TeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml *TeamConfigSaml `pulumi:"saml"`
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy *string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug *string `pulumi:"slug"`
@@ -196,8 +193,7 @@ type TeamConfigArgs struct {
 	RemoteCaching TeamConfigRemoteCachingPtrInput
 	// Configuration for SAML authentication.
 	Saml TeamConfigSamlPtrInput
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-	// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 	SensitiveEnvironmentVariablePolicy pulumi.StringPtrInput
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringPtrInput
@@ -350,8 +346,7 @@ func (o TeamConfigOutput) Saml() TeamConfigSamlOutput {
 	return o.ApplyT(func(v *TeamConfig) TeamConfigSamlOutput { return v.Saml }).(TeamConfigSamlOutput)
 }
 
-// Ensures that all environment variables created by members of this team will be created as Sensitive Environment
-// Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
 func (o TeamConfigOutput) SensitiveEnvironmentVariablePolicy() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.SensitiveEnvironmentVariablePolicy }).(pulumi.StringOutput)
 }

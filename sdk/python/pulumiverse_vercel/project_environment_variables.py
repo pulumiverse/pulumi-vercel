@@ -138,7 +138,8 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                  variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentVariablesVariableArgs', 'ProjectEnvironmentVariablesVariableArgsDict']]]]] = None,
                  __props__=None):
         """
-        Create a ProjectEnvironmentVariables resource with the given unique name, props, and options.
+        ## Example Usage
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] project_id: The ID of the Vercel project.
@@ -152,7 +153,8 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                  args: ProjectEnvironmentVariablesArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ProjectEnvironmentVariables resource with the given unique name, props, and options.
+        ## Example Usage
+
         :param str resource_name: The name of the resource.
         :param ProjectEnvironmentVariablesArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -9,9 +9,81 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides a Project Deployment Retention resource.
+//
+// A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				GitRepository: &vercel.ProjectGitRepositoryArgs{
+//					Type: pulumi.String("github"),
+//					Repo: pulumi.String("vercel/some-repo"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// An unlimited deployment retention policy that will be created
+//			// for this project for all deployments.
+//			_, err = vercel.NewProjectDeploymentRetention(ctx, "exampleUnlimited", &vercel.ProjectDeploymentRetentionArgs{
+//				ProjectId:            example.ID(),
+//				TeamId:               example.TeamId,
+//				ExpirationPreview:    pulumi.String("unlimited"),
+//				ExpirationProduction: pulumi.String("unlimited"),
+//				ExpirationCanceled:   pulumi.String("unlimited"),
+//				ExpirationErrored:    pulumi.String("unlimited"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// A customized deployment retention policy that will be created
+//			// for this project for all deployments.
+//			_, err = vercel.NewProjectDeploymentRetention(ctx, "exampleCustomized", &vercel.ProjectDeploymentRetentionArgs{
+//				ProjectId:            example.ID(),
+//				TeamId:               example.TeamId,
+//				ExpirationPreview:    pulumi.String("3m"),
+//				ExpirationProduction: pulumi.String("1y"),
+//				ExpirationCanceled:   pulumi.String("1m"),
+//				ExpirationErrored:    pulumi.String("2m"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// You can import via the team_id and project_id.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// ```sh
+// $ pulumi import vercel:index/projectDeploymentRetention:ProjectDeploymentRetention example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
 type ProjectDeploymentRetention struct {
 	pulumi.CustomResourceState
 

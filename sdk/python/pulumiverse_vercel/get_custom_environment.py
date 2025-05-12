@@ -50,31 +50,49 @@ class GetCustomEnvironmentResult:
     @property
     @pulumi.getter(name="branchTracking")
     def branch_tracking(self) -> 'outputs.GetCustomEnvironmentBranchTrackingResult':
+        """
+        The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
+        """
         return pulumi.get(self, "branch_tracking")
 
     @property
     @pulumi.getter
     def description(self) -> str:
+        """
+        A description of what the environment is.
+        """
         return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of the environment.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        The name of the environment.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> str:
+        """
+        The ID of the existing Vercel Project.
+        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -97,7 +115,25 @@ def get_custom_environment(name: Optional[str] = None,
                            team_id: Optional[str] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetCustomEnvironmentResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing CustomEnvironment resource.
+
+    An CustomEnvironment allows a `Deployment` to be accessed through a different URL.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example_project = vercel.get_project(name="example-project-with-custom-env")
+    example_custom_environment = vercel.get_custom_environment(project_id=example_project.id,
+        name="example-custom-env")
+    ```
+
+
+    :param str name: The name of the environment.
+    :param str project_id: The ID of the existing Vercel Project.
+    :param str team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -118,7 +154,25 @@ def get_custom_environment_output(name: Optional[pulumi.Input[str]] = None,
                                   team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                   opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetCustomEnvironmentResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing CustomEnvironment resource.
+
+    An CustomEnvironment allows a `Deployment` to be accessed through a different URL.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example_project = vercel.get_project(name="example-project-with-custom-env")
+    example_custom_environment = vercel.get_custom_environment(project_id=example_project.id,
+        name="example-custom-env")
+    ```
+
+
+    :param str name: The name of the environment.
+    :param str project_id: The ID of the existing Vercel Project.
+    :param str team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['name'] = name

@@ -4,6 +4,44 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides an Access Group Project Resource.
+ *
+ * An Access Group Project resource defines the relationship between a `vercel.AccessGroup` and a `vercel.Project`.
+ *
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const exampleProject = new vercel.Project("exampleProject", {});
+ * const exampleAccessGroup = new vercel.AccessGroup("exampleAccessGroup", {});
+ * const exampleAccessGroupProject = new vercel.AccessGroupProject("exampleAccessGroupProject", {
+ *     projectId: exampleProject.id,
+ *     accessGroupId: exampleAccessGroup.id,
+ *     role: "ADMIN",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * If importing into a personal account, or with a team configured on
+ *
+ * the provider, use the access_group_id and project_id.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ *
+ * If importing to a team, use the team_id, access_group_id and project_id.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ */
 export class AccessGroupProject extends pulumi.CustomResource {
     /**
      * Get an existing AccessGroupProject resource's state with the given name, ID, and optional extra
@@ -45,8 +83,7 @@ export class AccessGroupProject extends pulumi.CustomResource {
      */
     public readonly role!: pulumi.Output<string>;
     /**
-     * The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-     * team has not been set in the provider.
+     * The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     public readonly teamId!: pulumi.Output<string>;
 
@@ -105,8 +142,7 @@ export interface AccessGroupProjectState {
      */
     role?: pulumi.Input<string>;
     /**
-     * The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-     * team has not been set in the provider.
+     * The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }
@@ -128,8 +164,7 @@ export interface AccessGroupProjectArgs {
      */
     role: pulumi.Input<string>;
     /**
-     * The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-     * team has not been set in the provider.
+     * The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
 }

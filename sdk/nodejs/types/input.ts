@@ -211,7 +211,7 @@ export interface FirewallConfigRulesRuleAction {
      */
     actionDuration?: pulumi.Input<string>;
     /**
-     * Behavior or a rate limiting action. Required if action is rate_limit
+     * Behavior or a rate limiting action. Required if action is rate*limit
      */
     rateLimit?: pulumi.Input<inputs.FirewallConfigRulesRuleActionRateLimit>;
     /**
@@ -397,7 +397,7 @@ export interface ProjectMembersMember {
      */
     email?: pulumi.Input<string>;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT_DEVELOPER', or 'PROJECT_VIEWER'.
+     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
      */
     role: pulumi.Input<string>;
     /**

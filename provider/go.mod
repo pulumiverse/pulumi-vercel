@@ -1,4 +1,4 @@
-module github.com/pulumiverse/pulumi-vercel/provider
+module github.com/pulumiverse/pulumi-vercel/provider/v2
 
 go 1.22.0
 

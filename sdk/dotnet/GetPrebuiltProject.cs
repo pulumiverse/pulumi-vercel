@@ -46,7 +46,13 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetPrebuiltProjectResult
     {
+        /// <summary>
+        /// The ID of this resource.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+        /// </summary>
         public readonly ImmutableDictionary<string, string> Output;
         public readonly string Path;
 

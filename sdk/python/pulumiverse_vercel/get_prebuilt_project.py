@@ -40,11 +40,17 @@ class GetPrebuiltProjectResult:
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of this resource.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def output(self) -> Mapping[str, str]:
+        """
+        A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
+        """
         return pulumi.get(self, "output")
 
     @property

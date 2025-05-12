@@ -10,6 +10,53 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides an Access Group Project Resource.
+    /// 
+    /// An Access Group Project resource defines the relationship between a `vercel.AccessGroup` and a `vercel.Project`.
+    /// 
+    /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleProject = new Vercel.Project("exampleProject");
+    /// 
+    ///     var exampleAccessGroup = new Vercel.AccessGroup("exampleAccessGroup");
+    /// 
+    ///     var exampleAccessGroupProject = new Vercel.AccessGroupProject("exampleAccessGroupProject", new()
+    ///     {
+    ///         ProjectId = exampleProject.Id,
+    ///         AccessGroupId = exampleAccessGroup.Id,
+    ///         Role = "ADMIN",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, use the access_group_id and project_id.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// 
+    /// If importing to a team, use the team_id, access_group_id and project_id.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/accessGroupProject:AccessGroupProject")]
     public partial class AccessGroupProject : global::Pulumi.CustomResource
     {
@@ -32,8 +79,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Role { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-        /// team has not been set in the provider.
+        /// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -104,8 +150,7 @@ namespace Pulumiverse.Vercel
         public Input<string> Role { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-        /// team has not been set in the provider.
+        /// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -137,8 +182,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Role { get; set; }
 
         /// <summary>
-        /// The ID of the team the access group project should exist under. Required when configuring a team resource if a default
-        /// team has not been set in the provider.
+        /// The ID of the team the access group project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }

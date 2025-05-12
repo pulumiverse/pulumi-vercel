@@ -10,6 +10,15 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.
+    /// 
+    /// ## Import
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/firewallConfig:FirewallConfig")]
     public partial class FirewallConfig : global::Pulumi.CustomResource
     {

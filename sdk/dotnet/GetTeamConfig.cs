@@ -12,9 +12,51 @@ namespace Pulumiverse.Vercel
 {
     public static class GetTeamConfig
     {
+        /// <summary>
+        /// Retrieves the configuration of an existing Vercel Team.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetTeamConfig.Invoke(new()
+        ///     {
+        ///         Id = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetTeamConfigResult> InvokeAsync(GetTeamConfigArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetTeamConfigResult>("vercel:index/getTeamConfig:getTeamConfig", args ?? new GetTeamConfigArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Retrieves the configuration of an existing Vercel Team.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumi.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Vercel.GetTeamConfig.Invoke(new()
+        ///     {
+        ///         Id = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetTeamConfigResult> Invoke(GetTeamConfigInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetTeamConfigResult>("vercel:index/getTeamConfig:getTeamConfig", args ?? new GetTeamConfigInvokeArgs(), options.WithDefaults());
     }
@@ -22,6 +64,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetTeamConfigArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the existing Vercel Team.
+        /// </summary>
         [Input("id", required: true)]
         public string Id { get; set; } = null!;
 
@@ -33,6 +78,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetTeamConfigInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the existing Vercel Team.
+        /// </summary>
         [Input("id", required: true)]
         public Input<string> Id { get; set; } = null!;
 
@@ -46,19 +94,61 @@ namespace Pulumiverse.Vercel
     [OutputType]
     public sealed class GetTeamConfigResult
     {
+        /// <summary>
+        /// A description of the team.
+        /// </summary>
         public readonly string Description;
+        /// <summary>
+        /// Hostname that'll be matched with emails on sign-up to automatically join the Team.
+        /// </summary>
         public readonly string EmailDomain;
+        /// <summary>
+        /// Preview feedback configuration.
+        /// </summary>
         public readonly string EnablePreviewFeedback;
+        /// <summary>
+        /// Production feedback configuration.
+        /// </summary>
         public readonly string EnableProductionFeedback;
+        /// <summary>
+        /// Indicates if ip addresses should be accessible in o11y tooling.
+        /// </summary>
         public readonly bool HideIpAddresses;
+        /// <summary>
+        /// Indicates if ip addresses should be accessible in log drains.
+        /// </summary>
         public readonly bool HideIpAddressesInLogDrains;
+        /// <summary>
+        /// The ID of the existing Vercel Team.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// A code that can be used to join this team. Only visible to Team owners.
+        /// </summary>
         public readonly string InviteCode;
+        /// <summary>
+        /// The name of the team.
+        /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// The hostname that is used as the preview deployment suffix.
+        /// </summary>
         public readonly string PreviewDeploymentSuffix;
+        /// <summary>
+        /// Configuration for Remote Caching.
+        /// </summary>
         public readonly Outputs.GetTeamConfigRemoteCachingResult RemoteCaching;
+        /// <summary>
+        /// Configuration for SAML authentication.
+        /// </summary>
         public readonly Outputs.GetTeamConfigSamlResult Saml;
+        /// <summary>
+        /// The policy for sensitive environment variables.
+        /// </summary>
         public readonly string SensitiveEnvironmentVariablePolicy;
+        /// <summary>
+        /// The slug of the team. Used in the URL of the team's dashboard.
+        /// </summary>
         public readonly string Slug;
 
         [OutputConstructor]

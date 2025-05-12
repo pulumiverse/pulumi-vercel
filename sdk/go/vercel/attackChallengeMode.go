@@ -9,9 +9,55 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides an Attack Challenge Mode resource.
+//
+// Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewAttackChallengeMode(ctx, "exampleAttackChallengeMode", &vercel.AttackChallengeModeArgs{
+//				ProjectId: exampleProject.ID(),
+//				Enabled:   pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// You can import via the team_id and project_id.
+//
+// - team_id can be found in the team `settings` tab in the Vercel UI.
+//
+// - project_id can be found in the project `settings` tab in the Vercel UI.
+//
+// ```sh
+// $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// ```
 type AttackChallengeMode struct {
 	pulumi.CustomResourceState
 
@@ -19,8 +65,7 @@ type AttackChallengeMode struct {
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
 	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 }
 
@@ -64,8 +109,7 @@ type attackChallengeModeState struct {
 	Enabled *bool `pulumi:"enabled"`
 	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId *string `pulumi:"projectId"`
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -74,8 +118,7 @@ type AttackChallengeModeState struct {
 	Enabled pulumi.BoolPtrInput
 	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId pulumi.StringPtrInput
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -88,8 +131,7 @@ type attackChallengeModeArgs struct {
 	Enabled bool `pulumi:"enabled"`
 	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId string `pulumi:"projectId"`
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
@@ -99,8 +141,7 @@ type AttackChallengeModeArgs struct {
 	Enabled pulumi.BoolInput
 	// The ID of the Project to toggle Attack Challenge Mode on.
 	ProjectId pulumi.StringInput
-	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
-	// set in the provider.
+	// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
 
@@ -201,8 +242,7 @@ func (o AttackChallengeModeOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *AttackChallengeMode) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been
-// set in the provider.
+// The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o AttackChallengeModeOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *AttackChallengeMode) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }

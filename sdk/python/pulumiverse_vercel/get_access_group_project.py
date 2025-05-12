@@ -46,6 +46,9 @@ class GetAccessGroupProjectResult:
     @property
     @pulumi.getter(name="accessGroupId")
     def access_group_id(self) -> str:
+        """
+        The Access Group ID.
+        """
         return pulumi.get(self, "access_group_id")
 
     @property
@@ -59,16 +62,25 @@ class GetAccessGroupProjectResult:
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> str:
+        """
+        The Project ID.
+        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter
     def role(self) -> str:
+        """
+        The Access Group Project Role.
+        """
         return pulumi.get(self, "role")
 
     @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> str:
+        """
+        The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+        """
         return pulumi.get(self, "team_id")
 
 
@@ -90,7 +102,25 @@ def get_access_group_project(access_group_id: Optional[str] = None,
                              team_id: Optional[str] = None,
                              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAccessGroupProjectResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Access Group Project Assignment.
+
+    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example_project = vercel.get_project(name="my-existing-project")
+    example_access_group_project = vercel.get_access_group_project(access_group_id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        project_id=vercel_project["example"]["id"])
+    ```
+
+
+    :param str access_group_id: The Access Group ID.
+    :param str project_id: The Project ID.
+    :param str team_id: The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['accessGroupId'] = access_group_id
@@ -110,7 +140,25 @@ def get_access_group_project_output(access_group_id: Optional[pulumi.Input[str]]
                                     team_id: Optional[pulumi.Input[Optional[str]]] = None,
                                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAccessGroupProjectResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about an existing Access Group Project Assignment.
+
+    For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+
+    example_project = vercel.get_project(name="my-existing-project")
+    example_access_group_project = vercel.get_access_group_project(access_group_id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        project_id=vercel_project["example"]["id"])
+    ```
+
+
+    :param str access_group_id: The Access Group ID.
+    :param str project_id: The Project ID.
+    :param str team_id: The ID of the team the Access Group Project should exist under. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['accessGroupId'] = access_group_id

@@ -10,6 +10,9 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// ## Example Usage
+    /// </summary>
     [VercelResourceType("vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables")]
     public partial class ProjectEnvironmentVariables : global::Pulumi.CustomResource
     {

@@ -8,9 +8,36 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// An Edge Config Schema provides an existing Edge Config with a JSON schema. Use schema protection to prevent unexpected updates that may cause bugs or downtime.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.LookupEdgeConfigSchema(ctx, &vercel.LookupEdgeConfigSchemaArgs{
+//				Id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupEdgeConfigSchema(ctx *pulumi.Context, args *LookupEdgeConfigSchemaArgs, opts ...pulumi.InvokeOption) (*LookupEdgeConfigSchemaResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupEdgeConfigSchemaResult
@@ -23,15 +50,20 @@ func LookupEdgeConfigSchema(ctx *pulumi.Context, args *LookupEdgeConfigSchemaArg
 
 // A collection of arguments for invoking getEdgeConfigSchema.
 type LookupEdgeConfigSchemaArgs struct {
-	Id     string  `pulumi:"id"`
+	// The ID of the Edge Config that the schema should be for.
+	Id string `pulumi:"id"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getEdgeConfigSchema.
 type LookupEdgeConfigSchemaResult struct {
+	// A JSON schema that will be used to validate data in the Edge Config.
 	Definition string `pulumi:"definition"`
-	Id         string `pulumi:"id"`
-	TeamId     string `pulumi:"teamId"`
+	// The ID of the Edge Config that the schema should be for.
+	Id string `pulumi:"id"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
+	TeamId string `pulumi:"teamId"`
 }
 
 func LookupEdgeConfigSchemaOutput(ctx *pulumi.Context, args LookupEdgeConfigSchemaOutputArgs, opts ...pulumi.InvokeOption) LookupEdgeConfigSchemaResultOutput {
@@ -55,7 +87,9 @@ func LookupEdgeConfigSchemaOutput(ctx *pulumi.Context, args LookupEdgeConfigSche
 
 // A collection of arguments for invoking getEdgeConfigSchema.
 type LookupEdgeConfigSchemaOutputArgs struct {
-	Id     pulumi.StringInput    `pulumi:"id"`
+	// The ID of the Edge Config that the schema should be for.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -78,14 +112,17 @@ func (o LookupEdgeConfigSchemaResultOutput) ToLookupEdgeConfigSchemaResultOutput
 	return o
 }
 
+// A JSON schema that will be used to validate data in the Edge Config.
 func (o LookupEdgeConfigSchemaResultOutput) Definition() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigSchemaResult) string { return v.Definition }).(pulumi.StringOutput)
 }
 
+// The ID of the Edge Config that the schema should be for.
 func (o LookupEdgeConfigSchemaResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigSchemaResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupEdgeConfigSchemaResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigSchemaResult) string { return v.TeamId }).(pulumi.StringOutput)
 }

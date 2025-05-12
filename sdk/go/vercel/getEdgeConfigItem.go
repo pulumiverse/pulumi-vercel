@@ -8,9 +8,47 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
 )
 
+// Provides the value of an existing Edge Config Item.
+//
+// An Edge Config is a global data store that enables experimentation with feature flags, A/B testing, critical redirects, and more.
+//
+// An Edge Config Item is a value within an Edge Config.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			example, err := vercel.LookupEdgeConfig(ctx, &vercel.LookupEdgeConfigArgs{
+//				Id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.LookupEdgeConfigItem(ctx, &vercel.LookupEdgeConfigItemArgs{
+//				Id:  example.Id,
+//				Key: "foobar",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupEdgeConfigItem(ctx *pulumi.Context, args *LookupEdgeConfigItemArgs, opts ...pulumi.InvokeOption) (*LookupEdgeConfigItemResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupEdgeConfigItemResult
@@ -23,17 +61,24 @@ func LookupEdgeConfigItem(ctx *pulumi.Context, args *LookupEdgeConfigItemArgs, o
 
 // A collection of arguments for invoking getEdgeConfigItem.
 type LookupEdgeConfigItemArgs struct {
-	Id     string  `pulumi:"id"`
-	Key    string  `pulumi:"key"`
+	// The ID of the Edge Config that the item should exist under.
+	Id string `pulumi:"id"`
+	// The name of the key you want to retrieve within your Edge Config.
+	Key string `pulumi:"key"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
 
 // A collection of values returned by getEdgeConfigItem.
 type LookupEdgeConfigItemResult struct {
-	Id     string `pulumi:"id"`
-	Key    string `pulumi:"key"`
+	// The ID of the Edge Config that the item should exist under.
+	Id string `pulumi:"id"`
+	// The name of the key you want to retrieve within your Edge Config.
+	Key string `pulumi:"key"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
-	Value  string `pulumi:"value"`
+	// The value assigned to the key.
+	Value string `pulumi:"value"`
 }
 
 func LookupEdgeConfigItemOutput(ctx *pulumi.Context, args LookupEdgeConfigItemOutputArgs, opts ...pulumi.InvokeOption) LookupEdgeConfigItemResultOutput {
@@ -57,8 +102,11 @@ func LookupEdgeConfigItemOutput(ctx *pulumi.Context, args LookupEdgeConfigItemOu
 
 // A collection of arguments for invoking getEdgeConfigItem.
 type LookupEdgeConfigItemOutputArgs struct {
-	Id     pulumi.StringInput    `pulumi:"id"`
-	Key    pulumi.StringInput    `pulumi:"key"`
+	// The ID of the Edge Config that the item should exist under.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The name of the key you want to retrieve within your Edge Config.
+	Key pulumi.StringInput `pulumi:"key"`
+	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
@@ -81,18 +129,22 @@ func (o LookupEdgeConfigItemResultOutput) ToLookupEdgeConfigItemResultOutputWith
 	return o
 }
 
+// The ID of the Edge Config that the item should exist under.
 func (o LookupEdgeConfigItemResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigItemResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the key you want to retrieve within your Edge Config.
 func (o LookupEdgeConfigItemResultOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigItemResult) string { return v.Key }).(pulumi.StringOutput)
 }
 
+// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o LookupEdgeConfigItemResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigItemResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
+// The value assigned to the key.
 func (o LookupEdgeConfigItemResultOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigItemResult) string { return v.Value }).(pulumi.StringOutput)
 }

@@ -6,6 +6,23 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * Retrieves members and their roles for a Vercel Project.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const exampleProject = vercel.getProject({
+ *     name: "example-with-members",
+ * });
+ * const exampleProjectMembers = exampleProject.then(exampleProject => vercel.getProjectMembers({
+ *     projectId: exampleProject.id,
+ * }));
+ * ```
+ */
 export function getProjectMembers(args: GetProjectMembersArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectMembersResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProjectMembers:getProjectMembers", {
@@ -18,7 +35,13 @@ export function getProjectMembers(args: GetProjectMembersArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getProjectMembers.
  */
 export interface GetProjectMembersArgs {
+    /**
+     * The ID of the Vercel Project.
+     */
     projectId: string;
+    /**
+     * The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+     */
     teamId?: string;
 }
 
@@ -30,10 +53,36 @@ export interface GetProjectMembersResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The set of members in this project.
+     */
     readonly members: outputs.GetProjectMembersMember[];
+    /**
+     * The ID of the Vercel Project.
+     */
     readonly projectId: string;
+    /**
+     * The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+     */
     readonly teamId?: string;
 }
+/**
+ * Retrieves members and their roles for a Vercel Project.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumi/vercel";
+ *
+ * const exampleProject = vercel.getProject({
+ *     name: "example-with-members",
+ * });
+ * const exampleProjectMembers = exampleProject.then(exampleProject => vercel.getProjectMembers({
+ *     projectId: exampleProject.id,
+ * }));
+ * ```
+ */
 export function getProjectMembersOutput(args: GetProjectMembersOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectMembersResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProjectMembers:getProjectMembers", {
@@ -46,6 +95,12 @@ export function getProjectMembersOutput(args: GetProjectMembersOutputArgs, opts?
  * A collection of arguments for invoking getProjectMembers.
  */
 export interface GetProjectMembersOutputArgs {
+    /**
+     * The ID of the Vercel Project.
+     */
     projectId: pulumi.Input<string>;
+    /**
+     * The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
+     */
     teamId?: pulumi.Input<string>;
 }

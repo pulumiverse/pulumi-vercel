@@ -10,6 +10,125 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides a DNS Record resource.
+    /// 
+    /// DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
+    /// 
+    /// &gt; The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+    /// 
+    /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var dnsRecord = new Vercel.DnsRecord("dnsRecord", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Ttl = 60,
+    ///         Type = "A",
+    ///         Value = "192.168.0.1",
+    ///     });
+    /// 
+    ///     var aaaa = new Vercel.DnsRecord("aaaa", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Ttl = 60,
+    ///         Type = "AAAA",
+    ///         Value = "::0",
+    ///     });
+    /// 
+    ///     var @alias = new Vercel.DnsRecord("alias", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Ttl = 60,
+    ///         Type = "ALIAS",
+    ///         Value = "example2.com.",
+    ///     });
+    /// 
+    ///     var caa = new Vercel.DnsRecord("caa", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Ttl = 60,
+    ///         Type = "CAA",
+    ///         Value = "1 issue \"letsencrypt.org\"",
+    ///     });
+    /// 
+    ///     var cname = new Vercel.DnsRecord("cname", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Ttl = 60,
+    ///         Type = "CNAME",
+    ///         Value = "example2.com.",
+    ///     });
+    /// 
+    ///     var mx = new Vercel.DnsRecord("mx", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         MxPriority = 333,
+    ///         Ttl = 60,
+    ///         Type = "MX",
+    ///         Value = "example2.com.",
+    ///     });
+    /// 
+    ///     var srv = new Vercel.DnsRecord("srv", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Srv = new Vercel.Inputs.DnsRecordSrvArgs
+    ///         {
+    ///             Port = 6000,
+    ///             Priority = 127,
+    ///             Target = "example2.com.",
+    ///             Weight = 60,
+    ///         },
+    ///         Ttl = 60,
+    ///         Type = "SRV",
+    ///     });
+    /// 
+    ///     var txt = new Vercel.DnsRecord("txt", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Ttl = 60,
+    ///         Type = "TXT",
+    ///         Value = "some text value",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// If importing into a personal account, or with a team configured on
+    /// 
+    /// the provider, simply use the record id.
+    /// 
+    /// - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
+    /// 
+    /// or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// 
+    /// Alternatively, you can import via the team_id and record_id.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
+    /// 
+    /// or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/dnsRecord:DnsRecord")]
     public partial class DnsRecord : global::Pulumi.CustomResource
     {
@@ -26,8 +145,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Domain { get; private set; } = null!;
 
         /// <summary>
-        /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-        /// indicates a higher priority.
+        /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         /// </summary>
         [Output("mxPriority")]
         public Output<int?> MxPriority { get; private set; } = null!;
@@ -45,8 +163,7 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.DnsRecordSrv?> Srv { get; private set; } = null!;
 
         /// <summary>
-        /// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
@@ -64,12 +181,14 @@ namespace Pulumiverse.Vercel
         public Output<string> Type { get; private set; } = null!;
 
         /// <summary>
-        /// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-        /// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-        /// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-        /// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-        /// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-        /// text.
+        /// The value of the DNS record. The format depends on the 'type' property.
+        /// For an 'A' record, this should be a valid IPv4 address.
+        /// For an 'AAAA' record, this should be an IPv6 address.
+        /// For 'ALIAS' records, this should be a hostname.
+        /// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+        /// For 'CNAME' records, this should be a different domain name.
+        /// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+        /// For 'TXT' records, this can contain arbitrary text.
         /// </summary>
         [Output("value")]
         public Output<string?> Value { get; private set; } = null!;
@@ -134,8 +253,7 @@ namespace Pulumiverse.Vercel
         public Input<string> Domain { get; set; } = null!;
 
         /// <summary>
-        /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-        /// indicates a higher priority.
+        /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         /// </summary>
         [Input("mxPriority")]
         public Input<int>? MxPriority { get; set; }
@@ -153,8 +271,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.DnsRecordSrvArgs>? Srv { get; set; }
 
         /// <summary>
-        /// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -172,12 +289,14 @@ namespace Pulumiverse.Vercel
         public Input<string> Type { get; set; } = null!;
 
         /// <summary>
-        /// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-        /// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-        /// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-        /// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-        /// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-        /// text.
+        /// The value of the DNS record. The format depends on the 'type' property.
+        /// For an 'A' record, this should be a valid IPv4 address.
+        /// For an 'AAAA' record, this should be an IPv6 address.
+        /// For 'ALIAS' records, this should be a hostname.
+        /// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+        /// For 'CNAME' records, this should be a different domain name.
+        /// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+        /// For 'TXT' records, this can contain arbitrary text.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
@@ -203,8 +322,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? Domain { get; set; }
 
         /// <summary>
-        /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value
-        /// indicates a higher priority.
+        /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         /// </summary>
         [Input("mxPriority")]
         public Input<int>? MxPriority { get; set; }
@@ -222,8 +340,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.DnsRecordSrvGetArgs>? Srv { get; set; }
 
         /// <summary>
-        /// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has
-        /// not been set in the provider.
+        /// The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
@@ -241,12 +358,14 @@ namespace Pulumiverse.Vercel
         public Input<string>? Type { get; set; }
 
         /// <summary>
-        /// The value of the DNS record. The format depends on the 'type' property. For an 'A' record, this should be a valid IPv4
-        /// address. For an 'AAAA' record, this should be an IPv6 address. For 'ALIAS' records, this should be a hostname. For 'CAA'
-        /// records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the
-        /// domain. For 'CNAME' records, this should be a different domain name. For 'MX' records, this should specify the mail
-        /// server responsible for accepting messages on behalf of the domain name. For 'TXT' records, this can contain arbitrary
-        /// text.
+        /// The value of the DNS record. The format depends on the 'type' property.
+        /// For an 'A' record, this should be a valid IPv4 address.
+        /// For an 'AAAA' record, this should be an IPv6 address.
+        /// For 'ALIAS' records, this should be a hostname.
+        /// For 'CAA' records, this should specify specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+        /// For 'CNAME' records, this should be a different domain name.
+        /// For 'MX' records, this should specify the mail server responsible for accepting messages on behalf of the domain name.
+        /// For 'TXT' records, this can contain arbitrary text.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
