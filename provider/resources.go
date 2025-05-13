@@ -134,10 +134,12 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
+			RespectSchemaVersion: true,
 		},
 		Python: &tfbridge.PythonInfo{
-			PackageName: fmt.Sprintf("%s_%s", publisher, mainPkg),
-			PyProject:   struct{ Enabled bool }{true},
+			PackageName:          fmt.Sprintf("%s_%s", publisher, mainPkg),
+			PyProject:            struct{ Enabled bool }{true},
+			RespectSchemaVersion: true,
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
@@ -147,12 +149,14 @@ func Provider() tfbridge.ProviderInfo {
 				mainPkg,
 			),
 			GenerateResourceContainerTypes: true,
+			RespectSchemaVersion:           true,
 		},
 		CSharp: &tfbridge.CSharpInfo{
 			RootNamespace: caser.String(publisher),
 			PackageReferences: map[string]string{
 				"Pulumi": "3.*",
 			},
+			RespectSchemaVersion: true,
 		},
 		Java: &tfbridge.JavaInfo{
 			BasePackage: "com.pulumiverse",

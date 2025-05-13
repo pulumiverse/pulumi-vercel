@@ -1,6 +1,6 @@
 {
     "name": "@pulumiverse/vercel",
-    "version": "${VERSION}",
+    "version": "2.0.0-alpha.0+dev",
     "keywords": [
         "pulumi",
         "vercel",
@@ -22,6 +22,7 @@
     "pulumi": {
         "resource": true,
         "name": "vercel",
+        "version": "2.0.0-alpha.0+dev",
         "server": "github://api.github.com/pulumiverse"
     }
 }
