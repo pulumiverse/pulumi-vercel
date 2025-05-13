@@ -1,7 +1,7 @@
 provider: vercel
 template: external-bridged-provider
 organization: pulumiverse
-major-version: 2
+major-version: 3
 providerDefaultBranch: main
 upstreamProviderOrg: vercel
 pulumiConvert: 1
