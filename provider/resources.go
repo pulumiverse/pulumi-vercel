@@ -137,6 +137,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Python: &tfbridge.PythonInfo{
 			PackageName: fmt.Sprintf("%s_%s", publisher, mainPkg),
+			PyProject:   struct{ Enabled bool }{true},
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
