@@ -8,7 +8,7 @@ import (
 
 	"github.com/blang/semver"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 type module struct {
@@ -43,10 +43,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EdgeConfigSchema{}
 	case "vercel:index/edgeConfigToken:EdgeConfigToken":
 		r = &EdgeConfigToken{}
+	case "vercel:index/firewallBypass:FirewallBypass":
+		r = &FirewallBypass{}
 	case "vercel:index/firewallConfig:FirewallConfig":
 		r = &FirewallConfig{}
+	case "vercel:index/integrationProjectAccess:IntegrationProjectAccess":
+		r = &IntegrationProjectAccess{}
 	case "vercel:index/logDrain:LogDrain":
 		r = &LogDrain{}
+	case "vercel:index/microfrontendGroup:MicrofrontendGroup":
+		r = &MicrofrontendGroup{}
+	case "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership":
+		r = &MicrofrontendGroupMembership{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
@@ -61,6 +69,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectMembers{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
+	case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
+		r = &SharedEnvironmentVariableProjectLink{}
 	case "vercel:index/teamConfig:TeamConfig":
 		r = &TeamConfig{}
 	case "vercel:index/teamMember:TeamMember":
@@ -155,12 +165,32 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/firewallBypass",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/firewallConfig",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/integrationProjectAccess",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/logDrain",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/microfrontendGroup",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/microfrontendGroupMembership",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -196,6 +226,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/sharedEnvironmentVariable",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/sharedEnvironmentVariableProjectLink",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

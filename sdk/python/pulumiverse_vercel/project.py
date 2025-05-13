@@ -27,6 +27,9 @@ class ProjectArgs:
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
+                 enable_affected_projects_deployments: Optional[pulumi.Input[bool]] = None,
+                 enable_preview_feedback: Optional[pulumi.Input[bool]] = None,
+                 enable_production_feedback: Optional[pulumi.Input[bool]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]] = None,
                  framework: Optional[pulumi.Input[str]] = None,
                  function_failover: Optional[pulumi.Input[bool]] = None,
@@ -37,7 +40,9 @@ class ProjectArgs:
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 node_version: Optional[pulumi.Input[str]] = None,
                  oidc_token_config: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']] = None,
+                 on_demand_concurrent_builds: Optional[pulumi.Input[bool]] = None,
                  options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
@@ -61,6 +66,9 @@ class ProjectArgs:
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
+        :param pulumi.Input[bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        :param pulumi.Input[bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
@@ -71,11 +79,13 @@ class ProjectArgs:
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input['ProjectOidcTokenConfigArgs'] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
+        :param pulumi.Input[bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -100,6 +110,12 @@ class ProjectArgs:
             pulumi.set(__self__, "dev_command", dev_command)
         if directory_listing is not None:
             pulumi.set(__self__, "directory_listing", directory_listing)
+        if enable_affected_projects_deployments is not None:
+            pulumi.set(__self__, "enable_affected_projects_deployments", enable_affected_projects_deployments)
+        if enable_preview_feedback is not None:
+            pulumi.set(__self__, "enable_preview_feedback", enable_preview_feedback)
+        if enable_production_feedback is not None:
+            pulumi.set(__self__, "enable_production_feedback", enable_production_feedback)
         if environments is not None:
             pulumi.set(__self__, "environments", environments)
         if framework is not None:
@@ -120,14 +136,21 @@ class ProjectArgs:
             pulumi.set(__self__, "install_command", install_command)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if node_version is not None:
+            pulumi.set(__self__, "node_version", node_version)
         if oidc_token_config is not None:
             pulumi.set(__self__, "oidc_token_config", oidc_token_config)
+        if on_demand_concurrent_builds is not None:
+            pulumi.set(__self__, "on_demand_concurrent_builds", on_demand_concurrent_builds)
         if options_allowlist is not None:
             pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
             pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
             pulumi.set(__self__, "password_protection", password_protection)
+        if preview_comments is not None:
+            warnings.warn("""Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""preview_comments is deprecated: Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
         if preview_comments is not None:
             pulumi.set(__self__, "preview_comments", preview_comments)
         if prioritise_production_builds is not None:
@@ -224,6 +247,42 @@ class ProjectArgs:
     @directory_listing.setter
     def directory_listing(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "directory_listing", value)
+
+    @property
+    @pulumi.getter(name="enableAffectedProjectsDeployments")
+    def enable_affected_projects_deployments(self) -> Optional[pulumi.Input[bool]]:
+        """
+        When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        """
+        return pulumi.get(self, "enable_affected_projects_deployments")
+
+    @enable_affected_projects_deployments.setter
+    def enable_affected_projects_deployments(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_affected_projects_deployments", value)
+
+    @property
+    @pulumi.getter(name="enablePreviewFeedback")
+    def enable_preview_feedback(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enables the Vercel Toolbar on your preview deployments.
+        """
+        return pulumi.get(self, "enable_preview_feedback")
+
+    @enable_preview_feedback.setter
+    def enable_preview_feedback(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_preview_feedback", value)
+
+    @property
+    @pulumi.getter(name="enableProductionFeedback")
+    def enable_production_feedback(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        """
+        return pulumi.get(self, "enable_production_feedback")
+
+    @enable_production_feedback.setter
+    def enable_production_feedback(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_production_feedback", value)
 
     @property
     @pulumi.getter
@@ -346,6 +405,18 @@ class ProjectArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="nodeVersion")
+    def node_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+        """
+        return pulumi.get(self, "node_version")
+
+    @node_version.setter
+    def node_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "node_version", value)
+
+    @property
     @pulumi.getter(name="oidcTokenConfig")
     def oidc_token_config(self) -> Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]:
         """
@@ -356,6 +427,18 @@ class ProjectArgs:
     @oidc_token_config.setter
     def oidc_token_config(self, value: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]):
         pulumi.set(self, "oidc_token_config", value)
+
+    @property
+    @pulumi.getter(name="onDemandConcurrentBuilds")
+    def on_demand_concurrent_builds(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        """
+        return pulumi.get(self, "on_demand_concurrent_builds")
+
+    @on_demand_concurrent_builds.setter
+    def on_demand_concurrent_builds(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "on_demand_concurrent_builds", value)
 
     @property
     @pulumi.getter(name="optionsAllowlist")
@@ -395,9 +478,10 @@ class ProjectArgs:
 
     @property
     @pulumi.getter(name="previewComments")
+    @_utilities.deprecated("""Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
     def preview_comments(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        Enables the Vercel Toolbar on your preview deployments.
         """
         return pulumi.get(self, "preview_comments")
 
@@ -547,6 +631,9 @@ class _ProjectState:
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
+                 enable_affected_projects_deployments: Optional[pulumi.Input[bool]] = None,
+                 enable_preview_feedback: Optional[pulumi.Input[bool]] = None,
+                 enable_production_feedback: Optional[pulumi.Input[bool]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]] = None,
                  framework: Optional[pulumi.Input[str]] = None,
                  function_failover: Optional[pulumi.Input[bool]] = None,
@@ -557,7 +644,9 @@ class _ProjectState:
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 node_version: Optional[pulumi.Input[str]] = None,
                  oidc_token_config: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']] = None,
+                 on_demand_concurrent_builds: Optional[pulumi.Input[bool]] = None,
                  options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
@@ -581,6 +670,9 @@ class _ProjectState:
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
+        :param pulumi.Input[bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        :param pulumi.Input[bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
@@ -591,11 +683,13 @@ class _ProjectState:
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input['ProjectOidcTokenConfigArgs'] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
+        :param pulumi.Input[bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -620,6 +714,12 @@ class _ProjectState:
             pulumi.set(__self__, "dev_command", dev_command)
         if directory_listing is not None:
             pulumi.set(__self__, "directory_listing", directory_listing)
+        if enable_affected_projects_deployments is not None:
+            pulumi.set(__self__, "enable_affected_projects_deployments", enable_affected_projects_deployments)
+        if enable_preview_feedback is not None:
+            pulumi.set(__self__, "enable_preview_feedback", enable_preview_feedback)
+        if enable_production_feedback is not None:
+            pulumi.set(__self__, "enable_production_feedback", enable_production_feedback)
         if environments is not None:
             pulumi.set(__self__, "environments", environments)
         if framework is not None:
@@ -640,14 +740,21 @@ class _ProjectState:
             pulumi.set(__self__, "install_command", install_command)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if node_version is not None:
+            pulumi.set(__self__, "node_version", node_version)
         if oidc_token_config is not None:
             pulumi.set(__self__, "oidc_token_config", oidc_token_config)
+        if on_demand_concurrent_builds is not None:
+            pulumi.set(__self__, "on_demand_concurrent_builds", on_demand_concurrent_builds)
         if options_allowlist is not None:
             pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
             pulumi.set(__self__, "output_directory", output_directory)
         if password_protection is not None:
             pulumi.set(__self__, "password_protection", password_protection)
+        if preview_comments is not None:
+            warnings.warn("""Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""preview_comments is deprecated: Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
         if preview_comments is not None:
             pulumi.set(__self__, "preview_comments", preview_comments)
         if prioritise_production_builds is not None:
@@ -744,6 +851,42 @@ class _ProjectState:
     @directory_listing.setter
     def directory_listing(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "directory_listing", value)
+
+    @property
+    @pulumi.getter(name="enableAffectedProjectsDeployments")
+    def enable_affected_projects_deployments(self) -> Optional[pulumi.Input[bool]]:
+        """
+        When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        """
+        return pulumi.get(self, "enable_affected_projects_deployments")
+
+    @enable_affected_projects_deployments.setter
+    def enable_affected_projects_deployments(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_affected_projects_deployments", value)
+
+    @property
+    @pulumi.getter(name="enablePreviewFeedback")
+    def enable_preview_feedback(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enables the Vercel Toolbar on your preview deployments.
+        """
+        return pulumi.get(self, "enable_preview_feedback")
+
+    @enable_preview_feedback.setter
+    def enable_preview_feedback(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_preview_feedback", value)
+
+    @property
+    @pulumi.getter(name="enableProductionFeedback")
+    def enable_production_feedback(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        """
+        return pulumi.get(self, "enable_production_feedback")
+
+    @enable_production_feedback.setter
+    def enable_production_feedback(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_production_feedback", value)
 
     @property
     @pulumi.getter
@@ -866,6 +1009,18 @@ class _ProjectState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="nodeVersion")
+    def node_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+        """
+        return pulumi.get(self, "node_version")
+
+    @node_version.setter
+    def node_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "node_version", value)
+
+    @property
     @pulumi.getter(name="oidcTokenConfig")
     def oidc_token_config(self) -> Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]:
         """
@@ -876,6 +1031,18 @@ class _ProjectState:
     @oidc_token_config.setter
     def oidc_token_config(self, value: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']]):
         pulumi.set(self, "oidc_token_config", value)
+
+    @property
+    @pulumi.getter(name="onDemandConcurrentBuilds")
+    def on_demand_concurrent_builds(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        """
+        return pulumi.get(self, "on_demand_concurrent_builds")
+
+    @on_demand_concurrent_builds.setter
+    def on_demand_concurrent_builds(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "on_demand_concurrent_builds", value)
 
     @property
     @pulumi.getter(name="optionsAllowlist")
@@ -915,9 +1082,10 @@ class _ProjectState:
 
     @property
     @pulumi.getter(name="previewComments")
+    @_utilities.deprecated("""Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
     def preview_comments(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        Enables the Vercel Toolbar on your preview deployments.
         """
         return pulumi.get(self, "preview_comments")
 
@@ -1069,6 +1237,9 @@ class Project(pulumi.CustomResource):
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
+                 enable_affected_projects_deployments: Optional[pulumi.Input[bool]] = None,
+                 enable_preview_feedback: Optional[pulumi.Input[bool]] = None,
+                 enable_production_feedback: Optional[pulumi.Input[bool]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]]] = None,
                  framework: Optional[pulumi.Input[str]] = None,
                  function_failover: Optional[pulumi.Input[bool]] = None,
@@ -1079,7 +1250,9 @@ class Project(pulumi.CustomResource):
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 node_version: Optional[pulumi.Input[str]] = None,
                  oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
+                 on_demand_concurrent_builds: Optional[pulumi.Input[bool]] = None,
                  options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
@@ -1151,6 +1324,9 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
+        :param pulumi.Input[bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        :param pulumi.Input[bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
@@ -1161,11 +1337,13 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
+        :param pulumi.Input[bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -1252,6 +1430,9 @@ class Project(pulumi.CustomResource):
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
+                 enable_affected_projects_deployments: Optional[pulumi.Input[bool]] = None,
+                 enable_preview_feedback: Optional[pulumi.Input[bool]] = None,
+                 enable_production_feedback: Optional[pulumi.Input[bool]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]]] = None,
                  framework: Optional[pulumi.Input[str]] = None,
                  function_failover: Optional[pulumi.Input[bool]] = None,
@@ -1262,7 +1443,9 @@ class Project(pulumi.CustomResource):
                  ignore_command: Optional[pulumi.Input[str]] = None,
                  install_command: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 node_version: Optional[pulumi.Input[str]] = None,
                  oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
+                 on_demand_concurrent_builds: Optional[pulumi.Input[bool]] = None,
                  options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
@@ -1293,6 +1476,9 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["customer_success_code_visibility"] = customer_success_code_visibility
             __props__.__dict__["dev_command"] = dev_command
             __props__.__dict__["directory_listing"] = directory_listing
+            __props__.__dict__["enable_affected_projects_deployments"] = enable_affected_projects_deployments
+            __props__.__dict__["enable_preview_feedback"] = enable_preview_feedback
+            __props__.__dict__["enable_production_feedback"] = enable_production_feedback
             __props__.__dict__["environments"] = environments
             __props__.__dict__["framework"] = framework
             __props__.__dict__["function_failover"] = function_failover
@@ -1303,7 +1489,9 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
             __props__.__dict__["name"] = name
+            __props__.__dict__["node_version"] = node_version
             __props__.__dict__["oidc_token_config"] = oidc_token_config
+            __props__.__dict__["on_demand_concurrent_builds"] = on_demand_concurrent_builds
             __props__.__dict__["options_allowlist"] = options_allowlist
             __props__.__dict__["output_directory"] = output_directory
             __props__.__dict__["password_protection"] = password_protection
@@ -1337,6 +1525,9 @@ class Project(pulumi.CustomResource):
             customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
             dev_command: Optional[pulumi.Input[str]] = None,
             directory_listing: Optional[pulumi.Input[bool]] = None,
+            enable_affected_projects_deployments: Optional[pulumi.Input[bool]] = None,
+            enable_preview_feedback: Optional[pulumi.Input[bool]] = None,
+            enable_production_feedback: Optional[pulumi.Input[bool]] = None,
             environments: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]]] = None,
             framework: Optional[pulumi.Input[str]] = None,
             function_failover: Optional[pulumi.Input[bool]] = None,
@@ -1347,7 +1538,9 @@ class Project(pulumi.CustomResource):
             ignore_command: Optional[pulumi.Input[str]] = None,
             install_command: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            node_version: Optional[pulumi.Input[str]] = None,
             oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
+            on_demand_concurrent_builds: Optional[pulumi.Input[bool]] = None,
             options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
             output_directory: Optional[pulumi.Input[str]] = None,
             password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
@@ -1376,6 +1569,9 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
+        :param pulumi.Input[bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        :param pulumi.Input[bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
         :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
@@ -1386,11 +1582,13 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[str] install_command: The install command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[str] name: The desired name for the project.
+        :param pulumi.Input[str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
+        :param pulumi.Input[bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
-        :param pulumi.Input[bool] preview_comments: Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -1413,6 +1611,9 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["customer_success_code_visibility"] = customer_success_code_visibility
         __props__.__dict__["dev_command"] = dev_command
         __props__.__dict__["directory_listing"] = directory_listing
+        __props__.__dict__["enable_affected_projects_deployments"] = enable_affected_projects_deployments
+        __props__.__dict__["enable_preview_feedback"] = enable_preview_feedback
+        __props__.__dict__["enable_production_feedback"] = enable_production_feedback
         __props__.__dict__["environments"] = environments
         __props__.__dict__["framework"] = framework
         __props__.__dict__["function_failover"] = function_failover
@@ -1423,7 +1624,9 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["ignore_command"] = ignore_command
         __props__.__dict__["install_command"] = install_command
         __props__.__dict__["name"] = name
+        __props__.__dict__["node_version"] = node_version
         __props__.__dict__["oidc_token_config"] = oidc_token_config
+        __props__.__dict__["on_demand_concurrent_builds"] = on_demand_concurrent_builds
         __props__.__dict__["options_allowlist"] = options_allowlist
         __props__.__dict__["output_directory"] = output_directory
         __props__.__dict__["password_protection"] = password_protection
@@ -1488,6 +1691,30 @@ class Project(pulumi.CustomResource):
         If no index file is present within a directory, the directory contents will be displayed.
         """
         return pulumi.get(self, "directory_listing")
+
+    @property
+    @pulumi.getter(name="enableAffectedProjectsDeployments")
+    def enable_affected_projects_deployments(self) -> pulumi.Output[Optional[bool]]:
+        """
+        When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        """
+        return pulumi.get(self, "enable_affected_projects_deployments")
+
+    @property
+    @pulumi.getter(name="enablePreviewFeedback")
+    def enable_preview_feedback(self) -> pulumi.Output[bool]:
+        """
+        Enables the Vercel Toolbar on your preview deployments.
+        """
+        return pulumi.get(self, "enable_preview_feedback")
+
+    @property
+    @pulumi.getter(name="enableProductionFeedback")
+    def enable_production_feedback(self) -> pulumi.Output[bool]:
+        """
+        Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        """
+        return pulumi.get(self, "enable_production_feedback")
 
     @property
     @pulumi.getter
@@ -1570,12 +1797,28 @@ class Project(pulumi.CustomResource):
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="nodeVersion")
+    def node_version(self) -> pulumi.Output[str]:
+        """
+        The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+        """
+        return pulumi.get(self, "node_version")
+
+    @property
     @pulumi.getter(name="oidcTokenConfig")
     def oidc_token_config(self) -> pulumi.Output['outputs.ProjectOidcTokenConfig']:
         """
         Configuration for OpenID Connect (OIDC) tokens.
         """
         return pulumi.get(self, "oidc_token_config")
+
+    @property
+    @pulumi.getter(name="onDemandConcurrentBuilds")
+    def on_demand_concurrent_builds(self) -> pulumi.Output[bool]:
+        """
+        Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        """
+        return pulumi.get(self, "on_demand_concurrent_builds")
 
     @property
     @pulumi.getter(name="optionsAllowlist")
@@ -1603,9 +1846,10 @@ class Project(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="previewComments")
-    def preview_comments(self) -> pulumi.Output[Optional[bool]]:
+    @_utilities.deprecated("""Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
+    def preview_comments(self) -> pulumi.Output[bool]:
         """
-        Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        Enables the Vercel Toolbar on your preview deployments.
         """
         return pulumi.get(self, "preview_comments")
 

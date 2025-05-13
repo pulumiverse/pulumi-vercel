@@ -1,4 +1,4 @@
-module github.com/pulumiverse/pulumi-vercel/provider/v2
+module github.com/pulumiverse/pulumi-vercel/provider/v3
 
 go 1.22.0
 
@@ -6,7 +6,7 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.45.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
 	github.com/pulumi/pulumi/sdk/v3 v3.142.0
-	github.com/vercel/terraform-provider-vercel/v2 v2.8.0
+	github.com/vercel/terraform-provider-vercel/v3 v3.1.1
 	golang.org/x/text v0.21.0
 )
 

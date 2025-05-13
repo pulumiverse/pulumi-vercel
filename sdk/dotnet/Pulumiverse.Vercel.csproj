@@ -9,7 +9,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/pulumiverse/pulumi-vercel</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>2.0.0-alpha.0+dev</Version>
+    <Version>3.0.0-alpha.0+dev</Version>
 
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>

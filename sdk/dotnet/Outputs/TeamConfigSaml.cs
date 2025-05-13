@@ -15,27 +15,20 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class TeamConfigSaml
     {
         /// <summary>
-        /// The ID of the access group to use for the team.
-        /// </summary>
-        public readonly string? AccessGroupId;
-        /// <summary>
         /// Indicates if SAML is enforced for the team.
         /// </summary>
         public readonly bool Enforced;
         /// <summary>
-        /// Directory groups to role or access group mappings.
+        /// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         /// </summary>
-        public readonly ImmutableDictionary<string, string>? Roles;
+        public readonly ImmutableDictionary<string, Outputs.TeamConfigSamlRoles>? Roles;
 
         [OutputConstructor]
         private TeamConfigSaml(
-            string? accessGroupId,
-
             bool enforced,
 
-            ImmutableDictionary<string, string>? roles)
+            ImmutableDictionary<string, Outputs.TeamConfigSamlRoles>? roles)
         {
-            AccessGroupId = accessGroupId;
             Enforced = enforced;
             Roles = roles;
         }

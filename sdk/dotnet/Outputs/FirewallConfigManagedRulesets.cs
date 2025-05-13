@@ -15,13 +15,21 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class FirewallConfigManagedRulesets
     {
         /// <summary>
+        /// Enable the bot*filter managed ruleset and select action
+        /// </summary>
+        public readonly Outputs.FirewallConfigManagedRulesetsBotFilter? BotFilter;
+        /// <summary>
         /// Enable the owasp managed rulesets and select ruleset behaviors
         /// </summary>
         public readonly Outputs.FirewallConfigManagedRulesetsOwasp? Owasp;
 
         [OutputConstructor]
-        private FirewallConfigManagedRulesets(Outputs.FirewallConfigManagedRulesetsOwasp? owasp)
+        private FirewallConfigManagedRulesets(
+            Outputs.FirewallConfigManagedRulesetsBotFilter? botFilter,
+
+            Outputs.FirewallConfigManagedRulesetsOwasp? owasp)
         {
+            BotFilter = botFilter;
             Owasp = owasp;
         }
     }

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -834,6 +834,8 @@ func (o FirewallConfigIpRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallC
 }
 
 type FirewallConfigManagedRulesets struct {
+	// Enable the bot*filter managed ruleset and select action
+	BotFilter *FirewallConfigManagedRulesetsBotFilter `pulumi:"botFilter"`
 	// Enable the owasp managed rulesets and select ruleset behaviors
 	Owasp *FirewallConfigManagedRulesetsOwasp `pulumi:"owasp"`
 }
@@ -850,6 +852,8 @@ type FirewallConfigManagedRulesetsInput interface {
 }
 
 type FirewallConfigManagedRulesetsArgs struct {
+	// Enable the bot*filter managed ruleset and select action
+	BotFilter FirewallConfigManagedRulesetsBotFilterPtrInput `pulumi:"botFilter"`
 	// Enable the owasp managed rulesets and select ruleset behaviors
 	Owasp FirewallConfigManagedRulesetsOwaspPtrInput `pulumi:"owasp"`
 }
@@ -931,6 +935,11 @@ func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsPtrO
 	}).(FirewallConfigManagedRulesetsPtrOutput)
 }
 
+// Enable the bot*filter managed ruleset and select action
+func (o FirewallConfigManagedRulesetsOutput) BotFilter() FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotFilter { return v.BotFilter }).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
+}
+
 // Enable the owasp managed rulesets and select ruleset behaviors
 func (o FirewallConfigManagedRulesetsOutput) Owasp() FirewallConfigManagedRulesetsOwaspPtrOutput {
 	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsOwasp { return v.Owasp }).(FirewallConfigManagedRulesetsOwaspPtrOutput)
@@ -960,6 +969,16 @@ func (o FirewallConfigManagedRulesetsPtrOutput) Elem() FirewallConfigManagedRule
 	}).(FirewallConfigManagedRulesetsOutput)
 }
 
+// Enable the bot*filter managed ruleset and select action
+func (o FirewallConfigManagedRulesetsPtrOutput) BotFilter() FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotFilter {
+		if v == nil {
+			return nil
+		}
+		return v.BotFilter
+	}).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
+}
+
 // Enable the owasp managed rulesets and select ruleset behaviors
 func (o FirewallConfigManagedRulesetsPtrOutput) Owasp() FirewallConfigManagedRulesetsOwaspPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsOwasp {
@@ -968,6 +987,154 @@ func (o FirewallConfigManagedRulesetsPtrOutput) Owasp() FirewallConfigManagedRul
 		}
 		return v.Owasp
 	}).(FirewallConfigManagedRulesetsOwaspPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsBotFilter struct {
+	Action *string `pulumi:"action"`
+	Active *bool   `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsBotFilterInput is an input type that accepts FirewallConfigManagedRulesetsBotFilterArgs and FirewallConfigManagedRulesetsBotFilterOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsBotFilterInput` via:
+//
+//	FirewallConfigManagedRulesetsBotFilterArgs{...}
+type FirewallConfigManagedRulesetsBotFilterInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsBotFilterOutput() FirewallConfigManagedRulesetsBotFilterOutput
+	ToFirewallConfigManagedRulesetsBotFilterOutputWithContext(context.Context) FirewallConfigManagedRulesetsBotFilterOutput
+}
+
+type FirewallConfigManagedRulesetsBotFilterArgs struct {
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	Active pulumi.BoolPtrInput   `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsBotFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilter)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsBotFilterArgs) ToFirewallConfigManagedRulesetsBotFilterOutput() FirewallConfigManagedRulesetsBotFilterOutput {
+	return i.ToFirewallConfigManagedRulesetsBotFilterOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsBotFilterArgs) ToFirewallConfigManagedRulesetsBotFilterOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsBotFilterOutput)
+}
+
+func (i FirewallConfigManagedRulesetsBotFilterArgs) ToFirewallConfigManagedRulesetsBotFilterPtrOutput() FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsBotFilterArgs) ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsBotFilterOutput).ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsBotFilterPtrInput is an input type that accepts FirewallConfigManagedRulesetsBotFilterArgs, FirewallConfigManagedRulesetsBotFilterPtr and FirewallConfigManagedRulesetsBotFilterPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsBotFilterPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsBotFilterArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsBotFilterPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsBotFilterPtrOutput() FirewallConfigManagedRulesetsBotFilterPtrOutput
+	ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsBotFilterPtrOutput
+}
+
+type firewallConfigManagedRulesetsBotFilterPtrType FirewallConfigManagedRulesetsBotFilterArgs
+
+func FirewallConfigManagedRulesetsBotFilterPtr(v *FirewallConfigManagedRulesetsBotFilterArgs) FirewallConfigManagedRulesetsBotFilterPtrInput {
+	return (*firewallConfigManagedRulesetsBotFilterPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsBotFilterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsBotFilter)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsBotFilterPtrType) ToFirewallConfigManagedRulesetsBotFilterPtrOutput() FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsBotFilterPtrType) ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsBotFilterOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsBotFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilter)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterOutput) ToFirewallConfigManagedRulesetsBotFilterOutput() FirewallConfigManagedRulesetsBotFilterOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterOutput) ToFirewallConfigManagedRulesetsBotFilterOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotFilterOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterOutput) ToFirewallConfigManagedRulesetsBotFilterPtrOutput() FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterOutput) ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsBotFilter) *FirewallConfigManagedRulesetsBotFilter {
+		return &v
+	}).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsBotFilter) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsBotFilter) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsBotFilterPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsBotFilterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsBotFilter)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) ToFirewallConfigManagedRulesetsBotFilterPtrOutput() FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) ToFirewallConfigManagedRulesetsBotFilterPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotFilterPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) Elem() FirewallConfigManagedRulesetsBotFilterOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotFilter) FirewallConfigManagedRulesetsBotFilter {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsBotFilter
+		return ret
+	}).(FirewallConfigManagedRulesetsBotFilterOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotFilter) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotFilter) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
 }
 
 type FirewallConfigManagedRulesetsOwasp struct {
@@ -3030,7 +3197,7 @@ func (o FirewallConfigRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallCon
 type FirewallConfigRulesRuleAction struct {
 	// Base action
 	Action string `pulumi:"action"`
-	// Forward persistence of a rule aciton
+	// Forward persistence of a rule action
 	ActionDuration *string `pulumi:"actionDuration"`
 	// Behavior or a rate limiting action. Required if action is rate*limit
 	RateLimit *FirewallConfigRulesRuleActionRateLimit `pulumi:"rateLimit"`
@@ -3052,7 +3219,7 @@ type FirewallConfigRulesRuleActionInput interface {
 type FirewallConfigRulesRuleActionArgs struct {
 	// Base action
 	Action pulumi.StringInput `pulumi:"action"`
-	// Forward persistence of a rule aciton
+	// Forward persistence of a rule action
 	ActionDuration pulumi.StringPtrInput `pulumi:"actionDuration"`
 	// Behavior or a rate limiting action. Required if action is rate*limit
 	RateLimit FirewallConfigRulesRuleActionRateLimitPtrInput `pulumi:"rateLimit"`
@@ -3091,7 +3258,7 @@ func (o FirewallConfigRulesRuleActionOutput) Action() pulumi.StringOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleAction) string { return v.Action }).(pulumi.StringOutput)
 }
 
-// Forward persistence of a rule aciton
+// Forward persistence of a rule action
 func (o FirewallConfigRulesRuleActionOutput) ActionDuration() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleAction) *string { return v.ActionDuration }).(pulumi.StringPtrOutput)
 }
@@ -3569,12 +3736,16 @@ func (o FirewallConfigRulesRuleConditionGroupArrayOutput) Index(i pulumi.IntInpu
 type FirewallConfigRulesRuleConditionGroupCondition struct {
 	// Key within type to match against
 	Key *string `pulumi:"key"`
-	Neg *bool   `pulumi:"neg"`
+	// Negate the condition
+	Neg *bool `pulumi:"neg"`
 	// How to comparse type to value
 	Op string `pulumi:"op"`
 	// Request key type to match against
-	Type  string  `pulumi:"type"`
+	Type string `pulumi:"type"`
+	// Value to match against
 	Value *string `pulumi:"value"`
+	// Values to match against if op is inc, ninc
+	Values []string `pulumi:"values"`
 }
 
 // FirewallConfigRulesRuleConditionGroupConditionInput is an input type that accepts FirewallConfigRulesRuleConditionGroupConditionArgs and FirewallConfigRulesRuleConditionGroupConditionOutput values.
@@ -3591,12 +3762,16 @@ type FirewallConfigRulesRuleConditionGroupConditionInput interface {
 type FirewallConfigRulesRuleConditionGroupConditionArgs struct {
 	// Key within type to match against
 	Key pulumi.StringPtrInput `pulumi:"key"`
-	Neg pulumi.BoolPtrInput   `pulumi:"neg"`
+	// Negate the condition
+	Neg pulumi.BoolPtrInput `pulumi:"neg"`
 	// How to comparse type to value
 	Op pulumi.StringInput `pulumi:"op"`
 	// Request key type to match against
-	Type  pulumi.StringInput    `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against
 	Value pulumi.StringPtrInput `pulumi:"value"`
+	// Values to match against if op is inc, ninc
+	Values pulumi.StringArrayInput `pulumi:"values"`
 }
 
 func (FirewallConfigRulesRuleConditionGroupConditionArgs) ElementType() reflect.Type {
@@ -3655,6 +3830,7 @@ func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Key() pulumi.Strin
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *string { return v.Key }).(pulumi.StringPtrOutput)
 }
 
+// Negate the condition
 func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Neg() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *bool { return v.Neg }).(pulumi.BoolPtrOutput)
 }
@@ -3669,8 +3845,14 @@ func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Type() pulumi.Stri
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
+// Value to match against
 func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+// Values to match against if op is inc, ninc
+func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) []string { return v.Values }).(pulumi.StringArrayOutput)
 }
 
 type FirewallConfigRulesRuleConditionGroupConditionArrayOutput struct{ *pulumi.OutputState }
@@ -3691,6 +3873,162 @@ func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) Index(i pulum
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FirewallConfigRulesRuleConditionGroupCondition {
 		return vs[0].([]FirewallConfigRulesRuleConditionGroupCondition)[vs[1].(int)]
 	}).(FirewallConfigRulesRuleConditionGroupConditionOutput)
+}
+
+type MicrofrontendGroupDefaultApp struct {
+	// The default route for the project. Used for the screenshot of deployments.
+	DefaultRoute *string `pulumi:"defaultRoute"`
+	// The ID of the project.
+	ProjectId string `pulumi:"projectId"`
+}
+
+// MicrofrontendGroupDefaultAppInput is an input type that accepts MicrofrontendGroupDefaultAppArgs and MicrofrontendGroupDefaultAppOutput values.
+// You can construct a concrete instance of `MicrofrontendGroupDefaultAppInput` via:
+//
+//	MicrofrontendGroupDefaultAppArgs{...}
+type MicrofrontendGroupDefaultAppInput interface {
+	pulumi.Input
+
+	ToMicrofrontendGroupDefaultAppOutput() MicrofrontendGroupDefaultAppOutput
+	ToMicrofrontendGroupDefaultAppOutputWithContext(context.Context) MicrofrontendGroupDefaultAppOutput
+}
+
+type MicrofrontendGroupDefaultAppArgs struct {
+	// The default route for the project. Used for the screenshot of deployments.
+	DefaultRoute pulumi.StringPtrInput `pulumi:"defaultRoute"`
+	// The ID of the project.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+}
+
+func (MicrofrontendGroupDefaultAppArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MicrofrontendGroupDefaultApp)(nil)).Elem()
+}
+
+func (i MicrofrontendGroupDefaultAppArgs) ToMicrofrontendGroupDefaultAppOutput() MicrofrontendGroupDefaultAppOutput {
+	return i.ToMicrofrontendGroupDefaultAppOutputWithContext(context.Background())
+}
+
+func (i MicrofrontendGroupDefaultAppArgs) ToMicrofrontendGroupDefaultAppOutputWithContext(ctx context.Context) MicrofrontendGroupDefaultAppOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MicrofrontendGroupDefaultAppOutput)
+}
+
+func (i MicrofrontendGroupDefaultAppArgs) ToMicrofrontendGroupDefaultAppPtrOutput() MicrofrontendGroupDefaultAppPtrOutput {
+	return i.ToMicrofrontendGroupDefaultAppPtrOutputWithContext(context.Background())
+}
+
+func (i MicrofrontendGroupDefaultAppArgs) ToMicrofrontendGroupDefaultAppPtrOutputWithContext(ctx context.Context) MicrofrontendGroupDefaultAppPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MicrofrontendGroupDefaultAppOutput).ToMicrofrontendGroupDefaultAppPtrOutputWithContext(ctx)
+}
+
+// MicrofrontendGroupDefaultAppPtrInput is an input type that accepts MicrofrontendGroupDefaultAppArgs, MicrofrontendGroupDefaultAppPtr and MicrofrontendGroupDefaultAppPtrOutput values.
+// You can construct a concrete instance of `MicrofrontendGroupDefaultAppPtrInput` via:
+//
+//	        MicrofrontendGroupDefaultAppArgs{...}
+//
+//	or:
+//
+//	        nil
+type MicrofrontendGroupDefaultAppPtrInput interface {
+	pulumi.Input
+
+	ToMicrofrontendGroupDefaultAppPtrOutput() MicrofrontendGroupDefaultAppPtrOutput
+	ToMicrofrontendGroupDefaultAppPtrOutputWithContext(context.Context) MicrofrontendGroupDefaultAppPtrOutput
+}
+
+type microfrontendGroupDefaultAppPtrType MicrofrontendGroupDefaultAppArgs
+
+func MicrofrontendGroupDefaultAppPtr(v *MicrofrontendGroupDefaultAppArgs) MicrofrontendGroupDefaultAppPtrInput {
+	return (*microfrontendGroupDefaultAppPtrType)(v)
+}
+
+func (*microfrontendGroupDefaultAppPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MicrofrontendGroupDefaultApp)(nil)).Elem()
+}
+
+func (i *microfrontendGroupDefaultAppPtrType) ToMicrofrontendGroupDefaultAppPtrOutput() MicrofrontendGroupDefaultAppPtrOutput {
+	return i.ToMicrofrontendGroupDefaultAppPtrOutputWithContext(context.Background())
+}
+
+func (i *microfrontendGroupDefaultAppPtrType) ToMicrofrontendGroupDefaultAppPtrOutputWithContext(ctx context.Context) MicrofrontendGroupDefaultAppPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MicrofrontendGroupDefaultAppPtrOutput)
+}
+
+type MicrofrontendGroupDefaultAppOutput struct{ *pulumi.OutputState }
+
+func (MicrofrontendGroupDefaultAppOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MicrofrontendGroupDefaultApp)(nil)).Elem()
+}
+
+func (o MicrofrontendGroupDefaultAppOutput) ToMicrofrontendGroupDefaultAppOutput() MicrofrontendGroupDefaultAppOutput {
+	return o
+}
+
+func (o MicrofrontendGroupDefaultAppOutput) ToMicrofrontendGroupDefaultAppOutputWithContext(ctx context.Context) MicrofrontendGroupDefaultAppOutput {
+	return o
+}
+
+func (o MicrofrontendGroupDefaultAppOutput) ToMicrofrontendGroupDefaultAppPtrOutput() MicrofrontendGroupDefaultAppPtrOutput {
+	return o.ToMicrofrontendGroupDefaultAppPtrOutputWithContext(context.Background())
+}
+
+func (o MicrofrontendGroupDefaultAppOutput) ToMicrofrontendGroupDefaultAppPtrOutputWithContext(ctx context.Context) MicrofrontendGroupDefaultAppPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MicrofrontendGroupDefaultApp) *MicrofrontendGroupDefaultApp {
+		return &v
+	}).(MicrofrontendGroupDefaultAppPtrOutput)
+}
+
+// The default route for the project. Used for the screenshot of deployments.
+func (o MicrofrontendGroupDefaultAppOutput) DefaultRoute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MicrofrontendGroupDefaultApp) *string { return v.DefaultRoute }).(pulumi.StringPtrOutput)
+}
+
+// The ID of the project.
+func (o MicrofrontendGroupDefaultAppOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v MicrofrontendGroupDefaultApp) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+type MicrofrontendGroupDefaultAppPtrOutput struct{ *pulumi.OutputState }
+
+func (MicrofrontendGroupDefaultAppPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MicrofrontendGroupDefaultApp)(nil)).Elem()
+}
+
+func (o MicrofrontendGroupDefaultAppPtrOutput) ToMicrofrontendGroupDefaultAppPtrOutput() MicrofrontendGroupDefaultAppPtrOutput {
+	return o
+}
+
+func (o MicrofrontendGroupDefaultAppPtrOutput) ToMicrofrontendGroupDefaultAppPtrOutputWithContext(ctx context.Context) MicrofrontendGroupDefaultAppPtrOutput {
+	return o
+}
+
+func (o MicrofrontendGroupDefaultAppPtrOutput) Elem() MicrofrontendGroupDefaultAppOutput {
+	return o.ApplyT(func(v *MicrofrontendGroupDefaultApp) MicrofrontendGroupDefaultApp {
+		if v != nil {
+			return *v
+		}
+		var ret MicrofrontendGroupDefaultApp
+		return ret
+	}).(MicrofrontendGroupDefaultAppOutput)
+}
+
+// The default route for the project. Used for the screenshot of deployments.
+func (o MicrofrontendGroupDefaultAppPtrOutput) DefaultRoute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MicrofrontendGroupDefaultApp) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultRoute
+	}).(pulumi.StringPtrOutput)
+}
+
+// The ID of the project.
+func (o MicrofrontendGroupDefaultAppPtrOutput) ProjectId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MicrofrontendGroupDefaultApp) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ProjectId
+	}).(pulumi.StringPtrOutput)
 }
 
 type ProjectEnvironment struct {
@@ -5158,6 +5496,8 @@ func (o ProjectPasswordProtectionPtrOutput) Password() pulumi.StringPtrOutput {
 }
 
 type ProjectResourceConfig struct {
+	// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+	Fluid *bool `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType *string `pulumi:"functionDefaultCpuType"`
 	// The default timeout for Serverless Functions.
@@ -5176,6 +5516,8 @@ type ProjectResourceConfigInput interface {
 }
 
 type ProjectResourceConfigArgs struct {
+	// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+	Fluid pulumi.BoolPtrInput `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType pulumi.StringPtrInput `pulumi:"functionDefaultCpuType"`
 	// The default timeout for Serverless Functions.
@@ -5259,6 +5601,11 @@ func (o ProjectResourceConfigOutput) ToProjectResourceConfigPtrOutputWithContext
 	}).(ProjectResourceConfigPtrOutput)
 }
 
+// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+func (o ProjectResourceConfigOutput) Fluid() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectResourceConfig) *bool { return v.Fluid }).(pulumi.BoolPtrOutput)
+}
+
 // The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 func (o ProjectResourceConfigOutput) FunctionDefaultCpuType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectResourceConfig) *string { return v.FunctionDefaultCpuType }).(pulumi.StringPtrOutput)
@@ -5291,6 +5638,16 @@ func (o ProjectResourceConfigPtrOutput) Elem() ProjectResourceConfigOutput {
 		var ret ProjectResourceConfig
 		return ret
 	}).(ProjectResourceConfigOutput)
+}
+
+// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+func (o ProjectResourceConfigPtrOutput) Fluid() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectResourceConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Fluid
+	}).(pulumi.BoolPtrOutput)
 }
 
 // The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
@@ -5869,12 +6226,10 @@ func (o TeamConfigRemoteCachingPtrOutput) Enabled() pulumi.BoolPtrOutput {
 }
 
 type TeamConfigSaml struct {
-	// The ID of the access group to use for the team.
-	AccessGroupId *string `pulumi:"accessGroupId"`
 	// Indicates if SAML is enforced for the team.
 	Enforced bool `pulumi:"enforced"`
-	// Directory groups to role or access group mappings.
-	Roles map[string]string `pulumi:"roles"`
+	// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+	Roles map[string]TeamConfigSamlRoles `pulumi:"roles"`
 }
 
 // TeamConfigSamlInput is an input type that accepts TeamConfigSamlArgs and TeamConfigSamlOutput values.
@@ -5889,12 +6244,10 @@ type TeamConfigSamlInput interface {
 }
 
 type TeamConfigSamlArgs struct {
-	// The ID of the access group to use for the team.
-	AccessGroupId pulumi.StringPtrInput `pulumi:"accessGroupId"`
 	// Indicates if SAML is enforced for the team.
 	Enforced pulumi.BoolInput `pulumi:"enforced"`
-	// Directory groups to role or access group mappings.
-	Roles pulumi.StringMapInput `pulumi:"roles"`
+	// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+	Roles TeamConfigSamlRolesMapInput `pulumi:"roles"`
 }
 
 func (TeamConfigSamlArgs) ElementType() reflect.Type {
@@ -5974,19 +6327,14 @@ func (o TeamConfigSamlOutput) ToTeamConfigSamlPtrOutputWithContext(ctx context.C
 	}).(TeamConfigSamlPtrOutput)
 }
 
-// The ID of the access group to use for the team.
-func (o TeamConfigSamlOutput) AccessGroupId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TeamConfigSaml) *string { return v.AccessGroupId }).(pulumi.StringPtrOutput)
-}
-
 // Indicates if SAML is enforced for the team.
 func (o TeamConfigSamlOutput) Enforced() pulumi.BoolOutput {
 	return o.ApplyT(func(v TeamConfigSaml) bool { return v.Enforced }).(pulumi.BoolOutput)
 }
 
-// Directory groups to role or access group mappings.
-func (o TeamConfigSamlOutput) Roles() pulumi.StringMapOutput {
-	return o.ApplyT(func(v TeamConfigSaml) map[string]string { return v.Roles }).(pulumi.StringMapOutput)
+// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+func (o TeamConfigSamlOutput) Roles() TeamConfigSamlRolesMapOutput {
+	return o.ApplyT(func(v TeamConfigSaml) map[string]TeamConfigSamlRoles { return v.Roles }).(TeamConfigSamlRolesMapOutput)
 }
 
 type TeamConfigSamlPtrOutput struct{ *pulumi.OutputState }
@@ -6013,16 +6361,6 @@ func (o TeamConfigSamlPtrOutput) Elem() TeamConfigSamlOutput {
 	}).(TeamConfigSamlOutput)
 }
 
-// The ID of the access group to use for the team.
-func (o TeamConfigSamlPtrOutput) AccessGroupId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TeamConfigSaml) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AccessGroupId
-	}).(pulumi.StringPtrOutput)
-}
-
 // Indicates if SAML is enforced for the team.
 func (o TeamConfigSamlPtrOutput) Enforced() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *TeamConfigSaml) *bool {
@@ -6033,14 +6371,120 @@ func (o TeamConfigSamlPtrOutput) Enforced() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Directory groups to role or access group mappings.
-func (o TeamConfigSamlPtrOutput) Roles() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *TeamConfigSaml) map[string]string {
+// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+func (o TeamConfigSamlPtrOutput) Roles() TeamConfigSamlRolesMapOutput {
+	return o.ApplyT(func(v *TeamConfigSaml) map[string]TeamConfigSamlRoles {
 		if v == nil {
 			return nil
 		}
 		return v.Roles
-	}).(pulumi.StringMapOutput)
+	}).(TeamConfigSamlRolesMapOutput)
+}
+
+type TeamConfigSamlRoles struct {
+	// The access group id to assign to the user.
+	AccessGroupId *string `pulumi:"accessGroupId"`
+	// The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+	Role *string `pulumi:"role"`
+}
+
+// TeamConfigSamlRolesInput is an input type that accepts TeamConfigSamlRolesArgs and TeamConfigSamlRolesOutput values.
+// You can construct a concrete instance of `TeamConfigSamlRolesInput` via:
+//
+//	TeamConfigSamlRolesArgs{...}
+type TeamConfigSamlRolesInput interface {
+	pulumi.Input
+
+	ToTeamConfigSamlRolesOutput() TeamConfigSamlRolesOutput
+	ToTeamConfigSamlRolesOutputWithContext(context.Context) TeamConfigSamlRolesOutput
+}
+
+type TeamConfigSamlRolesArgs struct {
+	// The access group id to assign to the user.
+	AccessGroupId pulumi.StringPtrInput `pulumi:"accessGroupId"`
+	// The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+	Role pulumi.StringPtrInput `pulumi:"role"`
+}
+
+func (TeamConfigSamlRolesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (i TeamConfigSamlRolesArgs) ToTeamConfigSamlRolesOutput() TeamConfigSamlRolesOutput {
+	return i.ToTeamConfigSamlRolesOutputWithContext(context.Background())
+}
+
+func (i TeamConfigSamlRolesArgs) ToTeamConfigSamlRolesOutputWithContext(ctx context.Context) TeamConfigSamlRolesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigSamlRolesOutput)
+}
+
+// TeamConfigSamlRolesMapInput is an input type that accepts TeamConfigSamlRolesMap and TeamConfigSamlRolesMapOutput values.
+// You can construct a concrete instance of `TeamConfigSamlRolesMapInput` via:
+//
+//	TeamConfigSamlRolesMap{ "key": TeamConfigSamlRolesArgs{...} }
+type TeamConfigSamlRolesMapInput interface {
+	pulumi.Input
+
+	ToTeamConfigSamlRolesMapOutput() TeamConfigSamlRolesMapOutput
+	ToTeamConfigSamlRolesMapOutputWithContext(context.Context) TeamConfigSamlRolesMapOutput
+}
+
+type TeamConfigSamlRolesMap map[string]TeamConfigSamlRolesInput
+
+func (TeamConfigSamlRolesMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]TeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (i TeamConfigSamlRolesMap) ToTeamConfigSamlRolesMapOutput() TeamConfigSamlRolesMapOutput {
+	return i.ToTeamConfigSamlRolesMapOutputWithContext(context.Background())
+}
+
+func (i TeamConfigSamlRolesMap) ToTeamConfigSamlRolesMapOutputWithContext(ctx context.Context) TeamConfigSamlRolesMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigSamlRolesMapOutput)
+}
+
+type TeamConfigSamlRolesOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigSamlRolesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (o TeamConfigSamlRolesOutput) ToTeamConfigSamlRolesOutput() TeamConfigSamlRolesOutput {
+	return o
+}
+
+func (o TeamConfigSamlRolesOutput) ToTeamConfigSamlRolesOutputWithContext(ctx context.Context) TeamConfigSamlRolesOutput {
+	return o
+}
+
+// The access group id to assign to the user.
+func (o TeamConfigSamlRolesOutput) AccessGroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TeamConfigSamlRoles) *string { return v.AccessGroupId }).(pulumi.StringPtrOutput)
+}
+
+// The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+func (o TeamConfigSamlRolesOutput) Role() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TeamConfigSamlRoles) *string { return v.Role }).(pulumi.StringPtrOutput)
+}
+
+type TeamConfigSamlRolesMapOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigSamlRolesMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]TeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (o TeamConfigSamlRolesMapOutput) ToTeamConfigSamlRolesMapOutput() TeamConfigSamlRolesMapOutput {
+	return o
+}
+
+func (o TeamConfigSamlRolesMapOutput) ToTeamConfigSamlRolesMapOutputWithContext(ctx context.Context) TeamConfigSamlRolesMapOutput {
+	return o
+}
+
+func (o TeamConfigSamlRolesMapOutput) MapIndex(k pulumi.StringInput) TeamConfigSamlRolesOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) TeamConfigSamlRoles {
+		return vs[0].(map[string]TeamConfigSamlRoles)[vs[1].(string)]
+	}).(TeamConfigSamlRolesOutput)
 }
 
 type TeamMemberProject struct {
@@ -6208,6 +6652,67 @@ func (o GetCustomEnvironmentBranchTrackingOutput) Pattern() pulumi.StringOutput 
 // How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
 func (o GetCustomEnvironmentBranchTrackingOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCustomEnvironmentBranchTracking) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GetMicrofrontendGroupDefaultApp struct {
+	// The default route for the project. Used for the screenshot of deployments.
+	DefaultRoute string `pulumi:"defaultRoute"`
+	// The ID of the project.
+	ProjectId string `pulumi:"projectId"`
+}
+
+// GetMicrofrontendGroupDefaultAppInput is an input type that accepts GetMicrofrontendGroupDefaultAppArgs and GetMicrofrontendGroupDefaultAppOutput values.
+// You can construct a concrete instance of `GetMicrofrontendGroupDefaultAppInput` via:
+//
+//	GetMicrofrontendGroupDefaultAppArgs{...}
+type GetMicrofrontendGroupDefaultAppInput interface {
+	pulumi.Input
+
+	ToGetMicrofrontendGroupDefaultAppOutput() GetMicrofrontendGroupDefaultAppOutput
+	ToGetMicrofrontendGroupDefaultAppOutputWithContext(context.Context) GetMicrofrontendGroupDefaultAppOutput
+}
+
+type GetMicrofrontendGroupDefaultAppArgs struct {
+	// The default route for the project. Used for the screenshot of deployments.
+	DefaultRoute pulumi.StringInput `pulumi:"defaultRoute"`
+	// The ID of the project.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+}
+
+func (GetMicrofrontendGroupDefaultAppArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMicrofrontendGroupDefaultApp)(nil)).Elem()
+}
+
+func (i GetMicrofrontendGroupDefaultAppArgs) ToGetMicrofrontendGroupDefaultAppOutput() GetMicrofrontendGroupDefaultAppOutput {
+	return i.ToGetMicrofrontendGroupDefaultAppOutputWithContext(context.Background())
+}
+
+func (i GetMicrofrontendGroupDefaultAppArgs) ToGetMicrofrontendGroupDefaultAppOutputWithContext(ctx context.Context) GetMicrofrontendGroupDefaultAppOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetMicrofrontendGroupDefaultAppOutput)
+}
+
+type GetMicrofrontendGroupDefaultAppOutput struct{ *pulumi.OutputState }
+
+func (GetMicrofrontendGroupDefaultAppOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMicrofrontendGroupDefaultApp)(nil)).Elem()
+}
+
+func (o GetMicrofrontendGroupDefaultAppOutput) ToGetMicrofrontendGroupDefaultAppOutput() GetMicrofrontendGroupDefaultAppOutput {
+	return o
+}
+
+func (o GetMicrofrontendGroupDefaultAppOutput) ToGetMicrofrontendGroupDefaultAppOutputWithContext(ctx context.Context) GetMicrofrontendGroupDefaultAppOutput {
+	return o
+}
+
+// The default route for the project. Used for the screenshot of deployments.
+func (o GetMicrofrontendGroupDefaultAppOutput) DefaultRoute() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMicrofrontendGroupDefaultApp) string { return v.DefaultRoute }).(pulumi.StringOutput)
+}
+
+// The ID of the project.
+func (o GetMicrofrontendGroupDefaultAppOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMicrofrontendGroupDefaultApp) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
 type GetProjectEnvironment struct {
@@ -7018,6 +7523,8 @@ func (o GetProjectPasswordProtectionOutput) DeploymentType() pulumi.StringOutput
 }
 
 type GetProjectResourceConfig struct {
+	// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+	Fluid bool `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType string `pulumi:"functionDefaultCpuType"`
 	// The default timeout for Serverless Functions.
@@ -7036,6 +7543,8 @@ type GetProjectResourceConfigInput interface {
 }
 
 type GetProjectResourceConfigArgs struct {
+	// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+	Fluid pulumi.BoolInput `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType pulumi.StringInput `pulumi:"functionDefaultCpuType"`
 	// The default timeout for Serverless Functions.
@@ -7066,6 +7575,11 @@ func (o GetProjectResourceConfigOutput) ToGetProjectResourceConfigOutput() GetPr
 
 func (o GetProjectResourceConfigOutput) ToGetProjectResourceConfigOutputWithContext(ctx context.Context) GetProjectResourceConfigOutput {
 	return o
+}
+
+// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+func (o GetProjectResourceConfigOutput) Fluid() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectResourceConfig) bool { return v.Fluid }).(pulumi.BoolOutput)
 }
 
 // The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
@@ -7353,12 +7867,10 @@ func (o GetTeamConfigRemoteCachingOutput) Enabled() pulumi.BoolOutput {
 }
 
 type GetTeamConfigSaml struct {
-	// The ID of the access group to use for the team.
-	AccessGroupId string `pulumi:"accessGroupId"`
 	// Indicates if SAML is enforced for the team.
 	Enforced bool `pulumi:"enforced"`
-	// Directory groups to role or access group mappings.
-	Roles map[string]string `pulumi:"roles"`
+	// Directory groups to role or access group mappings. For each directory group, either a role or access group id is specified.
+	Roles map[string]GetTeamConfigSamlRoles `pulumi:"roles"`
 }
 
 // GetTeamConfigSamlInput is an input type that accepts GetTeamConfigSamlArgs and GetTeamConfigSamlOutput values.
@@ -7373,12 +7885,10 @@ type GetTeamConfigSamlInput interface {
 }
 
 type GetTeamConfigSamlArgs struct {
-	// The ID of the access group to use for the team.
-	AccessGroupId pulumi.StringInput `pulumi:"accessGroupId"`
 	// Indicates if SAML is enforced for the team.
 	Enforced pulumi.BoolInput `pulumi:"enforced"`
-	// Directory groups to role or access group mappings.
-	Roles pulumi.StringMapInput `pulumi:"roles"`
+	// Directory groups to role or access group mappings. For each directory group, either a role or access group id is specified.
+	Roles GetTeamConfigSamlRolesMapInput `pulumi:"roles"`
 }
 
 func (GetTeamConfigSamlArgs) ElementType() reflect.Type {
@@ -7407,19 +7917,120 @@ func (o GetTeamConfigSamlOutput) ToGetTeamConfigSamlOutputWithContext(ctx contex
 	return o
 }
 
-// The ID of the access group to use for the team.
-func (o GetTeamConfigSamlOutput) AccessGroupId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetTeamConfigSaml) string { return v.AccessGroupId }).(pulumi.StringOutput)
-}
-
 // Indicates if SAML is enforced for the team.
 func (o GetTeamConfigSamlOutput) Enforced() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetTeamConfigSaml) bool { return v.Enforced }).(pulumi.BoolOutput)
 }
 
-// Directory groups to role or access group mappings.
-func (o GetTeamConfigSamlOutput) Roles() pulumi.StringMapOutput {
-	return o.ApplyT(func(v GetTeamConfigSaml) map[string]string { return v.Roles }).(pulumi.StringMapOutput)
+// Directory groups to role or access group mappings. For each directory group, either a role or access group id is specified.
+func (o GetTeamConfigSamlOutput) Roles() GetTeamConfigSamlRolesMapOutput {
+	return o.ApplyT(func(v GetTeamConfigSaml) map[string]GetTeamConfigSamlRoles { return v.Roles }).(GetTeamConfigSamlRolesMapOutput)
+}
+
+type GetTeamConfigSamlRoles struct {
+	// The access group the assign is assigned to.
+	AccessGroupId string `pulumi:"accessGroupId"`
+	// The team level role the user is assigned. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+	Role string `pulumi:"role"`
+}
+
+// GetTeamConfigSamlRolesInput is an input type that accepts GetTeamConfigSamlRolesArgs and GetTeamConfigSamlRolesOutput values.
+// You can construct a concrete instance of `GetTeamConfigSamlRolesInput` via:
+//
+//	GetTeamConfigSamlRolesArgs{...}
+type GetTeamConfigSamlRolesInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigSamlRolesOutput() GetTeamConfigSamlRolesOutput
+	ToGetTeamConfigSamlRolesOutputWithContext(context.Context) GetTeamConfigSamlRolesOutput
+}
+
+type GetTeamConfigSamlRolesArgs struct {
+	// The access group the assign is assigned to.
+	AccessGroupId pulumi.StringInput `pulumi:"accessGroupId"`
+	// The team level role the user is assigned. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+	Role pulumi.StringInput `pulumi:"role"`
+}
+
+func (GetTeamConfigSamlRolesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (i GetTeamConfigSamlRolesArgs) ToGetTeamConfigSamlRolesOutput() GetTeamConfigSamlRolesOutput {
+	return i.ToGetTeamConfigSamlRolesOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigSamlRolesArgs) ToGetTeamConfigSamlRolesOutputWithContext(ctx context.Context) GetTeamConfigSamlRolesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigSamlRolesOutput)
+}
+
+// GetTeamConfigSamlRolesMapInput is an input type that accepts GetTeamConfigSamlRolesMap and GetTeamConfigSamlRolesMapOutput values.
+// You can construct a concrete instance of `GetTeamConfigSamlRolesMapInput` via:
+//
+//	GetTeamConfigSamlRolesMap{ "key": GetTeamConfigSamlRolesArgs{...} }
+type GetTeamConfigSamlRolesMapInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigSamlRolesMapOutput() GetTeamConfigSamlRolesMapOutput
+	ToGetTeamConfigSamlRolesMapOutputWithContext(context.Context) GetTeamConfigSamlRolesMapOutput
+}
+
+type GetTeamConfigSamlRolesMap map[string]GetTeamConfigSamlRolesInput
+
+func (GetTeamConfigSamlRolesMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]GetTeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (i GetTeamConfigSamlRolesMap) ToGetTeamConfigSamlRolesMapOutput() GetTeamConfigSamlRolesMapOutput {
+	return i.ToGetTeamConfigSamlRolesMapOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigSamlRolesMap) ToGetTeamConfigSamlRolesMapOutputWithContext(ctx context.Context) GetTeamConfigSamlRolesMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigSamlRolesMapOutput)
+}
+
+type GetTeamConfigSamlRolesOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigSamlRolesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (o GetTeamConfigSamlRolesOutput) ToGetTeamConfigSamlRolesOutput() GetTeamConfigSamlRolesOutput {
+	return o
+}
+
+func (o GetTeamConfigSamlRolesOutput) ToGetTeamConfigSamlRolesOutputWithContext(ctx context.Context) GetTeamConfigSamlRolesOutput {
+	return o
+}
+
+// The access group the assign is assigned to.
+func (o GetTeamConfigSamlRolesOutput) AccessGroupId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamConfigSamlRoles) string { return v.AccessGroupId }).(pulumi.StringOutput)
+}
+
+// The team level role the user is assigned. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+func (o GetTeamConfigSamlRolesOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamConfigSamlRoles) string { return v.Role }).(pulumi.StringOutput)
+}
+
+type GetTeamConfigSamlRolesMapOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigSamlRolesMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]GetTeamConfigSamlRoles)(nil)).Elem()
+}
+
+func (o GetTeamConfigSamlRolesMapOutput) ToGetTeamConfigSamlRolesMapOutput() GetTeamConfigSamlRolesMapOutput {
+	return o
+}
+
+func (o GetTeamConfigSamlRolesMapOutput) ToGetTeamConfigSamlRolesMapOutputWithContext(ctx context.Context) GetTeamConfigSamlRolesMapOutput {
+	return o
+}
+
+func (o GetTeamConfigSamlRolesMapOutput) MapIndex(k pulumi.StringInput) GetTeamConfigSamlRolesOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) GetTeamConfigSamlRoles {
+		return vs[0].(map[string]GetTeamConfigSamlRoles)[vs[1].(string)]
+	}).(GetTeamConfigSamlRolesOutput)
 }
 
 type GetTeamMemberProject struct {
@@ -7541,6 +8152,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesRuleArrayInput)(nil)).Elem(), FirewallConfigIpRulesRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspGenInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspGenArgs{})
@@ -7576,6 +8189,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentArrayInput)(nil)).Elem(), ProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentVariablesVariableInput)(nil)).Elem(), ProjectEnvironmentVariablesVariableArgs{})
@@ -7608,9 +8223,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingPtrInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlInput)(nil)).Elem(), TeamConfigSamlArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlPtrInput)(nil)).Elem(), TeamConfigSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlRolesInput)(nil)).Elem(), TeamConfigSamlRolesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlRolesMapInput)(nil)).Elem(), TeamConfigSamlRolesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectInput)(nil)).Elem(), TeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectArrayInput)(nil)).Elem(), TeamMemberProjectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCustomEnvironmentBranchTrackingInput)(nil)).Elem(), GetCustomEnvironmentBranchTrackingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetMicrofrontendGroupDefaultAppInput)(nil)).Elem(), GetMicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitCommentsInput)(nil)).Elem(), GetProjectGitCommentsArgs{})
@@ -7631,6 +8249,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigRemoteCachingInput)(nil)).Elem(), GetTeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlInput)(nil)).Elem(), GetTeamConfigSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlRolesInput)(nil)).Elem(), GetTeamConfigSamlRolesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlRolesMapInput)(nil)).Elem(), GetTeamConfigSamlRolesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectInput)(nil)).Elem(), GetTeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectArrayInput)(nil)).Elem(), GetTeamMemberProjectArray{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})
@@ -7645,6 +8265,8 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigIpRulesRuleArrayOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspGenOutput{})
@@ -7680,6 +8302,8 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupArrayOutput{})
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionOutput{})
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionArrayOutput{})
+	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppOutput{})
+	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentVariablesVariableOutput{})
@@ -7712,9 +8336,12 @@ func init() {
 	pulumi.RegisterOutputType(TeamConfigRemoteCachingPtrOutput{})
 	pulumi.RegisterOutputType(TeamConfigSamlOutput{})
 	pulumi.RegisterOutputType(TeamConfigSamlPtrOutput{})
+	pulumi.RegisterOutputType(TeamConfigSamlRolesOutput{})
+	pulumi.RegisterOutputType(TeamConfigSamlRolesMapOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectArrayOutput{})
 	pulumi.RegisterOutputType(GetCustomEnvironmentBranchTrackingOutput{})
+	pulumi.RegisterOutputType(GetMicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectGitCommentsOutput{})
@@ -7735,6 +8362,8 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigRemoteCachingOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigSamlOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigSamlRolesOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigSamlRolesMapOutput{})
 	pulumi.RegisterOutputType(GetTeamMemberProjectOutput{})
 	pulumi.RegisterOutputType(GetTeamMemberProjectArrayOutput{})
 }

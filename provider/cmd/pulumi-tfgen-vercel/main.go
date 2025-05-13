@@ -17,7 +17,7 @@ package main
 import (
 	"github.com/pulumi/pulumi-terraform-bridge/pf/tfgen"
 
-	vercel "github.com/pulumiverse/pulumi-vercel/provider/v2"
+	vercel "github.com/pulumiverse/pulumi-vercel/provider/v3"
 )
 
 func main() {

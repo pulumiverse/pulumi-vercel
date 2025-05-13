@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provider a resource for managing a team member.
@@ -22,15 +22,23 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.NewTeamMember(ctx, "example", &vercel.TeamMemberArgs{
+//			_, err := vercel.NewTeamMember(ctx, "by_user_id", &vercel.TeamMemberArgs{
 //				TeamId: pulumi.String("team_xxxxxxxxxxxxxxxxxxxxxxxx"),
 //				UserId: pulumi.String("uuuuuuuuuuuuuuuuuuuuuuuuuu"),
+//				Role:   pulumi.String("MEMBER"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = vercel.NewTeamMember(ctx, "by_email", &vercel.TeamMemberArgs{
+//				TeamId: pulumi.String("team_xxxxxxxxxxxxxxxxxxxxxxxx"),
+//				Email:  pulumi.String("example@example.com"),
 //				Role:   pulumi.String("MEMBER"),
 //			})
 //			if err != nil {
@@ -54,13 +62,17 @@ type TeamMember struct {
 
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 	AccessGroups pulumi.StringArrayOutput `pulumi:"accessGroups"`
+	// Whether the user has confirmed their invitation.
+	Confirmed pulumi.BoolOutput `pulumi:"confirmed"`
+	// The email of the user to add to the team. Must specify one of userId or email.
+	Email pulumi.StringOutput `pulumi:"email"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects TeamMemberProjectArrayOutput `pulumi:"projects"`
 	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role pulumi.StringOutput `pulumi:"role"`
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
-	// The ID of the user to add to the team.
+	// The ID of the user to add to the team. Must specify one of userId or email.
 	UserId pulumi.StringOutput `pulumi:"userId"`
 }
 
@@ -76,9 +88,6 @@ func NewTeamMember(ctx *pulumi.Context,
 	}
 	if args.TeamId == nil {
 		return nil, errors.New("invalid value for required argument 'TeamId'")
-	}
-	if args.UserId == nil {
-		return nil, errors.New("invalid value for required argument 'UserId'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource TeamMember
@@ -105,26 +114,34 @@ func GetTeamMember(ctx *pulumi.Context,
 type teamMemberState struct {
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 	AccessGroups []string `pulumi:"accessGroups"`
+	// Whether the user has confirmed their invitation.
+	Confirmed *bool `pulumi:"confirmed"`
+	// The email of the user to add to the team. Must specify one of userId or email.
+	Email *string `pulumi:"email"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects []TeamMemberProject `pulumi:"projects"`
 	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role *string `pulumi:"role"`
 	// The ID of the existing Vercel Team.
 	TeamId *string `pulumi:"teamId"`
-	// The ID of the user to add to the team.
+	// The ID of the user to add to the team. Must specify one of userId or email.
 	UserId *string `pulumi:"userId"`
 }
 
 type TeamMemberState struct {
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 	AccessGroups pulumi.StringArrayInput
+	// Whether the user has confirmed their invitation.
+	Confirmed pulumi.BoolPtrInput
+	// The email of the user to add to the team. Must specify one of userId or email.
+	Email pulumi.StringPtrInput
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects TeamMemberProjectArrayInput
 	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role pulumi.StringPtrInput
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringPtrInput
-	// The ID of the user to add to the team.
+	// The ID of the user to add to the team. Must specify one of userId or email.
 	UserId pulumi.StringPtrInput
 }
 
@@ -135,28 +152,32 @@ func (TeamMemberState) ElementType() reflect.Type {
 type teamMemberArgs struct {
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 	AccessGroups []string `pulumi:"accessGroups"`
+	// The email of the user to add to the team. Must specify one of userId or email.
+	Email *string `pulumi:"email"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects []TeamMemberProject `pulumi:"projects"`
 	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role string `pulumi:"role"`
 	// The ID of the existing Vercel Team.
 	TeamId string `pulumi:"teamId"`
-	// The ID of the user to add to the team.
-	UserId string `pulumi:"userId"`
+	// The ID of the user to add to the team. Must specify one of userId or email.
+	UserId *string `pulumi:"userId"`
 }
 
 // The set of arguments for constructing a TeamMember resource.
 type TeamMemberArgs struct {
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 	AccessGroups pulumi.StringArrayInput
+	// The email of the user to add to the team. Must specify one of userId or email.
+	Email pulumi.StringPtrInput
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects TeamMemberProjectArrayInput
 	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role pulumi.StringInput
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringInput
-	// The ID of the user to add to the team.
-	UserId pulumi.StringInput
+	// The ID of the user to add to the team. Must specify one of userId or email.
+	UserId pulumi.StringPtrInput
 }
 
 func (TeamMemberArgs) ElementType() reflect.Type {
@@ -251,6 +272,16 @@ func (o TeamMemberOutput) AccessGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *TeamMember) pulumi.StringArrayOutput { return v.AccessGroups }).(pulumi.StringArrayOutput)
 }
 
+// Whether the user has confirmed their invitation.
+func (o TeamMemberOutput) Confirmed() pulumi.BoolOutput {
+	return o.ApplyT(func(v *TeamMember) pulumi.BoolOutput { return v.Confirmed }).(pulumi.BoolOutput)
+}
+
+// The email of the user to add to the team. Must specify one of userId or email.
+func (o TeamMemberOutput) Email() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.Email }).(pulumi.StringOutput)
+}
+
 // If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 func (o TeamMemberOutput) Projects() TeamMemberProjectArrayOutput {
 	return o.ApplyT(func(v *TeamMember) TeamMemberProjectArrayOutput { return v.Projects }).(TeamMemberProjectArrayOutput)
@@ -266,7 +297,7 @@ func (o TeamMemberOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The ID of the user to add to the team.
+// The ID of the user to add to the team. Must specify one of userId or email.
 func (o TeamMemberOutput) UserId() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.UserId }).(pulumi.StringOutput)
 }

@@ -14,26 +14,20 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class TeamConfigSamlArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The ID of the access group to use for the team.
-        /// </summary>
-        [Input("accessGroupId")]
-        public Input<string>? AccessGroupId { get; set; }
-
-        /// <summary>
         /// Indicates if SAML is enforced for the team.
         /// </summary>
         [Input("enforced", required: true)]
         public Input<bool> Enforced { get; set; } = null!;
 
         [Input("roles")]
-        private InputMap<string>? _roles;
+        private InputMap<Inputs.TeamConfigSamlRolesArgs>? _roles;
 
         /// <summary>
-        /// Directory groups to role or access group mappings.
+        /// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         /// </summary>
-        public InputMap<string> Roles
+        public InputMap<Inputs.TeamConfigSamlRolesArgs> Roles
         {
-            get => _roles ?? (_roles = new InputMap<string>());
+            get => _roles ?? (_roles = new InputMap<Inputs.TeamConfigSamlRolesArgs>());
             set => _roles = value;
         }
 

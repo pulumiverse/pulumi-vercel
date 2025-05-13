@@ -20,7 +20,7 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string> Action { get; set; } = null!;
 
         /// <summary>
-        /// Forward persistence of a rule aciton
+        /// Forward persistence of a rule action
         /// </summary>
         [Input("actionDuration")]
         public Input<string>? ActionDuration { get; set; }

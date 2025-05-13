@@ -78,9 +78,18 @@ export interface FirewallConfigIpRulesRule {
 
 export interface FirewallConfigManagedRulesets {
     /**
+     * Enable the bot*filter managed ruleset and select action
+     */
+    botFilter?: outputs.FirewallConfigManagedRulesetsBotFilter;
+    /**
      * Enable the owasp managed rulesets and select ruleset behaviors
      */
     owasp?: outputs.FirewallConfigManagedRulesetsOwasp;
+}
+
+export interface FirewallConfigManagedRulesetsBotFilter {
+    action?: string;
+    active?: boolean;
 }
 
 export interface FirewallConfigManagedRulesetsOwasp {
@@ -207,7 +216,7 @@ export interface FirewallConfigRulesRuleAction {
      */
     action: string;
     /**
-     * Forward persistence of a rule aciton
+     * Forward persistence of a rule action
      */
     actionDuration?: string;
     /**
@@ -260,6 +269,9 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      * Key within type to match against
      */
     key?: string;
+    /**
+     * Negate the condition
+     */
     neg?: boolean;
     /**
      * How to comparse type to value
@@ -269,7 +281,14 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      * Request key type to match against
      */
     type: string;
+    /**
+     * Value to match against
+     */
     value?: string;
+    /**
+     * Values to match against if op is inc, ninc
+     */
+    values?: string[];
 }
 
 export interface GetCustomEnvironmentBranchTracking {
@@ -281,6 +300,17 @@ export interface GetCustomEnvironmentBranchTracking {
      * How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
      */
     type: string;
+}
+
+export interface GetMicrofrontendGroupDefaultApp {
+    /**
+     * The default route for the project. Used for the screenshot of deployments.
+     */
+    defaultRoute: string;
+    /**
+     * The ID of the project.
+     */
+    projectId: string;
 }
 
 export interface GetProjectEnvironment {
@@ -417,6 +447,10 @@ export interface GetProjectPasswordProtection {
 
 export interface GetProjectResourceConfig {
     /**
+     * Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+     */
+    fluid: boolean;
+    /**
      * The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
      */
     functionDefaultCpuType: string;
@@ -462,17 +496,24 @@ export interface GetTeamConfigRemoteCaching {
 
 export interface GetTeamConfigSaml {
     /**
-     * The ID of the access group to use for the team.
-     */
-    accessGroupId: string;
-    /**
      * Indicates if SAML is enforced for the team.
      */
     enforced: boolean;
     /**
-     * Directory groups to role or access group mappings.
+     * Directory groups to role or access group mappings. For each directory group, either a role or access group id is specified.
      */
-    roles: {[key: string]: string};
+    roles: {[key: string]: outputs.GetTeamConfigSamlRoles};
+}
+
+export interface GetTeamConfigSamlRoles {
+    /**
+     * The access group the assign is assigned to.
+     */
+    accessGroupId: string;
+    /**
+     * The team level role the user is assigned. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+     */
+    role: string;
 }
 
 export interface GetTeamMemberProject {
@@ -484,6 +525,17 @@ export interface GetTeamMemberProject {
      * The role that the user should have in the project.
      */
     role: string;
+}
+
+export interface MicrofrontendGroupDefaultApp {
+    /**
+     * The default route for the project. Used for the screenshot of deployments.
+     */
+    defaultRoute: string;
+    /**
+     * The ID of the project.
+     */
+    projectId: string;
 }
 
 export interface ProjectEnvironment {
@@ -662,6 +714,10 @@ export interface ProjectPasswordProtection {
 
 export interface ProjectResourceConfig {
     /**
+     * Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+     */
+    fluid: boolean;
+    /**
      * The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
      */
     functionDefaultCpuType: string;
@@ -713,17 +769,24 @@ export interface TeamConfigRemoteCaching {
 
 export interface TeamConfigSaml {
     /**
-     * The ID of the access group to use for the team.
-     */
-    accessGroupId?: string;
-    /**
      * Indicates if SAML is enforced for the team.
      */
     enforced: boolean;
     /**
-     * Directory groups to role or access group mappings.
+     * Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
      */
-    roles?: {[key: string]: string};
+    roles: {[key: string]: outputs.TeamConfigSamlRoles};
+}
+
+export interface TeamConfigSamlRoles {
+    /**
+     * The access group id to assign to the user.
+     */
+    accessGroupId?: string;
+    /**
+     * The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+     */
+    role?: string;
 }
 
 export interface TeamMemberProject {

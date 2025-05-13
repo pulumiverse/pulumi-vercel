@@ -19,7 +19,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string Action;
         /// <summary>
-        /// Forward persistence of a rule aciton
+        /// Forward persistence of a rule action
         /// </summary>
         public readonly string? ActionDuration;
         /// <summary>

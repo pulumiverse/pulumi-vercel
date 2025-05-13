@@ -16,6 +16,7 @@ from .edge_config import *
 from .edge_config_item import *
 from .edge_config_schema import *
 from .edge_config_token import *
+from .firewall_bypass import *
 from .firewall_config import *
 from .get_access_group import *
 from .get_access_group_project import *
@@ -30,6 +31,8 @@ from .get_edge_config_token import *
 from .get_endpoint_verification import *
 from .get_file import *
 from .get_log_drain import *
+from .get_microfrontend_group import *
+from .get_microfrontend_group_membership import *
 from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_deployment_retention import *
@@ -38,7 +41,10 @@ from .get_project_members import *
 from .get_shared_environment_variable import *
 from .get_team_config import *
 from .get_team_member import *
+from .integration_project_access import *
 from .log_drain import *
+from .microfrontend_group import *
+from .microfrontend_group_membership import *
 from .project import *
 from .project_deployment_retention import *
 from .project_domain import *
@@ -47,6 +53,7 @@ from .project_environment_variables import *
 from .project_members import *
 from .provider import *
 from .shared_environment_variable import *
+from .shared_environment_variable_project_link import *
 from .team_config import *
 from .team_member import *
 from .webhook import *
@@ -153,6 +160,14 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/firewallBypass",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/firewallBypass:FirewallBypass": "FirewallBypass"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/firewallConfig",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -161,10 +176,34 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/integrationProjectAccess",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/integrationProjectAccess:IntegrationProjectAccess": "IntegrationProjectAccess"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/logDrain",
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/logDrain:LogDrain": "LogDrain"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/microfrontendGroup",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/microfrontendGroup:MicrofrontendGroup": "MicrofrontendGroup"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/microfrontendGroupMembership",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership": "MicrofrontendGroupMembership"
   }
  },
  {
@@ -221,6 +260,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable": "SharedEnvironmentVariable"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/sharedEnvironmentVariableProjectLink",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink": "SharedEnvironmentVariableProjectLink"
   }
  },
  {

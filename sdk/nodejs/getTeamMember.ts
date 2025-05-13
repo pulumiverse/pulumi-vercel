@@ -52,6 +52,10 @@ export interface GetTeamMemberResult {
      */
     readonly accessGroups: string[];
     /**
+     * The email address of the existing Vercel Team Member.
+     */
+    readonly email: string;
+    /**
      * The ID of this resource.
      */
     readonly id: string;

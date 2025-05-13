@@ -23,24 +23,29 @@ class TeamMemberArgs:
     def __init__(__self__, *,
                  role: pulumi.Input[str],
                  team_id: pulumi.Input[str],
-                 user_id: pulumi.Input[str],
                  access_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 projects: Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]] = None):
+                 email: Optional[pulumi.Input[str]] = None,
+                 projects: Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]] = None,
+                 user_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a TeamMember resource.
         :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
-        :param pulumi.Input[str] user_id: The ID of the user to add to the team.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
+        :param pulumi.Input[str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
         pulumi.set(__self__, "role", role)
         pulumi.set(__self__, "team_id", team_id)
-        pulumi.set(__self__, "user_id", user_id)
         if access_groups is not None:
             pulumi.set(__self__, "access_groups", access_groups)
+        if email is not None:
+            pulumi.set(__self__, "email", email)
         if projects is not None:
             pulumi.set(__self__, "projects", projects)
+        if user_id is not None:
+            pulumi.set(__self__, "user_id", user_id)
 
     @property
     @pulumi.getter
@@ -67,18 +72,6 @@ class TeamMemberArgs:
         pulumi.set(self, "team_id", value)
 
     @property
-    @pulumi.getter(name="userId")
-    def user_id(self) -> pulumi.Input[str]:
-        """
-        The ID of the user to add to the team.
-        """
-        return pulumi.get(self, "user_id")
-
-    @user_id.setter
-    def user_id(self, value: pulumi.Input[str]):
-        pulumi.set(self, "user_id", value)
-
-    @property
     @pulumi.getter(name="accessGroups")
     def access_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
@@ -92,6 +85,18 @@ class TeamMemberArgs:
 
     @property
     @pulumi.getter
+    def email(self) -> Optional[pulumi.Input[str]]:
+        """
+        The email of the user to add to the team. Must specify one of user_id or email.
+        """
+        return pulumi.get(self, "email")
+
+    @email.setter
+    def email(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "email", value)
+
+    @property
+    @pulumi.getter
     def projects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]]:
         """
         If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
@@ -102,11 +107,25 @@ class TeamMemberArgs:
     def projects(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]]):
         pulumi.set(self, "projects", value)
 
+    @property
+    @pulumi.getter(name="userId")
+    def user_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the user to add to the team. Must specify one of user_id or email.
+        """
+        return pulumi.get(self, "user_id")
+
+    @user_id.setter
+    def user_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user_id", value)
+
 
 @pulumi.input_type
 class _TeamMemberState:
     def __init__(__self__, *,
                  access_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 confirmed: Optional[pulumi.Input[bool]] = None,
+                 email: Optional[pulumi.Input[str]] = None,
                  projects: Optional[pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]]] = None,
                  role: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
@@ -114,13 +133,19 @@ class _TeamMemberState:
         """
         Input properties used for looking up and filtering TeamMember resources.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[bool] confirmed: Whether the user has confirmed their invitation.
+        :param pulumi.Input[str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
-        :param pulumi.Input[str] user_id: The ID of the user to add to the team.
+        :param pulumi.Input[str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
         if access_groups is not None:
             pulumi.set(__self__, "access_groups", access_groups)
+        if confirmed is not None:
+            pulumi.set(__self__, "confirmed", confirmed)
+        if email is not None:
+            pulumi.set(__self__, "email", email)
         if projects is not None:
             pulumi.set(__self__, "projects", projects)
         if role is not None:
@@ -141,6 +166,30 @@ class _TeamMemberState:
     @access_groups.setter
     def access_groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "access_groups", value)
+
+    @property
+    @pulumi.getter
+    def confirmed(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the user has confirmed their invitation.
+        """
+        return pulumi.get(self, "confirmed")
+
+    @confirmed.setter
+    def confirmed(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "confirmed", value)
+
+    @property
+    @pulumi.getter
+    def email(self) -> Optional[pulumi.Input[str]]:
+        """
+        The email of the user to add to the team. Must specify one of user_id or email.
+        """
+        return pulumi.get(self, "email")
+
+    @email.setter
+    def email(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "email", value)
 
     @property
     @pulumi.getter
@@ -182,7 +231,7 @@ class _TeamMemberState:
     @pulumi.getter(name="userId")
     def user_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the user to add to the team.
+        The ID of the user to add to the team. Must specify one of user_id or email.
         """
         return pulumi.get(self, "user_id")
 
@@ -197,6 +246,7 @@ class TeamMember(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  access_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 email: Optional[pulumi.Input[str]] = None,
                  projects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]]] = None,
                  role: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
@@ -211,9 +261,13 @@ class TeamMember(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.TeamMember("example",
+        by_user_id = vercel.TeamMember("by_user_id",
             team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
             user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
+            role="MEMBER")
+        by_email = vercel.TeamMember("by_email",
+            team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
+            email="example@example.com",
             role="MEMBER")
         ```
 
@@ -228,10 +282,11 @@ class TeamMember(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
-        :param pulumi.Input[str] user_id: The ID of the user to add to the team.
+        :param pulumi.Input[str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
         ...
     @overload
@@ -248,9 +303,13 @@ class TeamMember(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.TeamMember("example",
+        by_user_id = vercel.TeamMember("by_user_id",
             team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
             user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
+            role="MEMBER")
+        by_email = vercel.TeamMember("by_email",
+            team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
+            email="example@example.com",
             role="MEMBER")
         ```
 
@@ -278,6 +337,7 @@ class TeamMember(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  access_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 email: Optional[pulumi.Input[str]] = None,
                  projects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]]] = None,
                  role: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
@@ -292,6 +352,7 @@ class TeamMember(pulumi.CustomResource):
             __props__ = TeamMemberArgs.__new__(TeamMemberArgs)
 
             __props__.__dict__["access_groups"] = access_groups
+            __props__.__dict__["email"] = email
             __props__.__dict__["projects"] = projects
             if role is None and not opts.urn:
                 raise TypeError("Missing required property 'role'")
@@ -299,9 +360,8 @@ class TeamMember(pulumi.CustomResource):
             if team_id is None and not opts.urn:
                 raise TypeError("Missing required property 'team_id'")
             __props__.__dict__["team_id"] = team_id
-            if user_id is None and not opts.urn:
-                raise TypeError("Missing required property 'user_id'")
             __props__.__dict__["user_id"] = user_id
+            __props__.__dict__["confirmed"] = None
         super(TeamMember, __self__).__init__(
             'vercel:index/teamMember:TeamMember',
             resource_name,
@@ -313,6 +373,8 @@ class TeamMember(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             access_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            confirmed: Optional[pulumi.Input[bool]] = None,
+            email: Optional[pulumi.Input[str]] = None,
             projects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]]] = None,
             role: Optional[pulumi.Input[str]] = None,
             team_id: Optional[pulumi.Input[str]] = None,
@@ -325,16 +387,20 @@ class TeamMember(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
+        :param pulumi.Input[bool] confirmed: Whether the user has confirmed their invitation.
+        :param pulumi.Input[str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[str] team_id: The ID of the existing Vercel Team.
-        :param pulumi.Input[str] user_id: The ID of the user to add to the team.
+        :param pulumi.Input[str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _TeamMemberState.__new__(_TeamMemberState)
 
         __props__.__dict__["access_groups"] = access_groups
+        __props__.__dict__["confirmed"] = confirmed
+        __props__.__dict__["email"] = email
         __props__.__dict__["projects"] = projects
         __props__.__dict__["role"] = role
         __props__.__dict__["team_id"] = team_id
@@ -343,7 +409,7 @@ class TeamMember(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="accessGroups")
-    def access_groups(self) -> pulumi.Output[Sequence[str]]:
+    def access_groups(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
         If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         """
@@ -351,7 +417,23 @@ class TeamMember(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def projects(self) -> pulumi.Output[Sequence['outputs.TeamMemberProject']]:
+    def confirmed(self) -> pulumi.Output[bool]:
+        """
+        Whether the user has confirmed their invitation.
+        """
+        return pulumi.get(self, "confirmed")
+
+    @property
+    @pulumi.getter
+    def email(self) -> pulumi.Output[str]:
+        """
+        The email of the user to add to the team. Must specify one of user_id or email.
+        """
+        return pulumi.get(self, "email")
+
+    @property
+    @pulumi.getter
+    def projects(self) -> pulumi.Output[Optional[Sequence['outputs.TeamMemberProject']]]:
         """
         If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         """
@@ -377,7 +459,7 @@ class TeamMember(pulumi.CustomResource):
     @pulumi.getter(name="userId")
     def user_id(self) -> pulumi.Output[str]:
         """
-        The ID of the user to add to the team.
+        The ID of the user to add to the team. Must specify one of user_id or email.
         """
         return pulumi.get(self, "user_id")
 
