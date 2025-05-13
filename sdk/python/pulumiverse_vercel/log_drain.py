@@ -349,9 +349,11 @@ class LogDrain(pulumi.CustomResource):
         import pulumi_vercel as vercel
         import pulumiverse_vercel as vercel
 
-        example_endpoint_verification = vercel.get_endpoint_verification()
-        example_project = vercel.Project("exampleProject")
-        example_log_drain = vercel.LogDrain("exampleLogDrain",
+        # Use the vercel_endpoint_verification data source to work out the verification code needed to
+        # verify the log drain endpoint.
+        example = vercel.get_endpoint_verification()
+        example_project = vercel.Project("example", name="example")
+        example_log_drain = vercel.LogDrain("example",
             delivery_format="json",
             environments=["production"],
             headers={
@@ -422,9 +424,11 @@ class LogDrain(pulumi.CustomResource):
         import pulumi_vercel as vercel
         import pulumiverse_vercel as vercel
 
-        example_endpoint_verification = vercel.get_endpoint_verification()
-        example_project = vercel.Project("exampleProject")
-        example_log_drain = vercel.LogDrain("exampleLogDrain",
+        # Use the vercel_endpoint_verification data source to work out the verification code needed to
+        # verify the log drain endpoint.
+        example = vercel.get_endpoint_verification()
+        example_project = vercel.Project("example", name="example")
+        example_log_drain = vercel.LogDrain("example",
             delivery_format="json",
             environments=["production"],
             headers={

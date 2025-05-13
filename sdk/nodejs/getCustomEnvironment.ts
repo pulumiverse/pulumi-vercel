@@ -17,11 +17,11 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
- * const exampleProject = vercel.getProject({
+ * const example = vercel.getProject({
  *     name: "example-project-with-custom-env",
  * });
- * const exampleCustomEnvironment = exampleProject.then(exampleProject => vercel.getCustomEnvironment({
- *     projectId: exampleProject.id,
+ * const exampleGetCustomEnvironment = example.then(example => vercel.getCustomEnvironment({
+ *     projectId: example.id,
  *     name: "example-custom-env",
  * }));
  * ```
@@ -93,11 +93,11 @@ export interface GetCustomEnvironmentResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
- * const exampleProject = vercel.getProject({
+ * const example = vercel.getProject({
  *     name: "example-project-with-custom-env",
  * });
- * const exampleCustomEnvironment = exampleProject.then(exampleProject => vercel.getCustomEnvironment({
- *     projectId: exampleProject.id,
+ * const exampleGetCustomEnvironment = example.then(example => vercel.getCustomEnvironment({
+ *     projectId: example.id,
  *     name: "example-custom-env",
  * }));
  * ```

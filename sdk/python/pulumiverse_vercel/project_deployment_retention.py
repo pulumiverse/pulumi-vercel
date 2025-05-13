@@ -248,13 +248,15 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.Project("example", git_repository={
-            "type": "github",
-            "repo": "vercel/some-repo",
-        })
+        example = vercel.Project("example",
+            name="example-project",
+            git_repository={
+                "type": "github",
+                "repo": "vercel/some-repo",
+            })
         # An unlimited deployment retention policy that will be created
         # for this project for all deployments.
-        example_unlimited = vercel.ProjectDeploymentRetention("exampleUnlimited",
+        example_unlimited = vercel.ProjectDeploymentRetention("example_unlimited",
             project_id=example.id,
             team_id=example.team_id,
             expiration_preview="unlimited",
@@ -263,7 +265,7 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
             expiration_errored="unlimited")
         # A customized deployment retention policy that will be created
         # for this project for all deployments.
-        example_customized = vercel.ProjectDeploymentRetention("exampleCustomized",
+        example_customized = vercel.ProjectDeploymentRetention("example_customized",
             project_id=example.id,
             team_id=example.team_id,
             expiration_preview="3m",
@@ -312,13 +314,15 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.Project("example", git_repository={
-            "type": "github",
-            "repo": "vercel/some-repo",
-        })
+        example = vercel.Project("example",
+            name="example-project",
+            git_repository={
+                "type": "github",
+                "repo": "vercel/some-repo",
+            })
         # An unlimited deployment retention policy that will be created
         # for this project for all deployments.
-        example_unlimited = vercel.ProjectDeploymentRetention("exampleUnlimited",
+        example_unlimited = vercel.ProjectDeploymentRetention("example_unlimited",
             project_id=example.id,
             team_id=example.team_id,
             expiration_preview="unlimited",
@@ -327,7 +331,7 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
             expiration_errored="unlimited")
         # A customized deployment retention policy that will be created
         # for this project for all deployments.
-        example_customized = vercel.ProjectDeploymentRetention("exampleCustomized",
+        example_customized = vercel.ProjectDeploymentRetention("example_customized",
             project_id=example.id,
             team_id=example.team_id,
             expiration_preview="3m",

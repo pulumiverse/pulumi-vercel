@@ -28,20 +28,22 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleFile = Vercel.GetFile.Invoke(new()
+        ///     // In this example, we are assuming that a single index.html file
+        ///     // is being deployed. This file lives directly next to the terraform file.
+        ///     var example = Vercel.GetFile.Invoke(new()
         ///     {
         ///         Path = "index.html",
         ///     });
         /// 
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var exampleGetProject = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "my-project",
         ///     });
         /// 
-        ///     var exampleDeployment = new Vercel.Deployment("exampleDeployment", new()
+        ///     var exampleDeployment = new Vercel.Deployment("example", new()
         ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
-        ///         Files = exampleFile.Apply(getFileResult =&gt; getFileResult.File),
+        ///         ProjectId = exampleGetProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         Files = example.Apply(getFileResult =&gt; getFileResult.File),
         ///     });
         /// 
         /// });
@@ -66,20 +68,22 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleFile = Vercel.GetFile.Invoke(new()
+        ///     // In this example, we are assuming that a single index.html file
+        ///     // is being deployed. This file lives directly next to the terraform file.
+        ///     var example = Vercel.GetFile.Invoke(new()
         ///     {
         ///         Path = "index.html",
         ///     });
         /// 
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var exampleGetProject = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "my-project",
         ///     });
         /// 
-        ///     var exampleDeployment = new Vercel.Deployment("exampleDeployment", new()
+        ///     var exampleDeployment = new Vercel.Deployment("example", new()
         ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
-        ///         Files = exampleFile.Apply(getFileResult =&gt; getFileResult.File),
+        ///         ProjectId = exampleGetProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         Files = example.Apply(getFileResult =&gt; getFileResult.File),
         ///     });
         /// 
         /// });

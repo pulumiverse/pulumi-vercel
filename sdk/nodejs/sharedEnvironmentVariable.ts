@@ -17,18 +17,21 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {gitRepository: {
- *     type: "github",
- *     repo: "vercel/some-repo",
- * }});
+ * const example = new vercel.Project("example", {
+ *     name: "example",
+ *     gitRepository: {
+ *         type: "github",
+ *         repo: "vercel/some-repo",
+ *     },
+ * });
  * // A shared environment variable that will be created
  * // and associated with the "example" project.
- * const exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable", {
+ * const exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable("example", {
  *     key: "EXAMPLE",
  *     value: "some_value",
  *     targets: ["production"],
  *     comment: "an example shared variable",
- *     projectIds: [exampleProject.id],
+ *     projectIds: [example.id],
  * });
  * ```
  *

@@ -17,9 +17,13 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
+ * // Environment variables can be identified by their ID, or by their key and target.
+ * // The ID can be taken from the network tab inside developer tools, while you are on the project page.
  * const example = vercel.getSharedEnvironmentVariable({
  *     id: "xxxxxxxxxxxxxxx",
  * });
+ * // Alternatively, you can use the key and target to identify the environment variable.
+ * // Note that all `target`s must be specified for a match to be found.
  * const exampleByKeyAndTarget = vercel.getSharedEnvironmentVariable({
  *     key: "MY_ENV_VAR",
  *     targets: [
@@ -112,9 +116,13 @@ export interface GetSharedEnvironmentVariableResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
+ * // Environment variables can be identified by their ID, or by their key and target.
+ * // The ID can be taken from the network tab inside developer tools, while you are on the project page.
  * const example = vercel.getSharedEnvironmentVariable({
  *     id: "xxxxxxxxxxxxxxx",
  * });
+ * // Alternatively, you can use the key and target to identify the environment variable.
+ * // Note that all `target`s must be specified for a match to be found.
  * const exampleByKeyAndTarget = vercel.getSharedEnvironmentVariable({
  *     key: "MY_ENV_VAR",
  *     targets: [

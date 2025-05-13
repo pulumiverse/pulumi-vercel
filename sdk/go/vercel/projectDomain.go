@@ -32,14 +32,16 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project"),
+//			})
 //			if err != nil {
 //				return err
 //			}
 //			// A simple domain that will be automatically
 //			// applied to each production deployment
-//			exampleProjectDomain, err := vercel.NewProjectDomain(ctx, "exampleProjectDomain", &vercel.ProjectDomainArgs{
-//				ProjectId: exampleProject.ID(),
+//			exampleProjectDomain, err := vercel.NewProjectDomain(ctx, "example", &vercel.ProjectDomainArgs{
+//				ProjectId: example.ID(),
 //				Domain:    pulumi.String("i-love.vercel.app"),
 //			})
 //			if err != nil {
@@ -47,8 +49,8 @@ import (
 //			}
 //			// A redirect of a domain name to a second domain name.
 //			// The status_code can optionally be controlled.
-//			_, err = vercel.NewProjectDomain(ctx, "exampleRedirect", &vercel.ProjectDomainArgs{
-//				ProjectId:          exampleProject.ID(),
+//			_, err = vercel.NewProjectDomain(ctx, "example_redirect", &vercel.ProjectDomainArgs{
+//				ProjectId:          example.ID(),
 //				Domain:             pulumi.String("i-also-love.vercel.app"),
 //				Redirect:           exampleProjectDomain.Domain,
 //				RedirectStatusCode: pulumi.Int(307),

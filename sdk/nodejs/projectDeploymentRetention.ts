@@ -17,13 +17,16 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const example = new vercel.Project("example", {gitRepository: {
- *     type: "github",
- *     repo: "vercel/some-repo",
- * }});
+ * const example = new vercel.Project("example", {
+ *     name: "example-project",
+ *     gitRepository: {
+ *         type: "github",
+ *         repo: "vercel/some-repo",
+ *     },
+ * });
  * // An unlimited deployment retention policy that will be created
  * // for this project for all deployments.
- * const exampleUnlimited = new vercel.ProjectDeploymentRetention("exampleUnlimited", {
+ * const exampleUnlimited = new vercel.ProjectDeploymentRetention("example_unlimited", {
  *     projectId: example.id,
  *     teamId: example.teamId,
  *     expirationPreview: "unlimited",
@@ -33,7 +36,7 @@ import * as utilities from "./utilities";
  * });
  * // A customized deployment retention policy that will be created
  * // for this project for all deployments.
- * const exampleCustomized = new vercel.ProjectDeploymentRetention("exampleCustomized", {
+ * const exampleCustomized = new vercel.ProjectDeploymentRetention("example_customized", {
  *     projectId: example.id,
  *     teamId: example.teamId,
  *     expirationPreview: "3m",

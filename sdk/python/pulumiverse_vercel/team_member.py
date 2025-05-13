@@ -212,9 +212,9 @@ class TeamMember(pulumi.CustomResource):
         import pulumiverse_vercel as vercel
 
         example = vercel.TeamMember("example",
-            role="MEMBER",
             team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
-            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
+            role="MEMBER")
         ```
 
         ## Import
@@ -249,9 +249,9 @@ class TeamMember(pulumi.CustomResource):
         import pulumiverse_vercel as vercel
 
         example = vercel.TeamMember("example",
-            role="MEMBER",
             team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
-            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
+            role="MEMBER")
         ```
 
         ## Import

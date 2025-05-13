@@ -29,11 +29,15 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
+        ///     // Environment variables can be identified by their ID, or by their key and target.
+        ///     // The ID can be taken from the network tab inside developer tools, while you are on the project page.
         ///     var example = Vercel.GetSharedEnvironmentVariable.Invoke(new()
         ///     {
         ///         Id = "xxxxxxxxxxxxxxx",
         ///     });
         /// 
+        ///     // Alternatively, you can use the key and target to identify the environment variable.
+        ///     // Note that all `target`s must be specified for a match to be found.
         ///     var exampleByKeyAndTarget = Vercel.GetSharedEnvironmentVariable.Invoke(new()
         ///     {
         ///         Key = "MY_ENV_VAR",
@@ -67,11 +71,15 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
+        ///     // Environment variables can be identified by their ID, or by their key and target.
+        ///     // The ID can be taken from the network tab inside developer tools, while you are on the project page.
         ///     var example = Vercel.GetSharedEnvironmentVariable.Invoke(new()
         ///     {
         ///         Id = "xxxxxxxxxxxxxxx",
         ///     });
         /// 
+        ///     // Alternatively, you can use the key and target to identify the environment variable.
+        ///     // Note that all `target`s must be specified for a match to be found.
         ///     var exampleByKeyAndTarget = Vercel.GetSharedEnvironmentVariable.Invoke(new()
         ///     {
         ///         Key = "MY_ENV_VAR",

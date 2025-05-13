@@ -117,7 +117,7 @@ class AccessGroup(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.AccessGroup("example")
+        example = vercel.AccessGroup("example", name="example-access-group")
         ```
 
         ## Import
@@ -160,7 +160,7 @@ class AccessGroup(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.AccessGroup("example")
+        example = vercel.AccessGroup("example", name="example-access-group")
         ```
 
         ## Import

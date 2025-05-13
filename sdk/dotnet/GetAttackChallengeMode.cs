@@ -29,7 +29,7 @@ namespace Pulumiverse.Vercel
         /// {
         ///     var example = Vercel.GetAttackChallengeMode.Invoke(new()
         ///     {
-        ///         ProjectId = vercel_project.Example.Id,
+        ///         ProjectId = exampleVercelProject.Id,
         ///     });
         /// 
         /// });
@@ -55,7 +55,7 @@ namespace Pulumiverse.Vercel
         /// {
         ///     var example = Vercel.GetAttackChallengeMode.Invoke(new()
         ///     {
-        ///         ProjectId = vercel_project.Example.Id,
+        ///         ProjectId = exampleVercelProject.Id,
         ///     });
         /// 
         /// });

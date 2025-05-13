@@ -27,8 +27,9 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject", new()
+    ///     var example = new Vercel.Project("example", new()
     ///     {
+    ///         Name = "example",
     ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
     ///         {
     ///             Type = "github",
@@ -38,7 +39,7 @@ namespace Pulumiverse.Vercel
     /// 
     ///     // A shared environment variable that will be created
     ///     // and associated with the "example" project.
-    ///     var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable", new()
+    ///     var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable("example", new()
     ///     {
     ///         Key = "EXAMPLE",
     ///         Value = "some_value",
@@ -49,7 +50,7 @@ namespace Pulumiverse.Vercel
     ///         Comment = "an example shared variable",
     ///         ProjectIds = new[]
     ///         {
-    ///             exampleProject.Id,
+    ///             example.Id,
     ///         },
     ///     });
     /// 

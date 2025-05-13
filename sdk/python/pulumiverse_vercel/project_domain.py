@@ -280,16 +280,16 @@ class ProjectDomain(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
+        example = vercel.Project("example", name="example-project")
         # A simple domain that will be automatically
         # applied to each production deployment
-        example_project_domain = vercel.ProjectDomain("exampleProjectDomain",
-            project_id=example_project.id,
+        example_project_domain = vercel.ProjectDomain("example",
+            project_id=example.id,
             domain="i-love.vercel.app")
         # A redirect of a domain name to a second domain name.
         # The status_code can optionally be controlled.
-        example_redirect = vercel.ProjectDomain("exampleRedirect",
-            project_id=example_project.id,
+        example_redirect = vercel.ProjectDomain("example_redirect",
+            project_id=example.id,
             domain="i-also-love.vercel.app",
             redirect=example_project_domain.domain,
             redirect_status_code=307)
@@ -346,16 +346,16 @@ class ProjectDomain(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
+        example = vercel.Project("example", name="example-project")
         # A simple domain that will be automatically
         # applied to each production deployment
-        example_project_domain = vercel.ProjectDomain("exampleProjectDomain",
-            project_id=example_project.id,
+        example_project_domain = vercel.ProjectDomain("example",
+            project_id=example.id,
             domain="i-love.vercel.app")
         # A redirect of a domain name to a second domain name.
         # The status_code can optionally be controlled.
-        example_redirect = vercel.ProjectDomain("exampleRedirect",
-            project_id=example_project.id,
+        example_redirect = vercel.ProjectDomain("example_redirect",
+            project_id=example.id,
             domain="i-also-love.vercel.app",
             redirect=example_project_domain.domain,
             redirect_status_code=307)

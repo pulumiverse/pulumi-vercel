@@ -32,11 +32,16 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleEndpointVerification = Vercel.GetEndpointVerification.Invoke();
+    ///     // Use the vercel_endpoint_verification data source to work out the verification code needed to
+    ///     // verify the log drain endpoint.
+    ///     var example = Vercel.GetEndpointVerification.Invoke();
     /// 
-    ///     var exampleProject = new Vercel.Project("exampleProject");
+    ///     var exampleProject = new Vercel.Project("example", new()
+    ///     {
+    ///         Name = "example",
+    ///     });
     /// 
-    ///     var exampleLogDrain = new Vercel.LogDrain("exampleLogDrain", new()
+    ///     var exampleLogDrain = new Vercel.LogDrain("example", new()
     ///     {
     ///         DeliveryFormat = "json",
     ///         Environments = new[]

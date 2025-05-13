@@ -17,7 +17,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const example = new vercel.AccessGroup("example", {});
+ * const example = new vercel.AccessGroup("example", {name: "example-access-group"});
  * ```
  *
  * ## Import

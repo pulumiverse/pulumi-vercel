@@ -32,22 +32,26 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleEdgeConfig, err := vercel.NewEdgeConfig(ctx, "exampleEdgeConfig", nil)
+//			example, err := vercel.NewEdgeConfig(ctx, "example", &vercel.EdgeConfigArgs{
+//				Name: pulumi.String("example"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			exampleProject, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("edge-config-example"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			exampleEdgeConfigToken, err := vercel.NewEdgeConfigToken(ctx, "exampleEdgeConfigToken", &vercel.EdgeConfigTokenArgs{
-//				EdgeConfigId: exampleEdgeConfig.ID(),
+//			exampleEdgeConfigToken, err := vercel.NewEdgeConfigToken(ctx, "example", &vercel.EdgeConfigTokenArgs{
+//				EdgeConfigId: example.ID(),
 //				Label:        pulumi.String("example token"),
 //			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleProjectEnvironmentVariable", &vercel.ProjectEnvironmentVariableArgs{
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example", &vercel.ProjectEnvironmentVariableArgs{
 //				ProjectId: exampleProject.ID(),
 //				Targets: pulumi.StringArray{
 //					pulumi.String("production"),

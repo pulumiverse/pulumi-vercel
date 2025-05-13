@@ -25,17 +25,23 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleEdgeConfig = new Vercel.EdgeConfig("exampleEdgeConfig");
-    /// 
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     var exampleEdgeConfigToken = new Vercel.EdgeConfigToken("exampleEdgeConfigToken", new()
+    ///     var example = new Vercel.EdgeConfig("example", new()
     ///     {
-    ///         EdgeConfigId = exampleEdgeConfig.Id,
+    ///         Name = "example",
+    ///     });
+    /// 
+    ///     var exampleProject = new Vercel.Project("example", new()
+    ///     {
+    ///         Name = "edge-config-example",
+    ///     });
+    /// 
+    ///     var exampleEdgeConfigToken = new Vercel.EdgeConfigToken("example", new()
+    ///     {
+    ///         EdgeConfigId = example.Id,
     ///         Label = "example token",
     ///     });
     /// 
-    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", new()
+    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("example", new()
     ///     {
     ///         ProjectId = exampleProject.Id,
     ///         Targets = new[]

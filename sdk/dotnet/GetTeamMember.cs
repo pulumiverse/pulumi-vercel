@@ -27,8 +27,8 @@ namespace Pulumiverse.Vercel
         /// {
         ///     var example = Vercel.GetTeamMember.Invoke(new()
         ///     {
-        ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
         ///         UserId = "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+        ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
         ///     });
         /// 
         /// });
@@ -52,8 +52,8 @@ namespace Pulumiverse.Vercel
         /// {
         ///     var example = Vercel.GetTeamMember.Invoke(new()
         ///     {
-        ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
         ///         UserId = "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+        ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
         ///     });
         /// 
         /// });

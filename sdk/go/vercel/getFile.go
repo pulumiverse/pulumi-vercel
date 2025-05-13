@@ -29,21 +29,23 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleFile, err := vercel.GetFile(ctx, &vercel.GetFileArgs{
+//			// In this example, we are assuming that a single index.html file
+//			// is being deployed. This file lives directly next to the terraform file.
+//			example, err := vercel.GetFile(ctx, &vercel.GetFileArgs{
 //				Path: "index.html",
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
-//			exampleProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//			exampleGetProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
 //				Name: "my-project",
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewDeployment(ctx, "exampleDeployment", &vercel.DeploymentArgs{
-//				ProjectId: pulumi.String(exampleProject.Id),
-//				Files:     pulumi.StringMap(exampleFile.File),
+//			_, err = vercel.NewDeployment(ctx, "example", &vercel.DeploymentArgs{
+//				ProjectId: pulumi.String(exampleGetProject.Id),
+//				Files:     pulumi.StringMap(example.File),
 //			})
 //			if err != nil {
 //				return err

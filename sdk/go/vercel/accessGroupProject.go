@@ -32,16 +32,20 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			exampleAccessGroup, err := vercel.NewAccessGroup(ctx, "exampleAccessGroup", nil)
+//			exampleAccessGroup, err := vercel.NewAccessGroup(ctx, "example", &vercel.AccessGroupArgs{
+//				Name: pulumi.String("example-access-group"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewAccessGroupProject(ctx, "exampleAccessGroupProject", &vercel.AccessGroupProjectArgs{
-//				ProjectId:     exampleProject.ID(),
+//			_, err = vercel.NewAccessGroupProject(ctx, "example", &vercel.AccessGroupProjectArgs{
+//				ProjectId:     example.ID(),
 //				AccessGroupId: exampleAccessGroup.ID(),
 //				Role:          pulumi.String("ADMIN"),
 //			})

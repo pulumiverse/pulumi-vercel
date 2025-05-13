@@ -25,11 +25,14 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     var exampleAttackChallengeMode = new Vercel.AttackChallengeMode("exampleAttackChallengeMode", new()
+    ///     var example = new Vercel.Project("example", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         Name = "example-project",
+    ///     });
+    /// 
+    ///     var exampleAttackChallengeMode = new Vercel.AttackChallengeMode("example", new()
+    ///     {
+    ///         ProjectId = example.Id,
     ///         Enabled = true,
     ///     });
     /// 

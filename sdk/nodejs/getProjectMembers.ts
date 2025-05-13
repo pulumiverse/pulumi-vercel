@@ -15,11 +15,11 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
- * const exampleProject = vercel.getProject({
+ * const example = vercel.getProject({
  *     name: "example-with-members",
  * });
- * const exampleProjectMembers = exampleProject.then(exampleProject => vercel.getProjectMembers({
- *     projectId: exampleProject.id,
+ * const exampleGetProjectMembers = example.then(example => vercel.getProjectMembers({
+ *     projectId: example.id,
  * }));
  * ```
  */
@@ -75,11 +75,11 @@ export interface GetProjectMembersResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
- * const exampleProject = vercel.getProject({
+ * const example = vercel.getProject({
  *     name: "example-with-members",
  * });
- * const exampleProjectMembers = exampleProject.then(exampleProject => vercel.getProjectMembers({
- *     projectId: exampleProject.id,
+ * const exampleGetProjectMembers = example.then(example => vercel.getProjectMembers({
+ *     projectId: example.id,
  * }));
  * ```
  */

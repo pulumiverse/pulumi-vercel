@@ -219,9 +219,10 @@ class CustomEnvironment(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_custom_environment = vercel.CustomEnvironment("exampleCustomEnvironment",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-project-with-custom-env")
+        example_custom_environment = vercel.CustomEnvironment("example",
+            project_id=example.id,
+            name="example-custom-env",
             description="A description of the custom environment",
             branch_tracking={
                 "pattern": "staging-",
@@ -284,9 +285,10 @@ class CustomEnvironment(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_custom_environment = vercel.CustomEnvironment("exampleCustomEnvironment",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-project-with-custom-env")
+        example_custom_environment = vercel.CustomEnvironment("example",
+            project_id=example.id,
+            name="example-custom-env",
             description="A description of the custom environment",
             branch_tracking={
                 "pattern": "staging-",

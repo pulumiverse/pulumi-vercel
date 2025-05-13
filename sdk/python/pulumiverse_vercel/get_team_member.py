@@ -122,8 +122,8 @@ def get_team_member(team_id: Optional[str] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example = vercel.get_team_member(team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
-        user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+    example = vercel.get_team_member(user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
+        team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx")
     ```
 
 
@@ -155,8 +155,8 @@ def get_team_member_output(team_id: Optional[pulumi.Input[str]] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example = vercel.get_team_member(team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
-        user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu")
+    example = vercel.get_team_member(user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
+        team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx")
     ```
 
 

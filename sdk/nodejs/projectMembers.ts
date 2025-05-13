@@ -13,9 +13,9 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleProjectMembers = new vercel.ProjectMembers("exampleProjectMembers", {
- *     projectId: exampleProject.id,
+ * const example = new vercel.Project("example", {name: "example-with-members"});
+ * const exampleProjectMembers = new vercel.ProjectMembers("example", {
+ *     projectId: example.id,
  *     members: [
  *         {
  *             email: "user@example.com",

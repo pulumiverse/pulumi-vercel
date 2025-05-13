@@ -24,13 +24,14 @@ namespace Pulumiverse.Vercel
     ///     // A project that is connected to a git repository.
     ///     // Deployments will be created automatically
     ///     // on every branch push and merges onto the Production Branch.
-    ///     var withGit = new Vercel.Project("withGit", new()
+    ///     var withGit = new Vercel.Project("with_git", new()
     ///     {
+    ///         Name = "example-project-with-git",
     ///         Framework = "nextjs",
     ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
     ///         {
-    ///             Repo = "vercel/some-repo",
     ///             Type = "github",
+    ///             Repo = "vercel/some-repo",
     ///         },
     ///     });
     /// 
@@ -39,6 +40,7 @@ namespace Pulumiverse.Vercel
     ///     // terraform, or via the vercel CLI.
     ///     var example = new Vercel.Project("example", new()
     ///     {
+    ///         Name = "example-project",
     ///         Framework = "nextjs",
     ///     });
     /// 

@@ -115,12 +115,12 @@ class EdgeConfig(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_project = vercel.Project("exampleProject")
-        example_edge_config_token = vercel.EdgeConfigToken("exampleEdgeConfigToken",
-            edge_config_id=example_edge_config.id,
+        example = vercel.EdgeConfig("example", name="example")
+        example_project = vercel.Project("example", name="edge-config-example")
+        example_edge_config_token = vercel.EdgeConfigToken("example",
+            edge_config_id=example.id,
             label="example token")
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
+        example_project_environment_variable = vercel.ProjectEnvironmentVariable("example",
             project_id=example_project.id,
             targets=[
                 "production",
@@ -175,12 +175,12 @@ class EdgeConfig(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_project = vercel.Project("exampleProject")
-        example_edge_config_token = vercel.EdgeConfigToken("exampleEdgeConfigToken",
-            edge_config_id=example_edge_config.id,
+        example = vercel.EdgeConfig("example", name="example")
+        example_project = vercel.Project("example", name="edge-config-example")
+        example_edge_config_token = vercel.EdgeConfigToken("example",
+            edge_config_id=example.id,
             label="example token")
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
+        example_project_environment_variable = vercel.ProjectEnvironmentVariable("example",
             project_id=example_project.id,
             targets=[
                 "production",

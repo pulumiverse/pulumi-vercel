@@ -378,51 +378,59 @@ class DnsRecord(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        dns_record = vercel.DnsRecord("dnsRecord",
+        a = vercel.DnsRecord("a",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="A",
+            ttl=60,
             value="192.168.0.1")
         aaaa = vercel.DnsRecord("aaaa",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="AAAA",
+            ttl=60,
             value="::0")
         alias = vercel.DnsRecord("alias",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="ALIAS",
+            ttl=60,
             value="example2.com.")
         caa = vercel.DnsRecord("caa",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="CAA",
+            ttl=60,
             value="1 issue \\"letsencrypt.org\\"")
         cname = vercel.DnsRecord("cname",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="CNAME",
+            ttl=60,
             value="example2.com.")
         mx = vercel.DnsRecord("mx",
             domain="example.com",
-            mx_priority=333,
-            ttl=60,
+            name="subdomain",
             type="MX",
+            ttl=60,
+            mx_priority=333,
             value="example2.com.")
         srv = vercel.DnsRecord("srv",
             domain="example.com",
+            name="subdomain",
+            type="SRV",
+            ttl=60,
             srv={
                 "port": 6000,
+                "weight": 60,
                 "priority": 127,
                 "target": "example2.com.",
-                "weight": 60,
-            },
-            ttl=60,
-            type="SRV")
+            })
         txt = vercel.DnsRecord("txt",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="TXT",
+            ttl=60,
             value="some text value")
         ```
 
@@ -492,51 +500,59 @@ class DnsRecord(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        dns_record = vercel.DnsRecord("dnsRecord",
+        a = vercel.DnsRecord("a",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="A",
+            ttl=60,
             value="192.168.0.1")
         aaaa = vercel.DnsRecord("aaaa",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="AAAA",
+            ttl=60,
             value="::0")
         alias = vercel.DnsRecord("alias",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="ALIAS",
+            ttl=60,
             value="example2.com.")
         caa = vercel.DnsRecord("caa",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="CAA",
+            ttl=60,
             value="1 issue \\"letsencrypt.org\\"")
         cname = vercel.DnsRecord("cname",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="CNAME",
+            ttl=60,
             value="example2.com.")
         mx = vercel.DnsRecord("mx",
             domain="example.com",
-            mx_priority=333,
-            ttl=60,
+            name="subdomain",
             type="MX",
+            ttl=60,
+            mx_priority=333,
             value="example2.com.")
         srv = vercel.DnsRecord("srv",
             domain="example.com",
+            name="subdomain",
+            type="SRV",
+            ttl=60,
             srv={
                 "port": 6000,
+                "weight": 60,
                 "priority": 127,
                 "target": "example2.com.",
-                "weight": 60,
-            },
-            ttl=60,
-            type="SRV")
+            })
         txt = vercel.DnsRecord("txt",
             domain="example.com",
-            ttl=60,
+            name="subdomain",
             type="TXT",
+            ttl=60,
             value="some text value")
         ```
 

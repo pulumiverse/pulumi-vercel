@@ -33,6 +33,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project"),
 //				GitRepository: &vercel.ProjectGitRepositoryArgs{
 //					Type: pulumi.String("github"),
 //					Repo: pulumi.String("vercel/some-repo"),
@@ -43,7 +44,7 @@ import (
 //			}
 //			// An unlimited deployment retention policy that will be created
 //			// for this project for all deployments.
-//			_, err = vercel.NewProjectDeploymentRetention(ctx, "exampleUnlimited", &vercel.ProjectDeploymentRetentionArgs{
+//			_, err = vercel.NewProjectDeploymentRetention(ctx, "example_unlimited", &vercel.ProjectDeploymentRetentionArgs{
 //				ProjectId:            example.ID(),
 //				TeamId:               example.TeamId,
 //				ExpirationPreview:    pulumi.String("unlimited"),
@@ -56,7 +57,7 @@ import (
 //			}
 //			// A customized deployment retention policy that will be created
 //			// for this project for all deployments.
-//			_, err = vercel.NewProjectDeploymentRetention(ctx, "exampleCustomized", &vercel.ProjectDeploymentRetentionArgs{
+//			_, err = vercel.NewProjectDeploymentRetention(ctx, "example_customized", &vercel.ProjectDeploymentRetentionArgs{
 //				ProjectId:            example.ID(),
 //				TeamId:               example.TeamId,
 //				ExpirationPreview:    pulumi.String("3m"),

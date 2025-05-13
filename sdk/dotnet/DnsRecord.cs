@@ -29,74 +29,82 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var dnsRecord = new Vercel.DnsRecord("dnsRecord", new()
+    ///     var a = new Vercel.DnsRecord("a", new()
     ///     {
     ///         Domain = "example.com",
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "A",
+    ///         Ttl = 60,
     ///         Value = "192.168.0.1",
     ///     });
     /// 
     ///     var aaaa = new Vercel.DnsRecord("aaaa", new()
     ///     {
     ///         Domain = "example.com",
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "AAAA",
+    ///         Ttl = 60,
     ///         Value = "::0",
     ///     });
     /// 
     ///     var @alias = new Vercel.DnsRecord("alias", new()
     ///     {
     ///         Domain = "example.com",
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "ALIAS",
+    ///         Ttl = 60,
     ///         Value = "example2.com.",
     ///     });
     /// 
     ///     var caa = new Vercel.DnsRecord("caa", new()
     ///     {
     ///         Domain = "example.com",
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "CAA",
+    ///         Ttl = 60,
     ///         Value = "1 issue \"letsencrypt.org\"",
     ///     });
     /// 
     ///     var cname = new Vercel.DnsRecord("cname", new()
     ///     {
     ///         Domain = "example.com",
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "CNAME",
+    ///         Ttl = 60,
     ///         Value = "example2.com.",
     ///     });
     /// 
     ///     var mx = new Vercel.DnsRecord("mx", new()
     ///     {
     ///         Domain = "example.com",
-    ///         MxPriority = 333,
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "MX",
+    ///         Ttl = 60,
+    ///         MxPriority = 333,
     ///         Value = "example2.com.",
     ///     });
     /// 
     ///     var srv = new Vercel.DnsRecord("srv", new()
     ///     {
     ///         Domain = "example.com",
+    ///         Name = "subdomain",
+    ///         Type = "SRV",
+    ///         Ttl = 60,
     ///         Srv = new Vercel.Inputs.DnsRecordSrvArgs
     ///         {
     ///             Port = 6000,
+    ///             Weight = 60,
     ///             Priority = 127,
     ///             Target = "example2.com.",
-    ///             Weight = 60,
     ///         },
-    ///         Ttl = 60,
-    ///         Type = "SRV",
     ///     });
     /// 
     ///     var txt = new Vercel.DnsRecord("txt", new()
     ///     {
     ///         Domain = "example.com",
-    ///         Ttl = 60,
+    ///         Name = "subdomain",
     ///         Type = "TXT",
+    ///         Ttl = 60,
     ///         Value = "some text value",
     ///     });
     /// 

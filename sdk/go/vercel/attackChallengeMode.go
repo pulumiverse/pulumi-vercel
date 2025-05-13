@@ -30,12 +30,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewAttackChallengeMode(ctx, "exampleAttackChallengeMode", &vercel.AttackChallengeModeArgs{
-//				ProjectId: exampleProject.ID(),
+//			_, err = vercel.NewAttackChallengeMode(ctx, "example", &vercel.AttackChallengeModeArgs{
+//				ProjectId: example.ID(),
 //				Enabled:   pulumi.Bool(true),
 //			})
 //			if err != nil {
