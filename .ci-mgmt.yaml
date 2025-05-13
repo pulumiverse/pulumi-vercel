@@ -18,4 +18,5 @@ plugins:
     version: "1.0.19"
     kind: converter
 registryDocs: true
+publishRegistry: false
 goBuildParallelism: 2
