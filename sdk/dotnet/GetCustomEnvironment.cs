@@ -27,14 +27,14 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var example = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "example-project-with-custom-env",
         ///     });
         /// 
-        ///     var exampleCustomEnvironment = Vercel.GetCustomEnvironment.Invoke(new()
+        ///     var exampleGetCustomEnvironment = Vercel.GetCustomEnvironment.Invoke(new()
         ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         ProjectId = example.Apply(getProjectResult =&gt; getProjectResult.Id),
         ///         Name = "example-custom-env",
         ///     });
         /// 
@@ -59,14 +59,14 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var example = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "example-project-with-custom-env",
         ///     });
         /// 
-        ///     var exampleCustomEnvironment = Vercel.GetCustomEnvironment.Invoke(new()
+        ///     var exampleGetCustomEnvironment = Vercel.GetCustomEnvironment.Invoke(new()
         ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         ProjectId = example.Apply(getProjectResult =&gt; getProjectResult.Id),
         ///         Name = "example-custom-env",
         ///     });
         /// 

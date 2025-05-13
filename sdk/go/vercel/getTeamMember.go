@@ -28,8 +28,8 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := vercel.LookupTeamMember(ctx, &vercel.LookupTeamMemberArgs{
-//				TeamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
 //				UserId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+//				TeamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
 //			}, nil)
 //			if err != nil {
 //				return err

@@ -31,12 +31,16 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// Environment variables can be identified by their ID, or by their key and target.
+//			// The ID can be taken from the network tab inside developer tools, while you are on the project page.
 //			_, err := vercel.LookupSharedEnvironmentVariable(ctx, &vercel.LookupSharedEnvironmentVariableArgs{
 //				Id: pulumi.StringRef("xxxxxxxxxxxxxxx"),
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
+//			// Alternatively, you can use the key and target to identify the environment variable.
+//			// Note that all `target`s must be specified for a match to be found.
 //			_, err = vercel.LookupSharedEnvironmentVariable(ctx, &vercel.LookupSharedEnvironmentVariableArgs{
 //				Key: pulumi.StringRef("MY_ENV_VAR"),
 //				Targets: []string{

@@ -16,15 +16,17 @@ import * as utilities from "./utilities";
  * import * as vercel from "@pulumi/vercel";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleFile = vercel.getFile({
+ * // In this example, we are assuming that a single index.html file
+ * // is being deployed. This file lives directly next to the terraform file.
+ * const example = vercel.getFile({
  *     path: "index.html",
  * });
- * const exampleProject = vercel.getProject({
+ * const exampleGetProject = vercel.getProject({
  *     name: "my-project",
  * });
- * const exampleDeployment = new vercel.Deployment("exampleDeployment", {
- *     projectId: exampleProject.then(exampleProject => exampleProject.id),
- *     files: exampleFile.then(exampleFile => exampleFile.file),
+ * const exampleDeployment = new vercel.Deployment("example", {
+ *     projectId: exampleGetProject.then(exampleGetProject => exampleGetProject.id),
+ *     files: example.then(example => example.file),
  * });
  * ```
  */
@@ -68,15 +70,17 @@ export interface GetFileResult {
  * import * as vercel from "@pulumi/vercel";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleFile = vercel.getFile({
+ * // In this example, we are assuming that a single index.html file
+ * // is being deployed. This file lives directly next to the terraform file.
+ * const example = vercel.getFile({
  *     path: "index.html",
  * });
- * const exampleProject = vercel.getProject({
+ * const exampleGetProject = vercel.getProject({
  *     name: "my-project",
  * });
- * const exampleDeployment = new vercel.Deployment("exampleDeployment", {
- *     projectId: exampleProject.then(exampleProject => exampleProject.id),
- *     files: exampleFile.then(exampleFile => exampleFile.file),
+ * const exampleDeployment = new vercel.Deployment("example", {
+ *     projectId: exampleGetProject.then(exampleGetProject => exampleGetProject.id),
+ *     files: example.then(example => example.file),
  * });
  * ```
  */

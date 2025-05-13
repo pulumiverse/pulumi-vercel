@@ -30,7 +30,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := vercel.LookupAttackChallengeMode(ctx, &vercel.LookupAttackChallengeModeArgs{
-//				ProjectId: vercel_project.Example.Id,
+//				ProjectId: exampleVercelProject.Id,
 //			}, nil)
 //			if err != nil {
 //				return err

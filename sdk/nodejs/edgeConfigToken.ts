@@ -17,13 +17,13 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleEdgeConfig = new vercel.EdgeConfig("exampleEdgeConfig", {});
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleEdgeConfigToken = new vercel.EdgeConfigToken("exampleEdgeConfigToken", {
- *     edgeConfigId: exampleEdgeConfig.id,
+ * const example = new vercel.EdgeConfig("example", {name: "example"});
+ * const exampleProject = new vercel.Project("example", {name: "edge-config-example"});
+ * const exampleEdgeConfigToken = new vercel.EdgeConfigToken("example", {
+ *     edgeConfigId: example.id,
  *     label: "example token",
  * });
- * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", {
+ * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("example", {
  *     projectId: exampleProject.id,
  *     targets: [
  *         "production",

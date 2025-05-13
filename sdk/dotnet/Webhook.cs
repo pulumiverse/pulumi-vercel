@@ -27,11 +27,17 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var example = new Vercel.Project("example");
+    ///     var example = new Vercel.Project("example", new()
+    ///     {
+    ///         Name = "example-project",
+    ///     });
     /// 
-    ///     var example2 = new Vercel.Project("example2");
+    ///     var example2 = new Vercel.Project("example2", new()
+    ///     {
+    ///         Name = "another-example-project",
+    ///     });
     /// 
-    ///     var withProjectIds = new Vercel.Webhook("withProjectIds", new()
+    ///     var withProjectIds = new Vercel.Webhook("with_project_ids", new()
     ///     {
     ///         Events = new[]
     ///         {
@@ -46,7 +52,7 @@ namespace Pulumiverse.Vercel
     ///         },
     ///     });
     /// 
-    ///     var withoutProjectIds = new Vercel.Webhook("withoutProjectIds", new()
+    ///     var withoutProjectIds = new Vercel.Webhook("without_project_ids", new()
     ///     {
     ///         Events = new[]
     ///         {

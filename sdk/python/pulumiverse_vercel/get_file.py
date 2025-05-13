@@ -84,11 +84,13 @@ def get_file(path: Optional[str] = None,
     import pulumi_vercel as vercel
     import pulumiverse_vercel as vercel
 
-    example_file = vercel.get_file(path="index.html")
-    example_project = vercel.get_project(name="my-project")
-    example_deployment = vercel.Deployment("exampleDeployment",
-        project_id=example_project.id,
-        files=example_file.file)
+    # In this example, we are assuming that a single index.html file
+    # is being deployed. This file lives directly next to the terraform file.
+    example = vercel.get_file(path="index.html")
+    example_get_project = vercel.get_project(name="my-project")
+    example_deployment = vercel.Deployment("example",
+        project_id=example_get_project.id,
+        files=example.file)
     ```
     """
     __args__ = dict()
@@ -114,11 +116,13 @@ def get_file_output(path: Optional[pulumi.Input[str]] = None,
     import pulumi_vercel as vercel
     import pulumiverse_vercel as vercel
 
-    example_file = vercel.get_file(path="index.html")
-    example_project = vercel.get_project(name="my-project")
-    example_deployment = vercel.Deployment("exampleDeployment",
-        project_id=example_project.id,
-        files=example_file.file)
+    # In this example, we are assuming that a single index.html file
+    # is being deployed. This file lives directly next to the terraform file.
+    example = vercel.get_file(path="index.html")
+    example_get_project = vercel.get_project(name="my-project")
+    example_deployment = vercel.Deployment("example",
+        project_id=example_get_project.id,
+        files=example.file)
     ```
     """
     __args__ = dict()

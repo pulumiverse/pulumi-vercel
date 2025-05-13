@@ -34,10 +34,11 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.NewDnsRecord(ctx, "dnsRecord", &vercel.DnsRecordArgs{
+//			_, err := vercel.NewDnsRecord(ctx, "a", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
-//				Ttl:    pulumi.Int(60),
+//				Name:   pulumi.String("subdomain"),
 //				Type:   pulumi.String("A"),
+//				Ttl:    pulumi.Int(60),
 //				Value:  pulumi.String("192.168.0.1"),
 //			})
 //			if err != nil {
@@ -45,8 +46,9 @@ import (
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "aaaa", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
-//				Ttl:    pulumi.Int(60),
+//				Name:   pulumi.String("subdomain"),
 //				Type:   pulumi.String("AAAA"),
+//				Ttl:    pulumi.Int(60),
 //				Value:  pulumi.String("::0"),
 //			})
 //			if err != nil {
@@ -54,8 +56,9 @@ import (
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "alias", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
-//				Ttl:    pulumi.Int(60),
+//				Name:   pulumi.String("subdomain"),
 //				Type:   pulumi.String("ALIAS"),
+//				Ttl:    pulumi.Int(60),
 //				Value:  pulumi.String("example2.com."),
 //			})
 //			if err != nil {
@@ -63,8 +66,9 @@ import (
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "caa", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
-//				Ttl:    pulumi.Int(60),
+//				Name:   pulumi.String("subdomain"),
 //				Type:   pulumi.String("CAA"),
+//				Ttl:    pulumi.Int(60),
 //				Value:  pulumi.String("1 issue \"letsencrypt.org\""),
 //			})
 //			if err != nil {
@@ -72,8 +76,9 @@ import (
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "cname", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
-//				Ttl:    pulumi.Int(60),
+//				Name:   pulumi.String("subdomain"),
 //				Type:   pulumi.String("CNAME"),
+//				Ttl:    pulumi.Int(60),
 //				Value:  pulumi.String("example2.com."),
 //			})
 //			if err != nil {
@@ -81,9 +86,10 @@ import (
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "mx", &vercel.DnsRecordArgs{
 //				Domain:     pulumi.String("example.com"),
-//				MxPriority: pulumi.Int(333),
-//				Ttl:        pulumi.Int(60),
+//				Name:       pulumi.String("subdomain"),
 //				Type:       pulumi.String("MX"),
+//				Ttl:        pulumi.Int(60),
+//				MxPriority: pulumi.Int(333),
 //				Value:      pulumi.String("example2.com."),
 //			})
 //			if err != nil {
@@ -91,22 +97,24 @@ import (
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "srv", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
+//				Name:   pulumi.String("subdomain"),
+//				Type:   pulumi.String("SRV"),
+//				Ttl:    pulumi.Int(60),
 //				Srv: &vercel.DnsRecordSrvArgs{
 //					Port:     pulumi.Int(6000),
+//					Weight:   pulumi.Int(60),
 //					Priority: pulumi.Int(127),
 //					Target:   pulumi.String("example2.com."),
-//					Weight:   pulumi.Int(60),
 //				},
-//				Ttl:  pulumi.Int(60),
-//				Type: pulumi.String("SRV"),
 //			})
 //			if err != nil {
 //				return err
 //			}
 //			_, err = vercel.NewDnsRecord(ctx, "txt", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
-//				Ttl:    pulumi.Int(60),
+//				Name:   pulumi.String("subdomain"),
 //				Type:   pulumi.String("TXT"),
+//				Ttl:    pulumi.Int(60),
 //				Value:  pulumi.String("some text value"),
 //			})
 //			if err != nil {

@@ -29,11 +29,15 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     var exampleCustomEnvironment = new Vercel.CustomEnvironment("exampleCustomEnvironment", new()
+    ///     var example = new Vercel.Project("example", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         Name = "example-project-with-custom-env",
+    ///     });
+    /// 
+    ///     var exampleCustomEnvironment = new Vercel.CustomEnvironment("example", new()
+    ///     {
+    ///         ProjectId = example.Id,
+    ///         Name = "example-custom-env",
     ///         Description = "A description of the custom environment",
     ///         BranchTracking = new Vercel.Inputs.CustomEnvironmentBranchTrackingArgs
     ///         {

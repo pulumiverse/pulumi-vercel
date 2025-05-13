@@ -16,17 +16,21 @@ import * as utilities from "./utilities";
  * // A project that is connected to a git repository.
  * // Deployments will be created automatically
  * // on every branch push and merges onto the Production Branch.
- * const withGit = new vercel.Project("withGit", {
+ * const withGit = new vercel.Project("with_git", {
+ *     name: "example-project-with-git",
  *     framework: "nextjs",
  *     gitRepository: {
- *         repo: "vercel/some-repo",
  *         type: "github",
+ *         repo: "vercel/some-repo",
  *     },
  * });
  * // A project that is not connected to a git repository.
  * // Deployments will need to be created manually through
  * // terraform, or via the vercel CLI.
- * const example = new vercel.Project("example", {framework: "nextjs"});
+ * const example = new vercel.Project("example", {
+ *     name: "example-project",
+ *     framework: "nextjs",
+ * });
  * ```
  *
  * ## Import

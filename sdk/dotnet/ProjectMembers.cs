@@ -21,11 +21,14 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     var exampleProjectMembers = new Vercel.ProjectMembers("exampleProjectMembers", new()
+    ///     var example = new Vercel.Project("example", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         Name = "example-with-members",
+    ///     });
+    /// 
+    ///     var exampleProjectMembers = new Vercel.ProjectMembers("example", new()
+    ///     {
+    ///         ProjectId = example.Id,
     ///         Members = new[]
     ///         {
     ///             new Vercel.Inputs.ProjectMembersMemberArgs

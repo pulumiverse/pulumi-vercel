@@ -15,12 +15,12 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
- * const exampleProject = vercel.getProject({
+ * const example = vercel.getProject({
  *     name: "my-existing-project",
  * });
- * const exampleAccessGroupProject = vercel.getAccessGroupProject({
+ * const exampleGetAccessGroupProject = vercel.getAccessGroupProject({
  *     accessGroupId: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
- *     projectId: vercel_project.example.id,
+ *     projectId: exampleVercelProject.id,
  * });
  * ```
  */
@@ -87,12 +87,12 @@ export interface GetAccessGroupProjectResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumi/vercel";
  *
- * const exampleProject = vercel.getProject({
+ * const example = vercel.getProject({
  *     name: "my-existing-project",
  * });
- * const exampleAccessGroupProject = vercel.getAccessGroupProject({
+ * const exampleGetAccessGroupProject = vercel.getAccessGroupProject({
  *     accessGroupId: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
- *     projectId: vercel_project.example.id,
+ *     projectId: exampleVercelProject.id,
  * });
  * ```
  */

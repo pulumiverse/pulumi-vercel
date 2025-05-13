@@ -146,9 +146,9 @@ class AttackChallengeMode(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_attack_challenge_mode = vercel.AttackChallengeMode("exampleAttackChallengeMode",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-project")
+        example_attack_challenge_mode = vercel.AttackChallengeMode("example",
+            project_id=example.id,
             enabled=True)
         ```
 
@@ -187,9 +187,9 @@ class AttackChallengeMode(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_attack_challenge_mode = vercel.AttackChallengeMode("exampleAttackChallengeMode",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-project")
+        example_attack_challenge_mode = vercel.AttackChallengeMode("example",
+            project_id=example.id,
             enabled=True)
         ```
 

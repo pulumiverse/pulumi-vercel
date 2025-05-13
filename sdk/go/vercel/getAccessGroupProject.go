@@ -37,7 +37,7 @@ import (
 //			}
 //			_, err = vercel.LookupAccessGroupProject(ctx, &vercel.LookupAccessGroupProjectArgs{
 //				AccessGroupId: "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-//				ProjectId:     vercel_project.Example.Id,
+//				ProjectId:     exampleVercelProject.Id,
 //			}, nil)
 //			if err != nil {
 //				return err

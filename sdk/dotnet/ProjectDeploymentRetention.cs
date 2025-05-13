@@ -29,6 +29,7 @@ namespace Pulumiverse.Vercel
     /// {
     ///     var example = new Vercel.Project("example", new()
     ///     {
+    ///         Name = "example-project",
     ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
     ///         {
     ///             Type = "github",
@@ -38,7 +39,7 @@ namespace Pulumiverse.Vercel
     /// 
     ///     // An unlimited deployment retention policy that will be created
     ///     // for this project for all deployments.
-    ///     var exampleUnlimited = new Vercel.ProjectDeploymentRetention("exampleUnlimited", new()
+    ///     var exampleUnlimited = new Vercel.ProjectDeploymentRetention("example_unlimited", new()
     ///     {
     ///         ProjectId = example.Id,
     ///         TeamId = example.TeamId,
@@ -50,7 +51,7 @@ namespace Pulumiverse.Vercel
     /// 
     ///     // A customized deployment retention policy that will be created
     ///     // for this project for all deployments.
-    ///     var exampleCustomized = new Vercel.ProjectDeploymentRetention("exampleCustomized", new()
+    ///     var exampleCustomized = new Vercel.ProjectDeploymentRetention("example_customized", new()
     ///     {
     ///         ProjectId = example.Id,
     ///         TeamId = example.TeamId,

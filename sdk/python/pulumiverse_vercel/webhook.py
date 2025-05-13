@@ -197,9 +197,9 @@ class Webhook(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.Project("example")
-        example2 = vercel.Project("example2")
-        with_project_ids = vercel.Webhook("withProjectIds",
+        example = vercel.Project("example", name="example-project")
+        example2 = vercel.Project("example2", name="another-example-project")
+        with_project_ids = vercel.Webhook("with_project_ids",
             events=[
                 "deployment.created",
                 "deployment.succeeded",
@@ -209,7 +209,7 @@ class Webhook(pulumi.CustomResource):
                 example.id,
                 example2.id,
             ])
-        without_project_ids = vercel.Webhook("withoutProjectIds",
+        without_project_ids = vercel.Webhook("without_project_ids",
             events=[
                 "deployment.created",
                 "deployment.succeeded",
@@ -243,9 +243,9 @@ class Webhook(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example = vercel.Project("example")
-        example2 = vercel.Project("example2")
-        with_project_ids = vercel.Webhook("withProjectIds",
+        example = vercel.Project("example", name="example-project")
+        example2 = vercel.Project("example2", name="another-example-project")
+        with_project_ids = vercel.Webhook("with_project_ids",
             events=[
                 "deployment.created",
                 "deployment.succeeded",
@@ -255,7 +255,7 @@ class Webhook(pulumi.CustomResource):
                 example.id,
                 example2.id,
             ])
-        without_project_ids = vercel.Webhook("withoutProjectIds",
+        without_project_ids = vercel.Webhook("without_project_ids",
             events=[
                 "deployment.created",
                 "deployment.succeeded",

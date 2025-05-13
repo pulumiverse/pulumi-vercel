@@ -22,9 +22,11 @@ import * as utilities from "./utilities";
  * import * as vercel from "@pulumi/vercel";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleEndpointVerification = vercel.getEndpointVerification({});
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleLogDrain = new vercel.LogDrain("exampleLogDrain", {
+ * // Use the vercel_endpoint_verification data source to work out the verification code needed to
+ * // verify the log drain endpoint.
+ * const example = vercel.getEndpointVerification({});
+ * const exampleProject = new vercel.Project("example", {name: "example"});
+ * const exampleLogDrain = new vercel.LogDrain("example", {
  *     deliveryFormat: "json",
  *     environments: ["production"],
  *     headers: {

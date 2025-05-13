@@ -17,17 +17,17 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {});
+ * const example = new vercel.Project("example", {name: "example-project"});
  * // A simple domain that will be automatically
  * // applied to each production deployment
- * const exampleProjectDomain = new vercel.ProjectDomain("exampleProjectDomain", {
- *     projectId: exampleProject.id,
+ * const exampleProjectDomain = new vercel.ProjectDomain("example", {
+ *     projectId: example.id,
  *     domain: "i-love.vercel.app",
  * });
  * // A redirect of a domain name to a second domain name.
  * // The status_code can optionally be controlled.
- * const exampleRedirect = new vercel.ProjectDomain("exampleRedirect", {
- *     projectId: exampleProject.id,
+ * const exampleRedirect = new vercel.ProjectDomain("example_redirect", {
+ *     projectId: example.id,
  *     domain: "i-also-love.vercel.app",
  *     redirect: exampleProjectDomain.domain,
  *     redirectStatusCode: 307,

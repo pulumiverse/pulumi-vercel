@@ -27,11 +27,14 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleEdgeConfig = new Vercel.EdgeConfig("exampleEdgeConfig");
-    /// 
-    ///     var exampleEdgeConfigItem = new Vercel.EdgeConfigItem("exampleEdgeConfigItem", new()
+    ///     var example = new Vercel.EdgeConfig("example", new()
     ///     {
-    ///         EdgeConfigId = exampleEdgeConfig.Id,
+    ///         Name = "example",
+    ///     });
+    /// 
+    ///     var exampleEdgeConfigItem = new Vercel.EdgeConfigItem("example", new()
+    ///     {
+    ///         EdgeConfigId = example.Id,
     ///         Key = "foobar",
     ///         Value = "baz",
     ///     });

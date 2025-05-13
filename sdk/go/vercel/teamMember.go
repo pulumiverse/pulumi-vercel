@@ -29,9 +29,9 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := vercel.NewTeamMember(ctx, "example", &vercel.TeamMemberArgs{
-//				Role:   pulumi.String("MEMBER"),
 //				TeamId: pulumi.String("team_xxxxxxxxxxxxxxxxxxxxxxxx"),
 //				UserId: pulumi.String("uuuuuuuuuuuuuuuuuuuuuuuuuu"),
+//				Role:   pulumi.String("MEMBER"),
 //			})
 //			if err != nil {
 //				return err

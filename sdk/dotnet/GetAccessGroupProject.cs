@@ -27,15 +27,15 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var example = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "my-existing-project",
         ///     });
         /// 
-        ///     var exampleAccessGroupProject = Vercel.GetAccessGroupProject.Invoke(new()
+        ///     var exampleGetAccessGroupProject = Vercel.GetAccessGroupProject.Invoke(new()
         ///     {
         ///         AccessGroupId = "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        ///         ProjectId = vercel_project.Example.Id,
+        ///         ProjectId = exampleVercelProject.Id,
         ///     });
         /// 
         /// });
@@ -59,15 +59,15 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var example = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "my-existing-project",
         ///     });
         /// 
-        ///     var exampleAccessGroupProject = Vercel.GetAccessGroupProject.Invoke(new()
+        ///     var exampleGetAccessGroupProject = Vercel.GetAccessGroupProject.Invoke(new()
         ///     {
         ///         AccessGroupId = "ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        ///         ProjectId = vercel_project.Example.Id,
+        ///         ProjectId = exampleVercelProject.Id,
         ///     });
         /// 
         /// });

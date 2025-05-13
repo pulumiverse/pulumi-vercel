@@ -99,7 +99,7 @@ def get_attack_challenge_mode(project_id: Optional[str] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example = vercel.get_attack_challenge_mode(project_id=vercel_project["example"]["id"])
+    example = vercel.get_attack_challenge_mode(project_id=example_vercel_project["id"])
     ```
 
 
@@ -131,7 +131,7 @@ def get_attack_challenge_mode_output(project_id: Optional[pulumi.Input[str]] = N
     import pulumi
     import pulumi_vercel as vercel
 
-    example = vercel.get_attack_challenge_mode(project_id=vercel_project["example"]["id"])
+    example = vercel.get_attack_challenge_mode(project_id=example_vercel_project["id"])
     ```
 
 

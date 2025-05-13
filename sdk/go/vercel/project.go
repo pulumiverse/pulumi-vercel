@@ -28,11 +28,12 @@ import (
 //			// A project that is connected to a git repository.
 //			// Deployments will be created automatically
 //			// on every branch push and merges onto the Production Branch.
-//			_, err := vercel.NewProject(ctx, "withGit", &vercel.ProjectArgs{
+//			_, err := vercel.NewProject(ctx, "with_git", &vercel.ProjectArgs{
+//				Name:      pulumi.String("example-project-with-git"),
 //				Framework: pulumi.String("nextjs"),
 //				GitRepository: &vercel.ProjectGitRepositoryArgs{
-//					Repo: pulumi.String("vercel/some-repo"),
 //					Type: pulumi.String("github"),
+//					Repo: pulumi.String("vercel/some-repo"),
 //				},
 //			})
 //			if err != nil {
@@ -42,6 +43,7 @@ import (
 //			// Deployments will need to be created manually through
 //			// terraform, or via the vercel CLI.
 //			_, err = vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name:      pulumi.String("example-project"),
 //				Framework: pulumi.String("nextjs"),
 //			})
 //			if err != nil {

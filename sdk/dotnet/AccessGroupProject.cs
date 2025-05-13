@@ -27,13 +27,19 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
-    /// 
-    ///     var exampleAccessGroup = new Vercel.AccessGroup("exampleAccessGroup");
-    /// 
-    ///     var exampleAccessGroupProject = new Vercel.AccessGroupProject("exampleAccessGroupProject", new()
+    ///     var example = new Vercel.Project("example", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         Name = "example-project",
+    ///     });
+    /// 
+    ///     var exampleAccessGroup = new Vercel.AccessGroup("example", new()
+    ///     {
+    ///         Name = "example-access-group",
+    ///     });
+    /// 
+    ///     var exampleAccessGroupProject = new Vercel.AccessGroupProject("example", new()
+    ///     {
+    ///         ProjectId = example.Id,
     ///         AccessGroupId = exampleAccessGroup.Id,
     ///         Role = "ADMIN",
     ///     });
