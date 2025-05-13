@@ -1,8 +1,6 @@
 module github.com/pulumiverse/pulumi-vercel/examples/v2
 
-go 1.21
-
-toolchain go1.22.2
+go 1.23
 
 require github.com/pulumi/pulumi/pkg/v3 v3.136.1
 
