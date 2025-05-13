@@ -108,6 +108,18 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly directoryListing!: pulumi.Output<boolean>;
     /**
+     * When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+     */
+    public readonly enableAffectedProjectsDeployments!: pulumi.Output<boolean | undefined>;
+    /**
+     * Enables the Vercel Toolbar on your preview deployments.
+     */
+    public readonly enablePreviewFeedback!: pulumi.Output<boolean>;
+    /**
+     * Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+     */
+    public readonly enableProductionFeedback!: pulumi.Output<boolean>;
+    /**
      * A set of Environment Variables that should be configured for the project.
      */
     public readonly environments!: pulumi.Output<outputs.ProjectEnvironment[] | undefined>;
@@ -148,9 +160,17 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+     */
+    public readonly nodeVersion!: pulumi.Output<string>;
+    /**
      * Configuration for OpenID Connect (OIDC) tokens.
      */
     public readonly oidcTokenConfig!: pulumi.Output<outputs.ProjectOidcTokenConfig>;
+    /**
+     * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+     */
+    public readonly onDemandConcurrentBuilds!: pulumi.Output<boolean>;
     /**
      * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
      */
@@ -164,9 +184,11 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly passwordProtection!: pulumi.Output<outputs.ProjectPasswordProtection | undefined>;
     /**
-     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+     * Enables the Vercel Toolbar on your preview deployments.
+     *
+     * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
-    public readonly previewComments!: pulumi.Output<boolean | undefined>;
+    public readonly previewComments!: pulumi.Output<boolean>;
     /**
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
@@ -231,6 +253,9 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["customerSuccessCodeVisibility"] = state ? state.customerSuccessCodeVisibility : undefined;
             resourceInputs["devCommand"] = state ? state.devCommand : undefined;
             resourceInputs["directoryListing"] = state ? state.directoryListing : undefined;
+            resourceInputs["enableAffectedProjectsDeployments"] = state ? state.enableAffectedProjectsDeployments : undefined;
+            resourceInputs["enablePreviewFeedback"] = state ? state.enablePreviewFeedback : undefined;
+            resourceInputs["enableProductionFeedback"] = state ? state.enableProductionFeedback : undefined;
             resourceInputs["environments"] = state ? state.environments : undefined;
             resourceInputs["framework"] = state ? state.framework : undefined;
             resourceInputs["functionFailover"] = state ? state.functionFailover : undefined;
@@ -241,7 +266,9 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["ignoreCommand"] = state ? state.ignoreCommand : undefined;
             resourceInputs["installCommand"] = state ? state.installCommand : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["nodeVersion"] = state ? state.nodeVersion : undefined;
             resourceInputs["oidcTokenConfig"] = state ? state.oidcTokenConfig : undefined;
+            resourceInputs["onDemandConcurrentBuilds"] = state ? state.onDemandConcurrentBuilds : undefined;
             resourceInputs["optionsAllowlist"] = state ? state.optionsAllowlist : undefined;
             resourceInputs["outputDirectory"] = state ? state.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = state ? state.passwordProtection : undefined;
@@ -265,6 +292,9 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["customerSuccessCodeVisibility"] = args ? args.customerSuccessCodeVisibility : undefined;
             resourceInputs["devCommand"] = args ? args.devCommand : undefined;
             resourceInputs["directoryListing"] = args ? args.directoryListing : undefined;
+            resourceInputs["enableAffectedProjectsDeployments"] = args ? args.enableAffectedProjectsDeployments : undefined;
+            resourceInputs["enablePreviewFeedback"] = args ? args.enablePreviewFeedback : undefined;
+            resourceInputs["enableProductionFeedback"] = args ? args.enableProductionFeedback : undefined;
             resourceInputs["environments"] = args ? args.environments : undefined;
             resourceInputs["framework"] = args ? args.framework : undefined;
             resourceInputs["functionFailover"] = args ? args.functionFailover : undefined;
@@ -275,7 +305,9 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["ignoreCommand"] = args ? args.ignoreCommand : undefined;
             resourceInputs["installCommand"] = args ? args.installCommand : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["nodeVersion"] = args ? args.nodeVersion : undefined;
             resourceInputs["oidcTokenConfig"] = args ? args.oidcTokenConfig : undefined;
+            resourceInputs["onDemandConcurrentBuilds"] = args ? args.onDemandConcurrentBuilds : undefined;
             resourceInputs["optionsAllowlist"] = args ? args.optionsAllowlist : undefined;
             resourceInputs["outputDirectory"] = args ? args.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = args ? args.passwordProtection : undefined;
@@ -328,6 +360,18 @@ export interface ProjectState {
      */
     directoryListing?: pulumi.Input<boolean>;
     /**
+     * When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+     */
+    enableAffectedProjectsDeployments?: pulumi.Input<boolean>;
+    /**
+     * Enables the Vercel Toolbar on your preview deployments.
+     */
+    enablePreviewFeedback?: pulumi.Input<boolean>;
+    /**
+     * Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+     */
+    enableProductionFeedback?: pulumi.Input<boolean>;
+    /**
      * A set of Environment Variables that should be configured for the project.
      */
     environments?: pulumi.Input<pulumi.Input<inputs.ProjectEnvironment>[]>;
@@ -368,9 +412,17 @@ export interface ProjectState {
      */
     name?: pulumi.Input<string>;
     /**
+     * The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+     */
+    nodeVersion?: pulumi.Input<string>;
+    /**
      * Configuration for OpenID Connect (OIDC) tokens.
      */
     oidcTokenConfig?: pulumi.Input<inputs.ProjectOidcTokenConfig>;
+    /**
+     * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+     */
+    onDemandConcurrentBuilds?: pulumi.Input<boolean>;
     /**
      * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
      */
@@ -384,7 +436,9 @@ export interface ProjectState {
      */
     passwordProtection?: pulumi.Input<inputs.ProjectPasswordProtection>;
     /**
-     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+     * Enables the Vercel Toolbar on your preview deployments.
+     *
+     * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     previewComments?: pulumi.Input<boolean>;
     /**
@@ -462,6 +516,18 @@ export interface ProjectArgs {
      */
     directoryListing?: pulumi.Input<boolean>;
     /**
+     * When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+     */
+    enableAffectedProjectsDeployments?: pulumi.Input<boolean>;
+    /**
+     * Enables the Vercel Toolbar on your preview deployments.
+     */
+    enablePreviewFeedback?: pulumi.Input<boolean>;
+    /**
+     * Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+     */
+    enableProductionFeedback?: pulumi.Input<boolean>;
+    /**
      * A set of Environment Variables that should be configured for the project.
      */
     environments?: pulumi.Input<pulumi.Input<inputs.ProjectEnvironment>[]>;
@@ -502,9 +568,17 @@ export interface ProjectArgs {
      */
     name?: pulumi.Input<string>;
     /**
+     * The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+     */
+    nodeVersion?: pulumi.Input<string>;
+    /**
      * Configuration for OpenID Connect (OIDC) tokens.
      */
     oidcTokenConfig?: pulumi.Input<inputs.ProjectOidcTokenConfig>;
+    /**
+     * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+     */
+    onDemandConcurrentBuilds?: pulumi.Input<boolean>;
     /**
      * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
      */
@@ -518,7 +592,9 @@ export interface ProjectArgs {
      */
     passwordProtection?: pulumi.Input<inputs.ProjectPasswordProtection>;
     /**
-     * Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+     * Enables the Vercel Toolbar on your preview deployments.
+     *
+     * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     previewComments?: pulumi.Input<boolean>;
     /**

@@ -109,6 +109,24 @@ namespace Pulumiverse.Vercel
         public Output<bool> DirectoryListing { get; private set; } = null!;
 
         /// <summary>
+        /// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        /// </summary>
+        [Output("enableAffectedProjectsDeployments")]
+        public Output<bool?> EnableAffectedProjectsDeployments { get; private set; } = null!;
+
+        /// <summary>
+        /// Enables the Vercel Toolbar on your preview deployments.
+        /// </summary>
+        [Output("enablePreviewFeedback")]
+        public Output<bool> EnablePreviewFeedback { get; private set; } = null!;
+
+        /// <summary>
+        /// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        /// </summary>
+        [Output("enableProductionFeedback")]
+        public Output<bool> EnableProductionFeedback { get; private set; } = null!;
+
+        /// <summary>
         /// A set of Environment Variables that should be configured for the project.
         /// </summary>
         [Output("environments")]
@@ -169,10 +187,22 @@ namespace Pulumiverse.Vercel
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
+        /// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        [Output("nodeVersion")]
+        public Output<string> NodeVersion { get; private set; } = null!;
+
+        /// <summary>
         /// Configuration for OpenID Connect (OIDC) tokens.
         /// </summary>
         [Output("oidcTokenConfig")]
         public Output<Outputs.ProjectOidcTokenConfig> OidcTokenConfig { get; private set; } = null!;
+
+        /// <summary>
+        /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        /// </summary>
+        [Output("onDemandConcurrentBuilds")]
+        public Output<bool> OnDemandConcurrentBuilds { get; private set; } = null!;
 
         /// <summary>
         /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
@@ -193,10 +223,10 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.ProjectPasswordProtection?> PasswordProtection { get; private set; } = null!;
 
         /// <summary>
-        /// Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        /// Enables the Vercel Toolbar on your preview deployments.
         /// </summary>
         [Output("previewComments")]
-        public Output<bool?> PreviewComments { get; private set; } = null!;
+        public Output<bool> PreviewComments { get; private set; } = null!;
 
         /// <summary>
         /// If enabled, builds for the Production environment will be prioritized over Preview environments.
@@ -351,6 +381,24 @@ namespace Pulumiverse.Vercel
         [Input("directoryListing")]
         public Input<bool>? DirectoryListing { get; set; }
 
+        /// <summary>
+        /// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        /// </summary>
+        [Input("enableAffectedProjectsDeployments")]
+        public Input<bool>? EnableAffectedProjectsDeployments { get; set; }
+
+        /// <summary>
+        /// Enables the Vercel Toolbar on your preview deployments.
+        /// </summary>
+        [Input("enablePreviewFeedback")]
+        public Input<bool>? EnablePreviewFeedback { get; set; }
+
+        /// <summary>
+        /// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        /// </summary>
+        [Input("enableProductionFeedback")]
+        public Input<bool>? EnableProductionFeedback { get; set; }
+
         [Input("environments")]
         private InputList<Inputs.ProjectEnvironmentArgs>? _environments;
 
@@ -418,10 +466,22 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
+        /// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        [Input("nodeVersion")]
+        public Input<string>? NodeVersion { get; set; }
+
+        /// <summary>
         /// Configuration for OpenID Connect (OIDC) tokens.
         /// </summary>
         [Input("oidcTokenConfig")]
         public Input<Inputs.ProjectOidcTokenConfigArgs>? OidcTokenConfig { get; set; }
+
+        /// <summary>
+        /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        /// </summary>
+        [Input("onDemandConcurrentBuilds")]
+        public Input<bool>? OnDemandConcurrentBuilds { get; set; }
 
         /// <summary>
         /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
@@ -442,7 +502,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.ProjectPasswordProtectionArgs>? PasswordProtection { get; set; }
 
         /// <summary>
-        /// Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        /// Enables the Vercel Toolbar on your preview deployments.
         /// </summary>
         [Input("previewComments")]
         public Input<bool>? PreviewComments { get; set; }
@@ -567,6 +627,24 @@ namespace Pulumiverse.Vercel
         [Input("directoryListing")]
         public Input<bool>? DirectoryListing { get; set; }
 
+        /// <summary>
+        /// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        /// </summary>
+        [Input("enableAffectedProjectsDeployments")]
+        public Input<bool>? EnableAffectedProjectsDeployments { get; set; }
+
+        /// <summary>
+        /// Enables the Vercel Toolbar on your preview deployments.
+        /// </summary>
+        [Input("enablePreviewFeedback")]
+        public Input<bool>? EnablePreviewFeedback { get; set; }
+
+        /// <summary>
+        /// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
+        /// </summary>
+        [Input("enableProductionFeedback")]
+        public Input<bool>? EnableProductionFeedback { get; set; }
+
         [Input("environments")]
         private InputList<Inputs.ProjectEnvironmentGetArgs>? _environments;
 
@@ -634,10 +712,22 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
+        /// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
+        /// </summary>
+        [Input("nodeVersion")]
+        public Input<string>? NodeVersion { get; set; }
+
+        /// <summary>
         /// Configuration for OpenID Connect (OIDC) tokens.
         /// </summary>
         [Input("oidcTokenConfig")]
         public Input<Inputs.ProjectOidcTokenConfigGetArgs>? OidcTokenConfig { get; set; }
+
+        /// <summary>
+        /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        /// </summary>
+        [Input("onDemandConcurrentBuilds")]
+        public Input<bool>? OnDemandConcurrentBuilds { get; set; }
 
         /// <summary>
         /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
@@ -658,7 +748,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.ProjectPasswordProtectionGetArgs>? PasswordProtection { get; set; }
 
         /// <summary>
-        /// Whether to enable comments on your Preview Deployments. If omitted, comments are controlled at the team level (default behaviour).
+        /// Enables the Vercel Toolbar on your preview deployments.
         /// </summary>
         [Input("previewComments")]
         public Input<bool>? PreviewComments { get; set; }

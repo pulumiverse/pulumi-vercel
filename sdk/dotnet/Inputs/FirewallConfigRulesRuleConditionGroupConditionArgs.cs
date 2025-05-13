@@ -19,6 +19,9 @@ namespace Pulumiverse.Vercel.Inputs
         [Input("key")]
         public Input<string>? Key { get; set; }
 
+        /// <summary>
+        /// Negate the condition
+        /// </summary>
         [Input("neg")]
         public Input<bool>? Neg { get; set; }
 
@@ -34,8 +37,23 @@ namespace Pulumiverse.Vercel.Inputs
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
 
+        /// <summary>
+        /// Value to match against
+        /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
+
+        [Input("values")]
+        private InputList<string>? _values;
+
+        /// <summary>
+        /// Values to match against if op is inc, ninc
+        /// </summary>
+        public InputList<string> Values
+        {
+            get => _values ?? (_values = new InputList<string>());
+            set => _values = value;
+        }
 
         public FirewallConfigRulesRuleConditionGroupConditionArgs()
         {

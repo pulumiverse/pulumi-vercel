@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, oidc_token_config=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -46,6 +46,15 @@ class GetProjectResult:
         if directory_listing and not isinstance(directory_listing, bool):
             raise TypeError("Expected argument 'directory_listing' to be a bool")
         pulumi.set(__self__, "directory_listing", directory_listing)
+        if enable_affected_projects_deployments and not isinstance(enable_affected_projects_deployments, bool):
+            raise TypeError("Expected argument 'enable_affected_projects_deployments' to be a bool")
+        pulumi.set(__self__, "enable_affected_projects_deployments", enable_affected_projects_deployments)
+        if enable_preview_feedback and not isinstance(enable_preview_feedback, bool):
+            raise TypeError("Expected argument 'enable_preview_feedback' to be a bool")
+        pulumi.set(__self__, "enable_preview_feedback", enable_preview_feedback)
+        if enable_production_feedback and not isinstance(enable_production_feedback, bool):
+            raise TypeError("Expected argument 'enable_production_feedback' to be a bool")
+        pulumi.set(__self__, "enable_production_feedback", enable_production_feedback)
         if environments and not isinstance(environments, list):
             raise TypeError("Expected argument 'environments' to be a list")
         pulumi.set(__self__, "environments", environments)
@@ -79,9 +88,15 @@ class GetProjectResult:
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
+        if node_version and not isinstance(node_version, str):
+            raise TypeError("Expected argument 'node_version' to be a str")
+        pulumi.set(__self__, "node_version", node_version)
         if oidc_token_config and not isinstance(oidc_token_config, dict):
             raise TypeError("Expected argument 'oidc_token_config' to be a dict")
         pulumi.set(__self__, "oidc_token_config", oidc_token_config)
+        if on_demand_concurrent_builds and not isinstance(on_demand_concurrent_builds, bool):
+            raise TypeError("Expected argument 'on_demand_concurrent_builds' to be a bool")
+        pulumi.set(__self__, "on_demand_concurrent_builds", on_demand_concurrent_builds)
         if options_allowlist and not isinstance(options_allowlist, dict):
             raise TypeError("Expected argument 'options_allowlist' to be a dict")
         pulumi.set(__self__, "options_allowlist", options_allowlist)
@@ -177,6 +192,30 @@ class GetProjectResult:
         return pulumi.get(self, "directory_listing")
 
     @property
+    @pulumi.getter(name="enableAffectedProjectsDeployments")
+    def enable_affected_projects_deployments(self) -> bool:
+        """
+        When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        """
+        return pulumi.get(self, "enable_affected_projects_deployments")
+
+    @property
+    @pulumi.getter(name="enablePreviewFeedback")
+    def enable_preview_feedback(self) -> bool:
+        """
+        Whether the Vercel Toolbar is enabled on your preview deployments. If unspecified, defaults to team setting.
+        """
+        return pulumi.get(self, "enable_preview_feedback")
+
+    @property
+    @pulumi.getter(name="enableProductionFeedback")
+    def enable_production_feedback(self) -> bool:
+        """
+        Whether the Vercel Toolbar is enabled on your production deployments. If unspecified, defaults to team setting.
+        """
+        return pulumi.get(self, "enable_production_feedback")
+
+    @property
     @pulumi.getter
     def environments(self) -> Sequence['outputs.GetProjectEnvironmentResult']:
         """
@@ -265,12 +304,28 @@ class GetProjectResult:
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="nodeVersion")
+    def node_version(self) -> str:
+        """
+        The version of Node.js that is used in the Build Step and for Serverless Functions.
+        """
+        return pulumi.get(self, "node_version")
+
+    @property
     @pulumi.getter(name="oidcTokenConfig")
     def oidc_token_config(self) -> 'outputs.GetProjectOidcTokenConfigResult':
         """
         Configuration for OpenID Connect (OIDC) tokens.
         """
         return pulumi.get(self, "oidc_token_config")
+
+    @property
+    @pulumi.getter(name="onDemandConcurrentBuilds")
+    def on_demand_concurrent_builds(self) -> bool:
+        """
+        Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        """
+        return pulumi.get(self, "on_demand_concurrent_builds")
 
     @property
     @pulumi.getter(name="optionsAllowlist")
@@ -298,6 +353,7 @@ class GetProjectResult:
 
     @property
     @pulumi.getter(name="previewComments")
+    @_utilities.deprecated("""Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
     def preview_comments(self) -> bool:
         """
         Whether comments are enabled on your Preview Deployments.
@@ -405,6 +461,9 @@ class AwaitableGetProjectResult(GetProjectResult):
             customer_success_code_visibility=self.customer_success_code_visibility,
             dev_command=self.dev_command,
             directory_listing=self.directory_listing,
+            enable_affected_projects_deployments=self.enable_affected_projects_deployments,
+            enable_preview_feedback=self.enable_preview_feedback,
+            enable_production_feedback=self.enable_production_feedback,
             environments=self.environments,
             framework=self.framework,
             function_failover=self.function_failover,
@@ -416,7 +475,9 @@ class AwaitableGetProjectResult(GetProjectResult):
             ignore_command=self.ignore_command,
             install_command=self.install_command,
             name=self.name,
+            node_version=self.node_version,
             oidc_token_config=self.oidc_token_config,
+            on_demand_concurrent_builds=self.on_demand_concurrent_builds,
             options_allowlist=self.options_allowlist,
             output_directory=self.output_directory,
             password_protection=self.password_protection,
@@ -435,6 +496,7 @@ class AwaitableGetProjectResult(GetProjectResult):
 
 
 def get_project(name: Optional[str] = None,
+                on_demand_concurrent_builds: Optional[bool] = None,
                 team_id: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectResult:
     """
@@ -455,10 +517,12 @@ def get_project(name: Optional[str] = None,
 
 
     :param str name: The name of the project.
+    :param bool on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['name'] = name
+    __args__['onDemandConcurrentBuilds'] = on_demand_concurrent_builds
     __args__['teamId'] = team_id
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('vercel:index/getProject:getProject', __args__, opts=opts, typ=GetProjectResult).value
@@ -470,6 +534,9 @@ def get_project(name: Optional[str] = None,
         customer_success_code_visibility=pulumi.get(__ret__, 'customer_success_code_visibility'),
         dev_command=pulumi.get(__ret__, 'dev_command'),
         directory_listing=pulumi.get(__ret__, 'directory_listing'),
+        enable_affected_projects_deployments=pulumi.get(__ret__, 'enable_affected_projects_deployments'),
+        enable_preview_feedback=pulumi.get(__ret__, 'enable_preview_feedback'),
+        enable_production_feedback=pulumi.get(__ret__, 'enable_production_feedback'),
         environments=pulumi.get(__ret__, 'environments'),
         framework=pulumi.get(__ret__, 'framework'),
         function_failover=pulumi.get(__ret__, 'function_failover'),
@@ -481,7 +548,9 @@ def get_project(name: Optional[str] = None,
         ignore_command=pulumi.get(__ret__, 'ignore_command'),
         install_command=pulumi.get(__ret__, 'install_command'),
         name=pulumi.get(__ret__, 'name'),
+        node_version=pulumi.get(__ret__, 'node_version'),
         oidc_token_config=pulumi.get(__ret__, 'oidc_token_config'),
+        on_demand_concurrent_builds=pulumi.get(__ret__, 'on_demand_concurrent_builds'),
         options_allowlist=pulumi.get(__ret__, 'options_allowlist'),
         output_directory=pulumi.get(__ret__, 'output_directory'),
         password_protection=pulumi.get(__ret__, 'password_protection'),
@@ -498,6 +567,7 @@ def get_project(name: Optional[str] = None,
         trusted_ips=pulumi.get(__ret__, 'trusted_ips'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))
 def get_project_output(name: Optional[pulumi.Input[str]] = None,
+                       on_demand_concurrent_builds: Optional[pulumi.Input[Optional[bool]]] = None,
                        team_id: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectResult]:
     """
@@ -518,10 +588,12 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
 
 
     :param str name: The name of the project.
+    :param bool on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['name'] = name
+    __args__['onDemandConcurrentBuilds'] = on_demand_concurrent_builds
     __args__['teamId'] = team_id
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getProject:getProject', __args__, opts=opts, typ=GetProjectResult)
@@ -532,6 +604,9 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
         customer_success_code_visibility=pulumi.get(__response__, 'customer_success_code_visibility'),
         dev_command=pulumi.get(__response__, 'dev_command'),
         directory_listing=pulumi.get(__response__, 'directory_listing'),
+        enable_affected_projects_deployments=pulumi.get(__response__, 'enable_affected_projects_deployments'),
+        enable_preview_feedback=pulumi.get(__response__, 'enable_preview_feedback'),
+        enable_production_feedback=pulumi.get(__response__, 'enable_production_feedback'),
         environments=pulumi.get(__response__, 'environments'),
         framework=pulumi.get(__response__, 'framework'),
         function_failover=pulumi.get(__response__, 'function_failover'),
@@ -543,7 +618,9 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
         ignore_command=pulumi.get(__response__, 'ignore_command'),
         install_command=pulumi.get(__response__, 'install_command'),
         name=pulumi.get(__response__, 'name'),
+        node_version=pulumi.get(__response__, 'node_version'),
         oidc_token_config=pulumi.get(__response__, 'oidc_token_config'),
+        on_demand_concurrent_builds=pulumi.get(__response__, 'on_demand_concurrent_builds'),
         options_allowlist=pulumi.get(__response__, 'options_allowlist'),
         output_directory=pulumi.get(__response__, 'output_directory'),
         password_protection=pulumi.get(__response__, 'password_protection'),

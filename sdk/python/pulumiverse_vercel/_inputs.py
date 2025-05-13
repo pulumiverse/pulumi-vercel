@@ -27,6 +27,8 @@ __all__ = [
     'FirewallConfigIpRulesRuleArgsDict',
     'FirewallConfigManagedRulesetsArgs',
     'FirewallConfigManagedRulesetsArgsDict',
+    'FirewallConfigManagedRulesetsBotFilterArgs',
+    'FirewallConfigManagedRulesetsBotFilterArgsDict',
     'FirewallConfigManagedRulesetsOwaspArgs',
     'FirewallConfigManagedRulesetsOwaspArgsDict',
     'FirewallConfigManagedRulesetsOwaspGenArgs',
@@ -63,6 +65,8 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroupArgsDict',
     'FirewallConfigRulesRuleConditionGroupConditionArgs',
     'FirewallConfigRulesRuleConditionGroupConditionArgsDict',
+    'MicrofrontendGroupDefaultAppArgs',
+    'MicrofrontendGroupDefaultAppArgsDict',
     'ProjectEnvironmentArgs',
     'ProjectEnvironmentArgsDict',
     'ProjectEnvironmentVariablesVariableArgs',
@@ -95,6 +99,8 @@ __all__ = [
     'TeamConfigRemoteCachingArgsDict',
     'TeamConfigSamlArgs',
     'TeamConfigSamlArgsDict',
+    'TeamConfigSamlRolesArgs',
+    'TeamConfigSamlRolesArgsDict',
     'TeamMemberProjectArgs',
     'TeamMemberProjectArgsDict',
 ]
@@ -464,6 +470,10 @@ class FirewallConfigIpRulesRuleArgs:
 
 if not MYPY:
     class FirewallConfigManagedRulesetsArgsDict(TypedDict):
+        bot_filter: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgsDict']]
+        """
+        Enable the bot*filter managed ruleset and select action
+        """
         owasp: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgsDict']]
         """
         Enable the owasp managed rulesets and select ruleset behaviors
@@ -474,12 +484,28 @@ elif False:
 @pulumi.input_type
 class FirewallConfigManagedRulesetsArgs:
     def __init__(__self__, *,
+                 bot_filter: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']] = None,
                  owasp: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']] = None):
         """
+        :param pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs'] bot_filter: Enable the bot*filter managed ruleset and select action
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs'] owasp: Enable the owasp managed rulesets and select ruleset behaviors
         """
+        if bot_filter is not None:
+            pulumi.set(__self__, "bot_filter", bot_filter)
         if owasp is not None:
             pulumi.set(__self__, "owasp", owasp)
+
+    @property
+    @pulumi.getter(name="botFilter")
+    def bot_filter(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']]:
+        """
+        Enable the bot*filter managed ruleset and select action
+        """
+        return pulumi.get(self, "bot_filter")
+
+    @bot_filter.setter
+    def bot_filter(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']]):
+        pulumi.set(self, "bot_filter", value)
 
     @property
     @pulumi.getter
@@ -492,6 +518,42 @@ class FirewallConfigManagedRulesetsArgs:
     @owasp.setter
     def owasp(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']]):
         pulumi.set(self, "owasp", value)
+
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsBotFilterArgsDict(TypedDict):
+        action: NotRequired[pulumi.Input[str]]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsBotFilterArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class FirewallConfigManagedRulesetsBotFilterArgs:
+    def __init__(__self__, *,
+                 action: Optional[pulumi.Input[str]] = None,
+                 active: Optional[pulumi.Input[bool]] = None):
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "action", value)
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "active")
+
+    @active.setter
+    def active(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "active", value)
 
 
 if not MYPY:
@@ -1202,7 +1264,7 @@ if not MYPY:
         """
         action_duration: NotRequired[pulumi.Input[str]]
         """
-        Forward persistence of a rule aciton
+        Forward persistence of a rule action
         """
         rate_limit: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgsDict']]
         """
@@ -1224,7 +1286,7 @@ class FirewallConfigRulesRuleActionArgs:
                  redirect: Optional[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgs']] = None):
         """
         :param pulumi.Input[str] action: Base action
-        :param pulumi.Input[str] action_duration: Forward persistence of a rule aciton
+        :param pulumi.Input[str] action_duration: Forward persistence of a rule action
         :param pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgs'] rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
         :param pulumi.Input['FirewallConfigRulesRuleActionRedirectArgs'] redirect: How to redirect a request. Required if action is redirect
         """
@@ -1252,7 +1314,7 @@ class FirewallConfigRulesRuleActionArgs:
     @pulumi.getter(name="actionDuration")
     def action_duration(self) -> Optional[pulumi.Input[str]]:
         """
-        Forward persistence of a rule aciton
+        Forward persistence of a rule action
         """
         return pulumi.get(self, "action_duration")
 
@@ -1472,7 +1534,17 @@ if not MYPY:
         Key within type to match against
         """
         neg: NotRequired[pulumi.Input[bool]]
+        """
+        Negate the condition
+        """
         value: NotRequired[pulumi.Input[str]]
+        """
+        Value to match against
+        """
+        values: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        Values to match against if op is inc, ninc
+        """
 elif False:
     FirewallConfigRulesRuleConditionGroupConditionArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1483,11 +1555,15 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
                  type: pulumi.Input[str],
                  key: Optional[pulumi.Input[str]] = None,
                  neg: Optional[pulumi.Input[bool]] = None,
-                 value: Optional[pulumi.Input[str]] = None):
+                 value: Optional[pulumi.Input[str]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         :param pulumi.Input[str] op: How to comparse type to value
         :param pulumi.Input[str] type: Request key type to match against
         :param pulumi.Input[str] key: Key within type to match against
+        :param pulumi.Input[bool] neg: Negate the condition
+        :param pulumi.Input[str] value: Value to match against
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] values: Values to match against if op is inc, ninc
         """
         pulumi.set(__self__, "op", op)
         pulumi.set(__self__, "type", type)
@@ -1497,6 +1573,8 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
             pulumi.set(__self__, "neg", neg)
         if value is not None:
             pulumi.set(__self__, "value", value)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
 
     @property
     @pulumi.getter
@@ -1537,6 +1615,9 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
     @property
     @pulumi.getter
     def neg(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Negate the condition
+        """
         return pulumi.get(self, "neg")
 
     @neg.setter
@@ -1546,11 +1627,77 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
     @property
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[str]]:
+        """
+        Value to match against
+        """
         return pulumi.get(self, "value")
 
     @value.setter
     def value(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "value", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Values to match against if op is inc, ninc
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "values", value)
+
+
+if not MYPY:
+    class MicrofrontendGroupDefaultAppArgsDict(TypedDict):
+        project_id: pulumi.Input[str]
+        """
+        The ID of the project.
+        """
+        default_route: NotRequired[pulumi.Input[str]]
+        """
+        The default route for the project. Used for the screenshot of deployments.
+        """
+elif False:
+    MicrofrontendGroupDefaultAppArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MicrofrontendGroupDefaultAppArgs:
+    def __init__(__self__, *,
+                 project_id: pulumi.Input[str],
+                 default_route: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] project_id: The ID of the project.
+        :param pulumi.Input[str] default_route: The default route for the project. Used for the screenshot of deployments.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        if default_route is not None:
+            pulumi.set(__self__, "default_route", default_route)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the project.
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="defaultRoute")
+    def default_route(self) -> Optional[pulumi.Input[str]]:
+        """
+        The default route for the project. Used for the screenshot of deployments.
+        """
+        return pulumi.get(self, "default_route")
+
+    @default_route.setter
+    def default_route(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "default_route", value)
 
 
 if not MYPY:
@@ -2379,6 +2526,10 @@ class ProjectPasswordProtectionArgs:
 
 if not MYPY:
     class ProjectResourceConfigArgsDict(TypedDict):
+        fluid: NotRequired[pulumi.Input[bool]]
+        """
+        Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+        """
         function_default_cpu_type: NotRequired[pulumi.Input[str]]
         """
         The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
@@ -2393,16 +2544,32 @@ elif False:
 @pulumi.input_type
 class ProjectResourceConfigArgs:
     def __init__(__self__, *,
+                 fluid: Optional[pulumi.Input[bool]] = None,
                  function_default_cpu_type: Optional[pulumi.Input[str]] = None,
                  function_default_timeout: Optional[pulumi.Input[int]] = None):
         """
+        :param pulumi.Input[bool] fluid: Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
         :param pulumi.Input[str] function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
         :param pulumi.Input[int] function_default_timeout: The default timeout for Serverless Functions.
         """
+        if fluid is not None:
+            pulumi.set(__self__, "fluid", fluid)
         if function_default_cpu_type is not None:
             pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
         if function_default_timeout is not None:
             pulumi.set(__self__, "function_default_timeout", function_default_timeout)
+
+    @property
+    @pulumi.getter
+    def fluid(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+        """
+        return pulumi.get(self, "fluid")
+
+    @fluid.setter
+    def fluid(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "fluid", value)
 
     @property
     @pulumi.getter(name="functionDefaultCpuType")
@@ -2619,13 +2786,9 @@ if not MYPY:
         """
         Indicates if SAML is enforced for the team.
         """
-        access_group_id: NotRequired[pulumi.Input[str]]
+        roles: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgsDict']]]]
         """
-        The ID of the access group to use for the team.
-        """
-        roles: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
-        """
-        Directory groups to role or access group mappings.
+        Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         """
 elif False:
     TeamConfigSamlArgsDict: TypeAlias = Mapping[str, Any]
@@ -2634,16 +2797,12 @@ elif False:
 class TeamConfigSamlArgs:
     def __init__(__self__, *,
                  enforced: pulumi.Input[bool],
-                 access_group_id: Optional[pulumi.Input[str]] = None,
-                 roles: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+                 roles: Optional[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgs']]]] = None):
         """
         :param pulumi.Input[bool] enforced: Indicates if SAML is enforced for the team.
-        :param pulumi.Input[str] access_group_id: The ID of the access group to use for the team.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] roles: Directory groups to role or access group mappings.
+        :param pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgs']]] roles: Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         """
         pulumi.set(__self__, "enforced", enforced)
-        if access_group_id is not None:
-            pulumi.set(__self__, "access_group_id", access_group_id)
         if roles is not None:
             pulumi.set(__self__, "roles", roles)
 
@@ -2660,10 +2819,50 @@ class TeamConfigSamlArgs:
         pulumi.set(self, "enforced", value)
 
     @property
+    @pulumi.getter
+    def roles(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgs']]]]:
+        """
+        Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+        """
+        return pulumi.get(self, "roles")
+
+    @roles.setter
+    def roles(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgs']]]]):
+        pulumi.set(self, "roles", value)
+
+
+if not MYPY:
+    class TeamConfigSamlRolesArgsDict(TypedDict):
+        access_group_id: NotRequired[pulumi.Input[str]]
+        """
+        The access group id to assign to the user.
+        """
+        role: NotRequired[pulumi.Input[str]]
+        """
+        The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+        """
+elif False:
+    TeamConfigSamlRolesArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TeamConfigSamlRolesArgs:
+    def __init__(__self__, *,
+                 access_group_id: Optional[pulumi.Input[str]] = None,
+                 role: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] access_group_id: The access group id to assign to the user.
+        :param pulumi.Input[str] role: The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+        """
+        if access_group_id is not None:
+            pulumi.set(__self__, "access_group_id", access_group_id)
+        if role is not None:
+            pulumi.set(__self__, "role", role)
+
+    @property
     @pulumi.getter(name="accessGroupId")
     def access_group_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the access group to use for the team.
+        The access group id to assign to the user.
         """
         return pulumi.get(self, "access_group_id")
 
@@ -2673,15 +2872,15 @@ class TeamConfigSamlArgs:
 
     @property
     @pulumi.getter
-    def roles(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+    def role(self) -> Optional[pulumi.Input[str]]:
         """
-        Directory groups to role or access group mappings.
+        The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
         """
-        return pulumi.get(self, "roles")
+        return pulumi.get(self, "role")
 
-    @roles.setter
-    def roles(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "roles", value)
+    @role.setter
+    def role(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "role", value)
 
 
 if not MYPY:

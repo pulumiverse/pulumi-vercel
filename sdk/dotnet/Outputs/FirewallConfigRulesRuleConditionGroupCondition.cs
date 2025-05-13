@@ -18,6 +18,9 @@ namespace Pulumiverse.Vercel.Outputs
         /// Key within type to match against
         /// </summary>
         public readonly string? Key;
+        /// <summary>
+        /// Negate the condition
+        /// </summary>
         public readonly bool? Neg;
         /// <summary>
         /// How to comparse type to value
@@ -27,7 +30,14 @@ namespace Pulumiverse.Vercel.Outputs
         /// Request key type to match against
         /// </summary>
         public readonly string Type;
+        /// <summary>
+        /// Value to match against
+        /// </summary>
         public readonly string? Value;
+        /// <summary>
+        /// Values to match against if op is inc, ninc
+        /// </summary>
+        public readonly ImmutableArray<string> Values;
 
         [OutputConstructor]
         private FirewallConfigRulesRuleConditionGroupCondition(
@@ -39,13 +49,16 @@ namespace Pulumiverse.Vercel.Outputs
 
             string type,
 
-            string? value)
+            string? value,
+
+            ImmutableArray<string> values)
         {
             Key = key;
             Neg = neg;
             Op = op;
             Type = type;
             Value = value;
+            Values = values;
         }
     }
 }

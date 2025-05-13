@@ -22,6 +22,7 @@ __all__ = [
     'FirewallConfigIpRules',
     'FirewallConfigIpRulesRule',
     'FirewallConfigManagedRulesets',
+    'FirewallConfigManagedRulesetsBotFilter',
     'FirewallConfigManagedRulesetsOwasp',
     'FirewallConfigManagedRulesetsOwaspGen',
     'FirewallConfigManagedRulesetsOwaspJava',
@@ -40,6 +41,7 @@ __all__ = [
     'FirewallConfigRulesRuleActionRedirect',
     'FirewallConfigRulesRuleConditionGroup',
     'FirewallConfigRulesRuleConditionGroupCondition',
+    'MicrofrontendGroupDefaultApp',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
     'ProjectGitComments',
@@ -56,8 +58,10 @@ __all__ = [
     'ProjectVercelAuthentication',
     'TeamConfigRemoteCaching',
     'TeamConfigSaml',
+    'TeamConfigSamlRoles',
     'TeamMemberProject',
     'GetCustomEnvironmentBranchTrackingResult',
+    'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
     'GetProjectGitRepositoryResult',
@@ -73,6 +77,7 @@ __all__ = [
     'GetProjectVercelAuthenticationResult',
     'GetTeamConfigRemoteCachingResult',
     'GetTeamConfigSamlResult',
+    'GetTeamConfigSamlRolesResult',
     'GetTeamMemberProjectResult',
 ]
 
@@ -313,13 +318,42 @@ class FirewallConfigIpRulesRule(dict):
 
 @pulumi.output_type
 class FirewallConfigManagedRulesets(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "botFilter":
+            suggest = "bot_filter"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FirewallConfigManagedRulesets. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FirewallConfigManagedRulesets.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FirewallConfigManagedRulesets.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
+                 bot_filter: Optional['outputs.FirewallConfigManagedRulesetsBotFilter'] = None,
                  owasp: Optional['outputs.FirewallConfigManagedRulesetsOwasp'] = None):
         """
+        :param 'FirewallConfigManagedRulesetsBotFilterArgs' bot_filter: Enable the bot*filter managed ruleset and select action
         :param 'FirewallConfigManagedRulesetsOwaspArgs' owasp: Enable the owasp managed rulesets and select ruleset behaviors
         """
+        if bot_filter is not None:
+            pulumi.set(__self__, "bot_filter", bot_filter)
         if owasp is not None:
             pulumi.set(__self__, "owasp", owasp)
+
+    @property
+    @pulumi.getter(name="botFilter")
+    def bot_filter(self) -> Optional['outputs.FirewallConfigManagedRulesetsBotFilter']:
+        """
+        Enable the bot*filter managed ruleset and select action
+        """
+        return pulumi.get(self, "bot_filter")
 
     @property
     @pulumi.getter
@@ -328,6 +362,27 @@ class FirewallConfigManagedRulesets(dict):
         Enable the owasp managed rulesets and select ruleset behaviors
         """
         return pulumi.get(self, "owasp")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsBotFilter(dict):
+    def __init__(__self__, *,
+                 action: Optional[str] = None,
+                 active: Optional[bool] = None):
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[str]:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
 
 
 @pulumi.output_type
@@ -783,7 +838,7 @@ class FirewallConfigRulesRuleAction(dict):
                  redirect: Optional['outputs.FirewallConfigRulesRuleActionRedirect'] = None):
         """
         :param str action: Base action
-        :param str action_duration: Forward persistence of a rule aciton
+        :param str action_duration: Forward persistence of a rule action
         :param 'FirewallConfigRulesRuleActionRateLimitArgs' rate_limit: Behavior or a rate limiting action. Required if action is rate*limit
         :param 'FirewallConfigRulesRuleActionRedirectArgs' redirect: How to redirect a request. Required if action is redirect
         """
@@ -807,7 +862,7 @@ class FirewallConfigRulesRuleAction(dict):
     @pulumi.getter(name="actionDuration")
     def action_duration(self) -> Optional[str]:
         """
-        Forward persistence of a rule aciton
+        Forward persistence of a rule action
         """
         return pulumi.get(self, "action_duration")
 
@@ -934,11 +989,15 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
                  type: str,
                  key: Optional[str] = None,
                  neg: Optional[bool] = None,
-                 value: Optional[str] = None):
+                 value: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
         """
         :param str op: How to comparse type to value
         :param str type: Request key type to match against
         :param str key: Key within type to match against
+        :param bool neg: Negate the condition
+        :param str value: Value to match against
+        :param Sequence[str] values: Values to match against if op is inc, ninc
         """
         pulumi.set(__self__, "op", op)
         pulumi.set(__self__, "type", type)
@@ -948,6 +1007,8 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
             pulumi.set(__self__, "neg", neg)
         if value is not None:
             pulumi.set(__self__, "value", value)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
 
     @property
     @pulumi.getter
@@ -976,12 +1037,75 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
     @property
     @pulumi.getter
     def neg(self) -> Optional[bool]:
+        """
+        Negate the condition
+        """
         return pulumi.get(self, "neg")
 
     @property
     @pulumi.getter
     def value(self) -> Optional[str]:
+        """
+        Value to match against
+        """
         return pulumi.get(self, "value")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        """
+        Values to match against if op is inc, ninc
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class MicrofrontendGroupDefaultApp(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectId":
+            suggest = "project_id"
+        elif key == "defaultRoute":
+            suggest = "default_route"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MicrofrontendGroupDefaultApp. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MicrofrontendGroupDefaultApp.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MicrofrontendGroupDefaultApp.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 project_id: str,
+                 default_route: Optional[str] = None):
+        """
+        :param str project_id: The ID of the project.
+        :param str default_route: The default route for the project. Used for the screenshot of deployments.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        if default_route is not None:
+            pulumi.set(__self__, "default_route", default_route)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> str:
+        """
+        The ID of the project.
+        """
+        return pulumi.get(self, "project_id")
+
+    @property
+    @pulumi.getter(name="defaultRoute")
+    def default_route(self) -> Optional[str]:
+        """
+        The default route for the project. Used for the screenshot of deployments.
+        """
+        return pulumi.get(self, "default_route")
 
 
 @pulumi.output_type
@@ -1619,16 +1743,28 @@ class ProjectResourceConfig(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 fluid: Optional[bool] = None,
                  function_default_cpu_type: Optional[str] = None,
                  function_default_timeout: Optional[int] = None):
         """
+        :param bool fluid: Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
         :param str function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
         :param int function_default_timeout: The default timeout for Serverless Functions.
         """
+        if fluid is not None:
+            pulumi.set(__self__, "fluid", fluid)
         if function_default_cpu_type is not None:
             pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
         if function_default_timeout is not None:
             pulumi.set(__self__, "function_default_timeout", function_default_timeout)
+
+    @property
+    @pulumi.getter
+    def fluid(self) -> Optional[bool]:
+        """
+        Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+        """
+        return pulumi.get(self, "fluid")
 
     @property
     @pulumi.getter(name="functionDefaultCpuType")
@@ -1793,35 +1929,14 @@ class TeamConfigRemoteCaching(dict):
 
 @pulumi.output_type
 class TeamConfigSaml(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "accessGroupId":
-            suggest = "access_group_id"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in TeamConfigSaml. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        TeamConfigSaml.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        TeamConfigSaml.__key_warning(key)
-        return super().get(key, default)
-
     def __init__(__self__, *,
                  enforced: bool,
-                 access_group_id: Optional[str] = None,
-                 roles: Optional[Mapping[str, str]] = None):
+                 roles: Optional[Mapping[str, 'outputs.TeamConfigSamlRoles']] = None):
         """
         :param bool enforced: Indicates if SAML is enforced for the team.
-        :param str access_group_id: The ID of the access group to use for the team.
-        :param Mapping[str, str] roles: Directory groups to role or access group mappings.
+        :param Mapping[str, 'TeamConfigSamlRolesArgs'] roles: Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         """
         pulumi.set(__self__, "enforced", enforced)
-        if access_group_id is not None:
-            pulumi.set(__self__, "access_group_id", access_group_id)
         if roles is not None:
             pulumi.set(__self__, "roles", roles)
 
@@ -1834,20 +1949,60 @@ class TeamConfigSaml(dict):
         return pulumi.get(self, "enforced")
 
     @property
+    @pulumi.getter
+    def roles(self) -> Optional[Mapping[str, 'outputs.TeamConfigSamlRoles']]:
+        """
+        Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+        """
+        return pulumi.get(self, "roles")
+
+
+@pulumi.output_type
+class TeamConfigSamlRoles(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessGroupId":
+            suggest = "access_group_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TeamConfigSamlRoles. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TeamConfigSamlRoles.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TeamConfigSamlRoles.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 access_group_id: Optional[str] = None,
+                 role: Optional[str] = None):
+        """
+        :param str access_group_id: The access group id to assign to the user.
+        :param str role: The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+        """
+        if access_group_id is not None:
+            pulumi.set(__self__, "access_group_id", access_group_id)
+        if role is not None:
+            pulumi.set(__self__, "role", role)
+
+    @property
     @pulumi.getter(name="accessGroupId")
     def access_group_id(self) -> Optional[str]:
         """
-        The ID of the access group to use for the team.
+        The access group id to assign to the user.
         """
         return pulumi.get(self, "access_group_id")
 
     @property
     @pulumi.getter
-    def roles(self) -> Optional[Mapping[str, str]]:
+    def role(self) -> Optional[str]:
         """
-        Directory groups to role or access group mappings.
+        The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
         """
-        return pulumi.get(self, "roles")
+        return pulumi.get(self, "role")
 
 
 @pulumi.output_type
@@ -1923,6 +2078,35 @@ class GetCustomEnvironmentBranchTrackingResult(dict):
         How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetMicrofrontendGroupDefaultAppResult(dict):
+    def __init__(__self__, *,
+                 default_route: str,
+                 project_id: str):
+        """
+        :param str default_route: The default route for the project. Used for the screenshot of deployments.
+        :param str project_id: The ID of the project.
+        """
+        pulumi.set(__self__, "default_route", default_route)
+        pulumi.set(__self__, "project_id", project_id)
+
+    @property
+    @pulumi.getter(name="defaultRoute")
+    def default_route(self) -> str:
+        """
+        The default route for the project. Used for the screenshot of deployments.
+        """
+        return pulumi.get(self, "default_route")
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> str:
+        """
+        The ID of the project.
+        """
+        return pulumi.get(self, "project_id")
 
 
 @pulumi.output_type
@@ -2282,14 +2466,25 @@ class GetProjectPasswordProtectionResult(dict):
 @pulumi.output_type
 class GetProjectResourceConfigResult(dict):
     def __init__(__self__, *,
+                 fluid: bool,
                  function_default_cpu_type: str,
                  function_default_timeout: int):
         """
+        :param bool fluid: Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
         :param str function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
         :param int function_default_timeout: The default timeout for Serverless Functions.
         """
+        pulumi.set(__self__, "fluid", fluid)
         pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
         pulumi.set(__self__, "function_default_timeout", function_default_timeout)
+
+    @property
+    @pulumi.getter
+    def fluid(self) -> bool:
+        """
+        Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+        """
+        return pulumi.get(self, "fluid")
 
     @property
     @pulumi.getter(name="functionDefaultCpuType")
@@ -2406,25 +2601,14 @@ class GetTeamConfigRemoteCachingResult(dict):
 @pulumi.output_type
 class GetTeamConfigSamlResult(dict):
     def __init__(__self__, *,
-                 access_group_id: str,
                  enforced: bool,
-                 roles: Mapping[str, str]):
+                 roles: Mapping[str, 'outputs.GetTeamConfigSamlRolesResult']):
         """
-        :param str access_group_id: The ID of the access group to use for the team.
         :param bool enforced: Indicates if SAML is enforced for the team.
-        :param Mapping[str, str] roles: Directory groups to role or access group mappings.
+        :param Mapping[str, 'GetTeamConfigSamlRolesArgs'] roles: Directory groups to role or access group mappings. For each directory group, either a role or access group id is specified.
         """
-        pulumi.set(__self__, "access_group_id", access_group_id)
         pulumi.set(__self__, "enforced", enforced)
         pulumi.set(__self__, "roles", roles)
-
-    @property
-    @pulumi.getter(name="accessGroupId")
-    def access_group_id(self) -> str:
-        """
-        The ID of the access group to use for the team.
-        """
-        return pulumi.get(self, "access_group_id")
 
     @property
     @pulumi.getter
@@ -2436,11 +2620,40 @@ class GetTeamConfigSamlResult(dict):
 
     @property
     @pulumi.getter
-    def roles(self) -> Mapping[str, str]:
+    def roles(self) -> Mapping[str, 'outputs.GetTeamConfigSamlRolesResult']:
         """
-        Directory groups to role or access group mappings.
+        Directory groups to role or access group mappings. For each directory group, either a role or access group id is specified.
         """
         return pulumi.get(self, "roles")
+
+
+@pulumi.output_type
+class GetTeamConfigSamlRolesResult(dict):
+    def __init__(__self__, *,
+                 access_group_id: str,
+                 role: str):
+        """
+        :param str access_group_id: The access group the assign is assigned to.
+        :param str role: The team level role the user is assigned. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+        """
+        pulumi.set(__self__, "access_group_id", access_group_id)
+        pulumi.set(__self__, "role", role)
+
+    @property
+    @pulumi.getter(name="accessGroupId")
+    def access_group_id(self) -> str:
+        """
+        The access group the assign is assigned to.
+        """
+        return pulumi.get(self, "access_group_id")
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        """
+        The team level role the user is assigned. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+        """
+        return pulumi.get(self, "role")
 
 
 @pulumi.output_type

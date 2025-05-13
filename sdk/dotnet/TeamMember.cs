@@ -23,10 +23,17 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var example = new Vercel.TeamMember("example", new()
+    ///     var byUserId = new Vercel.TeamMember("by_user_id", new()
     ///     {
     ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
     ///         UserId = "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+    ///         Role = "MEMBER",
+    ///     });
+    /// 
+    ///     var byEmail = new Vercel.TeamMember("by_email", new()
+    ///     {
+    ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+    ///         Email = "example@example.com",
     ///         Role = "MEMBER",
     ///     });
     /// 
@@ -51,6 +58,18 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<string>> AccessGroups { get; private set; } = null!;
 
         /// <summary>
+        /// Whether the user has confirmed their invitation.
+        /// </summary>
+        [Output("confirmed")]
+        public Output<bool> Confirmed { get; private set; } = null!;
+
+        /// <summary>
+        /// The email of the user to add to the team. Must specify one of user_id or email.
+        /// </summary>
+        [Output("email")]
+        public Output<string> Email { get; private set; } = null!;
+
+        /// <summary>
         /// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
         /// </summary>
         [Output("projects")]
@@ -69,7 +88,7 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the user to add to the team.
+        /// The ID of the user to add to the team. Must specify one of user_id or email.
         /// </summary>
         [Output("userId")]
         public Output<string> UserId { get; private set; } = null!;
@@ -133,6 +152,12 @@ namespace Pulumiverse.Vercel
             set => _accessGroups = value;
         }
 
+        /// <summary>
+        /// The email of the user to add to the team. Must specify one of user_id or email.
+        /// </summary>
+        [Input("email")]
+        public Input<string>? Email { get; set; }
+
         [Input("projects")]
         private InputList<Inputs.TeamMemberProjectArgs>? _projects;
 
@@ -158,10 +183,10 @@ namespace Pulumiverse.Vercel
         public Input<string> TeamId { get; set; } = null!;
 
         /// <summary>
-        /// The ID of the user to add to the team.
+        /// The ID of the user to add to the team. Must specify one of user_id or email.
         /// </summary>
-        [Input("userId", required: true)]
-        public Input<string> UserId { get; set; } = null!;
+        [Input("userId")]
+        public Input<string>? UserId { get; set; }
 
         public TeamMemberArgs()
         {
@@ -182,6 +207,18 @@ namespace Pulumiverse.Vercel
             get => _accessGroups ?? (_accessGroups = new InputList<string>());
             set => _accessGroups = value;
         }
+
+        /// <summary>
+        /// Whether the user has confirmed their invitation.
+        /// </summary>
+        [Input("confirmed")]
+        public Input<bool>? Confirmed { get; set; }
+
+        /// <summary>
+        /// The email of the user to add to the team. Must specify one of user_id or email.
+        /// </summary>
+        [Input("email")]
+        public Input<string>? Email { get; set; }
 
         [Input("projects")]
         private InputList<Inputs.TeamMemberProjectGetArgs>? _projects;
@@ -208,7 +245,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// The ID of the user to add to the team.
+        /// The ID of the user to add to the team. Must specify one of user_id or email.
         /// </summary>
         [Input("userId")]
         public Input<string>? UserId { get; set; }

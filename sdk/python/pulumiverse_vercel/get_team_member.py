@@ -27,10 +27,13 @@ class GetTeamMemberResult:
     """
     A collection of values returned by getTeamMember.
     """
-    def __init__(__self__, access_groups=None, id=None, projects=None, role=None, team_id=None, user_id=None):
+    def __init__(__self__, access_groups=None, email=None, id=None, projects=None, role=None, team_id=None, user_id=None):
         if access_groups and not isinstance(access_groups, list):
             raise TypeError("Expected argument 'access_groups' to be a list")
         pulumi.set(__self__, "access_groups", access_groups)
+        if email and not isinstance(email, str):
+            raise TypeError("Expected argument 'email' to be a str")
+        pulumi.set(__self__, "email", email)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -54,6 +57,14 @@ class GetTeamMemberResult:
         If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         """
         return pulumi.get(self, "access_groups")
+
+    @property
+    @pulumi.getter
+    def email(self) -> str:
+        """
+        The email address of the existing Vercel Team Member.
+        """
+        return pulumi.get(self, "email")
 
     @property
     @pulumi.getter
@@ -103,6 +114,7 @@ class AwaitableGetTeamMemberResult(GetTeamMemberResult):
             yield self
         return GetTeamMemberResult(
             access_groups=self.access_groups,
+            email=self.email,
             id=self.id,
             projects=self.projects,
             role=self.role,
@@ -138,6 +150,7 @@ def get_team_member(team_id: Optional[str] = None,
 
     return AwaitableGetTeamMemberResult(
         access_groups=pulumi.get(__ret__, 'access_groups'),
+        email=pulumi.get(__ret__, 'email'),
         id=pulumi.get(__ret__, 'id'),
         projects=pulumi.get(__ret__, 'projects'),
         role=pulumi.get(__ret__, 'role'),
@@ -170,6 +183,7 @@ def get_team_member_output(team_id: Optional[pulumi.Input[str]] = None,
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getTeamMember:getTeamMember', __args__, opts=opts, typ=GetTeamMemberResult)
     return __ret__.apply(lambda __response__: GetTeamMemberResult(
         access_groups=pulumi.get(__response__, 'access_groups'),
+        email=pulumi.get(__response__, 'email'),
         id=pulumi.get(__response__, 'id'),
         projects=pulumi.get(__response__, 'projects'),
         role=pulumi.get(__response__, 'role'),

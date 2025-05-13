@@ -79,6 +79,12 @@ namespace Pulumiverse.Vercel
         public string Name { get; set; } = null!;
 
         /// <summary>
+        /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        /// </summary>
+        [Input("onDemandConcurrentBuilds")]
+        public bool? OnDemandConcurrentBuilds { get; set; }
+
+        /// <summary>
         /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
@@ -97,6 +103,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
+
+        /// <summary>
+        /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        /// </summary>
+        [Input("onDemandConcurrentBuilds")]
+        public Input<bool>? OnDemandConcurrentBuilds { get; set; }
 
         /// <summary>
         /// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
@@ -138,6 +150,18 @@ namespace Pulumiverse.Vercel
         /// If no index file is present within a directory, the directory contents will be displayed.
         /// </summary>
         public readonly bool DirectoryListing;
+        /// <summary>
+        /// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+        /// </summary>
+        public readonly bool EnableAffectedProjectsDeployments;
+        /// <summary>
+        /// Whether the Vercel Toolbar is enabled on your preview deployments. If unspecified, defaults to team setting.
+        /// </summary>
+        public readonly bool EnablePreviewFeedback;
+        /// <summary>
+        /// Whether the Vercel Toolbar is enabled on your production deployments. If unspecified, defaults to team setting.
+        /// </summary>
+        public readonly bool EnableProductionFeedback;
         /// <summary>
         /// A list of environment variables that should be configured for the project.
         /// </summary>
@@ -183,9 +207,17 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string Name;
         /// <summary>
+        /// The version of Node.js that is used in the Build Step and for Serverless Functions.
+        /// </summary>
+        public readonly string NodeVersion;
+        /// <summary>
         /// Configuration for OpenID Connect (OIDC) tokens.
         /// </summary>
         public readonly Outputs.GetProjectOidcTokenConfigResult OidcTokenConfig;
+        /// <summary>
+        /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+        /// </summary>
+        public readonly bool OnDemandConcurrentBuilds;
         /// <summary>
         /// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         /// </summary>
@@ -261,6 +293,12 @@ namespace Pulumiverse.Vercel
 
             bool directoryListing,
 
+            bool enableAffectedProjectsDeployments,
+
+            bool enablePreviewFeedback,
+
+            bool enableProductionFeedback,
+
             ImmutableArray<Outputs.GetProjectEnvironmentResult> environments,
 
             string framework,
@@ -283,7 +321,11 @@ namespace Pulumiverse.Vercel
 
             string name,
 
+            string nodeVersion,
+
             Outputs.GetProjectOidcTokenConfigResult oidcTokenConfig,
+
+            bool onDemandConcurrentBuilds,
 
             Outputs.GetProjectOptionsAllowlistResult optionsAllowlist,
 
@@ -321,6 +363,9 @@ namespace Pulumiverse.Vercel
             CustomerSuccessCodeVisibility = customerSuccessCodeVisibility;
             DevCommand = devCommand;
             DirectoryListing = directoryListing;
+            EnableAffectedProjectsDeployments = enableAffectedProjectsDeployments;
+            EnablePreviewFeedback = enablePreviewFeedback;
+            EnableProductionFeedback = enableProductionFeedback;
             Environments = environments;
             Framework = framework;
             FunctionFailover = functionFailover;
@@ -332,7 +377,9 @@ namespace Pulumiverse.Vercel
             IgnoreCommand = ignoreCommand;
             InstallCommand = installCommand;
             Name = name;
+            NodeVersion = nodeVersion;
             OidcTokenConfig = oidcTokenConfig;
+            OnDemandConcurrentBuilds = onDemandConcurrentBuilds;
             OptionsAllowlist = optionsAllowlist;
             OutputDirectory = outputDirectory;
             PasswordProtection = passwordProtection;

@@ -14,6 +14,12 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectResourceConfigGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+        /// </summary>
+        [Input("fluid")]
+        public Input<bool>? Fluid { get; set; }
+
+        /// <summary>
         /// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
         /// </summary>
         [Input("functionDefaultCpuType")]

@@ -14,6 +14,12 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class FirewallConfigManagedRulesetsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Enable the bot*filter managed ruleset and select action
+        /// </summary>
+        [Input("botFilter")]
+        public Input<Inputs.FirewallConfigManagedRulesetsBotFilterGetArgs>? BotFilter { get; set; }
+
+        /// <summary>
         /// Enable the owasp managed rulesets and select ruleset behaviors
         /// </summary>
         [Input("owasp")]

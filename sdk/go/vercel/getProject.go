@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provides information about an existing project within Vercel.
@@ -25,7 +25,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
@@ -56,6 +56,8 @@ func LookupProject(ctx *pulumi.Context, args *LookupProjectArgs, opts ...pulumi.
 type LookupProjectArgs struct {
 	// The name of the project.
 	Name string `pulumi:"name"`
+	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+	OnDemandConcurrentBuilds *bool `pulumi:"onDemandConcurrentBuilds"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
@@ -74,6 +76,12 @@ type LookupProjectResult struct {
 	DevCommand string `pulumi:"devCommand"`
 	// If no index file is present within a directory, the directory contents will be displayed.
 	DirectoryListing bool `pulumi:"directoryListing"`
+	// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+	EnableAffectedProjectsDeployments bool `pulumi:"enableAffectedProjectsDeployments"`
+	// Whether the Vercel Toolbar is enabled on your preview deployments. If unspecified, defaults to team setting.
+	EnablePreviewFeedback bool `pulumi:"enablePreviewFeedback"`
+	// Whether the Vercel Toolbar is enabled on your production deployments. If unspecified, defaults to team setting.
+	EnableProductionFeedback bool `pulumi:"enableProductionFeedback"`
 	// A list of environment variables that should be configured for the project.
 	Environments []GetProjectEnvironment `pulumi:"environments"`
 	// The framework that is being used for this project. If omitted, no framework is selected.
@@ -96,8 +104,12 @@ type LookupProjectResult struct {
 	InstallCommand string `pulumi:"installCommand"`
 	// The name of the project.
 	Name string `pulumi:"name"`
+	// The version of Node.js that is used in the Build Step and for Serverless Functions.
+	NodeVersion string `pulumi:"nodeVersion"`
 	// Configuration for OpenID Connect (OIDC) tokens.
 	OidcTokenConfig GetProjectOidcTokenConfig `pulumi:"oidcTokenConfig"`
+	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+	OnDemandConcurrentBuilds bool `pulumi:"onDemandConcurrentBuilds"`
 	// Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
 	OptionsAllowlist GetProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. When null is used this value will be automatically detected.
@@ -105,6 +117,8 @@ type LookupProjectResult struct {
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection GetProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Whether comments are enabled on your Preview Deployments.
+	//
+	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments bool `pulumi:"previewComments"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds bool `pulumi:"prioritiseProductionBuilds"`
@@ -153,6 +167,8 @@ func LookupProjectOutput(ctx *pulumi.Context, args LookupProjectOutputArgs, opts
 type LookupProjectOutputArgs struct {
 	// The name of the project.
 	Name pulumi.StringInput `pulumi:"name"`
+	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+	OnDemandConcurrentBuilds pulumi.BoolPtrInput `pulumi:"onDemandConcurrentBuilds"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
@@ -204,6 +220,21 @@ func (o LookupProjectResultOutput) DevCommand() pulumi.StringOutput {
 // If no index file is present within a directory, the directory contents will be displayed.
 func (o LookupProjectResultOutput) DirectoryListing() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.DirectoryListing }).(pulumi.BoolOutput)
+}
+
+// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+func (o LookupProjectResultOutput) EnableAffectedProjectsDeployments() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.EnableAffectedProjectsDeployments }).(pulumi.BoolOutput)
+}
+
+// Whether the Vercel Toolbar is enabled on your preview deployments. If unspecified, defaults to team setting.
+func (o LookupProjectResultOutput) EnablePreviewFeedback() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.EnablePreviewFeedback }).(pulumi.BoolOutput)
+}
+
+// Whether the Vercel Toolbar is enabled on your production deployments. If unspecified, defaults to team setting.
+func (o LookupProjectResultOutput) EnableProductionFeedback() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.EnableProductionFeedback }).(pulumi.BoolOutput)
 }
 
 // A list of environment variables that should be configured for the project.
@@ -261,9 +292,19 @@ func (o LookupProjectResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// The version of Node.js that is used in the Build Step and for Serverless Functions.
+func (o LookupProjectResultOutput) NodeVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupProjectResult) string { return v.NodeVersion }).(pulumi.StringOutput)
+}
+
 // Configuration for OpenID Connect (OIDC) tokens.
 func (o LookupProjectResultOutput) OidcTokenConfig() GetProjectOidcTokenConfigOutput {
 	return o.ApplyT(func(v LookupProjectResult) GetProjectOidcTokenConfig { return v.OidcTokenConfig }).(GetProjectOidcTokenConfigOutput)
+}
+
+// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+func (o LookupProjectResultOutput) OnDemandConcurrentBuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.OnDemandConcurrentBuilds }).(pulumi.BoolOutput)
 }
 
 // Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
@@ -282,6 +323,8 @@ func (o LookupProjectResultOutput) PasswordProtection() GetProjectPasswordProtec
 }
 
 // Whether comments are enabled on your Preview Deployments.
+//
+// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 func (o LookupProjectResultOutput) PreviewComments() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PreviewComments }).(pulumi.BoolOutput)
 }

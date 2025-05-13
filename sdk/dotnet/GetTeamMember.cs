@@ -113,6 +113,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly ImmutableArray<string> AccessGroups;
         /// <summary>
+        /// The email address of the existing Vercel Team Member.
+        /// </summary>
+        public readonly string Email;
+        /// <summary>
         /// The ID of this resource.
         /// </summary>
         public readonly string Id;
@@ -137,6 +141,8 @@ namespace Pulumiverse.Vercel
         private GetTeamMemberResult(
             ImmutableArray<string> accessGroups,
 
+            string email,
+
             string id,
 
             ImmutableArray<Outputs.GetTeamMemberProjectResult> projects,
@@ -148,6 +154,7 @@ namespace Pulumiverse.Vercel
             string userId)
         {
             AccessGroups = accessGroups;
+            Email = email;
             Id = id;
             Projects = projects;
             Role = role;

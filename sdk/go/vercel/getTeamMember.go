@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provider a datasource for managing a team member.
@@ -21,7 +21,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v2/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
@@ -61,6 +61,8 @@ type LookupTeamMemberArgs struct {
 type LookupTeamMemberResult struct {
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 	AccessGroups []string `pulumi:"accessGroups"`
+	// The email address of the existing Vercel Team Member.
+	Email string `pulumi:"email"`
 	// The ID of this resource.
 	Id string `pulumi:"id"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
@@ -122,6 +124,11 @@ func (o LookupTeamMemberResultOutput) ToLookupTeamMemberResultOutputWithContext(
 // If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
 func (o LookupTeamMemberResultOutput) AccessGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupTeamMemberResult) []string { return v.AccessGroups }).(pulumi.StringArrayOutput)
+}
+
+// The email address of the existing Vercel Team Member.
+func (o LookupTeamMemberResultOutput) Email() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTeamMemberResult) string { return v.Email }).(pulumi.StringOutput)
 }
 
 // The ID of this resource.

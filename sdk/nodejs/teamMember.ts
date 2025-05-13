@@ -15,9 +15,14 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const example = new vercel.TeamMember("example", {
+ * const byUserId = new vercel.TeamMember("by_user_id", {
  *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ *     role: "MEMBER",
+ * });
+ * const byEmail = new vercel.TeamMember("by_email", {
+ *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
+ *     email: "example@example.com",
  *     role: "MEMBER",
  * });
  * ```
@@ -61,11 +66,19 @@ export class TeamMember extends pulumi.CustomResource {
     /**
      * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of access groups IDs that the user should be granted access to.
      */
-    public readonly accessGroups!: pulumi.Output<string[]>;
+    public readonly accessGroups!: pulumi.Output<string[] | undefined>;
+    /**
+     * Whether the user has confirmed their invitation.
+     */
+    public /*out*/ readonly confirmed!: pulumi.Output<boolean>;
+    /**
+     * The email of the user to add to the team. Must specify one of userId or email.
+     */
+    public readonly email!: pulumi.Output<string>;
     /**
      * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
      */
-    public readonly projects!: pulumi.Output<outputs.TeamMemberProject[]>;
+    public readonly projects!: pulumi.Output<outputs.TeamMemberProject[] | undefined>;
     /**
      * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
@@ -75,7 +88,7 @@ export class TeamMember extends pulumi.CustomResource {
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
-     * The ID of the user to add to the team.
+     * The ID of the user to add to the team. Must specify one of userId or email.
      */
     public readonly userId!: pulumi.Output<string>;
 
@@ -93,6 +106,8 @@ export class TeamMember extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as TeamMemberState | undefined;
             resourceInputs["accessGroups"] = state ? state.accessGroups : undefined;
+            resourceInputs["confirmed"] = state ? state.confirmed : undefined;
+            resourceInputs["email"] = state ? state.email : undefined;
             resourceInputs["projects"] = state ? state.projects : undefined;
             resourceInputs["role"] = state ? state.role : undefined;
             resourceInputs["teamId"] = state ? state.teamId : undefined;
@@ -105,14 +120,13 @@ export class TeamMember extends pulumi.CustomResource {
             if ((!args || args.teamId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'teamId'");
             }
-            if ((!args || args.userId === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'userId'");
-            }
             resourceInputs["accessGroups"] = args ? args.accessGroups : undefined;
+            resourceInputs["email"] = args ? args.email : undefined;
             resourceInputs["projects"] = args ? args.projects : undefined;
             resourceInputs["role"] = args ? args.role : undefined;
             resourceInputs["teamId"] = args ? args.teamId : undefined;
             resourceInputs["userId"] = args ? args.userId : undefined;
+            resourceInputs["confirmed"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(TeamMember.__pulumiType, name, resourceInputs, opts);
@@ -128,6 +142,14 @@ export interface TeamMemberState {
      */
     accessGroups?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Whether the user has confirmed their invitation.
+     */
+    confirmed?: pulumi.Input<boolean>;
+    /**
+     * The email of the user to add to the team. Must specify one of userId or email.
+     */
+    email?: pulumi.Input<string>;
+    /**
      * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
      */
     projects?: pulumi.Input<pulumi.Input<inputs.TeamMemberProject>[]>;
@@ -140,7 +162,7 @@ export interface TeamMemberState {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The ID of the user to add to the team.
+     * The ID of the user to add to the team. Must specify one of userId or email.
      */
     userId?: pulumi.Input<string>;
 }
@@ -154,6 +176,10 @@ export interface TeamMemberArgs {
      */
     accessGroups?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * The email of the user to add to the team. Must specify one of userId or email.
+     */
+    email?: pulumi.Input<string>;
+    /**
      * If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
      */
     projects?: pulumi.Input<pulumi.Input<inputs.TeamMemberProject>[]>;
@@ -166,7 +192,7 @@ export interface TeamMemberArgs {
      */
     teamId: pulumi.Input<string>;
     /**
-     * The ID of the user to add to the team.
+     * The ID of the user to add to the team. Must specify one of userId or email.
      */
-    userId: pulumi.Input<string>;
+    userId?: pulumi.Input<string>;
 }

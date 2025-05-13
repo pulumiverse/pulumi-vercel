@@ -28,6 +28,7 @@ export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): P
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProject:getProject", {
         "name": args.name,
+        "onDemandConcurrentBuilds": args.onDemandConcurrentBuilds,
         "teamId": args.teamId,
     }, opts);
 }
@@ -40,6 +41,10 @@ export interface GetProjectArgs {
      * The name of the project.
      */
     name: string;
+    /**
+     * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+     */
+    onDemandConcurrentBuilds?: boolean;
     /**
      * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
      */
@@ -74,6 +79,18 @@ export interface GetProjectResult {
      * If no index file is present within a directory, the directory contents will be displayed.
      */
     readonly directoryListing: boolean;
+    /**
+     * When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
+     */
+    readonly enableAffectedProjectsDeployments: boolean;
+    /**
+     * Whether the Vercel Toolbar is enabled on your preview deployments. If unspecified, defaults to team setting.
+     */
+    readonly enablePreviewFeedback: boolean;
+    /**
+     * Whether the Vercel Toolbar is enabled on your production deployments. If unspecified, defaults to team setting.
+     */
+    readonly enableProductionFeedback: boolean;
     /**
      * A list of environment variables that should be configured for the project.
      */
@@ -119,9 +136,17 @@ export interface GetProjectResult {
      */
     readonly name: string;
     /**
+     * The version of Node.js that is used in the Build Step and for Serverless Functions.
+     */
+    readonly nodeVersion: string;
+    /**
      * Configuration for OpenID Connect (OIDC) tokens.
      */
     readonly oidcTokenConfig: outputs.GetProjectOidcTokenConfig;
+    /**
+     * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+     */
+    readonly onDemandConcurrentBuilds: boolean;
     /**
      * Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
      */
@@ -136,6 +161,8 @@ export interface GetProjectResult {
     readonly passwordProtection: outputs.GetProjectPasswordProtection;
     /**
      * Whether comments are enabled on your Preview Deployments.
+     *
+     * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     readonly previewComments: boolean;
     /**
@@ -205,6 +232,7 @@ export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.Invok
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProject:getProject", {
         "name": args.name,
+        "onDemandConcurrentBuilds": args.onDemandConcurrentBuilds,
         "teamId": args.teamId,
     }, opts);
 }
@@ -217,6 +245,10 @@ export interface GetProjectOutputArgs {
      * The name of the project.
      */
     name: pulumi.Input<string>;
+    /**
+     * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
+     */
+    onDemandConcurrentBuilds?: pulumi.Input<boolean>;
     /**
      * The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
      */

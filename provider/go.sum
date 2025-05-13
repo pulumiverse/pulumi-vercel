@@ -743,8 +743,6 @@ github.com/pulumi/terraform-diff-reader v0.0.2 h1:kTE4nEXU3/SYXESvAIem+wyHMI3abq
 github.com/pulumi/terraform-diff-reader v0.0.2/go.mod h1:sZ9FUzGO+yM41hsQHs/yIcj/Y993qMdBxBU5mpDmAfQ=
 github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20240520223432-0c0bf0d65f10 h1:M6Ceq1o6gGeEKxTZgJ2CKLye3p67ZZjnsAwxr5VC32A=
 github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20240520223432-0c0bf0d65f10/go.mod h1:H+8tjs9TjV2w57QFVSMBQacf8k/E1XwLXGCARgViC6A=
-github.com/pulumiverse/pulumi-vercel/provider/v2 v2.0.0-20250513120505-c5264df4f2bf h1:z1ZPcW+WcsO9DZYtOR27Nyr/CnB8/j8mi/gntkKaU34=
-github.com/pulumiverse/pulumi-vercel/provider/v2 v2.0.0-20250513120505-c5264df4f2bf/go.mod h1:xgT+0Fi+Chd42Dgd+OfIkR/ThJ5nmfShIWAKI5f5neY=
 github.com/rhysd/go-fakeio v1.0.0 h1:+TjiKCOs32dONY7DaoVz/VPOdvRkPfBkEyUDIpM8FQY=
 github.com/rhysd/go-fakeio v1.0.0/go.mod h1:joYxF906trVwp2JLrE4jlN7A0z6wrz8O6o1UjarbFzE=
 github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
@@ -813,8 +811,6 @@ github.com/uber/jaeger-lib v2.4.1+incompatible h1:td4jdvLcExb4cBISKIpHuGoVXh+dVK
 github.com/uber/jaeger-lib v2.4.1+incompatible/go.mod h1:ComeNDZlWwrWnDv8aPp0Ba6+uUTzImX/AauajbLI56U=
 github.com/ulikunitz/xz v0.5.10 h1:t92gobL9l3HE202wg3rlk19F6X+JOxl9BBrCCMYEYd8=
 github.com/ulikunitz/xz v0.5.10/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
-github.com/vercel/terraform-provider-vercel/v2 v2.8.0 h1:jKkRGglZ2Qlre2TdRcRNQjP3F2xly+LjqLX4JfSJbZk=
-github.com/vercel/terraform-provider-vercel/v2 v2.8.0/go.mod h1:Ja1DHbNme08cIo9q5uqeWASuLpp55H8+pHn3e4AYj3g=
 github.com/vercel/terraform-provider-vercel/v3 v3.1.1 h1:HgacTonqU/KEDUXhDUwWiPNmNOnM0Pd+emTAPzDGFMM=
 github.com/vercel/terraform-provider-vercel/v3 v3.1.1/go.mod h1:mlHfw00Qk+XqvBwJiQy1MYYGF1nqNmJ9fFPjFy6j/WU=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
