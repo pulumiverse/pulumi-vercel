@@ -98,8 +98,8 @@ def get_project_members(project_id: Optional[str] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example_project = vercel.get_project(name="example-with-members")
-    example_project_members = vercel.get_project_members(project_id=example_project.id)
+    example = vercel.get_project(name="example-with-members")
+    example_get_project_members = vercel.get_project_members(project_id=example.id)
     ```
 
 
@@ -129,8 +129,8 @@ def get_project_members_output(project_id: Optional[pulumi.Input[str]] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example_project = vercel.get_project(name="example-with-members")
-    example_project_members = vercel.get_project_members(project_id=example_project.id)
+    example = vercel.get_project(name="example-with-members")
+    example_get_project_members = vercel.get_project_members(project_id=example.id)
     ```
 
 

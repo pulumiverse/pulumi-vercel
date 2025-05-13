@@ -25,9 +25,9 @@ namespace Pulumiverse.Vercel
     /// {
     ///     var example = new Vercel.TeamMember("example", new()
     ///     {
-    ///         Role = "MEMBER",
     ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
     ///         UserId = "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+    ///         Role = "MEMBER",
     ///     });
     /// 
     /// });

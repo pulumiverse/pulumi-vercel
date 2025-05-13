@@ -32,15 +32,19 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			example, err := vercel.NewProject(ctx, "example", nil)
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			example2, err := vercel.NewProject(ctx, "example2", nil)
+//			example2, err := vercel.NewProject(ctx, "example2", &vercel.ProjectArgs{
+//				Name: pulumi.String("another-example-project"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewWebhook(ctx, "withProjectIds", &vercel.WebhookArgs{
+//			_, err = vercel.NewWebhook(ctx, "with_project_ids", &vercel.WebhookArgs{
 //				Events: pulumi.StringArray{
 //					pulumi.String("deployment.created"),
 //					pulumi.String("deployment.succeeded"),
@@ -54,7 +58,7 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewWebhook(ctx, "withoutProjectIds", &vercel.WebhookArgs{
+//			_, err = vercel.NewWebhook(ctx, "without_project_ids", &vercel.WebhookArgs{
 //				Events: pulumi.StringArray{
 //					pulumi.String("deployment.created"),
 //					pulumi.String("deployment.succeeded"),

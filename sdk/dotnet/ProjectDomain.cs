@@ -27,21 +27,24 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject");
+    ///     var example = new Vercel.Project("example", new()
+    ///     {
+    ///         Name = "example-project",
+    ///     });
     /// 
     ///     // A simple domain that will be automatically
     ///     // applied to each production deployment
-    ///     var exampleProjectDomain = new Vercel.ProjectDomain("exampleProjectDomain", new()
+    ///     var exampleProjectDomain = new Vercel.ProjectDomain("example", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         ProjectId = example.Id,
     ///         Domain = "i-love.vercel.app",
     ///     });
     /// 
     ///     // A redirect of a domain name to a second domain name.
     ///     // The status_code can optionally be controlled.
-    ///     var exampleRedirect = new Vercel.ProjectDomain("exampleRedirect", new()
+    ///     var exampleRedirect = new Vercel.ProjectDomain("example_redirect", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         ProjectId = example.Id,
     ///         Domain = "i-also-love.vercel.app",
     ///         Redirect = exampleProjectDomain.Domain,
     ///         RedirectStatusCode = 307,

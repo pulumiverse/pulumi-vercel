@@ -27,7 +27,10 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var example = new Vercel.AccessGroup("example");
+    ///     var example = new Vercel.AccessGroup("example", new()
+    ///     {
+    ///         Name = "example-access-group",
+    ///     });
     /// 
     /// });
     /// ```

@@ -17,9 +17,9 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleEdgeConfig = new vercel.EdgeConfig("exampleEdgeConfig", {});
- * const exampleEdgeConfigItem = new vercel.EdgeConfigItem("exampleEdgeConfigItem", {
- *     edgeConfigId: exampleEdgeConfig.id,
+ * const example = new vercel.EdgeConfig("example", {name: "example"});
+ * const exampleEdgeConfigItem = new vercel.EdgeConfigItem("example", {
+ *     edgeConfigId: example.id,
  *     key: "foobar",
  *     value: "baz",
  * });

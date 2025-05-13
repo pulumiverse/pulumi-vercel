@@ -339,22 +339,24 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository={
-            "type": "github",
-            "repo": "vercel/some-repo",
-        })
+        example = vercel.Project("example",
+            name="example-project",
+            git_repository={
+                "type": "github",
+                "repo": "vercel/some-repo",
+            })
         # An environment variable that will be created
         # for this project for the "production" environment.
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
-            project_id=example_project.id,
+        example_project_environment_variable = vercel.ProjectEnvironmentVariable("example",
+            project_id=example.id,
             key="foo",
             value="bar",
             targets=["production"],
             comment="a production secret")
         # An environment variable that will be created
         # for this project for the "preview" environment when the branch is "staging".
-        example_git_branch = vercel.ProjectEnvironmentVariable("exampleGitBranch",
-            project_id=example_project.id,
+        example_git_branch = vercel.ProjectEnvironmentVariable("example_git_branch",
+            project_id=example.id,
             key="foo",
             value="bar-staging",
             targets=["preview"],
@@ -362,8 +364,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             comment="a staging secret")
         # A sensitive environment variable that will be created
         # for this project for the "production" environment.
-        example_sensitive = vercel.ProjectEnvironmentVariable("exampleSensitive",
-            project_id=example_project.id,
+        example_sensitive = vercel.ProjectEnvironmentVariable("example_sensitive",
+            project_id=example.id,
             key="foo",
             value="bar-production",
             targets=["production"],
@@ -436,22 +438,24 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository={
-            "type": "github",
-            "repo": "vercel/some-repo",
-        })
+        example = vercel.Project("example",
+            name="example-project",
+            git_repository={
+                "type": "github",
+                "repo": "vercel/some-repo",
+            })
         # An environment variable that will be created
         # for this project for the "production" environment.
-        example_project_environment_variable = vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable",
-            project_id=example_project.id,
+        example_project_environment_variable = vercel.ProjectEnvironmentVariable("example",
+            project_id=example.id,
             key="foo",
             value="bar",
             targets=["production"],
             comment="a production secret")
         # An environment variable that will be created
         # for this project for the "preview" environment when the branch is "staging".
-        example_git_branch = vercel.ProjectEnvironmentVariable("exampleGitBranch",
-            project_id=example_project.id,
+        example_git_branch = vercel.ProjectEnvironmentVariable("example_git_branch",
+            project_id=example.id,
             key="foo",
             value="bar-staging",
             targets=["preview"],
@@ -459,8 +463,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             comment="a staging secret")
         # A sensitive environment variable that will be created
         # for this project for the "production" environment.
-        example_sensitive = vercel.ProjectEnvironmentVariable("exampleSensitive",
-            project_id=example_project.id,
+        example_sensitive = vercel.ProjectEnvironmentVariable("example_sensitive",
+            project_id=example.id,
             key="foo",
             value="bar-production",
             targets=["production"],

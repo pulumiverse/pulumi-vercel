@@ -27,14 +27,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//			example, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
 //				Name: "example-with-members",
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
 //			_, err = vercel.LookupProjectMembers(ctx, &vercel.LookupProjectMembersArgs{
-//				ProjectId: exampleProject.Id,
+//				ProjectId: example.Id,
 //			}, nil)
 //			if err != nil {
 //				return err

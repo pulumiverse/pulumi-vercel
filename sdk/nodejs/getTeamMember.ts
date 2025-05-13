@@ -16,8 +16,8 @@ import * as utilities from "./utilities";
  * import * as vercel from "@pulumi/vercel";
  *
  * const example = vercel.getTeamMember({
- *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  * });
  * ```
  */
@@ -82,8 +82,8 @@ export interface GetTeamMemberResult {
  * import * as vercel from "@pulumi/vercel";
  *
  * const example = vercel.getTeamMember({
- *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  * });
  * ```
  */

@@ -125,8 +125,8 @@ def get_custom_environment(name: Optional[str] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example_project = vercel.get_project(name="example-project-with-custom-env")
-    example_custom_environment = vercel.get_custom_environment(project_id=example_project.id,
+    example = vercel.get_project(name="example-project-with-custom-env")
+    example_get_custom_environment = vercel.get_custom_environment(project_id=example.id,
         name="example-custom-env")
     ```
 
@@ -164,8 +164,8 @@ def get_custom_environment_output(name: Optional[pulumi.Input[str]] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example_project = vercel.get_project(name="example-project-with-custom-env")
-    example_custom_environment = vercel.get_custom_environment(project_id=example_project.id,
+    example = vercel.get_project(name="example-project-with-custom-env")
+    example_get_custom_environment = vercel.get_custom_environment(project_id=example.id,
         name="example-custom-env")
     ```
 

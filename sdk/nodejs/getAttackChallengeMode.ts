@@ -16,7 +16,7 @@ import * as utilities from "./utilities";
  * import * as vercel from "@pulumi/vercel";
  *
  * const example = vercel.getAttackChallengeMode({
- *     projectId: vercel_project.example.id,
+ *     projectId: exampleVercelProject.id,
  * });
  * ```
  */
@@ -75,7 +75,7 @@ export interface GetAttackChallengeModeResult {
  * import * as vercel from "@pulumi/vercel";
  *
  * const example = vercel.getAttackChallengeMode({
- *     projectId: vercel_project.example.id,
+ *     projectId: exampleVercelProject.id,
  * });
  * ```
  */

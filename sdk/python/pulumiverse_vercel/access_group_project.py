@@ -180,10 +180,10 @@ class AccessGroupProject(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_access_group = vercel.AccessGroup("exampleAccessGroup")
-        example_access_group_project = vercel.AccessGroupProject("exampleAccessGroupProject",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-project")
+        example_access_group = vercel.AccessGroup("example", name="example-access-group")
+        example_access_group_project = vercel.AccessGroupProject("example",
+            project_id=example.id,
             access_group_id=example_access_group.id,
             role="ADMIN")
         ```
@@ -230,10 +230,10 @@ class AccessGroupProject(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_access_group = vercel.AccessGroup("exampleAccessGroup")
-        example_access_group_project = vercel.AccessGroupProject("exampleAccessGroupProject",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-project")
+        example_access_group = vercel.AccessGroup("example", name="example-access-group")
+        example_access_group_project = vercel.AccessGroupProject("example",
+            project_id=example.id,
             access_group_id=example_access_group.id,
             role="ADMIN")
         ```

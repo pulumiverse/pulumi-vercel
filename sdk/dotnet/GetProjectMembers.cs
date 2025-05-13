@@ -25,14 +25,14 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var example = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "example-with-members",
         ///     });
         /// 
-        ///     var exampleProjectMembers = Vercel.GetProjectMembers.Invoke(new()
+        ///     var exampleGetProjectMembers = Vercel.GetProjectMembers.Invoke(new()
         ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         ProjectId = example.Apply(getProjectResult =&gt; getProjectResult.Id),
         ///     });
         /// 
         /// });
@@ -54,14 +54,14 @@ namespace Pulumiverse.Vercel
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var exampleProject = Vercel.GetProject.Invoke(new()
+        ///     var example = Vercel.GetProject.Invoke(new()
         ///     {
         ///         Name = "example-with-members",
         ///     });
         /// 
-        ///     var exampleProjectMembers = Vercel.GetProjectMembers.Invoke(new()
+        ///     var exampleGetProjectMembers = Vercel.GetProjectMembers.Invoke(new()
         ///     {
-        ///         ProjectId = exampleProject.Apply(getProjectResult =&gt; getProjectResult.Id),
+        ///         ProjectId = example.Apply(getProjectResult =&gt; getProjectResult.Id),
         ///     });
         /// 
         /// });

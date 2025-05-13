@@ -1106,16 +1106,19 @@ class Project(pulumi.CustomResource):
         # A project that is connected to a git repository.
         # Deployments will be created automatically
         # on every branch push and merges onto the Production Branch.
-        with_git = vercel.Project("withGit",
+        with_git = vercel.Project("with_git",
+            name="example-project-with-git",
             framework="nextjs",
             git_repository={
-                "repo": "vercel/some-repo",
                 "type": "github",
+                "repo": "vercel/some-repo",
             })
         # A project that is not connected to a git repository.
         # Deployments will need to be created manually through
         # terraform, or via the vercel CLI.
-        example = vercel.Project("example", framework="nextjs")
+        example = vercel.Project("example",
+            name="example-project",
+            framework="nextjs")
         ```
 
         ## Import
@@ -1191,16 +1194,19 @@ class Project(pulumi.CustomResource):
         # A project that is connected to a git repository.
         # Deployments will be created automatically
         # on every branch push and merges onto the Production Branch.
-        with_git = vercel.Project("withGit",
+        with_git = vercel.Project("with_git",
+            name="example-project-with-git",
             framework="nextjs",
             git_repository={
-                "repo": "vercel/some-repo",
                 "type": "github",
+                "repo": "vercel/some-repo",
             })
         # A project that is not connected to a git repository.
         # Deployments will need to be created manually through
         # terraform, or via the vercel CLI.
-        example = vercel.Project("example", framework="nextjs")
+        example = vercel.Project("example",
+            name="example-project",
+            framework="nextjs")
         ```
 
         ## Import

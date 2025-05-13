@@ -17,9 +17,9 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const example = new vercel.Project("example", {});
- * const example2 = new vercel.Project("example2", {});
- * const withProjectIds = new vercel.Webhook("withProjectIds", {
+ * const example = new vercel.Project("example", {name: "example-project"});
+ * const example2 = new vercel.Project("example2", {name: "another-example-project"});
+ * const withProjectIds = new vercel.Webhook("with_project_ids", {
  *     events: [
  *         "deployment.created",
  *         "deployment.succeeded",
@@ -30,7 +30,7 @@ import * as utilities from "./utilities";
  *         example2.id,
  *     ],
  * });
- * const withoutProjectIds = new vercel.Webhook("withoutProjectIds", {
+ * const withoutProjectIds = new vercel.Webhook("without_project_ids", {
  *     events: [
  *         "deployment.created",
  *         "deployment.succeeded",

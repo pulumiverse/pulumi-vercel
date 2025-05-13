@@ -21,9 +21,10 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleCustomEnvironment = new vercel.CustomEnvironment("exampleCustomEnvironment", {
- *     projectId: exampleProject.id,
+ * const example = new vercel.Project("example", {name: "example-project-with-custom-env"});
+ * const exampleCustomEnvironment = new vercel.CustomEnvironment("example", {
+ *     projectId: example.id,
+ *     name: "example-custom-env",
  *     description: "A description of the custom environment",
  *     branchTracking: {
  *         pattern: "staging-",

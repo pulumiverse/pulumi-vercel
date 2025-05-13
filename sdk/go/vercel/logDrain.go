@@ -36,15 +36,19 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// Use the vercel_endpoint_verification data source to work out the verification code needed to
+//			// verify the log drain endpoint.
 //			_, err := vercel.GetEndpointVerification(ctx, &vercel.GetEndpointVerificationArgs{}, nil)
 //			if err != nil {
 //				return err
 //			}
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			exampleProject, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewLogDrain(ctx, "exampleLogDrain", &vercel.LogDrainArgs{
+//			_, err = vercel.NewLogDrain(ctx, "example", &vercel.LogDrainArgs{
 //				DeliveryFormat: pulumi.String("json"),
 //				Environments: pulumi.StringArray{
 //					pulumi.String("production"),

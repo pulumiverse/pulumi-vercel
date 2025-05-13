@@ -34,12 +34,15 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project-with-custom-env"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewCustomEnvironment(ctx, "exampleCustomEnvironment", &vercel.CustomEnvironmentArgs{
-//				ProjectId:   exampleProject.ID(),
+//			_, err = vercel.NewCustomEnvironment(ctx, "example", &vercel.CustomEnvironmentArgs{
+//				ProjectId:   example.ID(),
+//				Name:        pulumi.String("example-custom-env"),
 //				Description: pulumi.String("A description of the custom environment"),
 //				BranchTracking: &vercel.CustomEnvironmentBranchTrackingArgs{
 //					Pattern: pulumi.String("staging-"),

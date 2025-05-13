@@ -32,7 +32,8 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", &vercel.ProjectArgs{
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example"),
 //				GitRepository: &vercel.ProjectGitRepositoryArgs{
 //					Type: pulumi.String("github"),
 //					Repo: pulumi.String("vercel/some-repo"),
@@ -43,7 +44,7 @@ import (
 //			}
 //			// A shared environment variable that will be created
 //			// and associated with the "example" project.
-//			_, err = vercel.NewSharedEnvironmentVariable(ctx, "exampleSharedEnvironmentVariable", &vercel.SharedEnvironmentVariableArgs{
+//			_, err = vercel.NewSharedEnvironmentVariable(ctx, "example", &vercel.SharedEnvironmentVariableArgs{
 //				Key:   pulumi.String("EXAMPLE"),
 //				Value: pulumi.String("some_value"),
 //				Targets: pulumi.StringArray{
@@ -51,7 +52,7 @@ import (
 //				},
 //				Comment: pulumi.String("an example shared variable"),
 //				ProjectIds: pulumi.StringArray{
-//					exampleProject.ID(),
+//					example.ID(),
 //				},
 //			})
 //			if err != nil {

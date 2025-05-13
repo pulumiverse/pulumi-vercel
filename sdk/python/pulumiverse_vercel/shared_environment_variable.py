@@ -278,18 +278,20 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository={
-            "type": "github",
-            "repo": "vercel/some-repo",
-        })
+        example = vercel.Project("example",
+            name="example",
+            git_repository={
+                "type": "github",
+                "repo": "vercel/some-repo",
+            })
         # A shared environment variable that will be created
         # and associated with the "example" project.
-        example_shared_environment_variable = vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable",
+        example_shared_environment_variable = vercel.SharedEnvironmentVariable("example",
             key="EXAMPLE",
             value="some_value",
             targets=["production"],
             comment="an example shared variable",
-            project_ids=[example_project.id])
+            project_ids=[example.id])
         ```
 
         ## Import
@@ -337,18 +339,20 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject", git_repository={
-            "type": "github",
-            "repo": "vercel/some-repo",
-        })
+        example = vercel.Project("example",
+            name="example",
+            git_repository={
+                "type": "github",
+                "repo": "vercel/some-repo",
+            })
         # A shared environment variable that will be created
         # and associated with the "example" project.
-        example_shared_environment_variable = vercel.SharedEnvironmentVariable("exampleSharedEnvironmentVariable",
+        example_shared_environment_variable = vercel.SharedEnvironmentVariable("example",
             key="EXAMPLE",
             value="some_value",
             targets=["production"],
             comment="an example shared variable",
-            project_ids=[example_project.id])
+            project_ids=[example.id])
         ```
 
         ## Import

@@ -144,9 +144,9 @@ class ProjectMembers(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_project_members = vercel.ProjectMembers("exampleProjectMembers",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-with-members")
+        example_project_members = vercel.ProjectMembers("example",
+            project_id=example.id,
             members=[
                 {
                     "email": "user@example.com",
@@ -178,9 +178,9 @@ class ProjectMembers(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_project = vercel.Project("exampleProject")
-        example_project_members = vercel.ProjectMembers("exampleProjectMembers",
-            project_id=example_project.id,
+        example = vercel.Project("example", name="example-with-members")
+        example_project_members = vercel.ProjectMembers("example",
+            project_id=example.id,
             members=[
                 {
                     "email": "user@example.com",

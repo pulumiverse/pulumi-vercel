@@ -112,9 +112,9 @@ def get_access_group_project(access_group_id: Optional[str] = None,
     import pulumi
     import pulumi_vercel as vercel
 
-    example_project = vercel.get_project(name="my-existing-project")
-    example_access_group_project = vercel.get_access_group_project(access_group_id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        project_id=vercel_project["example"]["id"])
+    example = vercel.get_project(name="my-existing-project")
+    example_get_access_group_project = vercel.get_access_group_project(access_group_id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        project_id=example_vercel_project["id"])
     ```
 
 
@@ -150,9 +150,9 @@ def get_access_group_project_output(access_group_id: Optional[pulumi.Input[str]]
     import pulumi
     import pulumi_vercel as vercel
 
-    example_project = vercel.get_project(name="my-existing-project")
-    example_access_group_project = vercel.get_access_group_project(access_group_id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        project_id=vercel_project["example"]["id"])
+    example = vercel.get_project(name="my-existing-project")
+    example_get_access_group_project = vercel.get_access_group_project(access_group_id="ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        project_id=example_vercel_project["id"])
     ```
 
 

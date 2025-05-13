@@ -31,7 +31,9 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.NewAccessGroup(ctx, "example", nil)
+//			_, err := vercel.NewAccessGroup(ctx, "example", &vercel.AccessGroupArgs{
+//				Name: pulumi.String("example-access-group"),
+//			})
 //			if err != nil {
 //				return err
 //			}

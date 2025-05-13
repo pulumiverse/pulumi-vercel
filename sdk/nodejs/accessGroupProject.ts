@@ -17,10 +17,10 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleAccessGroup = new vercel.AccessGroup("exampleAccessGroup", {});
- * const exampleAccessGroupProject = new vercel.AccessGroupProject("exampleAccessGroupProject", {
- *     projectId: exampleProject.id,
+ * const example = new vercel.Project("example", {name: "example-project"});
+ * const exampleAccessGroup = new vercel.AccessGroup("example", {name: "example-access-group"});
+ * const exampleAccessGroupProject = new vercel.AccessGroupProject("example", {
+ *     projectId: example.id,
  *     accessGroupId: exampleAccessGroup.id,
  *     role: "ADMIN",
  * });

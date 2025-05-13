@@ -11,14 +11,17 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {gitRepository: {
- *     type: "github",
- *     repo: "vercel/some-repo",
- * }});
+ * const example = new vercel.Project("example", {
+ *     name: "example-project",
+ *     gitRepository: {
+ *         type: "github",
+ *         repo: "vercel/some-repo",
+ *     },
+ * });
  * // An environment variable that will be created
  * // for this project for the "production" environment.
- * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", {
- *     projectId: exampleProject.id,
+ * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("example", {
+ *     projectId: example.id,
  *     key: "foo",
  *     value: "bar",
  *     targets: ["production"],
@@ -26,8 +29,8 @@ import * as utilities from "./utilities";
  * });
  * // An environment variable that will be created
  * // for this project for the "preview" environment when the branch is "staging".
- * const exampleGitBranch = new vercel.ProjectEnvironmentVariable("exampleGitBranch", {
- *     projectId: exampleProject.id,
+ * const exampleGitBranch = new vercel.ProjectEnvironmentVariable("example_git_branch", {
+ *     projectId: example.id,
  *     key: "foo",
  *     value: "bar-staging",
  *     targets: ["preview"],
@@ -36,8 +39,8 @@ import * as utilities from "./utilities";
  * });
  * // A sensitive environment variable that will be created
  * // for this project for the "production" environment.
- * const exampleSensitive = new vercel.ProjectEnvironmentVariable("exampleSensitive", {
- *     projectId: exampleProject.id,
+ * const exampleSensitive = new vercel.ProjectEnvironmentVariable("example_sensitive", {
+ *     projectId: example.id,
  *     key: "foo",
  *     value: "bar-production",
  *     targets: ["production"],

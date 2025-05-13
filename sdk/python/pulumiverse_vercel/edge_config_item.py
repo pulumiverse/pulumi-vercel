@@ -180,9 +180,9 @@ class EdgeConfigItem(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_edge_config_item = vercel.EdgeConfigItem("exampleEdgeConfigItem",
-            edge_config_id=example_edge_config.id,
+        example = vercel.EdgeConfig("example", name="example")
+        example_edge_config_item = vercel.EdgeConfigItem("example",
+            edge_config_id=example.id,
             key="foobar",
             value="baz")
         ```
@@ -239,9 +239,9 @@ class EdgeConfigItem(pulumi.CustomResource):
         import pulumi
         import pulumiverse_vercel as vercel
 
-        example_edge_config = vercel.EdgeConfig("exampleEdgeConfig")
-        example_edge_config_item = vercel.EdgeConfigItem("exampleEdgeConfigItem",
-            edge_config_id=example_edge_config.id,
+        example = vercel.EdgeConfig("example", name="example")
+        example_edge_config_item = vercel.EdgeConfigItem("example",
+            edge_config_id=example.id,
             key="foobar",
             value="baz")
         ```

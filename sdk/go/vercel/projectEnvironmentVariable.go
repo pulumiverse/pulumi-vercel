@@ -26,7 +26,8 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", &vercel.ProjectArgs{
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-project"),
 //				GitRepository: &vercel.ProjectGitRepositoryArgs{
 //					Type: pulumi.String("github"),
 //					Repo: pulumi.String("vercel/some-repo"),
@@ -37,8 +38,8 @@ import (
 //			}
 //			// An environment variable that will be created
 //			// for this project for the "production" environment.
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleProjectEnvironmentVariable", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: exampleProject.ID(),
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example", &vercel.ProjectEnvironmentVariableArgs{
+//				ProjectId: example.ID(),
 //				Key:       pulumi.String("foo"),
 //				Value:     pulumi.String("bar"),
 //				Targets: pulumi.StringArray{
@@ -51,8 +52,8 @@ import (
 //			}
 //			// An environment variable that will be created
 //			// for this project for the "preview" environment when the branch is "staging".
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleGitBranch", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: exampleProject.ID(),
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example_git_branch", &vercel.ProjectEnvironmentVariableArgs{
+//				ProjectId: example.ID(),
 //				Key:       pulumi.String("foo"),
 //				Value:     pulumi.String("bar-staging"),
 //				Targets: pulumi.StringArray{
@@ -66,8 +67,8 @@ import (
 //			}
 //			// A sensitive environment variable that will be created
 //			// for this project for the "production" environment.
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "exampleSensitive", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: exampleProject.ID(),
+//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example_sensitive", &vercel.ProjectEnvironmentVariableArgs{
+//				ProjectId: example.ID(),
 //				Key:       pulumi.String("foo"),
 //				Value:     pulumi.String("bar-production"),
 //				Targets: pulumi.StringArray{

@@ -16,9 +16,9 @@ import * as utilities from "./utilities";
  * import * as vercel from "@pulumiverse/vercel";
  *
  * const example = new vercel.TeamMember("example", {
- *     role: "MEMBER",
  *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
+ *     role: "MEMBER",
  * });
  * ```
  *

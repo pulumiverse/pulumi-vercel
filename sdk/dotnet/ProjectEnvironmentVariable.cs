@@ -21,8 +21,9 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleProject = new Vercel.Project("exampleProject", new()
+    ///     var example = new Vercel.Project("example", new()
     ///     {
+    ///         Name = "example-project",
     ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
     ///         {
     ///             Type = "github",
@@ -32,9 +33,9 @@ namespace Pulumiverse.Vercel
     /// 
     ///     // An environment variable that will be created
     ///     // for this project for the "production" environment.
-    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", new()
+    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("example", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         ProjectId = example.Id,
     ///         Key = "foo",
     ///         Value = "bar",
     ///         Targets = new[]
@@ -46,9 +47,9 @@ namespace Pulumiverse.Vercel
     /// 
     ///     // An environment variable that will be created
     ///     // for this project for the "preview" environment when the branch is "staging".
-    ///     var exampleGitBranch = new Vercel.ProjectEnvironmentVariable("exampleGitBranch", new()
+    ///     var exampleGitBranch = new Vercel.ProjectEnvironmentVariable("example_git_branch", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         ProjectId = example.Id,
     ///         Key = "foo",
     ///         Value = "bar-staging",
     ///         Targets = new[]
@@ -61,9 +62,9 @@ namespace Pulumiverse.Vercel
     /// 
     ///     // A sensitive environment variable that will be created
     ///     // for this project for the "production" environment.
-    ///     var exampleSensitive = new Vercel.ProjectEnvironmentVariable("exampleSensitive", new()
+    ///     var exampleSensitive = new Vercel.ProjectEnvironmentVariable("example_sensitive", new()
     ///     {
-    ///         ProjectId = exampleProject.Id,
+    ///         ProjectId = example.Id,
     ///         Key = "foo",
     ///         Value = "bar-production",
     ///         Targets = new[]

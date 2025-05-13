@@ -15,9 +15,9 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const exampleProject = new vercel.Project("exampleProject", {});
- * const exampleAttackChallengeMode = new vercel.AttackChallengeMode("exampleAttackChallengeMode", {
- *     projectId: exampleProject.id,
+ * const example = new vercel.Project("example", {name: "example-project"});
+ * const exampleAttackChallengeMode = new vercel.AttackChallengeMode("example", {
+ *     projectId: example.id,
  *     enabled: true,
  * });
  * ```

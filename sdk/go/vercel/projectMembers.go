@@ -26,12 +26,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.NewProject(ctx, "exampleProject", nil)
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//				Name: pulumi.String("example-with-members"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewProjectMembers(ctx, "exampleProjectMembers", &vercel.ProjectMembersArgs{
-//				ProjectId: exampleProject.ID(),
+//			_, err = vercel.NewProjectMembers(ctx, "example", &vercel.ProjectMembersArgs{
+//				ProjectId: example.ID(),
 //				Members: vercel.ProjectMembersMemberArray{
 //					&vercel.ProjectMembersMemberArgs{
 //						Email: pulumi.String("user@example.com"),

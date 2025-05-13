@@ -32,12 +32,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleEdgeConfig, err := vercel.NewEdgeConfig(ctx, "exampleEdgeConfig", nil)
+//			example, err := vercel.NewEdgeConfig(ctx, "example", &vercel.EdgeConfigArgs{
+//				Name: pulumi.String("example"),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = vercel.NewEdgeConfigItem(ctx, "exampleEdgeConfigItem", &vercel.EdgeConfigItemArgs{
-//				EdgeConfigId: exampleEdgeConfig.ID(),
+//			_, err = vercel.NewEdgeConfigItem(ctx, "example", &vercel.EdgeConfigItemArgs{
+//				EdgeConfigId: example.ID(),
 //				Key:          pulumi.String("foobar"),
 //				Value:        pulumi.String("baz"),
 //			})

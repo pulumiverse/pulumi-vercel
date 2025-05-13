@@ -29,14 +29,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
+//			example, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
 //				Name: "example-project-with-custom-env",
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
 //			_, err = vercel.LookupCustomEnvironment(ctx, &vercel.LookupCustomEnvironmentArgs{
-//				ProjectId: exampleProject.Id,
+//				ProjectId: example.Id,
 //				Name:      "example-custom-env",
 //			}, nil)
 //			if err != nil {
