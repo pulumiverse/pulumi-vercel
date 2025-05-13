@@ -22,7 +22,7 @@ import (
 
 	_ "embed" // nolint: golint
 
-	"github.com/vercel/terraform-provider-vercel/v2/vercel"
+	"github.com/vercel/terraform-provider-vercel/v3/vercel"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 

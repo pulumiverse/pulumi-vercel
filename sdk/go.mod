@@ -1,10 +1,11 @@
-module github.com/pulumiverse/pulumi-vercel/sdk/v2
+module github.com/pulumiverse/pulumi-vercel/sdk/v3
 
 go 1.22
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pulumi/pulumi/sdk/v3 v3.136.1
+	github.com/pulumiverse/pulumi-vercel/sdk/v2 v2.0.0-20250513120505-c5264df4f2bf
 )
 
 require (
