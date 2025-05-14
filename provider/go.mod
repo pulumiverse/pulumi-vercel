@@ -6,7 +6,7 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.45.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
 	github.com/pulumi/pulumi/sdk/v3 v3.142.0
-	github.com/vercel/terraform-provider-vercel/v3 v3.1.1
+	github.com/vercel/terraform-provider-vercel/v3 v3.2.1
 	golang.org/x/text v0.21.0
 )
 
