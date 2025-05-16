@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": ["config:best-practices"],
   "dependencyDashboard": true,
   "configMigration": true,
   "packageRules": [
@@ -14,7 +14,10 @@
       "enabled": false
     },
     {
-      "matchFileNames": ["sdk/**"],
+      "matchFileNames": [
+        "sdk/**",
+        ".github/**",
+      ],
       "enabled": false
     },
     {
@@ -29,13 +32,10 @@
     }
   ],
   "automerge": true,
-  "internalChecksFilter": "strict",
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 4am on Friday"]
   },
   "minimumReleaseAge": "3 days",
-  "schedule": ["at any time"],
-  "automergeStrategy": "squash",
   "postUpdateOptions": ["gomodTidy"]
 }
