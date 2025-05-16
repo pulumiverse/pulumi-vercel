@@ -16,7 +16,7 @@
     {
       "matchFileNames": [
         "sdk/**",
-        ".github/**",
+        ".github/**"
       ],
       "enabled": false
     },
