@@ -25,6 +25,11 @@ export type AttackChallengeMode = import("./attackChallengeMode").AttackChalleng
 export const AttackChallengeMode: typeof import("./attackChallengeMode").AttackChallengeMode = null as any;
 utilities.lazyLoad(exports, ["AttackChallengeMode"], () => require("./attackChallengeMode"));
 
+export { CustomCertificateArgs, CustomCertificateState } from "./customCertificate";
+export type CustomCertificate = import("./customCertificate").CustomCertificate;
+export const CustomCertificate: typeof import("./customCertificate").CustomCertificate = null as any;
+utilities.lazyLoad(exports, ["CustomCertificate"], () => require("./customCertificate"));
+
 export { CustomEnvironmentArgs, CustomEnvironmentState } from "./customEnvironment";
 export type CustomEnvironment = import("./customEnvironment").CustomEnvironment;
 export const CustomEnvironment: typeof import("./customEnvironment").CustomEnvironment = null as any;
@@ -287,6 +292,8 @@ const _module = {
                 return new Alias(name, <any>undefined, { urn })
             case "vercel:index/attackChallengeMode:AttackChallengeMode":
                 return new AttackChallengeMode(name, <any>undefined, { urn })
+            case "vercel:index/customCertificate:CustomCertificate":
+                return new CustomCertificate(name, <any>undefined, { urn })
             case "vercel:index/customEnvironment:CustomEnvironment":
                 return new CustomEnvironment(name, <any>undefined, { urn })
             case "vercel:index/deployment:Deployment":
@@ -344,6 +351,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/accessGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/customCertificate", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customEnvironment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)

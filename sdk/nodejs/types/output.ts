@@ -78,6 +78,10 @@ export interface FirewallConfigIpRulesRule {
 
 export interface FirewallConfigManagedRulesets {
     /**
+     * Enable the ai*bots managed ruleset and select action
+     */
+    aiBots?: outputs.FirewallConfigManagedRulesetsAiBots;
+    /**
      * Enable the bot*filter managed ruleset and select action
      */
     botFilter?: outputs.FirewallConfigManagedRulesetsBotFilter;
@@ -85,6 +89,11 @@ export interface FirewallConfigManagedRulesets {
      * Enable the owasp managed rulesets and select ruleset behaviors
      */
     owasp?: outputs.FirewallConfigManagedRulesetsOwasp;
+}
+
+export interface FirewallConfigManagedRulesetsAiBots {
+    action?: string;
+    active?: boolean;
 }
 
 export interface FirewallConfigManagedRulesetsBotFilter {

@@ -27,6 +27,8 @@ __all__ = [
     'FirewallConfigIpRulesRuleArgsDict',
     'FirewallConfigManagedRulesetsArgs',
     'FirewallConfigManagedRulesetsArgsDict',
+    'FirewallConfigManagedRulesetsAiBotsArgs',
+    'FirewallConfigManagedRulesetsAiBotsArgsDict',
     'FirewallConfigManagedRulesetsBotFilterArgs',
     'FirewallConfigManagedRulesetsBotFilterArgsDict',
     'FirewallConfigManagedRulesetsOwaspArgs',
@@ -470,6 +472,10 @@ class FirewallConfigIpRulesRuleArgs:
 
 if not MYPY:
     class FirewallConfigManagedRulesetsArgsDict(TypedDict):
+        ai_bots: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgsDict']]
+        """
+        Enable the ai*bots managed ruleset and select action
+        """
         bot_filter: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgsDict']]
         """
         Enable the bot*filter managed ruleset and select action
@@ -484,16 +490,32 @@ elif False:
 @pulumi.input_type
 class FirewallConfigManagedRulesetsArgs:
     def __init__(__self__, *,
+                 ai_bots: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs']] = None,
                  bot_filter: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']] = None,
                  owasp: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']] = None):
         """
+        :param pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs'] ai_bots: Enable the ai*bots managed ruleset and select action
         :param pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs'] bot_filter: Enable the bot*filter managed ruleset and select action
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs'] owasp: Enable the owasp managed rulesets and select ruleset behaviors
         """
+        if ai_bots is not None:
+            pulumi.set(__self__, "ai_bots", ai_bots)
         if bot_filter is not None:
             pulumi.set(__self__, "bot_filter", bot_filter)
         if owasp is not None:
             pulumi.set(__self__, "owasp", owasp)
+
+    @property
+    @pulumi.getter(name="aiBots")
+    def ai_bots(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs']]:
+        """
+        Enable the ai*bots managed ruleset and select action
+        """
+        return pulumi.get(self, "ai_bots")
+
+    @ai_bots.setter
+    def ai_bots(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs']]):
+        pulumi.set(self, "ai_bots", value)
 
     @property
     @pulumi.getter(name="botFilter")
@@ -518,6 +540,42 @@ class FirewallConfigManagedRulesetsArgs:
     @owasp.setter
     def owasp(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']]):
         pulumi.set(self, "owasp", value)
+
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsAiBotsArgsDict(TypedDict):
+        action: NotRequired[pulumi.Input[str]]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsAiBotsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class FirewallConfigManagedRulesetsAiBotsArgs:
+    def __init__(__self__, *,
+                 action: Optional[pulumi.Input[str]] = None,
+                 active: Optional[pulumi.Input[bool]] = None):
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "action", value)
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "active")
+
+    @active.setter
+    def active(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "active", value)
 
 
 if not MYPY:
