@@ -80,6 +80,8 @@ type LookupSharedEnvironmentVariableArgs struct {
 
 // A collection of values returned by getSharedEnvironmentVariable.
 type LookupSharedEnvironmentVariableResult struct {
+	// Whether the Environment Variable should be applied to all custom environments.
+	ApplyToAllCustomEnvironments bool `pulumi:"applyToAllCustomEnvironments"`
 	// A comment explaining what the environment variable is for.
 	Comment string `pulumi:"comment"`
 	// The ID of the Environment Variable.
@@ -146,6 +148,11 @@ func (o LookupSharedEnvironmentVariableResultOutput) ToLookupSharedEnvironmentVa
 
 func (o LookupSharedEnvironmentVariableResultOutput) ToLookupSharedEnvironmentVariableResultOutputWithContext(ctx context.Context) LookupSharedEnvironmentVariableResultOutput {
 	return o
+}
+
+// Whether the Environment Variable should be applied to all custom environments.
+func (o LookupSharedEnvironmentVariableResultOutput) ApplyToAllCustomEnvironments() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupSharedEnvironmentVariableResult) bool { return v.ApplyToAllCustomEnvironments }).(pulumi.BoolOutput)
 }
 
 // A comment explaining what the environment variable is for.
