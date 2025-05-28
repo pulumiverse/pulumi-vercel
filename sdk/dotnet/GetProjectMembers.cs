@@ -131,7 +131,7 @@ namespace Pulumiverse.Vercel
         /// <summary>
         /// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
         /// </summary>
-        public readonly string? TeamId;
+        public readonly string TeamId;
 
         [OutputConstructor]
         private GetProjectMembersResult(
@@ -141,7 +141,7 @@ namespace Pulumiverse.Vercel
 
             string projectId,
 
-            string? teamId)
+            string teamId)
         {
             Id = id;
             Members = members;

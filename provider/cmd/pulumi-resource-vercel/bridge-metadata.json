@@ -18,6 +18,10 @@
                 "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
                 "majorVersion": 3
             },
+            "vercel_custom_certificate": {
+                "current": "vercel:index/customCertificate:CustomCertificate",
+                "majorVersion": 3
+            },
             "vercel_custom_environment": {
                 "current": "vercel:index/customEnvironment:CustomEnvironment",
                 "majorVersion": 3
