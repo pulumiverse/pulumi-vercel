@@ -78,6 +78,10 @@ export interface FirewallConfigIpRulesRule {
 
 export interface FirewallConfigManagedRulesets {
     /**
+     * Enable the ai*bots managed ruleset and select action
+     */
+    aiBots?: pulumi.Input<inputs.FirewallConfigManagedRulesetsAiBots>;
+    /**
      * Enable the bot*filter managed ruleset and select action
      */
     botFilter?: pulumi.Input<inputs.FirewallConfigManagedRulesetsBotFilter>;
@@ -85,6 +89,11 @@ export interface FirewallConfigManagedRulesets {
      * Enable the owasp managed rulesets and select ruleset behaviors
      */
     owasp?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwasp>;
+}
+
+export interface FirewallConfigManagedRulesetsAiBots {
+    action?: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
 }
 
 export interface FirewallConfigManagedRulesetsBotFilter {

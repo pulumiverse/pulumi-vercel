@@ -179,6 +179,10 @@ namespace Pulumiverse.Vercel
     public sealed class GetSharedEnvironmentVariableResult
     {
         /// <summary>
+        /// Whether the Environment Variable should be applied to all custom environments.
+        /// </summary>
+        public readonly bool ApplyToAllCustomEnvironments;
+        /// <summary>
         /// A comment explaining what the environment variable is for.
         /// </summary>
         public readonly string Comment;
@@ -213,6 +217,8 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetSharedEnvironmentVariableResult(
+            bool applyToAllCustomEnvironments,
+
             string comment,
 
             string id,
@@ -229,6 +235,7 @@ namespace Pulumiverse.Vercel
 
             string value)
         {
+            ApplyToAllCustomEnvironments = applyToAllCustomEnvironments;
             Comment = comment;
             Id = id;
             Key = key;

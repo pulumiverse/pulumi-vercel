@@ -71,6 +71,10 @@ export interface GetSharedEnvironmentVariableArgs {
  */
 export interface GetSharedEnvironmentVariableResult {
     /**
+     * Whether the Environment Variable should be applied to all custom environments.
+     */
+    readonly applyToAllCustomEnvironments: boolean;
+    /**
      * A comment explaining what the environment variable is for.
      */
     readonly comment: string;

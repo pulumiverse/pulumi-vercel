@@ -26,7 +26,10 @@ class GetSharedEnvironmentVariableResult:
     """
     A collection of values returned by getSharedEnvironmentVariable.
     """
-    def __init__(__self__, comment=None, id=None, key=None, project_ids=None, sensitive=None, targets=None, team_id=None, value=None):
+    def __init__(__self__, apply_to_all_custom_environments=None, comment=None, id=None, key=None, project_ids=None, sensitive=None, targets=None, team_id=None, value=None):
+        if apply_to_all_custom_environments and not isinstance(apply_to_all_custom_environments, bool):
+            raise TypeError("Expected argument 'apply_to_all_custom_environments' to be a bool")
+        pulumi.set(__self__, "apply_to_all_custom_environments", apply_to_all_custom_environments)
         if comment and not isinstance(comment, str):
             raise TypeError("Expected argument 'comment' to be a str")
         pulumi.set(__self__, "comment", comment)
@@ -51,6 +54,14 @@ class GetSharedEnvironmentVariableResult:
         if value and not isinstance(value, str):
             raise TypeError("Expected argument 'value' to be a str")
         pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter(name="applyToAllCustomEnvironments")
+    def apply_to_all_custom_environments(self) -> bool:
+        """
+        Whether the Environment Variable should be applied to all custom environments.
+        """
+        return pulumi.get(self, "apply_to_all_custom_environments")
 
     @property
     @pulumi.getter
@@ -123,6 +134,7 @@ class AwaitableGetSharedEnvironmentVariableResult(GetSharedEnvironmentVariableRe
         if False:
             yield self
         return GetSharedEnvironmentVariableResult(
+            apply_to_all_custom_environments=self.apply_to_all_custom_environments,
             comment=self.comment,
             id=self.id,
             key=self.key,
@@ -178,6 +190,7 @@ def get_shared_environment_variable(id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable', __args__, opts=opts, typ=GetSharedEnvironmentVariableResult).value
 
     return AwaitableGetSharedEnvironmentVariableResult(
+        apply_to_all_custom_environments=pulumi.get(__ret__, 'apply_to_all_custom_environments'),
         comment=pulumi.get(__ret__, 'comment'),
         id=pulumi.get(__ret__, 'id'),
         key=pulumi.get(__ret__, 'key'),
@@ -230,6 +243,7 @@ def get_shared_environment_variable_output(id: Optional[pulumi.Input[Optional[st
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getSharedEnvironmentVariable:getSharedEnvironmentVariable', __args__, opts=opts, typ=GetSharedEnvironmentVariableResult)
     return __ret__.apply(lambda __response__: GetSharedEnvironmentVariableResult(
+        apply_to_all_custom_environments=pulumi.get(__response__, 'apply_to_all_custom_environments'),
         comment=pulumi.get(__response__, 'comment'),
         id=pulumi.get(__response__, 'id'),
         key=pulumi.get(__response__, 'key'),

@@ -67,7 +67,7 @@ class GetProjectMembersResult:
 
     @property
     @pulumi.getter(name="teamId")
-    def team_id(self) -> Optional[str]:
+    def team_id(self) -> str:
         """
         The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
         """

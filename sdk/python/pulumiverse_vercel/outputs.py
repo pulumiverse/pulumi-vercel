@@ -22,6 +22,7 @@ __all__ = [
     'FirewallConfigIpRules',
     'FirewallConfigIpRulesRule',
     'FirewallConfigManagedRulesets',
+    'FirewallConfigManagedRulesetsAiBots',
     'FirewallConfigManagedRulesetsBotFilter',
     'FirewallConfigManagedRulesetsOwasp',
     'FirewallConfigManagedRulesetsOwaspGen',
@@ -321,7 +322,9 @@ class FirewallConfigManagedRulesets(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "botFilter":
+        if key == "aiBots":
+            suggest = "ai_bots"
+        elif key == "botFilter":
             suggest = "bot_filter"
 
         if suggest:
@@ -336,16 +339,28 @@ class FirewallConfigManagedRulesets(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 ai_bots: Optional['outputs.FirewallConfigManagedRulesetsAiBots'] = None,
                  bot_filter: Optional['outputs.FirewallConfigManagedRulesetsBotFilter'] = None,
                  owasp: Optional['outputs.FirewallConfigManagedRulesetsOwasp'] = None):
         """
+        :param 'FirewallConfigManagedRulesetsAiBotsArgs' ai_bots: Enable the ai*bots managed ruleset and select action
         :param 'FirewallConfigManagedRulesetsBotFilterArgs' bot_filter: Enable the bot*filter managed ruleset and select action
         :param 'FirewallConfigManagedRulesetsOwaspArgs' owasp: Enable the owasp managed rulesets and select ruleset behaviors
         """
+        if ai_bots is not None:
+            pulumi.set(__self__, "ai_bots", ai_bots)
         if bot_filter is not None:
             pulumi.set(__self__, "bot_filter", bot_filter)
         if owasp is not None:
             pulumi.set(__self__, "owasp", owasp)
+
+    @property
+    @pulumi.getter(name="aiBots")
+    def ai_bots(self) -> Optional['outputs.FirewallConfigManagedRulesetsAiBots']:
+        """
+        Enable the ai*bots managed ruleset and select action
+        """
+        return pulumi.get(self, "ai_bots")
 
     @property
     @pulumi.getter(name="botFilter")
@@ -362,6 +377,27 @@ class FirewallConfigManagedRulesets(dict):
         Enable the owasp managed rulesets and select ruleset behaviors
         """
         return pulumi.get(self, "owasp")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsAiBots(dict):
+    def __init__(__self__, *,
+                 action: Optional[str] = None,
+                 active: Optional[bool] = None):
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[str]:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
 
 
 @pulumi.output_type

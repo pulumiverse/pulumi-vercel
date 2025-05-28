@@ -9,6 +9,7 @@ from .access_group import *
 from .access_group_project import *
 from .alias import *
 from .attack_challenge_mode import *
+from .custom_certificate import *
 from .custom_environment import *
 from .deployment import *
 from .dns_record import *
@@ -100,6 +101,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/attackChallengeMode:AttackChallengeMode": "AttackChallengeMode"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/customCertificate",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/customCertificate:CustomCertificate": "CustomCertificate"
   }
  },
  {

@@ -71,7 +71,7 @@ type LookupProjectMembersResult struct {
 	// The ID of the Vercel Project.
 	ProjectId string `pulumi:"projectId"`
 	// The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
-	TeamId *string `pulumi:"teamId"`
+	TeamId string `pulumi:"teamId"`
 }
 
 func LookupProjectMembersOutput(ctx *pulumi.Context, args LookupProjectMembersOutputArgs, opts ...pulumi.InvokeOption) LookupProjectMembersResultOutput {
@@ -136,8 +136,8 @@ func (o LookupProjectMembersResultOutput) ProjectId() pulumi.StringOutput {
 }
 
 // The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
-func (o LookupProjectMembersResultOutput) TeamId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LookupProjectMembersResult) *string { return v.TeamId }).(pulumi.StringPtrOutput)
+func (o LookupProjectMembersResultOutput) TeamId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupProjectMembersResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
 func init() {

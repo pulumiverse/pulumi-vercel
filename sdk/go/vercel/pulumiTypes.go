@@ -834,6 +834,8 @@ func (o FirewallConfigIpRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallC
 }
 
 type FirewallConfigManagedRulesets struct {
+	// Enable the ai*bots managed ruleset and select action
+	AiBots *FirewallConfigManagedRulesetsAiBots `pulumi:"aiBots"`
 	// Enable the bot*filter managed ruleset and select action
 	BotFilter *FirewallConfigManagedRulesetsBotFilter `pulumi:"botFilter"`
 	// Enable the owasp managed rulesets and select ruleset behaviors
@@ -852,6 +854,8 @@ type FirewallConfigManagedRulesetsInput interface {
 }
 
 type FirewallConfigManagedRulesetsArgs struct {
+	// Enable the ai*bots managed ruleset and select action
+	AiBots FirewallConfigManagedRulesetsAiBotsPtrInput `pulumi:"aiBots"`
 	// Enable the bot*filter managed ruleset and select action
 	BotFilter FirewallConfigManagedRulesetsBotFilterPtrInput `pulumi:"botFilter"`
 	// Enable the owasp managed rulesets and select ruleset behaviors
@@ -935,6 +939,11 @@ func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsPtrO
 	}).(FirewallConfigManagedRulesetsPtrOutput)
 }
 
+// Enable the ai*bots managed ruleset and select action
+func (o FirewallConfigManagedRulesetsOutput) AiBots() FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsAiBots { return v.AiBots }).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
+}
+
 // Enable the bot*filter managed ruleset and select action
 func (o FirewallConfigManagedRulesetsOutput) BotFilter() FirewallConfigManagedRulesetsBotFilterPtrOutput {
 	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotFilter { return v.BotFilter }).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
@@ -969,6 +978,16 @@ func (o FirewallConfigManagedRulesetsPtrOutput) Elem() FirewallConfigManagedRule
 	}).(FirewallConfigManagedRulesetsOutput)
 }
 
+// Enable the ai*bots managed ruleset and select action
+func (o FirewallConfigManagedRulesetsPtrOutput) AiBots() FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsAiBots {
+		if v == nil {
+			return nil
+		}
+		return v.AiBots
+	}).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
+}
+
 // Enable the bot*filter managed ruleset and select action
 func (o FirewallConfigManagedRulesetsPtrOutput) BotFilter() FirewallConfigManagedRulesetsBotFilterPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotFilter {
@@ -987,6 +1006,154 @@ func (o FirewallConfigManagedRulesetsPtrOutput) Owasp() FirewallConfigManagedRul
 		}
 		return v.Owasp
 	}).(FirewallConfigManagedRulesetsOwaspPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBots struct {
+	Action *string `pulumi:"action"`
+	Active *bool   `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsAiBotsInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsArgs and FirewallConfigManagedRulesetsAiBotsOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsAiBotsInput` via:
+//
+//	FirewallConfigManagedRulesetsAiBotsArgs{...}
+type FirewallConfigManagedRulesetsAiBotsInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsAiBotsOutput() FirewallConfigManagedRulesetsAiBotsOutput
+	ToFirewallConfigManagedRulesetsAiBotsOutputWithContext(context.Context) FirewallConfigManagedRulesetsAiBotsOutput
+}
+
+type FirewallConfigManagedRulesetsAiBotsArgs struct {
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	Active pulumi.BoolPtrInput   `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsAiBotsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsAiBots)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsArgs) ToFirewallConfigManagedRulesetsAiBotsOutput() FirewallConfigManagedRulesetsAiBotsOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsArgs) ToFirewallConfigManagedRulesetsAiBotsOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsOutput)
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsArgs) ToFirewallConfigManagedRulesetsAiBotsPtrOutput() FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsArgs) ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsOutput).ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsAiBotsPtrInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsArgs, FirewallConfigManagedRulesetsAiBotsPtr and FirewallConfigManagedRulesetsAiBotsPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsAiBotsPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsAiBotsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsAiBotsPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsAiBotsPtrOutput() FirewallConfigManagedRulesetsAiBotsPtrOutput
+	ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsAiBotsPtrOutput
+}
+
+type firewallConfigManagedRulesetsAiBotsPtrType FirewallConfigManagedRulesetsAiBotsArgs
+
+func FirewallConfigManagedRulesetsAiBotsPtr(v *FirewallConfigManagedRulesetsAiBotsArgs) FirewallConfigManagedRulesetsAiBotsPtrInput {
+	return (*firewallConfigManagedRulesetsAiBotsPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsAiBotsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsAiBots)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsAiBotsPtrType) ToFirewallConfigManagedRulesetsAiBotsPtrOutput() FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsAiBotsPtrType) ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsAiBotsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsAiBots)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsOutput) ToFirewallConfigManagedRulesetsAiBotsOutput() FirewallConfigManagedRulesetsAiBotsOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsOutput) ToFirewallConfigManagedRulesetsAiBotsOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsOutput) ToFirewallConfigManagedRulesetsAiBotsPtrOutput() FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsOutput) ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsAiBots) *FirewallConfigManagedRulesetsAiBots {
+		return &v
+	}).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBots) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBots) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsAiBotsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsAiBots)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) ToFirewallConfigManagedRulesetsAiBotsPtrOutput() FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) ToFirewallConfigManagedRulesetsAiBotsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Elem() FirewallConfigManagedRulesetsAiBotsOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) FirewallConfigManagedRulesetsAiBots {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsAiBots
+		return ret
+	}).(FirewallConfigManagedRulesetsAiBotsOutput)
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
 }
 
 type FirewallConfigManagedRulesetsBotFilter struct {
@@ -8152,6 +8319,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesRuleArrayInput)(nil)).Elem(), FirewallConfigIpRulesRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
@@ -8265,6 +8434,8 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigIpRulesRuleArrayOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspOutput{})
