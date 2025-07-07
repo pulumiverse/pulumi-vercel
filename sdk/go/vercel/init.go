@@ -29,6 +29,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Alias{}
 	case "vercel:index/attackChallengeMode:AttackChallengeMode":
 		r = &AttackChallengeMode{}
+	case "vercel:index/customCertificate:CustomCertificate":
+		r = &CustomCertificate{}
 	case "vercel:index/customEnvironment:CustomEnvironment":
 		r = &CustomEnvironment{}
 	case "vercel:index/deployment:Deployment":
@@ -126,6 +128,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/attackChallengeMode",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/customCertificate",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

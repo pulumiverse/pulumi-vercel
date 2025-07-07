@@ -64,7 +64,7 @@ export interface GetProjectMembersResult {
     /**
      * The team ID to which the project belongs. Required when accessing a team project if a default team has not been set in the provider.
      */
-    readonly teamId?: string;
+    readonly teamId: string;
 }
 /**
  * Retrieves members and their roles for a Vercel Project.

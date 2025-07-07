@@ -82,6 +82,8 @@ import (
 type SharedEnvironmentVariable struct {
 	pulumi.CustomResourceState
 
+	// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+	ApplyToAllCustomEnvironments pulumi.BoolOutput `pulumi:"applyToAllCustomEnvironments"`
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringOutput `pulumi:"comment"`
 	// The name of the Environment Variable.
@@ -147,6 +149,8 @@ func GetSharedEnvironmentVariable(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering SharedEnvironmentVariable resources.
 type sharedEnvironmentVariableState struct {
+	// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+	ApplyToAllCustomEnvironments *bool `pulumi:"applyToAllCustomEnvironments"`
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
 	// The name of the Environment Variable.
@@ -164,6 +168,8 @@ type sharedEnvironmentVariableState struct {
 }
 
 type SharedEnvironmentVariableState struct {
+	// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+	ApplyToAllCustomEnvironments pulumi.BoolPtrInput
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringPtrInput
 	// The name of the Environment Variable.
@@ -185,6 +191,8 @@ func (SharedEnvironmentVariableState) ElementType() reflect.Type {
 }
 
 type sharedEnvironmentVariableArgs struct {
+	// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+	ApplyToAllCustomEnvironments *bool `pulumi:"applyToAllCustomEnvironments"`
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
 	// The name of the Environment Variable.
@@ -203,6 +211,8 @@ type sharedEnvironmentVariableArgs struct {
 
 // The set of arguments for constructing a SharedEnvironmentVariable resource.
 type SharedEnvironmentVariableArgs struct {
+	// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+	ApplyToAllCustomEnvironments pulumi.BoolPtrInput
 	// A comment explaining what the environment variable is for.
 	Comment pulumi.StringPtrInput
 	// The name of the Environment Variable.
@@ -304,6 +314,11 @@ func (o SharedEnvironmentVariableOutput) ToSharedEnvironmentVariableOutput() Sha
 
 func (o SharedEnvironmentVariableOutput) ToSharedEnvironmentVariableOutputWithContext(ctx context.Context) SharedEnvironmentVariableOutput {
 	return o
+}
+
+// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+func (o SharedEnvironmentVariableOutput) ApplyToAllCustomEnvironments() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.BoolOutput { return v.ApplyToAllCustomEnvironments }).(pulumi.BoolOutput)
 }
 
 // A comment explaining what the environment variable is for.

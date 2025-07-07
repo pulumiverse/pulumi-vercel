@@ -80,6 +80,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
     }
 
     /**
+     * Whether the shared environment variable should be applied to all custom environments in the linked projects.
+     */
+    public readonly applyToAllCustomEnvironments!: pulumi.Output<boolean>;
+    /**
      * A comment explaining what the environment variable is for.
      */
     public readonly comment!: pulumi.Output<string>;
@@ -121,6 +125,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as SharedEnvironmentVariableState | undefined;
+            resourceInputs["applyToAllCustomEnvironments"] = state ? state.applyToAllCustomEnvironments : undefined;
             resourceInputs["comment"] = state ? state.comment : undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["projectIds"] = state ? state.projectIds : undefined;
@@ -142,6 +147,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
+            resourceInputs["applyToAllCustomEnvironments"] = args ? args.applyToAllCustomEnvironments : undefined;
             resourceInputs["comment"] = args ? args.comment : undefined;
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["projectIds"] = args ? args.projectIds : undefined;
@@ -161,6 +167,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
  * Input properties used for looking up and filtering SharedEnvironmentVariable resources.
  */
 export interface SharedEnvironmentVariableState {
+    /**
+     * Whether the shared environment variable should be applied to all custom environments in the linked projects.
+     */
+    applyToAllCustomEnvironments?: pulumi.Input<boolean>;
     /**
      * A comment explaining what the environment variable is for.
      */
@@ -195,6 +205,10 @@ export interface SharedEnvironmentVariableState {
  * The set of arguments for constructing a SharedEnvironmentVariable resource.
  */
 export interface SharedEnvironmentVariableArgs {
+    /**
+     * Whether the shared environment variable should be applied to all custom environments in the linked projects.
+     */
+    applyToAllCustomEnvironments?: pulumi.Input<boolean>;
     /**
      * A comment explaining what the environment variable is for.
      */

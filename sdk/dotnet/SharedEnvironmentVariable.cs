@@ -77,6 +77,12 @@ namespace Pulumiverse.Vercel
     public partial class SharedEnvironmentVariable : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+        /// </summary>
+        [Output("applyToAllCustomEnvironments")]
+        public Output<bool> ApplyToAllCustomEnvironments { get; private set; } = null!;
+
+        /// <summary>
         /// A comment explaining what the environment variable is for.
         /// </summary>
         [Output("comment")]
@@ -170,6 +176,12 @@ namespace Pulumiverse.Vercel
     public sealed class SharedEnvironmentVariableArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+        /// </summary>
+        [Input("applyToAllCustomEnvironments")]
+        public Input<bool>? ApplyToAllCustomEnvironments { get; set; }
+
+        /// <summary>
         /// A comment explaining what the environment variable is for.
         /// </summary>
         [Input("comment")]
@@ -241,6 +253,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class SharedEnvironmentVariableState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether the shared environment variable should be applied to all custom environments in the linked projects.
+        /// </summary>
+        [Input("applyToAllCustomEnvironments")]
+        public Input<bool>? ApplyToAllCustomEnvironments { get; set; }
+
         /// <summary>
         /// A comment explaining what the environment variable is for.
         /// </summary>
