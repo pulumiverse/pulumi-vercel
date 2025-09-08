@@ -50,8 +50,8 @@ only_build: build
 prepare_local_workspace: install_plugins upstream
 # Creates all generated files which need to be committed
 generate: generate_sdks schema build_registry_docs
-generate_sdks: generate_dotnet generate_go generate_nodejs generate_python
-build_sdks: build_dotnet build_go build_nodejs build_python
+generate_sdks: generate_dotnet generate_go generate_nodejs generate_python build_registry_docs
+build_sdks: build_dotnet build_go build_nodejs build_python build_registry_docs
 install_sdks: install_dotnet_sdk install_go_sdk install_nodejs_sdk install_python_sdk
 .PHONY: development only_build build generate generate_sdks build_sdks install_sdks
 
