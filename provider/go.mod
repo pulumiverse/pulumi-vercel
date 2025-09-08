@@ -3,7 +3,6 @@ module github.com/pulumiverse/pulumi-vercel/provider/v3
 go 1.23.0
 
 require (
-	github.com/pulumi/pulumi-terraform-bridge/pf v0.45.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
 	github.com/pulumi/pulumi/sdk/v3 v3.142.0
 	github.com/vercel/terraform-provider-vercel/v3 v3.15.1
@@ -128,7 +127,6 @@ require (
 	github.com/pulumi/esc v0.10.0 // indirect
 	github.com/pulumi/inflector v0.1.1 // indirect
 	github.com/pulumi/pulumi-java/pkg v0.17.0 // indirect
-	github.com/pulumi/pulumi-terraform-bridge/x/muxer v0.0.10 // indirect
 	github.com/pulumi/pulumi-yaml v1.11.2 // indirect
 	github.com/pulumi/pulumi/pkg/v3 v3.140.0 // indirect
 	github.com/pulumi/schema-tools v0.1.2 // indirect
