@@ -19,9 +19,13 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly Outputs.FirewallConfigManagedRulesetsAiBots? AiBots;
         /// <summary>
-        /// Enable the bot*filter managed ruleset and select action
+        /// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
         /// </summary>
         public readonly Outputs.FirewallConfigManagedRulesetsBotFilter? BotFilter;
+        /// <summary>
+        /// Enable the bot*protection managed ruleset and select action
+        /// </summary>
+        public readonly Outputs.FirewallConfigManagedRulesetsBotProtection? BotProtection;
         /// <summary>
         /// Enable the owasp managed rulesets and select ruleset behaviors
         /// </summary>
@@ -33,10 +37,13 @@ namespace Pulumiverse.Vercel.Outputs
 
             Outputs.FirewallConfigManagedRulesetsBotFilter? botFilter,
 
+            Outputs.FirewallConfigManagedRulesetsBotProtection? botProtection,
+
             Outputs.FirewallConfigManagedRulesetsOwasp? owasp)
         {
             AiBots = aiBots;
             BotFilter = botFilter;
+            BotProtection = botProtection;
             Owasp = owasp;
         }
     }

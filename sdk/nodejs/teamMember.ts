@@ -9,18 +9,16 @@ import * as utilities from "./utilities";
 /**
  * Provider a resource for managing a team member.
  *
+ * > **Note:** Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
+ *
  * ## Example Usage
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as vercel from "@pulumiverse/vercel";
  *
- * const byUserId = new vercel.TeamMember("by_user_id", {
- *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
- *     userId: "uuuuuuuuuuuuuuuuuuuuuuuuuu",
- *     role: "MEMBER",
- * });
- * const byEmail = new vercel.TeamMember("by_email", {
+ * // Recommended: Use email to add team members
+ * const example = new vercel.TeamMember("example", {
  *     teamId: "team_xxxxxxxxxxxxxxxxxxxxxxxx",
  *     email: "example@example.com",
  *     role: "MEMBER",
@@ -89,6 +87,8 @@ export class TeamMember extends pulumi.CustomResource {
     public readonly teamId!: pulumi.Output<string>;
     /**
      * The ID of the user to add to the team. Must specify one of userId or email.
+     *
+     * @deprecated Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
      */
     public readonly userId!: pulumi.Output<string>;
 
@@ -163,6 +163,8 @@ export interface TeamMemberState {
     teamId?: pulumi.Input<string>;
     /**
      * The ID of the user to add to the team. Must specify one of userId or email.
+     *
+     * @deprecated Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
      */
     userId?: pulumi.Input<string>;
 }
@@ -193,6 +195,8 @@ export interface TeamMemberArgs {
     teamId: pulumi.Input<string>;
     /**
      * The ID of the user to add to the team. Must specify one of userId or email.
+     *
+     * @deprecated Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
      */
     userId?: pulumi.Input<string>;
 }

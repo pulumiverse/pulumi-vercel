@@ -23,6 +23,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? FunctionDefaultCpuType;
         /// <summary>
+        /// The default regions for Serverless Functions. Must be an array of valid region identifiers.
+        /// </summary>
+        public readonly ImmutableArray<string> FunctionDefaultRegions;
+        /// <summary>
         /// The default timeout for Serverless Functions.
         /// </summary>
         public readonly int? FunctionDefaultTimeout;
@@ -33,10 +37,13 @@ namespace Pulumiverse.Vercel.Outputs
 
             string? functionDefaultCpuType,
 
+            ImmutableArray<string> functionDefaultRegions,
+
             int? functionDefaultTimeout)
         {
             Fluid = fluid;
             FunctionDefaultCpuType = functionDefaultCpuType;
+            FunctionDefaultRegions = functionDefaultRegions;
             FunctionDefaultTimeout = functionDefaultTimeout;
         }
     }

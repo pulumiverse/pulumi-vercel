@@ -14,7 +14,7 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectPasswordProtectionGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        /// The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
         /// </summary>
         [Input("deploymentType", required: true)]
         public Input<string> DeploymentType { get; set; } = null!;

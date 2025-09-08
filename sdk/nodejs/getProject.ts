@@ -27,6 +27,7 @@ import * as utilities from "./utilities";
 export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProject:getProject", {
+        "buildMachineType": args.buildMachineType,
         "name": args.name,
         "onDemandConcurrentBuilds": args.onDemandConcurrentBuilds,
         "teamId": args.teamId,
@@ -37,6 +38,10 @@ export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): P
  * A collection of arguments for invoking getProject.
  */
 export interface GetProjectArgs {
+    /**
+     * The build machine type to use for this project.
+     */
+    buildMachineType?: string;
     /**
      * The name of the project.
      */
@@ -67,6 +72,10 @@ export interface GetProjectResult {
      * The build command for this project. If omitted, this value will be automatically detected.
      */
     readonly buildCommand: string;
+    /**
+     * The build machine type to use for this project.
+     */
+    readonly buildMachineType: string;
     /**
      * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
      */
@@ -166,6 +175,10 @@ export interface GetProjectResult {
      */
     readonly previewComments: boolean;
     /**
+     * Whether Preview Deployments are disabled for this project.
+     */
+    readonly previewDeploymentsDisabled: boolean;
+    /**
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
     readonly prioritiseProductionBuilds: boolean;
@@ -231,6 +244,7 @@ export interface GetProjectResult {
 export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProject:getProject", {
+        "buildMachineType": args.buildMachineType,
         "name": args.name,
         "onDemandConcurrentBuilds": args.onDemandConcurrentBuilds,
         "teamId": args.teamId,
@@ -241,6 +255,10 @@ export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getProject.
  */
 export interface GetProjectOutputArgs {
+    /**
+     * The build machine type to use for this project.
+     */
+    buildMachineType?: pulumi.Input<string>;
     /**
      * The name of the project.
      */

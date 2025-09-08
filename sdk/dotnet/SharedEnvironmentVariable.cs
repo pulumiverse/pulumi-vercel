@@ -211,7 +211,7 @@ namespace Pulumiverse.Vercel
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }
 
-        [Input("targets", required: true)]
+        [Input("targets")]
         private InputList<string>? _targets;
 
         /// <summary>

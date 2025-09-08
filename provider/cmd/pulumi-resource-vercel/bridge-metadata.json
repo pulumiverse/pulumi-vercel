@@ -169,6 +169,13 @@
                             }
                         }
                     },
+                    "resource_config": {
+                        "fields": {
+                            "function_default_regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
                     "trusted_ips": {
                         "fields": {
                             "addresses": {
@@ -177,6 +184,10 @@
                         }
                     }
                 }
+            },
+            "vercel_project_crons": {
+                "current": "vercel:index/projectCrons:ProjectCrons",
+                "majorVersion": 3
             },
             "vercel_project_deployment_retention": {
                 "current": "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention",
@@ -222,6 +233,15 @@
                 "majorVersion": 3,
                 "fields": {
                     "members": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_project_rolling_release": {
+                "current": "vercel:index/projectRollingRelease:ProjectRollingRelease",
+                "majorVersion": 3,
+                "fields": {
+                    "stages": {
                         "maxItemsOne": false
                     }
                 }
@@ -297,6 +317,24 @@
                 "majorVersion": 3,
                 "fields": {
                     "domains": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_domain_config": {
+                "current": "vercel:index/getDomainConfig:getDomainConfig",
+                "majorVersion": 3,
+                "fields": {
+                    "recommended_ipv4s": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_dsync_groups": {
+                "current": "vercel:index/getDsyncGroups:getDsyncGroups",
+                "majorVersion": 3,
+                "fields": {
+                    "list": {
                         "maxItemsOne": false
                     }
                 }
@@ -383,6 +421,13 @@
                             }
                         }
                     },
+                    "resource_config": {
+                        "fields": {
+                            "function_default_regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
                     "trusted_ips": {
                         "fields": {
                             "addresses": {
@@ -405,6 +450,15 @@
                 "majorVersion": 3,
                 "fields": {
                     "members": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_project_rolling_release": {
+                "current": "vercel:index/getProjectRollingRelease:getProjectRollingRelease",
+                "majorVersion": 3,
+                "fields": {
+                    "stages": {
                         "maxItemsOne": false
                     }
                 }

@@ -40,8 +40,18 @@ import (
 //			}
 //			_, err = vercel.NewEdgeConfigItem(ctx, "example", &vercel.EdgeConfigItemArgs{
 //				EdgeConfigId: example.ID(),
-//				Key:          pulumi.String("foobar"),
-//				Value:        pulumi.String("baz"),
+//				Key:          pulumi.String("flags"),
+//				ValueJson: pulumi.Any(map[string]interface{}{
+//					"featureA": true,
+//					"nested": map[string]interface{}{
+//						"a": 1,
+//						"b": []float64{
+//							1,
+//							2,
+//							3,
+//						},
+//					},
+//				}),
 //			})
 //			if err != nil {
 //				return err
@@ -86,8 +96,10 @@ type EdgeConfigItem struct {
 	Key pulumi.StringOutput `pulumi:"key"`
 	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
-	// The value you want to assign to the key.
+	// The value you want to assign to the key when using a string.
 	Value pulumi.StringOutput `pulumi:"value"`
+	// Structured JSON value to assign to the key (object/array/number/bool/null).
+	ValueJson pulumi.AnyOutput `pulumi:"valueJson"`
 }
 
 // NewEdgeConfigItem registers a new resource with the given unique name, arguments, and options.
@@ -102,9 +114,6 @@ func NewEdgeConfigItem(ctx *pulumi.Context,
 	}
 	if args.Key == nil {
 		return nil, errors.New("invalid value for required argument 'Key'")
-	}
-	if args.Value == nil {
-		return nil, errors.New("invalid value for required argument 'Value'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource EdgeConfigItem
@@ -135,8 +144,10 @@ type edgeConfigItemState struct {
 	Key *string `pulumi:"key"`
 	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
-	// The value you want to assign to the key.
+	// The value you want to assign to the key when using a string.
 	Value *string `pulumi:"value"`
+	// Structured JSON value to assign to the key (object/array/number/bool/null).
+	ValueJson interface{} `pulumi:"valueJson"`
 }
 
 type EdgeConfigItemState struct {
@@ -146,8 +157,10 @@ type EdgeConfigItemState struct {
 	Key pulumi.StringPtrInput
 	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
-	// The value you want to assign to the key.
+	// The value you want to assign to the key when using a string.
 	Value pulumi.StringPtrInput
+	// Structured JSON value to assign to the key (object/array/number/bool/null).
+	ValueJson pulumi.Input
 }
 
 func (EdgeConfigItemState) ElementType() reflect.Type {
@@ -161,8 +174,10 @@ type edgeConfigItemArgs struct {
 	Key string `pulumi:"key"`
 	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
-	// The value you want to assign to the key.
-	Value string `pulumi:"value"`
+	// The value you want to assign to the key when using a string.
+	Value *string `pulumi:"value"`
+	// Structured JSON value to assign to the key (object/array/number/bool/null).
+	ValueJson interface{} `pulumi:"valueJson"`
 }
 
 // The set of arguments for constructing a EdgeConfigItem resource.
@@ -173,8 +188,10 @@ type EdgeConfigItemArgs struct {
 	Key pulumi.StringInput
 	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
-	// The value you want to assign to the key.
-	Value pulumi.StringInput
+	// The value you want to assign to the key when using a string.
+	Value pulumi.StringPtrInput
+	// Structured JSON value to assign to the key (object/array/number/bool/null).
+	ValueJson pulumi.Input
 }
 
 func (EdgeConfigItemArgs) ElementType() reflect.Type {
@@ -279,9 +296,14 @@ func (o EdgeConfigItemOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfigItem) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The value you want to assign to the key.
+// The value you want to assign to the key when using a string.
 func (o EdgeConfigItemOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v *EdgeConfigItem) pulumi.StringOutput { return v.Value }).(pulumi.StringOutput)
+}
+
+// Structured JSON value to assign to the key (object/array/number/bool/null).
+func (o EdgeConfigItemOutput) ValueJson() pulumi.AnyOutput {
+	return o.ApplyT(func(v *EdgeConfigItem) pulumi.AnyOutput { return v.ValueJson }).(pulumi.AnyOutput)
 }
 
 type EdgeConfigItemArrayOutput struct{ *pulumi.OutputState }

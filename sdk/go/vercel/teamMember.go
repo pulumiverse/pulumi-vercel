@@ -14,6 +14,8 @@ import (
 
 // Provider a resource for managing a team member.
 //
+// > **Note:** Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
+//
 // ## Example Usage
 //
 // ```go
@@ -28,15 +30,8 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.NewTeamMember(ctx, "by_user_id", &vercel.TeamMemberArgs{
-//				TeamId: pulumi.String("team_xxxxxxxxxxxxxxxxxxxxxxxx"),
-//				UserId: pulumi.String("uuuuuuuuuuuuuuuuuuuuuuuuuu"),
-//				Role:   pulumi.String("MEMBER"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = vercel.NewTeamMember(ctx, "by_email", &vercel.TeamMemberArgs{
+//			// Recommended: Use email to add team members
+//			_, err := vercel.NewTeamMember(ctx, "example", &vercel.TeamMemberArgs{
 //				TeamId: pulumi.String("team_xxxxxxxxxxxxxxxxxxxxxxxx"),
 //				Email:  pulumi.String("example@example.com"),
 //				Role:   pulumi.String("MEMBER"),
@@ -73,6 +68,8 @@ type TeamMember struct {
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// The ID of the user to add to the team. Must specify one of userId or email.
+	//
+	// Deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
 	UserId pulumi.StringOutput `pulumi:"userId"`
 }
 
@@ -125,6 +122,8 @@ type teamMemberState struct {
 	// The ID of the existing Vercel Team.
 	TeamId *string `pulumi:"teamId"`
 	// The ID of the user to add to the team. Must specify one of userId or email.
+	//
+	// Deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
 	UserId *string `pulumi:"userId"`
 }
 
@@ -142,6 +141,8 @@ type TeamMemberState struct {
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringPtrInput
 	// The ID of the user to add to the team. Must specify one of userId or email.
+	//
+	// Deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
 	UserId pulumi.StringPtrInput
 }
 
@@ -161,6 +162,8 @@ type teamMemberArgs struct {
 	// The ID of the existing Vercel Team.
 	TeamId string `pulumi:"teamId"`
 	// The ID of the user to add to the team. Must specify one of userId or email.
+	//
+	// Deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
 	UserId *string `pulumi:"userId"`
 }
 
@@ -177,6 +180,8 @@ type TeamMemberArgs struct {
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringInput
 	// The ID of the user to add to the team. Must specify one of userId or email.
+	//
+	// Deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
 	UserId pulumi.StringPtrInput
 }
 
@@ -298,6 +303,8 @@ func (o TeamMemberOutput) TeamId() pulumi.StringOutput {
 }
 
 // The ID of the user to add to the team. Must specify one of userId or email.
+//
+// Deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
 func (o TeamMemberOutput) UserId() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.UserId }).(pulumi.StringOutput)
 }

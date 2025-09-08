@@ -105,6 +105,16 @@ export const getDeployment: typeof import("./getDeployment").getDeployment = nul
 export const getDeploymentOutput: typeof import("./getDeployment").getDeploymentOutput = null as any;
 utilities.lazyLoad(exports, ["getDeployment","getDeploymentOutput"], () => require("./getDeployment"));
 
+export { GetDomainConfigArgs, GetDomainConfigResult, GetDomainConfigOutputArgs } from "./getDomainConfig";
+export const getDomainConfig: typeof import("./getDomainConfig").getDomainConfig = null as any;
+export const getDomainConfigOutput: typeof import("./getDomainConfig").getDomainConfigOutput = null as any;
+utilities.lazyLoad(exports, ["getDomainConfig","getDomainConfigOutput"], () => require("./getDomainConfig"));
+
+export { GetDsyncGroupsArgs, GetDsyncGroupsResult, GetDsyncGroupsOutputArgs } from "./getDsyncGroups";
+export const getDsyncGroups: typeof import("./getDsyncGroups").getDsyncGroups = null as any;
+export const getDsyncGroupsOutput: typeof import("./getDsyncGroups").getDsyncGroupsOutput = null as any;
+utilities.lazyLoad(exports, ["getDsyncGroups","getDsyncGroupsOutput"], () => require("./getDsyncGroups"));
+
 export { GetEdgeConfigArgs, GetEdgeConfigResult, GetEdgeConfigOutputArgs } from "./getEdgeConfig";
 export const getEdgeConfig: typeof import("./getEdgeConfig").getEdgeConfig = null as any;
 export const getEdgeConfigOutput: typeof import("./getEdgeConfig").getEdgeConfigOutput = null as any;
@@ -175,6 +185,11 @@ export const getProjectMembers: typeof import("./getProjectMembers").getProjectM
 export const getProjectMembersOutput: typeof import("./getProjectMembers").getProjectMembersOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectMembers","getProjectMembersOutput"], () => require("./getProjectMembers"));
 
+export { GetProjectRollingReleaseArgs, GetProjectRollingReleaseResult, GetProjectRollingReleaseOutputArgs } from "./getProjectRollingRelease";
+export const getProjectRollingRelease: typeof import("./getProjectRollingRelease").getProjectRollingRelease = null as any;
+export const getProjectRollingReleaseOutput: typeof import("./getProjectRollingRelease").getProjectRollingReleaseOutput = null as any;
+utilities.lazyLoad(exports, ["getProjectRollingRelease","getProjectRollingReleaseOutput"], () => require("./getProjectRollingRelease"));
+
 export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
 export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
 export const getSharedEnvironmentVariableOutput: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariableOutput = null as any;
@@ -215,6 +230,11 @@ export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
 utilities.lazyLoad(exports, ["Project"], () => require("./project"));
 
+export { ProjectCronsArgs, ProjectCronsState } from "./projectCrons";
+export type ProjectCrons = import("./projectCrons").ProjectCrons;
+export const ProjectCrons: typeof import("./projectCrons").ProjectCrons = null as any;
+utilities.lazyLoad(exports, ["ProjectCrons"], () => require("./projectCrons"));
+
 export { ProjectDeploymentRetentionArgs, ProjectDeploymentRetentionState } from "./projectDeploymentRetention";
 export type ProjectDeploymentRetention = import("./projectDeploymentRetention").ProjectDeploymentRetention;
 export const ProjectDeploymentRetention: typeof import("./projectDeploymentRetention").ProjectDeploymentRetention = null as any;
@@ -239,6 +259,11 @@ export { ProjectMembersArgs, ProjectMembersState } from "./projectMembers";
 export type ProjectMembers = import("./projectMembers").ProjectMembers;
 export const ProjectMembers: typeof import("./projectMembers").ProjectMembers = null as any;
 utilities.lazyLoad(exports, ["ProjectMembers"], () => require("./projectMembers"));
+
+export { ProjectRollingReleaseArgs, ProjectRollingReleaseState } from "./projectRollingRelease";
+export type ProjectRollingRelease = import("./projectRollingRelease").ProjectRollingRelease;
+export const ProjectRollingRelease: typeof import("./projectRollingRelease").ProjectRollingRelease = null as any;
+utilities.lazyLoad(exports, ["ProjectRollingRelease"], () => require("./projectRollingRelease"));
 
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
@@ -322,6 +347,8 @@ const _module = {
                 return new MicrofrontendGroupMembership(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
+            case "vercel:index/projectCrons:ProjectCrons":
+                return new ProjectCrons(name, <any>undefined, { urn })
             case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
                 return new ProjectDeploymentRetention(name, <any>undefined, { urn })
             case "vercel:index/projectDomain:ProjectDomain":
@@ -332,6 +359,8 @@ const _module = {
                 return new ProjectEnvironmentVariables(name, <any>undefined, { urn })
             case "vercel:index/projectMembers:ProjectMembers":
                 return new ProjectMembers(name, <any>undefined, { urn })
+            case "vercel:index/projectRollingRelease:ProjectRollingRelease":
+                return new ProjectRollingRelease(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
@@ -366,11 +395,13 @@ pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembership", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariables", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectMembers", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectRollingRelease", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariableProjectLink", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)

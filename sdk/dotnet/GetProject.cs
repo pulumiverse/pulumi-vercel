@@ -73,6 +73,12 @@ namespace Pulumiverse.Vercel
     public sealed class GetProjectArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
+        /// The build machine type to use for this project.
+        /// </summary>
+        [Input("buildMachineType")]
+        public string? BuildMachineType { get; set; }
+
+        /// <summary>
         /// The name of the project.
         /// </summary>
         [Input("name", required: true)]
@@ -98,6 +104,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The build machine type to use for this project.
+        /// </summary>
+        [Input("buildMachineType")]
+        public Input<string>? BuildMachineType { get; set; }
+
         /// <summary>
         /// The name of the project.
         /// </summary>
@@ -138,6 +150,10 @@ namespace Pulumiverse.Vercel
         /// The build command for this project. If omitted, this value will be automatically detected.
         /// </summary>
         public readonly string BuildCommand;
+        /// <summary>
+        /// The build machine type to use for this project.
+        /// </summary>
+        public readonly string BuildMachineType;
         /// <summary>
         /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         /// </summary>
@@ -235,6 +251,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly bool PreviewComments;
         /// <summary>
+        /// Whether Preview Deployments are disabled for this project.
+        /// </summary>
+        public readonly bool PreviewDeploymentsDisabled;
+        /// <summary>
         /// If enabled, builds for the Production environment will be prioritized over Preview environments.
         /// </summary>
         public readonly bool PrioritiseProductionBuilds;
@@ -287,6 +307,8 @@ namespace Pulumiverse.Vercel
 
             string buildCommand,
 
+            string buildMachineType,
+
             bool customerSuccessCodeVisibility,
 
             string devCommand,
@@ -335,6 +357,8 @@ namespace Pulumiverse.Vercel
 
             bool previewComments,
 
+            bool previewDeploymentsDisabled,
+
             bool prioritiseProductionBuilds,
 
             bool protectionBypassForAutomation,
@@ -360,6 +384,7 @@ namespace Pulumiverse.Vercel
             AutoAssignCustomDomains = autoAssignCustomDomains;
             AutomaticallyExposeSystemEnvironmentVariables = automaticallyExposeSystemEnvironmentVariables;
             BuildCommand = buildCommand;
+            BuildMachineType = buildMachineType;
             CustomerSuccessCodeVisibility = customerSuccessCodeVisibility;
             DevCommand = devCommand;
             DirectoryListing = directoryListing;
@@ -384,6 +409,7 @@ namespace Pulumiverse.Vercel
             OutputDirectory = outputDirectory;
             PasswordProtection = passwordProtection;
             PreviewComments = previewComments;
+            PreviewDeploymentsDisabled = previewDeploymentsDisabled;
             PrioritiseProductionBuilds = prioritiseProductionBuilds;
             ProtectionBypassForAutomation = protectionBypassForAutomation;
             ProtectionBypassForAutomationSecret = protectionBypassForAutomationSecret;

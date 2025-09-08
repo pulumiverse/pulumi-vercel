@@ -26,13 +26,19 @@ class GetDeploymentResult:
     """
     A collection of values returned by getDeployment.
     """
-    def __init__(__self__, domains=None, id=None, production=None, project_id=None, ref=None, team_id=None, url=None):
+    def __init__(__self__, custom_environment_id=None, domains=None, id=None, meta=None, production=None, project_id=None, ref=None, team_id=None, url=None):
+        if custom_environment_id and not isinstance(custom_environment_id, str):
+            raise TypeError("Expected argument 'custom_environment_id' to be a str")
+        pulumi.set(__self__, "custom_environment_id", custom_environment_id)
         if domains and not isinstance(domains, list):
             raise TypeError("Expected argument 'domains' to be a list")
         pulumi.set(__self__, "domains", domains)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if meta and not isinstance(meta, dict):
+            raise TypeError("Expected argument 'meta' to be a dict")
+        pulumi.set(__self__, "meta", meta)
         if production and not isinstance(production, bool):
             raise TypeError("Expected argument 'production' to be a bool")
         pulumi.set(__self__, "production", production)
@@ -50,6 +56,14 @@ class GetDeploymentResult:
         pulumi.set(__self__, "url", url)
 
     @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> str:
+        """
+        The ID of the Custom Environment that the deployment was deployed to, if any.
+        """
+        return pulumi.get(self, "custom_environment_id")
+
+    @property
     @pulumi.getter
     def domains(self) -> Sequence[str]:
         """
@@ -64,6 +78,14 @@ class GetDeploymentResult:
         The ID or URL of the Deployment to read.
         """
         return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def meta(self) -> Mapping[str, str]:
+        """
+        Arbitrary key/value metadata associated with the deployment.
+        """
+        return pulumi.get(self, "meta")
 
     @property
     @pulumi.getter
@@ -112,8 +134,10 @@ class AwaitableGetDeploymentResult(GetDeploymentResult):
         if False:
             yield self
         return GetDeploymentResult(
+            custom_environment_id=self.custom_environment_id,
             domains=self.domains,
             id=self.id,
+            meta=self.meta,
             production=self.production,
             project_id=self.project_id,
             ref=self.ref,
@@ -149,8 +173,10 @@ def get_deployment(id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getDeployment:getDeployment', __args__, opts=opts, typ=GetDeploymentResult).value
 
     return AwaitableGetDeploymentResult(
+        custom_environment_id=pulumi.get(__ret__, 'custom_environment_id'),
         domains=pulumi.get(__ret__, 'domains'),
         id=pulumi.get(__ret__, 'id'),
+        meta=pulumi.get(__ret__, 'meta'),
         production=pulumi.get(__ret__, 'production'),
         project_id=pulumi.get(__ret__, 'project_id'),
         ref=pulumi.get(__ret__, 'ref'),
@@ -183,8 +209,10 @@ def get_deployment_output(id: Optional[pulumi.Input[str]] = None,
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getDeployment:getDeployment', __args__, opts=opts, typ=GetDeploymentResult)
     return __ret__.apply(lambda __response__: GetDeploymentResult(
+        custom_environment_id=pulumi.get(__response__, 'custom_environment_id'),
         domains=pulumi.get(__response__, 'domains'),
         id=pulumi.get(__response__, 'id'),
+        meta=pulumi.get(__response__, 'meta'),
         production=pulumi.get(__response__, 'production'),
         project_id=pulumi.get(__response__, 'project_id'),
         ref=pulumi.get(__response__, 'ref'),

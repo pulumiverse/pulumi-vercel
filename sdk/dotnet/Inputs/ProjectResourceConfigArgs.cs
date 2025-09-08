@@ -25,6 +25,18 @@ namespace Pulumiverse.Vercel.Inputs
         [Input("functionDefaultCpuType")]
         public Input<string>? FunctionDefaultCpuType { get; set; }
 
+        [Input("functionDefaultRegions")]
+        private InputList<string>? _functionDefaultRegions;
+
+        /// <summary>
+        /// The default regions for Serverless Functions. Must be an array of valid region identifiers.
+        /// </summary>
+        public InputList<string> FunctionDefaultRegions
+        {
+            get => _functionDefaultRegions ?? (_functionDefaultRegions = new InputList<string>());
+            set => _functionDefaultRegions = value;
+        }
+
         /// <summary>
         /// The default timeout for Serverless Functions.
         /// </summary>

@@ -8,6 +8,16 @@ import * as utilities from "./utilities";
 
 /**
  * Manages the configuration of an existing Vercel Team.
+ *
+ * ## Import
+ *
+ * Team config can be imported via the team ID.
+ *
+ * - team_id can be found in the team `settings` tab in the Vercel UI.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
  */
 export class TeamConfig extends pulumi.CustomResource {
     /**

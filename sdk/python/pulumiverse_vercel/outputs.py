@@ -24,6 +24,7 @@ __all__ = [
     'FirewallConfigManagedRulesets',
     'FirewallConfigManagedRulesetsAiBots',
     'FirewallConfigManagedRulesetsBotFilter',
+    'FirewallConfigManagedRulesetsBotProtection',
     'FirewallConfigManagedRulesetsOwasp',
     'FirewallConfigManagedRulesetsOwaspGen',
     'FirewallConfigManagedRulesetsOwaspJava',
@@ -54,6 +55,7 @@ __all__ = [
     'ProjectOptionsAllowlistPath',
     'ProjectPasswordProtection',
     'ProjectResourceConfig',
+    'ProjectRollingReleaseStage',
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
     'ProjectVercelAuthentication',
@@ -62,6 +64,7 @@ __all__ = [
     'TeamConfigSamlRoles',
     'TeamMemberProject',
     'GetCustomEnvironmentBranchTrackingResult',
+    'GetDsyncGroupsListResult',
     'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
@@ -73,6 +76,7 @@ __all__ = [
     'GetProjectOptionsAllowlistPathResult',
     'GetProjectPasswordProtectionResult',
     'GetProjectResourceConfigResult',
+    'GetProjectRollingReleaseStageResult',
     'GetProjectTrustedIpsResult',
     'GetProjectTrustedIpsAddressResult',
     'GetProjectVercelAuthenticationResult',
@@ -326,6 +330,8 @@ class FirewallConfigManagedRulesets(dict):
             suggest = "ai_bots"
         elif key == "botFilter":
             suggest = "bot_filter"
+        elif key == "botProtection":
+            suggest = "bot_protection"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in FirewallConfigManagedRulesets. Access the value via the '{suggest}' property getter instead.")
@@ -341,16 +347,20 @@ class FirewallConfigManagedRulesets(dict):
     def __init__(__self__, *,
                  ai_bots: Optional['outputs.FirewallConfigManagedRulesetsAiBots'] = None,
                  bot_filter: Optional['outputs.FirewallConfigManagedRulesetsBotFilter'] = None,
+                 bot_protection: Optional['outputs.FirewallConfigManagedRulesetsBotProtection'] = None,
                  owasp: Optional['outputs.FirewallConfigManagedRulesetsOwasp'] = None):
         """
         :param 'FirewallConfigManagedRulesetsAiBotsArgs' ai_bots: Enable the ai*bots managed ruleset and select action
-        :param 'FirewallConfigManagedRulesetsBotFilterArgs' bot_filter: Enable the bot*filter managed ruleset and select action
+        :param 'FirewallConfigManagedRulesetsBotFilterArgs' bot_filter: DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+        :param 'FirewallConfigManagedRulesetsBotProtectionArgs' bot_protection: Enable the bot*protection managed ruleset and select action
         :param 'FirewallConfigManagedRulesetsOwaspArgs' owasp: Enable the owasp managed rulesets and select ruleset behaviors
         """
         if ai_bots is not None:
             pulumi.set(__self__, "ai_bots", ai_bots)
         if bot_filter is not None:
             pulumi.set(__self__, "bot_filter", bot_filter)
+        if bot_protection is not None:
+            pulumi.set(__self__, "bot_protection", bot_protection)
         if owasp is not None:
             pulumi.set(__self__, "owasp", owasp)
 
@@ -364,11 +374,20 @@ class FirewallConfigManagedRulesets(dict):
 
     @property
     @pulumi.getter(name="botFilter")
+    @_utilities.deprecated("""The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.""")
     def bot_filter(self) -> Optional['outputs.FirewallConfigManagedRulesetsBotFilter']:
         """
-        Enable the bot*filter managed ruleset and select action
+        DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
         """
         return pulumi.get(self, "bot_filter")
+
+    @property
+    @pulumi.getter(name="botProtection")
+    def bot_protection(self) -> Optional['outputs.FirewallConfigManagedRulesetsBotProtection']:
+        """
+        Enable the bot*protection managed ruleset and select action
+        """
+        return pulumi.get(self, "bot_protection")
 
     @property
     @pulumi.getter
@@ -402,6 +421,27 @@ class FirewallConfigManagedRulesetsAiBots(dict):
 
 @pulumi.output_type
 class FirewallConfigManagedRulesetsBotFilter(dict):
+    def __init__(__self__, *,
+                 action: Optional[str] = None,
+                 active: Optional[bool] = None):
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[str]:
+        return pulumi.get(self, "action")
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsBotProtection(dict):
     def __init__(__self__, *,
                  action: Optional[str] = None,
                  active: Optional[bool] = None):
@@ -1582,7 +1622,7 @@ class ProjectMembersMember(dict):
                  user_id: Optional[str] = None,
                  username: Optional[str] = None):
         """
-        :param str role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        :param str role: The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         :param str email: The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param str user_id: The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param str username: The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
@@ -1599,7 +1639,7 @@ class ProjectMembersMember(dict):
     @pulumi.getter
     def role(self) -> str:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         return pulumi.get(self, "role")
 
@@ -1648,19 +1688,21 @@ class ProjectOidcTokenConfig(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 enabled: bool,
+                 enabled: Optional[bool] = None,
                  issuer_mode: Optional[str] = None):
         """
         :param bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         :param str issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
-        pulumi.set(__self__, "enabled", enabled)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if issuer_mode is not None:
             pulumi.set(__self__, "issuer_mode", issuer_mode)
 
     @property
     @pulumi.getter
-    def enabled(self) -> bool:
+    @_utilities.deprecated("""This field is deprecated and will be removed in a future version.""")
+    def enabled(self) -> Optional[bool]:
         """
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
@@ -1734,7 +1776,7 @@ class ProjectPasswordProtection(dict):
                  deployment_type: str,
                  password: str):
         """
-        :param str deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        :param str deployment_type: The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
         :param str password: The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
         """
         pulumi.set(__self__, "deployment_type", deployment_type)
@@ -1744,7 +1786,7 @@ class ProjectPasswordProtection(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> str:
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -1764,6 +1806,8 @@ class ProjectResourceConfig(dict):
         suggest = None
         if key == "functionDefaultCpuType":
             suggest = "function_default_cpu_type"
+        elif key == "functionDefaultRegions":
+            suggest = "function_default_regions"
         elif key == "functionDefaultTimeout":
             suggest = "function_default_timeout"
 
@@ -1781,16 +1825,20 @@ class ProjectResourceConfig(dict):
     def __init__(__self__, *,
                  fluid: Optional[bool] = None,
                  function_default_cpu_type: Optional[str] = None,
+                 function_default_regions: Optional[Sequence[str]] = None,
                  function_default_timeout: Optional[int] = None):
         """
         :param bool fluid: Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
         :param str function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+        :param Sequence[str] function_default_regions: The default regions for Serverless Functions. Must be an array of valid region identifiers.
         :param int function_default_timeout: The default timeout for Serverless Functions.
         """
         if fluid is not None:
             pulumi.set(__self__, "fluid", fluid)
         if function_default_cpu_type is not None:
             pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
+        if function_default_regions is not None:
+            pulumi.set(__self__, "function_default_regions", function_default_regions)
         if function_default_timeout is not None:
             pulumi.set(__self__, "function_default_timeout", function_default_timeout)
 
@@ -1811,12 +1859,67 @@ class ProjectResourceConfig(dict):
         return pulumi.get(self, "function_default_cpu_type")
 
     @property
+    @pulumi.getter(name="functionDefaultRegions")
+    def function_default_regions(self) -> Optional[Sequence[str]]:
+        """
+        The default regions for Serverless Functions. Must be an array of valid region identifiers.
+        """
+        return pulumi.get(self, "function_default_regions")
+
+    @property
     @pulumi.getter(name="functionDefaultTimeout")
     def function_default_timeout(self) -> Optional[int]:
         """
         The default timeout for Serverless Functions.
         """
         return pulumi.get(self, "function_default_timeout")
+
+
+@pulumi.output_type
+class ProjectRollingReleaseStage(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetPercentage":
+            suggest = "target_percentage"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectRollingReleaseStage. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectRollingReleaseStage.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectRollingReleaseStage.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 target_percentage: int,
+                 duration: Optional[int] = None):
+        """
+        :param int target_percentage: The percentage of traffic to route to this stage.
+        :param int duration: The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+        """
+        pulumi.set(__self__, "target_percentage", target_percentage)
+        if duration is not None:
+            pulumi.set(__self__, "duration", duration)
+
+    @property
+    @pulumi.getter(name="targetPercentage")
+    def target_percentage(self) -> int:
+        """
+        The percentage of traffic to route to this stage.
+        """
+        return pulumi.get(self, "target_percentage")
+
+    @property
+    @pulumi.getter
+    def duration(self) -> Optional[int]:
+        """
+        The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+        """
+        return pulumi.get(self, "duration")
 
 
 @pulumi.output_type
@@ -1846,7 +1949,7 @@ class ProjectTrustedIps(dict):
                  protection_mode: Optional[str] = None):
         """
         :param Sequence['ProjectTrustedIpsAddressArgs'] addresses: The allowed IP addressses and CIDR ranges with optional descriptions.
-        :param str deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        :param str deployment_type: The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
         :param str protection_mode: Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
         """
         pulumi.set(__self__, "addresses", addresses)
@@ -1866,7 +1969,7 @@ class ProjectTrustedIps(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> str:
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -1929,17 +2032,18 @@ class ProjectVercelAuthentication(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 deployment_type: str):
+                 deployment_type: Optional[str] = None):
         """
-        :param str deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        :param str deployment_type: The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
-        pulumi.set(__self__, "deployment_type", deployment_type)
+        if deployment_type is not None:
+            pulumi.set(__self__, "deployment_type", deployment_type)
 
     @property
     @pulumi.getter(name="deploymentType")
-    def deployment_type(self) -> str:
+    def deployment_type(self) -> Optional[str]:
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -1966,19 +2070,20 @@ class TeamConfigRemoteCaching(dict):
 @pulumi.output_type
 class TeamConfigSaml(dict):
     def __init__(__self__, *,
-                 enforced: bool,
+                 enforced: Optional[bool] = None,
                  roles: Optional[Mapping[str, 'outputs.TeamConfigSamlRoles']] = None):
         """
         :param bool enforced: Indicates if SAML is enforced for the team.
         :param Mapping[str, 'TeamConfigSamlRolesArgs'] roles: Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         """
-        pulumi.set(__self__, "enforced", enforced)
+        if enforced is not None:
+            pulumi.set(__self__, "enforced", enforced)
         if roles is not None:
             pulumi.set(__self__, "roles", roles)
 
     @property
     @pulumi.getter
-    def enforced(self) -> bool:
+    def enforced(self) -> Optional[bool]:
         """
         Indicates if SAML is enforced for the team.
         """
@@ -2114,6 +2219,35 @@ class GetCustomEnvironmentBranchTrackingResult(dict):
         How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetDsyncGroupsListResult(dict):
+    def __init__(__self__, *,
+                 id: str,
+                 name: str):
+        """
+        :param str id: The ID of the group on Vercel.
+        :param str name: The name of the group on the Identity Provider.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        The ID of the group on Vercel.
+        """
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the group on the Identity Provider.
+        """
+        return pulumi.get(self, "name")
 
 
 @pulumi.output_type
@@ -2380,7 +2514,7 @@ class GetProjectMembersMemberResult(dict):
                  username: str):
         """
         :param str email: The email of the user.
-        :param str role: The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        :param str role: The role of the user in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         :param str user_id: The ID of the user.
         :param str username: The username of the user.
         """
@@ -2401,7 +2535,7 @@ class GetProjectMembersMemberResult(dict):
     @pulumi.getter
     def role(self) -> str:
         """
-        The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        The role of the user in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         return pulumi.get(self, "role")
 
@@ -2436,6 +2570,7 @@ class GetProjectOidcTokenConfigResult(dict):
 
     @property
     @pulumi.getter
+    @_utilities.deprecated("""This field is deprecated and will be removed in a future version.""")
     def enabled(self) -> bool:
         """
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
@@ -2504,14 +2639,17 @@ class GetProjectResourceConfigResult(dict):
     def __init__(__self__, *,
                  fluid: bool,
                  function_default_cpu_type: str,
+                 function_default_regions: Sequence[str],
                  function_default_timeout: int):
         """
         :param bool fluid: Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
         :param str function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+        :param Sequence[str] function_default_regions: The default regions for Serverless Functions.
         :param int function_default_timeout: The default timeout for Serverless Functions.
         """
         pulumi.set(__self__, "fluid", fluid)
         pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
+        pulumi.set(__self__, "function_default_regions", function_default_regions)
         pulumi.set(__self__, "function_default_timeout", function_default_timeout)
 
     @property
@@ -2531,12 +2669,49 @@ class GetProjectResourceConfigResult(dict):
         return pulumi.get(self, "function_default_cpu_type")
 
     @property
+    @pulumi.getter(name="functionDefaultRegions")
+    def function_default_regions(self) -> Sequence[str]:
+        """
+        The default regions for Serverless Functions.
+        """
+        return pulumi.get(self, "function_default_regions")
+
+    @property
     @pulumi.getter(name="functionDefaultTimeout")
     def function_default_timeout(self) -> int:
         """
         The default timeout for Serverless Functions.
         """
         return pulumi.get(self, "function_default_timeout")
+
+
+@pulumi.output_type
+class GetProjectRollingReleaseStageResult(dict):
+    def __init__(__self__, *,
+                 duration: int,
+                 target_percentage: int):
+        """
+        :param int duration: The duration in minutes to wait before advancing to the next stage. Present for automatic advancement type.
+        :param int target_percentage: The percentage of traffic to route to this stage.
+        """
+        pulumi.set(__self__, "duration", duration)
+        pulumi.set(__self__, "target_percentage", target_percentage)
+
+    @property
+    @pulumi.getter
+    def duration(self) -> int:
+        """
+        The duration in minutes to wait before advancing to the next stage. Present for automatic advancement type.
+        """
+        return pulumi.get(self, "duration")
+
+    @property
+    @pulumi.getter(name="targetPercentage")
+    def target_percentage(self) -> int:
+        """
+        The percentage of traffic to route to this stage.
+        """
+        return pulumi.get(self, "target_percentage")
 
 
 @pulumi.output_type

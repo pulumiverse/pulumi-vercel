@@ -155,7 +155,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly double SamplingRate;
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `function`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         /// </summary>
         public readonly ImmutableArray<string> Sources;
         /// <summary>

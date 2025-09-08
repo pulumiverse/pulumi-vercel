@@ -78,7 +78,7 @@ type LookupLogDrainResult struct {
 	ProjectIds []string `pulumi:"projectIds"`
 	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate float64 `pulumi:"samplingRate"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `function`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources []string `pulumi:"sources"`
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
@@ -167,7 +167,7 @@ func (o LookupLogDrainResultOutput) SamplingRate() pulumi.Float64Output {
 	return o.ApplyT(func(v LookupLogDrainResult) float64 { return v.SamplingRate }).(pulumi.Float64Output)
 }
 
-// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `function`.
+// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 func (o LookupLogDrainResultOutput) Sources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupLogDrainResult) []string { return v.Sources }).(pulumi.StringArrayOutput)
 }

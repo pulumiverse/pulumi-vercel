@@ -54,6 +54,8 @@ func LookupProject(ctx *pulumi.Context, args *LookupProjectArgs, opts ...pulumi.
 
 // A collection of arguments for invoking getProject.
 type LookupProjectArgs struct {
+	// The build machine type to use for this project.
+	BuildMachineType *string `pulumi:"buildMachineType"`
 	// The name of the project.
 	Name string `pulumi:"name"`
 	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
@@ -70,6 +72,8 @@ type LookupProjectResult struct {
 	AutomaticallyExposeSystemEnvironmentVariables bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand string `pulumi:"buildCommand"`
+	// The build machine type to use for this project.
+	BuildMachineType string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility bool `pulumi:"customerSuccessCodeVisibility"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -120,6 +124,8 @@ type LookupProjectResult struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments bool `pulumi:"previewComments"`
+	// Whether Preview Deployments are disabled for this project.
+	PreviewDeploymentsDisabled bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds bool `pulumi:"prioritiseProductionBuilds"`
 	// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protectionBypassForAutomationSecret`.
@@ -165,6 +171,8 @@ func LookupProjectOutput(ctx *pulumi.Context, args LookupProjectOutputArgs, opts
 
 // A collection of arguments for invoking getProject.
 type LookupProjectOutputArgs struct {
+	// The build machine type to use for this project.
+	BuildMachineType pulumi.StringPtrInput `pulumi:"buildMachineType"`
 	// The name of the project.
 	Name pulumi.StringInput `pulumi:"name"`
 	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
@@ -205,6 +213,11 @@ func (o LookupProjectResultOutput) AutomaticallyExposeSystemEnvironmentVariables
 // The build command for this project. If omitted, this value will be automatically detected.
 func (o LookupProjectResultOutput) BuildCommand() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.BuildCommand }).(pulumi.StringOutput)
+}
+
+// The build machine type to use for this project.
+func (o LookupProjectResultOutput) BuildMachineType() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupProjectResult) string { return v.BuildMachineType }).(pulumi.StringOutput)
 }
 
 // Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
@@ -327,6 +340,11 @@ func (o LookupProjectResultOutput) PasswordProtection() GetProjectPasswordProtec
 // Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 func (o LookupProjectResultOutput) PreviewComments() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PreviewComments }).(pulumi.BoolOutput)
+}
+
+// Whether Preview Deployments are disabled for this project.
+func (o LookupProjectResultOutput) PreviewDeploymentsDisabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.PreviewDeploymentsDisabled }).(pulumi.BoolOutput)
 }
 
 // If enabled, builds for the Production environment will be prioritized over Preview environments.

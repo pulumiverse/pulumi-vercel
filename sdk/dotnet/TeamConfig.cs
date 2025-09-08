@@ -12,6 +12,16 @@ namespace Pulumiverse.Vercel
 {
     /// <summary>
     /// Manages the configuration of an existing Vercel Team.
+    /// 
+    /// ## Import
+    /// 
+    /// Team config can be imported via the team ID.
+    /// 
+    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
     /// </summary>
     [VercelResourceType("vercel:index/teamConfig:TeamConfig")]
     public partial class TeamConfig : global::Pulumi.CustomResource

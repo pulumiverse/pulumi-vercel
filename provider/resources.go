@@ -26,7 +26,7 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	pf "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
+	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -50,7 +50,7 @@ var bridgeMetadata []byte
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := pf.ShimProvider(vercel.New())
+	p := pfbridge.ShimProvider(vercel.New())
 
 	caser := cases.Title(language.English)
 
@@ -139,6 +139,14 @@ func Provider() tfbridge.ProviderInfo {
 				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["integration_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
+				},
+			}, "vercel_project_rolling_release": {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["project_id"].StringValue()), nil
+				},
+			}, "vercel_project_crons": {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["project_id"].StringValue()), nil
 				},
 			},
 		},

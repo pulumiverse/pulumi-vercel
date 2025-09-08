@@ -88,13 +88,13 @@ import (
 type ProjectDeploymentRetention struct {
 	pulumi.CustomResourceState
 
-	// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationCanceled pulumi.StringOutput `pulumi:"expirationCanceled"`
-	// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationErrored pulumi.StringOutput `pulumi:"expirationErrored"`
-	// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationPreview pulumi.StringOutput `pulumi:"expirationPreview"`
-	// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationProduction pulumi.StringOutput `pulumi:"expirationProduction"`
 	// The ID of the Project for the retention policy
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
@@ -135,13 +135,13 @@ func GetProjectDeploymentRetention(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering ProjectDeploymentRetention resources.
 type projectDeploymentRetentionState struct {
-	// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationCanceled *string `pulumi:"expirationCanceled"`
-	// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationErrored *string `pulumi:"expirationErrored"`
-	// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationPreview *string `pulumi:"expirationPreview"`
-	// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationProduction *string `pulumi:"expirationProduction"`
 	// The ID of the Project for the retention policy
 	ProjectId *string `pulumi:"projectId"`
@@ -150,13 +150,13 @@ type projectDeploymentRetentionState struct {
 }
 
 type ProjectDeploymentRetentionState struct {
-	// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationCanceled pulumi.StringPtrInput
-	// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationErrored pulumi.StringPtrInput
-	// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationPreview pulumi.StringPtrInput
-	// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationProduction pulumi.StringPtrInput
 	// The ID of the Project for the retention policy
 	ProjectId pulumi.StringPtrInput
@@ -169,13 +169,13 @@ func (ProjectDeploymentRetentionState) ElementType() reflect.Type {
 }
 
 type projectDeploymentRetentionArgs struct {
-	// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationCanceled *string `pulumi:"expirationCanceled"`
-	// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationErrored *string `pulumi:"expirationErrored"`
-	// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationPreview *string `pulumi:"expirationPreview"`
-	// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationProduction *string `pulumi:"expirationProduction"`
 	// The ID of the Project for the retention policy
 	ProjectId string `pulumi:"projectId"`
@@ -185,13 +185,13 @@ type projectDeploymentRetentionArgs struct {
 
 // The set of arguments for constructing a ProjectDeploymentRetention resource.
 type ProjectDeploymentRetentionArgs struct {
-	// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationCanceled pulumi.StringPtrInput
-	// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationErrored pulumi.StringPtrInput
-	// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationPreview pulumi.StringPtrInput
-	// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+	// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 	ExpirationProduction pulumi.StringPtrInput
 	// The ID of the Project for the retention policy
 	ProjectId pulumi.StringInput
@@ -286,22 +286,22 @@ func (o ProjectDeploymentRetentionOutput) ToProjectDeploymentRetentionOutputWith
 	return o
 }
 
-// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 func (o ProjectDeploymentRetentionOutput) ExpirationCanceled() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectDeploymentRetention) pulumi.StringOutput { return v.ExpirationCanceled }).(pulumi.StringOutput)
 }
 
-// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 func (o ProjectDeploymentRetentionOutput) ExpirationErrored() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectDeploymentRetention) pulumi.StringOutput { return v.ExpirationErrored }).(pulumi.StringOutput)
 }
 
-// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 func (o ProjectDeploymentRetentionOutput) ExpirationPreview() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectDeploymentRetention) pulumi.StringOutput { return v.ExpirationPreview }).(pulumi.StringOutput)
 }
 
-// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
 func (o ProjectDeploymentRetentionOutput) ExpirationProduction() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectDeploymentRetention) pulumi.StringOutput { return v.ExpirationProduction }).(pulumi.StringOutput)
 }

@@ -45,6 +45,9 @@ class TeamMemberArgs:
         if projects is not None:
             pulumi.set(__self__, "projects", projects)
         if user_id is not None:
+            warnings.warn("""Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""", DeprecationWarning)
+            pulumi.log.warn("""user_id is deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""")
+        if user_id is not None:
             pulumi.set(__self__, "user_id", user_id)
 
     @property
@@ -109,6 +112,7 @@ class TeamMemberArgs:
 
     @property
     @pulumi.getter(name="userId")
+    @_utilities.deprecated("""Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""")
     def user_id(self) -> Optional[pulumi.Input[str]]:
         """
         The ID of the user to add to the team. Must specify one of user_id or email.
@@ -152,6 +156,9 @@ class _TeamMemberState:
             pulumi.set(__self__, "role", role)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+        if user_id is not None:
+            warnings.warn("""Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""", DeprecationWarning)
+            pulumi.log.warn("""user_id is deprecated: Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""")
         if user_id is not None:
             pulumi.set(__self__, "user_id", user_id)
 
@@ -229,6 +236,7 @@ class _TeamMemberState:
 
     @property
     @pulumi.getter(name="userId")
+    @_utilities.deprecated("""Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""")
     def user_id(self) -> Optional[pulumi.Input[str]]:
         """
         The ID of the user to add to the team. Must specify one of user_id or email.
@@ -255,17 +263,16 @@ class TeamMember(pulumi.CustomResource):
         """
         Provider a resource for managing a team member.
 
+        > **Note:** Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
+
         ## Example Usage
 
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
 
-        by_user_id = vercel.TeamMember("by_user_id",
-            team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
-            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
-            role="MEMBER")
-        by_email = vercel.TeamMember("by_email",
+        # Recommended: Use email to add team members
+        example = vercel.TeamMember("example",
             team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
             email="example@example.com",
             role="MEMBER")
@@ -297,17 +304,16 @@ class TeamMember(pulumi.CustomResource):
         """
         Provider a resource for managing a team member.
 
+        > **Note:** Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
+
         ## Example Usage
 
         ```python
         import pulumi
         import pulumiverse_vercel as vercel
 
-        by_user_id = vercel.TeamMember("by_user_id",
-            team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
-            user_id="uuuuuuuuuuuuuuuuuuuuuuuuuu",
-            role="MEMBER")
-        by_email = vercel.TeamMember("by_email",
+        # Recommended: Use email to add team members
+        example = vercel.TeamMember("example",
             team_id="team_xxxxxxxxxxxxxxxxxxxxxxxx",
             email="example@example.com",
             role="MEMBER")
@@ -457,6 +463,7 @@ class TeamMember(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="userId")
+    @_utilities.deprecated("""Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.""")
     def user_id(self) -> pulumi.Output[str]:
         """
         The ID of the user to add to the team. Must specify one of user_id or email.

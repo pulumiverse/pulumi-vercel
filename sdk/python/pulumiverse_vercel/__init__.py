@@ -25,6 +25,8 @@ from .get_alias import *
 from .get_attack_challenge_mode import *
 from .get_custom_environment import *
 from .get_deployment import *
+from .get_domain_config import *
+from .get_dsync_groups import *
 from .get_edge_config import *
 from .get_edge_config_item import *
 from .get_edge_config_schema import *
@@ -39,6 +41,7 @@ from .get_project import *
 from .get_project_deployment_retention import *
 from .get_project_directory import *
 from .get_project_members import *
+from .get_project_rolling_release import *
 from .get_shared_environment_variable import *
 from .get_team_config import *
 from .get_team_member import *
@@ -47,11 +50,13 @@ from .log_drain import *
 from .microfrontend_group import *
 from .microfrontend_group_membership import *
 from .project import *
+from .project_crons import *
 from .project_deployment_retention import *
 from .project_domain import *
 from .project_environment_variable import *
 from .project_environment_variables import *
 from .project_members import *
+from .project_rolling_release import *
 from .provider import *
 from .shared_environment_variable import *
 from .shared_environment_variable_project_link import *
@@ -225,6 +230,14 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/projectCrons",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectCrons:ProjectCrons": "ProjectCrons"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/projectDeploymentRetention",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -261,6 +274,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectMembers:ProjectMembers": "ProjectMembers"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectRollingRelease",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectRollingRelease:ProjectRollingRelease": "ProjectRollingRelease"
   }
  },
  {

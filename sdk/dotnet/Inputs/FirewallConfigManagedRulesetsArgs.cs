@@ -20,10 +20,16 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<Inputs.FirewallConfigManagedRulesetsAiBotsArgs>? AiBots { get; set; }
 
         /// <summary>
-        /// Enable the bot*filter managed ruleset and select action
+        /// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
         /// </summary>
         [Input("botFilter")]
         public Input<Inputs.FirewallConfigManagedRulesetsBotFilterArgs>? BotFilter { get; set; }
+
+        /// <summary>
+        /// Enable the bot*protection managed ruleset and select action
+        /// </summary>
+        [Input("botProtection")]
+        public Input<Inputs.FirewallConfigManagedRulesetsBotProtectionArgs>? BotProtection { get; set; }
 
         /// <summary>
         /// Enable the owasp managed rulesets and select ruleset behaviors

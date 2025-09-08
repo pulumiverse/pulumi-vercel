@@ -91,6 +91,12 @@ namespace Pulumiverse.Vercel
         public Output<string?> BuildCommand { get; private set; } = null!;
 
         /// <summary>
+        /// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        /// </summary>
+        [Output("buildMachineType")]
+        public Output<string> BuildMachineType { get; private set; } = null!;
+
+        /// <summary>
         /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         /// </summary>
         [Output("customerSuccessCodeVisibility")]
@@ -112,7 +118,7 @@ namespace Pulumiverse.Vercel
         /// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
         /// </summary>
         [Output("enableAffectedProjectsDeployments")]
-        public Output<bool?> EnableAffectedProjectsDeployments { get; private set; } = null!;
+        public Output<bool> EnableAffectedProjectsDeployments { get; private set; } = null!;
 
         /// <summary>
         /// Enables the Vercel Toolbar on your preview deployments.
@@ -227,6 +233,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("previewComments")]
         public Output<bool> PreviewComments { get; private set; } = null!;
+
+        /// <summary>
+        /// Disable creation of Preview Deployments for this project.
+        /// </summary>
+        [Output("previewDeploymentsDisabled")]
+        public Output<bool> PreviewDeploymentsDisabled { get; private set; } = null!;
 
         /// <summary>
         /// If enabled, builds for the Production environment will be prioritized over Preview environments.
@@ -362,6 +374,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("buildCommand")]
         public Input<string>? BuildCommand { get; set; }
+
+        /// <summary>
+        /// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        /// </summary>
+        [Input("buildMachineType")]
+        public Input<string>? BuildMachineType { get; set; }
 
         /// <summary>
         /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
@@ -508,6 +526,12 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PreviewComments { get; set; }
 
         /// <summary>
+        /// Disable creation of Preview Deployments for this project.
+        /// </summary>
+        [Input("previewDeploymentsDisabled")]
+        public Input<bool>? PreviewDeploymentsDisabled { get; set; }
+
+        /// <summary>
         /// If enabled, builds for the Production environment will be prioritized over Preview environments.
         /// </summary>
         [Input("prioritiseProductionBuilds")]
@@ -608,6 +632,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("buildCommand")]
         public Input<string>? BuildCommand { get; set; }
+
+        /// <summary>
+        /// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        /// </summary>
+        [Input("buildMachineType")]
+        public Input<string>? BuildMachineType { get; set; }
 
         /// <summary>
         /// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
@@ -752,6 +782,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("previewComments")]
         public Input<bool>? PreviewComments { get; set; }
+
+        /// <summary>
+        /// Disable creation of Preview Deployments for this project.
+        /// </summary>
+        [Input("previewDeploymentsDisabled")]
+        public Input<bool>? PreviewDeploymentsDisabled { get; set; }
 
         /// <summary>
         /// If enabled, builds for the Production environment will be prioritized over Preview environments.

@@ -24,6 +24,7 @@ class ProjectArgs:
                  auto_assign_custom_domains: Optional[pulumi.Input[bool]] = None,
                  automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
+                 build_machine_type: Optional[pulumi.Input[str]] = None,
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
@@ -47,6 +48,7 @@ class ProjectArgs:
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
+                 preview_deployments_disabled: Optional[pulumi.Input[bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
@@ -63,6 +65,7 @@ class ProjectArgs:
         :param pulumi.Input[bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -86,6 +89,7 @@ class ProjectArgs:
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -104,6 +108,8 @@ class ProjectArgs:
             pulumi.set(__self__, "automatically_expose_system_environment_variables", automatically_expose_system_environment_variables)
         if build_command is not None:
             pulumi.set(__self__, "build_command", build_command)
+        if build_machine_type is not None:
+            pulumi.set(__self__, "build_machine_type", build_machine_type)
         if customer_success_code_visibility is not None:
             pulumi.set(__self__, "customer_success_code_visibility", customer_success_code_visibility)
         if dev_command is not None:
@@ -153,6 +159,8 @@ class ProjectArgs:
             pulumi.log.warn("""preview_comments is deprecated: Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
         if preview_comments is not None:
             pulumi.set(__self__, "preview_comments", preview_comments)
+        if preview_deployments_disabled is not None:
+            pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
             pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
         if protection_bypass_for_automation is not None:
@@ -165,6 +173,9 @@ class ProjectArgs:
             pulumi.set(__self__, "resource_config", resource_config)
         if root_directory is not None:
             pulumi.set(__self__, "root_directory", root_directory)
+        if serverless_function_region is not None:
+            warnings.warn("""This attribute is deprecated. Please use resource_config.function_default_regions instead.""", DeprecationWarning)
+            pulumi.log.warn("""serverless_function_region is deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.""")
         if serverless_function_region is not None:
             pulumi.set(__self__, "serverless_function_region", serverless_function_region)
         if skew_protection is not None:
@@ -211,6 +222,18 @@ class ProjectArgs:
     @build_command.setter
     def build_command(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "build_command", value)
+
+    @property
+    @pulumi.getter(name="buildMachineType")
+    def build_machine_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        """
+        return pulumi.get(self, "build_machine_type")
+
+    @build_machine_type.setter
+    def build_machine_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "build_machine_type", value)
 
     @property
     @pulumi.getter(name="customerSuccessCodeVisibility")
@@ -490,6 +513,18 @@ class ProjectArgs:
         pulumi.set(self, "preview_comments", value)
 
     @property
+    @pulumi.getter(name="previewDeploymentsDisabled")
+    def preview_deployments_disabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Disable creation of Preview Deployments for this project.
+        """
+        return pulumi.get(self, "preview_deployments_disabled")
+
+    @preview_deployments_disabled.setter
+    def preview_deployments_disabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "preview_deployments_disabled", value)
+
+    @property
     @pulumi.getter(name="prioritiseProductionBuilds")
     def prioritise_production_builds(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -563,6 +598,7 @@ class ProjectArgs:
 
     @property
     @pulumi.getter(name="serverlessFunctionRegion")
+    @_utilities.deprecated("""This attribute is deprecated. Please use resource_config.function_default_regions instead.""")
     def serverless_function_region(self) -> Optional[pulumi.Input[str]]:
         """
         The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -628,6 +664,7 @@ class _ProjectState:
                  auto_assign_custom_domains: Optional[pulumi.Input[bool]] = None,
                  automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
+                 build_machine_type: Optional[pulumi.Input[str]] = None,
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
@@ -651,6 +688,7 @@ class _ProjectState:
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
+                 preview_deployments_disabled: Optional[pulumi.Input[bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
@@ -667,6 +705,7 @@ class _ProjectState:
         :param pulumi.Input[bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -690,6 +729,7 @@ class _ProjectState:
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -708,6 +748,8 @@ class _ProjectState:
             pulumi.set(__self__, "automatically_expose_system_environment_variables", automatically_expose_system_environment_variables)
         if build_command is not None:
             pulumi.set(__self__, "build_command", build_command)
+        if build_machine_type is not None:
+            pulumi.set(__self__, "build_machine_type", build_machine_type)
         if customer_success_code_visibility is not None:
             pulumi.set(__self__, "customer_success_code_visibility", customer_success_code_visibility)
         if dev_command is not None:
@@ -757,6 +799,8 @@ class _ProjectState:
             pulumi.log.warn("""preview_comments is deprecated: Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
         if preview_comments is not None:
             pulumi.set(__self__, "preview_comments", preview_comments)
+        if preview_deployments_disabled is not None:
+            pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
             pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
         if protection_bypass_for_automation is not None:
@@ -769,6 +813,9 @@ class _ProjectState:
             pulumi.set(__self__, "resource_config", resource_config)
         if root_directory is not None:
             pulumi.set(__self__, "root_directory", root_directory)
+        if serverless_function_region is not None:
+            warnings.warn("""This attribute is deprecated. Please use resource_config.function_default_regions instead.""", DeprecationWarning)
+            pulumi.log.warn("""serverless_function_region is deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.""")
         if serverless_function_region is not None:
             pulumi.set(__self__, "serverless_function_region", serverless_function_region)
         if skew_protection is not None:
@@ -815,6 +862,18 @@ class _ProjectState:
     @build_command.setter
     def build_command(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "build_command", value)
+
+    @property
+    @pulumi.getter(name="buildMachineType")
+    def build_machine_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        """
+        return pulumi.get(self, "build_machine_type")
+
+    @build_machine_type.setter
+    def build_machine_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "build_machine_type", value)
 
     @property
     @pulumi.getter(name="customerSuccessCodeVisibility")
@@ -1094,6 +1153,18 @@ class _ProjectState:
         pulumi.set(self, "preview_comments", value)
 
     @property
+    @pulumi.getter(name="previewDeploymentsDisabled")
+    def preview_deployments_disabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Disable creation of Preview Deployments for this project.
+        """
+        return pulumi.get(self, "preview_deployments_disabled")
+
+    @preview_deployments_disabled.setter
+    def preview_deployments_disabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "preview_deployments_disabled", value)
+
+    @property
     @pulumi.getter(name="prioritiseProductionBuilds")
     def prioritise_production_builds(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -1167,6 +1238,7 @@ class _ProjectState:
 
     @property
     @pulumi.getter(name="serverlessFunctionRegion")
+    @_utilities.deprecated("""This attribute is deprecated. Please use resource_config.function_default_regions instead.""")
     def serverless_function_region(self) -> Optional[pulumi.Input[str]]:
         """
         The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
@@ -1234,6 +1306,7 @@ class Project(pulumi.CustomResource):
                  auto_assign_custom_domains: Optional[pulumi.Input[bool]] = None,
                  automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
+                 build_machine_type: Optional[pulumi.Input[str]] = None,
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
@@ -1257,6 +1330,7 @@ class Project(pulumi.CustomResource):
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
+                 preview_deployments_disabled: Optional[pulumi.Input[bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
@@ -1321,6 +1395,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -1344,6 +1419,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -1427,6 +1503,7 @@ class Project(pulumi.CustomResource):
                  auto_assign_custom_domains: Optional[pulumi.Input[bool]] = None,
                  automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
                  build_command: Optional[pulumi.Input[str]] = None,
+                 build_machine_type: Optional[pulumi.Input[str]] = None,
                  customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
                  dev_command: Optional[pulumi.Input[str]] = None,
                  directory_listing: Optional[pulumi.Input[bool]] = None,
@@ -1450,6 +1527,7 @@ class Project(pulumi.CustomResource):
                  output_directory: Optional[pulumi.Input[str]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[bool]] = None,
+                 preview_deployments_disabled: Optional[pulumi.Input[bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
                  protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
@@ -1473,6 +1551,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["auto_assign_custom_domains"] = auto_assign_custom_domains
             __props__.__dict__["automatically_expose_system_environment_variables"] = automatically_expose_system_environment_variables
             __props__.__dict__["build_command"] = build_command
+            __props__.__dict__["build_machine_type"] = build_machine_type
             __props__.__dict__["customer_success_code_visibility"] = customer_success_code_visibility
             __props__.__dict__["dev_command"] = dev_command
             __props__.__dict__["directory_listing"] = directory_listing
@@ -1496,6 +1575,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["output_directory"] = output_directory
             __props__.__dict__["password_protection"] = password_protection
             __props__.__dict__["preview_comments"] = preview_comments
+            __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
             __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
             __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
             __props__.__dict__["protection_bypass_for_automation_secret"] = None if protection_bypass_for_automation_secret is None else pulumi.Output.secret(protection_bypass_for_automation_secret)
@@ -1522,6 +1602,7 @@ class Project(pulumi.CustomResource):
             auto_assign_custom_domains: Optional[pulumi.Input[bool]] = None,
             automatically_expose_system_environment_variables: Optional[pulumi.Input[bool]] = None,
             build_command: Optional[pulumi.Input[str]] = None,
+            build_machine_type: Optional[pulumi.Input[str]] = None,
             customer_success_code_visibility: Optional[pulumi.Input[bool]] = None,
             dev_command: Optional[pulumi.Input[str]] = None,
             directory_listing: Optional[pulumi.Input[bool]] = None,
@@ -1545,6 +1626,7 @@ class Project(pulumi.CustomResource):
             output_directory: Optional[pulumi.Input[str]] = None,
             password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
             preview_comments: Optional[pulumi.Input[bool]] = None,
+            preview_deployments_disabled: Optional[pulumi.Input[bool]] = None,
             prioritise_production_builds: Optional[pulumi.Input[bool]] = None,
             protection_bypass_for_automation: Optional[pulumi.Input[bool]] = None,
             protection_bypass_for_automation_secret: Optional[pulumi.Input[str]] = None,
@@ -1566,6 +1648,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[str] build_command: The build command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
         :param pulumi.Input[bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -1589,6 +1672,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
         :param pulumi.Input[str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
@@ -1608,6 +1692,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["auto_assign_custom_domains"] = auto_assign_custom_domains
         __props__.__dict__["automatically_expose_system_environment_variables"] = automatically_expose_system_environment_variables
         __props__.__dict__["build_command"] = build_command
+        __props__.__dict__["build_machine_type"] = build_machine_type
         __props__.__dict__["customer_success_code_visibility"] = customer_success_code_visibility
         __props__.__dict__["dev_command"] = dev_command
         __props__.__dict__["directory_listing"] = directory_listing
@@ -1631,6 +1716,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["output_directory"] = output_directory
         __props__.__dict__["password_protection"] = password_protection
         __props__.__dict__["preview_comments"] = preview_comments
+        __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
         __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
         __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
         __props__.__dict__["protection_bypass_for_automation_secret"] = protection_bypass_for_automation_secret
@@ -1669,6 +1755,14 @@ class Project(pulumi.CustomResource):
         return pulumi.get(self, "build_command")
 
     @property
+    @pulumi.getter(name="buildMachineType")
+    def build_machine_type(self) -> pulumi.Output[str]:
+        """
+        The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        """
+        return pulumi.get(self, "build_machine_type")
+
+    @property
     @pulumi.getter(name="customerSuccessCodeVisibility")
     def customer_success_code_visibility(self) -> pulumi.Output[bool]:
         """
@@ -1694,7 +1788,7 @@ class Project(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="enableAffectedProjectsDeployments")
-    def enable_affected_projects_deployments(self) -> pulumi.Output[Optional[bool]]:
+    def enable_affected_projects_deployments(self) -> pulumi.Output[bool]:
         """
         When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
         """
@@ -1854,6 +1948,14 @@ class Project(pulumi.CustomResource):
         return pulumi.get(self, "preview_comments")
 
     @property
+    @pulumi.getter(name="previewDeploymentsDisabled")
+    def preview_deployments_disabled(self) -> pulumi.Output[bool]:
+        """
+        Disable creation of Preview Deployments for this project.
+        """
+        return pulumi.get(self, "preview_deployments_disabled")
+
+    @property
     @pulumi.getter(name="prioritiseProductionBuilds")
     def prioritise_production_builds(self) -> pulumi.Output[bool]:
         """
@@ -1903,6 +2005,7 @@ class Project(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="serverlessFunctionRegion")
+    @_utilities.deprecated("""This attribute is deprecated. Please use resource_config.function_default_regions instead.""")
     def serverless_function_region(self) -> pulumi.Output[str]:
         """
         The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.

@@ -26,7 +26,7 @@ class GetEdgeConfigItemResult:
     """
     A collection of values returned by getEdgeConfigItem.
     """
-    def __init__(__self__, id=None, key=None, team_id=None, value=None):
+    def __init__(__self__, id=None, key=None, team_id=None, value=None, value_json=None):
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -39,6 +39,9 @@ class GetEdgeConfigItemResult:
         if value and not isinstance(value, str):
             raise TypeError("Expected argument 'value' to be a str")
         pulumi.set(__self__, "value", value)
+        if value_json and not isinstance(value_json, dict):
+            raise TypeError("Expected argument 'value_json' to be a dict")
+        pulumi.set(__self__, "value_json", value_json)
 
     @property
     @pulumi.getter
@@ -68,9 +71,17 @@ class GetEdgeConfigItemResult:
     @pulumi.getter
     def value(self) -> str:
         """
-        The value assigned to the key.
+        The value assigned to the key (only set for string values).
         """
         return pulumi.get(self, "value")
+
+    @property
+    @pulumi.getter(name="valueJson")
+    def value_json(self) -> Any:
+        """
+        Structured JSON value (object/array/number/bool/null) assigned to the key.
+        """
+        return pulumi.get(self, "value_json")
 
 
 class AwaitableGetEdgeConfigItemResult(GetEdgeConfigItemResult):
@@ -82,7 +93,8 @@ class AwaitableGetEdgeConfigItemResult(GetEdgeConfigItemResult):
             id=self.id,
             key=self.key,
             team_id=self.team_id,
-            value=self.value)
+            value=self.value,
+            value_json=self.value_json)
 
 
 def get_edge_config_item(id: Optional[str] = None,
@@ -103,8 +115,12 @@ def get_edge_config_item(id: Optional[str] = None,
     import pulumi_vercel as vercel
 
     example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-    test = vercel.get_edge_config_item(id=example.id,
+    # Read a string item
+    string_item = vercel.get_edge_config_item(id=example.id,
         key="foobar")
+    # Read a JSON item
+    json_item = vercel.get_edge_config_item(id=example.id,
+        key="flags")
     ```
 
 
@@ -123,7 +139,8 @@ def get_edge_config_item(id: Optional[str] = None,
         id=pulumi.get(__ret__, 'id'),
         key=pulumi.get(__ret__, 'key'),
         team_id=pulumi.get(__ret__, 'team_id'),
-        value=pulumi.get(__ret__, 'value'))
+        value=pulumi.get(__ret__, 'value'),
+        value_json=pulumi.get(__ret__, 'value_json'))
 def get_edge_config_item_output(id: Optional[pulumi.Input[str]] = None,
                                 key: Optional[pulumi.Input[str]] = None,
                                 team_id: Optional[pulumi.Input[Optional[str]]] = None,
@@ -142,8 +159,12 @@ def get_edge_config_item_output(id: Optional[pulumi.Input[str]] = None,
     import pulumi_vercel as vercel
 
     example = vercel.get_edge_config(id="ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-    test = vercel.get_edge_config_item(id=example.id,
+    # Read a string item
+    string_item = vercel.get_edge_config_item(id=example.id,
         key="foobar")
+    # Read a JSON item
+    json_item = vercel.get_edge_config_item(id=example.id,
+        key="flags")
     ```
 
 
@@ -161,4 +182,5 @@ def get_edge_config_item_output(id: Optional[pulumi.Input[str]] = None,
         id=pulumi.get(__response__, 'id'),
         key=pulumi.get(__response__, 'key'),
         team_id=pulumi.get(__response__, 'team_id'),
-        value=pulumi.get(__response__, 'value')))
+        value=pulumi.get(__response__, 'value'),
+        value_json=pulumi.get(__response__, 'value_json')))

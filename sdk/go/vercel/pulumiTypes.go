@@ -836,8 +836,12 @@ func (o FirewallConfigIpRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallC
 type FirewallConfigManagedRulesets struct {
 	// Enable the ai*bots managed ruleset and select action
 	AiBots *FirewallConfigManagedRulesetsAiBots `pulumi:"aiBots"`
-	// Enable the bot*filter managed ruleset and select action
+	// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+	//
+	// Deprecated: The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.
 	BotFilter *FirewallConfigManagedRulesetsBotFilter `pulumi:"botFilter"`
+	// Enable the bot*protection managed ruleset and select action
+	BotProtection *FirewallConfigManagedRulesetsBotProtection `pulumi:"botProtection"`
 	// Enable the owasp managed rulesets and select ruleset behaviors
 	Owasp *FirewallConfigManagedRulesetsOwasp `pulumi:"owasp"`
 }
@@ -856,8 +860,12 @@ type FirewallConfigManagedRulesetsInput interface {
 type FirewallConfigManagedRulesetsArgs struct {
 	// Enable the ai*bots managed ruleset and select action
 	AiBots FirewallConfigManagedRulesetsAiBotsPtrInput `pulumi:"aiBots"`
-	// Enable the bot*filter managed ruleset and select action
+	// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+	//
+	// Deprecated: The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.
 	BotFilter FirewallConfigManagedRulesetsBotFilterPtrInput `pulumi:"botFilter"`
+	// Enable the bot*protection managed ruleset and select action
+	BotProtection FirewallConfigManagedRulesetsBotProtectionPtrInput `pulumi:"botProtection"`
 	// Enable the owasp managed rulesets and select ruleset behaviors
 	Owasp FirewallConfigManagedRulesetsOwaspPtrInput `pulumi:"owasp"`
 }
@@ -944,9 +952,18 @@ func (o FirewallConfigManagedRulesetsOutput) AiBots() FirewallConfigManagedRules
 	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsAiBots { return v.AiBots }).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
 }
 
-// Enable the bot*filter managed ruleset and select action
+// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+//
+// Deprecated: The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.
 func (o FirewallConfigManagedRulesetsOutput) BotFilter() FirewallConfigManagedRulesetsBotFilterPtrOutput {
 	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotFilter { return v.BotFilter }).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
+}
+
+// Enable the bot*protection managed ruleset and select action
+func (o FirewallConfigManagedRulesetsOutput) BotProtection() FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotProtection {
+		return v.BotProtection
+	}).(FirewallConfigManagedRulesetsBotProtectionPtrOutput)
 }
 
 // Enable the owasp managed rulesets and select ruleset behaviors
@@ -988,7 +1005,9 @@ func (o FirewallConfigManagedRulesetsPtrOutput) AiBots() FirewallConfigManagedRu
 	}).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
 }
 
-// Enable the bot*filter managed ruleset and select action
+// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+//
+// Deprecated: The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.
 func (o FirewallConfigManagedRulesetsPtrOutput) BotFilter() FirewallConfigManagedRulesetsBotFilterPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotFilter {
 		if v == nil {
@@ -996,6 +1015,16 @@ func (o FirewallConfigManagedRulesetsPtrOutput) BotFilter() FirewallConfigManage
 		}
 		return v.BotFilter
 	}).(FirewallConfigManagedRulesetsBotFilterPtrOutput)
+}
+
+// Enable the bot*protection managed ruleset and select action
+func (o FirewallConfigManagedRulesetsPtrOutput) BotProtection() FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsBotProtection {
+		if v == nil {
+			return nil
+		}
+		return v.BotProtection
+	}).(FirewallConfigManagedRulesetsBotProtectionPtrOutput)
 }
 
 // Enable the owasp managed rulesets and select ruleset behaviors
@@ -1297,6 +1326,154 @@ func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) Action() pulumi.StringP
 
 func (o FirewallConfigManagedRulesetsBotFilterPtrOutput) Active() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotFilter) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsBotProtection struct {
+	Action *string `pulumi:"action"`
+	Active *bool   `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsBotProtectionInput is an input type that accepts FirewallConfigManagedRulesetsBotProtectionArgs and FirewallConfigManagedRulesetsBotProtectionOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsBotProtectionInput` via:
+//
+//	FirewallConfigManagedRulesetsBotProtectionArgs{...}
+type FirewallConfigManagedRulesetsBotProtectionInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsBotProtectionOutput() FirewallConfigManagedRulesetsBotProtectionOutput
+	ToFirewallConfigManagedRulesetsBotProtectionOutputWithContext(context.Context) FirewallConfigManagedRulesetsBotProtectionOutput
+}
+
+type FirewallConfigManagedRulesetsBotProtectionArgs struct {
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	Active pulumi.BoolPtrInput   `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsBotProtectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsBotProtection)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsBotProtectionArgs) ToFirewallConfigManagedRulesetsBotProtectionOutput() FirewallConfigManagedRulesetsBotProtectionOutput {
+	return i.ToFirewallConfigManagedRulesetsBotProtectionOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsBotProtectionArgs) ToFirewallConfigManagedRulesetsBotProtectionOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotProtectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsBotProtectionOutput)
+}
+
+func (i FirewallConfigManagedRulesetsBotProtectionArgs) ToFirewallConfigManagedRulesetsBotProtectionPtrOutput() FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsBotProtectionArgs) ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsBotProtectionOutput).ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsBotProtectionPtrInput is an input type that accepts FirewallConfigManagedRulesetsBotProtectionArgs, FirewallConfigManagedRulesetsBotProtectionPtr and FirewallConfigManagedRulesetsBotProtectionPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsBotProtectionPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsBotProtectionArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsBotProtectionPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsBotProtectionPtrOutput() FirewallConfigManagedRulesetsBotProtectionPtrOutput
+	ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsBotProtectionPtrOutput
+}
+
+type firewallConfigManagedRulesetsBotProtectionPtrType FirewallConfigManagedRulesetsBotProtectionArgs
+
+func FirewallConfigManagedRulesetsBotProtectionPtr(v *FirewallConfigManagedRulesetsBotProtectionArgs) FirewallConfigManagedRulesetsBotProtectionPtrInput {
+	return (*firewallConfigManagedRulesetsBotProtectionPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsBotProtectionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsBotProtection)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsBotProtectionPtrType) ToFirewallConfigManagedRulesetsBotProtectionPtrOutput() FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsBotProtectionPtrType) ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsBotProtectionPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsBotProtectionOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsBotProtectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsBotProtection)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionOutput) ToFirewallConfigManagedRulesetsBotProtectionOutput() FirewallConfigManagedRulesetsBotProtectionOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionOutput) ToFirewallConfigManagedRulesetsBotProtectionOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotProtectionOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionOutput) ToFirewallConfigManagedRulesetsBotProtectionPtrOutput() FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionOutput) ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsBotProtection) *FirewallConfigManagedRulesetsBotProtection {
+		return &v
+	}).(FirewallConfigManagedRulesetsBotProtectionPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsBotProtection) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsBotProtection) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsBotProtectionPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsBotProtectionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsBotProtection)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionPtrOutput) ToFirewallConfigManagedRulesetsBotProtectionPtrOutput() FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionPtrOutput) ToFirewallConfigManagedRulesetsBotProtectionPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsBotProtectionPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionPtrOutput) Elem() FirewallConfigManagedRulesetsBotProtectionOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotProtection) FirewallConfigManagedRulesetsBotProtection {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsBotProtection
+		return ret
+	}).(FirewallConfigManagedRulesetsBotProtectionOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotProtection) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o FirewallConfigManagedRulesetsBotProtectionPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsBotProtection) *bool {
 		if v == nil {
 			return nil
 		}
@@ -4995,7 +5172,7 @@ func (o ProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) Proj
 type ProjectMembersMember struct {
 	// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	Email *string `pulumi:"email"`
-	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+	// The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role string `pulumi:"role"`
 	// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	UserId *string `pulumi:"userId"`
@@ -5017,7 +5194,7 @@ type ProjectMembersMemberInput interface {
 type ProjectMembersMemberArgs struct {
 	// The email of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	Email pulumi.StringPtrInput `pulumi:"email"`
-	// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+	// The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role pulumi.StringInput `pulumi:"role"`
 	// The ID of the user to add to the project. Exactly one of `userId`, `email`, or `username` must be specified.
 	UserId pulumi.StringPtrInput `pulumi:"userId"`
@@ -5081,7 +5258,7 @@ func (o ProjectMembersMemberOutput) Email() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectMembersMember) *string { return v.Email }).(pulumi.StringPtrOutput)
 }
 
-// The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+// The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 func (o ProjectMembersMemberOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectMembersMember) string { return v.Role }).(pulumi.StringOutput)
 }
@@ -5118,7 +5295,9 @@ func (o ProjectMembersMemberArrayOutput) Index(i pulumi.IntInput) ProjectMembers
 
 type ProjectOidcTokenConfig struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-	Enabled bool `pulumi:"enabled"`
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
+	Enabled *bool `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode *string `pulumi:"issuerMode"`
 }
@@ -5136,7 +5315,9 @@ type ProjectOidcTokenConfigInput interface {
 
 type ProjectOidcTokenConfigArgs struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode pulumi.StringPtrInput `pulumi:"issuerMode"`
 }
@@ -5219,8 +5400,10 @@ func (o ProjectOidcTokenConfigOutput) ToProjectOidcTokenConfigPtrOutputWithConte
 }
 
 // When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-func (o ProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
-	return o.ApplyT(func(v ProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
+//
+// Deprecated: This field is deprecated and will be removed in a future version.
+func (o ProjectOidcTokenConfigOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectOidcTokenConfig) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
 
 // Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
@@ -5253,12 +5436,14 @@ func (o ProjectOidcTokenConfigPtrOutput) Elem() ProjectOidcTokenConfigOutput {
 }
 
 // When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+//
+// Deprecated: This field is deprecated and will be removed in a future version.
 func (o ProjectOidcTokenConfigPtrOutput) Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectOidcTokenConfig) *bool {
 		if v == nil {
 			return nil
 		}
-		return &v.Enabled
+		return v.Enabled
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -5507,7 +5692,7 @@ func (o ProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) Project
 }
 
 type ProjectPasswordProtection struct {
-	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+	// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, or `onlyPreviewDeployments`.
 	DeploymentType string `pulumi:"deploymentType"`
 	// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 	Password string `pulumi:"password"`
@@ -5525,7 +5710,7 @@ type ProjectPasswordProtectionInput interface {
 }
 
 type ProjectPasswordProtectionArgs struct {
-	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+	// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, or `onlyPreviewDeployments`.
 	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 	// The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
 	Password pulumi.StringInput `pulumi:"password"`
@@ -5608,7 +5793,7 @@ func (o ProjectPasswordProtectionOutput) ToProjectPasswordProtectionPtrOutputWit
 	}).(ProjectPasswordProtectionPtrOutput)
 }
 
-// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, or `onlyPreviewDeployments`.
 func (o ProjectPasswordProtectionOutput) DeploymentType() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
@@ -5642,7 +5827,7 @@ func (o ProjectPasswordProtectionPtrOutput) Elem() ProjectPasswordProtectionOutp
 	}).(ProjectPasswordProtectionOutput)
 }
 
-// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, or `onlyPreviewDeployments`.
 func (o ProjectPasswordProtectionPtrOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectPasswordProtection) *string {
 		if v == nil {
@@ -5667,6 +5852,8 @@ type ProjectResourceConfig struct {
 	Fluid *bool `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType *string `pulumi:"functionDefaultCpuType"`
+	// The default regions for Serverless Functions. Must be an array of valid region identifiers.
+	FunctionDefaultRegions []string `pulumi:"functionDefaultRegions"`
 	// The default timeout for Serverless Functions.
 	FunctionDefaultTimeout *int `pulumi:"functionDefaultTimeout"`
 }
@@ -5687,6 +5874,8 @@ type ProjectResourceConfigArgs struct {
 	Fluid pulumi.BoolPtrInput `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType pulumi.StringPtrInput `pulumi:"functionDefaultCpuType"`
+	// The default regions for Serverless Functions. Must be an array of valid region identifiers.
+	FunctionDefaultRegions pulumi.StringArrayInput `pulumi:"functionDefaultRegions"`
 	// The default timeout for Serverless Functions.
 	FunctionDefaultTimeout pulumi.IntPtrInput `pulumi:"functionDefaultTimeout"`
 }
@@ -5778,6 +5967,11 @@ func (o ProjectResourceConfigOutput) FunctionDefaultCpuType() pulumi.StringPtrOu
 	return o.ApplyT(func(v ProjectResourceConfig) *string { return v.FunctionDefaultCpuType }).(pulumi.StringPtrOutput)
 }
 
+// The default regions for Serverless Functions. Must be an array of valid region identifiers.
+func (o ProjectResourceConfigOutput) FunctionDefaultRegions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectResourceConfig) []string { return v.FunctionDefaultRegions }).(pulumi.StringArrayOutput)
+}
+
 // The default timeout for Serverless Functions.
 func (o ProjectResourceConfigOutput) FunctionDefaultTimeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProjectResourceConfig) *int { return v.FunctionDefaultTimeout }).(pulumi.IntPtrOutput)
@@ -5827,6 +6021,16 @@ func (o ProjectResourceConfigPtrOutput) FunctionDefaultCpuType() pulumi.StringPt
 	}).(pulumi.StringPtrOutput)
 }
 
+// The default regions for Serverless Functions. Must be an array of valid region identifiers.
+func (o ProjectResourceConfigPtrOutput) FunctionDefaultRegions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ProjectResourceConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.FunctionDefaultRegions
+	}).(pulumi.StringArrayOutput)
+}
+
 // The default timeout for Serverless Functions.
 func (o ProjectResourceConfigPtrOutput) FunctionDefaultTimeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ProjectResourceConfig) *int {
@@ -5837,10 +6041,116 @@ func (o ProjectResourceConfigPtrOutput) FunctionDefaultTimeout() pulumi.IntPtrOu
 	}).(pulumi.IntPtrOutput)
 }
 
+type ProjectRollingReleaseStage struct {
+	// The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+	Duration *int `pulumi:"duration"`
+	// The percentage of traffic to route to this stage.
+	TargetPercentage int `pulumi:"targetPercentage"`
+}
+
+// ProjectRollingReleaseStageInput is an input type that accepts ProjectRollingReleaseStageArgs and ProjectRollingReleaseStageOutput values.
+// You can construct a concrete instance of `ProjectRollingReleaseStageInput` via:
+//
+//	ProjectRollingReleaseStageArgs{...}
+type ProjectRollingReleaseStageInput interface {
+	pulumi.Input
+
+	ToProjectRollingReleaseStageOutput() ProjectRollingReleaseStageOutput
+	ToProjectRollingReleaseStageOutputWithContext(context.Context) ProjectRollingReleaseStageOutput
+}
+
+type ProjectRollingReleaseStageArgs struct {
+	// The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+	Duration pulumi.IntPtrInput `pulumi:"duration"`
+	// The percentage of traffic to route to this stage.
+	TargetPercentage pulumi.IntInput `pulumi:"targetPercentage"`
+}
+
+func (ProjectRollingReleaseStageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (i ProjectRollingReleaseStageArgs) ToProjectRollingReleaseStageOutput() ProjectRollingReleaseStageOutput {
+	return i.ToProjectRollingReleaseStageOutputWithContext(context.Background())
+}
+
+func (i ProjectRollingReleaseStageArgs) ToProjectRollingReleaseStageOutputWithContext(ctx context.Context) ProjectRollingReleaseStageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRollingReleaseStageOutput)
+}
+
+// ProjectRollingReleaseStageArrayInput is an input type that accepts ProjectRollingReleaseStageArray and ProjectRollingReleaseStageArrayOutput values.
+// You can construct a concrete instance of `ProjectRollingReleaseStageArrayInput` via:
+//
+//	ProjectRollingReleaseStageArray{ ProjectRollingReleaseStageArgs{...} }
+type ProjectRollingReleaseStageArrayInput interface {
+	pulumi.Input
+
+	ToProjectRollingReleaseStageArrayOutput() ProjectRollingReleaseStageArrayOutput
+	ToProjectRollingReleaseStageArrayOutputWithContext(context.Context) ProjectRollingReleaseStageArrayOutput
+}
+
+type ProjectRollingReleaseStageArray []ProjectRollingReleaseStageInput
+
+func (ProjectRollingReleaseStageArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (i ProjectRollingReleaseStageArray) ToProjectRollingReleaseStageArrayOutput() ProjectRollingReleaseStageArrayOutput {
+	return i.ToProjectRollingReleaseStageArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectRollingReleaseStageArray) ToProjectRollingReleaseStageArrayOutputWithContext(ctx context.Context) ProjectRollingReleaseStageArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRollingReleaseStageArrayOutput)
+}
+
+type ProjectRollingReleaseStageOutput struct{ *pulumi.OutputState }
+
+func (ProjectRollingReleaseStageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (o ProjectRollingReleaseStageOutput) ToProjectRollingReleaseStageOutput() ProjectRollingReleaseStageOutput {
+	return o
+}
+
+func (o ProjectRollingReleaseStageOutput) ToProjectRollingReleaseStageOutputWithContext(ctx context.Context) ProjectRollingReleaseStageOutput {
+	return o
+}
+
+// The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+func (o ProjectRollingReleaseStageOutput) Duration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ProjectRollingReleaseStage) *int { return v.Duration }).(pulumi.IntPtrOutput)
+}
+
+// The percentage of traffic to route to this stage.
+func (o ProjectRollingReleaseStageOutput) TargetPercentage() pulumi.IntOutput {
+	return o.ApplyT(func(v ProjectRollingReleaseStage) int { return v.TargetPercentage }).(pulumi.IntOutput)
+}
+
+type ProjectRollingReleaseStageArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectRollingReleaseStageArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (o ProjectRollingReleaseStageArrayOutput) ToProjectRollingReleaseStageArrayOutput() ProjectRollingReleaseStageArrayOutput {
+	return o
+}
+
+func (o ProjectRollingReleaseStageArrayOutput) ToProjectRollingReleaseStageArrayOutputWithContext(ctx context.Context) ProjectRollingReleaseStageArrayOutput {
+	return o
+}
+
+func (o ProjectRollingReleaseStageArrayOutput) Index(i pulumi.IntInput) ProjectRollingReleaseStageOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectRollingReleaseStage {
+		return vs[0].([]ProjectRollingReleaseStage)[vs[1].(int)]
+	}).(ProjectRollingReleaseStageOutput)
+}
+
 type ProjectTrustedIps struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses []ProjectTrustedIpsAddress `pulumi:"addresses"`
-	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+	// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
 	DeploymentType string `pulumi:"deploymentType"`
 	// Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
 	ProtectionMode *string `pulumi:"protectionMode"`
@@ -5860,7 +6170,7 @@ type ProjectTrustedIpsInput interface {
 type ProjectTrustedIpsArgs struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses ProjectTrustedIpsAddressArrayInput `pulumi:"addresses"`
-	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+	// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
 	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 	// Whether or not Trusted IPs is optional to access a deployment. Must be either `trustedIpRequired` or `trustedIpOptional`. `trustedIpOptional` is only available with Standalone Trusted IPs.
 	ProtectionMode pulumi.StringPtrInput `pulumi:"protectionMode"`
@@ -5948,7 +6258,7 @@ func (o ProjectTrustedIpsOutput) Addresses() ProjectTrustedIpsAddressArrayOutput
 	return o.ApplyT(func(v ProjectTrustedIps) []ProjectTrustedIpsAddress { return v.Addresses }).(ProjectTrustedIpsAddressArrayOutput)
 }
 
-// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
 func (o ProjectTrustedIpsOutput) DeploymentType() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectTrustedIps) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
@@ -5992,7 +6302,7 @@ func (o ProjectTrustedIpsPtrOutput) Addresses() ProjectTrustedIpsAddressArrayOut
 	}).(ProjectTrustedIpsAddressArrayOutput)
 }
 
-// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+// The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
 func (o ProjectTrustedIpsPtrOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectTrustedIps) *string {
 		if v == nil {
@@ -6119,8 +6429,8 @@ func (o ProjectTrustedIpsAddressArrayOutput) Index(i pulumi.IntInput) ProjectTru
 }
 
 type ProjectVercelAuthentication struct {
-	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
-	DeploymentType string `pulumi:"deploymentType"`
+	// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+	DeploymentType *string `pulumi:"deploymentType"`
 }
 
 // ProjectVercelAuthenticationInput is an input type that accepts ProjectVercelAuthenticationArgs and ProjectVercelAuthenticationOutput values.
@@ -6135,8 +6445,8 @@ type ProjectVercelAuthenticationInput interface {
 }
 
 type ProjectVercelAuthenticationArgs struct {
-	// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
-	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+	DeploymentType pulumi.StringPtrInput `pulumi:"deploymentType"`
 }
 
 func (ProjectVercelAuthenticationArgs) ElementType() reflect.Type {
@@ -6216,9 +6526,9 @@ func (o ProjectVercelAuthenticationOutput) ToProjectVercelAuthenticationPtrOutpu
 	}).(ProjectVercelAuthenticationPtrOutput)
 }
 
-// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
-func (o ProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
-	return o.ApplyT(func(v ProjectVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
+// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+func (o ProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectVercelAuthentication) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
 }
 
 type ProjectVercelAuthenticationPtrOutput struct{ *pulumi.OutputState }
@@ -6245,13 +6555,13 @@ func (o ProjectVercelAuthenticationPtrOutput) Elem() ProjectVercelAuthentication
 	}).(ProjectVercelAuthenticationOutput)
 }
 
-// The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
 func (o ProjectVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectVercelAuthentication) *string {
 		if v == nil {
 			return nil
 		}
-		return &v.DeploymentType
+		return v.DeploymentType
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -6394,7 +6704,7 @@ func (o TeamConfigRemoteCachingPtrOutput) Enabled() pulumi.BoolPtrOutput {
 
 type TeamConfigSaml struct {
 	// Indicates if SAML is enforced for the team.
-	Enforced bool `pulumi:"enforced"`
+	Enforced *bool `pulumi:"enforced"`
 	// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
 	Roles map[string]TeamConfigSamlRoles `pulumi:"roles"`
 }
@@ -6412,7 +6722,7 @@ type TeamConfigSamlInput interface {
 
 type TeamConfigSamlArgs struct {
 	// Indicates if SAML is enforced for the team.
-	Enforced pulumi.BoolInput `pulumi:"enforced"`
+	Enforced pulumi.BoolPtrInput `pulumi:"enforced"`
 	// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
 	Roles TeamConfigSamlRolesMapInput `pulumi:"roles"`
 }
@@ -6495,8 +6805,8 @@ func (o TeamConfigSamlOutput) ToTeamConfigSamlPtrOutputWithContext(ctx context.C
 }
 
 // Indicates if SAML is enforced for the team.
-func (o TeamConfigSamlOutput) Enforced() pulumi.BoolOutput {
-	return o.ApplyT(func(v TeamConfigSaml) bool { return v.Enforced }).(pulumi.BoolOutput)
+func (o TeamConfigSamlOutput) Enforced() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TeamConfigSaml) *bool { return v.Enforced }).(pulumi.BoolPtrOutput)
 }
 
 // Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
@@ -6534,7 +6844,7 @@ func (o TeamConfigSamlPtrOutput) Enforced() pulumi.BoolPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return &v.Enforced
+		return v.Enforced
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -6819,6 +7129,112 @@ func (o GetCustomEnvironmentBranchTrackingOutput) Pattern() pulumi.StringOutput 
 // How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
 func (o GetCustomEnvironmentBranchTrackingOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCustomEnvironmentBranchTracking) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GetDsyncGroupsList struct {
+	// The ID of the group on Vercel.
+	Id string `pulumi:"id"`
+	// The name of the group on the Identity Provider.
+	Name string `pulumi:"name"`
+}
+
+// GetDsyncGroupsListInput is an input type that accepts GetDsyncGroupsListArgs and GetDsyncGroupsListOutput values.
+// You can construct a concrete instance of `GetDsyncGroupsListInput` via:
+//
+//	GetDsyncGroupsListArgs{...}
+type GetDsyncGroupsListInput interface {
+	pulumi.Input
+
+	ToGetDsyncGroupsListOutput() GetDsyncGroupsListOutput
+	ToGetDsyncGroupsListOutputWithContext(context.Context) GetDsyncGroupsListOutput
+}
+
+type GetDsyncGroupsListArgs struct {
+	// The ID of the group on Vercel.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The name of the group on the Identity Provider.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (GetDsyncGroupsListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDsyncGroupsList)(nil)).Elem()
+}
+
+func (i GetDsyncGroupsListArgs) ToGetDsyncGroupsListOutput() GetDsyncGroupsListOutput {
+	return i.ToGetDsyncGroupsListOutputWithContext(context.Background())
+}
+
+func (i GetDsyncGroupsListArgs) ToGetDsyncGroupsListOutputWithContext(ctx context.Context) GetDsyncGroupsListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDsyncGroupsListOutput)
+}
+
+// GetDsyncGroupsListArrayInput is an input type that accepts GetDsyncGroupsListArray and GetDsyncGroupsListArrayOutput values.
+// You can construct a concrete instance of `GetDsyncGroupsListArrayInput` via:
+//
+//	GetDsyncGroupsListArray{ GetDsyncGroupsListArgs{...} }
+type GetDsyncGroupsListArrayInput interface {
+	pulumi.Input
+
+	ToGetDsyncGroupsListArrayOutput() GetDsyncGroupsListArrayOutput
+	ToGetDsyncGroupsListArrayOutputWithContext(context.Context) GetDsyncGroupsListArrayOutput
+}
+
+type GetDsyncGroupsListArray []GetDsyncGroupsListInput
+
+func (GetDsyncGroupsListArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDsyncGroupsList)(nil)).Elem()
+}
+
+func (i GetDsyncGroupsListArray) ToGetDsyncGroupsListArrayOutput() GetDsyncGroupsListArrayOutput {
+	return i.ToGetDsyncGroupsListArrayOutputWithContext(context.Background())
+}
+
+func (i GetDsyncGroupsListArray) ToGetDsyncGroupsListArrayOutputWithContext(ctx context.Context) GetDsyncGroupsListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetDsyncGroupsListArrayOutput)
+}
+
+type GetDsyncGroupsListOutput struct{ *pulumi.OutputState }
+
+func (GetDsyncGroupsListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDsyncGroupsList)(nil)).Elem()
+}
+
+func (o GetDsyncGroupsListOutput) ToGetDsyncGroupsListOutput() GetDsyncGroupsListOutput {
+	return o
+}
+
+func (o GetDsyncGroupsListOutput) ToGetDsyncGroupsListOutputWithContext(ctx context.Context) GetDsyncGroupsListOutput {
+	return o
+}
+
+// The ID of the group on Vercel.
+func (o GetDsyncGroupsListOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDsyncGroupsList) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The name of the group on the Identity Provider.
+func (o GetDsyncGroupsListOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDsyncGroupsList) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type GetDsyncGroupsListArrayOutput struct{ *pulumi.OutputState }
+
+func (GetDsyncGroupsListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetDsyncGroupsList)(nil)).Elem()
+}
+
+func (o GetDsyncGroupsListArrayOutput) ToGetDsyncGroupsListArrayOutput() GetDsyncGroupsListArrayOutput {
+	return o
+}
+
+func (o GetDsyncGroupsListArrayOutput) ToGetDsyncGroupsListArrayOutputWithContext(ctx context.Context) GetDsyncGroupsListArrayOutput {
+	return o
+}
+
+func (o GetDsyncGroupsListArrayOutput) Index(i pulumi.IntInput) GetDsyncGroupsListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDsyncGroupsList {
+		return vs[0].([]GetDsyncGroupsList)[vs[1].(int)]
+	}).(GetDsyncGroupsListOutput)
 }
 
 type GetMicrofrontendGroupDefaultApp struct {
@@ -7309,7 +7725,7 @@ func (o GetProjectGitRepositoryDeployHookArrayOutput) Index(i pulumi.IntInput) G
 type GetProjectMembersMember struct {
 	// The email of the user.
 	Email string `pulumi:"email"`
-	// The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+	// The role of the user in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role string `pulumi:"role"`
 	// The ID of the user.
 	UserId string `pulumi:"userId"`
@@ -7331,7 +7747,7 @@ type GetProjectMembersMemberInput interface {
 type GetProjectMembersMemberArgs struct {
 	// The email of the user.
 	Email pulumi.StringInput `pulumi:"email"`
-	// The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+	// The role of the user in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 	Role pulumi.StringInput `pulumi:"role"`
 	// The ID of the user.
 	UserId pulumi.StringInput `pulumi:"userId"`
@@ -7395,7 +7811,7 @@ func (o GetProjectMembersMemberOutput) Email() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Email }).(pulumi.StringOutput)
 }
 
-// The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+// The role of the user in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
 func (o GetProjectMembersMemberOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectMembersMember) string { return v.Role }).(pulumi.StringOutput)
 }
@@ -7432,6 +7848,8 @@ func (o GetProjectMembersMemberArrayOutput) Index(i pulumi.IntInput) GetProjectM
 
 type GetProjectOidcTokenConfig struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
 	Enabled bool `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode string `pulumi:"issuerMode"`
@@ -7450,6 +7868,8 @@ type GetProjectOidcTokenConfigInput interface {
 
 type GetProjectOidcTokenConfigArgs struct {
 	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
 	Enabled pulumi.BoolInput `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode pulumi.StringInput `pulumi:"issuerMode"`
@@ -7482,6 +7902,8 @@ func (o GetProjectOidcTokenConfigOutput) ToGetProjectOidcTokenConfigOutputWithCo
 }
 
 // When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+//
+// Deprecated: This field is deprecated and will be removed in a future version.
 func (o GetProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
@@ -7694,6 +8116,8 @@ type GetProjectResourceConfig struct {
 	Fluid bool `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType string `pulumi:"functionDefaultCpuType"`
+	// The default regions for Serverless Functions.
+	FunctionDefaultRegions []string `pulumi:"functionDefaultRegions"`
 	// The default timeout for Serverless Functions.
 	FunctionDefaultTimeout int `pulumi:"functionDefaultTimeout"`
 }
@@ -7714,6 +8138,8 @@ type GetProjectResourceConfigArgs struct {
 	Fluid pulumi.BoolInput `pulumi:"fluid"`
 	// The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
 	FunctionDefaultCpuType pulumi.StringInput `pulumi:"functionDefaultCpuType"`
+	// The default regions for Serverless Functions.
+	FunctionDefaultRegions pulumi.StringArrayInput `pulumi:"functionDefaultRegions"`
 	// The default timeout for Serverless Functions.
 	FunctionDefaultTimeout pulumi.IntInput `pulumi:"functionDefaultTimeout"`
 }
@@ -7754,9 +8180,120 @@ func (o GetProjectResourceConfigOutput) FunctionDefaultCpuType() pulumi.StringOu
 	return o.ApplyT(func(v GetProjectResourceConfig) string { return v.FunctionDefaultCpuType }).(pulumi.StringOutput)
 }
 
+// The default regions for Serverless Functions.
+func (o GetProjectResourceConfigOutput) FunctionDefaultRegions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectResourceConfig) []string { return v.FunctionDefaultRegions }).(pulumi.StringArrayOutput)
+}
+
 // The default timeout for Serverless Functions.
 func (o GetProjectResourceConfigOutput) FunctionDefaultTimeout() pulumi.IntOutput {
 	return o.ApplyT(func(v GetProjectResourceConfig) int { return v.FunctionDefaultTimeout }).(pulumi.IntOutput)
+}
+
+type GetProjectRollingReleaseStage struct {
+	// The duration in minutes to wait before advancing to the next stage. Present for automatic advancement type.
+	Duration int `pulumi:"duration"`
+	// The percentage of traffic to route to this stage.
+	TargetPercentage int `pulumi:"targetPercentage"`
+}
+
+// GetProjectRollingReleaseStageInput is an input type that accepts GetProjectRollingReleaseStageArgs and GetProjectRollingReleaseStageOutput values.
+// You can construct a concrete instance of `GetProjectRollingReleaseStageInput` via:
+//
+//	GetProjectRollingReleaseStageArgs{...}
+type GetProjectRollingReleaseStageInput interface {
+	pulumi.Input
+
+	ToGetProjectRollingReleaseStageOutput() GetProjectRollingReleaseStageOutput
+	ToGetProjectRollingReleaseStageOutputWithContext(context.Context) GetProjectRollingReleaseStageOutput
+}
+
+type GetProjectRollingReleaseStageArgs struct {
+	// The duration in minutes to wait before advancing to the next stage. Present for automatic advancement type.
+	Duration pulumi.IntInput `pulumi:"duration"`
+	// The percentage of traffic to route to this stage.
+	TargetPercentage pulumi.IntInput `pulumi:"targetPercentage"`
+}
+
+func (GetProjectRollingReleaseStageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (i GetProjectRollingReleaseStageArgs) ToGetProjectRollingReleaseStageOutput() GetProjectRollingReleaseStageOutput {
+	return i.ToGetProjectRollingReleaseStageOutputWithContext(context.Background())
+}
+
+func (i GetProjectRollingReleaseStageArgs) ToGetProjectRollingReleaseStageOutputWithContext(ctx context.Context) GetProjectRollingReleaseStageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRollingReleaseStageOutput)
+}
+
+// GetProjectRollingReleaseStageArrayInput is an input type that accepts GetProjectRollingReleaseStageArray and GetProjectRollingReleaseStageArrayOutput values.
+// You can construct a concrete instance of `GetProjectRollingReleaseStageArrayInput` via:
+//
+//	GetProjectRollingReleaseStageArray{ GetProjectRollingReleaseStageArgs{...} }
+type GetProjectRollingReleaseStageArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectRollingReleaseStageArrayOutput() GetProjectRollingReleaseStageArrayOutput
+	ToGetProjectRollingReleaseStageArrayOutputWithContext(context.Context) GetProjectRollingReleaseStageArrayOutput
+}
+
+type GetProjectRollingReleaseStageArray []GetProjectRollingReleaseStageInput
+
+func (GetProjectRollingReleaseStageArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (i GetProjectRollingReleaseStageArray) ToGetProjectRollingReleaseStageArrayOutput() GetProjectRollingReleaseStageArrayOutput {
+	return i.ToGetProjectRollingReleaseStageArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectRollingReleaseStageArray) ToGetProjectRollingReleaseStageArrayOutputWithContext(ctx context.Context) GetProjectRollingReleaseStageArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRollingReleaseStageArrayOutput)
+}
+
+type GetProjectRollingReleaseStageOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRollingReleaseStageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (o GetProjectRollingReleaseStageOutput) ToGetProjectRollingReleaseStageOutput() GetProjectRollingReleaseStageOutput {
+	return o
+}
+
+func (o GetProjectRollingReleaseStageOutput) ToGetProjectRollingReleaseStageOutputWithContext(ctx context.Context) GetProjectRollingReleaseStageOutput {
+	return o
+}
+
+// The duration in minutes to wait before advancing to the next stage. Present for automatic advancement type.
+func (o GetProjectRollingReleaseStageOutput) Duration() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectRollingReleaseStage) int { return v.Duration }).(pulumi.IntOutput)
+}
+
+// The percentage of traffic to route to this stage.
+func (o GetProjectRollingReleaseStageOutput) TargetPercentage() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectRollingReleaseStage) int { return v.TargetPercentage }).(pulumi.IntOutput)
+}
+
+type GetProjectRollingReleaseStageArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRollingReleaseStageArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRollingReleaseStage)(nil)).Elem()
+}
+
+func (o GetProjectRollingReleaseStageArrayOutput) ToGetProjectRollingReleaseStageArrayOutput() GetProjectRollingReleaseStageArrayOutput {
+	return o
+}
+
+func (o GetProjectRollingReleaseStageArrayOutput) ToGetProjectRollingReleaseStageArrayOutputWithContext(ctx context.Context) GetProjectRollingReleaseStageArrayOutput {
+	return o
+}
+
+func (o GetProjectRollingReleaseStageArrayOutput) Index(i pulumi.IntInput) GetProjectRollingReleaseStageOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectRollingReleaseStage {
+		return vs[0].([]GetProjectRollingReleaseStage)[vs[1].(int)]
+	}).(GetProjectRollingReleaseStageOutput)
 }
 
 type GetProjectTrustedIps struct {
@@ -8323,6 +8860,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotProtectionInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotProtectionPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsOwaspGenInput)(nil)).Elem(), FirewallConfigManagedRulesetsOwaspGenArgs{})
@@ -8382,6 +8921,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigInput)(nil)).Elem(), ProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigPtrInput)(nil)).Elem(), ProjectResourceConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRollingReleaseStageInput)(nil)).Elem(), ProjectRollingReleaseStageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRollingReleaseStageArrayInput)(nil)).Elem(), ProjectRollingReleaseStageArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsPtrInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressInput)(nil)).Elem(), ProjectTrustedIpsAddressArgs{})
@@ -8397,6 +8938,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectInput)(nil)).Elem(), TeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectArrayInput)(nil)).Elem(), TeamMemberProjectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCustomEnvironmentBranchTrackingInput)(nil)).Elem(), GetCustomEnvironmentBranchTrackingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDsyncGroupsListInput)(nil)).Elem(), GetDsyncGroupsListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDsyncGroupsListArrayInput)(nil)).Elem(), GetDsyncGroupsListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMicrofrontendGroupDefaultAppInput)(nil)).Elem(), GetMicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
@@ -8412,6 +8955,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectResourceConfigInput)(nil)).Elem(), GetProjectResourceConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageInput)(nil)).Elem(), GetProjectRollingReleaseStageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageArrayInput)(nil)).Elem(), GetProjectRollingReleaseStageArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsInput)(nil)).Elem(), GetProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressInput)(nil)).Elem(), GetProjectTrustedIpsAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressArrayInput)(nil)).Elem(), GetProjectTrustedIpsAddressArray{})
@@ -8438,6 +8983,8 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotProtectionOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotProtectionPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsOwaspGenOutput{})
@@ -8497,6 +9044,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
 	pulumi.RegisterOutputType(ProjectResourceConfigOutput{})
 	pulumi.RegisterOutputType(ProjectResourceConfigPtrOutput{})
+	pulumi.RegisterOutputType(ProjectRollingReleaseStageOutput{})
+	pulumi.RegisterOutputType(ProjectRollingReleaseStageArrayOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsAddressOutput{})
@@ -8512,6 +9061,8 @@ func init() {
 	pulumi.RegisterOutputType(TeamMemberProjectOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectArrayOutput{})
 	pulumi.RegisterOutputType(GetCustomEnvironmentBranchTrackingOutput{})
+	pulumi.RegisterOutputType(GetDsyncGroupsListOutput{})
+	pulumi.RegisterOutputType(GetDsyncGroupsListArrayOutput{})
 	pulumi.RegisterOutputType(GetMicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
@@ -8527,6 +9078,8 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(GetProjectResourceConfigOutput{})
+	pulumi.RegisterOutputType(GetProjectRollingReleaseStageOutput{})
+	pulumi.RegisterOutputType(GetProjectRollingReleaseStageArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressArrayOutput{})

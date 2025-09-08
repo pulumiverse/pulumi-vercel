@@ -115,7 +115,7 @@ class GetLogDrainResult:
     @pulumi.getter
     def sources(self) -> Sequence[str]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `function`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         """
         return pulumi.get(self, "sources")
 

@@ -80,25 +80,25 @@ namespace Pulumiverse.Vercel
     public partial class ProjectDeploymentRetention : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Output("expirationCanceled")]
         public Output<string> ExpirationCanceled { get; private set; } = null!;
 
         /// <summary>
-        /// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Output("expirationErrored")]
         public Output<string> ExpirationErrored { get; private set; } = null!;
 
         /// <summary>
-        /// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Output("expirationPreview")]
         public Output<string> ExpirationPreview { get; private set; } = null!;
 
         /// <summary>
-        /// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Output("expirationProduction")]
         public Output<string> ExpirationProduction { get; private set; } = null!;
@@ -163,25 +163,25 @@ namespace Pulumiverse.Vercel
     public sealed class ProjectDeploymentRetentionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationCanceled")]
         public Input<string>? ExpirationCanceled { get; set; }
 
         /// <summary>
-        /// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationErrored")]
         public Input<string>? ExpirationErrored { get; set; }
 
         /// <summary>
-        /// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationPreview")]
         public Input<string>? ExpirationPreview { get; set; }
 
         /// <summary>
-        /// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationProduction")]
         public Input<string>? ExpirationProduction { get; set; }
@@ -207,25 +207,25 @@ namespace Pulumiverse.Vercel
     public sealed class ProjectDeploymentRetentionState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationCanceled")]
         public Input<string>? ExpirationCanceled { get; set; }
 
         /// <summary>
-        /// The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationErrored")]
         public Input<string>? ExpirationErrored { get; set; }
 
         /// <summary>
-        /// The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationPreview")]
         public Input<string>? ExpirationPreview { get; set; }
 
         /// <summary>
-        /// The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        /// The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
         /// </summary>
         [Input("expirationProduction")]
         public Input<string>? ExpirationProduction { get; set; }
