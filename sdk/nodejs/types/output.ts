@@ -82,9 +82,15 @@ export interface FirewallConfigManagedRulesets {
      */
     aiBots?: outputs.FirewallConfigManagedRulesetsAiBots;
     /**
-     * Enable the bot*filter managed ruleset and select action
+     * DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+     *
+     * @deprecated The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.
      */
     botFilter?: outputs.FirewallConfigManagedRulesetsBotFilter;
+    /**
+     * Enable the bot*protection managed ruleset and select action
+     */
+    botProtection?: outputs.FirewallConfigManagedRulesetsBotProtection;
     /**
      * Enable the owasp managed rulesets and select ruleset behaviors
      */
@@ -97,6 +103,11 @@ export interface FirewallConfigManagedRulesetsAiBots {
 }
 
 export interface FirewallConfigManagedRulesetsBotFilter {
+    action?: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsBotProtection {
     action?: string;
     active?: boolean;
 }
@@ -311,6 +322,17 @@ export interface GetCustomEnvironmentBranchTracking {
     type: string;
 }
 
+export interface GetDsyncGroupsList {
+    /**
+     * The ID of the group on Vercel.
+     */
+    id: string;
+    /**
+     * The name of the group on the Identity Provider.
+     */
+    name: string;
+}
+
 export interface GetMicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -412,7 +434,7 @@ export interface GetProjectMembersMember {
      */
     email: string;
     /**
-     * The role of the user in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+     * The role of the user in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
      */
     role: string;
     /**
@@ -428,6 +450,8 @@ export interface GetProjectMembersMember {
 export interface GetProjectOidcTokenConfig {
     /**
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     *
+     * @deprecated This field is deprecated and will be removed in a future version.
      */
     enabled: boolean;
     /**
@@ -464,9 +488,24 @@ export interface GetProjectResourceConfig {
      */
     functionDefaultCpuType: string;
     /**
+     * The default regions for Serverless Functions.
+     */
+    functionDefaultRegions: string[];
+    /**
      * The default timeout for Serverless Functions.
      */
     functionDefaultTimeout: number;
+}
+
+export interface GetProjectRollingReleaseStage {
+    /**
+     * The duration in minutes to wait before advancing to the next stage. Present for automatic advancement type.
+     */
+    duration: number;
+    /**
+     * The percentage of traffic to route to this stage.
+     */
+    targetPercentage: number;
 }
 
 export interface GetProjectTrustedIps {
@@ -672,7 +711,7 @@ export interface ProjectMembersMember {
      */
     email: string;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+     * The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
      */
     role: string;
     /**
@@ -688,6 +727,8 @@ export interface ProjectMembersMember {
 export interface ProjectOidcTokenConfig {
     /**
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     *
+     * @deprecated This field is deprecated and will be removed in a future version.
      */
     enabled: boolean;
     /**
@@ -712,7 +753,7 @@ export interface ProjectOptionsAllowlistPath {
 
 export interface ProjectPasswordProtection {
     /**
-     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+     * The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, or `onlyPreviewDeployments`.
      */
     deploymentType: string;
     /**
@@ -731,9 +772,24 @@ export interface ProjectResourceConfig {
      */
     functionDefaultCpuType: string;
     /**
+     * The default regions for Serverless Functions. Must be an array of valid region identifiers.
+     */
+    functionDefaultRegions: string[];
+    /**
      * The default timeout for Serverless Functions.
      */
     functionDefaultTimeout: number;
+}
+
+export interface ProjectRollingReleaseStage {
+    /**
+     * The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+     */
+    duration?: number;
+    /**
+     * The percentage of traffic to route to this stage.
+     */
+    targetPercentage: number;
 }
 
 export interface ProjectTrustedIps {
@@ -742,7 +798,7 @@ export interface ProjectTrustedIps {
      */
     addresses: outputs.ProjectTrustedIpsAddress[];
     /**
-     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+     * The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
      */
     deploymentType: string;
     /**
@@ -764,7 +820,7 @@ export interface ProjectTrustedIpsAddress {
 
 export interface ProjectVercelAuthentication {
     /**
-     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType: string;
 }
@@ -791,11 +847,11 @@ export interface TeamConfigSamlRoles {
     /**
      * The access group id to assign to the user.
      */
-    accessGroupId?: string;
+    accessGroupId: string;
     /**
      * The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
      */
-    role?: string;
+    role: string;
 }
 
 export interface TeamMemberProject {

@@ -60,10 +60,14 @@ type LookupDeploymentArgs struct {
 
 // A collection of values returned by getDeployment.
 type LookupDeploymentResult struct {
+	// The ID of the Custom Environment that the deployment was deployed to, if any.
+	CustomEnvironmentId string `pulumi:"customEnvironmentId"`
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains []string `pulumi:"domains"`
 	// The ID or URL of the Deployment to read.
 	Id string `pulumi:"id"`
+	// Arbitrary key/value metadata associated with the deployment.
+	Meta map[string]string `pulumi:"meta"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
 	Production bool `pulumi:"production"`
 	// The project ID to add the deployment to.
@@ -122,6 +126,11 @@ func (o LookupDeploymentResultOutput) ToLookupDeploymentResultOutputWithContext(
 	return o
 }
 
+// The ID of the Custom Environment that the deployment was deployed to, if any.
+func (o LookupDeploymentResultOutput) CustomEnvironmentId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupDeploymentResult) string { return v.CustomEnvironmentId }).(pulumi.StringOutput)
+}
+
 // A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 func (o LookupDeploymentResultOutput) Domains() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) []string { return v.Domains }).(pulumi.StringArrayOutput)
@@ -130,6 +139,11 @@ func (o LookupDeploymentResultOutput) Domains() pulumi.StringArrayOutput {
 // The ID or URL of the Deployment to read.
 func (o LookupDeploymentResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDeploymentResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Arbitrary key/value metadata associated with the deployment.
+func (o LookupDeploymentResultOutput) Meta() pulumi.StringMapOutput {
+	return o.ApplyT(func(v LookupDeploymentResult) map[string]string { return v.Meta }).(pulumi.StringMapOutput)
 }
 
 // true if the deployment is a production deployment, meaning production aliases will be assigned.

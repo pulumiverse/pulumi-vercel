@@ -140,6 +140,14 @@ func Provider() tfbridge.ProviderInfo {
 					parts := []string{state["team_id"].StringValue(), state["integration_id"].StringValue()}
 					return resource.ID(strings.Join(parts, "/")), nil
 				},
+			}, "vercel_project_rolling_release": {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["project_id"].StringValue()), nil
+				},
+			}, "vercel_project_crons": {
+				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
+					return resource.ID(state["project_id"].StringValue()), nil
+				},
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

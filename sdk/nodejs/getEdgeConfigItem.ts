@@ -20,9 +20,15 @@ import * as utilities from "./utilities";
  * const example = vercel.getEdgeConfig({
  *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
  * });
- * const test = example.then(example => vercel.getEdgeConfigItem({
+ * // Read a string item
+ * const stringItem = example.then(example => vercel.getEdgeConfigItem({
  *     id: example.id,
  *     key: "foobar",
+ * }));
+ * // Read a JSON item
+ * const jsonItem = example.then(example => vercel.getEdgeConfigItem({
+ *     id: example.id,
+ *     key: "flags",
  * }));
  * ```
  */
@@ -70,9 +76,13 @@ export interface GetEdgeConfigItemResult {
      */
     readonly teamId: string;
     /**
-     * The value assigned to the key.
+     * The value assigned to the key (only set for string values).
      */
     readonly value: string;
+    /**
+     * Structured JSON value (object/array/number/bool/null) assigned to the key.
+     */
+    readonly valueJson: any;
 }
 /**
  * Provides the value of an existing Edge Config Item.
@@ -90,9 +100,15 @@ export interface GetEdgeConfigItemResult {
  * const example = vercel.getEdgeConfig({
  *     id: "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
  * });
- * const test = example.then(example => vercel.getEdgeConfigItem({
+ * // Read a string item
+ * const stringItem = example.then(example => vercel.getEdgeConfigItem({
  *     id: example.id,
  *     key: "foobar",
+ * }));
+ * // Read a JSON item
+ * const jsonItem = example.then(example => vercel.getEdgeConfigItem({
+ *     id: example.id,
+ *     key: "flags",
  * }));
  * ```
  */

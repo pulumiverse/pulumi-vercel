@@ -16,8 +16,8 @@ namespace Pulumiverse.Vercel.Inputs
         /// <summary>
         /// Indicates if SAML is enforced for the team.
         /// </summary>
-        [Input("enforced", required: true)]
-        public Input<bool> Enforced { get; set; } = null!;
+        [Input("enforced")]
+        public Input<bool>? Enforced { get; set; }
 
         [Input("roles")]
         private InputMap<Inputs.TeamConfigSamlRolesGetArgs>? _roles;

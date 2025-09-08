@@ -87,19 +87,19 @@ export class ProjectDeploymentRetention extends pulumi.CustomResource {
     }
 
     /**
-     * The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     public readonly expirationCanceled!: pulumi.Output<string>;
     /**
-     * The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     public readonly expirationErrored!: pulumi.Output<string>;
     /**
-     * The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     public readonly expirationPreview!: pulumi.Output<string>;
     /**
-     * The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     public readonly expirationProduction!: pulumi.Output<string>;
     /**
@@ -152,19 +152,19 @@ export class ProjectDeploymentRetention extends pulumi.CustomResource {
  */
 export interface ProjectDeploymentRetentionState {
     /**
-     * The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationCanceled?: pulumi.Input<string>;
     /**
-     * The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationErrored?: pulumi.Input<string>;
     /**
-     * The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationPreview?: pulumi.Input<string>;
     /**
-     * The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationProduction?: pulumi.Input<string>;
     /**
@@ -182,19 +182,19 @@ export interface ProjectDeploymentRetentionState {
  */
 export interface ProjectDeploymentRetentionArgs {
     /**
-     * The retention period for canceled deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationCanceled?: pulumi.Input<string>;
     /**
-     * The retention period for errored deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationErrored?: pulumi.Input<string>;
     /**
-     * The retention period for preview deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationPreview?: pulumi.Input<string>;
     /**
-     * The retention period for production deployments. Should be one of '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
      */
     expirationProduction?: pulumi.Input<string>;
     /**

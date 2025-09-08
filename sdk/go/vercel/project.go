@@ -85,6 +85,8 @@ type Project struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolOutput `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrOutput `pulumi:"buildCommand"`
+	// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+	BuildMachineType pulumi.StringOutput `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolOutput `pulumi:"customerSuccessCodeVisibility"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -92,7 +94,7 @@ type Project struct {
 	// If no index file is present within a directory, the directory contents will be displayed.
 	DirectoryListing pulumi.BoolOutput `pulumi:"directoryListing"`
 	// When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
-	EnableAffectedProjectsDeployments pulumi.BoolPtrOutput `pulumi:"enableAffectedProjectsDeployments"`
+	EnableAffectedProjectsDeployments pulumi.BoolOutput `pulumi:"enableAffectedProjectsDeployments"`
 	// Enables the Vercel Toolbar on your preview deployments.
 	EnablePreviewFeedback pulumi.BoolOutput `pulumi:"enablePreviewFeedback"`
 	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
@@ -133,6 +135,8 @@ type Project struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments pulumi.BoolOutput `pulumi:"previewComments"`
+	// Disable creation of Preview Deployments for this project.
+	PreviewDeploymentsDisabled pulumi.BoolOutput `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds pulumi.BoolOutput `pulumi:"prioritiseProductionBuilds"`
 	// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
@@ -146,6 +150,8 @@ type Project struct {
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory pulumi.StringPtrOutput `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+	//
+	// Deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.
 	ServerlessFunctionRegion pulumi.StringOutput `pulumi:"serverlessFunctionRegion"`
 	// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
 	SkewProtection pulumi.StringPtrOutput `pulumi:"skewProtection"`
@@ -200,6 +206,8 @@ type projectState struct {
 	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
+	// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+	BuildMachineType *string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility *bool `pulumi:"customerSuccessCodeVisibility"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -248,6 +256,8 @@ type projectState struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments *bool `pulumi:"previewComments"`
+	// Disable creation of Preview Deployments for this project.
+	PreviewDeploymentsDisabled *bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds *bool `pulumi:"prioritiseProductionBuilds"`
 	// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
@@ -261,6 +271,8 @@ type projectState struct {
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory *string `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+	//
+	// Deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.
 	ServerlessFunctionRegion *string `pulumi:"serverlessFunctionRegion"`
 	// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
 	SkewProtection *string `pulumi:"skewProtection"`
@@ -279,6 +291,8 @@ type ProjectState struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
+	// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+	BuildMachineType pulumi.StringPtrInput
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolPtrInput
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -327,6 +341,8 @@ type ProjectState struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments pulumi.BoolPtrInput
+	// Disable creation of Preview Deployments for this project.
+	PreviewDeploymentsDisabled pulumi.BoolPtrInput
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds pulumi.BoolPtrInput
 	// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
@@ -340,6 +356,8 @@ type ProjectState struct {
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory pulumi.StringPtrInput
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+	//
+	// Deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.
 	ServerlessFunctionRegion pulumi.StringPtrInput
 	// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
 	SkewProtection pulumi.StringPtrInput
@@ -362,6 +380,8 @@ type projectArgs struct {
 	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
+	// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+	BuildMachineType *string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility *bool `pulumi:"customerSuccessCodeVisibility"`
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -410,6 +430,8 @@ type projectArgs struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments *bool `pulumi:"previewComments"`
+	// Disable creation of Preview Deployments for this project.
+	PreviewDeploymentsDisabled *bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds *bool `pulumi:"prioritiseProductionBuilds"`
 	// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
@@ -423,6 +445,8 @@ type projectArgs struct {
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory *string `pulumi:"rootDirectory"`
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+	//
+	// Deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.
 	ServerlessFunctionRegion *string `pulumi:"serverlessFunctionRegion"`
 	// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
 	SkewProtection *string `pulumi:"skewProtection"`
@@ -442,6 +466,8 @@ type ProjectArgs struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
+	// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+	BuildMachineType pulumi.StringPtrInput
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolPtrInput
 	// The dev command for this project. If omitted, this value will be automatically detected.
@@ -490,6 +516,8 @@ type ProjectArgs struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments pulumi.BoolPtrInput
+	// Disable creation of Preview Deployments for this project.
+	PreviewDeploymentsDisabled pulumi.BoolPtrInput
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds pulumi.BoolPtrInput
 	// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
@@ -503,6 +531,8 @@ type ProjectArgs struct {
 	// The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
 	RootDirectory pulumi.StringPtrInput
 	// The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+	//
+	// Deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.
 	ServerlessFunctionRegion pulumi.StringPtrInput
 	// Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
 	SkewProtection pulumi.StringPtrInput
@@ -616,6 +646,11 @@ func (o ProjectOutput) BuildCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringPtrOutput { return v.BuildCommand }).(pulumi.StringPtrOutput)
 }
 
+// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+func (o ProjectOutput) BuildMachineType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.BuildMachineType }).(pulumi.StringOutput)
+}
+
 // Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 func (o ProjectOutput) CustomerSuccessCodeVisibility() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.CustomerSuccessCodeVisibility }).(pulumi.BoolOutput)
@@ -632,8 +667,8 @@ func (o ProjectOutput) DirectoryListing() pulumi.BoolOutput {
 }
 
 // When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
-func (o ProjectOutput) EnableAffectedProjectsDeployments() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Project) pulumi.BoolPtrOutput { return v.EnableAffectedProjectsDeployments }).(pulumi.BoolPtrOutput)
+func (o ProjectOutput) EnableAffectedProjectsDeployments() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.EnableAffectedProjectsDeployments }).(pulumi.BoolOutput)
 }
 
 // Enables the Vercel Toolbar on your preview deployments.
@@ -733,6 +768,11 @@ func (o ProjectOutput) PreviewComments() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.PreviewComments }).(pulumi.BoolOutput)
 }
 
+// Disable creation of Preview Deployments for this project.
+func (o ProjectOutput) PreviewDeploymentsDisabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.PreviewDeploymentsDisabled }).(pulumi.BoolOutput)
+}
+
 // If enabled, builds for the Production environment will be prioritized over Preview environments.
 func (o ProjectOutput) PrioritiseProductionBuilds() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.PrioritiseProductionBuilds }).(pulumi.BoolOutput)
@@ -764,6 +804,8 @@ func (o ProjectOutput) RootDirectory() pulumi.StringPtrOutput {
 }
 
 // The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+//
+// Deprecated: This attribute is deprecated. Please use resource_config.function_default_regions instead.
 func (o ProjectOutput) ServerlessFunctionRegion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.ServerlessFunctionRegion }).(pulumi.StringOutput)
 }

@@ -141,9 +141,6 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             if ((!args || args.projectIds === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectIds'");
             }
-            if ((!args || args.targets === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'targets'");
-            }
             if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
@@ -228,7 +225,7 @@ export interface SharedEnvironmentVariableArgs {
     /**
      * The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
      */
-    targets: pulumi.Input<pulumi.Input<string>[]>;
+    targets?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The ID of the Vercel team. Shared environment variables require a team.
      */

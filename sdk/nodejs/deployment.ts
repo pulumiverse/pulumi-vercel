@@ -34,6 +34,10 @@ export class Deployment extends pulumi.CustomResource {
         return obj['__pulumiType'] === Deployment.__pulumiType;
     }
 
+    /**
+     * The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+     */
+    public readonly customEnvironmentId!: pulumi.Output<string | undefined>;
     public readonly deleteOnDestroy!: pulumi.Output<boolean | undefined>;
     /**
      * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
@@ -47,6 +51,10 @@ export class Deployment extends pulumi.CustomResource {
      * A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `gitSource` is not set.
      */
     public readonly files!: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+     */
+    public readonly meta!: pulumi.Output<{[key: string]: string}>;
     /**
      * If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
      */
@@ -89,10 +97,12 @@ export class Deployment extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DeploymentState | undefined;
+            resourceInputs["customEnvironmentId"] = state ? state.customEnvironmentId : undefined;
             resourceInputs["deleteOnDestroy"] = state ? state.deleteOnDestroy : undefined;
             resourceInputs["domains"] = state ? state.domains : undefined;
             resourceInputs["environment"] = state ? state.environment : undefined;
             resourceInputs["files"] = state ? state.files : undefined;
+            resourceInputs["meta"] = state ? state.meta : undefined;
             resourceInputs["pathPrefix"] = state ? state.pathPrefix : undefined;
             resourceInputs["production"] = state ? state.production : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
@@ -105,9 +115,11 @@ export class Deployment extends pulumi.CustomResource {
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
+            resourceInputs["customEnvironmentId"] = args ? args.customEnvironmentId : undefined;
             resourceInputs["deleteOnDestroy"] = args ? args.deleteOnDestroy : undefined;
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["files"] = args ? args.files : undefined;
+            resourceInputs["meta"] = args ? args.meta : undefined;
             resourceInputs["pathPrefix"] = args ? args.pathPrefix : undefined;
             resourceInputs["production"] = args ? args.production : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
@@ -126,6 +138,10 @@ export class Deployment extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Deployment resources.
  */
 export interface DeploymentState {
+    /**
+     * The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+     */
+    customEnvironmentId?: pulumi.Input<string>;
     deleteOnDestroy?: pulumi.Input<boolean>;
     /**
      * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
@@ -139,6 +155,10 @@ export interface DeploymentState {
      * A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `gitSource` is not set.
      */
     files?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+     */
+    meta?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
      * If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
      */
@@ -173,6 +193,10 @@ export interface DeploymentState {
  * The set of arguments for constructing a Deployment resource.
  */
 export interface DeploymentArgs {
+    /**
+     * The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+     */
+    customEnvironmentId?: pulumi.Input<string>;
     deleteOnDestroy?: pulumi.Input<boolean>;
     /**
      * A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `vercel.Project` resource.
@@ -182,6 +206,10 @@ export interface DeploymentArgs {
      * A map of files to be uploaded for the deployment. This should be provided by a `vercel.getProjectDirectory` or `vercel.getFile` data source. Required if `gitSource` is not set.
      */
     files?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+     */
+    meta?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
      * If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
      */

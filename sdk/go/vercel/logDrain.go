@@ -113,7 +113,7 @@ type LogDrain struct {
 	SamplingRate pulumi.Float64PtrOutput `pulumi:"samplingRate"`
 	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringOutput `pulumi:"secret"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources pulumi.StringArrayOutput `pulumi:"sources"`
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -182,7 +182,7 @@ type logDrainState struct {
 	SamplingRate *float64 `pulumi:"samplingRate"`
 	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret *string `pulumi:"secret"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources []string `pulumi:"sources"`
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -203,7 +203,7 @@ type LogDrainState struct {
 	SamplingRate pulumi.Float64PtrInput
 	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringPtrInput
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources pulumi.StringArrayInput
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -228,7 +228,7 @@ type logDrainArgs struct {
 	SamplingRate *float64 `pulumi:"samplingRate"`
 	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret *string `pulumi:"secret"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources []string `pulumi:"sources"`
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -250,7 +250,7 @@ type LogDrainArgs struct {
 	SamplingRate pulumi.Float64PtrInput
 	// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringPtrInput
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources pulumi.StringArrayInput
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
@@ -378,7 +378,7 @@ func (o LogDrainOutput) Secret() pulumi.StringOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringOutput { return v.Secret }).(pulumi.StringOutput)
 }
 
-// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 func (o LogDrainOutput) Sources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringArrayOutput { return v.Sources }).(pulumi.StringArrayOutput)
 }

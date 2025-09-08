@@ -136,7 +136,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Secret { get; private set; } = null!;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         /// </summary>
         [Output("sources")]
         public Output<ImmutableArray<string>> Sources { get; private set; } = null!;
@@ -272,7 +272,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _sources;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         /// </summary>
         public InputList<string> Sources
         {
@@ -368,7 +368,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _sources;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        /// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         /// </summary>
         public InputList<string> Sources
         {

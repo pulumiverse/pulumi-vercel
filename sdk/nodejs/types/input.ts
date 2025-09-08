@@ -82,9 +82,15 @@ export interface FirewallConfigManagedRulesets {
      */
     aiBots?: pulumi.Input<inputs.FirewallConfigManagedRulesetsAiBots>;
     /**
-     * Enable the bot*filter managed ruleset and select action
+     * DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+     *
+     * @deprecated The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.
      */
     botFilter?: pulumi.Input<inputs.FirewallConfigManagedRulesetsBotFilter>;
+    /**
+     * Enable the bot*protection managed ruleset and select action
+     */
+    botProtection?: pulumi.Input<inputs.FirewallConfigManagedRulesetsBotProtection>;
     /**
      * Enable the owasp managed rulesets and select ruleset behaviors
      */
@@ -97,6 +103,11 @@ export interface FirewallConfigManagedRulesetsAiBots {
 }
 
 export interface FirewallConfigManagedRulesetsBotFilter {
+    action?: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsBotProtection {
     action?: pulumi.Input<string>;
     active?: pulumi.Input<boolean>;
 }
@@ -436,7 +447,7 @@ export interface ProjectMembersMember {
      */
     email?: pulumi.Input<string>;
     /**
-     * The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+     * The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
      */
     role: pulumi.Input<string>;
     /**
@@ -452,8 +463,10 @@ export interface ProjectMembersMember {
 export interface ProjectOidcTokenConfig {
     /**
      * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     *
+     * @deprecated This field is deprecated and will be removed in a future version.
      */
-    enabled: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean>;
     /**
      * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      */
@@ -476,7 +489,7 @@ export interface ProjectOptionsAllowlistPath {
 
 export interface ProjectPasswordProtection {
     /**
-     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, or `onlyPreviewDeployments`.
+     * The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, or `onlyPreviewDeployments`.
      */
     deploymentType: pulumi.Input<string>;
     /**
@@ -495,9 +508,24 @@ export interface ProjectResourceConfig {
      */
     functionDefaultCpuType?: pulumi.Input<string>;
     /**
+     * The default regions for Serverless Functions. Must be an array of valid region identifiers.
+     */
+    functionDefaultRegions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
      * The default timeout for Serverless Functions.
      */
     functionDefaultTimeout?: pulumi.Input<number>;
+}
+
+export interface ProjectRollingReleaseStage {
+    /**
+     * The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+     */
+    duration?: pulumi.Input<number>;
+    /**
+     * The percentage of traffic to route to this stage.
+     */
+    targetPercentage: pulumi.Input<number>;
 }
 
 export interface ProjectTrustedIps {
@@ -506,7 +534,7 @@ export interface ProjectTrustedIps {
      */
     addresses: pulumi.Input<pulumi.Input<inputs.ProjectTrustedIpsAddress>[]>;
     /**
-     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
+     * The deployment environment to protect. Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyProductionDeployments`, or `onlyPreviewDeployments`.
      */
     deploymentType: pulumi.Input<string>;
     /**
@@ -528,9 +556,9 @@ export interface ProjectTrustedIpsAddress {
 
 export interface ProjectVercelAuthentication {
     /**
-     * The deployment environment to protect. Must be one of `standardProtection`, `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
-    deploymentType: pulumi.Input<string>;
+    deploymentType?: pulumi.Input<string>;
 }
 
 export interface TeamConfigRemoteCaching {
@@ -544,7 +572,7 @@ export interface TeamConfigSaml {
     /**
      * Indicates if SAML is enforced for the team.
      */
-    enforced: pulumi.Input<boolean>;
+    enforced?: pulumi.Input<boolean>;
     /**
      * Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
      */

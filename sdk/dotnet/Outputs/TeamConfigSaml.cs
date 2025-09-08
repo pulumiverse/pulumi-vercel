@@ -17,7 +17,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// <summary>
         /// Indicates if SAML is enforced for the team.
         /// </summary>
-        public readonly bool Enforced;
+        public readonly bool? Enforced;
         /// <summary>
         /// Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         /// </summary>
@@ -25,7 +25,7 @@ namespace Pulumiverse.Vercel.Outputs
 
         [OutputConstructor]
         private TeamConfigSaml(
-            bool enforced,
+            bool? enforced,
 
             ImmutableDictionary<string, Outputs.TeamConfigSamlRoles>? roles)
         {

@@ -96,6 +96,10 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly buildCommand!: pulumi.Output<string | undefined>;
     /**
+     * The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+     */
+    public readonly buildMachineType!: pulumi.Output<string>;
+    /**
      * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
      */
     public readonly customerSuccessCodeVisibility!: pulumi.Output<boolean>;
@@ -110,7 +114,7 @@ export class Project extends pulumi.CustomResource {
     /**
      * When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
      */
-    public readonly enableAffectedProjectsDeployments!: pulumi.Output<boolean | undefined>;
+    public readonly enableAffectedProjectsDeployments!: pulumi.Output<boolean>;
     /**
      * Enables the Vercel Toolbar on your preview deployments.
      */
@@ -190,6 +194,10 @@ export class Project extends pulumi.CustomResource {
      */
     public readonly previewComments!: pulumi.Output<boolean>;
     /**
+     * Disable creation of Preview Deployments for this project.
+     */
+    public readonly previewDeploymentsDisabled!: pulumi.Output<boolean>;
+    /**
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
     public readonly prioritiseProductionBuilds!: pulumi.Output<boolean>;
@@ -215,6 +223,8 @@ export class Project extends pulumi.CustomResource {
     public readonly rootDirectory!: pulumi.Output<string | undefined>;
     /**
      * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     *
+     * @deprecated This attribute is deprecated. Please use resource_config.function_default_regions instead.
      */
     public readonly serverlessFunctionRegion!: pulumi.Output<string>;
     /**
@@ -250,6 +260,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["autoAssignCustomDomains"] = state ? state.autoAssignCustomDomains : undefined;
             resourceInputs["automaticallyExposeSystemEnvironmentVariables"] = state ? state.automaticallyExposeSystemEnvironmentVariables : undefined;
             resourceInputs["buildCommand"] = state ? state.buildCommand : undefined;
+            resourceInputs["buildMachineType"] = state ? state.buildMachineType : undefined;
             resourceInputs["customerSuccessCodeVisibility"] = state ? state.customerSuccessCodeVisibility : undefined;
             resourceInputs["devCommand"] = state ? state.devCommand : undefined;
             resourceInputs["directoryListing"] = state ? state.directoryListing : undefined;
@@ -273,6 +284,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["outputDirectory"] = state ? state.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = state ? state.passwordProtection : undefined;
             resourceInputs["previewComments"] = state ? state.previewComments : undefined;
+            resourceInputs["previewDeploymentsDisabled"] = state ? state.previewDeploymentsDisabled : undefined;
             resourceInputs["prioritiseProductionBuilds"] = state ? state.prioritiseProductionBuilds : undefined;
             resourceInputs["protectionBypassForAutomation"] = state ? state.protectionBypassForAutomation : undefined;
             resourceInputs["protectionBypassForAutomationSecret"] = state ? state.protectionBypassForAutomationSecret : undefined;
@@ -289,6 +301,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["autoAssignCustomDomains"] = args ? args.autoAssignCustomDomains : undefined;
             resourceInputs["automaticallyExposeSystemEnvironmentVariables"] = args ? args.automaticallyExposeSystemEnvironmentVariables : undefined;
             resourceInputs["buildCommand"] = args ? args.buildCommand : undefined;
+            resourceInputs["buildMachineType"] = args ? args.buildMachineType : undefined;
             resourceInputs["customerSuccessCodeVisibility"] = args ? args.customerSuccessCodeVisibility : undefined;
             resourceInputs["devCommand"] = args ? args.devCommand : undefined;
             resourceInputs["directoryListing"] = args ? args.directoryListing : undefined;
@@ -312,6 +325,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["outputDirectory"] = args ? args.outputDirectory : undefined;
             resourceInputs["passwordProtection"] = args ? args.passwordProtection : undefined;
             resourceInputs["previewComments"] = args ? args.previewComments : undefined;
+            resourceInputs["previewDeploymentsDisabled"] = args ? args.previewDeploymentsDisabled : undefined;
             resourceInputs["prioritiseProductionBuilds"] = args ? args.prioritiseProductionBuilds : undefined;
             resourceInputs["protectionBypassForAutomation"] = args ? args.protectionBypassForAutomation : undefined;
             resourceInputs["protectionBypassForAutomationSecret"] = args?.protectionBypassForAutomationSecret ? pulumi.secret(args.protectionBypassForAutomationSecret) : undefined;
@@ -347,6 +361,10 @@ export interface ProjectState {
      * The build command for this project. If omitted, this value will be automatically detected.
      */
     buildCommand?: pulumi.Input<string>;
+    /**
+     * The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+     */
+    buildMachineType?: pulumi.Input<string>;
     /**
      * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
      */
@@ -442,6 +460,10 @@ export interface ProjectState {
      */
     previewComments?: pulumi.Input<boolean>;
     /**
+     * Disable creation of Preview Deployments for this project.
+     */
+    previewDeploymentsDisabled?: pulumi.Input<boolean>;
+    /**
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
@@ -467,6 +489,8 @@ export interface ProjectState {
     rootDirectory?: pulumi.Input<string>;
     /**
      * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     *
+     * @deprecated This attribute is deprecated. Please use resource_config.function_default_regions instead.
      */
     serverlessFunctionRegion?: pulumi.Input<string>;
     /**
@@ -504,6 +528,10 @@ export interface ProjectArgs {
      */
     buildCommand?: pulumi.Input<string>;
     /**
+     * The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+     */
+    buildMachineType?: pulumi.Input<string>;
+    /**
      * Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
      */
     customerSuccessCodeVisibility?: pulumi.Input<boolean>;
@@ -598,6 +626,10 @@ export interface ProjectArgs {
      */
     previewComments?: pulumi.Input<boolean>;
     /**
+     * Disable creation of Preview Deployments for this project.
+     */
+    previewDeploymentsDisabled?: pulumi.Input<boolean>;
+    /**
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
@@ -623,6 +655,8 @@ export interface ProjectArgs {
     rootDirectory?: pulumi.Input<string>;
     /**
      * The region on Vercel's network to which your Serverless Functions are deployed. It should be close to any data source your Serverless Function might depend on. A new Deployment is required for your changes to take effect. Please see [Vercel's documentation](https://vercel.com/docs/concepts/edge-network/regions) for a full list of regions.
+     *
+     * @deprecated This attribute is deprecated. Please use resource_config.function_default_regions instead.
      */
     serverlessFunctionRegion?: pulumi.Input<string>;
     /**

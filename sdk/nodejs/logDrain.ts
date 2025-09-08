@@ -119,7 +119,7 @@ export class LogDrain extends pulumi.CustomResource {
      */
     public readonly secret!: pulumi.Output<string>;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
      */
     public readonly sources!: pulumi.Output<string[]>;
     /**
@@ -213,7 +213,7 @@ export interface LogDrainState {
      */
     secret?: pulumi.Input<string>;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
      */
     sources?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -255,7 +255,7 @@ export interface LogDrainArgs {
      */
     secret?: pulumi.Input<string>;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
      */
     sources: pulumi.Input<pulumi.Input<string>[]>;
     /**

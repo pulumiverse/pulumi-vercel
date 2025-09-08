@@ -15,12 +15,12 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class ProjectVercelAuthentication
     {
         /// <summary>
-        /// The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        /// The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         /// </summary>
-        public readonly string DeploymentType;
+        public readonly string? DeploymentType;
 
         [OutputConstructor]
-        private ProjectVercelAuthentication(string deploymentType)
+        private ProjectVercelAuthentication(string? deploymentType)
         {
             DeploymentType = deploymentType;
         }

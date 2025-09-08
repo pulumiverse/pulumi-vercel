@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployments_disabled=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -37,6 +37,9 @@ class GetProjectResult:
         if build_command and not isinstance(build_command, str):
             raise TypeError("Expected argument 'build_command' to be a str")
         pulumi.set(__self__, "build_command", build_command)
+        if build_machine_type and not isinstance(build_machine_type, str):
+            raise TypeError("Expected argument 'build_machine_type' to be a str")
+        pulumi.set(__self__, "build_machine_type", build_machine_type)
         if customer_success_code_visibility and not isinstance(customer_success_code_visibility, bool):
             raise TypeError("Expected argument 'customer_success_code_visibility' to be a bool")
         pulumi.set(__self__, "customer_success_code_visibility", customer_success_code_visibility)
@@ -109,6 +112,9 @@ class GetProjectResult:
         if preview_comments and not isinstance(preview_comments, bool):
             raise TypeError("Expected argument 'preview_comments' to be a bool")
         pulumi.set(__self__, "preview_comments", preview_comments)
+        if preview_deployments_disabled and not isinstance(preview_deployments_disabled, bool):
+            raise TypeError("Expected argument 'preview_deployments_disabled' to be a bool")
+        pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds and not isinstance(prioritise_production_builds, bool):
             raise TypeError("Expected argument 'prioritise_production_builds' to be a bool")
         pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
@@ -166,6 +172,14 @@ class GetProjectResult:
         The build command for this project. If omitted, this value will be automatically detected.
         """
         return pulumi.get(self, "build_command")
+
+    @property
+    @pulumi.getter(name="buildMachineType")
+    def build_machine_type(self) -> str:
+        """
+        The build machine type to use for this project.
+        """
+        return pulumi.get(self, "build_machine_type")
 
     @property
     @pulumi.getter(name="customerSuccessCodeVisibility")
@@ -361,6 +375,14 @@ class GetProjectResult:
         return pulumi.get(self, "preview_comments")
 
     @property
+    @pulumi.getter(name="previewDeploymentsDisabled")
+    def preview_deployments_disabled(self) -> bool:
+        """
+        Whether Preview Deployments are disabled for this project.
+        """
+        return pulumi.get(self, "preview_deployments_disabled")
+
+    @property
     @pulumi.getter(name="prioritiseProductionBuilds")
     def prioritise_production_builds(self) -> bool:
         """
@@ -458,6 +480,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             auto_assign_custom_domains=self.auto_assign_custom_domains,
             automatically_expose_system_environment_variables=self.automatically_expose_system_environment_variables,
             build_command=self.build_command,
+            build_machine_type=self.build_machine_type,
             customer_success_code_visibility=self.customer_success_code_visibility,
             dev_command=self.dev_command,
             directory_listing=self.directory_listing,
@@ -482,6 +505,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             output_directory=self.output_directory,
             password_protection=self.password_protection,
             preview_comments=self.preview_comments,
+            preview_deployments_disabled=self.preview_deployments_disabled,
             prioritise_production_builds=self.prioritise_production_builds,
             protection_bypass_for_automation=self.protection_bypass_for_automation,
             protection_bypass_for_automation_secret=self.protection_bypass_for_automation_secret,
@@ -495,7 +519,8 @@ class AwaitableGetProjectResult(GetProjectResult):
             vercel_authentication=self.vercel_authentication)
 
 
-def get_project(name: Optional[str] = None,
+def get_project(build_machine_type: Optional[str] = None,
+                name: Optional[str] = None,
                 on_demand_concurrent_builds: Optional[bool] = None,
                 team_id: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectResult:
@@ -516,11 +541,13 @@ def get_project(name: Optional[str] = None,
     ```
 
 
+    :param str build_machine_type: The build machine type to use for this project.
     :param str name: The name of the project.
     :param bool on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
+    __args__['buildMachineType'] = build_machine_type
     __args__['name'] = name
     __args__['onDemandConcurrentBuilds'] = on_demand_concurrent_builds
     __args__['teamId'] = team_id
@@ -531,6 +558,7 @@ def get_project(name: Optional[str] = None,
         auto_assign_custom_domains=pulumi.get(__ret__, 'auto_assign_custom_domains'),
         automatically_expose_system_environment_variables=pulumi.get(__ret__, 'automatically_expose_system_environment_variables'),
         build_command=pulumi.get(__ret__, 'build_command'),
+        build_machine_type=pulumi.get(__ret__, 'build_machine_type'),
         customer_success_code_visibility=pulumi.get(__ret__, 'customer_success_code_visibility'),
         dev_command=pulumi.get(__ret__, 'dev_command'),
         directory_listing=pulumi.get(__ret__, 'directory_listing'),
@@ -555,6 +583,7 @@ def get_project(name: Optional[str] = None,
         output_directory=pulumi.get(__ret__, 'output_directory'),
         password_protection=pulumi.get(__ret__, 'password_protection'),
         preview_comments=pulumi.get(__ret__, 'preview_comments'),
+        preview_deployments_disabled=pulumi.get(__ret__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
         protection_bypass_for_automation_secret=pulumi.get(__ret__, 'protection_bypass_for_automation_secret'),
@@ -566,7 +595,8 @@ def get_project(name: Optional[str] = None,
         team_id=pulumi.get(__ret__, 'team_id'),
         trusted_ips=pulumi.get(__ret__, 'trusted_ips'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))
-def get_project_output(name: Optional[pulumi.Input[str]] = None,
+def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[str]]] = None,
+                       name: Optional[pulumi.Input[str]] = None,
                        on_demand_concurrent_builds: Optional[pulumi.Input[Optional[bool]]] = None,
                        team_id: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectResult]:
@@ -587,11 +617,13 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
     ```
 
 
+    :param str build_machine_type: The build machine type to use for this project.
     :param str name: The name of the project.
     :param bool on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
     :param str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
+    __args__['buildMachineType'] = build_machine_type
     __args__['name'] = name
     __args__['onDemandConcurrentBuilds'] = on_demand_concurrent_builds
     __args__['teamId'] = team_id
@@ -601,6 +633,7 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
         auto_assign_custom_domains=pulumi.get(__response__, 'auto_assign_custom_domains'),
         automatically_expose_system_environment_variables=pulumi.get(__response__, 'automatically_expose_system_environment_variables'),
         build_command=pulumi.get(__response__, 'build_command'),
+        build_machine_type=pulumi.get(__response__, 'build_machine_type'),
         customer_success_code_visibility=pulumi.get(__response__, 'customer_success_code_visibility'),
         dev_command=pulumi.get(__response__, 'dev_command'),
         directory_listing=pulumi.get(__response__, 'directory_listing'),
@@ -625,6 +658,7 @@ def get_project_output(name: Optional[pulumi.Input[str]] = None,
         output_directory=pulumi.get(__response__, 'output_directory'),
         password_protection=pulumi.get(__response__, 'password_protection'),
         preview_comments=pulumi.get(__response__, 'preview_comments'),
+        preview_deployments_disabled=pulumi.get(__response__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__response__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__response__, 'protection_bypass_for_automation'),
         protection_bypass_for_automation_secret=pulumi.get(__response__, 'protection_bypass_for_automation_secret'),

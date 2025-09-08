@@ -111,6 +111,10 @@ namespace Pulumiverse.Vercel
     public sealed class GetDeploymentResult
     {
         /// <summary>
+        /// The ID of the Custom Environment that the deployment was deployed to, if any.
+        /// </summary>
+        public readonly string CustomEnvironmentId;
+        /// <summary>
         /// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         /// </summary>
         public readonly ImmutableArray<string> Domains;
@@ -118,6 +122,10 @@ namespace Pulumiverse.Vercel
         /// The ID or URL of the Deployment to read.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// Arbitrary key/value metadata associated with the deployment.
+        /// </summary>
+        public readonly ImmutableDictionary<string, string> Meta;
         /// <summary>
         /// true if the deployment is a production deployment, meaning production aliases will be assigned.
         /// </summary>
@@ -141,9 +149,13 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetDeploymentResult(
+            string customEnvironmentId,
+
             ImmutableArray<string> domains,
 
             string id,
+
+            ImmutableDictionary<string, string> meta,
 
             bool production,
 
@@ -155,8 +167,10 @@ namespace Pulumiverse.Vercel
 
             string url)
         {
+            CustomEnvironmentId = customEnvironmentId;
             Domains = domains;
             Id = id;
+            Meta = meta;
             Production = production;
             ProjectId = projectId;
             Ref = @ref;

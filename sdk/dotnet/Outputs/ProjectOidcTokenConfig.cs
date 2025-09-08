@@ -17,7 +17,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// <summary>
         /// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         /// </summary>
-        public readonly bool Enabled;
+        public readonly bool? Enabled;
         /// <summary>
         /// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         /// </summary>
@@ -25,7 +25,7 @@ namespace Pulumiverse.Vercel.Outputs
 
         [OutputConstructor]
         private ProjectOidcTokenConfig(
-            bool enabled,
+            bool? enabled,
 
             string? issuerMode)
         {

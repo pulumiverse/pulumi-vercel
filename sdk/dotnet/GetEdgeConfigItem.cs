@@ -34,10 +34,18 @@ namespace Pulumiverse.Vercel
         ///         Id = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         ///     });
         /// 
-        ///     var test = Vercel.GetEdgeConfigItem.Invoke(new()
+        ///     // Read a string item
+        ///     var stringItem = Vercel.GetEdgeConfigItem.Invoke(new()
         ///     {
         ///         Id = example.Apply(getEdgeConfigResult =&gt; getEdgeConfigResult.Id),
         ///         Key = "foobar",
+        ///     });
+        /// 
+        ///     // Read a JSON item
+        ///     var jsonItem = Vercel.GetEdgeConfigItem.Invoke(new()
+        ///     {
+        ///         Id = example.Apply(getEdgeConfigResult =&gt; getEdgeConfigResult.Id),
+        ///         Key = "flags",
         ///     });
         /// 
         /// });
@@ -68,10 +76,18 @@ namespace Pulumiverse.Vercel
         ///         Id = "ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         ///     });
         /// 
-        ///     var test = Vercel.GetEdgeConfigItem.Invoke(new()
+        ///     // Read a string item
+        ///     var stringItem = Vercel.GetEdgeConfigItem.Invoke(new()
         ///     {
         ///         Id = example.Apply(getEdgeConfigResult =&gt; getEdgeConfigResult.Id),
         ///         Key = "foobar",
+        ///     });
+        /// 
+        ///     // Read a JSON item
+        ///     var jsonItem = Vercel.GetEdgeConfigItem.Invoke(new()
+        ///     {
+        ///         Id = example.Apply(getEdgeConfigResult =&gt; getEdgeConfigResult.Id),
+        ///         Key = "flags",
         ///     });
         /// 
         /// });
@@ -151,9 +167,13 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string TeamId;
         /// <summary>
-        /// The value assigned to the key.
+        /// The value assigned to the key (only set for string values).
         /// </summary>
         public readonly string Value;
+        /// <summary>
+        /// Structured JSON value (object/array/number/bool/null) assigned to the key.
+        /// </summary>
+        public readonly object ValueJson;
 
         [OutputConstructor]
         private GetEdgeConfigItemResult(
@@ -163,12 +183,15 @@ namespace Pulumiverse.Vercel
 
             string teamId,
 
-            string value)
+            string value,
+
+            object valueJson)
         {
             Id = id;
             Key = key;
             TeamId = teamId;
             Value = value;
+            ValueJson = valueJson;
         }
     }
 }

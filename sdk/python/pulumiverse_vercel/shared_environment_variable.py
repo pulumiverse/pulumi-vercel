@@ -21,26 +21,25 @@ class SharedEnvironmentVariableArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
                  project_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
-                 targets: pulumi.Input[Sequence[pulumi.Input[str]]],
                  value: pulumi.Input[str],
                  apply_to_all_custom_environments: Optional[pulumi.Input[bool]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  sensitive: Optional[pulumi.Input[bool]] = None,
+                 targets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  team_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a SharedEnvironmentVariable resource.
         :param pulumi.Input[str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: The ID of the Vercel project.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] value: The value of the Environment Variable.
         :param pulumi.Input[bool] apply_to_all_custom_environments: Whether the shared environment variable should be applied to all custom environments in the linked projects.
         :param pulumi.Input[str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "project_ids", project_ids)
-        pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
         if apply_to_all_custom_environments is not None:
             pulumi.set(__self__, "apply_to_all_custom_environments", apply_to_all_custom_environments)
@@ -48,6 +47,8 @@ class SharedEnvironmentVariableArgs:
             pulumi.set(__self__, "comment", comment)
         if sensitive is not None:
             pulumi.set(__self__, "sensitive", sensitive)
+        if targets is not None:
+            pulumi.set(__self__, "targets", targets)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
 
@@ -74,18 +75,6 @@ class SharedEnvironmentVariableArgs:
     @project_ids.setter
     def project_ids(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "project_ids", value)
-
-    @property
-    @pulumi.getter
-    def targets(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
-        """
-        return pulumi.get(self, "targets")
-
-    @targets.setter
-    def targets(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "targets", value)
 
     @property
     @pulumi.getter
@@ -134,6 +123,18 @@ class SharedEnvironmentVariableArgs:
     @sensitive.setter
     def sensitive(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "sensitive", value)
+
+    @property
+    @pulumi.getter
+    def targets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
+        """
+        return pulumi.get(self, "targets")
+
+    @targets.setter
+    def targets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "targets", value)
 
     @property
     @pulumi.getter(name="teamId")
@@ -446,8 +447,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                 raise TypeError("Missing required property 'project_ids'")
             __props__.__dict__["project_ids"] = project_ids
             __props__.__dict__["sensitive"] = sensitive
-            if targets is None and not opts.urn:
-                raise TypeError("Missing required property 'targets'")
             __props__.__dict__["targets"] = targets
             __props__.__dict__["team_id"] = team_id
             if value is None and not opts.urn:

@@ -47,6 +47,10 @@ export interface GetDeploymentArgs {
  */
 export interface GetDeploymentResult {
     /**
+     * The ID of the Custom Environment that the deployment was deployed to, if any.
+     */
+    readonly customEnvironmentId: string;
+    /**
      * A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
      */
     readonly domains: string[];
@@ -54,6 +58,10 @@ export interface GetDeploymentResult {
      * The ID or URL of the Deployment to read.
      */
     readonly id: string;
+    /**
+     * Arbitrary key/value metadata associated with the deployment.
+     */
+    readonly meta: {[key: string]: string};
     /**
      * true if the deployment is a production deployment, meaning production aliases will be assigned.
      */

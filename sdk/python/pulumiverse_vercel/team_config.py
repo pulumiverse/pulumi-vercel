@@ -488,6 +488,16 @@ class TeamConfig(pulumi.CustomResource):
         """
         Manages the configuration of an existing Vercel Team.
 
+        ## Import
+
+        Team config can be imported via the team ID.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        ```sh
+        $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
@@ -512,6 +522,16 @@ class TeamConfig(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages the configuration of an existing Vercel Team.
+
+        ## Import
+
+        Team config can be imported via the team ID.
+
+        - team_id can be found in the team `settings` tab in the Vercel UI.
+
+        ```sh
+        $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx
+        ```
 
         :param str resource_name: The name of the resource.
         :param TeamConfigArgs args: The arguments to use to populate this resource's properties.

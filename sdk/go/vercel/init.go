@@ -59,6 +59,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MicrofrontendGroupMembership{}
 	case "vercel:index/project:Project":
 		r = &Project{}
+	case "vercel:index/projectCrons:ProjectCrons":
+		r = &ProjectCrons{}
 	case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
 		r = &ProjectDeploymentRetention{}
 	case "vercel:index/projectDomain:ProjectDomain":
@@ -69,6 +71,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectEnvironmentVariables{}
 	case "vercel:index/projectMembers:ProjectMembers":
 		r = &ProjectMembers{}
+	case "vercel:index/projectRollingRelease:ProjectRollingRelease":
+		r = &ProjectRollingRelease{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
 	case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
@@ -207,6 +211,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/projectCrons",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/projectDeploymentRetention",
 		&module{version},
 	)
@@ -228,6 +237,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/projectMembers",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/projectRollingRelease",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

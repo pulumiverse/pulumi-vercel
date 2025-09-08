@@ -31,6 +31,8 @@ __all__ = [
     'FirewallConfigManagedRulesetsAiBotsArgsDict',
     'FirewallConfigManagedRulesetsBotFilterArgs',
     'FirewallConfigManagedRulesetsBotFilterArgsDict',
+    'FirewallConfigManagedRulesetsBotProtectionArgs',
+    'FirewallConfigManagedRulesetsBotProtectionArgsDict',
     'FirewallConfigManagedRulesetsOwaspArgs',
     'FirewallConfigManagedRulesetsOwaspArgsDict',
     'FirewallConfigManagedRulesetsOwaspGenArgs',
@@ -91,6 +93,8 @@ __all__ = [
     'ProjectPasswordProtectionArgsDict',
     'ProjectResourceConfigArgs',
     'ProjectResourceConfigArgsDict',
+    'ProjectRollingReleaseStageArgs',
+    'ProjectRollingReleaseStageArgsDict',
     'ProjectTrustedIpsArgs',
     'ProjectTrustedIpsArgsDict',
     'ProjectTrustedIpsAddressArgs',
@@ -478,7 +482,11 @@ if not MYPY:
         """
         bot_filter: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgsDict']]
         """
-        Enable the bot*filter managed ruleset and select action
+        DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+        """
+        bot_protection: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgsDict']]
+        """
+        Enable the bot*protection managed ruleset and select action
         """
         owasp: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgsDict']]
         """
@@ -492,16 +500,23 @@ class FirewallConfigManagedRulesetsArgs:
     def __init__(__self__, *,
                  ai_bots: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs']] = None,
                  bot_filter: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']] = None,
+                 bot_protection: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgs']] = None,
                  owasp: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']] = None):
         """
         :param pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs'] ai_bots: Enable the ai*bots managed ruleset and select action
-        :param pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs'] bot_filter: Enable the bot*filter managed ruleset and select action
+        :param pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs'] bot_filter: DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+        :param pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgs'] bot_protection: Enable the bot*protection managed ruleset and select action
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs'] owasp: Enable the owasp managed rulesets and select ruleset behaviors
         """
         if ai_bots is not None:
             pulumi.set(__self__, "ai_bots", ai_bots)
         if bot_filter is not None:
+            warnings.warn("""The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.""", DeprecationWarning)
+            pulumi.log.warn("""bot_filter is deprecated: The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.""")
+        if bot_filter is not None:
             pulumi.set(__self__, "bot_filter", bot_filter)
+        if bot_protection is not None:
+            pulumi.set(__self__, "bot_protection", bot_protection)
         if owasp is not None:
             pulumi.set(__self__, "owasp", owasp)
 
@@ -519,15 +534,28 @@ class FirewallConfigManagedRulesetsArgs:
 
     @property
     @pulumi.getter(name="botFilter")
+    @_utilities.deprecated("""The 'bot_filter' block is deprecated. Please use 'bot_protection' instead.""")
     def bot_filter(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']]:
         """
-        Enable the bot*filter managed ruleset and select action
+        DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
         """
         return pulumi.get(self, "bot_filter")
 
     @bot_filter.setter
     def bot_filter(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs']]):
         pulumi.set(self, "bot_filter", value)
+
+    @property
+    @pulumi.getter(name="botProtection")
+    def bot_protection(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgs']]:
+        """
+        Enable the bot*protection managed ruleset and select action
+        """
+        return pulumi.get(self, "bot_protection")
+
+    @bot_protection.setter
+    def bot_protection(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgs']]):
+        pulumi.set(self, "bot_protection", value)
 
     @property
     @pulumi.getter
@@ -587,6 +615,42 @@ elif False:
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsBotFilterArgs:
+    def __init__(__self__, *,
+                 action: Optional[pulumi.Input[str]] = None,
+                 active: Optional[pulumi.Input[bool]] = None):
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "action", value)
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "active")
+
+    @active.setter
+    def active(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "active", value)
+
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsBotProtectionArgsDict(TypedDict):
+        action: NotRequired[pulumi.Input[str]]
+        active: NotRequired[pulumi.Input[bool]]
+elif False:
+    FirewallConfigManagedRulesetsBotProtectionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class FirewallConfigManagedRulesetsBotProtectionArgs:
     def __init__(__self__, *,
                  action: Optional[pulumi.Input[str]] = None,
                  active: Optional[pulumi.Input[bool]] = None):
@@ -2332,7 +2396,7 @@ if not MYPY:
     class ProjectMembersMemberArgsDict(TypedDict):
         role: pulumi.Input[str]
         """
-        The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         email: NotRequired[pulumi.Input[str]]
         """
@@ -2357,7 +2421,7 @@ class ProjectMembersMemberArgs:
                  user_id: Optional[pulumi.Input[str]] = None,
                  username: Optional[pulumi.Input[str]] = None):
         """
-        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        :param pulumi.Input[str] role: The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         :param pulumi.Input[str] email: The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param pulumi.Input[str] user_id: The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
         :param pulumi.Input[str] username: The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
@@ -2374,7 +2438,7 @@ class ProjectMembersMemberArgs:
     @pulumi.getter
     def role(self) -> pulumi.Input[str]:
         """
-        The role that the user should have in the project. One of 'MEMBER', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+        The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
         """
         return pulumi.get(self, "role")
 
@@ -2421,7 +2485,7 @@ class ProjectMembersMemberArgs:
 
 if not MYPY:
     class ProjectOidcTokenConfigArgsDict(TypedDict):
-        enabled: pulumi.Input[bool]
+        enabled: NotRequired[pulumi.Input[bool]]
         """
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
@@ -2435,26 +2499,31 @@ elif False:
 @pulumi.input_type
 class ProjectOidcTokenConfigArgs:
     def __init__(__self__, *,
-                 enabled: pulumi.Input[bool],
+                 enabled: Optional[pulumi.Input[bool]] = None,
                  issuer_mode: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[bool] enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         :param pulumi.Input[str] issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
-        pulumi.set(__self__, "enabled", enabled)
+        if enabled is not None:
+            warnings.warn("""This field is deprecated and will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""enabled is deprecated: This field is deprecated and will be removed in a future version.""")
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if issuer_mode is not None:
             pulumi.set(__self__, "issuer_mode", issuer_mode)
 
     @property
     @pulumi.getter
-    def enabled(self) -> pulumi.Input[bool]:
+    @_utilities.deprecated("""This field is deprecated and will be removed in a future version.""")
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
         When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: pulumi.Input[bool]):
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enabled", value)
 
     @property
@@ -2536,7 +2605,7 @@ if not MYPY:
     class ProjectPasswordProtectionArgsDict(TypedDict):
         deployment_type: pulumi.Input[str]
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
         """
         password: pulumi.Input[str]
         """
@@ -2551,7 +2620,7 @@ class ProjectPasswordProtectionArgs:
                  deployment_type: pulumi.Input[str],
                  password: pulumi.Input[str]):
         """
-        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
         :param pulumi.Input[str] password: The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
         """
         pulumi.set(__self__, "deployment_type", deployment_type)
@@ -2561,7 +2630,7 @@ class ProjectPasswordProtectionArgs:
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> pulumi.Input[str]:
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, or `only_preview_deployments`.
+        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -2592,6 +2661,10 @@ if not MYPY:
         """
         The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
         """
+        function_default_regions: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        The default regions for Serverless Functions. Must be an array of valid region identifiers.
+        """
         function_default_timeout: NotRequired[pulumi.Input[int]]
         """
         The default timeout for Serverless Functions.
@@ -2604,16 +2677,20 @@ class ProjectResourceConfigArgs:
     def __init__(__self__, *,
                  fluid: Optional[pulumi.Input[bool]] = None,
                  function_default_cpu_type: Optional[pulumi.Input[str]] = None,
+                 function_default_regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  function_default_timeout: Optional[pulumi.Input[int]] = None):
         """
         :param pulumi.Input[bool] fluid: Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
         :param pulumi.Input[str] function_default_cpu_type: The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] function_default_regions: The default regions for Serverless Functions. Must be an array of valid region identifiers.
         :param pulumi.Input[int] function_default_timeout: The default timeout for Serverless Functions.
         """
         if fluid is not None:
             pulumi.set(__self__, "fluid", fluid)
         if function_default_cpu_type is not None:
             pulumi.set(__self__, "function_default_cpu_type", function_default_cpu_type)
+        if function_default_regions is not None:
+            pulumi.set(__self__, "function_default_regions", function_default_regions)
         if function_default_timeout is not None:
             pulumi.set(__self__, "function_default_timeout", function_default_timeout)
 
@@ -2642,6 +2719,18 @@ class ProjectResourceConfigArgs:
         pulumi.set(self, "function_default_cpu_type", value)
 
     @property
+    @pulumi.getter(name="functionDefaultRegions")
+    def function_default_regions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The default regions for Serverless Functions. Must be an array of valid region identifiers.
+        """
+        return pulumi.get(self, "function_default_regions")
+
+    @function_default_regions.setter
+    def function_default_regions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "function_default_regions", value)
+
+    @property
     @pulumi.getter(name="functionDefaultTimeout")
     def function_default_timeout(self) -> Optional[pulumi.Input[int]]:
         """
@@ -2655,6 +2744,57 @@ class ProjectResourceConfigArgs:
 
 
 if not MYPY:
+    class ProjectRollingReleaseStageArgsDict(TypedDict):
+        target_percentage: pulumi.Input[int]
+        """
+        The percentage of traffic to route to this stage.
+        """
+        duration: NotRequired[pulumi.Input[int]]
+        """
+        The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+        """
+elif False:
+    ProjectRollingReleaseStageArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ProjectRollingReleaseStageArgs:
+    def __init__(__self__, *,
+                 target_percentage: pulumi.Input[int],
+                 duration: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[int] target_percentage: The percentage of traffic to route to this stage.
+        :param pulumi.Input[int] duration: The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+        """
+        pulumi.set(__self__, "target_percentage", target_percentage)
+        if duration is not None:
+            pulumi.set(__self__, "duration", duration)
+
+    @property
+    @pulumi.getter(name="targetPercentage")
+    def target_percentage(self) -> pulumi.Input[int]:
+        """
+        The percentage of traffic to route to this stage.
+        """
+        return pulumi.get(self, "target_percentage")
+
+    @target_percentage.setter
+    def target_percentage(self, value: pulumi.Input[int]):
+        pulumi.set(self, "target_percentage", value)
+
+    @property
+    @pulumi.getter
+    def duration(self) -> Optional[pulumi.Input[int]]:
+        """
+        The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+        """
+        return pulumi.get(self, "duration")
+
+    @duration.setter
+    def duration(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "duration", value)
+
+
+if not MYPY:
     class ProjectTrustedIpsArgsDict(TypedDict):
         addresses: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgsDict']]]
         """
@@ -2662,7 +2802,7 @@ if not MYPY:
         """
         deployment_type: pulumi.Input[str]
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
         """
         protection_mode: NotRequired[pulumi.Input[str]]
         """
@@ -2679,7 +2819,7 @@ class ProjectTrustedIpsArgs:
                  protection_mode: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgs']]] addresses: The allowed IP addressses and CIDR ranges with optional descriptions.
-        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
         :param pulumi.Input[str] protection_mode: Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
         """
         pulumi.set(__self__, "addresses", addresses)
@@ -2703,7 +2843,7 @@ class ProjectTrustedIpsArgs:
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> pulumi.Input[str]:
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -2777,9 +2917,9 @@ class ProjectTrustedIpsAddressArgs:
 
 if not MYPY:
     class ProjectVercelAuthenticationArgsDict(TypedDict):
-        deployment_type: pulumi.Input[str]
+        deployment_type: NotRequired[pulumi.Input[str]]
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
 elif False:
     ProjectVercelAuthenticationArgsDict: TypeAlias = Mapping[str, Any]
@@ -2787,22 +2927,23 @@ elif False:
 @pulumi.input_type
 class ProjectVercelAuthenticationArgs:
     def __init__(__self__, *,
-                 deployment_type: pulumi.Input[str]):
+                 deployment_type: Optional[pulumi.Input[str]] = None):
         """
-        :param pulumi.Input[str] deployment_type: The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        :param pulumi.Input[str] deployment_type: The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
-        pulumi.set(__self__, "deployment_type", deployment_type)
+        if deployment_type is not None:
+            pulumi.set(__self__, "deployment_type", deployment_type)
 
     @property
     @pulumi.getter(name="deploymentType")
-    def deployment_type(self) -> pulumi.Input[str]:
+    def deployment_type(self) -> Optional[pulumi.Input[str]]:
         """
-        The deployment environment to protect. Must be one of `standard_protection`, `all_deployments`, `only_preview_deployments`, or `none`.
+        The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
         return pulumi.get(self, "deployment_type")
 
     @deployment_type.setter
-    def deployment_type(self, value: pulumi.Input[str]):
+    def deployment_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "deployment_type", value)
 
 
@@ -2840,7 +2981,7 @@ class TeamConfigRemoteCachingArgs:
 
 if not MYPY:
     class TeamConfigSamlArgsDict(TypedDict):
-        enforced: pulumi.Input[bool]
+        enforced: NotRequired[pulumi.Input[bool]]
         """
         Indicates if SAML is enforced for the team.
         """
@@ -2854,26 +2995,27 @@ elif False:
 @pulumi.input_type
 class TeamConfigSamlArgs:
     def __init__(__self__, *,
-                 enforced: pulumi.Input[bool],
+                 enforced: Optional[pulumi.Input[bool]] = None,
                  roles: Optional[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgs']]]] = None):
         """
         :param pulumi.Input[bool] enforced: Indicates if SAML is enforced for the team.
         :param pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgs']]] roles: Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
         """
-        pulumi.set(__self__, "enforced", enforced)
+        if enforced is not None:
+            pulumi.set(__self__, "enforced", enforced)
         if roles is not None:
             pulumi.set(__self__, "roles", roles)
 
     @property
     @pulumi.getter
-    def enforced(self) -> pulumi.Input[bool]:
+    def enforced(self) -> Optional[pulumi.Input[bool]]:
         """
         Indicates if SAML is enforced for the team.
         """
         return pulumi.get(self, "enforced")
 
     @enforced.setter
-    def enforced(self, value: pulumi.Input[bool]):
+    def enforced(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enforced", value)
 
     @property

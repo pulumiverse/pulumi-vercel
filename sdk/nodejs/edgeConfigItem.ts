@@ -20,8 +20,18 @@ import * as utilities from "./utilities";
  * const example = new vercel.EdgeConfig("example", {name: "example"});
  * const exampleEdgeConfigItem = new vercel.EdgeConfigItem("example", {
  *     edgeConfigId: example.id,
- *     key: "foobar",
- *     value: "baz",
+ *     key: "flags",
+ *     valueJson: {
+ *         featureA: true,
+ *         nested: {
+ *             a: 1,
+ *             b: [
+ *                 1,
+ *                 2,
+ *                 3,
+ *             ],
+ *         },
+ *     },
  * });
  * ```
  *
@@ -92,9 +102,13 @@ export class EdgeConfigItem extends pulumi.CustomResource {
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
-     * The value you want to assign to the key.
+     * The value you want to assign to the key when using a string.
      */
     public readonly value!: pulumi.Output<string>;
+    /**
+     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     */
+    public readonly valueJson!: pulumi.Output<any>;
 
     /**
      * Create a EdgeConfigItem resource with the given unique name, arguments, and options.
@@ -113,6 +127,7 @@ export class EdgeConfigItem extends pulumi.CustomResource {
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["teamId"] = state ? state.teamId : undefined;
             resourceInputs["value"] = state ? state.value : undefined;
+            resourceInputs["valueJson"] = state ? state.valueJson : undefined;
         } else {
             const args = argsOrState as EdgeConfigItemArgs | undefined;
             if ((!args || args.edgeConfigId === undefined) && !opts.urn) {
@@ -121,13 +136,11 @@ export class EdgeConfigItem extends pulumi.CustomResource {
             if ((!args || args.key === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'key'");
             }
-            if ((!args || args.value === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'value'");
-            }
             resourceInputs["edgeConfigId"] = args ? args.edgeConfigId : undefined;
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["teamId"] = args ? args.teamId : undefined;
             resourceInputs["value"] = args ? args.value : undefined;
+            resourceInputs["valueJson"] = args ? args.valueJson : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(EdgeConfigItem.__pulumiType, name, resourceInputs, opts);
@@ -151,9 +164,13 @@ export interface EdgeConfigItemState {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value you want to assign to the key.
+     * The value you want to assign to the key when using a string.
      */
     value?: pulumi.Input<string>;
+    /**
+     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     */
+    valueJson?: any;
 }
 
 /**
@@ -173,7 +190,11 @@ export interface EdgeConfigItemArgs {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value you want to assign to the key.
+     * The value you want to assign to the key when using a string.
      */
-    value: pulumi.Input<string>;
+    value?: pulumi.Input<string>;
+    /**
+     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     */
+    valueJson?: any;
 }

@@ -15,13 +15,17 @@ import (
 type Deployment struct {
 	pulumi.CustomResourceState
 
-	DeleteOnDestroy pulumi.BoolPtrOutput `pulumi:"deleteOnDestroy"`
+	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+	CustomEnvironmentId pulumi.StringPtrOutput `pulumi:"customEnvironmentId"`
+	DeleteOnDestroy     pulumi.BoolPtrOutput   `pulumi:"deleteOnDestroy"`
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains pulumi.StringArrayOutput `pulumi:"domains"`
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapOutput `pulumi:"environment"`
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files pulumi.StringMapOutput `pulumi:"files"`
+	// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+	Meta pulumi.StringMapOutput `pulumi:"meta"`
 	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix pulumi.StringPtrOutput `pulumi:"pathPrefix"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
@@ -71,13 +75,17 @@ func GetDeployment(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Deployment resources.
 type deploymentState struct {
-	DeleteOnDestroy *bool `pulumi:"deleteOnDestroy"`
+	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+	CustomEnvironmentId *string `pulumi:"customEnvironmentId"`
+	DeleteOnDestroy     *bool   `pulumi:"deleteOnDestroy"`
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains []string `pulumi:"domains"`
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment map[string]string `pulumi:"environment"`
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files map[string]string `pulumi:"files"`
+	// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+	Meta map[string]string `pulumi:"meta"`
 	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix *string `pulumi:"pathPrefix"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
@@ -95,13 +103,17 @@ type deploymentState struct {
 }
 
 type DeploymentState struct {
-	DeleteOnDestroy pulumi.BoolPtrInput
+	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+	CustomEnvironmentId pulumi.StringPtrInput
+	DeleteOnDestroy     pulumi.BoolPtrInput
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains pulumi.StringArrayInput
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapInput
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files pulumi.StringMapInput
+	// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+	Meta pulumi.StringMapInput
 	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix pulumi.StringPtrInput
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
@@ -123,11 +135,15 @@ func (DeploymentState) ElementType() reflect.Type {
 }
 
 type deploymentArgs struct {
-	DeleteOnDestroy *bool `pulumi:"deleteOnDestroy"`
+	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+	CustomEnvironmentId *string `pulumi:"customEnvironmentId"`
+	DeleteOnDestroy     *bool   `pulumi:"deleteOnDestroy"`
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment map[string]string `pulumi:"environment"`
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files map[string]string `pulumi:"files"`
+	// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+	Meta map[string]string `pulumi:"meta"`
 	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix *string `pulumi:"pathPrefix"`
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
@@ -144,11 +160,15 @@ type deploymentArgs struct {
 
 // The set of arguments for constructing a Deployment resource.
 type DeploymentArgs struct {
-	DeleteOnDestroy pulumi.BoolPtrInput
+	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+	CustomEnvironmentId pulumi.StringPtrInput
+	DeleteOnDestroy     pulumi.BoolPtrInput
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapInput
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 	Files pulumi.StringMapInput
+	// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+	Meta pulumi.StringMapInput
 	// If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
 	PathPrefix pulumi.StringPtrInput
 	// true if the deployment is a production deployment, meaning production aliases will be assigned.
@@ -250,6 +270,11 @@ func (o DeploymentOutput) ToDeploymentOutputWithContext(ctx context.Context) Dep
 	return o
 }
 
+// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+func (o DeploymentOutput) CustomEnvironmentId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.CustomEnvironmentId }).(pulumi.StringPtrOutput)
+}
+
 func (o DeploymentOutput) DeleteOnDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.BoolPtrOutput { return v.DeleteOnDestroy }).(pulumi.BoolPtrOutput)
 }
@@ -267,6 +292,11 @@ func (o DeploymentOutput) Environment() pulumi.StringMapOutput {
 // A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
 func (o DeploymentOutput) Files() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringMapOutput { return v.Files }).(pulumi.StringMapOutput)
+}
+
+// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+func (o DeploymentOutput) Meta() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *Deployment) pulumi.StringMapOutput { return v.Meta }).(pulumi.StringMapOutput)
 }
 
 // If specified then the `pathPrefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.

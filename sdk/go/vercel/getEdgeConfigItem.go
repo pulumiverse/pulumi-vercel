@@ -37,9 +37,18 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// Read a string item
 //			_, err = vercel.LookupEdgeConfigItem(ctx, &vercel.LookupEdgeConfigItemArgs{
 //				Id:  example.Id,
 //				Key: "foobar",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			// Read a JSON item
+//			_, err = vercel.LookupEdgeConfigItem(ctx, &vercel.LookupEdgeConfigItemArgs{
+//				Id:  example.Id,
+//				Key: "flags",
 //			}, nil)
 //			if err != nil {
 //				return err
@@ -77,8 +86,10 @@ type LookupEdgeConfigItemResult struct {
 	Key string `pulumi:"key"`
 	// The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
-	// The value assigned to the key.
+	// The value assigned to the key (only set for string values).
 	Value string `pulumi:"value"`
+	// Structured JSON value (object/array/number/bool/null) assigned to the key.
+	ValueJson interface{} `pulumi:"valueJson"`
 }
 
 func LookupEdgeConfigItemOutput(ctx *pulumi.Context, args LookupEdgeConfigItemOutputArgs, opts ...pulumi.InvokeOption) LookupEdgeConfigItemResultOutput {
@@ -144,9 +155,14 @@ func (o LookupEdgeConfigItemResultOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigItemResult) string { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The value assigned to the key.
+// The value assigned to the key (only set for string values).
 func (o LookupEdgeConfigItemResultOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupEdgeConfigItemResult) string { return v.Value }).(pulumi.StringOutput)
+}
+
+// Structured JSON value (object/array/number/bool/null) assigned to the key.
+func (o LookupEdgeConfigItemResultOutput) ValueJson() pulumi.AnyOutput {
+	return o.ApplyT(func(v LookupEdgeConfigItemResult) interface{} { return v.ValueJson }).(pulumi.AnyOutput)
 }
 
 func init() {

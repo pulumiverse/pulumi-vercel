@@ -13,6 +13,12 @@ namespace Pulumiverse.Vercel
     [VercelResourceType("vercel:index/deployment:Deployment")]
     public partial class Deployment : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        /// </summary>
+        [Output("customEnvironmentId")]
+        public Output<string?> CustomEnvironmentId { get; private set; } = null!;
+
         [Output("deleteOnDestroy")]
         public Output<bool?> DeleteOnDestroy { get; private set; } = null!;
 
@@ -33,6 +39,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("files")]
         public Output<ImmutableDictionary<string, string>?> Files { get; private set; } = null!;
+
+        /// <summary>
+        /// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+        /// </summary>
+        [Output("meta")]
+        public Output<ImmutableDictionary<string, string>> Meta { get; private set; } = null!;
 
         /// <summary>
         /// If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
@@ -123,6 +135,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class DeploymentArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        /// </summary>
+        [Input("customEnvironmentId")]
+        public Input<string>? CustomEnvironmentId { get; set; }
+
         [Input("deleteOnDestroy")]
         public Input<bool>? DeleteOnDestroy { get; set; }
 
@@ -148,6 +166,18 @@ namespace Pulumiverse.Vercel
         {
             get => _files ?? (_files = new InputMap<string>());
             set => _files = value;
+        }
+
+        [Input("meta")]
+        private InputMap<string>? _meta;
+
+        /// <summary>
+        /// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+        /// </summary>
+        public InputMap<string> Meta
+        {
+            get => _meta ?? (_meta = new InputMap<string>());
+            set => _meta = value;
         }
 
         /// <summary>
@@ -194,6 +224,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class DeploymentState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        /// </summary>
+        [Input("customEnvironmentId")]
+        public Input<string>? CustomEnvironmentId { get; set; }
+
         [Input("deleteOnDestroy")]
         public Input<bool>? DeleteOnDestroy { get; set; }
 
@@ -231,6 +267,18 @@ namespace Pulumiverse.Vercel
         {
             get => _files ?? (_files = new InputMap<string>());
             set => _files = value;
+        }
+
+        [Input("meta")]
+        private InputMap<string>? _meta;
+
+        /// <summary>
+        /// Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+        /// </summary>
+        public InputMap<string> Meta
+        {
+            get => _meta ?? (_meta = new InputMap<string>());
+            set => _meta = value;
         }
 
         /// <summary>

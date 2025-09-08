@@ -13,6 +13,8 @@ namespace Pulumiverse.Vercel
     /// <summary>
     /// Provider a resource for managing a team member.
     /// 
+    /// &gt; **Note:** Users can no longer be added to a team by their user_id. This field is maintained purely for backwards compatibility.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -23,14 +25,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var byUserId = new Vercel.TeamMember("by_user_id", new()
-    ///     {
-    ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
-    ///         UserId = "uuuuuuuuuuuuuuuuuuuuuuuuuu",
-    ///         Role = "MEMBER",
-    ///     });
-    /// 
-    ///     var byEmail = new Vercel.TeamMember("by_email", new()
+    ///     // Recommended: Use email to add team members
+    ///     var example = new Vercel.TeamMember("example", new()
     ///     {
     ///         TeamId = "team_xxxxxxxxxxxxxxxxxxxxxxxx",
     ///         Email = "example@example.com",

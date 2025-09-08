@@ -22,9 +22,11 @@ __all__ = ['DeploymentArgs', 'Deployment']
 class DeploymentArgs:
     def __init__(__self__, *,
                  project_id: pulumi.Input[str],
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  delete_on_destroy: Optional[pulumi.Input[bool]] = None,
                  environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 meta: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  path_prefix: Optional[pulumi.Input[str]] = None,
                  production: Optional[pulumi.Input[bool]] = None,
                  project_settings: Optional[pulumi.Input['DeploymentProjectSettingsArgs']] = None,
@@ -33,8 +35,10 @@ class DeploymentArgs:
         """
         The set of arguments for constructing a Deployment resource.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
+        :param pulumi.Input[str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] meta: Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input['DeploymentProjectSettingsArgs'] project_settings: Project settings that will be applied to the deployment.
@@ -42,12 +46,16 @@ class DeploymentArgs:
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "project_id", project_id)
+        if custom_environment_id is not None:
+            pulumi.set(__self__, "custom_environment_id", custom_environment_id)
         if delete_on_destroy is not None:
             pulumi.set(__self__, "delete_on_destroy", delete_on_destroy)
         if environment is not None:
             pulumi.set(__self__, "environment", environment)
         if files is not None:
             pulumi.set(__self__, "files", files)
+        if meta is not None:
+            pulumi.set(__self__, "meta", meta)
         if path_prefix is not None:
             pulumi.set(__self__, "path_prefix", path_prefix)
         if production is not None:
@@ -70,6 +78,18 @@ class DeploymentArgs:
     @project_id.setter
     def project_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        """
+        return pulumi.get(self, "custom_environment_id")
+
+    @custom_environment_id.setter
+    def custom_environment_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "custom_environment_id", value)
 
     @property
     @pulumi.getter(name="deleteOnDestroy")
@@ -103,6 +123,18 @@ class DeploymentArgs:
     @files.setter
     def files(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "files", value)
+
+    @property
+    @pulumi.getter
+    def meta(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+        """
+        return pulumi.get(self, "meta")
+
+    @meta.setter
+    def meta(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "meta", value)
 
     @property
     @pulumi.getter(name="pathPrefix")
@@ -168,10 +200,12 @@ class DeploymentArgs:
 @pulumi.input_type
 class _DeploymentState:
     def __init__(__self__, *,
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  delete_on_destroy: Optional[pulumi.Input[bool]] = None,
                  domains: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 meta: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  path_prefix: Optional[pulumi.Input[str]] = None,
                  production: Optional[pulumi.Input[bool]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -181,9 +215,11 @@ class _DeploymentState:
                  url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Deployment resources.
+        :param pulumi.Input[str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] meta: Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
@@ -192,6 +228,8 @@ class _DeploymentState:
         :param pulumi.Input[str] team_id: The team ID to add the deployment to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[str] url: A unique URL that is automatically generated for a deployment.
         """
+        if custom_environment_id is not None:
+            pulumi.set(__self__, "custom_environment_id", custom_environment_id)
         if delete_on_destroy is not None:
             pulumi.set(__self__, "delete_on_destroy", delete_on_destroy)
         if domains is not None:
@@ -200,6 +238,8 @@ class _DeploymentState:
             pulumi.set(__self__, "environment", environment)
         if files is not None:
             pulumi.set(__self__, "files", files)
+        if meta is not None:
+            pulumi.set(__self__, "meta", meta)
         if path_prefix is not None:
             pulumi.set(__self__, "path_prefix", path_prefix)
         if production is not None:
@@ -214,6 +254,18 @@ class _DeploymentState:
             pulumi.set(__self__, "team_id", team_id)
         if url is not None:
             pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        """
+        return pulumi.get(self, "custom_environment_id")
+
+    @custom_environment_id.setter
+    def custom_environment_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "custom_environment_id", value)
 
     @property
     @pulumi.getter(name="deleteOnDestroy")
@@ -259,6 +311,18 @@ class _DeploymentState:
     @files.setter
     def files(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "files", value)
+
+    @property
+    @pulumi.getter
+    def meta(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+        """
+        return pulumi.get(self, "meta")
+
+    @meta.setter
+    def meta(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "meta", value)
 
     @property
     @pulumi.getter(name="pathPrefix")
@@ -350,9 +414,11 @@ class Deployment(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  delete_on_destroy: Optional[pulumi.Input[bool]] = None,
                  environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 meta: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  path_prefix: Optional[pulumi.Input[str]] = None,
                  production: Optional[pulumi.Input[bool]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -364,8 +430,10 @@ class Deployment(pulumi.CustomResource):
         Create a Deployment resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] meta: Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
@@ -396,9 +464,11 @@ class Deployment(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 custom_environment_id: Optional[pulumi.Input[str]] = None,
                  delete_on_destroy: Optional[pulumi.Input[bool]] = None,
                  environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 meta: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  path_prefix: Optional[pulumi.Input[str]] = None,
                  production: Optional[pulumi.Input[bool]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -414,9 +484,11 @@ class Deployment(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = DeploymentArgs.__new__(DeploymentArgs)
 
+            __props__.__dict__["custom_environment_id"] = custom_environment_id
             __props__.__dict__["delete_on_destroy"] = delete_on_destroy
             __props__.__dict__["environment"] = environment
             __props__.__dict__["files"] = files
+            __props__.__dict__["meta"] = meta
             __props__.__dict__["path_prefix"] = path_prefix
             __props__.__dict__["production"] = production
             if project_id is None and not opts.urn:
@@ -437,10 +509,12 @@ class Deployment(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            custom_environment_id: Optional[pulumi.Input[str]] = None,
             delete_on_destroy: Optional[pulumi.Input[bool]] = None,
             domains: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             environment: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
             files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+            meta: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
             path_prefix: Optional[pulumi.Input[str]] = None,
             production: Optional[pulumi.Input[bool]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
@@ -455,9 +529,11 @@ class Deployment(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] meta: Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
         :param pulumi.Input[str] path_prefix: If specified then the `path_prefix` will be stripped from the start of file paths as they are uploaded to Vercel. If this is omitted, then any leading `../`s will be stripped.
         :param pulumi.Input[bool] production: true if the deployment is a production deployment, meaning production aliases will be assigned.
         :param pulumi.Input[str] project_id: The project ID to add the deployment to.
@@ -470,10 +546,12 @@ class Deployment(pulumi.CustomResource):
 
         __props__ = _DeploymentState.__new__(_DeploymentState)
 
+        __props__.__dict__["custom_environment_id"] = custom_environment_id
         __props__.__dict__["delete_on_destroy"] = delete_on_destroy
         __props__.__dict__["domains"] = domains
         __props__.__dict__["environment"] = environment
         __props__.__dict__["files"] = files
+        __props__.__dict__["meta"] = meta
         __props__.__dict__["path_prefix"] = path_prefix
         __props__.__dict__["production"] = production
         __props__.__dict__["project_id"] = project_id
@@ -482,6 +560,14 @@ class Deployment(pulumi.CustomResource):
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["url"] = url
         return Deployment(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="customEnvironmentId")
+    def custom_environment_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        """
+        return pulumi.get(self, "custom_environment_id")
 
     @property
     @pulumi.getter(name="deleteOnDestroy")
@@ -511,6 +597,14 @@ class Deployment(pulumi.CustomResource):
         A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         """
         return pulumi.get(self, "files")
+
+    @property
+    @pulumi.getter
+    def meta(self) -> pulumi.Output[Mapping[str, str]]:
+        """
+        Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
+        """
+        return pulumi.get(self, "meta")
 
     @property
     @pulumi.getter(name="pathPrefix")

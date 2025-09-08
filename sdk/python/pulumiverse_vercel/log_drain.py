@@ -33,7 +33,7 @@ class LogDrainArgs:
         :param pulumi.Input[str] delivery_format: The format log data should be delivered in. Can be `json` or `ndjson`.
         :param pulumi.Input[str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] headers: Custom headers to include in requests to the log drain endpoint.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
@@ -95,7 +95,7 @@ class LogDrainArgs:
     @pulumi.getter
     def sources(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         """
         return pulumi.get(self, "sources")
 
@@ -185,7 +185,7 @@ class _LogDrainState:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         :param pulumi.Input[str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if delivery_format is not None:
@@ -295,7 +295,7 @@ class _LogDrainState:
     @pulumi.getter
     def sources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         """
         return pulumi.get(self, "sources")
 
@@ -397,7 +397,7 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         :param pulumi.Input[str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
@@ -548,7 +548,7 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         :param pulumi.Input[str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -626,7 +626,7 @@ class LogDrain(pulumi.CustomResource):
     @pulumi.getter
     def sources(self) -> pulumi.Output[Sequence[str]]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build` and `lambda`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
         """
         return pulumi.get(self, "sources")
 

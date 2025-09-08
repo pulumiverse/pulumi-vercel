@@ -35,8 +35,21 @@ namespace Pulumiverse.Vercel
     ///     var exampleEdgeConfigItem = new Vercel.EdgeConfigItem("example", new()
     ///     {
     ///         EdgeConfigId = example.Id,
-    ///         Key = "foobar",
-    ///         Value = "baz",
+    ///         Key = "flags",
+    ///         ValueJson = new Dictionary&lt;string, object?&gt;
+    ///         {
+    ///             ["featureA"] = true,
+    ///             ["nested"] = new Dictionary&lt;string, object?&gt;
+    ///             {
+    ///                 ["a"] = 1,
+    ///                 ["b"] = new object?[]
+    ///                 {
+    ///                     1,
+    ///                     2,
+    ///                     3,
+    ///                 },
+    ///             },
+    ///         },
     ///     });
     /// 
     /// });
@@ -90,10 +103,16 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// The value you want to assign to the key.
+        /// The value you want to assign to the key when using a string.
         /// </summary>
         [Output("value")]
         public Output<string> Value { get; private set; } = null!;
+
+        /// <summary>
+        /// Structured JSON value to assign to the key (object/array/number/bool/null).
+        /// </summary>
+        [Output("valueJson")]
+        public Output<object> ValueJson { get; private set; } = null!;
 
 
         /// <summary>
@@ -161,10 +180,16 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// The value you want to assign to the key.
+        /// The value you want to assign to the key when using a string.
         /// </summary>
-        [Input("value", required: true)]
-        public Input<string> Value { get; set; } = null!;
+        [Input("value")]
+        public Input<string>? Value { get; set; }
+
+        /// <summary>
+        /// Structured JSON value to assign to the key (object/array/number/bool/null).
+        /// </summary>
+        [Input("valueJson")]
+        public Input<object>? ValueJson { get; set; }
 
         public EdgeConfigItemArgs()
         {
@@ -193,10 +218,16 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// The value you want to assign to the key.
+        /// The value you want to assign to the key when using a string.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
+
+        /// <summary>
+        /// Structured JSON value to assign to the key (object/array/number/bool/null).
+        /// </summary>
+        [Input("valueJson")]
+        public Input<object>? ValueJson { get; set; }
 
         public EdgeConfigItemState()
         {
