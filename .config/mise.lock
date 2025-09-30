@@ -1,0 +1,44 @@
+[[tools.dotnet]]
+version = "8.0.414"
+backend = "asdf:dotnet"
+
+[[tools."github:pulumi/pulumictl"]]
+version = "0.0.50"
+backend = "github:pulumi/pulumictl"
+
+[[tools."github:pulumi/schema-tools"]]
+version = "0.6.0"
+backend = "github:pulumi/schema-tools"
+
+[[tools.go]]
+version = "1.25.1"
+backend = "core:go"
+
+[[tools.golangci-lint]]
+version = "1.64.8"
+backend = "aqua:golangci/golangci-lint"
+
+[tools.golangci-lint.platforms.macos-arm64]
+checksum = "sha256:70543d21e5b02a94079be8aa11267a5b060865583e337fe768d39b5d3e2faf1f"
+size = 11976954
+url = "https://github.com/golangci/golangci-lint/releases/download/v1.64.8/golangci-lint-1.64.8-darwin-arm64.tar.gz"
+
+[[tools.gradle]]
+version = "7.6.6"
+backend = "aqua:gradle/gradle"
+
+[[tools.java]]
+version = "corretto-11.0.28.6.1"
+backend = "core:java"
+
+[[tools.node]]
+version = "20.19.5"
+backend = "core:node"
+
+[[tools.pulumi]]
+version = "3.198.0"
+backend = "aqua:pulumi/pulumi"
+
+[[tools.python]]
+version = "3.11.8"
+backend = "core:python"
