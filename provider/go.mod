@@ -3,10 +3,10 @@ module github.com/pulumiverse/pulumi-vercel/provider/v3
 go 1.23.0
 
 require (
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
-	github.com/pulumi/pulumi/sdk/v3 v3.142.0
-	github.com/vercel/terraform-provider-vercel/v3 v3.15.3
-	golang.org/x/text v0.26.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.114.0
+	github.com/pulumi/pulumi/sdk/v3 v3.201.0
+	github.com/vercel/terraform-provider-vercel/v3 v3.16.0
+	golang.org/x/text v0.29.0
 )
 
 require github.com/Masterminds/semver v1.5.0 // indirect
