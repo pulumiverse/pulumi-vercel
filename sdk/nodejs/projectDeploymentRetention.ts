@@ -5,12 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * Provides a Project Deployment Retention resource.
- *
- * A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
- *
  * ## Example Usage
  *
  * ```typescript
@@ -23,16 +17,6 @@ import * as utilities from "./utilities";
  *         type: "github",
  *         repo: "vercel/some-repo",
  *     },
- * });
- * // An unlimited deployment retention policy that will be created
- * // for this project for all deployments.
- * const exampleUnlimited = new vercel.ProjectDeploymentRetention("example_unlimited", {
- *     projectId: example.id,
- *     teamId: example.teamId,
- *     expirationPreview: "unlimited",
- *     expirationProduction: "unlimited",
- *     expirationCanceled: "unlimited",
- *     expirationErrored: "unlimited",
  * });
  * // A customized deployment retention policy that will be created
  * // for this project for all deployments.
@@ -87,19 +71,19 @@ export class ProjectDeploymentRetention extends pulumi.CustomResource {
     }
 
     /**
-     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     public readonly expirationCanceled!: pulumi.Output<string>;
     /**
-     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     public readonly expirationErrored!: pulumi.Output<string>;
     /**
-     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     public readonly expirationPreview!: pulumi.Output<string>;
     /**
-     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     public readonly expirationProduction!: pulumi.Output<string>;
     /**
@@ -152,19 +136,19 @@ export class ProjectDeploymentRetention extends pulumi.CustomResource {
  */
 export interface ProjectDeploymentRetentionState {
     /**
-     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationCanceled?: pulumi.Input<string>;
     /**
-     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationErrored?: pulumi.Input<string>;
     /**
-     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationPreview?: pulumi.Input<string>;
     /**
-     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationProduction?: pulumi.Input<string>;
     /**
@@ -182,19 +166,19 @@ export interface ProjectDeploymentRetentionState {
  */
 export interface ProjectDeploymentRetentionArgs {
     /**
-     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationCanceled?: pulumi.Input<string>;
     /**
-     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationErrored?: pulumi.Input<string>;
     /**
-     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationPreview?: pulumi.Input<string>;
     /**
-     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+     * The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
      */
     expirationProduction?: pulumi.Input<string>;
     /**

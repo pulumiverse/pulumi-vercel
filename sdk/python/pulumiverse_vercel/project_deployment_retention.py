@@ -28,10 +28,10 @@ class ProjectDeploymentRetentionArgs:
         """
         The set of arguments for constructing a ProjectDeploymentRetention resource.
         :param pulumi.Input[str] project_id: The ID of the Project for the retention policy
-        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[str] team_id: The ID of the Vercel team.
         """
         pulumi.set(__self__, "project_id", project_id)
@@ -62,7 +62,7 @@ class ProjectDeploymentRetentionArgs:
     @pulumi.getter(name="expirationCanceled")
     def expiration_canceled(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_canceled")
 
@@ -74,7 +74,7 @@ class ProjectDeploymentRetentionArgs:
     @pulumi.getter(name="expirationErrored")
     def expiration_errored(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_errored")
 
@@ -86,7 +86,7 @@ class ProjectDeploymentRetentionArgs:
     @pulumi.getter(name="expirationPreview")
     def expiration_preview(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_preview")
 
@@ -98,7 +98,7 @@ class ProjectDeploymentRetentionArgs:
     @pulumi.getter(name="expirationProduction")
     def expiration_production(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_production")
 
@@ -130,10 +130,10 @@ class _ProjectDeploymentRetentionState:
                  team_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ProjectDeploymentRetention resources.
-        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[str] project_id: The ID of the Project for the retention policy
         :param pulumi.Input[str] team_id: The ID of the Vercel team.
         """
@@ -154,7 +154,7 @@ class _ProjectDeploymentRetentionState:
     @pulumi.getter(name="expirationCanceled")
     def expiration_canceled(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_canceled")
 
@@ -166,7 +166,7 @@ class _ProjectDeploymentRetentionState:
     @pulumi.getter(name="expirationErrored")
     def expiration_errored(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_errored")
 
@@ -178,7 +178,7 @@ class _ProjectDeploymentRetentionState:
     @pulumi.getter(name="expirationPreview")
     def expiration_preview(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_preview")
 
@@ -190,7 +190,7 @@ class _ProjectDeploymentRetentionState:
     @pulumi.getter(name="expirationProduction")
     def expiration_production(self) -> Optional[pulumi.Input[str]]:
         """
-        The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_production")
 
@@ -236,12 +236,6 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Provides a Project Deployment Retention resource.
-
-        A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
-
-        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
-
         ## Example Usage
 
         ```python
@@ -254,15 +248,6 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
                 "type": "github",
                 "repo": "vercel/some-repo",
             })
-        # An unlimited deployment retention policy that will be created
-        # for this project for all deployments.
-        example_unlimited = vercel.ProjectDeploymentRetention("example_unlimited",
-            project_id=example.id,
-            team_id=example.team_id,
-            expiration_preview="unlimited",
-            expiration_production="unlimited",
-            expiration_canceled="unlimited",
-            expiration_errored="unlimited")
         # A customized deployment retention policy that will be created
         # for this project for all deployments.
         example_customized = vercel.ProjectDeploymentRetention("example_customized",
@@ -288,10 +273,10 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[str] project_id: The ID of the Project for the retention policy
         :param pulumi.Input[str] team_id: The ID of the Vercel team.
         """
@@ -302,12 +287,6 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
                  args: ProjectDeploymentRetentionArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Provides a Project Deployment Retention resource.
-
-        A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
-
-        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
-
         ## Example Usage
 
         ```python
@@ -320,15 +299,6 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
                 "type": "github",
                 "repo": "vercel/some-repo",
             })
-        # An unlimited deployment retention policy that will be created
-        # for this project for all deployments.
-        example_unlimited = vercel.ProjectDeploymentRetention("example_unlimited",
-            project_id=example.id,
-            team_id=example.team_id,
-            expiration_preview="unlimited",
-            expiration_production="unlimited",
-            expiration_canceled="unlimited",
-            expiration_errored="unlimited")
         # A customized deployment retention policy that will be created
         # for this project for all deployments.
         example_customized = vercel.ProjectDeploymentRetention("example_customized",
@@ -413,10 +383,10 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
-        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        :param pulumi.Input[str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
+        :param pulumi.Input[str] expiration_production: The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[str] project_id: The ID of the Project for the retention policy
         :param pulumi.Input[str] team_id: The ID of the Vercel team.
         """
@@ -436,7 +406,7 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
     @pulumi.getter(name="expirationCanceled")
     def expiration_canceled(self) -> pulumi.Output[str]:
         """
-        The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_canceled")
 
@@ -444,7 +414,7 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
     @pulumi.getter(name="expirationErrored")
     def expiration_errored(self) -> pulumi.Output[str]:
         """
-        The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_errored")
 
@@ -452,7 +422,7 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
     @pulumi.getter(name="expirationPreview")
     def expiration_preview(self) -> pulumi.Output[str]:
         """
-        The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_preview")
 
@@ -460,7 +430,7 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
     @pulumi.getter(name="expirationProduction")
     def expiration_production(self) -> pulumi.Output[str]:
         """
-        The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y', 'unlimited'.
+        The retention period for production deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         """
         return pulumi.get(self, "expiration_production")
 
