@@ -22,17 +22,21 @@ class FirewallBypassArgs:
                  domain: pulumi.Input[str],
                  project_id: pulumi.Input[str],
                  source_ip: pulumi.Input[str],
+                 note: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a FirewallBypass resource.
         :param pulumi.Input[str] domain: The domain to configure the bypass rule for.
         :param pulumi.Input[str] project_id: The ID of the Project to assign the bypass rule to
         :param pulumi.Input[str] source_ip: The source IP address to configure the bypass rule for.
+        :param pulumi.Input[str] note: A note to describe the bypass rule. Maximum length is 500 characters.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "source_ip", source_ip)
+        if note is not None:
+            pulumi.set(__self__, "note", note)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
 
@@ -73,6 +77,18 @@ class FirewallBypassArgs:
         pulumi.set(self, "source_ip", value)
 
     @property
+    @pulumi.getter
+    def note(self) -> Optional[pulumi.Input[str]]:
+        """
+        A note to describe the bypass rule. Maximum length is 500 characters.
+        """
+        return pulumi.get(self, "note")
+
+    @note.setter
+    def note(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "note", value)
+
+    @property
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -89,18 +105,22 @@ class FirewallBypassArgs:
 class _FirewallBypassState:
     def __init__(__self__, *,
                  domain: Optional[pulumi.Input[str]] = None,
+                 note: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  source_ip: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering FirewallBypass resources.
         :param pulumi.Input[str] domain: The domain to configure the bypass rule for.
+        :param pulumi.Input[str] note: A note to describe the bypass rule. Maximum length is 500 characters.
         :param pulumi.Input[str] project_id: The ID of the Project to assign the bypass rule to
         :param pulumi.Input[str] source_ip: The source IP address to configure the bypass rule for.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
+        if note is not None:
+            pulumi.set(__self__, "note", note)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if source_ip is not None:
@@ -119,6 +139,18 @@ class _FirewallBypassState:
     @domain.setter
     def domain(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "domain", value)
+
+    @property
+    @pulumi.getter
+    def note(self) -> Optional[pulumi.Input[str]]:
+        """
+        A note to describe the bypass rule. Maximum length is 500 characters.
+        """
+        return pulumi.get(self, "note")
+
+    @note.setter
+    def note(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "note", value)
 
     @property
     @pulumi.getter(name="projectId")
@@ -163,6 +195,7 @@ class FirewallBypass(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  domain: Optional[pulumi.Input[str]] = None,
+                 note: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  source_ip: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
@@ -182,11 +215,13 @@ class FirewallBypass(pulumi.CustomResource):
         bypass_targeted = vercel.FirewallBypass("bypass_targeted",
             project_id=example.id,
             source_ip="5.6.7.8",
-            domain="my-production-domain.com")
+            domain="my-production-domain.com",
+            note="Bypass rule for specific IP")
         bypass_cidr = vercel.FirewallBypass("bypass_cidr",
             project_id=example.id,
             source_ip="52.33.44.0/24",
-            domain="my-production-domain.com")
+            domain="my-production-domain.com",
+            note="Bypass rule for CIDR range")
         bypass_all = vercel.FirewallBypass("bypass_all",
             project_id=example.id,
             source_ip="52.33.44.0/24",
@@ -206,6 +241,7 @@ class FirewallBypass(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] domain: The domain to configure the bypass rule for.
+        :param pulumi.Input[str] note: A note to describe the bypass rule. Maximum length is 500 characters.
         :param pulumi.Input[str] project_id: The ID of the Project to assign the bypass rule to
         :param pulumi.Input[str] source_ip: The source IP address to configure the bypass rule for.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -231,11 +267,13 @@ class FirewallBypass(pulumi.CustomResource):
         bypass_targeted = vercel.FirewallBypass("bypass_targeted",
             project_id=example.id,
             source_ip="5.6.7.8",
-            domain="my-production-domain.com")
+            domain="my-production-domain.com",
+            note="Bypass rule for specific IP")
         bypass_cidr = vercel.FirewallBypass("bypass_cidr",
             project_id=example.id,
             source_ip="52.33.44.0/24",
-            domain="my-production-domain.com")
+            domain="my-production-domain.com",
+            note="Bypass rule for CIDR range")
         bypass_all = vercel.FirewallBypass("bypass_all",
             project_id=example.id,
             source_ip="52.33.44.0/24",
@@ -268,6 +306,7 @@ class FirewallBypass(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  domain: Optional[pulumi.Input[str]] = None,
+                 note: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  source_ip: Optional[pulumi.Input[str]] = None,
                  team_id: Optional[pulumi.Input[str]] = None,
@@ -283,6 +322,7 @@ class FirewallBypass(pulumi.CustomResource):
             if domain is None and not opts.urn:
                 raise TypeError("Missing required property 'domain'")
             __props__.__dict__["domain"] = domain
+            __props__.__dict__["note"] = note
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
@@ -301,6 +341,7 @@ class FirewallBypass(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             domain: Optional[pulumi.Input[str]] = None,
+            note: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
             source_ip: Optional[pulumi.Input[str]] = None,
             team_id: Optional[pulumi.Input[str]] = None) -> 'FirewallBypass':
@@ -312,6 +353,7 @@ class FirewallBypass(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] domain: The domain to configure the bypass rule for.
+        :param pulumi.Input[str] note: A note to describe the bypass rule. Maximum length is 500 characters.
         :param pulumi.Input[str] project_id: The ID of the Project to assign the bypass rule to
         :param pulumi.Input[str] source_ip: The source IP address to configure the bypass rule for.
         :param pulumi.Input[str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -321,6 +363,7 @@ class FirewallBypass(pulumi.CustomResource):
         __props__ = _FirewallBypassState.__new__(_FirewallBypassState)
 
         __props__.__dict__["domain"] = domain
+        __props__.__dict__["note"] = note
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["source_ip"] = source_ip
         __props__.__dict__["team_id"] = team_id
@@ -333,6 +376,14 @@ class FirewallBypass(pulumi.CustomResource):
         The domain to configure the bypass rule for.
         """
         return pulumi.get(self, "domain")
+
+    @property
+    @pulumi.getter
+    def note(self) -> pulumi.Output[Optional[str]]:
+        """
+        A note to describe the bypass rule. Maximum length is 500 characters.
+        """
+        return pulumi.get(self, "note")
 
     @property
     @pulumi.getter(name="projectId")
