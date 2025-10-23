@@ -35,6 +35,7 @@ namespace Pulumiverse.Vercel
     ///         ProjectId = example.Id,
     ///         SourceIp = "5.6.7.8",
     ///         Domain = "my-production-domain.com",
+    ///         Note = "Bypass rule for specific IP",
     ///     });
     /// 
     ///     var bypassCidr = new Vercel.FirewallBypass("bypass_cidr", new()
@@ -42,6 +43,7 @@ namespace Pulumiverse.Vercel
     ///         ProjectId = example.Id,
     ///         SourceIp = "52.33.44.0/24",
     ///         Domain = "my-production-domain.com",
+    ///         Note = "Bypass rule for CIDR range",
     ///     });
     /// 
     ///     var bypassAll = new Vercel.FirewallBypass("bypass_all", new()
@@ -72,6 +74,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("domain")]
         public Output<string> Domain { get; private set; } = null!;
+
+        /// <summary>
+        /// A note to describe the bypass rule. Maximum length is 500 characters.
+        /// </summary>
+        [Output("note")]
+        public Output<string?> Note { get; private set; } = null!;
 
         /// <summary>
         /// The ID of the Project to assign the bypass rule to
@@ -145,6 +153,12 @@ namespace Pulumiverse.Vercel
         public Input<string> Domain { get; set; } = null!;
 
         /// <summary>
+        /// A note to describe the bypass rule. Maximum length is 500 characters.
+        /// </summary>
+        [Input("note")]
+        public Input<string>? Note { get; set; }
+
+        /// <summary>
         /// The ID of the Project to assign the bypass rule to
         /// </summary>
         [Input("projectId", required: true)]
@@ -175,6 +189,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("domain")]
         public Input<string>? Domain { get; set; }
+
+        /// <summary>
+        /// A note to describe the bypass rule. Maximum length is 500 characters.
+        /// </summary>
+        [Input("note")]
+        public Input<string>? Note { get; set; }
 
         /// <summary>
         /// The ID of the Project to assign the bypass rule to
