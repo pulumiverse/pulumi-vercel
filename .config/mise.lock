@@ -19,6 +19,11 @@ checksum = "sha256:6842c516ca66c89d648a7f1dbe28e28c47b61b59f8f06633eb2ceb1188e92
 size = 78694215
 url = "https://dl.google.com/go/go1.24.8.linux-amd64.tar.gz"
 
+[tools.go.platforms.macos-arm64]
+checksum = "sha256:0db27ff8c3e35fd93ccf9d31dd88a0f9c6454e8d9b30c28bd88a70b930cc4240"
+size = 76429684
+url = "https://dl.google.com/go/go1.24.8.darwin-arm64.tar.gz"
+
 [[tools.golangci-lint]]
 version = "1.64.8"
 backend = "aqua:golangci/golangci-lint"
@@ -45,9 +50,13 @@ version = "1.22.22"
 backend = "npm:yarn"
 
 [[tools.pulumi]]
-version = "3.140.0"
+version = "3.207.0"
 backend = "aqua:pulumi/pulumi"
 
 [[tools.python]]
 version = "3.11.8"
 backend = "core:python"
+
+[[tools."vfox-pulumi:pulumi/pulumi-converter-terraform"]]
+version = "1.2.4"
+backend = "vfox-pulumi:pulumi/pulumi-converter-terraform"
