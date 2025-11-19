@@ -25,21 +25,21 @@ size = 76429684
 url = "https://dl.google.com/go/go1.24.8.darwin-arm64.tar.gz"
 
 [[tools.golangci-lint]]
-version = "1.64.8"
+version = "2.6.2"
 backend = "aqua:golangci/golangci-lint"
-
-[tools.golangci-lint.platforms.macos-arm64]
-checksum = "sha256:70543d21e5b02a94079be8aa11267a5b060865583e337fe768d39b5d3e2faf1f"
-size = 11976954
-url = "https://github.com/golangci/golangci-lint/releases/download/v1.64.8/golangci-lint-1.64.8-darwin-arm64.tar.gz"
 
 [[tools.gradle]]
 version = "7.6.6"
 backend = "aqua:gradle/gradle"
 
 [[tools.java]]
-version = "corretto-11.0.28.6.1"
+version = "corretto-11.0.29.7.1"
 backend = "core:java"
+
+[tools.java.platforms.macos-arm64]
+checksum = "sha256:3fcf93300022d20f6a460221cba0a4c7337679b777699409f2db4d20ae9b69b5"
+size = 185375727
+url = "https://corretto.aws/downloads/resources/11.0.29.7.1/amazon-corretto-11.0.29.7.1-macosx-aarch64.tar.gz"
 
 [[tools.node]]
 version = "20.19.5"

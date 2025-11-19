@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.pulumiverse.vercel"},{"l":"com.pulumiverse.vercel.inputs"},{"l":"com.pulumiverse.vercel.outputs"}]
