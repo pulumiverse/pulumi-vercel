@@ -1,13 +1,17 @@
 .idea
 .code
+.vscode
 **/vendor/
 .pulumi
 **/bin/
 **/obj/
 Pulumi.*.yaml
-**/node_modules/
-**/venv
 .DS_Store
+
+# Temp NodeJS test setup for workflow generation
+package.json
+package-lock.json
+**/node_modules/
 
 **/command-output/
 
@@ -15,15 +19,28 @@ Pulumi.*.yaml
 *.iml
 
 yarn.lock
-.yarn/
-.pnp*
 **/pulumiManifest.go
 
 ci-scripts
-provider/**/schema-embed.json
+provider/**/schema.go
 **/version.txt
 **/nuget
 **/dist
+
+sdk/java/build
+sdk/java/.gradle
+sdk/java/gradle
+sdk/java/gradlew
+sdk/java/gradlew.bat
+
+.envrc
+
+go.work*
+
+__pycache__
+venv
+sdk/python/build
+sdk/python/*.egg-info
 
 
 # Ignore local build tracking directory
