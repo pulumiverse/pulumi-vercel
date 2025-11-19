@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:generate go run ./generate.go
-
 package main
 
 import (
@@ -26,7 +24,7 @@ import (
 	vercel "github.com/pulumiverse/pulumi-vercel/provider/v3"
 )
 
-//go:embed schema-embed.json
+//go:embed schema.json
 var pulumiSchema []byte
 
 func main() {
