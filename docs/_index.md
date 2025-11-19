@@ -4,6 +4,7 @@ title: Vercel Provider
 meta_desc: Provides an overview on how to configure the Pulumi Vercel provider.
 layout: package
 ---
+
 ## Installation
 
 The Vercel provider is available as a package in all Pulumi languages:
@@ -13,6 +14,7 @@ The Vercel provider is available as a package in all Pulumi languages:
 * Go: [`github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel`](https://github.com/pulumi/pulumi-vercel)
 * .NET: [`Pulumi.Vercel`](https://www.nuget.org/packages/Pulumi.Vercel)
 * Java: [`com.pulumi/vercel`](https://central.sonatype.com/artifact/com.pulumi/vercel)
+
 ## Overview
 
 The Vercel provider is used to interact with resources supported by Vercel.
