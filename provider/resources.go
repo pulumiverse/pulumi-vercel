@@ -76,6 +76,18 @@ func Provider() tfbridge.ProviderInfo {
 					},
 				},
 			},
+			"vercel_dns_record": {
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"srv": {
+						Transform: func(v resource.PropertyValue) (resource.PropertyValue, error) {
+							if v.IsObject() && !v.ContainsUnknowns() && len(v.ObjectValue()) == 0 {
+								return resource.NewNullProperty(), nil
+							}
+							return v, nil
+						},
+					},
+				},
+			},
 			"vercel_project_deployment_retention": {
 				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
