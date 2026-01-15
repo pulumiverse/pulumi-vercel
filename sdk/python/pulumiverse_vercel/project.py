@@ -37,6 +37,7 @@ class ProjectArgs:
                  git_comments: Optional[pulumi.Input['ProjectGitCommentsArgs']] = None,
                  git_fork_protection: Optional[pulumi.Input[_builtins.bool]] = None,
                  git_lfs: Optional[pulumi.Input[_builtins.bool]] = None,
+                 git_provider_options: Optional[pulumi.Input['ProjectGitProviderOptionsArgs']] = None,
                  git_repository: Optional[pulumi.Input['ProjectGitRepositoryArgs']] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
@@ -48,6 +49,7 @@ class ProjectArgs:
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
+                 preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -78,6 +80,7 @@ class ProjectArgs:
         :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        :param pulumi.Input['ProjectGitProviderOptionsArgs'] git_provider_options: Git provider options
         :param pulumi.Input['ProjectGitRepositoryArgs'] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
@@ -89,6 +92,7 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
@@ -134,6 +138,8 @@ class ProjectArgs:
             pulumi.set(__self__, "git_fork_protection", git_fork_protection)
         if git_lfs is not None:
             pulumi.set(__self__, "git_lfs", git_lfs)
+        if git_provider_options is not None:
+            pulumi.set(__self__, "git_provider_options", git_provider_options)
         if git_repository is not None:
             pulumi.set(__self__, "git_repository", git_repository)
         if ignore_command is not None:
@@ -159,6 +165,8 @@ class ProjectArgs:
             pulumi.log.warn("""preview_comments is deprecated: Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
         if preview_comments is not None:
             pulumi.set(__self__, "preview_comments", preview_comments)
+        if preview_deployment_suffix is not None:
+            pulumi.set(__self__, "preview_deployment_suffix", preview_deployment_suffix)
         if preview_deployments_disabled is not None:
             pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
@@ -380,6 +388,18 @@ class ProjectArgs:
         pulumi.set(self, "git_lfs", value)
 
     @_builtins.property
+    @pulumi.getter(name="gitProviderOptions")
+    def git_provider_options(self) -> Optional[pulumi.Input['ProjectGitProviderOptionsArgs']]:
+        """
+        Git provider options
+        """
+        return pulumi.get(self, "git_provider_options")
+
+    @git_provider_options.setter
+    def git_provider_options(self, value: Optional[pulumi.Input['ProjectGitProviderOptionsArgs']]):
+        pulumi.set(self, "git_provider_options", value)
+
+    @_builtins.property
     @pulumi.getter(name="gitRepository")
     def git_repository(self) -> Optional[pulumi.Input['ProjectGitRepositoryArgs']]:
         """
@@ -511,6 +531,18 @@ class ProjectArgs:
     @preview_comments.setter
     def preview_comments(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "preview_comments", value)
+
+    @_builtins.property
+    @pulumi.getter(name="previewDeploymentSuffix")
+    def preview_deployment_suffix(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
+        """
+        return pulumi.get(self, "preview_deployment_suffix")
+
+    @preview_deployment_suffix.setter
+    def preview_deployment_suffix(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "preview_deployment_suffix", value)
 
     @_builtins.property
     @pulumi.getter(name="previewDeploymentsDisabled")
@@ -677,6 +709,7 @@ class _ProjectState:
                  git_comments: Optional[pulumi.Input['ProjectGitCommentsArgs']] = None,
                  git_fork_protection: Optional[pulumi.Input[_builtins.bool]] = None,
                  git_lfs: Optional[pulumi.Input[_builtins.bool]] = None,
+                 git_provider_options: Optional[pulumi.Input['ProjectGitProviderOptionsArgs']] = None,
                  git_repository: Optional[pulumi.Input['ProjectGitRepositoryArgs']] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
@@ -688,6 +721,7 @@ class _ProjectState:
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
+                 preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -718,6 +752,7 @@ class _ProjectState:
         :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        :param pulumi.Input['ProjectGitProviderOptionsArgs'] git_provider_options: Git provider options
         :param pulumi.Input['ProjectGitRepositoryArgs'] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
@@ -729,6 +764,7 @@ class _ProjectState:
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
@@ -774,6 +810,8 @@ class _ProjectState:
             pulumi.set(__self__, "git_fork_protection", git_fork_protection)
         if git_lfs is not None:
             pulumi.set(__self__, "git_lfs", git_lfs)
+        if git_provider_options is not None:
+            pulumi.set(__self__, "git_provider_options", git_provider_options)
         if git_repository is not None:
             pulumi.set(__self__, "git_repository", git_repository)
         if ignore_command is not None:
@@ -799,6 +837,8 @@ class _ProjectState:
             pulumi.log.warn("""preview_comments is deprecated: Use `enable_preview_feedback` instead. This attribute will be removed in a future version.""")
         if preview_comments is not None:
             pulumi.set(__self__, "preview_comments", preview_comments)
+        if preview_deployment_suffix is not None:
+            pulumi.set(__self__, "preview_deployment_suffix", preview_deployment_suffix)
         if preview_deployments_disabled is not None:
             pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
@@ -1020,6 +1060,18 @@ class _ProjectState:
         pulumi.set(self, "git_lfs", value)
 
     @_builtins.property
+    @pulumi.getter(name="gitProviderOptions")
+    def git_provider_options(self) -> Optional[pulumi.Input['ProjectGitProviderOptionsArgs']]:
+        """
+        Git provider options
+        """
+        return pulumi.get(self, "git_provider_options")
+
+    @git_provider_options.setter
+    def git_provider_options(self, value: Optional[pulumi.Input['ProjectGitProviderOptionsArgs']]):
+        pulumi.set(self, "git_provider_options", value)
+
+    @_builtins.property
     @pulumi.getter(name="gitRepository")
     def git_repository(self) -> Optional[pulumi.Input['ProjectGitRepositoryArgs']]:
         """
@@ -1151,6 +1203,18 @@ class _ProjectState:
     @preview_comments.setter
     def preview_comments(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "preview_comments", value)
+
+    @_builtins.property
+    @pulumi.getter(name="previewDeploymentSuffix")
+    def preview_deployment_suffix(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
+        """
+        return pulumi.get(self, "preview_deployment_suffix")
+
+    @preview_deployment_suffix.setter
+    def preview_deployment_suffix(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "preview_deployment_suffix", value)
 
     @_builtins.property
     @pulumi.getter(name="previewDeploymentsDisabled")
@@ -1320,6 +1384,7 @@ class Project(pulumi.CustomResource):
                  git_comments: Optional[pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']]] = None,
                  git_fork_protection: Optional[pulumi.Input[_builtins.bool]] = None,
                  git_lfs: Optional[pulumi.Input[_builtins.bool]] = None,
+                 git_provider_options: Optional[pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']]] = None,
                  git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1331,6 +1396,7 @@ class Project(pulumi.CustomResource):
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
+                 preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -1409,6 +1475,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        :param pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']] git_provider_options: Git provider options
         :param pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
@@ -1420,6 +1487,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
@@ -1517,6 +1585,7 @@ class Project(pulumi.CustomResource):
                  git_comments: Optional[pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']]] = None,
                  git_fork_protection: Optional[pulumi.Input[_builtins.bool]] = None,
                  git_lfs: Optional[pulumi.Input[_builtins.bool]] = None,
+                 git_provider_options: Optional[pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']]] = None,
                  git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1528,6 +1597,7 @@ class Project(pulumi.CustomResource):
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
+                 preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -1565,6 +1635,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["git_comments"] = git_comments
             __props__.__dict__["git_fork_protection"] = git_fork_protection
             __props__.__dict__["git_lfs"] = git_lfs
+            __props__.__dict__["git_provider_options"] = git_provider_options
             __props__.__dict__["git_repository"] = git_repository
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
@@ -1576,6 +1647,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["output_directory"] = output_directory
             __props__.__dict__["password_protection"] = password_protection
             __props__.__dict__["preview_comments"] = preview_comments
+            __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
             __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
             __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
             __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
@@ -1616,6 +1688,7 @@ class Project(pulumi.CustomResource):
             git_comments: Optional[pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']]] = None,
             git_fork_protection: Optional[pulumi.Input[_builtins.bool]] = None,
             git_lfs: Optional[pulumi.Input[_builtins.bool]] = None,
+            git_provider_options: Optional[pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']]] = None,
             git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
             ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
             install_command: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1627,6 +1700,7 @@ class Project(pulumi.CustomResource):
             output_directory: Optional[pulumi.Input[_builtins.str]] = None,
             password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
             preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
+            preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
             preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
             prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
             protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -1662,6 +1736,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+        :param pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']] git_provider_options: Git provider options
         :param pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
@@ -1673,6 +1748,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
+        :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
         :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
@@ -1706,6 +1782,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["git_comments"] = git_comments
         __props__.__dict__["git_fork_protection"] = git_fork_protection
         __props__.__dict__["git_lfs"] = git_lfs
+        __props__.__dict__["git_provider_options"] = git_provider_options
         __props__.__dict__["git_repository"] = git_repository
         __props__.__dict__["ignore_command"] = ignore_command
         __props__.__dict__["install_command"] = install_command
@@ -1717,6 +1794,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["output_directory"] = output_directory
         __props__.__dict__["password_protection"] = password_protection
         __props__.__dict__["preview_comments"] = preview_comments
+        __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
         __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
         __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
         __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
@@ -1860,6 +1938,14 @@ class Project(pulumi.CustomResource):
         return pulumi.get(self, "git_lfs")
 
     @_builtins.property
+    @pulumi.getter(name="gitProviderOptions")
+    def git_provider_options(self) -> pulumi.Output['outputs.ProjectGitProviderOptions']:
+        """
+        Git provider options
+        """
+        return pulumi.get(self, "git_provider_options")
+
+    @_builtins.property
     @pulumi.getter(name="gitRepository")
     def git_repository(self) -> pulumi.Output[Optional['outputs.ProjectGitRepository']]:
         """
@@ -1947,6 +2033,14 @@ class Project(pulumi.CustomResource):
         Enables the Vercel Toolbar on your preview deployments.
         """
         return pulumi.get(self, "preview_comments")
+
+    @_builtins.property
+    @pulumi.getter(name="previewDeploymentSuffix")
+    def preview_deployment_suffix(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
+        """
+        return pulumi.get(self, "preview_deployment_suffix")
 
     @_builtins.property
     @pulumi.getter(name="previewDeploymentsDisabled")

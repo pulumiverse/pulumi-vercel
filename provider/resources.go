@@ -18,7 +18,6 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
-	"strings"
 
 	_ "embed" // nolint: golint
 
@@ -65,21 +64,14 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:                []string{"pulumi", "vercel", "category/cloud"},
 		License:                 "Apache-2.0",
 		GitHubOrg:               "vercel",
-		TFProviderModuleVersion: "v3",
+		TFProviderModuleVersion: "v4",
 		Repository:              "https://github.com/pulumiverse/pulumi-vercel",
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"vercel_alias": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Alias"),
 				Fields: map[string]*tfbridge.SchemaInfo{
 					"alias": {
 						CSharpName: "DeploymentAlias",
 					},
-				},
-			},
-			"vercel_project_deployment_retention": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
 				},
 			},
 			"vercel_edge_config_schema": {
@@ -87,66 +79,9 @@ func Provider() tfbridge.ProviderInfo {
 					return resource.ID(state["id"].StringValue()), nil
 				},
 			},
-			"vercel_firewall_config": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["team_id"].StringValue(), state["project_id"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			},
-			"vercel_edge_config_item": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["id"].StringValue(), state["key"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			},
 			"vercel_team_config": {
 				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
 					return resource.ID(state["id"].StringValue()), nil
-				},
-			},
-			"vercel_project_environment_variables": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					return resource.ID(state["project_id"].StringValue()), nil
-				},
-			},
-			"vercel_project_members": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					return resource.ID(state["project_id"].StringValue()), nil
-				},
-			},
-			"vercel_access_group_project": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["access_group_id"].StringValue(), state["project_id"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			},
-			"vercel_team_member": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["team_id"].StringValue(), state["email"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			}, "vercel_shared_environment_variable_project_link": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["team_id"].StringValue(), state["shared_environment_variable_id"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			}, "vercel_microfrontend_group_membership": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["team_id"].StringValue(), state["microfrontend_group_id"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			}, "vercel_integration_project_access": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					parts := []string{state["team_id"].StringValue(), state["integration_id"].StringValue()}
-					return resource.ID(strings.Join(parts, "/")), nil
-				},
-			}, "vercel_project_rolling_release": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					return resource.ID(state["project_id"].StringValue()), nil
-				},
-			}, "vercel_project_crons": {
-				ComputeID: func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
-					return resource.ID(state["project_id"].StringValue()), nil
 				},
 			},
 		},

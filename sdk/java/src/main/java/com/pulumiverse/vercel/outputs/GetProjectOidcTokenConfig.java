@@ -5,21 +5,11 @@ package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
-import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 
 @CustomType
 public final class GetProjectOidcTokenConfig {
-    /**
-     * @return When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-     * 
-     * @deprecated
-     * This field is deprecated and will be removed in a future version.
-     * 
-     */
-    @Deprecated /* This field is deprecated and will be removed in a future version. */
-    private Boolean enabled;
     /**
      * @return Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      * 
@@ -27,17 +17,6 @@ public final class GetProjectOidcTokenConfig {
     private String issuerMode;
 
     private GetProjectOidcTokenConfig() {}
-    /**
-     * @return When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-     * 
-     * @deprecated
-     * This field is deprecated and will be removed in a future version.
-     * 
-     */
-    @Deprecated /* This field is deprecated and will be removed in a future version. */
-    public Boolean enabled() {
-        return this.enabled;
-    }
     /**
      * @return Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      * 
@@ -55,23 +34,13 @@ public final class GetProjectOidcTokenConfig {
     }
     @CustomType.Builder
     public static final class Builder {
-        private Boolean enabled;
         private String issuerMode;
         public Builder() {}
         public Builder(GetProjectOidcTokenConfig defaults) {
     	      Objects.requireNonNull(defaults);
-    	      this.enabled = defaults.enabled;
     	      this.issuerMode = defaults.issuerMode;
         }
 
-        @CustomType.Setter
-        public Builder enabled(Boolean enabled) {
-            if (enabled == null) {
-              throw new MissingRequiredPropertyException("GetProjectOidcTokenConfig", "enabled");
-            }
-            this.enabled = enabled;
-            return this;
-        }
         @CustomType.Setter
         public Builder issuerMode(String issuerMode) {
             if (issuerMode == null) {
@@ -82,7 +51,6 @@ public final class GetProjectOidcTokenConfig {
         }
         public GetProjectOidcTokenConfig build() {
             final var _resultValue = new GetProjectOidcTokenConfig();
-            _resultValue.enabled = enabled;
             _resultValue.issuerMode = issuerMode;
             return _resultValue;
         }

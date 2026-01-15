@@ -14,12 +14,6 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectOidcTokenConfigArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-        /// </summary>
-        [Input("enabled")]
-        public Input<bool>? Enabled { get; set; }
-
-        /// <summary>
         /// Configures the URL of the `Iss` claim. `Team` = `https://oidc.vercel.com/[TeamSlug]` `Global` = `https://oidc.vercel.com`
         /// </summary>
         [Input("issuerMode")]

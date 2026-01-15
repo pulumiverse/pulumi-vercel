@@ -17,7 +17,7 @@ public final class GetMicrofrontendGroupMembershipResult {
      */
     private String defaultRoute;
     /**
-     * @return The provider-assigned unique ID for this managed resource.
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
      * 
      */
     private String id;
@@ -51,7 +51,7 @@ public final class GetMicrofrontendGroupMembershipResult {
         return this.defaultRoute;
     }
     /**
-     * @return The provider-assigned unique ID for this managed resource.
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
      * 
      */
     public String id() {

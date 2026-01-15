@@ -16,7 +16,7 @@ public final class GetAccessGroupProjectResult {
      */
     private String accessGroupId;
     /**
-     * @return The provider-assigned unique ID for this managed resource.
+     * @return The unique identifier for this resource. Format: access*group*id/project_id.
      * 
      */
     private String id;
@@ -45,7 +45,7 @@ public final class GetAccessGroupProjectResult {
         return this.accessGroupId;
     }
     /**
-     * @return The provider-assigned unique ID for this managed resource.
+     * @return The unique identifier for this resource. Format: access*group*id/project_id.
      * 
      */
     public String id() {

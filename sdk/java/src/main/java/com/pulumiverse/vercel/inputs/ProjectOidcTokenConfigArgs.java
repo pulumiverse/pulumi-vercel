@@ -5,7 +5,6 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,29 +14,6 @@ import javax.annotation.Nullable;
 public final class ProjectOidcTokenConfigArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final ProjectOidcTokenConfigArgs Empty = new ProjectOidcTokenConfigArgs();
-
-    /**
-     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-     * 
-     * @deprecated
-     * This field is deprecated and will be removed in a future version.
-     * 
-     */
-    @Deprecated /* This field is deprecated and will be removed in a future version. */
-    @Import(name="enabled")
-    private @Nullable Output<Boolean> enabled;
-
-    /**
-     * @return When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-     * 
-     * @deprecated
-     * This field is deprecated and will be removed in a future version.
-     * 
-     */
-    @Deprecated /* This field is deprecated and will be removed in a future version. */
-    public Optional<Output<Boolean>> enabled() {
-        return Optional.ofNullable(this.enabled);
-    }
 
     /**
      * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
@@ -57,7 +33,6 @@ public final class ProjectOidcTokenConfigArgs extends com.pulumi.resources.Resou
     private ProjectOidcTokenConfigArgs() {}
 
     private ProjectOidcTokenConfigArgs(ProjectOidcTokenConfigArgs $) {
-        this.enabled = $.enabled;
         this.issuerMode = $.issuerMode;
     }
 
@@ -77,35 +52,6 @@ public final class ProjectOidcTokenConfigArgs extends com.pulumi.resources.Resou
 
         public Builder(ProjectOidcTokenConfigArgs defaults) {
             $ = new ProjectOidcTokenConfigArgs(Objects.requireNonNull(defaults));
-        }
-
-        /**
-         * @param enabled When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-         * 
-         * @return builder
-         * 
-         * @deprecated
-         * This field is deprecated and will be removed in a future version.
-         * 
-         */
-        @Deprecated /* This field is deprecated and will be removed in a future version. */
-        public Builder enabled(@Nullable Output<Boolean> enabled) {
-            $.enabled = enabled;
-            return this;
-        }
-
-        /**
-         * @param enabled When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-         * 
-         * @return builder
-         * 
-         * @deprecated
-         * This field is deprecated and will be removed in a future version.
-         * 
-         */
-        @Deprecated /* This field is deprecated and will be removed in a future version. */
-        public Builder enabled(Boolean enabled) {
-            return enabled(Output.of(enabled));
         }
 
         /**

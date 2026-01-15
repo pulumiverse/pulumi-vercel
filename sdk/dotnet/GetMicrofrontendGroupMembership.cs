@@ -156,7 +156,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string DefaultRoute;
         /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
+        /// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
         /// </summary>
         public readonly string Id;
         /// <summary>

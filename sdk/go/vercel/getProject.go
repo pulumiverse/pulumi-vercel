@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
 // Provides information about an existing project within Vercel.
@@ -25,7 +25,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
 //
 // )
 //
@@ -98,6 +98,8 @@ type LookupProjectResult struct {
 	GitForkProtection bool `pulumi:"gitForkProtection"`
 	// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
 	GitLfs bool `pulumi:"gitLfs"`
+	// Git provider options.
+	GitProviderOptions GetProjectGitProviderOptions `pulumi:"gitProviderOptions"`
 	// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
 	GitRepository GetProjectGitRepository `pulumi:"gitRepository"`
 	// The ID of this resource.
@@ -124,6 +126,8 @@ type LookupProjectResult struct {
 	//
 	// Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 	PreviewComments bool `pulumi:"previewComments"`
+	// The preview deployment suffix to apply to preview deployment URLs for this project.
+	PreviewDeploymentSuffix string `pulumi:"previewDeploymentSuffix"`
 	// Whether Preview Deployments are disabled for this project.
 	PreviewDeploymentsDisabled bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
@@ -270,6 +274,11 @@ func (o LookupProjectResultOutput) GitLfs() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.GitLfs }).(pulumi.BoolOutput)
 }
 
+// Git provider options.
+func (o LookupProjectResultOutput) GitProviderOptions() GetProjectGitProviderOptionsOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectGitProviderOptions { return v.GitProviderOptions }).(GetProjectGitProviderOptionsOutput)
+}
+
 // The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
 func (o LookupProjectResultOutput) GitRepository() GetProjectGitRepositoryOutput {
 	return o.ApplyT(func(v LookupProjectResult) GetProjectGitRepository { return v.GitRepository }).(GetProjectGitRepositoryOutput)
@@ -330,6 +339,11 @@ func (o LookupProjectResultOutput) PasswordProtection() GetProjectPasswordProtec
 // Deprecated: Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
 func (o LookupProjectResultOutput) PreviewComments() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PreviewComments }).(pulumi.BoolOutput)
+}
+
+// The preview deployment suffix to apply to preview deployment URLs for this project.
+func (o LookupProjectResultOutput) PreviewDeploymentSuffix() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupProjectResult) string { return v.PreviewDeploymentSuffix }).(pulumi.StringOutput)
 }
 
 // Whether Preview Deployments are disabled for this project.

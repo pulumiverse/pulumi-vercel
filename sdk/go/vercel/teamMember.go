@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
 // Provider a resource for managing a team member.
@@ -24,7 +24,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
 //
 // )
 //
@@ -63,7 +63,7 @@ type TeamMember struct {
 	Email pulumi.StringOutput `pulumi:"email"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects TeamMemberProjectArrayOutput `pulumi:"projects"`
-	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+	// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role pulumi.StringOutput `pulumi:"role"`
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -117,7 +117,7 @@ type teamMemberState struct {
 	Email *string `pulumi:"email"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects []TeamMemberProject `pulumi:"projects"`
-	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+	// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role *string `pulumi:"role"`
 	// The ID of the existing Vercel Team.
 	TeamId *string `pulumi:"teamId"`
@@ -136,7 +136,7 @@ type TeamMemberState struct {
 	Email pulumi.StringPtrInput
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects TeamMemberProjectArrayInput
-	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+	// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role pulumi.StringPtrInput
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringPtrInput
@@ -157,7 +157,7 @@ type teamMemberArgs struct {
 	Email *string `pulumi:"email"`
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects []TeamMemberProject `pulumi:"projects"`
-	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+	// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role string `pulumi:"role"`
 	// The ID of the existing Vercel Team.
 	TeamId string `pulumi:"teamId"`
@@ -175,7 +175,7 @@ type TeamMemberArgs struct {
 	Email pulumi.StringPtrInput
 	// If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `accessGroups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
 	Projects TeamMemberProjectArrayInput
-	// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+	// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 	Role pulumi.StringInput
 	// The ID of the existing Vercel Team.
 	TeamId pulumi.StringInput
@@ -292,7 +292,7 @@ func (o TeamMemberOutput) Projects() TeamMemberProjectArrayOutput {
 	return o.ApplyT(func(v *TeamMember) TeamMemberProjectArrayOutput { return v.Projects }).(TeamMemberProjectArrayOutput)
 }
 
-// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
 func (o TeamMemberOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.Role }).(pulumi.StringOutput)
 }

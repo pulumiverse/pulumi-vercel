@@ -12,6 +12,7 @@ import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.ProjectState;
 import com.pulumiverse.vercel.outputs.ProjectEnvironment;
 import com.pulumiverse.vercel.outputs.ProjectGitComments;
+import com.pulumiverse.vercel.outputs.ProjectGitProviderOptions;
 import com.pulumiverse.vercel.outputs.ProjectGitRepository;
 import com.pulumiverse.vercel.outputs.ProjectOidcTokenConfig;
 import com.pulumiverse.vercel.outputs.ProjectOptionsAllowlist;
@@ -326,6 +327,20 @@ public class Project extends com.pulumi.resources.CustomResource {
         return this.gitLfs;
     }
     /**
+     * Git provider options
+     * 
+     */
+    @Export(name="gitProviderOptions", refs={ProjectGitProviderOptions.class}, tree="[0]")
+    private Output<ProjectGitProviderOptions> gitProviderOptions;
+
+    /**
+     * @return Git provider options
+     * 
+     */
+    public Output<ProjectGitProviderOptions> gitProviderOptions() {
+        return this.gitProviderOptions;
+    }
+    /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      * 
      */
@@ -482,6 +497,20 @@ public class Project extends com.pulumi.resources.CustomResource {
      */
     public Output<Boolean> previewComments() {
         return this.previewComments;
+    }
+    /**
+     * The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel&#39;s default suffix will be used.
+     * 
+     */
+    @Export(name="previewDeploymentSuffix", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> previewDeploymentSuffix;
+
+    /**
+     * @return The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel&#39;s default suffix will be used.
+     * 
+     */
+    public Output<Optional<String>> previewDeploymentSuffix() {
+        return Codegen.optional(this.previewDeploymentSuffix);
     }
     /**
      * Disable creation of Preview Deployments for this project.

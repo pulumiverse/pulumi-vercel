@@ -171,7 +171,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string AccessGroupId;
         /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
+        /// The unique identifier for this resource. Format: access*group*id/project_id.
         /// </summary>
         public readonly string Id;
         /// <summary>

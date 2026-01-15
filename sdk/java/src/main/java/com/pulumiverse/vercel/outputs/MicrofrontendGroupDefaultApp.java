@@ -18,6 +18,11 @@ public final class MicrofrontendGroupDefaultApp {
      */
     private @Nullable String defaultRoute;
     /**
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * 
+     */
+    private @Nullable String id;
+    /**
      * @return The ID of the project.
      * 
      */
@@ -30,6 +35,13 @@ public final class MicrofrontendGroupDefaultApp {
      */
     public Optional<String> defaultRoute() {
         return Optional.ofNullable(this.defaultRoute);
+    }
+    /**
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * 
+     */
+    public Optional<String> id() {
+        return Optional.ofNullable(this.id);
     }
     /**
      * @return The ID of the project.
@@ -49,11 +61,13 @@ public final class MicrofrontendGroupDefaultApp {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String defaultRoute;
+        private @Nullable String id;
         private String projectId;
         public Builder() {}
         public Builder(MicrofrontendGroupDefaultApp defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.defaultRoute = defaults.defaultRoute;
+    	      this.id = defaults.id;
     	      this.projectId = defaults.projectId;
         }
 
@@ -61,6 +75,12 @@ public final class MicrofrontendGroupDefaultApp {
         public Builder defaultRoute(@Nullable String defaultRoute) {
 
             this.defaultRoute = defaultRoute;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder id(@Nullable String id) {
+
+            this.id = id;
             return this;
         }
         @CustomType.Setter
@@ -74,6 +94,7 @@ public final class MicrofrontendGroupDefaultApp {
         public MicrofrontendGroupDefaultApp build() {
             final var _resultValue = new MicrofrontendGroupDefaultApp();
             _resultValue.defaultRoute = defaultRoute;
+            _resultValue.id = id;
             _resultValue.projectId = projectId;
             return _resultValue;
         }
