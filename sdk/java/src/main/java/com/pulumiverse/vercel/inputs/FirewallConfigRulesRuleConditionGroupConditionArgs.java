@@ -49,14 +49,14 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
     }
 
     /**
-     * How to comparse type to value
+     * Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don&#39;t require a `value` field, only `key`.
      * 
      */
     @Import(name="op", required=true)
     private Output<String> op;
 
     /**
-     * @return How to comparse type to value
+     * @return Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don&#39;t require a `value` field, only `key`.
      * 
      */
     public Output<String> op() {
@@ -79,14 +79,14 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
     }
 
     /**
-     * Value to match against
+     * Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
      * 
      */
     @Import(name="value")
     private @Nullable Output<String> value;
 
     /**
-     * @return Value to match against
+     * @return Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
      * 
      */
     public Optional<Output<String>> value() {
@@ -180,7 +180,7 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
         }
 
         /**
-         * @param op How to comparse type to value
+         * @param op Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don&#39;t require a `value` field, only `key`.
          * 
          * @return builder
          * 
@@ -191,7 +191,7 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
         }
 
         /**
-         * @param op How to comparse type to value
+         * @param op Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don&#39;t require a `value` field, only `key`.
          * 
          * @return builder
          * 
@@ -222,7 +222,7 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
         }
 
         /**
-         * @param value Value to match against
+         * @param value Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
          * 
          * @return builder
          * 
@@ -233,7 +233,7 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
         }
 
         /**
-         * @param value Value to match against
+         * @param value Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
          * 
          * @return builder
          * 

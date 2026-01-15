@@ -16,6 +16,11 @@ public final class GetMicrofrontendGroupDefaultApp {
      */
     private String defaultRoute;
     /**
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * 
+     */
+    private String id;
+    /**
      * @return The ID of the project.
      * 
      */
@@ -28,6 +33,13 @@ public final class GetMicrofrontendGroupDefaultApp {
      */
     public String defaultRoute() {
         return this.defaultRoute;
+    }
+    /**
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * 
+     */
+    public String id() {
+        return this.id;
     }
     /**
      * @return The ID of the project.
@@ -47,11 +59,13 @@ public final class GetMicrofrontendGroupDefaultApp {
     @CustomType.Builder
     public static final class Builder {
         private String defaultRoute;
+        private String id;
         private String projectId;
         public Builder() {}
         public Builder(GetMicrofrontendGroupDefaultApp defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.defaultRoute = defaults.defaultRoute;
+    	      this.id = defaults.id;
     	      this.projectId = defaults.projectId;
         }
 
@@ -61,6 +75,14 @@ public final class GetMicrofrontendGroupDefaultApp {
               throw new MissingRequiredPropertyException("GetMicrofrontendGroupDefaultApp", "defaultRoute");
             }
             this.defaultRoute = defaultRoute;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder id(String id) {
+            if (id == null) {
+              throw new MissingRequiredPropertyException("GetMicrofrontendGroupDefaultApp", "id");
+            }
+            this.id = id;
             return this;
         }
         @CustomType.Setter
@@ -74,6 +96,7 @@ public final class GetMicrofrontendGroupDefaultApp {
         public GetMicrofrontendGroupDefaultApp build() {
             final var _resultValue = new GetMicrofrontendGroupDefaultApp();
             _resultValue.defaultRoute = defaultRoute;
+            _resultValue.id = id;
             _resultValue.projectId = projectId;
             return _resultValue;
         }

@@ -71,12 +71,16 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroupConditionArgsDict',
     'MicrofrontendGroupDefaultAppArgs',
     'MicrofrontendGroupDefaultAppArgsDict',
+    'NetworkTimeoutsArgs',
+    'NetworkTimeoutsArgsDict',
     'ProjectEnvironmentArgs',
     'ProjectEnvironmentArgsDict',
     'ProjectEnvironmentVariablesVariableArgs',
     'ProjectEnvironmentVariablesVariableArgsDict',
     'ProjectGitCommentsArgs',
     'ProjectGitCommentsArgsDict',
+    'ProjectGitProviderOptionsArgs',
+    'ProjectGitProviderOptionsArgsDict',
     'ProjectGitRepositoryArgs',
     'ProjectGitRepositoryArgsDict',
     'ProjectGitRepositoryDeployHookArgs',
@@ -1645,7 +1649,7 @@ if not MYPY:
     class FirewallConfigRulesRuleConditionGroupConditionArgsDict(TypedDict):
         op: pulumi.Input[_builtins.str]
         """
-        How to comparse type to value
+        Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
         """
         type: pulumi.Input[_builtins.str]
         """
@@ -1661,7 +1665,7 @@ if not MYPY:
         """
         value: NotRequired[pulumi.Input[_builtins.str]]
         """
-        Value to match against
+        Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
         """
         values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
         """
@@ -1680,11 +1684,11 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
-        :param pulumi.Input[_builtins.str] op: How to comparse type to value
+        :param pulumi.Input[_builtins.str] op: Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
         :param pulumi.Input[_builtins.str] type: Request key type to match against
         :param pulumi.Input[_builtins.str] key: Key within type to match against
         :param pulumi.Input[_builtins.bool] neg: Negate the condition
-        :param pulumi.Input[_builtins.str] value: Value to match against
+        :param pulumi.Input[_builtins.str] value: Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: Values to match against if op is inc, ninc
         """
         pulumi.set(__self__, "op", op)
@@ -1702,7 +1706,7 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
     @pulumi.getter
     def op(self) -> pulumi.Input[_builtins.str]:
         """
-        How to comparse type to value
+        Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
         """
         return pulumi.get(self, "op")
 
@@ -1750,7 +1754,7 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Value to match against
+        Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
         """
         return pulumi.get(self, "value")
 
@@ -1781,6 +1785,10 @@ if not MYPY:
         """
         The default route for the project. Used for the screenshot of deployments.
         """
+        id: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+        """
 elif False:
     MicrofrontendGroupDefaultAppArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1788,14 +1796,18 @@ elif False:
 class MicrofrontendGroupDefaultAppArgs:
     def __init__(__self__, *,
                  project_id: pulumi.Input[_builtins.str],
-                 default_route: Optional[pulumi.Input[_builtins.str]] = None):
+                 default_route: Optional[pulumi.Input[_builtins.str]] = None,
+                 id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
         :param pulumi.Input[_builtins.str] default_route: The default route for the project. Used for the screenshot of deployments.
+        :param pulumi.Input[_builtins.str] id: The unique identifier for this resource. Format: team*id/microfrontend*group_id.
         """
         pulumi.set(__self__, "project_id", project_id)
         if default_route is not None:
             pulumi.set(__self__, "default_route", default_route)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
 
     @_builtins.property
     @pulumi.getter(name="projectId")
@@ -1820,6 +1832,50 @@ class MicrofrontendGroupDefaultAppArgs:
     @default_route.setter
     def default_route(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "default_route", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "id", value)
+
+
+if not MYPY:
+    class NetworkTimeoutsArgsDict(TypedDict):
+        create: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        """
+elif False:
+    NetworkTimeoutsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class NetworkTimeoutsArgs:
+    def __init__(__self__, *,
+                 create: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] create: A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "create", value)
 
 
 if not MYPY:
@@ -2213,6 +2269,78 @@ class ProjectGitCommentsArgs:
 
 
 if not MYPY:
+    class ProjectGitProviderOptionsArgsDict(TypedDict):
+        create_deployments: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether to create deployments
+        """
+        repository_dispatch_events: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether to enable repository dispatch events
+        """
+        require_verified_commits: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether to require verified commits
+        """
+elif False:
+    ProjectGitProviderOptionsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ProjectGitProviderOptionsArgs:
+    def __init__(__self__, *,
+                 create_deployments: Optional[pulumi.Input[_builtins.bool]] = None,
+                 repository_dispatch_events: Optional[pulumi.Input[_builtins.bool]] = None,
+                 require_verified_commits: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.bool] create_deployments: Whether to create deployments
+        :param pulumi.Input[_builtins.bool] repository_dispatch_events: Whether to enable repository dispatch events
+        :param pulumi.Input[_builtins.bool] require_verified_commits: Whether to require verified commits
+        """
+        if create_deployments is not None:
+            pulumi.set(__self__, "create_deployments", create_deployments)
+        if repository_dispatch_events is not None:
+            pulumi.set(__self__, "repository_dispatch_events", repository_dispatch_events)
+        if require_verified_commits is not None:
+            pulumi.set(__self__, "require_verified_commits", require_verified_commits)
+
+    @_builtins.property
+    @pulumi.getter(name="createDeployments")
+    def create_deployments(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to create deployments
+        """
+        return pulumi.get(self, "create_deployments")
+
+    @create_deployments.setter
+    def create_deployments(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "create_deployments", value)
+
+    @_builtins.property
+    @pulumi.getter(name="repositoryDispatchEvents")
+    def repository_dispatch_events(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to enable repository dispatch events
+        """
+        return pulumi.get(self, "repository_dispatch_events")
+
+    @repository_dispatch_events.setter
+    def repository_dispatch_events(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "repository_dispatch_events", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requireVerifiedCommits")
+    def require_verified_commits(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to require verified commits
+        """
+        return pulumi.get(self, "require_verified_commits")
+
+    @require_verified_commits.setter
+    def require_verified_commits(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "require_verified_commits", value)
+
+
+if not MYPY:
     class ProjectGitRepositoryArgsDict(TypedDict):
         repo: pulumi.Input[_builtins.str]
         """
@@ -2485,10 +2613,6 @@ class ProjectMembersMemberArgs:
 
 if not MYPY:
     class ProjectOidcTokenConfigArgsDict(TypedDict):
-        enabled: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-        """
         issuer_mode: NotRequired[pulumi.Input[_builtins.str]]
         """
         Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
@@ -2499,32 +2623,12 @@ elif False:
 @pulumi.input_type
 class ProjectOidcTokenConfigArgs:
     def __init__(__self__, *,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  issuer_mode: Optional[pulumi.Input[_builtins.str]] = None):
         """
-        :param pulumi.Input[_builtins.bool] enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         :param pulumi.Input[_builtins.str] issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
-        if enabled is not None:
-            warnings.warn("""This field is deprecated and will be removed in a future version.""", DeprecationWarning)
-            pulumi.log.warn("""enabled is deprecated: This field is deprecated and will be removed in a future version.""")
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
         if issuer_mode is not None:
             pulumi.set(__self__, "issuer_mode", issuer_mode)
-
-    @_builtins.property
-    @pulumi.getter
-    @_utilities.deprecated("""This field is deprecated and will be removed in a future version.""")
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-        """
-        return pulumi.get(self, "enabled")
-
-    @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="issuerMode")

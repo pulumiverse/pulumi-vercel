@@ -32,6 +32,21 @@ public final class MicrofrontendGroupDefaultAppArgs extends com.pulumi.resources
     }
 
     /**
+     * The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * 
+     */
+    @Import(name="id")
+    private @Nullable Output<String> id;
+
+    /**
+     * @return The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * 
+     */
+    public Optional<Output<String>> id() {
+        return Optional.ofNullable(this.id);
+    }
+
+    /**
      * The ID of the project.
      * 
      */
@@ -50,6 +65,7 @@ public final class MicrofrontendGroupDefaultAppArgs extends com.pulumi.resources
 
     private MicrofrontendGroupDefaultAppArgs(MicrofrontendGroupDefaultAppArgs $) {
         this.defaultRoute = $.defaultRoute;
+        this.id = $.id;
         this.projectId = $.projectId;
     }
 
@@ -90,6 +106,27 @@ public final class MicrofrontendGroupDefaultAppArgs extends com.pulumi.resources
          */
         public Builder defaultRoute(String defaultRoute) {
             return defaultRoute(Output.of(defaultRoute));
+        }
+
+        /**
+         * @param id The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder id(@Nullable Output<String> id) {
+            $.id = id;
+            return this;
+        }
+
+        /**
+         * @param id The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder id(String id) {
+            return id(Output.of(id));
         }
 
         /**

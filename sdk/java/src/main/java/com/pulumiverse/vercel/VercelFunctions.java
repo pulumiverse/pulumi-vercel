@@ -43,6 +43,8 @@ import com.pulumiverse.vercel.inputs.GetMicrofrontendGroupArgs;
 import com.pulumiverse.vercel.inputs.GetMicrofrontendGroupMembershipArgs;
 import com.pulumiverse.vercel.inputs.GetMicrofrontendGroupMembershipPlainArgs;
 import com.pulumiverse.vercel.inputs.GetMicrofrontendGroupPlainArgs;
+import com.pulumiverse.vercel.inputs.GetNetworkArgs;
+import com.pulumiverse.vercel.inputs.GetNetworkPlainArgs;
 import com.pulumiverse.vercel.inputs.GetPrebuiltProjectArgs;
 import com.pulumiverse.vercel.inputs.GetPrebuiltProjectPlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectArgs;
@@ -78,6 +80,7 @@ import com.pulumiverse.vercel.outputs.GetFileResult;
 import com.pulumiverse.vercel.outputs.GetLogDrainResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupMembershipResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupResult;
+import com.pulumiverse.vercel.outputs.GetNetworkResult;
 import com.pulumiverse.vercel.outputs.GetPrebuiltProjectResult;
 import com.pulumiverse.vercel.outputs.GetProjectDeploymentRetentionResult;
 import com.pulumiverse.vercel.outputs.GetProjectDirectoryResult;
@@ -1264,8 +1267,8 @@ public final class VercelFunctions {
      * import com.pulumiverse.vercel.ProjectArgs;
      * import com.pulumi.vercel.VercelFunctions;
      * import com.pulumi.vercel.inputs.GetDomainConfigArgs;
-     * import com.pulumi.aws.Route53Record;
-     * import com.pulumi.aws.Route53RecordArgs;
+     * import com.pulumi.aws.route53.Record;
+     * import com.pulumi.aws.route53.RecordArgs;
      * import java.util.List;
      * import java.util.ArrayList;
      * import java.util.Map;
@@ -1299,20 +1302,20 @@ public final class VercelFunctions {
      *         //
      *         // External DNS provider example
      *         // 
-     *         var exampleComA = new Route53Record("exampleComA", Route53RecordArgs.builder()
+     *         var exampleComA = new Record("exampleComA", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(exampleCom.domain())
+     *             .name(exampleCom.applyValue(_exampleCom -> _exampleCom.domain()))
      *             .type("A")
      *             .ttl(300)
-     *             .records(exampleCom.recommendedIpv4s())
+     *             .records(exampleCom.applyValue(_exampleCom -> _exampleCom.recommendedIpv4s()))
      *             .build());
      * 
-     *         var wwwExampleComCname = new Route53Record("wwwExampleComCname", Route53RecordArgs.builder()
+     *         var wwwExampleComCname = new Record("wwwExampleComCname", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(wwwExampleCom.domain())
+     *             .name(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.domain()))
      *             .type("CNAME")
      *             .ttl(300)
-     *             .records(List.of(wwwExampleCom.recommendedCname()))
+     *             .records(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.recommendedCname()))
      *             .build());
      * 
      *     }
@@ -1343,8 +1346,8 @@ public final class VercelFunctions {
      * import com.pulumiverse.vercel.ProjectArgs;
      * import com.pulumi.vercel.VercelFunctions;
      * import com.pulumi.vercel.inputs.GetDomainConfigArgs;
-     * import com.pulumi.aws.Route53Record;
-     * import com.pulumi.aws.Route53RecordArgs;
+     * import com.pulumi.aws.route53.Record;
+     * import com.pulumi.aws.route53.RecordArgs;
      * import java.util.List;
      * import java.util.ArrayList;
      * import java.util.Map;
@@ -1378,20 +1381,20 @@ public final class VercelFunctions {
      *         //
      *         // External DNS provider example
      *         // 
-     *         var exampleComA = new Route53Record("exampleComA", Route53RecordArgs.builder()
+     *         var exampleComA = new Record("exampleComA", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(exampleCom.domain())
+     *             .name(exampleCom.applyValue(_exampleCom -> _exampleCom.domain()))
      *             .type("A")
      *             .ttl(300)
-     *             .records(exampleCom.recommendedIpv4s())
+     *             .records(exampleCom.applyValue(_exampleCom -> _exampleCom.recommendedIpv4s()))
      *             .build());
      * 
-     *         var wwwExampleComCname = new Route53Record("wwwExampleComCname", Route53RecordArgs.builder()
+     *         var wwwExampleComCname = new Record("wwwExampleComCname", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(wwwExampleCom.domain())
+     *             .name(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.domain()))
      *             .type("CNAME")
      *             .ttl(300)
-     *             .records(List.of(wwwExampleCom.recommendedCname()))
+     *             .records(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.recommendedCname()))
      *             .build());
      * 
      *     }
@@ -1422,8 +1425,8 @@ public final class VercelFunctions {
      * import com.pulumiverse.vercel.ProjectArgs;
      * import com.pulumi.vercel.VercelFunctions;
      * import com.pulumi.vercel.inputs.GetDomainConfigArgs;
-     * import com.pulumi.aws.Route53Record;
-     * import com.pulumi.aws.Route53RecordArgs;
+     * import com.pulumi.aws.route53.Record;
+     * import com.pulumi.aws.route53.RecordArgs;
      * import java.util.List;
      * import java.util.ArrayList;
      * import java.util.Map;
@@ -1457,20 +1460,20 @@ public final class VercelFunctions {
      *         //
      *         // External DNS provider example
      *         // 
-     *         var exampleComA = new Route53Record("exampleComA", Route53RecordArgs.builder()
+     *         var exampleComA = new Record("exampleComA", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(exampleCom.domain())
+     *             .name(exampleCom.applyValue(_exampleCom -> _exampleCom.domain()))
      *             .type("A")
      *             .ttl(300)
-     *             .records(exampleCom.recommendedIpv4s())
+     *             .records(exampleCom.applyValue(_exampleCom -> _exampleCom.recommendedIpv4s()))
      *             .build());
      * 
-     *         var wwwExampleComCname = new Route53Record("wwwExampleComCname", Route53RecordArgs.builder()
+     *         var wwwExampleComCname = new Record("wwwExampleComCname", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(wwwExampleCom.domain())
+     *             .name(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.domain()))
      *             .type("CNAME")
      *             .ttl(300)
-     *             .records(List.of(wwwExampleCom.recommendedCname()))
+     *             .records(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.recommendedCname()))
      *             .build());
      * 
      *     }
@@ -1501,8 +1504,8 @@ public final class VercelFunctions {
      * import com.pulumiverse.vercel.ProjectArgs;
      * import com.pulumi.vercel.VercelFunctions;
      * import com.pulumi.vercel.inputs.GetDomainConfigArgs;
-     * import com.pulumi.aws.Route53Record;
-     * import com.pulumi.aws.Route53RecordArgs;
+     * import com.pulumi.aws.route53.Record;
+     * import com.pulumi.aws.route53.RecordArgs;
      * import java.util.List;
      * import java.util.ArrayList;
      * import java.util.Map;
@@ -1536,20 +1539,20 @@ public final class VercelFunctions {
      *         //
      *         // External DNS provider example
      *         // 
-     *         var exampleComA = new Route53Record("exampleComA", Route53RecordArgs.builder()
+     *         var exampleComA = new Record("exampleComA", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(exampleCom.domain())
+     *             .name(exampleCom.applyValue(_exampleCom -> _exampleCom.domain()))
      *             .type("A")
      *             .ttl(300)
-     *             .records(exampleCom.recommendedIpv4s())
+     *             .records(exampleCom.applyValue(_exampleCom -> _exampleCom.recommendedIpv4s()))
      *             .build());
      * 
-     *         var wwwExampleComCname = new Route53Record("wwwExampleComCname", Route53RecordArgs.builder()
+     *         var wwwExampleComCname = new Record("wwwExampleComCname", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(wwwExampleCom.domain())
+     *             .name(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.domain()))
      *             .type("CNAME")
      *             .ttl(300)
-     *             .records(List.of(wwwExampleCom.recommendedCname()))
+     *             .records(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.recommendedCname()))
      *             .build());
      * 
      *     }
@@ -1580,8 +1583,8 @@ public final class VercelFunctions {
      * import com.pulumiverse.vercel.ProjectArgs;
      * import com.pulumi.vercel.VercelFunctions;
      * import com.pulumi.vercel.inputs.GetDomainConfigArgs;
-     * import com.pulumi.aws.Route53Record;
-     * import com.pulumi.aws.Route53RecordArgs;
+     * import com.pulumi.aws.route53.Record;
+     * import com.pulumi.aws.route53.RecordArgs;
      * import java.util.List;
      * import java.util.ArrayList;
      * import java.util.Map;
@@ -1615,20 +1618,20 @@ public final class VercelFunctions {
      *         //
      *         // External DNS provider example
      *         // 
-     *         var exampleComA = new Route53Record("exampleComA", Route53RecordArgs.builder()
+     *         var exampleComA = new Record("exampleComA", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(exampleCom.domain())
+     *             .name(exampleCom.applyValue(_exampleCom -> _exampleCom.domain()))
      *             .type("A")
      *             .ttl(300)
-     *             .records(exampleCom.recommendedIpv4s())
+     *             .records(exampleCom.applyValue(_exampleCom -> _exampleCom.recommendedIpv4s()))
      *             .build());
      * 
-     *         var wwwExampleComCname = new Route53Record("wwwExampleComCname", Route53RecordArgs.builder()
+     *         var wwwExampleComCname = new Record("wwwExampleComCname", RecordArgs.builder()
      *             .zoneId("...zone_id_from_somewhere...")
-     *             .name(wwwExampleCom.domain())
+     *             .name(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.domain()))
      *             .type("CNAME")
      *             .ttl(300)
-     *             .records(List.of(wwwExampleCom.recommendedCname()))
+     *             .records(wwwExampleCom.applyValue(_wwwExampleCom -> _wwwExampleCom.recommendedCname()))
      *             .build());
      * 
      *     }
@@ -4289,6 +4292,41 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetMicrofrontendGroupMembershipResult> getMicrofrontendGroupMembershipPlain(GetMicrofrontendGroupMembershipPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getMicrofrontendGroupMembership:getMicrofrontendGroupMembership", TypeShape.of(GetMicrofrontendGroupMembershipResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about a Vercel Network.
+     * 
+     */
+    public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args) {
+        return getNetwork(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about a Vercel Network.
+     * 
+     */
+    public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args) {
+        return getNetworkPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about a Vercel Network.
+     * 
+     */
+    public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getNetwork:getNetwork", TypeShape.of(GetNetworkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about a Vercel Network.
+     * 
+     */
+    public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getNetwork:getNetwork", TypeShape.of(GetNetworkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about a Vercel Network.
+     * 
+     */
+    public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getNetwork:getNetwork", TypeShape.of(GetNetworkResult.class), args, Utilities.withVersion(options));
     }
     public static Output<GetPrebuiltProjectResult> getPrebuiltProject(GetPrebuiltProjectArgs args) {
         return getPrebuiltProject(args, InvokeOptions.Empty);

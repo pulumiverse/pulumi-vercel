@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.FirewallBypassArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.FirewallBypassState;
 import java.lang.String;
+import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -52,12 +53,14 @@ import javax.annotation.Nullable;
  *             .projectId(example.id())
  *             .sourceIp("5.6.7.8")
  *             .domain("my-production-domain.com")
+ *             .note("Bypass rule for specific IP")
  *             .build());
  * 
  *         var bypassCidr = new FirewallBypass("bypassCidr", FirewallBypassArgs.builder()
  *             .projectId(example.id())
  *             .sourceIp("52.33.44.0/24")
  *             .domain("my-production-domain.com")
+ *             .note("Bypass rule for CIDR range")
  *             .build());
  * 
  *         var bypassAll = new FirewallBypass("bypassAll", FirewallBypassArgs.builder()
@@ -97,6 +100,20 @@ public class FirewallBypass extends com.pulumi.resources.CustomResource {
      */
     public Output<String> domain() {
         return this.domain;
+    }
+    /**
+     * A note to describe the bypass rule. Maximum length is 500 characters.
+     * 
+     */
+    @Export(name="note", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> note;
+
+    /**
+     * @return A note to describe the bypass rule. Maximum length is 500 characters.
+     * 
+     */
+    public Output<Optional<String>> note() {
+        return Codegen.optional(this.note);
     }
     /**
      * The ID of the Project to assign the bypass rule to

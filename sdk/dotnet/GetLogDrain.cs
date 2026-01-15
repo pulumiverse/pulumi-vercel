@@ -175,6 +175,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string Id;
         /// <summary>
+        /// The human-readable name of the Log Drain.
+        /// </summary>
+        public readonly string Name;
+        /// <summary>
         /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         /// </summary>
         public readonly ImmutableArray<string> ProjectIds;
@@ -183,7 +187,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly double SamplingRate;
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda` and `Firewall`.
+        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda`, `Firewall`, and `Redirect`.
         /// </summary>
         public readonly ImmutableArray<string> Sources;
         /// <summary>
@@ -203,6 +207,8 @@ namespace Pulumiverse.Vercel
 
             string id,
 
+            string name,
+
             ImmutableArray<string> projectIds,
 
             double samplingRate,
@@ -216,6 +222,7 @@ namespace Pulumiverse.Vercel
             Environments = environments;
             Headers = headers;
             Id = id;
+            Name = name;
             ProjectIds = projectIds;
             SamplingRate = samplingRate;
             Sources = sources;

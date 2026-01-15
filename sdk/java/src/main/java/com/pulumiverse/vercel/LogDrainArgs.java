@@ -80,6 +80,21 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * A human-readable name for the log drain.
+     * 
+     */
+    @Import(name="name")
+    private @Nullable Output<String> name;
+
+    /**
+     * @return A human-readable name for the log drain.
+     * 
+     */
+    public Optional<Output<String>> name() {
+        return Optional.ofNullable(this.name);
+    }
+
+    /**
      * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      * 
      */
@@ -125,14 +140,14 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
      */
     @Import(name="sources", required=true)
     private Output<List<String>> sources;
 
     /**
-     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
      */
     public Output<List<String>> sources() {
@@ -161,6 +176,7 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         this.endpoint = $.endpoint;
         this.environments = $.environments;
         this.headers = $.headers;
+        this.name = $.name;
         this.projectIds = $.projectIds;
         this.samplingRate = $.samplingRate;
         this.secret = $.secret;
@@ -281,6 +297,27 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param name A human-readable name for the log drain.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder name(@Nullable Output<String> name) {
+            $.name = name;
+            return this;
+        }
+
+        /**
+         * @param name A human-readable name for the log drain.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder name(String name) {
+            return name(Output.of(name));
+        }
+
+        /**
          * @param projectIds A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
          * 
          * @return builder
@@ -354,7 +391,7 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param sources A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+         * @param sources A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
          * 
          * @return builder
          * 
@@ -365,7 +402,7 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param sources A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+         * @param sources A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
          * 
          * @return builder
          * 
@@ -375,7 +412,7 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param sources A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+         * @param sources A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
          * 
          * @return builder
          * 

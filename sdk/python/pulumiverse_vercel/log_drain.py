@@ -24,6 +24,7 @@ class LogDrainArgs:
                  environments: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
                  sources: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
                  headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
@@ -33,8 +34,9 @@ class LogDrainArgs:
         :param pulumi.Input[_builtins.str] delivery_format: The format log data should be delivered in. Can be `json` or `ndjson`.
         :param pulumi.Input[_builtins.str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
+        :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
@@ -46,6 +48,8 @@ class LogDrainArgs:
         pulumi.set(__self__, "sources", sources)
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if project_ids is not None:
             pulumi.set(__self__, "project_ids", project_ids)
         if sampling_rate is not None:
@@ -95,7 +99,7 @@ class LogDrainArgs:
     @pulumi.getter
     def sources(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         """
         return pulumi.get(self, "sources")
 
@@ -114,6 +118,18 @@ class LogDrainArgs:
     @headers.setter
     def headers(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "headers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable name for the log drain.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="projectIds")
@@ -171,6 +187,7 @@ class _LogDrainState:
                  endpoint: Optional[pulumi.Input[_builtins.str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
@@ -182,10 +199,11 @@ class _LogDrainState:
         :param pulumi.Input[_builtins.str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
+        :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         if delivery_format is not None:
@@ -196,6 +214,8 @@ class _LogDrainState:
             pulumi.set(__self__, "environments", environments)
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if project_ids is not None:
             pulumi.set(__self__, "project_ids", project_ids)
         if sampling_rate is not None:
@@ -256,6 +276,18 @@ class _LogDrainState:
         pulumi.set(self, "headers", value)
 
     @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable name for the log drain.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
@@ -295,7 +327,7 @@ class _LogDrainState:
     @pulumi.getter
     def sources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         """
         return pulumi.get(self, "sources")
 
@@ -326,6 +358,7 @@ class LogDrain(pulumi.CustomResource):
                  endpoint: Optional[pulumi.Input[_builtins.str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
@@ -395,10 +428,11 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
+        :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
@@ -483,6 +517,7 @@ class LogDrain(pulumi.CustomResource):
                  endpoint: Optional[pulumi.Input[_builtins.str]] = None,
                  environments: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
@@ -507,6 +542,7 @@ class LogDrain(pulumi.CustomResource):
                 raise TypeError("Missing required property 'environments'")
             __props__.__dict__["environments"] = environments
             __props__.__dict__["headers"] = headers
+            __props__.__dict__["name"] = name
             __props__.__dict__["project_ids"] = project_ids
             __props__.__dict__["sampling_rate"] = sampling_rate
             __props__.__dict__["secret"] = None if secret is None else pulumi.Output.secret(secret)
@@ -530,6 +566,7 @@ class LogDrain(pulumi.CustomResource):
             endpoint: Optional[pulumi.Input[_builtins.str]] = None,
             environments: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+            name: Optional[pulumi.Input[_builtins.str]] = None,
             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
             secret: Optional[pulumi.Input[_builtins.str]] = None,
@@ -546,10 +583,11 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
+        :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -560,6 +598,7 @@ class LogDrain(pulumi.CustomResource):
         __props__.__dict__["endpoint"] = endpoint
         __props__.__dict__["environments"] = environments
         __props__.__dict__["headers"] = headers
+        __props__.__dict__["name"] = name
         __props__.__dict__["project_ids"] = project_ids
         __props__.__dict__["sampling_rate"] = sampling_rate
         __props__.__dict__["secret"] = secret
@@ -600,6 +639,14 @@ class LogDrain(pulumi.CustomResource):
         return pulumi.get(self, "headers")
 
     @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Output[_builtins.str]:
+        """
+        A human-readable name for the log drain.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
@@ -627,7 +674,7 @@ class LogDrain(pulumi.CustomResource):
     @pulumi.getter
     def sources(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         """
         return pulumi.get(self, "sources")
 
