@@ -163,6 +163,20 @@ public class LogDrain extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.headers);
     }
     /**
+     * A human-readable name for the log drain.
+     * 
+     */
+    @Export(name="name", refs={String.class}, tree="[0]")
+    private Output<String> name;
+
+    /**
+     * @return A human-readable name for the log drain.
+     * 
+     */
+    public Output<String> name() {
+        return this.name;
+    }
+    /**
      * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      * 
      */
@@ -205,14 +219,14 @@ public class LogDrain extends com.pulumi.resources.CustomResource {
         return this.secret;
     }
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
      */
     @Export(name="sources", refs={List.class,String.class}, tree="[0,1]")
     private Output<List<String>> sources;
 
     /**
-     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
      */
     public Output<List<String>> sources() {

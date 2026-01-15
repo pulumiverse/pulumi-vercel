@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
 // Provides information about an existing Microfrontend Group Membership.
@@ -23,7 +23,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
 //
 // )
 //
@@ -65,7 +65,7 @@ type LookupMicrofrontendGroupMembershipArgs struct {
 type LookupMicrofrontendGroupMembershipResult struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute string `pulumi:"defaultRoute"`
-	// The provider-assigned unique ID for this managed resource.
+	// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
 	Id string `pulumi:"id"`
 	// The ID of the microfrontend group.
 	MicrofrontendGroupId string `pulumi:"microfrontendGroupId"`
@@ -120,7 +120,7 @@ func (o LookupMicrofrontendGroupMembershipResultOutput) DefaultRoute() pulumi.St
 	return o.ApplyT(func(v LookupMicrofrontendGroupMembershipResult) string { return v.DefaultRoute }).(pulumi.StringOutput)
 }
 
-// The provider-assigned unique ID for this managed resource.
+// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
 func (o LookupMicrofrontendGroupMembershipResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupMicrofrontendGroupMembershipResult) string { return v.Id }).(pulumi.StringOutput)
 }

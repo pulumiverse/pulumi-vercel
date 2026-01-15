@@ -39,6 +39,11 @@ public final class GetLogDrainResult {
      */
     private String id;
     /**
+     * @return The human-readable name of the Log Drain.
+     * 
+     */
+    private String name;
+    /**
      * @return A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      * 
      */
@@ -49,7 +54,7 @@ public final class GetLogDrainResult {
      */
     private Double samplingRate;
     /**
-     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
      */
     private List<String> sources;
@@ -96,6 +101,13 @@ public final class GetLogDrainResult {
         return this.id;
     }
     /**
+     * @return The human-readable name of the Log Drain.
+     * 
+     */
+    public String name() {
+        return this.name;
+    }
+    /**
      * @return A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      * 
      */
@@ -110,7 +122,7 @@ public final class GetLogDrainResult {
         return this.samplingRate;
     }
     /**
-     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
      */
     public List<String> sources() {
@@ -138,6 +150,7 @@ public final class GetLogDrainResult {
         private List<String> environments;
         private Map<String,String> headers;
         private String id;
+        private String name;
         private List<String> projectIds;
         private Double samplingRate;
         private List<String> sources;
@@ -150,6 +163,7 @@ public final class GetLogDrainResult {
     	      this.environments = defaults.environments;
     	      this.headers = defaults.headers;
     	      this.id = defaults.id;
+    	      this.name = defaults.name;
     	      this.projectIds = defaults.projectIds;
     	      this.samplingRate = defaults.samplingRate;
     	      this.sources = defaults.sources;
@@ -200,6 +214,14 @@ public final class GetLogDrainResult {
             return this;
         }
         @CustomType.Setter
+        public Builder name(String name) {
+            if (name == null) {
+              throw new MissingRequiredPropertyException("GetLogDrainResult", "name");
+            }
+            this.name = name;
+            return this;
+        }
+        @CustomType.Setter
         public Builder projectIds(List<String> projectIds) {
             if (projectIds == null) {
               throw new MissingRequiredPropertyException("GetLogDrainResult", "projectIds");
@@ -244,6 +266,7 @@ public final class GetLogDrainResult {
             _resultValue.environments = environments;
             _resultValue.headers = headers;
             _resultValue.id = id;
+            _resultValue.name = name;
             _resultValue.projectIds = projectIds;
             _resultValue.samplingRate = samplingRate;
             _resultValue.sources = sources;

@@ -138,16 +138,16 @@ def get_domain_config(domain: Optional[_builtins.str] = None,
     #
     # External DNS provider example
     # 
-    example_com_a = aws.index.Route53Record("example_com_a",
-        zone_id=...zone_id_from_somewhere...,
+    example_com_a = aws.route53.Record("example_com_a",
+        zone_id="...zone_id_from_somewhere...",
         name=example_com.domain,
-        type=A,
+        type=aws.route53.RecordType.A,
         ttl=300,
         records=example_com.recommended_ipv4s)
-    www_example_com_cname = aws.index.Route53Record("www_example_com_cname",
-        zone_id=...zone_id_from_somewhere...,
+    www_example_com_cname = aws.route53.Record("www_example_com_cname",
+        zone_id="...zone_id_from_somewhere...",
         name=www_example_com.domain,
-        type=CNAME,
+        type=aws.route53.RecordType.CNAME,
         ttl=300,
         records=[www_example_com.recommended_cname])
     ```
@@ -200,16 +200,16 @@ def get_domain_config_output(domain: Optional[pulumi.Input[_builtins.str]] = Non
     #
     # External DNS provider example
     # 
-    example_com_a = aws.index.Route53Record("example_com_a",
-        zone_id=...zone_id_from_somewhere...,
+    example_com_a = aws.route53.Record("example_com_a",
+        zone_id="...zone_id_from_somewhere...",
         name=example_com.domain,
-        type=A,
+        type=aws.route53.RecordType.A,
         ttl=300,
         records=example_com.recommended_ipv4s)
-    www_example_com_cname = aws.index.Route53Record("www_example_com_cname",
-        zone_id=...zone_id_from_somewhere...,
+    www_example_com_cname = aws.route53.Record("www_example_com_cname",
+        zone_id="...zone_id_from_somewhere...",
         name=www_example_com.domain,
-        type=CNAME,
+        type=aws.route53.RecordType.CNAME,
         ttl=300,
         records=[www_example_com.recommended_cname])
     ```

@@ -55,7 +55,7 @@ class GetAccessGroupProjectResult:
     @pulumi.getter
     def id(self) -> _builtins.str:
         """
-        The provider-assigned unique ID for this managed resource.
+        The unique identifier for this resource. Format: access*group*id/project_id.
         """
         return pulumi.get(self, "id")
 

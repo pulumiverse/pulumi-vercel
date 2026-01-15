@@ -314,6 +314,34 @@ class FirewallConfig(pulumi.CustomResource):
                         },
                     },
                     {
+                        "name": "Require Authorization header",
+                        "description": "Block requests without Authorization header",
+                        "condition_groups": [{
+                            "conditions": [{
+                                "type": "header",
+                                "key": "Authorization",
+                                "op": "nex",
+                            }],
+                        }],
+                        "action": {
+                            "action": "deny",
+                        },
+                    },
+                    {
+                        "name": "Log requests with custom header",
+                        "description": "Log requests that have X-Custom-Header present",
+                        "condition_groups": [{
+                            "conditions": [{
+                                "type": "header",
+                                "key": "X-Custom-Header",
+                                "op": "ex",
+                            }],
+                        }],
+                        "action": {
+                            "action": "log",
+                        },
+                    },
+                    {
                         "name": "Rate limit API",
                         "description": "apply ratelimit to requests under /api",
                         "condition_groups": [{
@@ -521,6 +549,34 @@ class FirewallConfig(pulumi.CustomResource):
                         }],
                         "action": {
                             "action": "challenge",
+                        },
+                    },
+                    {
+                        "name": "Require Authorization header",
+                        "description": "Block requests without Authorization header",
+                        "condition_groups": [{
+                            "conditions": [{
+                                "type": "header",
+                                "key": "Authorization",
+                                "op": "nex",
+                            }],
+                        }],
+                        "action": {
+                            "action": "deny",
+                        },
+                    },
+                    {
+                        "name": "Log requests with custom header",
+                        "description": "Log requests that have X-Custom-Header present",
+                        "condition_groups": [{
+                            "conditions": [{
+                                "type": "header",
+                                "key": "X-Custom-Header",
+                                "op": "ex",
+                            }],
+                        }],
+                        "action": {
+                            "action": "log",
                         },
                     },
                     {
