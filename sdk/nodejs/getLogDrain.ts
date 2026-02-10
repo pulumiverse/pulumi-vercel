@@ -74,10 +74,6 @@ export interface GetLogDrainResult {
      */
     readonly id: string;
     /**
-     * The human-readable name of the Log Drain.
-     */
-    readonly name: string;
-    /**
      * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      */
     readonly projectIds: string[];
@@ -86,7 +82,7 @@ export interface GetLogDrainResult {
      */
     readonly samplingRate: number;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
      */
     readonly sources: string[];
     /**

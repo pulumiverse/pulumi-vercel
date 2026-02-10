@@ -7,7 +7,6 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumiverse.vercel.inputs.ProjectEnvironmentArgs;
 import com.pulumiverse.vercel.inputs.ProjectGitCommentsArgs;
-import com.pulumiverse.vercel.inputs.ProjectGitProviderOptionsArgs;
 import com.pulumiverse.vercel.inputs.ProjectGitRepositoryArgs;
 import com.pulumiverse.vercel.inputs.ProjectOidcTokenConfigArgs;
 import com.pulumiverse.vercel.inputs.ProjectOptionsAllowlistArgs;
@@ -268,21 +267,6 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Git provider options
-     * 
-     */
-    @Import(name="gitProviderOptions")
-    private @Nullable Output<ProjectGitProviderOptionsArgs> gitProviderOptions;
-
-    /**
-     * @return Git provider options
-     * 
-     */
-    public Optional<Output<ProjectGitProviderOptionsArgs>> gitProviderOptions() {
-        return Optional.ofNullable(this.gitProviderOptions);
-    }
-
-    /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      * 
      */
@@ -453,21 +437,6 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     @Deprecated /* Use `enablePreviewFeedback` instead. This attribute will be removed in a future version. */
     public Optional<Output<Boolean>> previewComments() {
         return Optional.ofNullable(this.previewComments);
-    }
-
-    /**
-     * The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel&#39;s default suffix will be used.
-     * 
-     */
-    @Import(name="previewDeploymentSuffix")
-    private @Nullable Output<String> previewDeploymentSuffix;
-
-    /**
-     * @return The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel&#39;s default suffix will be used.
-     * 
-     */
-    public Optional<Output<String>> previewDeploymentSuffix() {
-        return Optional.ofNullable(this.previewDeploymentSuffix);
     }
 
     /**
@@ -677,7 +646,6 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         this.gitComments = $.gitComments;
         this.gitForkProtection = $.gitForkProtection;
         this.gitLfs = $.gitLfs;
-        this.gitProviderOptions = $.gitProviderOptions;
         this.gitRepository = $.gitRepository;
         this.ignoreCommand = $.ignoreCommand;
         this.installCommand = $.installCommand;
@@ -689,7 +657,6 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         this.outputDirectory = $.outputDirectory;
         this.passwordProtection = $.passwordProtection;
         this.previewComments = $.previewComments;
-        this.previewDeploymentSuffix = $.previewDeploymentSuffix;
         this.previewDeploymentsDisabled = $.previewDeploymentsDisabled;
         this.prioritiseProductionBuilds = $.prioritiseProductionBuilds;
         this.protectionBypassForAutomation = $.protectionBypassForAutomation;
@@ -1069,27 +1036,6 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gitProviderOptions Git provider options
-         * 
-         * @return builder
-         * 
-         */
-        public Builder gitProviderOptions(@Nullable Output<ProjectGitProviderOptionsArgs> gitProviderOptions) {
-            $.gitProviderOptions = gitProviderOptions;
-            return this;
-        }
-
-        /**
-         * @param gitProviderOptions Git provider options
-         * 
-         * @return builder
-         * 
-         */
-        public Builder gitProviderOptions(ProjectGitProviderOptionsArgs gitProviderOptions) {
-            return gitProviderOptions(Output.of(gitProviderOptions));
-        }
-
-        /**
          * @param gitRepository The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
          * 
          * @return builder
@@ -1326,27 +1272,6 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         @Deprecated /* Use `enablePreviewFeedback` instead. This attribute will be removed in a future version. */
         public Builder previewComments(Boolean previewComments) {
             return previewComments(Output.of(previewComments));
-        }
-
-        /**
-         * @param previewDeploymentSuffix The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel&#39;s default suffix will be used.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder previewDeploymentSuffix(@Nullable Output<String> previewDeploymentSuffix) {
-            $.previewDeploymentSuffix = previewDeploymentSuffix;
-            return this;
-        }
-
-        /**
-         * @param previewDeploymentSuffix The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel&#39;s default suffix will be used.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder previewDeploymentSuffix(String previewDeploymentSuffix) {
-            return previewDeploymentSuffix(Output.of(previewDeploymentSuffix));
         }
 
         /**

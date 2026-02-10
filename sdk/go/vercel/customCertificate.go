@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provides a Custom Certificate Resource, allowing Custom Certificates to be uploaded to Vercel.
@@ -27,7 +27,7 @@ import (
 //
 //	"github.com/pulumi/pulumi-std/sdk/go/std"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //

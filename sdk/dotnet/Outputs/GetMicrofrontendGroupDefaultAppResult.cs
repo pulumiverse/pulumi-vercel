@@ -19,10 +19,6 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string DefaultRoute;
         /// <summary>
-        /// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-        /// </summary>
-        public readonly string Id;
-        /// <summary>
         /// The ID of the project.
         /// </summary>
         public readonly string ProjectId;
@@ -31,12 +27,9 @@ namespace Pulumiverse.Vercel.Outputs
         private GetMicrofrontendGroupDefaultAppResult(
             string defaultRoute,
 
-            string id,
-
             string projectId)
         {
             DefaultRoute = defaultRoute;
-            Id = id;
             ProjectId = projectId;
         }
     }

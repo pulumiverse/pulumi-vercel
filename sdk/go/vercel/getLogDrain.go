@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provides information about an existing Log Drain.
@@ -25,7 +25,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
@@ -74,13 +74,11 @@ type LookupLogDrainResult struct {
 	Headers map[string]string `pulumi:"headers"`
 	// The ID of the Log Drain.
 	Id string `pulumi:"id"`
-	// The human-readable name of the Log Drain.
-	Name string `pulumi:"name"`
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds []string `pulumi:"projectIds"`
 	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
 	SamplingRate float64 `pulumi:"samplingRate"`
-	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
+	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 	Sources []string `pulumi:"sources"`
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
@@ -149,11 +147,6 @@ func (o LookupLogDrainResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupLogDrainResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The human-readable name of the Log Drain.
-func (o LookupLogDrainResultOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v LookupLogDrainResult) string { return v.Name }).(pulumi.StringOutput)
-}
-
 // A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 func (o LookupLogDrainResultOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupLogDrainResult) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
@@ -164,7 +157,7 @@ func (o LookupLogDrainResultOutput) SamplingRate() pulumi.Float64Output {
 	return o.ApplyT(func(v LookupLogDrainResult) float64 { return v.SamplingRate }).(pulumi.Float64Output)
 }
 
-// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
+// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
 func (o LookupLogDrainResultOutput) Sources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupLogDrainResult) []string { return v.Sources }).(pulumi.StringArrayOutput)
 }

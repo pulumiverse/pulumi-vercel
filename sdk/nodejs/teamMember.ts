@@ -78,7 +78,7 @@ export class TeamMember extends pulumi.CustomResource {
      */
     declare public readonly projects: pulumi.Output<outputs.TeamMemberProject[] | undefined>;
     /**
-     * The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
     declare public readonly role: pulumi.Output<string>;
     /**
@@ -154,7 +154,7 @@ export interface TeamMemberState {
      */
     projects?: pulumi.Input<pulumi.Input<inputs.TeamMemberProject>[]>;
     /**
-     * The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
     role?: pulumi.Input<string>;
     /**
@@ -186,7 +186,7 @@ export interface TeamMemberArgs {
      */
     projects?: pulumi.Input<pulumi.Input<inputs.TeamMemberProject>[]>;
     /**
-     * The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
      */
     role: pulumi.Input<string>;
     /**

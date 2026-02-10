@@ -57,7 +57,7 @@ export interface GetMicrofrontendGroupMembershipResult {
      */
     readonly defaultRoute: string;
     /**
-     * The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     /**

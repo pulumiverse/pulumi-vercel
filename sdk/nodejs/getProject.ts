@@ -125,10 +125,6 @@ export interface GetProjectResult {
      */
     readonly gitLfs: boolean;
     /**
-     * Git provider options.
-     */
-    readonly gitProviderOptions: outputs.GetProjectGitProviderOptions;
-    /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     readonly gitRepository: outputs.GetProjectGitRepository;
@@ -178,10 +174,6 @@ export interface GetProjectResult {
      * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     readonly previewComments: boolean;
-    /**
-     * The preview deployment suffix to apply to preview deployment URLs for this project.
-     */
-    readonly previewDeploymentSuffix: string;
     /**
      * Whether Preview Deployments are disabled for this project.
      */

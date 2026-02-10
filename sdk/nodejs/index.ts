@@ -160,11 +160,6 @@ export const getMicrofrontendGroupMembership: typeof import("./getMicrofrontendG
 export const getMicrofrontendGroupMembershipOutput: typeof import("./getMicrofrontendGroupMembership").getMicrofrontendGroupMembershipOutput = null as any;
 utilities.lazyLoad(exports, ["getMicrofrontendGroupMembership","getMicrofrontendGroupMembershipOutput"], () => require("./getMicrofrontendGroupMembership"));
 
-export { GetNetworkArgs, GetNetworkResult, GetNetworkOutputArgs } from "./getNetwork";
-export const getNetwork: typeof import("./getNetwork").getNetwork = null as any;
-export const getNetworkOutput: typeof import("./getNetwork").getNetworkOutput = null as any;
-utilities.lazyLoad(exports, ["getNetwork","getNetworkOutput"], () => require("./getNetwork"));
-
 export { GetPrebuiltProjectArgs, GetPrebuiltProjectResult, GetPrebuiltProjectOutputArgs } from "./getPrebuiltProject";
 export const getPrebuiltProject: typeof import("./getPrebuiltProject").getPrebuiltProject = null as any;
 export const getPrebuiltProjectOutput: typeof import("./getPrebuiltProject").getPrebuiltProjectOutput = null as any;
@@ -229,11 +224,6 @@ export { MicrofrontendGroupMembershipArgs, MicrofrontendGroupMembershipState } f
 export type MicrofrontendGroupMembership = import("./microfrontendGroupMembership").MicrofrontendGroupMembership;
 export const MicrofrontendGroupMembership: typeof import("./microfrontendGroupMembership").MicrofrontendGroupMembership = null as any;
 utilities.lazyLoad(exports, ["MicrofrontendGroupMembership"], () => require("./microfrontendGroupMembership"));
-
-export { NetworkArgs, NetworkState } from "./network";
-export type Network = import("./network").Network;
-export const Network: typeof import("./network").Network = null as any;
-utilities.lazyLoad(exports, ["Network"], () => require("./network"));
 
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
@@ -353,8 +343,6 @@ const _module = {
                 return new MicrofrontendGroup(name, <any>undefined, { urn })
             case "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership":
                 return new MicrofrontendGroupMembership(name, <any>undefined, { urn })
-            case "vercel:index/network:Network":
-                return new Network(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectCrons:ProjectCrons":
@@ -404,7 +392,6 @@ pulumi.runtime.registerResourceModule("vercel", "index/integrationProjectAccess"
 pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembership", _module)
-pulumi.runtime.registerResourceModule("vercel", "index/network", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)

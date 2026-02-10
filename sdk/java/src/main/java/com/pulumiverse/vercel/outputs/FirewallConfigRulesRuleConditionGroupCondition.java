@@ -25,7 +25,7 @@ public final class FirewallConfigRulesRuleConditionGroupCondition {
      */
     private @Nullable Boolean neg;
     /**
-     * @return Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don&#39;t require a `value` field, only `key`.
+     * @return How to comparse type to value
      * 
      */
     private String op;
@@ -35,7 +35,7 @@ public final class FirewallConfigRulesRuleConditionGroupCondition {
      */
     private String type;
     /**
-     * @return Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+     * @return Value to match against
      * 
      */
     private @Nullable String value;
@@ -61,7 +61,7 @@ public final class FirewallConfigRulesRuleConditionGroupCondition {
         return Optional.ofNullable(this.neg);
     }
     /**
-     * @return Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don&#39;t require a `value` field, only `key`.
+     * @return How to comparse type to value
      * 
      */
     public String op() {
@@ -75,7 +75,7 @@ public final class FirewallConfigRulesRuleConditionGroupCondition {
         return this.type;
     }
     /**
-     * @return Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+     * @return Value to match against
      * 
      */
     public Optional<String> value() {

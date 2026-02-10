@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provides information about an existing Access Group Project Assignment.
@@ -23,7 +23,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
@@ -71,7 +71,7 @@ type LookupAccessGroupProjectArgs struct {
 type LookupAccessGroupProjectResult struct {
 	// The Access Group ID.
 	AccessGroupId string `pulumi:"accessGroupId"`
-	// The unique identifier for this resource. Format: access*group*id/project_id.
+	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
 	// The Project ID.
 	ProjectId string `pulumi:"projectId"`
@@ -124,7 +124,7 @@ func (o LookupAccessGroupProjectResultOutput) AccessGroupId() pulumi.StringOutpu
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.AccessGroupId }).(pulumi.StringOutput)
 }
 
-// The unique identifier for this resource. Format: access*group*id/project_id.
+// The provider-assigned unique ID for this managed resource.
 func (o LookupAccessGroupProjectResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessGroupProjectResult) string { return v.Id }).(pulumi.StringOutput)
 }

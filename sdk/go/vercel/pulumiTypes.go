@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -4082,11 +4082,11 @@ type FirewallConfigRulesRuleConditionGroupCondition struct {
 	Key *string `pulumi:"key"`
 	// Negate the condition
 	Neg *bool `pulumi:"neg"`
-	// Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+	// How to comparse type to value
 	Op string `pulumi:"op"`
 	// Request key type to match against
 	Type string `pulumi:"type"`
-	// Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+	// Value to match against
 	Value *string `pulumi:"value"`
 	// Values to match against if op is inc, ninc
 	Values []string `pulumi:"values"`
@@ -4108,11 +4108,11 @@ type FirewallConfigRulesRuleConditionGroupConditionArgs struct {
 	Key pulumi.StringPtrInput `pulumi:"key"`
 	// Negate the condition
 	Neg pulumi.BoolPtrInput `pulumi:"neg"`
-	// Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+	// How to comparse type to value
 	Op pulumi.StringInput `pulumi:"op"`
 	// Request key type to match against
 	Type pulumi.StringInput `pulumi:"type"`
-	// Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+	// Value to match against
 	Value pulumi.StringPtrInput `pulumi:"value"`
 	// Values to match against if op is inc, ninc
 	Values pulumi.StringArrayInput `pulumi:"values"`
@@ -4179,7 +4179,7 @@ func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Neg() pulumi.BoolP
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *bool { return v.Neg }).(pulumi.BoolPtrOutput)
 }
 
-// Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+// How to comparse type to value
 func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Op() pulumi.StringOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) string { return v.Op }).(pulumi.StringOutput)
 }
@@ -4189,7 +4189,7 @@ func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Type() pulumi.Stri
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
-// Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+// Value to match against
 func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -4222,8 +4222,6 @@ func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) Index(i pulum
 type MicrofrontendGroupDefaultApp struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute *string `pulumi:"defaultRoute"`
-	// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-	Id *string `pulumi:"id"`
 	// The ID of the project.
 	ProjectId string `pulumi:"projectId"`
 }
@@ -4242,8 +4240,6 @@ type MicrofrontendGroupDefaultAppInput interface {
 type MicrofrontendGroupDefaultAppArgs struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute pulumi.StringPtrInput `pulumi:"defaultRoute"`
-	// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The ID of the project.
 	ProjectId pulumi.StringInput `pulumi:"projectId"`
 }
@@ -4330,11 +4326,6 @@ func (o MicrofrontendGroupDefaultAppOutput) DefaultRoute() pulumi.StringPtrOutpu
 	return o.ApplyT(func(v MicrofrontendGroupDefaultApp) *string { return v.DefaultRoute }).(pulumi.StringPtrOutput)
 }
 
-// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-func (o MicrofrontendGroupDefaultAppOutput) Id() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MicrofrontendGroupDefaultApp) *string { return v.Id }).(pulumi.StringPtrOutput)
-}
-
 // The ID of the project.
 func (o MicrofrontendGroupDefaultAppOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v MicrofrontendGroupDefaultApp) string { return v.ProjectId }).(pulumi.StringOutput)
@@ -4374,16 +4365,6 @@ func (o MicrofrontendGroupDefaultAppPtrOutput) DefaultRoute() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-func (o MicrofrontendGroupDefaultAppPtrOutput) Id() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MicrofrontendGroupDefaultApp) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Id
-	}).(pulumi.StringPtrOutput)
-}
-
 // The ID of the project.
 func (o MicrofrontendGroupDefaultAppPtrOutput) ProjectId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MicrofrontendGroupDefaultApp) *string {
@@ -4391,143 +4372,6 @@ func (o MicrofrontendGroupDefaultAppPtrOutput) ProjectId() pulumi.StringPtrOutpu
 			return nil
 		}
 		return &v.ProjectId
-	}).(pulumi.StringPtrOutput)
-}
-
-type NetworkTimeouts struct {
-	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-	Create *string `pulumi:"create"`
-}
-
-// NetworkTimeoutsInput is an input type that accepts NetworkTimeoutsArgs and NetworkTimeoutsOutput values.
-// You can construct a concrete instance of `NetworkTimeoutsInput` via:
-//
-//	NetworkTimeoutsArgs{...}
-type NetworkTimeoutsInput interface {
-	pulumi.Input
-
-	ToNetworkTimeoutsOutput() NetworkTimeoutsOutput
-	ToNetworkTimeoutsOutputWithContext(context.Context) NetworkTimeoutsOutput
-}
-
-type NetworkTimeoutsArgs struct {
-	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-	Create pulumi.StringPtrInput `pulumi:"create"`
-}
-
-func (NetworkTimeoutsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkTimeouts)(nil)).Elem()
-}
-
-func (i NetworkTimeoutsArgs) ToNetworkTimeoutsOutput() NetworkTimeoutsOutput {
-	return i.ToNetworkTimeoutsOutputWithContext(context.Background())
-}
-
-func (i NetworkTimeoutsArgs) ToNetworkTimeoutsOutputWithContext(ctx context.Context) NetworkTimeoutsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkTimeoutsOutput)
-}
-
-func (i NetworkTimeoutsArgs) ToNetworkTimeoutsPtrOutput() NetworkTimeoutsPtrOutput {
-	return i.ToNetworkTimeoutsPtrOutputWithContext(context.Background())
-}
-
-func (i NetworkTimeoutsArgs) ToNetworkTimeoutsPtrOutputWithContext(ctx context.Context) NetworkTimeoutsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkTimeoutsOutput).ToNetworkTimeoutsPtrOutputWithContext(ctx)
-}
-
-// NetworkTimeoutsPtrInput is an input type that accepts NetworkTimeoutsArgs, NetworkTimeoutsPtr and NetworkTimeoutsPtrOutput values.
-// You can construct a concrete instance of `NetworkTimeoutsPtrInput` via:
-//
-//	        NetworkTimeoutsArgs{...}
-//
-//	or:
-//
-//	        nil
-type NetworkTimeoutsPtrInput interface {
-	pulumi.Input
-
-	ToNetworkTimeoutsPtrOutput() NetworkTimeoutsPtrOutput
-	ToNetworkTimeoutsPtrOutputWithContext(context.Context) NetworkTimeoutsPtrOutput
-}
-
-type networkTimeoutsPtrType NetworkTimeoutsArgs
-
-func NetworkTimeoutsPtr(v *NetworkTimeoutsArgs) NetworkTimeoutsPtrInput {
-	return (*networkTimeoutsPtrType)(v)
-}
-
-func (*networkTimeoutsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**NetworkTimeouts)(nil)).Elem()
-}
-
-func (i *networkTimeoutsPtrType) ToNetworkTimeoutsPtrOutput() NetworkTimeoutsPtrOutput {
-	return i.ToNetworkTimeoutsPtrOutputWithContext(context.Background())
-}
-
-func (i *networkTimeoutsPtrType) ToNetworkTimeoutsPtrOutputWithContext(ctx context.Context) NetworkTimeoutsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkTimeoutsPtrOutput)
-}
-
-type NetworkTimeoutsOutput struct{ *pulumi.OutputState }
-
-func (NetworkTimeoutsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkTimeouts)(nil)).Elem()
-}
-
-func (o NetworkTimeoutsOutput) ToNetworkTimeoutsOutput() NetworkTimeoutsOutput {
-	return o
-}
-
-func (o NetworkTimeoutsOutput) ToNetworkTimeoutsOutputWithContext(ctx context.Context) NetworkTimeoutsOutput {
-	return o
-}
-
-func (o NetworkTimeoutsOutput) ToNetworkTimeoutsPtrOutput() NetworkTimeoutsPtrOutput {
-	return o.ToNetworkTimeoutsPtrOutputWithContext(context.Background())
-}
-
-func (o NetworkTimeoutsOutput) ToNetworkTimeoutsPtrOutputWithContext(ctx context.Context) NetworkTimeoutsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkTimeouts) *NetworkTimeouts {
-		return &v
-	}).(NetworkTimeoutsPtrOutput)
-}
-
-// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-func (o NetworkTimeoutsOutput) Create() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkTimeouts) *string { return v.Create }).(pulumi.StringPtrOutput)
-}
-
-type NetworkTimeoutsPtrOutput struct{ *pulumi.OutputState }
-
-func (NetworkTimeoutsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**NetworkTimeouts)(nil)).Elem()
-}
-
-func (o NetworkTimeoutsPtrOutput) ToNetworkTimeoutsPtrOutput() NetworkTimeoutsPtrOutput {
-	return o
-}
-
-func (o NetworkTimeoutsPtrOutput) ToNetworkTimeoutsPtrOutputWithContext(ctx context.Context) NetworkTimeoutsPtrOutput {
-	return o
-}
-
-func (o NetworkTimeoutsPtrOutput) Elem() NetworkTimeoutsOutput {
-	return o.ApplyT(func(v *NetworkTimeouts) NetworkTimeouts {
-		if v != nil {
-			return *v
-		}
-		var ret NetworkTimeouts
-		return ret
-	}).(NetworkTimeoutsOutput)
-}
-
-// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-func (o NetworkTimeoutsPtrOutput) Create() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *NetworkTimeouts) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Create
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -5007,181 +4851,6 @@ func (o ProjectGitCommentsPtrOutput) OnPullRequest() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-type ProjectGitProviderOptions struct {
-	// Whether to create deployments
-	CreateDeployments *bool `pulumi:"createDeployments"`
-	// Whether to enable repository dispatch events
-	RepositoryDispatchEvents *bool `pulumi:"repositoryDispatchEvents"`
-	// Whether to require verified commits
-	RequireVerifiedCommits *bool `pulumi:"requireVerifiedCommits"`
-}
-
-// ProjectGitProviderOptionsInput is an input type that accepts ProjectGitProviderOptionsArgs and ProjectGitProviderOptionsOutput values.
-// You can construct a concrete instance of `ProjectGitProviderOptionsInput` via:
-//
-//	ProjectGitProviderOptionsArgs{...}
-type ProjectGitProviderOptionsInput interface {
-	pulumi.Input
-
-	ToProjectGitProviderOptionsOutput() ProjectGitProviderOptionsOutput
-	ToProjectGitProviderOptionsOutputWithContext(context.Context) ProjectGitProviderOptionsOutput
-}
-
-type ProjectGitProviderOptionsArgs struct {
-	// Whether to create deployments
-	CreateDeployments pulumi.BoolPtrInput `pulumi:"createDeployments"`
-	// Whether to enable repository dispatch events
-	RepositoryDispatchEvents pulumi.BoolPtrInput `pulumi:"repositoryDispatchEvents"`
-	// Whether to require verified commits
-	RequireVerifiedCommits pulumi.BoolPtrInput `pulumi:"requireVerifiedCommits"`
-}
-
-func (ProjectGitProviderOptionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectGitProviderOptions)(nil)).Elem()
-}
-
-func (i ProjectGitProviderOptionsArgs) ToProjectGitProviderOptionsOutput() ProjectGitProviderOptionsOutput {
-	return i.ToProjectGitProviderOptionsOutputWithContext(context.Background())
-}
-
-func (i ProjectGitProviderOptionsArgs) ToProjectGitProviderOptionsOutputWithContext(ctx context.Context) ProjectGitProviderOptionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitProviderOptionsOutput)
-}
-
-func (i ProjectGitProviderOptionsArgs) ToProjectGitProviderOptionsPtrOutput() ProjectGitProviderOptionsPtrOutput {
-	return i.ToProjectGitProviderOptionsPtrOutputWithContext(context.Background())
-}
-
-func (i ProjectGitProviderOptionsArgs) ToProjectGitProviderOptionsPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitProviderOptionsOutput).ToProjectGitProviderOptionsPtrOutputWithContext(ctx)
-}
-
-// ProjectGitProviderOptionsPtrInput is an input type that accepts ProjectGitProviderOptionsArgs, ProjectGitProviderOptionsPtr and ProjectGitProviderOptionsPtrOutput values.
-// You can construct a concrete instance of `ProjectGitProviderOptionsPtrInput` via:
-//
-//	        ProjectGitProviderOptionsArgs{...}
-//
-//	or:
-//
-//	        nil
-type ProjectGitProviderOptionsPtrInput interface {
-	pulumi.Input
-
-	ToProjectGitProviderOptionsPtrOutput() ProjectGitProviderOptionsPtrOutput
-	ToProjectGitProviderOptionsPtrOutputWithContext(context.Context) ProjectGitProviderOptionsPtrOutput
-}
-
-type projectGitProviderOptionsPtrType ProjectGitProviderOptionsArgs
-
-func ProjectGitProviderOptionsPtr(v *ProjectGitProviderOptionsArgs) ProjectGitProviderOptionsPtrInput {
-	return (*projectGitProviderOptionsPtrType)(v)
-}
-
-func (*projectGitProviderOptionsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ProjectGitProviderOptions)(nil)).Elem()
-}
-
-func (i *projectGitProviderOptionsPtrType) ToProjectGitProviderOptionsPtrOutput() ProjectGitProviderOptionsPtrOutput {
-	return i.ToProjectGitProviderOptionsPtrOutputWithContext(context.Background())
-}
-
-func (i *projectGitProviderOptionsPtrType) ToProjectGitProviderOptionsPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitProviderOptionsPtrOutput)
-}
-
-type ProjectGitProviderOptionsOutput struct{ *pulumi.OutputState }
-
-func (ProjectGitProviderOptionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectGitProviderOptions)(nil)).Elem()
-}
-
-func (o ProjectGitProviderOptionsOutput) ToProjectGitProviderOptionsOutput() ProjectGitProviderOptionsOutput {
-	return o
-}
-
-func (o ProjectGitProviderOptionsOutput) ToProjectGitProviderOptionsOutputWithContext(ctx context.Context) ProjectGitProviderOptionsOutput {
-	return o
-}
-
-func (o ProjectGitProviderOptionsOutput) ToProjectGitProviderOptionsPtrOutput() ProjectGitProviderOptionsPtrOutput {
-	return o.ToProjectGitProviderOptionsPtrOutputWithContext(context.Background())
-}
-
-func (o ProjectGitProviderOptionsOutput) ToProjectGitProviderOptionsPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectGitProviderOptions) *ProjectGitProviderOptions {
-		return &v
-	}).(ProjectGitProviderOptionsPtrOutput)
-}
-
-// Whether to create deployments
-func (o ProjectGitProviderOptionsOutput) CreateDeployments() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectGitProviderOptions) *bool { return v.CreateDeployments }).(pulumi.BoolPtrOutput)
-}
-
-// Whether to enable repository dispatch events
-func (o ProjectGitProviderOptionsOutput) RepositoryDispatchEvents() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectGitProviderOptions) *bool { return v.RepositoryDispatchEvents }).(pulumi.BoolPtrOutput)
-}
-
-// Whether to require verified commits
-func (o ProjectGitProviderOptionsOutput) RequireVerifiedCommits() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectGitProviderOptions) *bool { return v.RequireVerifiedCommits }).(pulumi.BoolPtrOutput)
-}
-
-type ProjectGitProviderOptionsPtrOutput struct{ *pulumi.OutputState }
-
-func (ProjectGitProviderOptionsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ProjectGitProviderOptions)(nil)).Elem()
-}
-
-func (o ProjectGitProviderOptionsPtrOutput) ToProjectGitProviderOptionsPtrOutput() ProjectGitProviderOptionsPtrOutput {
-	return o
-}
-
-func (o ProjectGitProviderOptionsPtrOutput) ToProjectGitProviderOptionsPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsPtrOutput {
-	return o
-}
-
-func (o ProjectGitProviderOptionsPtrOutput) Elem() ProjectGitProviderOptionsOutput {
-	return o.ApplyT(func(v *ProjectGitProviderOptions) ProjectGitProviderOptions {
-		if v != nil {
-			return *v
-		}
-		var ret ProjectGitProviderOptions
-		return ret
-	}).(ProjectGitProviderOptionsOutput)
-}
-
-// Whether to create deployments
-func (o ProjectGitProviderOptionsPtrOutput) CreateDeployments() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ProjectGitProviderOptions) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.CreateDeployments
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether to enable repository dispatch events
-func (o ProjectGitProviderOptionsPtrOutput) RepositoryDispatchEvents() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ProjectGitProviderOptions) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.RepositoryDispatchEvents
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether to require verified commits
-func (o ProjectGitProviderOptionsPtrOutput) RequireVerifiedCommits() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ProjectGitProviderOptions) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.RequireVerifiedCommits
-	}).(pulumi.BoolPtrOutput)
-}
-
 type ProjectGitRepository struct {
 	// Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
 	DeployHooks []ProjectGitRepositoryDeployHook `pulumi:"deployHooks"`
@@ -5625,6 +5294,10 @@ func (o ProjectMembersMemberArrayOutput) Index(i pulumi.IntInput) ProjectMembers
 }
 
 type ProjectOidcTokenConfig struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
+	Enabled *bool `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode *string `pulumi:"issuerMode"`
 }
@@ -5641,6 +5314,10 @@ type ProjectOidcTokenConfigInput interface {
 }
 
 type ProjectOidcTokenConfigArgs struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode pulumi.StringPtrInput `pulumi:"issuerMode"`
 }
@@ -5722,6 +5399,13 @@ func (o ProjectOidcTokenConfigOutput) ToProjectOidcTokenConfigPtrOutputWithConte
 	}).(ProjectOidcTokenConfigPtrOutput)
 }
 
+// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+//
+// Deprecated: This field is deprecated and will be removed in a future version.
+func (o ProjectOidcTokenConfigOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectOidcTokenConfig) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
 // Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 func (o ProjectOidcTokenConfigOutput) IssuerMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectOidcTokenConfig) *string { return v.IssuerMode }).(pulumi.StringPtrOutput)
@@ -5749,6 +5433,18 @@ func (o ProjectOidcTokenConfigPtrOutput) Elem() ProjectOidcTokenConfigOutput {
 		var ret ProjectOidcTokenConfig
 		return ret
 	}).(ProjectOidcTokenConfigOutput)
+}
+
+// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+//
+// Deprecated: This field is deprecated and will be removed in a future version.
+func (o ProjectOidcTokenConfigPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectOidcTokenConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
@@ -7544,8 +7240,6 @@ func (o GetDsyncGroupsListArrayOutput) Index(i pulumi.IntInput) GetDsyncGroupsLi
 type GetMicrofrontendGroupDefaultApp struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute string `pulumi:"defaultRoute"`
-	// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-	Id string `pulumi:"id"`
 	// The ID of the project.
 	ProjectId string `pulumi:"projectId"`
 }
@@ -7564,8 +7258,6 @@ type GetMicrofrontendGroupDefaultAppInput interface {
 type GetMicrofrontendGroupDefaultAppArgs struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute pulumi.StringInput `pulumi:"defaultRoute"`
-	// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-	Id pulumi.StringInput `pulumi:"id"`
 	// The ID of the project.
 	ProjectId pulumi.StringInput `pulumi:"projectId"`
 }
@@ -7599,11 +7291,6 @@ func (o GetMicrofrontendGroupDefaultAppOutput) ToGetMicrofrontendGroupDefaultApp
 // The default route for the project. Used for the screenshot of deployments.
 func (o GetMicrofrontendGroupDefaultAppOutput) DefaultRoute() pulumi.StringOutput {
 	return o.ApplyT(func(v GetMicrofrontendGroupDefaultApp) string { return v.DefaultRoute }).(pulumi.StringOutput)
-}
-
-// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-func (o GetMicrofrontendGroupDefaultAppOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v GetMicrofrontendGroupDefaultApp) string { return v.Id }).(pulumi.StringOutput)
 }
 
 // The ID of the project.
@@ -7830,76 +7517,6 @@ func (o GetProjectGitCommentsOutput) OnCommit() pulumi.BoolOutput {
 // Whether Pull Request comments are enabled
 func (o GetProjectGitCommentsOutput) OnPullRequest() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectGitComments) bool { return v.OnPullRequest }).(pulumi.BoolOutput)
-}
-
-type GetProjectGitProviderOptions struct {
-	// Whether to create deployments.
-	CreateDeployments bool `pulumi:"createDeployments"`
-	// Whether repository dispatch events are enabled.
-	RepositoryDispatchEvents bool `pulumi:"repositoryDispatchEvents"`
-	// Whether to require verified commits.
-	RequireVerifiedCommits bool `pulumi:"requireVerifiedCommits"`
-}
-
-// GetProjectGitProviderOptionsInput is an input type that accepts GetProjectGitProviderOptionsArgs and GetProjectGitProviderOptionsOutput values.
-// You can construct a concrete instance of `GetProjectGitProviderOptionsInput` via:
-//
-//	GetProjectGitProviderOptionsArgs{...}
-type GetProjectGitProviderOptionsInput interface {
-	pulumi.Input
-
-	ToGetProjectGitProviderOptionsOutput() GetProjectGitProviderOptionsOutput
-	ToGetProjectGitProviderOptionsOutputWithContext(context.Context) GetProjectGitProviderOptionsOutput
-}
-
-type GetProjectGitProviderOptionsArgs struct {
-	// Whether to create deployments.
-	CreateDeployments pulumi.BoolInput `pulumi:"createDeployments"`
-	// Whether repository dispatch events are enabled.
-	RepositoryDispatchEvents pulumi.BoolInput `pulumi:"repositoryDispatchEvents"`
-	// Whether to require verified commits.
-	RequireVerifiedCommits pulumi.BoolInput `pulumi:"requireVerifiedCommits"`
-}
-
-func (GetProjectGitProviderOptionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetProjectGitProviderOptions)(nil)).Elem()
-}
-
-func (i GetProjectGitProviderOptionsArgs) ToGetProjectGitProviderOptionsOutput() GetProjectGitProviderOptionsOutput {
-	return i.ToGetProjectGitProviderOptionsOutputWithContext(context.Background())
-}
-
-func (i GetProjectGitProviderOptionsArgs) ToGetProjectGitProviderOptionsOutputWithContext(ctx context.Context) GetProjectGitProviderOptionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetProjectGitProviderOptionsOutput)
-}
-
-type GetProjectGitProviderOptionsOutput struct{ *pulumi.OutputState }
-
-func (GetProjectGitProviderOptionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetProjectGitProviderOptions)(nil)).Elem()
-}
-
-func (o GetProjectGitProviderOptionsOutput) ToGetProjectGitProviderOptionsOutput() GetProjectGitProviderOptionsOutput {
-	return o
-}
-
-func (o GetProjectGitProviderOptionsOutput) ToGetProjectGitProviderOptionsOutputWithContext(ctx context.Context) GetProjectGitProviderOptionsOutput {
-	return o
-}
-
-// Whether to create deployments.
-func (o GetProjectGitProviderOptionsOutput) CreateDeployments() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.CreateDeployments }).(pulumi.BoolOutput)
-}
-
-// Whether repository dispatch events are enabled.
-func (o GetProjectGitProviderOptionsOutput) RepositoryDispatchEvents() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.RepositoryDispatchEvents }).(pulumi.BoolOutput)
-}
-
-// Whether to require verified commits.
-func (o GetProjectGitProviderOptionsOutput) RequireVerifiedCommits() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.RequireVerifiedCommits }).(pulumi.BoolOutput)
 }
 
 type GetProjectGitRepository struct {
@@ -8230,6 +7847,10 @@ func (o GetProjectMembersMemberArrayOutput) Index(i pulumi.IntInput) GetProjectM
 }
 
 type GetProjectOidcTokenConfig struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
+	Enabled bool `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode string `pulumi:"issuerMode"`
 }
@@ -8246,6 +7867,10 @@ type GetProjectOidcTokenConfigInput interface {
 }
 
 type GetProjectOidcTokenConfigArgs struct {
+	// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future version.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
 	// Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
 	IssuerMode pulumi.StringInput `pulumi:"issuerMode"`
 }
@@ -8274,6 +7899,13 @@ func (o GetProjectOidcTokenConfigOutput) ToGetProjectOidcTokenConfigOutput() Get
 
 func (o GetProjectOidcTokenConfigOutput) ToGetProjectOidcTokenConfigOutputWithContext(ctx context.Context) GetProjectOidcTokenConfigOutput {
 	return o
+}
+
+// When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+//
+// Deprecated: This field is deprecated and will be removed in a future version.
+func (o GetProjectOidcTokenConfigOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectOidcTokenConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
 // Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
@@ -9267,16 +8899,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsInput)(nil)).Elem(), NetworkTimeoutsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsPtrInput)(nil)).Elem(), NetworkTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentArrayInput)(nil)).Elem(), ProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentVariablesVariableInput)(nil)).Elem(), ProjectEnvironmentVariablesVariableArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentVariablesVariableArrayInput)(nil)).Elem(), ProjectEnvironmentVariablesVariableArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsInput)(nil)).Elem(), ProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsPtrInput)(nil)).Elem(), ProjectGitCommentsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitProviderOptionsInput)(nil)).Elem(), ProjectGitProviderOptionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitProviderOptionsPtrInput)(nil)).Elem(), ProjectGitProviderOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArgs{})
@@ -9316,7 +8944,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitCommentsInput)(nil)).Elem(), GetProjectGitCommentsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitProviderOptionsInput)(nil)).Elem(), GetProjectGitProviderOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArray{})
@@ -9395,16 +9022,12 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionArrayOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
-	pulumi.RegisterOutputType(NetworkTimeoutsOutput{})
-	pulumi.RegisterOutputType(NetworkTimeoutsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentVariablesVariableOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentVariablesVariableArrayOutput{})
 	pulumi.RegisterOutputType(ProjectGitCommentsOutput{})
 	pulumi.RegisterOutputType(ProjectGitCommentsPtrOutput{})
-	pulumi.RegisterOutputType(ProjectGitProviderOptionsOutput{})
-	pulumi.RegisterOutputType(ProjectGitProviderOptionsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookOutput{})
@@ -9444,7 +9067,6 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectGitCommentsOutput{})
-	pulumi.RegisterOutputType(GetProjectGitProviderOptionsOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookArrayOutput{})

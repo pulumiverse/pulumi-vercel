@@ -58,7 +58,7 @@ class GetMicrofrontendGroupMembershipResult:
     @pulumi.getter
     def id(self) -> _builtins.str:
         """
-        The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+        The provider-assigned unique ID for this managed resource.
         """
         return pulumi.get(self, "id")
 

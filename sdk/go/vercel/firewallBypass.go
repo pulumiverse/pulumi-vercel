@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provides a Firewall Bypass Rule
@@ -24,7 +24,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
@@ -40,7 +40,6 @@ import (
 //				ProjectId: example.ID(),
 //				SourceIp:  pulumi.String("5.6.7.8"),
 //				Domain:    pulumi.String("my-production-domain.com"),
-//				Note:      pulumi.String("Bypass rule for specific IP"),
 //			})
 //			if err != nil {
 //				return err
@@ -49,7 +48,6 @@ import (
 //				ProjectId: example.ID(),
 //				SourceIp:  pulumi.String("52.33.44.0/24"),
 //				Domain:    pulumi.String("my-production-domain.com"),
-//				Note:      pulumi.String("Bypass rule for CIDR range"),
 //			})
 //			if err != nil {
 //				return err
@@ -82,8 +80,6 @@ type FirewallBypass struct {
 
 	// The domain to configure the bypass rule for.
 	Domain pulumi.StringOutput `pulumi:"domain"`
-	// A note to describe the bypass rule. Maximum length is 500 characters.
-	Note pulumi.StringPtrOutput `pulumi:"note"`
 	// The ID of the Project to assign the bypass rule to
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// The source IP address to configure the bypass rule for.
@@ -133,8 +129,6 @@ func GetFirewallBypass(ctx *pulumi.Context,
 type firewallBypassState struct {
 	// The domain to configure the bypass rule for.
 	Domain *string `pulumi:"domain"`
-	// A note to describe the bypass rule. Maximum length is 500 characters.
-	Note *string `pulumi:"note"`
 	// The ID of the Project to assign the bypass rule to
 	ProjectId *string `pulumi:"projectId"`
 	// The source IP address to configure the bypass rule for.
@@ -146,8 +140,6 @@ type firewallBypassState struct {
 type FirewallBypassState struct {
 	// The domain to configure the bypass rule for.
 	Domain pulumi.StringPtrInput
-	// A note to describe the bypass rule. Maximum length is 500 characters.
-	Note pulumi.StringPtrInput
 	// The ID of the Project to assign the bypass rule to
 	ProjectId pulumi.StringPtrInput
 	// The source IP address to configure the bypass rule for.
@@ -163,8 +155,6 @@ func (FirewallBypassState) ElementType() reflect.Type {
 type firewallBypassArgs struct {
 	// The domain to configure the bypass rule for.
 	Domain string `pulumi:"domain"`
-	// A note to describe the bypass rule. Maximum length is 500 characters.
-	Note *string `pulumi:"note"`
 	// The ID of the Project to assign the bypass rule to
 	ProjectId string `pulumi:"projectId"`
 	// The source IP address to configure the bypass rule for.
@@ -177,8 +167,6 @@ type firewallBypassArgs struct {
 type FirewallBypassArgs struct {
 	// The domain to configure the bypass rule for.
 	Domain pulumi.StringInput
-	// A note to describe the bypass rule. Maximum length is 500 characters.
-	Note pulumi.StringPtrInput
 	// The ID of the Project to assign the bypass rule to
 	ProjectId pulumi.StringInput
 	// The source IP address to configure the bypass rule for.
@@ -277,11 +265,6 @@ func (o FirewallBypassOutput) ToFirewallBypassOutputWithContext(ctx context.Cont
 // The domain to configure the bypass rule for.
 func (o FirewallBypassOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *FirewallBypass) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
-}
-
-// A note to describe the bypass rule. Maximum length is 500 characters.
-func (o FirewallBypassOutput) Note() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FirewallBypass) pulumi.StringPtrOutput { return v.Note }).(pulumi.StringPtrOutput)
 }
 
 // The ID of the Project to assign the bypass rule to

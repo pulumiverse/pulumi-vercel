@@ -32,21 +32,6 @@ public final class FirewallBypassArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * A note to describe the bypass rule. Maximum length is 500 characters.
-     * 
-     */
-    @Import(name="note")
-    private @Nullable Output<String> note;
-
-    /**
-     * @return A note to describe the bypass rule. Maximum length is 500 characters.
-     * 
-     */
-    public Optional<Output<String>> note() {
-        return Optional.ofNullable(this.note);
-    }
-
-    /**
      * The ID of the Project to assign the bypass rule to
      * 
      */
@@ -95,7 +80,6 @@ public final class FirewallBypassArgs extends com.pulumi.resources.ResourceArgs 
 
     private FirewallBypassArgs(FirewallBypassArgs $) {
         this.domain = $.domain;
-        this.note = $.note;
         this.projectId = $.projectId;
         this.sourceIp = $.sourceIp;
         this.teamId = $.teamId;
@@ -138,27 +122,6 @@ public final class FirewallBypassArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder domain(String domain) {
             return domain(Output.of(domain));
-        }
-
-        /**
-         * @param note A note to describe the bypass rule. Maximum length is 500 characters.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder note(@Nullable Output<String> note) {
-            $.note = note;
-            return this;
-        }
-
-        /**
-         * @param note A note to describe the bypass rule. Maximum length is 500 characters.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder note(String note) {
-            return note(Output.of(note));
         }
 
         /**

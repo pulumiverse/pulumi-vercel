@@ -294,7 +294,7 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      */
     neg?: pulumi.Input<boolean>;
     /**
-     * Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+     * How to comparse type to value
      */
     op: pulumi.Input<string>;
     /**
@@ -302,7 +302,7 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      */
     type: pulumi.Input<string>;
     /**
-     * Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+     * Value to match against
      */
     value?: pulumi.Input<string>;
     /**
@@ -317,20 +317,9 @@ export interface MicrofrontendGroupDefaultApp {
      */
     defaultRoute?: pulumi.Input<string>;
     /**
-     * The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-     */
-    id?: pulumi.Input<string>;
-    /**
      * The ID of the project.
      */
     projectId: pulumi.Input<string>;
-}
-
-export interface NetworkTimeouts {
-    /**
-     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-     */
-    create?: pulumi.Input<string>;
 }
 
 export interface ProjectEnvironment {
@@ -414,21 +403,6 @@ export interface ProjectGitComments {
     onPullRequest: pulumi.Input<boolean>;
 }
 
-export interface ProjectGitProviderOptions {
-    /**
-     * Whether to create deployments
-     */
-    createDeployments?: pulumi.Input<boolean>;
-    /**
-     * Whether to enable repository dispatch events
-     */
-    repositoryDispatchEvents?: pulumi.Input<boolean>;
-    /**
-     * Whether to require verified commits
-     */
-    requireVerifiedCommits?: pulumi.Input<boolean>;
-}
-
 export interface ProjectGitRepository {
     /**
      * Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
@@ -487,6 +461,12 @@ export interface ProjectMembersMember {
 }
 
 export interface ProjectOidcTokenConfig {
+    /**
+     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     *
+     * @deprecated This field is deprecated and will be removed in a future version.
+     */
+    enabled?: pulumi.Input<boolean>;
     /**
      * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      */

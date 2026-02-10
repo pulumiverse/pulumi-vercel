@@ -118,12 +118,6 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableDictionary<string, string>?> Headers { get; private set; } = null!;
 
         /// <summary>
-        /// A human-readable name for the log drain.
-        /// </summary>
-        [Output("name")]
-        public Output<string> Name { get; private set; } = null!;
-
-        /// <summary>
         /// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         /// </summary>
         [Output("projectIds")]
@@ -142,7 +136,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Secret { get; private set; } = null!;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda`, `Firewall`, and `Redirect`.
+        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda` and `Firewall`.
         /// </summary>
         [Output("sources")]
         public Output<ImmutableArray<string>> Sources { get; private set; } = null!;
@@ -240,12 +234,6 @@ namespace Pulumiverse.Vercel
             set => _headers = value;
         }
 
-        /// <summary>
-        /// A human-readable name for the log drain.
-        /// </summary>
-        [Input("name")]
-        public Input<string>? Name { get; set; }
-
         [Input("projectIds")]
         private InputList<string>? _projectIds;
 
@@ -284,7 +272,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _sources;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda`, `Firewall`, and `Redirect`.
+        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda` and `Firewall`.
         /// </summary>
         public InputList<string> Sources
         {
@@ -342,12 +330,6 @@ namespace Pulumiverse.Vercel
             set => _headers = value;
         }
 
-        /// <summary>
-        /// A human-readable name for the log drain.
-        /// </summary>
-        [Input("name")]
-        public Input<string>? Name { get; set; }
-
         [Input("projectIds")]
         private InputList<string>? _projectIds;
 
@@ -386,7 +368,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _sources;
 
         /// <summary>
-        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda`, `Firewall`, and `Redirect`.
+        /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda` and `Firewall`.
         /// </summary>
         public InputList<string> Sources
         {
