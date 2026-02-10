@@ -3,7 +3,7 @@
 PACK := vercel
 ORG := pulumiverse
 PROJECT := github.com/$(ORG)/pulumi-$(PACK)
-PROVIDER_PATH := provider/v4
+PROVIDER_PATH := provider/v3
 VERSION_PATH := $(PROVIDER_PATH)/pkg/version.Version
 CODEGEN := pulumi-tfgen-$(PACK)
 PROVIDER := pulumi-resource-$(PACK)
@@ -16,7 +16,7 @@ PULUMI_MISSING_DOCS_ERROR := false
 
 # Override during CI using `make [TARGET] PROVIDER_VERSION=""` or by setting a PROVIDER_VERSION environment variable
 # Local & branch builds will just used this fixed default version unless specified
-PROVIDER_VERSION ?= 4.0.0-alpha.0+dev
+PROVIDER_VERSION ?= 3.0.0-alpha.0+dev
 
 # Check version doesn't start with a "v" - this is a common mistake
 ifeq ($(shell echo $(PROVIDER_VERSION) | cut -c1),v)
@@ -39,10 +39,23 @@ LDFLAGS=$(LDFLAGS_PROJ_VERSION) $(LDFLAGS_UPSTREAM_VERSION) $(LDFLAGS_EXTRAS) $(
 # Ensure all directories exist before evaluating targets to avoid issues with `touch` creating directories.
 _ := $(shell mkdir -p .make bin .pulumi/bin)
 
+# Installs all necessary tools with mise and records completion in a sentinel
+# file so dependent targets can participate in make's caching behaviour. The
+# environment is refreshed via an order-only prerequisite so it still runs on
+# every invocation without invalidating the sentinel.
+mise_install: .make/mise_install | mise_env
+
+.PHONY: mise_env
+mise_env:
+	@mise env -q  > /dev/null
+
+.make/mise_install:
+	@mise install -q
+	@touch $@
+
 # Build the provider and all SDKs and install ready for testing
 build: .make/mise_install provider build_sdks install_sdks build_registry_docs
 build: | mise_env
-
 # Keep aliases for old targets to ensure backwards compatibility
 development: build
 only_build: build
@@ -56,20 +69,6 @@ generate_sdks: generate_nodejs generate_python generate_dotnet generate_go gener
 build_sdks: build_nodejs build_python build_dotnet build_go build_java build_registry_docs
 install_sdks: install_nodejs_sdk install_python_sdk install_dotnet_sdk install_go_sdk install_java_sdk
 .PHONY: development only_build build generate generate_sdks build_sdks install_sdks mise_install mise_env
-
-# Installs all necessary tools with mise and records completion in a sentinel
-# file so dependent targets can participate in make's caching behaviour. The
-# environment is refreshed via an order-only prerequisite so it still runs on
-# every invocation without invalidating the sentinel.
-mise_install: .make/mise_install | mise_env
-
-mise_env:
-	@mise env -q  > /dev/null
-
-.make/mise_install:
-	@mise install -q
-	@touch $@
-
 
 help:
 	@echo "Usage: make [target]"
@@ -222,15 +221,11 @@ install_python_sdk:
 .PHONY: install_dotnet_sdk install_go_sdk install_java_sdk install_nodejs_sdk install_python_sdk
 
 lint_provider: upstream
-	git grep -l 'go:embed' -- provider | xargs perl -i -pe 's/go:embed/ goembed/g'
 	cd provider && golangci-lint run --path-prefix provider -c ../.golangci.yml
-	git grep -l 'goembed' -- provider | xargs perl -i -pe 's/ goembed/go:embed/g'
 # `lint_provider.fix` is a utility target meant to be run manually
 # that will run the linter and fix errors when possible.
 lint_provider.fix: upstream
-	git grep -l 'go:embed' -- provider | xargs perl -i -pe 's/go:embed/ goembed/g'
 	cd provider && golangci-lint run --path-prefix provider -c ../.golangci.yml --fix
-	git grep -l 'goembed' -- provider | xargs perl -i -pe 's/ goembed/go:embed/g'
 .PHONY: lint_provider lint_provider.fix
 build_provider_cmd = cd provider && GOOS=$(1) GOARCH=$(2) CGO_ENABLED=0 go build $(PULUMI_PROVIDER_BUILD_PARALLELISM) -o "$(3)" -ldflags "$(LDFLAGS)" $(PROJECT)/$(PROVIDER_PATH)/cmd/$(PROVIDER)
 
