@@ -169,12 +169,6 @@ namespace Pulumiverse.Vercel
         public Output<bool> GitLfs { get; private set; } = null!;
 
         /// <summary>
-        /// Git provider options
-        /// </summary>
-        [Output("gitProviderOptions")]
-        public Output<Outputs.ProjectGitProviderOptions> GitProviderOptions { get; private set; } = null!;
-
-        /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         /// </summary>
         [Output("gitRepository")]
@@ -239,12 +233,6 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("previewComments")]
         public Output<bool> PreviewComments { get; private set; } = null!;
-
-        /// <summary>
-        /// The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
-        /// </summary>
-        [Output("previewDeploymentSuffix")]
-        public Output<string?> PreviewDeploymentSuffix { get; private set; } = null!;
 
         /// <summary>
         /// Disable creation of Preview Deployments for this project.
@@ -472,12 +460,6 @@ namespace Pulumiverse.Vercel
         public Input<bool>? GitLfs { get; set; }
 
         /// <summary>
-        /// Git provider options
-        /// </summary>
-        [Input("gitProviderOptions")]
-        public Input<Inputs.ProjectGitProviderOptionsArgs>? GitProviderOptions { get; set; }
-
-        /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         /// </summary>
         [Input("gitRepository")]
@@ -542,12 +524,6 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("previewComments")]
         public Input<bool>? PreviewComments { get; set; }
-
-        /// <summary>
-        /// The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
-        /// </summary>
-        [Input("previewDeploymentSuffix")]
-        public Input<string>? PreviewDeploymentSuffix { get; set; }
 
         /// <summary>
         /// Disable creation of Preview Deployments for this project.
@@ -742,12 +718,6 @@ namespace Pulumiverse.Vercel
         public Input<bool>? GitLfs { get; set; }
 
         /// <summary>
-        /// Git provider options
-        /// </summary>
-        [Input("gitProviderOptions")]
-        public Input<Inputs.ProjectGitProviderOptionsGetArgs>? GitProviderOptions { get; set; }
-
-        /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         /// </summary>
         [Input("gitRepository")]
@@ -812,12 +782,6 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("previewComments")]
         public Input<bool>? PreviewComments { get; set; }
-
-        /// <summary>
-        /// The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
-        /// </summary>
-        [Input("previewDeploymentSuffix")]
-        public Input<string>? PreviewDeploymentSuffix { get; set; }
 
         /// <summary>
         /// Disable creation of Preview Deployments for this project.

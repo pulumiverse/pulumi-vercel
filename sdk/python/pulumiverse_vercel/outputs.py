@@ -44,11 +44,9 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroup',
     'FirewallConfigRulesRuleConditionGroupCondition',
     'MicrofrontendGroupDefaultApp',
-    'NetworkTimeouts',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
     'ProjectGitComments',
-    'ProjectGitProviderOptions',
     'ProjectGitRepository',
     'ProjectGitRepositoryDeployHook',
     'ProjectMembersMember',
@@ -70,7 +68,6 @@ __all__ = [
     'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
-    'GetProjectGitProviderOptionsResult',
     'GetProjectGitRepositoryResult',
     'GetProjectGitRepositoryDeployHookResult',
     'GetProjectMembersMemberResult',
@@ -1071,11 +1068,11 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
                  value: Optional[_builtins.str] = None,
                  values: Optional[Sequence[_builtins.str]] = None):
         """
-        :param _builtins.str op: Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+        :param _builtins.str op: How to comparse type to value
         :param _builtins.str type: Request key type to match against
         :param _builtins.str key: Key within type to match against
         :param _builtins.bool neg: Negate the condition
-        :param _builtins.str value: Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+        :param _builtins.str value: Value to match against
         :param Sequence[_builtins.str] values: Values to match against if op is inc, ninc
         """
         pulumi.set(__self__, "op", op)
@@ -1093,7 +1090,7 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
     @pulumi.getter
     def op(self) -> _builtins.str:
         """
-        Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+        How to comparse type to value
         """
         return pulumi.get(self, "op")
 
@@ -1125,7 +1122,7 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
     @pulumi.getter
     def value(self) -> Optional[_builtins.str]:
         """
-        Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+        Value to match against
         """
         return pulumi.get(self, "value")
 
@@ -1161,18 +1158,14 @@ class MicrofrontendGroupDefaultApp(dict):
 
     def __init__(__self__, *,
                  project_id: _builtins.str,
-                 default_route: Optional[_builtins.str] = None,
-                 id: Optional[_builtins.str] = None):
+                 default_route: Optional[_builtins.str] = None):
         """
         :param _builtins.str project_id: The ID of the project.
         :param _builtins.str default_route: The default route for the project. Used for the screenshot of deployments.
-        :param _builtins.str id: The unique identifier for this resource. Format: team*id/microfrontend*group_id.
         """
         pulumi.set(__self__, "project_id", project_id)
         if default_route is not None:
             pulumi.set(__self__, "default_route", default_route)
-        if id is not None:
-            pulumi.set(__self__, "id", id)
 
     @_builtins.property
     @pulumi.getter(name="projectId")
@@ -1189,33 +1182,6 @@ class MicrofrontendGroupDefaultApp(dict):
         The default route for the project. Used for the screenshot of deployments.
         """
         return pulumi.get(self, "default_route")
-
-    @_builtins.property
-    @pulumi.getter
-    def id(self) -> Optional[_builtins.str]:
-        """
-        The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-        """
-        return pulumi.get(self, "id")
-
-
-@pulumi.output_type
-class NetworkTimeouts(dict):
-    def __init__(__self__, *,
-                 create: Optional[_builtins.str] = None):
-        """
-        :param _builtins.str create: A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-        """
-        if create is not None:
-            pulumi.set(__self__, "create", create)
-
-    @_builtins.property
-    @pulumi.getter
-    def create(self) -> Optional[_builtins.str]:
-        """
-        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-        """
-        return pulumi.get(self, "create")
 
 
 @pulumi.output_type
@@ -1507,70 +1473,6 @@ class ProjectGitComments(dict):
 
 
 @pulumi.output_type
-class ProjectGitProviderOptions(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "createDeployments":
-            suggest = "create_deployments"
-        elif key == "repositoryDispatchEvents":
-            suggest = "repository_dispatch_events"
-        elif key == "requireVerifiedCommits":
-            suggest = "require_verified_commits"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ProjectGitProviderOptions. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ProjectGitProviderOptions.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ProjectGitProviderOptions.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 create_deployments: Optional[_builtins.bool] = None,
-                 repository_dispatch_events: Optional[_builtins.bool] = None,
-                 require_verified_commits: Optional[_builtins.bool] = None):
-        """
-        :param _builtins.bool create_deployments: Whether to create deployments
-        :param _builtins.bool repository_dispatch_events: Whether to enable repository dispatch events
-        :param _builtins.bool require_verified_commits: Whether to require verified commits
-        """
-        if create_deployments is not None:
-            pulumi.set(__self__, "create_deployments", create_deployments)
-        if repository_dispatch_events is not None:
-            pulumi.set(__self__, "repository_dispatch_events", repository_dispatch_events)
-        if require_verified_commits is not None:
-            pulumi.set(__self__, "require_verified_commits", require_verified_commits)
-
-    @_builtins.property
-    @pulumi.getter(name="createDeployments")
-    def create_deployments(self) -> Optional[_builtins.bool]:
-        """
-        Whether to create deployments
-        """
-        return pulumi.get(self, "create_deployments")
-
-    @_builtins.property
-    @pulumi.getter(name="repositoryDispatchEvents")
-    def repository_dispatch_events(self) -> Optional[_builtins.bool]:
-        """
-        Whether to enable repository dispatch events
-        """
-        return pulumi.get(self, "repository_dispatch_events")
-
-    @_builtins.property
-    @pulumi.getter(name="requireVerifiedCommits")
-    def require_verified_commits(self) -> Optional[_builtins.bool]:
-        """
-        Whether to require verified commits
-        """
-        return pulumi.get(self, "require_verified_commits")
-
-
-@pulumi.output_type
 class ProjectGitRepository(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1786,12 +1688,25 @@ class ProjectOidcTokenConfig(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
                  issuer_mode: Optional[_builtins.str] = None):
         """
+        :param _builtins.bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         :param _builtins.str issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if issuer_mode is not None:
             pulumi.set(__self__, "issuer_mode", issuer_mode)
+
+    @_builtins.property
+    @pulumi.getter
+    @_utilities.deprecated("""This field is deprecated and will be removed in a future version.""")
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        return pulumi.get(self, "enabled")
 
     @_builtins.property
     @pulumi.getter(name="issuerMode")
@@ -2339,15 +2254,12 @@ class GetDsyncGroupsListResult(dict):
 class GetMicrofrontendGroupDefaultAppResult(dict):
     def __init__(__self__, *,
                  default_route: _builtins.str,
-                 id: _builtins.str,
                  project_id: _builtins.str):
         """
         :param _builtins.str default_route: The default route for the project. Used for the screenshot of deployments.
-        :param _builtins.str id: The unique identifier for this resource. Format: team*id/microfrontend*group_id.
         :param _builtins.str project_id: The ID of the project.
         """
         pulumi.set(__self__, "default_route", default_route)
-        pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "project_id", project_id)
 
     @_builtins.property
@@ -2357,14 +2269,6 @@ class GetMicrofrontendGroupDefaultAppResult(dict):
         The default route for the project. Used for the screenshot of deployments.
         """
         return pulumi.get(self, "default_route")
-
-    @_builtins.property
-    @pulumi.getter
-    def id(self) -> _builtins.str:
-        """
-        The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-        """
-        return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter(name="projectId")
@@ -2497,46 +2401,6 @@ class GetProjectGitCommentsResult(dict):
         Whether Pull Request comments are enabled
         """
         return pulumi.get(self, "on_pull_request")
-
-
-@pulumi.output_type
-class GetProjectGitProviderOptionsResult(dict):
-    def __init__(__self__, *,
-                 create_deployments: _builtins.bool,
-                 repository_dispatch_events: _builtins.bool,
-                 require_verified_commits: _builtins.bool):
-        """
-        :param _builtins.bool create_deployments: Whether to create deployments.
-        :param _builtins.bool repository_dispatch_events: Whether repository dispatch events are enabled.
-        :param _builtins.bool require_verified_commits: Whether to require verified commits.
-        """
-        pulumi.set(__self__, "create_deployments", create_deployments)
-        pulumi.set(__self__, "repository_dispatch_events", repository_dispatch_events)
-        pulumi.set(__self__, "require_verified_commits", require_verified_commits)
-
-    @_builtins.property
-    @pulumi.getter(name="createDeployments")
-    def create_deployments(self) -> _builtins.bool:
-        """
-        Whether to create deployments.
-        """
-        return pulumi.get(self, "create_deployments")
-
-    @_builtins.property
-    @pulumi.getter(name="repositoryDispatchEvents")
-    def repository_dispatch_events(self) -> _builtins.bool:
-        """
-        Whether repository dispatch events are enabled.
-        """
-        return pulumi.get(self, "repository_dispatch_events")
-
-    @_builtins.property
-    @pulumi.getter(name="requireVerifiedCommits")
-    def require_verified_commits(self) -> _builtins.bool:
-        """
-        Whether to require verified commits.
-        """
-        return pulumi.get(self, "require_verified_commits")
 
 
 @pulumi.output_type
@@ -2695,11 +2559,23 @@ class GetProjectMembersMemberResult(dict):
 @pulumi.output_type
 class GetProjectOidcTokenConfigResult(dict):
     def __init__(__self__, *,
+                 enabled: _builtins.bool,
                  issuer_mode: _builtins.str):
         """
+        :param _builtins.bool enabled: When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
         :param _builtins.str issuer_mode: Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
         """
+        pulumi.set(__self__, "enabled", enabled)
         pulumi.set(__self__, "issuer_mode", issuer_mode)
+
+    @_builtins.property
+    @pulumi.getter
+    @_utilities.deprecated("""This field is deprecated and will be removed in a future version.""")
+    def enabled(self) -> _builtins.bool:
+        """
+        When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+        """
+        return pulumi.get(self, "enabled")
 
     @_builtins.property
     @pulumi.getter(name="issuerMode")

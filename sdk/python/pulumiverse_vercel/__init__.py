@@ -37,7 +37,6 @@ from .get_file import *
 from .get_log_drain import *
 from .get_microfrontend_group import *
 from .get_microfrontend_group_membership import *
-from .get_network import *
 from .get_prebuilt_project import *
 from .get_project import *
 from .get_project_deployment_retention import *
@@ -51,7 +50,6 @@ from .integration_project_access import *
 from .log_drain import *
 from .microfrontend_group import *
 from .microfrontend_group_membership import *
-from .network import *
 from .project import *
 from .project_crons import *
 from .project_deployment_retention import *
@@ -221,14 +219,6 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership": "MicrofrontendGroupMembership"
-  }
- },
- {
-  "pkg": "vercel",
-  "mod": "index/network",
-  "fqn": "pulumiverse_vercel",
-  "classes": {
-   "vercel:index/network:Network": "Network"
   }
  },
  {

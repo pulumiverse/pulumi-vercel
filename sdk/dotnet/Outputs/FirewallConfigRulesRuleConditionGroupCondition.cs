@@ -23,7 +23,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly bool? Neg;
         /// <summary>
-        /// Operator to use for comparison. Options: `Re` (regex), `Eq` (equals), `Neq` (not equals), `Ex` (exists), `Nex` (not exists), `Inc` (includes), `Ninc` (not includes), `Pre` (prefix), `Suf` (suffix), `Sub` (substring), `Gt` (greater than), `Gte` (greater than or equal), `Lt` (less than), `Lte` (less than or equal). Note: `Ex` and `Nex` don't require a `Value` field, only `Key`.
+        /// How to comparse type to value
         /// </summary>
         public readonly string Op;
         /// <summary>
@@ -31,7 +31,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string Type;
         /// <summary>
-        /// Value to match against. Not required for existence operators (`Ex`, `Nex`). Use `Values` instead for `Inc` and `Ninc` operators.
+        /// Value to match against
         /// </summary>
         public readonly string? Value;
         /// <summary>

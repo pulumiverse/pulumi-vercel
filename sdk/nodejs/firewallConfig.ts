@@ -82,34 +82,6 @@ import * as utilities from "./utilities";
  *                 },
  *             },
  *             {
- *                 name: "Require Authorization header",
- *                 description: "Block requests without Authorization header",
- *                 conditionGroups: [{
- *                     conditions: [{
- *                         type: "header",
- *                         key: "Authorization",
- *                         op: "nex",
- *                     }],
- *                 }],
- *                 action: {
- *                     action: "deny",
- *                 },
- *             },
- *             {
- *                 name: "Log requests with custom header",
- *                 description: "Log requests that have X-Custom-Header present",
- *                 conditionGroups: [{
- *                     conditions: [{
- *                         type: "header",
- *                         key: "X-Custom-Header",
- *                         op: "ex",
- *                     }],
- *                 }],
- *                 action: {
- *                     action: "log",
- *                 },
- *             },
- *             {
  *                 name: "Rate limit API",
  *                 description: "apply ratelimit to requests under /api",
  *                 conditionGroups: [{

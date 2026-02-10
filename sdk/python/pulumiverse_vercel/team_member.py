@@ -29,7 +29,7 @@ class TeamMemberArgs:
                  user_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a TeamMember resource.
-        :param pulumi.Input[_builtins.str] role: The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[_builtins.str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[_builtins.str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         :param pulumi.Input[_builtins.str] email: The email of the user to add to the team. Must specify one of user_id or email.
@@ -54,7 +54,7 @@ class TeamMemberArgs:
     @pulumi.getter
     def role(self) -> pulumi.Input[_builtins.str]:
         """
-        The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         """
         return pulumi.get(self, "role")
 
@@ -140,7 +140,7 @@ class _TeamMemberState:
         :param pulumi.Input[_builtins.bool] confirmed: Whether the user has confirmed their invitation.
         :param pulumi.Input[_builtins.str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input['TeamMemberProjectArgs']]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
-        :param pulumi.Input[_builtins.str] role: The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[_builtins.str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[_builtins.str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[_builtins.str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
@@ -214,7 +214,7 @@ class _TeamMemberState:
     @pulumi.getter
     def role(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         """
         return pulumi.get(self, "role")
 
@@ -292,7 +292,7 @@ class TeamMember(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] access_groups: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of access groups IDs that the user should be granted access to.
         :param pulumi.Input[_builtins.str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
-        :param pulumi.Input[_builtins.str] role: The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[_builtins.str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[_builtins.str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[_builtins.str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
@@ -397,7 +397,7 @@ class TeamMember(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] confirmed: Whether the user has confirmed their invitation.
         :param pulumi.Input[_builtins.str] email: The email of the user to add to the team. Must specify one of user_id or email.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TeamMemberProjectArgs', 'TeamMemberProjectArgsDict']]]] projects: If access groups are enabled on the team, and the user is a CONTRIBUTOR, `projects`, `access_groups` or both must be specified. A set of projects that the user should be granted access to, along with their role in each project.
-        :param pulumi.Input[_builtins.str] role: The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        :param pulumi.Input[_builtins.str] role: The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         :param pulumi.Input[_builtins.str] team_id: The ID of the existing Vercel Team.
         :param pulumi.Input[_builtins.str] user_id: The ID of the user to add to the team. Must specify one of user_id or email.
         """
@@ -450,7 +450,7 @@ class TeamMember(pulumi.CustomResource):
     @pulumi.getter
     def role(self) -> pulumi.Output[_builtins.str]:
         """
-        The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         """
         return pulumi.get(self, "role")
 

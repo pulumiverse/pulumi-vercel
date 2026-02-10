@@ -130,54 +130,6 @@ namespace Pulumiverse.Vercel
     ///                 },
     ///                 new Vercel.Inputs.FirewallConfigRulesRuleArgs
     ///                 {
-    ///                     Name = "Require Authorization header",
-    ///                     Description = "Block requests without Authorization header",
-    ///                     ConditionGroups = new[]
-    ///                     {
-    ///                         new Vercel.Inputs.FirewallConfigRulesRuleConditionGroupArgs
-    ///                         {
-    ///                             Conditions = new[]
-    ///                             {
-    ///                                 new Vercel.Inputs.FirewallConfigRulesRuleConditionGroupConditionArgs
-    ///                                 {
-    ///                                     Type = "header",
-    ///                                     Key = "Authorization",
-    ///                                     Op = "nex",
-    ///                                 },
-    ///                             },
-    ///                         },
-    ///                     },
-    ///                     Action = new Vercel.Inputs.FirewallConfigRulesRuleActionArgs
-    ///                     {
-    ///                         Action = "deny",
-    ///                     },
-    ///                 },
-    ///                 new Vercel.Inputs.FirewallConfigRulesRuleArgs
-    ///                 {
-    ///                     Name = "Log requests with custom header",
-    ///                     Description = "Log requests that have X-Custom-Header present",
-    ///                     ConditionGroups = new[]
-    ///                     {
-    ///                         new Vercel.Inputs.FirewallConfigRulesRuleConditionGroupArgs
-    ///                         {
-    ///                             Conditions = new[]
-    ///                             {
-    ///                                 new Vercel.Inputs.FirewallConfigRulesRuleConditionGroupConditionArgs
-    ///                                 {
-    ///                                     Type = "header",
-    ///                                     Key = "X-Custom-Header",
-    ///                                     Op = "ex",
-    ///                                 },
-    ///                             },
-    ///                         },
-    ///                     },
-    ///                     Action = new Vercel.Inputs.FirewallConfigRulesRuleActionArgs
-    ///                     {
-    ///                         Action = "log",
-    ///                     },
-    ///                 },
-    ///                 new Vercel.Inputs.FirewallConfigRulesRuleArgs
-    ///                 {
     ///                     Name = "Rate limit API",
     ///                     Description = "apply ratelimit to requests under /api",
     ///                     ConditionGroups = new[]

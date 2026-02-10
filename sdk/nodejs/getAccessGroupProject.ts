@@ -60,7 +60,7 @@ export interface GetAccessGroupProjectResult {
      */
     readonly accessGroupId: string;
     /**
-     * The unique identifier for this resource. Format: access*group*id/project_id.
+     * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     /**

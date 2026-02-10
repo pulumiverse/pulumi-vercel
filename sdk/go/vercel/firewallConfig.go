@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Define Custom Rules to shape the way your traffic is handled by the Vercel Edge Network.
@@ -22,7 +22,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
 //
@@ -107,42 +107,6 @@ import (
 //							},
 //							Action: &vercel.FirewallConfigRulesRuleActionArgs{
 //								Action: pulumi.String("challenge"),
-//							},
-//						},
-//						&vercel.FirewallConfigRulesRuleArgs{
-//							Name:        pulumi.String("Require Authorization header"),
-//							Description: pulumi.String("Block requests without Authorization header"),
-//							ConditionGroups: vercel.FirewallConfigRulesRuleConditionGroupArray{
-//								&vercel.FirewallConfigRulesRuleConditionGroupArgs{
-//									Conditions: vercel.FirewallConfigRulesRuleConditionGroupConditionArray{
-//										&vercel.FirewallConfigRulesRuleConditionGroupConditionArgs{
-//											Type: pulumi.String("header"),
-//											Key:  pulumi.String("Authorization"),
-//											Op:   pulumi.String("nex"),
-//										},
-//									},
-//								},
-//							},
-//							Action: &vercel.FirewallConfigRulesRuleActionArgs{
-//								Action: pulumi.String("deny"),
-//							},
-//						},
-//						&vercel.FirewallConfigRulesRuleArgs{
-//							Name:        pulumi.String("Log requests with custom header"),
-//							Description: pulumi.String("Log requests that have X-Custom-Header present"),
-//							ConditionGroups: vercel.FirewallConfigRulesRuleConditionGroupArray{
-//								&vercel.FirewallConfigRulesRuleConditionGroupArgs{
-//									Conditions: vercel.FirewallConfigRulesRuleConditionGroupConditionArray{
-//										&vercel.FirewallConfigRulesRuleConditionGroupConditionArgs{
-//											Type: pulumi.String("header"),
-//											Key:  pulumi.String("X-Custom-Header"),
-//											Op:   pulumi.String("ex"),
-//										},
-//									},
-//								},
-//							},
-//							Action: &vercel.FirewallConfigRulesRuleActionArgs{
-//								Action: pulumi.String("log"),
 //							},
 //						},
 //						&vercel.FirewallConfigRulesRuleArgs{

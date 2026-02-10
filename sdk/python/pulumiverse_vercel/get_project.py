@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployments_disabled=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -76,9 +76,6 @@ class GetProjectResult:
         if git_lfs and not isinstance(git_lfs, bool):
             raise TypeError("Expected argument 'git_lfs' to be a bool")
         pulumi.set(__self__, "git_lfs", git_lfs)
-        if git_provider_options and not isinstance(git_provider_options, dict):
-            raise TypeError("Expected argument 'git_provider_options' to be a dict")
-        pulumi.set(__self__, "git_provider_options", git_provider_options)
         if git_repository and not isinstance(git_repository, dict):
             raise TypeError("Expected argument 'git_repository' to be a dict")
         pulumi.set(__self__, "git_repository", git_repository)
@@ -115,9 +112,6 @@ class GetProjectResult:
         if preview_comments and not isinstance(preview_comments, bool):
             raise TypeError("Expected argument 'preview_comments' to be a bool")
         pulumi.set(__self__, "preview_comments", preview_comments)
-        if preview_deployment_suffix and not isinstance(preview_deployment_suffix, str):
-            raise TypeError("Expected argument 'preview_deployment_suffix' to be a str")
-        pulumi.set(__self__, "preview_deployment_suffix", preview_deployment_suffix)
         if preview_deployments_disabled and not isinstance(preview_deployments_disabled, bool):
             raise TypeError("Expected argument 'preview_deployments_disabled' to be a bool")
         pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
@@ -284,14 +278,6 @@ class GetProjectResult:
         return pulumi.get(self, "git_lfs")
 
     @_builtins.property
-    @pulumi.getter(name="gitProviderOptions")
-    def git_provider_options(self) -> 'outputs.GetProjectGitProviderOptionsResult':
-        """
-        Git provider options.
-        """
-        return pulumi.get(self, "git_provider_options")
-
-    @_builtins.property
     @pulumi.getter(name="gitRepository")
     def git_repository(self) -> 'outputs.GetProjectGitRepositoryResult':
         """
@@ -387,14 +373,6 @@ class GetProjectResult:
         Whether comments are enabled on your Preview Deployments.
         """
         return pulumi.get(self, "preview_comments")
-
-    @_builtins.property
-    @pulumi.getter(name="previewDeploymentSuffix")
-    def preview_deployment_suffix(self) -> _builtins.str:
-        """
-        The preview deployment suffix to apply to preview deployment URLs for this project.
-        """
-        return pulumi.get(self, "preview_deployment_suffix")
 
     @_builtins.property
     @pulumi.getter(name="previewDeploymentsDisabled")
@@ -515,7 +493,6 @@ class AwaitableGetProjectResult(GetProjectResult):
             git_comments=self.git_comments,
             git_fork_protection=self.git_fork_protection,
             git_lfs=self.git_lfs,
-            git_provider_options=self.git_provider_options,
             git_repository=self.git_repository,
             id=self.id,
             ignore_command=self.ignore_command,
@@ -528,7 +505,6 @@ class AwaitableGetProjectResult(GetProjectResult):
             output_directory=self.output_directory,
             password_protection=self.password_protection,
             preview_comments=self.preview_comments,
-            preview_deployment_suffix=self.preview_deployment_suffix,
             preview_deployments_disabled=self.preview_deployments_disabled,
             prioritise_production_builds=self.prioritise_production_builds,
             protection_bypass_for_automation=self.protection_bypass_for_automation,
@@ -595,7 +571,6 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         git_comments=pulumi.get(__ret__, 'git_comments'),
         git_fork_protection=pulumi.get(__ret__, 'git_fork_protection'),
         git_lfs=pulumi.get(__ret__, 'git_lfs'),
-        git_provider_options=pulumi.get(__ret__, 'git_provider_options'),
         git_repository=pulumi.get(__ret__, 'git_repository'),
         id=pulumi.get(__ret__, 'id'),
         ignore_command=pulumi.get(__ret__, 'ignore_command'),
@@ -608,7 +583,6 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         output_directory=pulumi.get(__ret__, 'output_directory'),
         password_protection=pulumi.get(__ret__, 'password_protection'),
         preview_comments=pulumi.get(__ret__, 'preview_comments'),
-        preview_deployment_suffix=pulumi.get(__ret__, 'preview_deployment_suffix'),
         preview_deployments_disabled=pulumi.get(__ret__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
@@ -672,7 +646,6 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
         git_comments=pulumi.get(__response__, 'git_comments'),
         git_fork_protection=pulumi.get(__response__, 'git_fork_protection'),
         git_lfs=pulumi.get(__response__, 'git_lfs'),
-        git_provider_options=pulumi.get(__response__, 'git_provider_options'),
         git_repository=pulumi.get(__response__, 'git_repository'),
         id=pulumi.get(__response__, 'id'),
         ignore_command=pulumi.get(__response__, 'ignore_command'),
@@ -685,7 +658,6 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
         output_directory=pulumi.get(__response__, 'output_directory'),
         password_protection=pulumi.get(__response__, 'password_protection'),
         preview_comments=pulumi.get(__response__, 'preview_comments'),
-        preview_deployment_suffix=pulumi.get(__response__, 'preview_deployment_suffix'),
         preview_deployments_disabled=pulumi.get(__response__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__response__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__response__, 'protection_bypass_for_automation'),

@@ -20,12 +20,6 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string>? DefaultRoute { get; set; }
 
         /// <summary>
-        /// The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-        /// </summary>
-        [Input("id")]
-        public Input<string>? Id { get; set; }
-
-        /// <summary>
         /// The ID of the project.
         /// </summary>
         [Input("projectId", required: true)]

@@ -64,14 +64,14 @@ public final class TeamMemberArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The role that the user should have in the team. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;VIEWER*FOR*PLUS&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39;, &#39;SECURITY&#39;, or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
+     * The role that the user should have in the project. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39; or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
      * 
      */
     @Import(name="role", required=true)
     private Output<String> role;
 
     /**
-     * @return The role that the user should have in the team. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;VIEWER*FOR*PLUS&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39;, &#39;SECURITY&#39;, or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
+     * @return The role that the user should have in the project. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39; or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
      * 
      */
     public Output<String> role() {
@@ -229,7 +229,7 @@ public final class TeamMemberArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param role The role that the user should have in the team. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;VIEWER*FOR*PLUS&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39;, &#39;SECURITY&#39;, or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
+         * @param role The role that the user should have in the project. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39; or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
          * 
          * @return builder
          * 
@@ -240,7 +240,7 @@ public final class TeamMemberArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param role The role that the user should have in the team. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;VIEWER*FOR*PLUS&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39;, &#39;SECURITY&#39;, or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
+         * @param role The role that the user should have in the project. One of &#39;MEMBER&#39;, &#39;OWNER&#39;, &#39;VIEWER&#39;, &#39;DEVELOPER&#39;, &#39;BILLING&#39; or &#39;CONTRIBUTOR&#39;. Depending on your Team&#39;s plan, some of these roles may be unavailable.
          * 
          * @return builder
          * 

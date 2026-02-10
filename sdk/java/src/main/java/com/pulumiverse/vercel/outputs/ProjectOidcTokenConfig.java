@@ -4,6 +4,7 @@
 package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -12,12 +13,32 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ProjectOidcTokenConfig {
     /**
+     * @return When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     * 
+     * @deprecated
+     * This field is deprecated and will be removed in a future version.
+     * 
+     */
+    @Deprecated /* This field is deprecated and will be removed in a future version. */
+    private @Nullable Boolean enabled;
+    /**
      * @return Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      * 
      */
     private @Nullable String issuerMode;
 
     private ProjectOidcTokenConfig() {}
+    /**
+     * @return When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
+     * 
+     * @deprecated
+     * This field is deprecated and will be removed in a future version.
+     * 
+     */
+    @Deprecated /* This field is deprecated and will be removed in a future version. */
+    public Optional<Boolean> enabled() {
+        return Optional.ofNullable(this.enabled);
+    }
     /**
      * @return Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      * 
@@ -35,13 +56,21 @@ public final class ProjectOidcTokenConfig {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable Boolean enabled;
         private @Nullable String issuerMode;
         public Builder() {}
         public Builder(ProjectOidcTokenConfig defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.enabled = defaults.enabled;
     	      this.issuerMode = defaults.issuerMode;
         }
 
+        @CustomType.Setter
+        public Builder enabled(@Nullable Boolean enabled) {
+
+            this.enabled = enabled;
+            return this;
+        }
         @CustomType.Setter
         public Builder issuerMode(@Nullable String issuerMode) {
 
@@ -50,6 +79,7 @@ public final class ProjectOidcTokenConfig {
         }
         public ProjectOidcTokenConfig build() {
             final var _resultValue = new ProjectOidcTokenConfig();
+            _resultValue.enabled = enabled;
             _resultValue.issuerMode = issuerMode;
             return _resultValue;
         }

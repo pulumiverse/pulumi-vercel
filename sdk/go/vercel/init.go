@@ -8,7 +8,7 @@ import (
 
 	"github.com/blang/semver"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 type module struct {
@@ -57,8 +57,6 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MicrofrontendGroup{}
 	case "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership":
 		r = &MicrofrontendGroupMembership{}
-	case "vercel:index/network:Network":
-		r = &Network{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectCrons:ProjectCrons":
@@ -204,11 +202,6 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/microfrontendGroupMembership",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"vercel",
-		"index/network",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

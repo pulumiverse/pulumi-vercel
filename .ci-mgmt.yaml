@@ -11,7 +11,3 @@ registryDocs: true
 publishRegistry: false
 goBuildParallelism: 2
 autoMergeProviderUpgrades: true
-plugins:
-  - name: terraform
-    version: "1.0.16"
-    kind: converter

@@ -148,10 +148,6 @@ export class Project extends pulumi.CustomResource {
      */
     declare public readonly gitLfs: pulumi.Output<boolean>;
     /**
-     * Git provider options
-     */
-    declare public readonly gitProviderOptions: pulumi.Output<outputs.ProjectGitProviderOptions>;
-    /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     declare public readonly gitRepository: pulumi.Output<outputs.ProjectGitRepository | undefined>;
@@ -197,10 +193,6 @@ export class Project extends pulumi.CustomResource {
      * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     declare public readonly previewComments: pulumi.Output<boolean>;
-    /**
-     * The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
-     */
-    declare public readonly previewDeploymentSuffix: pulumi.Output<string | undefined>;
     /**
      * Disable creation of Preview Deployments for this project.
      */
@@ -281,7 +273,6 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["gitComments"] = state?.gitComments;
             resourceInputs["gitForkProtection"] = state?.gitForkProtection;
             resourceInputs["gitLfs"] = state?.gitLfs;
-            resourceInputs["gitProviderOptions"] = state?.gitProviderOptions;
             resourceInputs["gitRepository"] = state?.gitRepository;
             resourceInputs["ignoreCommand"] = state?.ignoreCommand;
             resourceInputs["installCommand"] = state?.installCommand;
@@ -293,7 +284,6 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["outputDirectory"] = state?.outputDirectory;
             resourceInputs["passwordProtection"] = state?.passwordProtection;
             resourceInputs["previewComments"] = state?.previewComments;
-            resourceInputs["previewDeploymentSuffix"] = state?.previewDeploymentSuffix;
             resourceInputs["previewDeploymentsDisabled"] = state?.previewDeploymentsDisabled;
             resourceInputs["prioritiseProductionBuilds"] = state?.prioritiseProductionBuilds;
             resourceInputs["protectionBypassForAutomation"] = state?.protectionBypassForAutomation;
@@ -324,7 +314,6 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["gitComments"] = args?.gitComments;
             resourceInputs["gitForkProtection"] = args?.gitForkProtection;
             resourceInputs["gitLfs"] = args?.gitLfs;
-            resourceInputs["gitProviderOptions"] = args?.gitProviderOptions;
             resourceInputs["gitRepository"] = args?.gitRepository;
             resourceInputs["ignoreCommand"] = args?.ignoreCommand;
             resourceInputs["installCommand"] = args?.installCommand;
@@ -336,7 +325,6 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["outputDirectory"] = args?.outputDirectory;
             resourceInputs["passwordProtection"] = args?.passwordProtection;
             resourceInputs["previewComments"] = args?.previewComments;
-            resourceInputs["previewDeploymentSuffix"] = args?.previewDeploymentSuffix;
             resourceInputs["previewDeploymentsDisabled"] = args?.previewDeploymentsDisabled;
             resourceInputs["prioritiseProductionBuilds"] = args?.prioritiseProductionBuilds;
             resourceInputs["protectionBypassForAutomation"] = args?.protectionBypassForAutomation;
@@ -426,10 +414,6 @@ export interface ProjectState {
      */
     gitLfs?: pulumi.Input<boolean>;
     /**
-     * Git provider options
-     */
-    gitProviderOptions?: pulumi.Input<inputs.ProjectGitProviderOptions>;
-    /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     gitRepository?: pulumi.Input<inputs.ProjectGitRepository>;
@@ -475,10 +459,6 @@ export interface ProjectState {
      * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     previewComments?: pulumi.Input<boolean>;
-    /**
-     * The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
-     */
-    previewDeploymentSuffix?: pulumi.Input<string>;
     /**
      * Disable creation of Preview Deployments for this project.
      */
@@ -600,10 +580,6 @@ export interface ProjectArgs {
      */
     gitLfs?: pulumi.Input<boolean>;
     /**
-     * Git provider options
-     */
-    gitProviderOptions?: pulumi.Input<inputs.ProjectGitProviderOptions>;
-    /**
      * The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      */
     gitRepository?: pulumi.Input<inputs.ProjectGitRepository>;
@@ -649,10 +625,6 @@ export interface ProjectArgs {
      * @deprecated Use `enablePreviewFeedback` instead. This attribute will be removed in a future version.
      */
     previewComments?: pulumi.Input<boolean>;
-    /**
-     * The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
-     */
-    previewDeploymentSuffix?: pulumi.Input<string>;
     /**
      * Disable creation of Preview Deployments for this project.
      */

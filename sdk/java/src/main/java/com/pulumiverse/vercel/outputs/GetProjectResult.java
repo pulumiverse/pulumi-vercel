@@ -7,7 +7,6 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumiverse.vercel.outputs.GetProjectEnvironment;
 import com.pulumiverse.vercel.outputs.GetProjectGitComments;
-import com.pulumiverse.vercel.outputs.GetProjectGitProviderOptions;
 import com.pulumiverse.vercel.outputs.GetProjectGitRepository;
 import com.pulumiverse.vercel.outputs.GetProjectOidcTokenConfig;
 import com.pulumiverse.vercel.outputs.GetProjectOptionsAllowlist;
@@ -103,11 +102,6 @@ public final class GetProjectResult {
      */
     private Boolean gitLfs;
     /**
-     * @return Git provider options.
-     * 
-     */
-    private GetProjectGitProviderOptions gitProviderOptions;
-    /**
      * @return The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      * 
      */
@@ -171,11 +165,6 @@ public final class GetProjectResult {
      */
     @Deprecated /* Use `enablePreviewFeedback` instead. This attribute will be removed in a future version. */
     private Boolean previewComments;
-    /**
-     * @return The preview deployment suffix to apply to preview deployment URLs for this project.
-     * 
-     */
-    private String previewDeploymentSuffix;
     /**
      * @return Whether Preview Deployments are disabled for this project.
      * 
@@ -351,13 +340,6 @@ public final class GetProjectResult {
         return this.gitLfs;
     }
     /**
-     * @return Git provider options.
-     * 
-     */
-    public GetProjectGitProviderOptions gitProviderOptions() {
-        return this.gitProviderOptions;
-    }
-    /**
      * @return The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
      * 
      */
@@ -444,13 +426,6 @@ public final class GetProjectResult {
     @Deprecated /* Use `enablePreviewFeedback` instead. This attribute will be removed in a future version. */
     public Boolean previewComments() {
         return this.previewComments;
-    }
-    /**
-     * @return The preview deployment suffix to apply to preview deployment URLs for this project.
-     * 
-     */
-    public String previewDeploymentSuffix() {
-        return this.previewDeploymentSuffix;
     }
     /**
      * @return Whether Preview Deployments are disabled for this project.
@@ -562,7 +537,6 @@ public final class GetProjectResult {
         private GetProjectGitComments gitComments;
         private Boolean gitForkProtection;
         private Boolean gitLfs;
-        private GetProjectGitProviderOptions gitProviderOptions;
         private GetProjectGitRepository gitRepository;
         private String id;
         private String ignoreCommand;
@@ -575,7 +549,6 @@ public final class GetProjectResult {
         private String outputDirectory;
         private GetProjectPasswordProtection passwordProtection;
         private Boolean previewComments;
-        private String previewDeploymentSuffix;
         private Boolean previewDeploymentsDisabled;
         private Boolean prioritiseProductionBuilds;
         private Boolean protectionBypassForAutomation;
@@ -607,7 +580,6 @@ public final class GetProjectResult {
     	      this.gitComments = defaults.gitComments;
     	      this.gitForkProtection = defaults.gitForkProtection;
     	      this.gitLfs = defaults.gitLfs;
-    	      this.gitProviderOptions = defaults.gitProviderOptions;
     	      this.gitRepository = defaults.gitRepository;
     	      this.id = defaults.id;
     	      this.ignoreCommand = defaults.ignoreCommand;
@@ -620,7 +592,6 @@ public final class GetProjectResult {
     	      this.outputDirectory = defaults.outputDirectory;
     	      this.passwordProtection = defaults.passwordProtection;
     	      this.previewComments = defaults.previewComments;
-    	      this.previewDeploymentSuffix = defaults.previewDeploymentSuffix;
     	      this.previewDeploymentsDisabled = defaults.previewDeploymentsDisabled;
     	      this.prioritiseProductionBuilds = defaults.prioritiseProductionBuilds;
     	      this.protectionBypassForAutomation = defaults.protectionBypassForAutomation;
@@ -767,14 +738,6 @@ public final class GetProjectResult {
             return this;
         }
         @CustomType.Setter
-        public Builder gitProviderOptions(GetProjectGitProviderOptions gitProviderOptions) {
-            if (gitProviderOptions == null) {
-              throw new MissingRequiredPropertyException("GetProjectResult", "gitProviderOptions");
-            }
-            this.gitProviderOptions = gitProviderOptions;
-            return this;
-        }
-        @CustomType.Setter
         public Builder gitRepository(GetProjectGitRepository gitRepository) {
             if (gitRepository == null) {
               throw new MissingRequiredPropertyException("GetProjectResult", "gitRepository");
@@ -868,14 +831,6 @@ public final class GetProjectResult {
               throw new MissingRequiredPropertyException("GetProjectResult", "previewComments");
             }
             this.previewComments = previewComments;
-            return this;
-        }
-        @CustomType.Setter
-        public Builder previewDeploymentSuffix(String previewDeploymentSuffix) {
-            if (previewDeploymentSuffix == null) {
-              throw new MissingRequiredPropertyException("GetProjectResult", "previewDeploymentSuffix");
-            }
-            this.previewDeploymentSuffix = previewDeploymentSuffix;
             return this;
         }
         @CustomType.Setter
@@ -992,7 +947,6 @@ public final class GetProjectResult {
             _resultValue.gitComments = gitComments;
             _resultValue.gitForkProtection = gitForkProtection;
             _resultValue.gitLfs = gitLfs;
-            _resultValue.gitProviderOptions = gitProviderOptions;
             _resultValue.gitRepository = gitRepository;
             _resultValue.id = id;
             _resultValue.ignoreCommand = ignoreCommand;
@@ -1005,7 +959,6 @@ public final class GetProjectResult {
             _resultValue.outputDirectory = outputDirectory;
             _resultValue.passwordProtection = passwordProtection;
             _resultValue.previewComments = previewComments;
-            _resultValue.previewDeploymentSuffix = previewDeploymentSuffix;
             _resultValue.previewDeploymentsDisabled = previewDeploymentsDisabled;
             _resultValue.prioritiseProductionBuilds = prioritiseProductionBuilds;
             _resultValue.protectionBypassForAutomation = protectionBypassForAutomation;

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
 )
 
 // Provides domain configuration information for a Vercel project.
@@ -23,66 +23,56 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-aws/sdk/v7/go/aws/route53"
+//	"github.com/pulumi/pulumi-aws/sdk/go/aws"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
 //
 // )
-// func main() {
-// pulumi.Run(func(ctx *pulumi.Context) error {
-// myAwesomeProject, err := vercel.NewProject(ctx, "my_awesome_project", &vercel.ProjectArgs{
-// Name: pulumi.String("my-awesome-project"),
-// })
-// if err != nil {
-// return err
-// }
-// //
-// // "vercel_domain_config" Usage
-// //
-// exampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{
-// Domain: pulumi.String("example.com"),
-// ProjectIdOrName: myAwesomeProject.ID(),
-// }, nil);
-// wwwExampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{
-// Domain: pulumi.String("www.example.com"),
-// ProjectIdOrName: myAwesomeProject.ID(),
-// }, nil);
-// //
-// // External DNS provider example
-// //
-// _, err = route53.NewRecord(ctx, "example_com_a", &route53.RecordArgs{
-// ZoneId: pulumi.String("...zone_id_from_somewhere..."),
-// Name: pulumi.String(exampleCom.ApplyT(func(exampleCom vercel.GetDomainConfigResult) (*string, error) {
-// return &exampleCom.Domain, nil
-// }).(pulumi.StringPtrOutput)),
-// Type: pulumi.String(route53.RecordTypeA),
-// Ttl: pulumi.Int(300),
-// Records: pulumi.StringArray(exampleCom.ApplyT(func(exampleCom vercel.GetDomainConfigResult) (interface{}, error) {
-// return exampleCom.RecommendedIpv4s, nil
-// }).(pulumi.Interface{}Output)),
-// })
-// if err != nil {
-// return err
-// }
-// _, err = route53.NewRecord(ctx, "www_example_com_cname", &route53.RecordArgs{
-// ZoneId: pulumi.String("...zone_id_from_somewhere..."),
-// Name: pulumi.String(wwwExampleCom.ApplyT(func(wwwExampleCom vercel.GetDomainConfigResult) (*string, error) {
-// return &wwwExampleCom.Domain, nil
-// }).(pulumi.StringPtrOutput)),
-// Type: pulumi.String(route53.RecordTypeCNAME),
-// Ttl: pulumi.Int(300),
-// Records: pulumi.StringArray{
-// pulumi.String(wwwExampleCom.ApplyT(func(wwwExampleCom vercel.GetDomainConfigResult) (*string, error) {
-// return &wwwExampleCom.RecommendedCname, nil
-// }).(pulumi.StringPtrOutput)),
-// },
-// })
-// if err != nil {
-// return err
-// }
-// return nil
-// })
-// }
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			myAwesomeProject, err := vercel.NewProject(ctx, "my_awesome_project", &vercel.ProjectArgs{
+//				Name: pulumi.String("my-awesome-project"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// "vercel_domain_config" Usage
+//			exampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{
+//				Domain:          pulumi.String("example.com"),
+//				ProjectIdOrName: myAwesomeProject.ID(),
+//			}, nil)
+//			wwwExampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{
+//				Domain:          pulumi.String("www.example.com"),
+//				ProjectIdOrName: myAwesomeProject.ID(),
+//			}, nil)
+//			// External DNS provider example
+//			_, err = aws.NewRoute53Record(ctx, "example_com_a", &aws.Route53RecordArgs{
+//				ZoneId:  "...zone_id_from_somewhere...",
+//				Name:    exampleCom.Domain,
+//				Type:    "A",
+//				Ttl:     300,
+//				Records: exampleCom.RecommendedIpv4s,
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = aws.NewRoute53Record(ctx, "www_example_com_cname", &aws.Route53RecordArgs{
+//				ZoneId: "...zone_id_from_somewhere...",
+//				Name:   wwwExampleCom.Domain,
+//				Type:   "CNAME",
+//				Ttl:    300,
+//				Records: pulumi.StringArray{
+//					wwwExampleCom.RecommendedCname,
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 func GetDomainConfig(ctx *pulumi.Context, args *GetDomainConfigArgs, opts ...pulumi.InvokeOption) (*GetDomainConfigResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)

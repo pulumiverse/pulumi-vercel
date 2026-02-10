@@ -231,10 +231,6 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly bool GitLfs;
         /// <summary>
-        /// Git provider options.
-        /// </summary>
-        public readonly Outputs.GetProjectGitProviderOptionsResult GitProviderOptions;
-        /// <summary>
         /// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         /// </summary>
         public readonly Outputs.GetProjectGitRepositoryResult GitRepository;
@@ -282,10 +278,6 @@ namespace Pulumiverse.Vercel
         /// Whether comments are enabled on your Preview Deployments.
         /// </summary>
         public readonly bool PreviewComments;
-        /// <summary>
-        /// The preview deployment suffix to apply to preview deployment URLs for this project.
-        /// </summary>
-        public readonly string PreviewDeploymentSuffix;
         /// <summary>
         /// Whether Preview Deployments are disabled for this project.
         /// </summary>
@@ -369,8 +361,6 @@ namespace Pulumiverse.Vercel
 
             bool gitLfs,
 
-            Outputs.GetProjectGitProviderOptionsResult gitProviderOptions,
-
             Outputs.GetProjectGitRepositoryResult gitRepository,
 
             string id,
@@ -394,8 +384,6 @@ namespace Pulumiverse.Vercel
             Outputs.GetProjectPasswordProtectionResult passwordProtection,
 
             bool previewComments,
-
-            string previewDeploymentSuffix,
 
             bool previewDeploymentsDisabled,
 
@@ -437,7 +425,6 @@ namespace Pulumiverse.Vercel
             GitComments = gitComments;
             GitForkProtection = gitForkProtection;
             GitLfs = gitLfs;
-            GitProviderOptions = gitProviderOptions;
             GitRepository = gitRepository;
             Id = id;
             IgnoreCommand = ignoreCommand;
@@ -450,7 +437,6 @@ namespace Pulumiverse.Vercel
             OutputDirectory = outputDirectory;
             PasswordProtection = passwordProtection;
             PreviewComments = previewComments;
-            PreviewDeploymentSuffix = previewDeploymentSuffix;
             PreviewDeploymentsDisabled = previewDeploymentsDisabled;
             PrioritiseProductionBuilds = prioritiseProductionBuilds;
             ProtectionBypassForAutomation = protectionBypassForAutomation;
