@@ -22,7 +22,6 @@ namespace Pulumiverse.Vercel
         /// using System.Linq;
         /// using Pulumi;
         /// using Std = Pulumi.Std;
-        /// using Vercel = Pulumi.Vercel;
         /// using Vercel = Pulumiverse.Vercel;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
@@ -92,7 +91,6 @@ namespace Pulumiverse.Vercel
         /// using System.Linq;
         /// using Pulumi;
         /// using Std = Pulumi.Std;
-        /// using Vercel = Pulumi.Vercel;
         /// using Vercel = Pulumiverse.Vercel;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
@@ -162,7 +160,6 @@ namespace Pulumiverse.Vercel
         /// using System.Linq;
         /// using Pulumi;
         /// using Std = Pulumi.Std;
-        /// using Vercel = Pulumi.Vercel;
         /// using Vercel = Pulumiverse.Vercel;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 

@@ -27,7 +27,6 @@ namespace Pulumiverse.Vercel
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
-    /// using Vercel = Pulumi.Vercel;
     /// using Vercel = Pulumiverse.Vercel;
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
