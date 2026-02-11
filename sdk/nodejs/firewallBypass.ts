@@ -20,11 +20,13 @@ import * as utilities from "./utilities";
  *     projectId: example.id,
  *     sourceIp: "5.6.7.8",
  *     domain: "my-production-domain.com",
+ *     note: "Bypass rule for specific IP",
  * });
  * const bypassCidr = new vercel.FirewallBypass("bypass_cidr", {
  *     projectId: example.id,
  *     sourceIp: "52.33.44.0/24",
  *     domain: "my-production-domain.com",
+ *     note: "Bypass rule for CIDR range",
  * });
  * const bypassAll = new vercel.FirewallBypass("bypass_all", {
  *     projectId: example.id,
@@ -76,6 +78,10 @@ export class FirewallBypass extends pulumi.CustomResource {
      */
     declare public readonly domain: pulumi.Output<string>;
     /**
+     * A note to describe the bypass rule. Maximum length is 500 characters.
+     */
+    declare public readonly note: pulumi.Output<string | undefined>;
+    /**
      * The ID of the Project to assign the bypass rule to
      */
     declare public readonly projectId: pulumi.Output<string>;
@@ -102,6 +108,7 @@ export class FirewallBypass extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as FirewallBypassState | undefined;
             resourceInputs["domain"] = state?.domain;
+            resourceInputs["note"] = state?.note;
             resourceInputs["projectId"] = state?.projectId;
             resourceInputs["sourceIp"] = state?.sourceIp;
             resourceInputs["teamId"] = state?.teamId;
@@ -117,6 +124,7 @@ export class FirewallBypass extends pulumi.CustomResource {
                 throw new Error("Missing required property 'sourceIp'");
             }
             resourceInputs["domain"] = args?.domain;
+            resourceInputs["note"] = args?.note;
             resourceInputs["projectId"] = args?.projectId;
             resourceInputs["sourceIp"] = args?.sourceIp;
             resourceInputs["teamId"] = args?.teamId;
@@ -134,6 +142,10 @@ export interface FirewallBypassState {
      * The domain to configure the bypass rule for.
      */
     domain?: pulumi.Input<string>;
+    /**
+     * A note to describe the bypass rule. Maximum length is 500 characters.
+     */
+    note?: pulumi.Input<string>;
     /**
      * The ID of the Project to assign the bypass rule to
      */
@@ -156,6 +168,10 @@ export interface FirewallBypassArgs {
      * The domain to configure the bypass rule for.
      */
     domain: pulumi.Input<string>;
+    /**
+     * A note to describe the bypass rule. Maximum length is 500 characters.
+     */
+    note?: pulumi.Input<string>;
     /**
      * The ID of the Project to assign the bypass rule to
      */

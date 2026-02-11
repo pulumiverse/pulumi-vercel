@@ -1,7 +1,7 @@
 provider: vercel
 template: external-bridged-provider
 organization: pulumiverse
-major-version: 3
+major-version: 4
 providerDefaultBranch: main
 upstreamProviderOrg: vercel
 pulumiConvert: 1
@@ -11,3 +11,9 @@ registryDocs: true
 publishRegistry: false
 goBuildParallelism: 2
 autoMergeProviderUpgrades: true
+plugins:
+  - name: terraform
+    version: "1.0.16"
+    kind: converter
+github-app:
+  enabled: false

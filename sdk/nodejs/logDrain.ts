@@ -106,6 +106,10 @@ export class LogDrain extends pulumi.CustomResource {
      */
     declare public readonly headers: pulumi.Output<{[key: string]: string} | undefined>;
     /**
+     * A human-readable name for the log drain.
+     */
+    declare public readonly name: pulumi.Output<string>;
+    /**
      * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      */
     declare public readonly projectIds: pulumi.Output<string[] | undefined>;
@@ -118,7 +122,7 @@ export class LogDrain extends pulumi.CustomResource {
      */
     declare public readonly secret: pulumi.Output<string>;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */
     declare public readonly sources: pulumi.Output<string[]>;
     /**
@@ -143,6 +147,7 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["endpoint"] = state?.endpoint;
             resourceInputs["environments"] = state?.environments;
             resourceInputs["headers"] = state?.headers;
+            resourceInputs["name"] = state?.name;
             resourceInputs["projectIds"] = state?.projectIds;
             resourceInputs["samplingRate"] = state?.samplingRate;
             resourceInputs["secret"] = state?.secret;
@@ -166,6 +171,7 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["endpoint"] = args?.endpoint;
             resourceInputs["environments"] = args?.environments;
             resourceInputs["headers"] = args?.headers;
+            resourceInputs["name"] = args?.name;
             resourceInputs["projectIds"] = args?.projectIds;
             resourceInputs["samplingRate"] = args?.samplingRate;
             resourceInputs["secret"] = args?.secret ? pulumi.secret(args.secret) : undefined;
@@ -200,6 +206,10 @@ export interface LogDrainState {
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
+     * A human-readable name for the log drain.
+     */
+    name?: pulumi.Input<string>;
+    /**
      * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
@@ -212,7 +222,7 @@ export interface LogDrainState {
      */
     secret?: pulumi.Input<string>;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */
     sources?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -242,6 +252,10 @@ export interface LogDrainArgs {
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
+     * A human-readable name for the log drain.
+     */
+    name?: pulumi.Input<string>;
+    /**
      * A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
@@ -254,7 +268,7 @@ export interface LogDrainArgs {
      */
     secret?: pulumi.Input<string>;
     /**
-     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+     * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */
     sources: pulumi.Input<pulumi.Input<string>[]>;
     /**

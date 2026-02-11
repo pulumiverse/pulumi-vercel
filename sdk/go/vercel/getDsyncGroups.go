@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
 // Provides information about DSync groups for a team.
@@ -22,7 +22,7 @@ import (
 //
 //	"github.com/pulumi/pulumi-std/sdk/go/std"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v3/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
 //
 // )
 //

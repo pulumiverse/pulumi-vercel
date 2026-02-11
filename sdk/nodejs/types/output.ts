@@ -294,7 +294,7 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      */
     neg?: boolean;
     /**
-     * How to comparse type to value
+     * Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
      */
     op: string;
     /**
@@ -302,7 +302,7 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      */
     type: string;
     /**
-     * Value to match against
+     * Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
      */
     value?: string;
     /**
@@ -338,6 +338,10 @@ export interface GetMicrofrontendGroupDefaultApp {
      * The default route for the project. Used for the screenshot of deployments.
      */
     defaultRoute: string;
+    /**
+     * The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     */
+    id: string;
     /**
      * The ID of the project.
      */
@@ -388,6 +392,21 @@ export interface GetProjectGitComments {
      * Whether Pull Request comments are enabled
      */
     onPullRequest: boolean;
+}
+
+export interface GetProjectGitProviderOptions {
+    /**
+     * Whether to create deployments.
+     */
+    createDeployments: boolean;
+    /**
+     * Whether repository dispatch events are enabled.
+     */
+    repositoryDispatchEvents: boolean;
+    /**
+     * Whether to require verified commits.
+     */
+    requireVerifiedCommits: boolean;
 }
 
 export interface GetProjectGitRepository {
@@ -448,12 +467,6 @@ export interface GetProjectMembersMember {
 }
 
 export interface GetProjectOidcTokenConfig {
-    /**
-     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-     *
-     * @deprecated This field is deprecated and will be removed in a future version.
-     */
-    enabled: boolean;
     /**
      * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      */
@@ -581,9 +594,20 @@ export interface MicrofrontendGroupDefaultApp {
      */
     defaultRoute: string;
     /**
+     * The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+     */
+    id: string;
+    /**
      * The ID of the project.
      */
     projectId: string;
+}
+
+export interface NetworkTimeouts {
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    create?: string;
 }
 
 export interface ProjectEnvironment {
@@ -667,6 +691,21 @@ export interface ProjectGitComments {
     onPullRequest: boolean;
 }
 
+export interface ProjectGitProviderOptions {
+    /**
+     * Whether to create deployments
+     */
+    createDeployments: boolean;
+    /**
+     * Whether to enable repository dispatch events
+     */
+    repositoryDispatchEvents: boolean;
+    /**
+     * Whether to require verified commits
+     */
+    requireVerifiedCommits: boolean;
+}
+
 export interface ProjectGitRepository {
     /**
      * Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
@@ -725,12 +764,6 @@ export interface ProjectMembersMember {
 }
 
 export interface ProjectOidcTokenConfig {
-    /**
-     * When true, Vercel issued OpenID Connect (OIDC) tokens will be available on the compute environments. See https://vercel.com/docs/security/secure-backend-access/oidc for more information.
-     *
-     * @deprecated This field is deprecated and will be removed in a future version.
-     */
-    enabled: boolean;
     /**
      * Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[teamSlug]` `global` = `https://oidc.vercel.com`
      */

@@ -26,7 +26,7 @@ class GetLogDrainResult:
     """
     A collection of values returned by getLogDrain.
     """
-    def __init__(__self__, delivery_format=None, endpoint=None, environments=None, headers=None, id=None, project_ids=None, sampling_rate=None, sources=None, team_id=None):
+    def __init__(__self__, delivery_format=None, endpoint=None, environments=None, headers=None, id=None, name=None, project_ids=None, sampling_rate=None, sources=None, team_id=None):
         if delivery_format and not isinstance(delivery_format, str):
             raise TypeError("Expected argument 'delivery_format' to be a str")
         pulumi.set(__self__, "delivery_format", delivery_format)
@@ -42,6 +42,9 @@ class GetLogDrainResult:
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if name and not isinstance(name, str):
+            raise TypeError("Expected argument 'name' to be a str")
+        pulumi.set(__self__, "name", name)
         if project_ids and not isinstance(project_ids, list):
             raise TypeError("Expected argument 'project_ids' to be a list")
         pulumi.set(__self__, "project_ids", project_ids)
@@ -96,6 +99,14 @@ class GetLogDrainResult:
         return pulumi.get(self, "id")
 
     @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The human-readable name of the Log Drain.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
     @pulumi.getter(name="projectIds")
     def project_ids(self) -> Sequence[_builtins.str]:
         """
@@ -115,7 +126,7 @@ class GetLogDrainResult:
     @pulumi.getter
     def sources(self) -> Sequence[_builtins.str]:
         """
-        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda` and `firewall`.
+        A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         """
         return pulumi.get(self, "sources")
 
@@ -139,6 +150,7 @@ class AwaitableGetLogDrainResult(GetLogDrainResult):
             environments=self.environments,
             headers=self.headers,
             id=self.id,
+            name=self.name,
             project_ids=self.project_ids,
             sampling_rate=self.sampling_rate,
             sources=self.sources,
@@ -183,6 +195,7 @@ def get_log_drain(endpoint: Optional[_builtins.str] = None,
         environments=pulumi.get(__ret__, 'environments'),
         headers=pulumi.get(__ret__, 'headers'),
         id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
         project_ids=pulumi.get(__ret__, 'project_ids'),
         sampling_rate=pulumi.get(__ret__, 'sampling_rate'),
         sources=pulumi.get(__ret__, 'sources'),
@@ -224,6 +237,7 @@ def get_log_drain_output(endpoint: Optional[pulumi.Input[_builtins.str]] = None,
         environments=pulumi.get(__response__, 'environments'),
         headers=pulumi.get(__response__, 'headers'),
         id=pulumi.get(__response__, 'id'),
+        name=pulumi.get(__response__, 'name'),
         project_ids=pulumi.get(__response__, 'project_ids'),
         sampling_rate=pulumi.get(__response__, 'sampling_rate'),
         sources=pulumi.get(__response__, 'sources'),

@@ -32,19 +32,19 @@ import * as utilities from "./utilities";
  * //
  * // External DNS provider example
  * // 
- * const exampleComA = new aws.index.Route53Record("example_com_a", {
+ * const exampleComA = new aws.route53.Record("example_com_a", {
  *     zoneId: "...zone_id_from_somewhere...",
- *     name: exampleCom.domain,
- *     type: "A",
+ *     name: exampleCom.apply(exampleCom => exampleCom.domain),
+ *     type: aws.route53.RecordType.A,
  *     ttl: 300,
- *     records: exampleCom.recommendedIpv4s,
+ *     records: exampleCom.apply(exampleCom => exampleCom.recommendedIpv4s),
  * });
- * const wwwExampleComCname = new aws.index.Route53Record("www_example_com_cname", {
+ * const wwwExampleComCname = new aws.route53.Record("www_example_com_cname", {
  *     zoneId: "...zone_id_from_somewhere...",
- *     name: wwwExampleCom.domain,
- *     type: "CNAME",
+ *     name: wwwExampleCom.apply(wwwExampleCom => wwwExampleCom.domain),
+ *     type: aws.route53.RecordType.CNAME,
  *     ttl: 300,
- *     records: [wwwExampleCom.recommendedCname],
+ *     records: [wwwExampleCom.apply(wwwExampleCom => wwwExampleCom.recommendedCname)],
  * });
  * ```
  */
@@ -132,19 +132,19 @@ export interface GetDomainConfigResult {
  * //
  * // External DNS provider example
  * // 
- * const exampleComA = new aws.index.Route53Record("example_com_a", {
+ * const exampleComA = new aws.route53.Record("example_com_a", {
  *     zoneId: "...zone_id_from_somewhere...",
- *     name: exampleCom.domain,
- *     type: "A",
+ *     name: exampleCom.apply(exampleCom => exampleCom.domain),
+ *     type: aws.route53.RecordType.A,
  *     ttl: 300,
- *     records: exampleCom.recommendedIpv4s,
+ *     records: exampleCom.apply(exampleCom => exampleCom.recommendedIpv4s),
  * });
- * const wwwExampleComCname = new aws.index.Route53Record("www_example_com_cname", {
+ * const wwwExampleComCname = new aws.route53.Record("www_example_com_cname", {
  *     zoneId: "...zone_id_from_somewhere...",
- *     name: wwwExampleCom.domain,
- *     type: "CNAME",
+ *     name: wwwExampleCom.apply(wwwExampleCom => wwwExampleCom.domain),
+ *     type: aws.route53.RecordType.CNAME,
  *     ttl: 300,
- *     records: [wwwExampleCom.recommendedCname],
+ *     records: [wwwExampleCom.apply(wwwExampleCom => wwwExampleCom.recommendedCname)],
  * });
  * ```
  */

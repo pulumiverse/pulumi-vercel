@@ -72,7 +72,7 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<Outputs.TeamMemberProject>> Projects { get; private set; } = null!;
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        /// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         /// </summary>
         [Output("role")]
         public Output<string> Role { get; private set; } = null!;
@@ -167,7 +167,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        /// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         /// </summary>
         [Input("role", required: true)]
         public Input<string> Role { get; set; } = null!;
@@ -229,7 +229,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// The role that the user should have in the project. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
+        /// The role that the user should have in the team. One of 'MEMBER', 'OWNER', 'VIEWER', 'VIEWER*FOR*PLUS', 'DEVELOPER', 'BILLING', 'SECURITY', or 'CONTRIBUTOR'. Depending on your Team's plan, some of these roles may be unavailable.
         /// </summary>
         [Input("role")]
         public Input<string>? Role { get; set; }
