@@ -146,6 +146,10 @@ export interface FirewallConfigManagedRulesetsOwasp {
      */
     sd?: outputs.FirewallConfigManagedRulesetsOwaspSd;
     /**
+     * Session Fixation Attack
+     */
+    sf?: outputs.FirewallConfigManagedRulesetsOwaspSf;
+    /**
      * SQL Injection Rules
      */
     sqli?: outputs.FirewallConfigManagedRulesetsOwaspSqli;
@@ -191,6 +195,11 @@ export interface FirewallConfigManagedRulesetsOwaspRfi {
 }
 
 export interface FirewallConfigManagedRulesetsOwaspSd {
+    action: string;
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspSf {
     action: string;
     active?: boolean;
 }

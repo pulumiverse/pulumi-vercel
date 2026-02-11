@@ -16,6 +16,8 @@ import (
 //
 // Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
 //
+// Note: When attackModeActiveUntil is reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.
+//
 // ## Example Usage
 //
 // ```go
@@ -37,8 +39,9 @@ import (
 //				return err
 //			}
 //			_, err = vercel.NewAttackChallengeMode(ctx, "example", &vercel.AttackChallengeModeArgs{
-//				ProjectId: example.ID(),
-//				Enabled:   pulumi.Bool(true),
+//				ProjectId:             example.ID(),
+//				Enabled:               pulumi.Bool(true),
+//				AttackModeActiveUntil: pulumi.Any(attackModeActiveUntil),
 //			})
 //			if err != nil {
 //				return err
@@ -63,6 +66,8 @@ import (
 type AttackChallengeMode struct {
 	pulumi.CustomResourceState
 
+	// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+	AttackModeActiveUntil pulumi.IntOutput `pulumi:"attackModeActiveUntil"`
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
 	// The ID of the Project to toggle Attack Challenge Mode on.
@@ -78,6 +83,9 @@ func NewAttackChallengeMode(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.AttackModeActiveUntil == nil {
+		return nil, errors.New("invalid value for required argument 'AttackModeActiveUntil'")
+	}
 	if args.Enabled == nil {
 		return nil, errors.New("invalid value for required argument 'Enabled'")
 	}
@@ -107,6 +115,8 @@ func GetAttackChallengeMode(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering AttackChallengeMode resources.
 type attackChallengeModeState struct {
+	// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+	AttackModeActiveUntil *int `pulumi:"attackModeActiveUntil"`
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
 	// The ID of the Project to toggle Attack Challenge Mode on.
@@ -116,6 +126,8 @@ type attackChallengeModeState struct {
 }
 
 type AttackChallengeModeState struct {
+	// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+	AttackModeActiveUntil pulumi.IntPtrInput
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled pulumi.BoolPtrInput
 	// The ID of the Project to toggle Attack Challenge Mode on.
@@ -129,6 +141,8 @@ func (AttackChallengeModeState) ElementType() reflect.Type {
 }
 
 type attackChallengeModeArgs struct {
+	// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+	AttackModeActiveUntil int `pulumi:"attackModeActiveUntil"`
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled bool `pulumi:"enabled"`
 	// The ID of the Project to toggle Attack Challenge Mode on.
@@ -139,6 +153,8 @@ type attackChallengeModeArgs struct {
 
 // The set of arguments for constructing a AttackChallengeMode resource.
 type AttackChallengeModeArgs struct {
+	// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+	AttackModeActiveUntil pulumi.IntInput
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled pulumi.BoolInput
 	// The ID of the Project to toggle Attack Challenge Mode on.
@@ -232,6 +248,11 @@ func (o AttackChallengeModeOutput) ToAttackChallengeModeOutput() AttackChallenge
 
 func (o AttackChallengeModeOutput) ToAttackChallengeModeOutputWithContext(ctx context.Context) AttackChallengeModeOutput {
 	return o
+}
+
+// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+func (o AttackChallengeModeOutput) AttackModeActiveUntil() pulumi.IntOutput {
+	return o.ApplyT(func(v *AttackChallengeMode) pulumi.IntOutput { return v.AttackModeActiveUntil }).(pulumi.IntOutput)
 }
 
 // Whether Attack Challenge Mode is enabled or not.

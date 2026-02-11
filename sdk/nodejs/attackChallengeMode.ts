@@ -9,6 +9,8 @@ import * as utilities from "./utilities";
  *
  * Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
  *
+ * Note: When attackModeActiveUntil is reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -19,6 +21,7 @@ import * as utilities from "./utilities";
  * const exampleAttackChallengeMode = new vercel.AttackChallengeMode("example", {
  *     projectId: example.id,
  *     enabled: true,
+ *     attackModeActiveUntil: attackModeActiveUntil,
  * });
  * ```
  *
@@ -63,6 +66,10 @@ export class AttackChallengeMode extends pulumi.CustomResource {
     }
 
     /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     */
+    declare public readonly attackModeActiveUntil: pulumi.Output<number>;
+    /**
      * Whether Attack Challenge Mode is enabled or not.
      */
     declare public readonly enabled: pulumi.Output<boolean>;
@@ -88,17 +95,22 @@ export class AttackChallengeMode extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as AttackChallengeModeState | undefined;
+            resourceInputs["attackModeActiveUntil"] = state?.attackModeActiveUntil;
             resourceInputs["enabled"] = state?.enabled;
             resourceInputs["projectId"] = state?.projectId;
             resourceInputs["teamId"] = state?.teamId;
         } else {
             const args = argsOrState as AttackChallengeModeArgs | undefined;
+            if (args?.attackModeActiveUntil === undefined && !opts.urn) {
+                throw new Error("Missing required property 'attackModeActiveUntil'");
+            }
             if (args?.enabled === undefined && !opts.urn) {
                 throw new Error("Missing required property 'enabled'");
             }
             if (args?.projectId === undefined && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
+            resourceInputs["attackModeActiveUntil"] = args?.attackModeActiveUntil;
             resourceInputs["enabled"] = args?.enabled;
             resourceInputs["projectId"] = args?.projectId;
             resourceInputs["teamId"] = args?.teamId;
@@ -112,6 +124,10 @@ export class AttackChallengeMode extends pulumi.CustomResource {
  * Input properties used for looking up and filtering AttackChallengeMode resources.
  */
 export interface AttackChallengeModeState {
+    /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     */
+    attackModeActiveUntil?: pulumi.Input<number>;
     /**
      * Whether Attack Challenge Mode is enabled or not.
      */
@@ -130,6 +146,10 @@ export interface AttackChallengeModeState {
  * The set of arguments for constructing a AttackChallengeMode resource.
  */
 export interface AttackChallengeModeArgs {
+    /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     */
+    attackModeActiveUntil: pulumi.Input<number>;
     /**
      * Whether Attack Challenge Mode is enabled or not.
      */

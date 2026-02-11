@@ -178,6 +178,7 @@ namespace Pulumiverse.Vercel
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
                 AdditionalSecretOutputs =
                 {
+                    "headers",
                     "secret",
                 },
             };
@@ -236,7 +237,11 @@ namespace Pulumiverse.Vercel
         public InputMap<string> Headers
         {
             get => _headers ?? (_headers = new InputMap<string>());
-            set => _headers = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _headers = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>
@@ -338,7 +343,11 @@ namespace Pulumiverse.Vercel
         public InputMap<string> Headers
         {
             get => _headers ?? (_headers = new InputMap<string>());
-            set => _headers = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _headers = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>

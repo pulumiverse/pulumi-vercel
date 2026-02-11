@@ -13,6 +13,7 @@ import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspPhpArgs;
 import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspRceArgs;
 import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspRfiArgs;
 import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspSdArgs;
+import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspSfArgs;
 import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspSqliArgs;
 import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsOwaspXssArgs;
 import java.util.Objects;
@@ -145,6 +146,21 @@ public final class FirewallConfigManagedRulesetsOwaspArgs extends com.pulumi.res
     }
 
     /**
+     * Session Fixation Attack
+     * 
+     */
+    @Import(name="sf")
+    private @Nullable Output<FirewallConfigManagedRulesetsOwaspSfArgs> sf;
+
+    /**
+     * @return Session Fixation Attack
+     * 
+     */
+    public Optional<Output<FirewallConfigManagedRulesetsOwaspSfArgs>> sf() {
+        return Optional.ofNullable(this.sf);
+    }
+
+    /**
      * SQL Injection Rules
      * 
      */
@@ -185,6 +201,7 @@ public final class FirewallConfigManagedRulesetsOwaspArgs extends com.pulumi.res
         this.rce = $.rce;
         this.rfi = $.rfi;
         this.sd = $.sd;
+        this.sf = $.sf;
         this.sqli = $.sqli;
         this.xss = $.xss;
     }
@@ -373,6 +390,27 @@ public final class FirewallConfigManagedRulesetsOwaspArgs extends com.pulumi.res
          */
         public Builder sd(FirewallConfigManagedRulesetsOwaspSdArgs sd) {
             return sd(Output.of(sd));
+        }
+
+        /**
+         * @param sf Session Fixation Attack
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sf(@Nullable Output<FirewallConfigManagedRulesetsOwaspSfArgs> sf) {
+            $.sf = sf;
+            return this;
+        }
+
+        /**
+         * @param sf Session Fixation Attack
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sf(FirewallConfigManagedRulesetsOwaspSfArgs sf) {
+            return sf(Output.of(sf));
         }
 
         /**

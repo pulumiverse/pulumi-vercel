@@ -170,7 +170,7 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["deliveryFormat"] = args?.deliveryFormat;
             resourceInputs["endpoint"] = args?.endpoint;
             resourceInputs["environments"] = args?.environments;
-            resourceInputs["headers"] = args?.headers;
+            resourceInputs["headers"] = args?.headers ? pulumi.secret(args.headers) : undefined;
             resourceInputs["name"] = args?.name;
             resourceInputs["projectIds"] = args?.projectIds;
             resourceInputs["samplingRate"] = args?.samplingRate;
@@ -179,7 +179,7 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["teamId"] = args?.teamId;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["secret"] };
+        const secretOpts = { additionalSecretOutputs: ["headers", "secret"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(LogDrain.__pulumiType, name, resourceInputs, opts);
     }

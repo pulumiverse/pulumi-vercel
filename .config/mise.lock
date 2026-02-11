@@ -38,11 +38,6 @@ backend = "npm:yarn"
 version = "3.218.0"
 backend = "aqua:pulumi/pulumi"
 
-[tools.pulumi.platforms.linux-x64]
-checksum = "sha256:a24e45f707559b735b26fc188913132fce9c6a1b63b125710a40514e9c77ed47"
-size = 94638906
-url = "https://github.com/pulumi/pulumi/releases/download/v3.218.0/pulumi-v3.218.0-linux-x64.tar.gz"
-
 [[tools.python]]
 version = "3.11.8"
 backend = "core:python"

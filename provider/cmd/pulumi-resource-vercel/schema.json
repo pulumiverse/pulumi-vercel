@@ -276,6 +276,10 @@
                     "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspSd:FirewallConfigManagedRulesetsOwaspSd",
                     "description": "Scanner Detection Rules\n"
                 },
+                "sf": {
+                    "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspSf:FirewallConfigManagedRulesetsOwaspSf",
+                    "description": "Session Fixation Attack\n"
+                },
                 "sqli": {
                     "$ref": "#/types/vercel:index/FirewallConfigManagedRulesetsOwaspSqli:FirewallConfigManagedRulesetsOwaspSqli",
                     "description": "SQL Injection Rules\n"
@@ -386,6 +390,20 @@
             ]
         },
         "vercel:index/FirewallConfigManagedRulesetsOwaspSd:FirewallConfigManagedRulesetsOwaspSd": {
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "vercel:index/FirewallConfigManagedRulesetsOwaspSf:FirewallConfigManagedRulesetsOwaspSf": {
             "properties": {
                 "action": {
                     "type": "string"
@@ -1948,8 +1966,12 @@
             }
         },
         "vercel:index/attackChallengeMode:AttackChallengeMode": {
-            "description": "Provides an Attack Challenge Mode resource.\n\nAttack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project\"});\nconst exampleAttackChallengeMode = new vercel.AttackChallengeMode(\"example\", {\n    projectId: example.id,\n    enabled: true,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project\")\nexample_attack_challenge_mode = vercel.AttackChallengeMode(\"example\",\n    project_id=example.id,\n    enabled=True)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n    });\n\n    var exampleAttackChallengeMode = new Vercel.AttackChallengeMode(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Enabled = true,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewAttackChallengeMode(ctx, \"example\", \u0026vercel.AttackChallengeModeArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tEnabled:   pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.AttackChallengeMode;\nimport com.pulumiverse.vercel.AttackChallengeModeArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .build());\n\n        var exampleAttackChallengeMode = new AttackChallengeMode(\"exampleAttackChallengeMode\", AttackChallengeModeArgs.builder()\n            .projectId(example.id())\n            .enabled(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n  exampleAttackChallengeMode:\n    type: vercel:AttackChallengeMode\n    name: example\n    properties:\n      projectId: ${example.id}\n      enabled: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "description": "Provides an Attack Challenge Mode resource.\n\nAttack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.\n\nNote: When\u003cspan pulumi-lang-nodejs=\" attackModeActiveUntil \" pulumi-lang-dotnet=\" AttackModeActiveUntil \" pulumi-lang-go=\" attackModeActiveUntil \" pulumi-lang-python=\" attack_mode_active_until \" pulumi-lang-yaml=\" attackModeActiveUntil \" pulumi-lang-java=\" attackModeActiveUntil \"\u003e attack_mode_active_until \u003c/span\u003eis reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project\"});\nconst exampleAttackChallengeMode = new vercel.AttackChallengeMode(\"example\", {\n    projectId: example.id,\n    enabled: true,\n    attackModeActiveUntil: attackModeActiveUntil,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project\")\nexample_attack_challenge_mode = vercel.AttackChallengeMode(\"example\",\n    project_id=example.id,\n    enabled=True,\n    attack_mode_active_until=attack_mode_active_until)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n    });\n\n    var exampleAttackChallengeMode = new Vercel.AttackChallengeMode(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Enabled = true,\n        AttackModeActiveUntil = attackModeActiveUntil,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewAttackChallengeMode(ctx, \"example\", \u0026vercel.AttackChallengeModeArgs{\n\t\t\tProjectId:             example.ID(),\n\t\t\tEnabled:               pulumi.Bool(true),\n\t\t\tAttackModeActiveUntil: pulumi.Any(attackModeActiveUntil),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.AttackChallengeMode;\nimport com.pulumiverse.vercel.AttackChallengeModeArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .build());\n\n        var exampleAttackChallengeMode = new AttackChallengeMode(\"exampleAttackChallengeMode\", AttackChallengeModeArgs.builder()\n            .projectId(example.id())\n            .enabled(true)\n            .attackModeActiveUntil(attackModeActiveUntil)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n  exampleAttackChallengeMode:\n    type: vercel:AttackChallengeMode\n    name: example\n    properties:\n      projectId: ${example.id}\n      enabled: true\n      attackModeActiveUntil: ${attackModeActiveUntil}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nYou can import via the team_id and project_id.\n\n- team_id can be found in the team `settings` tab in the Vercel UI.\n\n- project_id can be found in the project `settings` tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
+                "attackModeActiveUntil": {
+                    "type": "integer",
+                    "description": "Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.\n"
+                },
                 "enabled": {
                     "type": "boolean",
                     "description": "Whether Attack Challenge Mode is enabled or not.\n"
@@ -1964,11 +1986,16 @@
                 }
             },
             "required": [
+                "attackModeActiveUntil",
                 "enabled",
                 "projectId",
                 "teamId"
             ],
             "inputProperties": {
+                "attackModeActiveUntil": {
+                    "type": "integer",
+                    "description": "Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.\n"
+                },
                 "enabled": {
                     "type": "boolean",
                     "description": "Whether Attack Challenge Mode is enabled or not.\n"
@@ -1983,12 +2010,17 @@
                 }
             },
             "requiredInputs": [
+                "attackModeActiveUntil",
                 "enabled",
                 "projectId"
             ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering AttackChallengeMode resources.\n",
                 "properties": {
+                    "attackModeActiveUntil": {
+                        "type": "integer",
+                        "description": "Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.\n"
+                    },
                     "enabled": {
                         "type": "boolean",
                         "description": "Whether Attack Challenge Mode is enabled or not.\n"
@@ -2018,7 +2050,8 @@
                 },
                 "privateKey": {
                     "type": "string",
-                    "description": "The private key of the Certificate. Should be in PEM format.\n"
+                    "description": "The private key of the Certificate. Should be in PEM format.\n",
+                    "secret": true
                 },
                 "teamId": {
                     "type": "string",
@@ -2042,7 +2075,8 @@
                 },
                 "privateKey": {
                     "type": "string",
-                    "description": "The private key of the Certificate. Should be in PEM format.\n"
+                    "description": "The private key of the Certificate. Should be in PEM format.\n",
+                    "secret": true
                 },
                 "teamId": {
                     "type": "string",
@@ -2067,7 +2101,8 @@
                     },
                     "privateKey": {
                         "type": "string",
-                        "description": "The private key of the Certificate. Should be in PEM format.\n"
+                        "description": "The private key of the Certificate. Should be in PEM format.\n",
+                        "secret": true
                     },
                     "teamId": {
                         "type": "string",
@@ -2181,7 +2216,8 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e resource.\n"
+                    "description": "A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e resource.\n",
+                    "secret": true
                 },
                 "files": {
                     "type": "object",
@@ -2247,7 +2283,8 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e resource.\n"
+                    "description": "A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e resource.\n",
+                    "secret": true
                 },
                 "files": {
                     "type": "object",
@@ -2313,7 +2350,8 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e resource.\n"
+                        "description": "A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e resource.\n",
+                        "secret": true
                     },
                     "files": {
                         "type": "object",
@@ -2668,7 +2706,8 @@
             "properties": {
                 "connectionString": {
                     "type": "string",
-                    "description": "A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.\n"
+                    "description": "A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.\n",
+                    "secret": true
                 },
                 "edgeConfigId": {
                     "type": "string",
@@ -2684,7 +2723,8 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n"
+                    "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n",
+                    "secret": true
                 }
             },
             "required": [
@@ -2717,7 +2757,8 @@
                 "properties": {
                     "connectionString": {
                         "type": "string",
-                        "description": "A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.\n"
+                        "description": "A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.\n",
+                        "secret": true
                     },
                     "edgeConfigId": {
                         "type": "string",
@@ -2733,7 +2774,8 @@
                     },
                     "token": {
                         "type": "string",
-                        "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n"
+                        "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n",
+                        "secret": true
                     }
                 },
                 "type": "object"
@@ -2997,7 +3039,8 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Custom headers to include in requests to the log drain endpoint.\n"
+                    "description": "Custom headers to include in requests to the log drain endpoint.\n",
+                    "secret": true
                 },
                 "name": {
                     "type": "string",
@@ -3061,7 +3104,8 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Custom headers to include in requests to the log drain endpoint.\n"
+                    "description": "Custom headers to include in requests to the log drain endpoint.\n",
+                    "secret": true
                 },
                 "name": {
                     "type": "string",
@@ -3124,7 +3168,8 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "Custom headers to include in requests to the log drain endpoint.\n"
+                        "description": "Custom headers to include in requests to the log drain endpoint.\n",
+                        "secret": true
                     },
                     "name": {
                         "type": "string",
@@ -5475,6 +5520,10 @@
             "outputs": {
                 "description": "A collection of values returned by getAttackChallengeMode.\n",
                 "properties": {
+                    "attackModeActiveUntil": {
+                        "description": "Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.\n",
+                        "type": "integer"
+                    },
                     "enabled": {
                         "description": "Whether Attack Challenge Mode is enabled or not.\n",
                         "type": "boolean"
@@ -5493,6 +5542,7 @@
                     }
                 },
                 "required": [
+                    "attackModeActiveUntil",
                     "enabled",
                     "id",
                     "projectId",
@@ -5644,7 +5694,7 @@
             }
         },
         "vercel:index/getDomainConfig:getDomainConfig": {
-            "description": "Provides domain configuration information for a Vercel project.\n\nThis data source returns configuration details for a domain associated with a specific project,\nincluding recommended CNAME and IPv4 values.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as aws from \"@pulumi/aws\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst myAwesomeProject = new vercel.Project(\"my_awesome_project\", {name: \"my-awesome-project\"});\n// \n// \"vercel_domain_config\" Usage\n// \nconst exampleCom = vercel.getDomainConfigOutput({\n    domain: \"example.com\",\n    projectIdOrName: myAwesomeProject.id,\n});\nconst wwwExampleCom = vercel.getDomainConfigOutput({\n    domain: \"www.example.com\",\n    projectIdOrName: myAwesomeProject.id,\n});\n//\n// External DNS provider example\n// \nconst exampleComA = new aws.index.Route53Record(\"example_com_a\", {\n    zoneId: \"...zone_id_from_somewhere...\",\n    name: exampleCom.domain,\n    type: \"A\",\n    ttl: 300,\n    records: exampleCom.recommendedIpv4s,\n});\nconst wwwExampleComCname = new aws.index.Route53Record(\"www_example_com_cname\", {\n    zoneId: \"...zone_id_from_somewhere...\",\n    name: wwwExampleCom.domain,\n    type: \"CNAME\",\n    ttl: 300,\n    records: [wwwExampleCom.recommendedCname],\n});\n```\n```python\nimport pulumi\nimport pulumi_aws as aws\nimport pulumi_vercel as vercel\nimport pulumiverse_vercel as vercel\n\nmy_awesome_project = vercel.Project(\"my_awesome_project\", name=\"my-awesome-project\")\n# \n# \"vercel_domain_config\" Usage\n# \nexample_com = vercel.get_domain_config_output(domain=\"example.com\",\n    project_id_or_name=my_awesome_project.id)\nwww_example_com = vercel.get_domain_config_output(domain=\"www.example.com\",\n    project_id_or_name=my_awesome_project.id)\n#\n# External DNS provider example\n# \nexample_com_a = aws.index.Route53Record(\"example_com_a\",\n    zone_id=...zone_id_from_somewhere...,\n    name=example_com.domain,\n    type=A,\n    ttl=300,\n    records=example_com.recommended_ipv4s)\nwww_example_com_cname = aws.index.Route53Record(\"www_example_com_cname\",\n    zone_id=...zone_id_from_somewhere...,\n    name=www_example_com.domain,\n    type=CNAME,\n    ttl=300,\n    records=[www_example_com.recommended_cname])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Aws = Pulumi.Aws;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var myAwesomeProject = new Vercel.Project(\"my_awesome_project\", new()\n    {\n        Name = \"my-awesome-project\",\n    });\n\n    // \n    // \"vercel_domain_config\" Usage\n    // \n    var exampleCom = Vercel.GetDomainConfig.Invoke(new()\n    {\n        Domain = \"example.com\",\n        ProjectIdOrName = myAwesomeProject.Id,\n    });\n\n    var wwwExampleCom = Vercel.GetDomainConfig.Invoke(new()\n    {\n        Domain = \"www.example.com\",\n        ProjectIdOrName = myAwesomeProject.Id,\n    });\n\n    //\n    // External DNS provider example\n    // \n    var exampleComA = new Aws.Index.Route53Record(\"example_com_a\", new()\n    {\n        ZoneId = \"...zone_id_from_somewhere...\",\n        Name = exampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.Domain),\n        Type = \"A\",\n        Ttl = 300,\n        Records = exampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.RecommendedIpv4s),\n    });\n\n    var wwwExampleComCname = new Aws.Index.Route53Record(\"www_example_com_cname\", new()\n    {\n        ZoneId = \"...zone_id_from_somewhere...\",\n        Name = wwwExampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.Domain),\n        Type = \"CNAME\",\n        Ttl = 300,\n        Records = new[]\n        {\n            wwwExampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.RecommendedCname),\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-aws/sdk/go/aws\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tmyAwesomeProject, err := vercel.NewProject(ctx, \"my_awesome_project\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"my-awesome-project\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// \"vercel_domain_config\" Usage\n\t\texampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{\n\t\t\tDomain:          pulumi.String(\"example.com\"),\n\t\t\tProjectIdOrName: myAwesomeProject.ID(),\n\t\t}, nil)\n\t\twwwExampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{\n\t\t\tDomain:          pulumi.String(\"www.example.com\"),\n\t\t\tProjectIdOrName: myAwesomeProject.ID(),\n\t\t}, nil)\n\t\t// External DNS provider example\n\t\t_, err = aws.NewRoute53Record(ctx, \"example_com_a\", \u0026aws.Route53RecordArgs{\n\t\t\tZoneId:  \"...zone_id_from_somewhere...\",\n\t\t\tName:    exampleCom.Domain,\n\t\t\tType:    \"A\",\n\t\t\tTtl:     300,\n\t\t\tRecords: exampleCom.RecommendedIpv4s,\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = aws.NewRoute53Record(ctx, \"www_example_com_cname\", \u0026aws.Route53RecordArgs{\n\t\t\tZoneId: \"...zone_id_from_somewhere...\",\n\t\t\tName:   wwwExampleCom.Domain,\n\t\t\tType:   \"CNAME\",\n\t\t\tTtl:    300,\n\t\t\tRecords: pulumi.StringArray{\n\t\t\t\twwwExampleCom.RecommendedCname,\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetDomainConfigArgs;\nimport com.pulumi.aws.Route53Record;\nimport com.pulumi.aws.Route53RecordArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var myAwesomeProject = new Project(\"myAwesomeProject\", ProjectArgs.builder()\n            .name(\"my-awesome-project\")\n            .build());\n\n        // \n        // \"vercel_domain_config\" Usage\n        // \n        final var exampleCom = VercelFunctions.getDomainConfig(GetDomainConfigArgs.builder()\n            .domain(\"example.com\")\n            .projectIdOrName(myAwesomeProject.id())\n            .build());\n\n        final var wwwExampleCom = VercelFunctions.getDomainConfig(GetDomainConfigArgs.builder()\n            .domain(\"www.example.com\")\n            .projectIdOrName(myAwesomeProject.id())\n            .build());\n\n        //\n        // External DNS provider example\n        // \n        var exampleComA = new Route53Record(\"exampleComA\", Route53RecordArgs.builder()\n            .zoneId(\"...zone_id_from_somewhere...\")\n            .name(exampleCom.domain())\n            .type(\"A\")\n            .ttl(300)\n            .records(exampleCom.recommendedIpv4s())\n            .build());\n\n        var wwwExampleComCname = new Route53Record(\"wwwExampleComCname\", Route53RecordArgs.builder()\n            .zoneId(\"...zone_id_from_somewhere...\")\n            .name(wwwExampleCom.domain())\n            .type(\"CNAME\")\n            .ttl(300)\n            .records(List.of(wwwExampleCom.recommendedCname()))\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  myAwesomeProject:\n    type: vercel:Project\n    name: my_awesome_project\n    properties:\n      name: my-awesome-project\n  #\n  # External DNS provider example\n  #\n  exampleComA:\n    type: aws:Route53Record\n    name: example_com_a\n    properties:\n      zoneId: '...zone_id_from_somewhere...'\n      name: ${exampleCom.domain}\n      type: A\n      ttl: 300\n      records: ${exampleCom.recommendedIpv4s}\n  wwwExampleComCname:\n    type: aws:Route53Record\n    name: www_example_com_cname\n    properties:\n      zoneId: '...zone_id_from_somewhere...'\n      name: ${wwwExampleCom.domain}\n      type: CNAME\n      ttl: 300\n      records:\n        - ${wwwExampleCom.recommendedCname}\nvariables:\n  # \n  # \"vercel_domain_config\" Usage\n  #\n  exampleCom:\n    fn::invoke:\n      function: vercel:getDomainConfig\n      arguments:\n        domain: example.com\n        projectIdOrName: ${myAwesomeProject.id}\n  wwwExampleCom:\n    fn::invoke:\n      function: vercel:getDomainConfig\n      arguments:\n        domain: www.example.com\n        projectIdOrName: ${myAwesomeProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "Provides domain configuration information for a Vercel project.\n\nThis data source returns configuration details for a domain associated with a specific project,\nincluding recommended CNAME and IPv4 values.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as aws from \"@pulumi/aws\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst myAwesomeProject = new vercel.Project(\"my_awesome_project\", {name: \"my-awesome-project\"});\n// \n// \"vercel_domain_config\" Usage\n// \nconst exampleCom = vercel.getDomainConfigOutput({\n    domain: \"example.com\",\n    projectIdOrName: myAwesomeProject.id,\n});\nconst wwwExampleCom = vercel.getDomainConfigOutput({\n    domain: \"www.example.com\",\n    projectIdOrName: myAwesomeProject.id,\n});\n//\n// External DNS provider example\n// \nconst exampleComA = new aws.index.Route53Record(\"example_com_a\", {\n    zoneId: \"...zone_id_from_somewhere...\",\n    name: exampleCom.domain,\n    type: \"A\",\n    ttl: 300,\n    records: exampleCom.recommendedIpv4s,\n});\nconst wwwExampleComCname = new aws.index.Route53Record(\"www_example_com_cname\", {\n    zoneId: \"...zone_id_from_somewhere...\",\n    name: wwwExampleCom.domain,\n    type: \"CNAME\",\n    ttl: 300,\n    records: [wwwExampleCom.recommendedCname],\n});\n```\n```python\nimport pulumi\nimport pulumi_aws as aws\nimport pulumi_vercel as vercel\nimport pulumiverse_vercel as vercel\n\nmy_awesome_project = vercel.Project(\"my_awesome_project\", name=\"my-awesome-project\")\n# \n# \"vercel_domain_config\" Usage\n# \nexample_com = vercel.get_domain_config_output(domain=\"example.com\",\n    project_id_or_name=my_awesome_project.id)\nwww_example_com = vercel.get_domain_config_output(domain=\"www.example.com\",\n    project_id_or_name=my_awesome_project.id)\n#\n# External DNS provider example\n# \nexample_com_a = aws.index.Route53Record(\"example_com_a\",\n    zone_id=...zone_id_from_somewhere...,\n    name=example_com.domain,\n    type=A,\n    ttl=300,\n    records=example_com.recommended_ipv4s)\nwww_example_com_cname = aws.index.Route53Record(\"www_example_com_cname\",\n    zone_id=...zone_id_from_somewhere...,\n    name=www_example_com.domain,\n    type=CNAME,\n    ttl=300,\n    records=[www_example_com.recommended_cname])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Aws = Pulumi.Aws;\nusing Vercel = Pulumi.Vercel;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var myAwesomeProject = new Vercel.Project(\"my_awesome_project\", new()\n    {\n        Name = \"my-awesome-project\",\n    });\n\n    // \n    // \"vercel_domain_config\" Usage\n    // \n    var exampleCom = Vercel.GetDomainConfig.Invoke(new()\n    {\n        Domain = \"example.com\",\n        ProjectIdOrName = myAwesomeProject.Id,\n    });\n\n    var wwwExampleCom = Vercel.GetDomainConfig.Invoke(new()\n    {\n        Domain = \"www.example.com\",\n        ProjectIdOrName = myAwesomeProject.Id,\n    });\n\n    //\n    // External DNS provider example\n    // \n    var exampleComA = new Aws.Index.Route53Record(\"example_com_a\", new()\n    {\n        ZoneId = \"...zone_id_from_somewhere...\",\n        Name = exampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.Domain),\n        Type = \"A\",\n        Ttl = 300,\n        Records = exampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.RecommendedIpv4s),\n    });\n\n    var wwwExampleComCname = new Aws.Index.Route53Record(\"www_example_com_cname\", new()\n    {\n        ZoneId = \"...zone_id_from_somewhere...\",\n        Name = wwwExampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.Domain),\n        Type = \"CNAME\",\n        Ttl = 300,\n        Records = new[]\n        {\n            wwwExampleCom.Apply(getDomainConfigResult =\u003e getDomainConfigResult.RecommendedCname),\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-aws/sdk/go/aws\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tmyAwesomeProject, err := vercel.NewProject(ctx, \"my_awesome_project\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"my-awesome-project\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// \"vercel_domain_config\" Usage\n\t\texampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{\n\t\t\tDomain:          pulumi.String(\"example.com\"),\n\t\t\tProjectIdOrName: myAwesomeProject.ID(),\n\t\t}, nil)\n\t\twwwExampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{\n\t\t\tDomain:          pulumi.String(\"www.example.com\"),\n\t\t\tProjectIdOrName: myAwesomeProject.ID(),\n\t\t}, nil)\n\t\t// External DNS provider example\n\t\t_, err = aws.NewRoute53Record(ctx, \"example_com_a\", \u0026aws.Route53RecordArgs{\n\t\t\tZoneId:  \"...zone_id_from_somewhere...\",\n\t\t\tName:    exampleCom.Domain,\n\t\t\tType:    \"A\",\n\t\t\tTtl:     300,\n\t\t\tRecords: exampleCom.RecommendedIpv4s,\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = aws.NewRoute53Record(ctx, \"www_example_com_cname\", \u0026aws.Route53RecordArgs{\n\t\t\tZoneId: \"...zone_id_from_somewhere...\",\n\t\t\tName:   wwwExampleCom.Domain,\n\t\t\tType:   \"CNAME\",\n\t\t\tTtl:    300,\n\t\t\tRecords: pulumi.StringArray{\n\t\t\t\twwwExampleCom.RecommendedCname,\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetDomainConfigArgs;\nimport com.pulumi.aws.Route53Record;\nimport com.pulumi.aws.Route53RecordArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var myAwesomeProject = new Project(\"myAwesomeProject\", ProjectArgs.builder()\n            .name(\"my-awesome-project\")\n            .build());\n\n        // \n        // \"vercel_domain_config\" Usage\n        // \n        final var exampleCom = VercelFunctions.getDomainConfig(GetDomainConfigArgs.builder()\n            .domain(\"example.com\")\n            .projectIdOrName(myAwesomeProject.id())\n            .build());\n\n        final var wwwExampleCom = VercelFunctions.getDomainConfig(GetDomainConfigArgs.builder()\n            .domain(\"www.example.com\")\n            .projectIdOrName(myAwesomeProject.id())\n            .build());\n\n        //\n        // External DNS provider example\n        // \n        var exampleComA = new Route53Record(\"exampleComA\", Route53RecordArgs.builder()\n            .zoneId(\"...zone_id_from_somewhere...\")\n            .name(exampleCom.domain())\n            .type(\"A\")\n            .ttl(300)\n            .records(exampleCom.recommendedIpv4s())\n            .build());\n\n        var wwwExampleComCname = new Route53Record(\"wwwExampleComCname\", Route53RecordArgs.builder()\n            .zoneId(\"...zone_id_from_somewhere...\")\n            .name(wwwExampleCom.domain())\n            .type(\"CNAME\")\n            .ttl(300)\n            .records(List.of(wwwExampleCom.recommendedCname()))\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  myAwesomeProject:\n    type: vercel:Project\n    name: my_awesome_project\n    properties:\n      name: my-awesome-project\n  #\n  # External DNS provider example\n  #\n  exampleComA:\n    type: aws:Route53Record\n    name: example_com_a\n    properties:\n      zoneId: '...zone_id_from_somewhere...'\n      name: ${exampleCom.domain}\n      type: A\n      ttl: 300\n      records: ${exampleCom.recommendedIpv4s}\n  wwwExampleComCname:\n    type: aws:Route53Record\n    name: www_example_com_cname\n    properties:\n      zoneId: '...zone_id_from_somewhere...'\n      name: ${wwwExampleCom.domain}\n      type: CNAME\n      ttl: 300\n      records:\n        - ${wwwExampleCom.recommendedCname}\nvariables:\n  # \n  # \"vercel_domain_config\" Usage\n  #\n  exampleCom:\n    fn::invoke:\n      function: vercel:getDomainConfig\n      arguments:\n        domain: example.com\n        projectIdOrName: ${myAwesomeProject.id}\n  wwwExampleCom:\n    fn::invoke:\n      function: vercel:getDomainConfig\n      arguments:\n        domain: www.example.com\n        projectIdOrName: ${myAwesomeProject.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getDomainConfig.\n",
                 "properties": {
@@ -5915,7 +5965,8 @@
                     },
                     "token": {
                         "type": "string",
-                        "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n"
+                        "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n",
+                        "secret": true
                     }
                 },
                 "type": "object",
@@ -5929,6 +5980,7 @@
                 "properties": {
                     "connectionString": {
                         "description": "A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.\n",
+                        "secret": true,
                         "type": "string"
                     },
                     "edgeConfigId": {
@@ -5949,6 +6001,7 @@
                     },
                     "token": {
                         "description": "A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.\n",
+                        "secret": true,
                         "type": "string"
                     }
                 },
@@ -5988,6 +6041,7 @@
                     },
                     "verificationCode": {
                         "description": "A verification code that should be set in the `x-vercel-verify` response header for your API. This is used to verify that the endpoint belongs to you.\n",
+                        "secret": true,
                         "type": "string"
                     }
                 },
@@ -6086,6 +6140,7 @@
                             "type": "string"
                         },
                         "description": "Custom headers to include in requests to the log drain endpoint.\n",
+                        "secret": true,
                         "type": "object"
                     },
                     "id": {

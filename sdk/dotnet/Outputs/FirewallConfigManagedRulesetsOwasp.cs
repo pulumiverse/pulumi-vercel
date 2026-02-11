@@ -47,6 +47,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly Outputs.FirewallConfigManagedRulesetsOwaspSd? Sd;
         /// <summary>
+        /// Session Fixation Attack
+        /// </summary>
+        public readonly Outputs.FirewallConfigManagedRulesetsOwaspSf? Sf;
+        /// <summary>
         /// SQL Injection Rules
         /// </summary>
         public readonly Outputs.FirewallConfigManagedRulesetsOwaspSqli? Sqli;
@@ -73,6 +77,8 @@ namespace Pulumiverse.Vercel.Outputs
 
             Outputs.FirewallConfigManagedRulesetsOwaspSd? sd,
 
+            Outputs.FirewallConfigManagedRulesetsOwaspSf? sf,
+
             Outputs.FirewallConfigManagedRulesetsOwaspSqli? sqli,
 
             Outputs.FirewallConfigManagedRulesetsOwaspXss? xss)
@@ -85,6 +91,7 @@ namespace Pulumiverse.Vercel.Outputs
             Rce = rce;
             Rfi = rfi;
             Sd = sd;
+            Sf = sf;
             Sqli = sqli;
             Xss = xss;
         }

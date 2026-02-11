@@ -6,11 +6,17 @@ package com.pulumiverse.vercel.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 
 @CustomType
 public final class GetAttackChallengeModeResult {
+    /**
+     * @return Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    private Integer attackModeActiveUntil;
     /**
      * @return Whether Attack Challenge Mode is enabled or not.
      * 
@@ -33,6 +39,13 @@ public final class GetAttackChallengeModeResult {
     private String teamId;
 
     private GetAttackChallengeModeResult() {}
+    /**
+     * @return Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    public Integer attackModeActiveUntil() {
+        return this.attackModeActiveUntil;
+    }
     /**
      * @return Whether Attack Challenge Mode is enabled or not.
      * 
@@ -71,6 +84,7 @@ public final class GetAttackChallengeModeResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private Integer attackModeActiveUntil;
         private Boolean enabled;
         private String id;
         private String projectId;
@@ -78,12 +92,21 @@ public final class GetAttackChallengeModeResult {
         public Builder() {}
         public Builder(GetAttackChallengeModeResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.attackModeActiveUntil = defaults.attackModeActiveUntil;
     	      this.enabled = defaults.enabled;
     	      this.id = defaults.id;
     	      this.projectId = defaults.projectId;
     	      this.teamId = defaults.teamId;
         }
 
+        @CustomType.Setter
+        public Builder attackModeActiveUntil(Integer attackModeActiveUntil) {
+            if (attackModeActiveUntil == null) {
+              throw new MissingRequiredPropertyException("GetAttackChallengeModeResult", "attackModeActiveUntil");
+            }
+            this.attackModeActiveUntil = attackModeActiveUntil;
+            return this;
+        }
         @CustomType.Setter
         public Builder enabled(Boolean enabled) {
             if (enabled == null) {
@@ -118,6 +141,7 @@ public final class GetAttackChallengeModeResult {
         }
         public GetAttackChallengeModeResult build() {
             final var _resultValue = new GetAttackChallengeModeResult();
+            _resultValue.attackModeActiveUntil = attackModeActiveUntil;
             _resultValue.enabled = enabled;
             _resultValue.id = id;
             _resultValue.projectId = projectId;

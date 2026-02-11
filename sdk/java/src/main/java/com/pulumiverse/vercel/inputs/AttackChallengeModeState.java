@@ -6,6 +6,7 @@ package com.pulumiverse.vercel.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,6 +16,21 @@ import javax.annotation.Nullable;
 public final class AttackChallengeModeState extends com.pulumi.resources.ResourceArgs {
 
     public static final AttackChallengeModeState Empty = new AttackChallengeModeState();
+
+    /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    @Import(name="attackModeActiveUntil")
+    private @Nullable Output<Integer> attackModeActiveUntil;
+
+    /**
+     * @return Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    public Optional<Output<Integer>> attackModeActiveUntil() {
+        return Optional.ofNullable(this.attackModeActiveUntil);
+    }
 
     /**
      * Whether Attack Challenge Mode is enabled or not.
@@ -64,6 +80,7 @@ public final class AttackChallengeModeState extends com.pulumi.resources.Resourc
     private AttackChallengeModeState() {}
 
     private AttackChallengeModeState(AttackChallengeModeState $) {
+        this.attackModeActiveUntil = $.attackModeActiveUntil;
         this.enabled = $.enabled;
         this.projectId = $.projectId;
         this.teamId = $.teamId;
@@ -85,6 +102,27 @@ public final class AttackChallengeModeState extends com.pulumi.resources.Resourc
 
         public Builder(AttackChallengeModeState defaults) {
             $ = new AttackChallengeModeState(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param attackModeActiveUntil Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder attackModeActiveUntil(@Nullable Output<Integer> attackModeActiveUntil) {
+            $.attackModeActiveUntil = attackModeActiveUntil;
+            return this;
+        }
+
+        /**
+         * @param attackModeActiveUntil Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder attackModeActiveUntil(Integer attackModeActiveUntil) {
+            return attackModeActiveUntil(Output.of(attackModeActiveUntil));
         }
 
         /**

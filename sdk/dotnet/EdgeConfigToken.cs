@@ -142,6 +142,11 @@ namespace Pulumiverse.Vercel
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "connectionString",
+                    "token",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -191,11 +196,21 @@ namespace Pulumiverse.Vercel
 
     public sealed class EdgeConfigTokenState : global::Pulumi.ResourceArgs
     {
+        [Input("connectionString")]
+        private Input<string>? _connectionString;
+
         /// <summary>
         /// A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         /// </summary>
-        [Input("connectionString")]
-        public Input<string>? ConnectionString { get; set; }
+        public Input<string>? ConnectionString
+        {
+            get => _connectionString;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _connectionString = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The ID of the Edge Config store.
@@ -215,11 +230,21 @@ namespace Pulumiverse.Vercel
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
+        [Input("token")]
+        private Input<string>? _token;
+
         /// <summary>
         /// A read access token used for authenticating against the Edge Config's endpoint for high volume, low-latency requests.
         /// </summary>
-        [Input("token")]
-        public Input<string>? Token { get; set; }
+        public Input<string>? Token
+        {
+            get => _token;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _token = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public EdgeConfigTokenState()
         {

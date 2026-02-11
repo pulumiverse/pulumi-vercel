@@ -137,6 +137,10 @@ namespace Pulumiverse.Vercel
     public sealed class GetAttackChallengeModeResult
     {
         /// <summary>
+        /// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        /// </summary>
+        public readonly int AttackModeActiveUntil;
+        /// <summary>
         /// Whether Attack Challenge Mode is enabled or not.
         /// </summary>
         public readonly bool Enabled;
@@ -155,6 +159,8 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetAttackChallengeModeResult(
+            int attackModeActiveUntil,
+
             bool enabled,
 
             string id,
@@ -163,6 +169,7 @@ namespace Pulumiverse.Vercel
 
             string teamId)
         {
+            AttackModeActiveUntil = attackModeActiveUntil;
             Enabled = enabled;
             Id = id;
             ProjectId = projectId;

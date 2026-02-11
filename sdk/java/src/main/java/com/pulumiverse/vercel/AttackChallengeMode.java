@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.AttackChallengeModeArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.AttackChallengeModeState;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import javax.annotation.Nullable;
 
@@ -18,6 +19,8 @@ import javax.annotation.Nullable;
  * Provides an Attack Challenge Mode resource.
  * 
  * Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+ * 
+ * Note: When attackModeActiveUntil is reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.
  * 
  * ## Example Usage
  * 
@@ -52,6 +55,7 @@ import javax.annotation.Nullable;
  *         var exampleAttackChallengeMode = new AttackChallengeMode("exampleAttackChallengeMode", AttackChallengeModeArgs.builder()
  *             .projectId(example.id())
  *             .enabled(true)
+ *             .attackModeActiveUntil(attackModeActiveUntil)
  *             .build());
  * 
  *     }
@@ -74,6 +78,20 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="vercel:index/attackChallengeMode:AttackChallengeMode")
 public class AttackChallengeMode extends com.pulumi.resources.CustomResource {
+    /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    @Export(name="attackModeActiveUntil", refs={Integer.class}, tree="[0]")
+    private Output<Integer> attackModeActiveUntil;
+
+    /**
+     * @return Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    public Output<Integer> attackModeActiveUntil() {
+        return this.attackModeActiveUntil;
+    }
     /**
      * Whether Attack Challenge Mode is enabled or not.
      * 

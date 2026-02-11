@@ -541,7 +541,7 @@ class LogDrain(pulumi.CustomResource):
             if environments is None and not opts.urn:
                 raise TypeError("Missing required property 'environments'")
             __props__.__dict__["environments"] = environments
-            __props__.__dict__["headers"] = headers
+            __props__.__dict__["headers"] = None if headers is None else pulumi.Output.secret(headers)
             __props__.__dict__["name"] = name
             __props__.__dict__["project_ids"] = project_ids
             __props__.__dict__["sampling_rate"] = sampling_rate
@@ -550,7 +550,7 @@ class LogDrain(pulumi.CustomResource):
                 raise TypeError("Missing required property 'sources'")
             __props__.__dict__["sources"] = sources
             __props__.__dict__["team_id"] = team_id
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["secret"])
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["headers", "secret"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(LogDrain, __self__).__init__(
             'vercel:index/logDrain:LogDrain',

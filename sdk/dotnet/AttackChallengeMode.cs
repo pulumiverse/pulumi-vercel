@@ -15,6 +15,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
     /// 
+    /// Note: When AttackModeActiveUntil is reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -34,6 +36,7 @@ namespace Pulumiverse.Vercel
     ///     {
     ///         ProjectId = example.Id,
     ///         Enabled = true,
+    ///         AttackModeActiveUntil = attackModeActiveUntil,
     ///     });
     /// 
     /// });
@@ -54,6 +57,12 @@ namespace Pulumiverse.Vercel
     [VercelResourceType("vercel:index/attackChallengeMode:AttackChallengeMode")]
     public partial class AttackChallengeMode : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        /// </summary>
+        [Output("attackModeActiveUntil")]
+        public Output<int> AttackModeActiveUntil { get; private set; } = null!;
+
         /// <summary>
         /// Whether Attack Challenge Mode is enabled or not.
         /// </summary>
@@ -120,6 +129,12 @@ namespace Pulumiverse.Vercel
     public sealed class AttackChallengeModeArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        /// </summary>
+        [Input("attackModeActiveUntil", required: true)]
+        public Input<int> AttackModeActiveUntil { get; set; } = null!;
+
+        /// <summary>
         /// Whether Attack Challenge Mode is enabled or not.
         /// </summary>
         [Input("enabled", required: true)]
@@ -145,6 +160,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class AttackChallengeModeState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        /// </summary>
+        [Input("attackModeActiveUntil")]
+        public Input<int>? AttackModeActiveUntil { get; set; }
+
         /// <summary>
         /// Whether Attack Challenge Mode is enabled or not.
         /// </summary>

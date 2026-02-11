@@ -106,10 +106,12 @@ export class CustomCertificate extends pulumi.CustomResource {
             }
             resourceInputs["certificate"] = args?.certificate;
             resourceInputs["certificateAuthorityCertificate"] = args?.certificateAuthorityCertificate;
-            resourceInputs["privateKey"] = args?.privateKey;
+            resourceInputs["privateKey"] = args?.privateKey ? pulumi.secret(args.privateKey) : undefined;
             resourceInputs["teamId"] = args?.teamId;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["privateKey"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(CustomCertificate.__pulumiType, name, resourceInputs, opts);
     }
 }
