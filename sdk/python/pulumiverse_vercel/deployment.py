@@ -487,7 +487,7 @@ class Deployment(pulumi.CustomResource):
 
             __props__.__dict__["custom_environment_id"] = custom_environment_id
             __props__.__dict__["delete_on_destroy"] = delete_on_destroy
-            __props__.__dict__["environment"] = environment
+            __props__.__dict__["environment"] = None if environment is None else pulumi.Output.secret(environment)
             __props__.__dict__["files"] = files
             __props__.__dict__["meta"] = meta
             __props__.__dict__["path_prefix"] = path_prefix
@@ -500,6 +500,8 @@ class Deployment(pulumi.CustomResource):
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["domains"] = None
             __props__.__dict__["url"] = None
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["environment"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Deployment, __self__).__init__(
             'vercel:index/deployment:Deployment',
             resource_name,

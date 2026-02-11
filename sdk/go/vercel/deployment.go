@@ -52,6 +52,13 @@ func NewDeployment(ctx *pulumi.Context,
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
+	if args.Environment != nil {
+		args.Environment = pulumi.ToSecret(args.Environment).(pulumi.StringMapInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"environment",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Deployment
 	err := ctx.RegisterResource("vercel:index/deployment:Deployment", name, args, &resource, opts...)

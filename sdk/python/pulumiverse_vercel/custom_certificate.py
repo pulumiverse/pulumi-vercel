@@ -257,8 +257,10 @@ class CustomCertificate(pulumi.CustomResource):
             __props__.__dict__["certificate_authority_certificate"] = certificate_authority_certificate
             if private_key is None and not opts.urn:
                 raise TypeError("Missing required property 'private_key'")
-            __props__.__dict__["private_key"] = private_key
+            __props__.__dict__["private_key"] = None if private_key is None else pulumi.Output.secret(private_key)
             __props__.__dict__["team_id"] = team_id
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["privateKey"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(CustomCertificate, __self__).__init__(
             'vercel:index/customCertificate:CustomCertificate',
             resource_name,

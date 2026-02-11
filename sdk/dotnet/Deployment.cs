@@ -112,6 +112,10 @@ namespace Pulumiverse.Vercel
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "environment",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -153,7 +157,11 @@ namespace Pulumiverse.Vercel
         public InputMap<string> Environment
         {
             get => _environment ?? (_environment = new InputMap<string>());
-            set => _environment = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _environment = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         [Input("files")]
@@ -254,7 +262,11 @@ namespace Pulumiverse.Vercel
         public InputMap<string> Environment
         {
             get => _environment ?? (_environment = new InputMap<string>());
-            set => _environment = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _environment = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         [Input("files")]

@@ -34,6 +34,7 @@ __all__ = [
     'FirewallConfigManagedRulesetsOwaspRce',
     'FirewallConfigManagedRulesetsOwaspRfi',
     'FirewallConfigManagedRulesetsOwaspSd',
+    'FirewallConfigManagedRulesetsOwaspSf',
     'FirewallConfigManagedRulesetsOwaspSqli',
     'FirewallConfigManagedRulesetsOwaspXss',
     'FirewallConfigRules',
@@ -475,6 +476,7 @@ class FirewallConfigManagedRulesetsOwasp(dict):
                  rce: Optional['outputs.FirewallConfigManagedRulesetsOwaspRce'] = None,
                  rfi: Optional['outputs.FirewallConfigManagedRulesetsOwaspRfi'] = None,
                  sd: Optional['outputs.FirewallConfigManagedRulesetsOwaspSd'] = None,
+                 sf: Optional['outputs.FirewallConfigManagedRulesetsOwaspSf'] = None,
                  sqli: Optional['outputs.FirewallConfigManagedRulesetsOwaspSqli'] = None,
                  xss: Optional['outputs.FirewallConfigManagedRulesetsOwaspXss'] = None):
         """
@@ -486,6 +488,7 @@ class FirewallConfigManagedRulesetsOwasp(dict):
         :param 'FirewallConfigManagedRulesetsOwaspRceArgs' rce: Remote Code Execution Rules
         :param 'FirewallConfigManagedRulesetsOwaspRfiArgs' rfi: Remote File Inclusion Rules
         :param 'FirewallConfigManagedRulesetsOwaspSdArgs' sd: Scanner Detection Rules
+        :param 'FirewallConfigManagedRulesetsOwaspSfArgs' sf: Session Fixation Attack
         :param 'FirewallConfigManagedRulesetsOwaspSqliArgs' sqli: SQL Injection Rules
         :param 'FirewallConfigManagedRulesetsOwaspXssArgs' xss: Cross Site Scripting Rules
         """
@@ -505,6 +508,8 @@ class FirewallConfigManagedRulesetsOwasp(dict):
             pulumi.set(__self__, "rfi", rfi)
         if sd is not None:
             pulumi.set(__self__, "sd", sd)
+        if sf is not None:
+            pulumi.set(__self__, "sf", sf)
         if sqli is not None:
             pulumi.set(__self__, "sqli", sqli)
         if xss is not None:
@@ -573,6 +578,14 @@ class FirewallConfigManagedRulesetsOwasp(dict):
         Scanner Detection Rules
         """
         return pulumi.get(self, "sd")
+
+    @_builtins.property
+    @pulumi.getter
+    def sf(self) -> Optional['outputs.FirewallConfigManagedRulesetsOwaspSf']:
+        """
+        Session Fixation Attack
+        """
+        return pulumi.get(self, "sf")
 
     @_builtins.property
     @pulumi.getter
@@ -733,6 +746,26 @@ class FirewallConfigManagedRulesetsOwaspRfi(dict):
 
 @pulumi.output_type
 class FirewallConfigManagedRulesetsOwaspSd(dict):
+    def __init__(__self__, *,
+                 action: _builtins.str,
+                 active: Optional[_builtins.bool] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> _builtins.str:
+        return pulumi.get(self, "action")
+
+    @_builtins.property
+    @pulumi.getter
+    def active(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "active")
+
+
+@pulumi.output_type
+class FirewallConfigManagedRulesetsOwaspSf(dict):
     def __init__(__self__, *,
                  action: _builtins.str,
                  active: Optional[_builtins.bool] = None):

@@ -326,6 +326,8 @@ class EdgeConfigToken(pulumi.CustomResource):
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["connection_string"] = None
             __props__.__dict__["token"] = None
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["connectionString", "token"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(EdgeConfigToken, __self__).__init__(
             'vercel:index/edgeConfigToken:EdgeConfigToken',
             resource_name,

@@ -19,19 +19,34 @@ __all__ = ['AttackChallengeModeArgs', 'AttackChallengeMode']
 @pulumi.input_type
 class AttackChallengeModeArgs:
     def __init__(__self__, *,
+                 attack_mode_active_until: pulumi.Input[_builtins.int],
                  enabled: pulumi.Input[_builtins.bool],
                  project_id: pulumi.Input[_builtins.str],
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a AttackChallengeMode resource.
+        :param pulumi.Input[_builtins.int] attack_mode_active_until: Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
         :param pulumi.Input[_builtins.bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
+        pulumi.set(__self__, "attack_mode_active_until", attack_mode_active_until)
         pulumi.set(__self__, "enabled", enabled)
         pulumi.set(__self__, "project_id", project_id)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+
+    @_builtins.property
+    @pulumi.getter(name="attackModeActiveUntil")
+    def attack_mode_active_until(self) -> pulumi.Input[_builtins.int]:
+        """
+        Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        """
+        return pulumi.get(self, "attack_mode_active_until")
+
+    @attack_mode_active_until.setter
+    def attack_mode_active_until(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "attack_mode_active_until", value)
 
     @_builtins.property
     @pulumi.getter
@@ -73,21 +88,37 @@ class AttackChallengeModeArgs:
 @pulumi.input_type
 class _AttackChallengeModeState:
     def __init__(__self__, *,
+                 attack_mode_active_until: Optional[pulumi.Input[_builtins.int]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AttackChallengeMode resources.
+        :param pulumi.Input[_builtins.int] attack_mode_active_until: Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
         :param pulumi.Input[_builtins.bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
+        if attack_mode_active_until is not None:
+            pulumi.set(__self__, "attack_mode_active_until", attack_mode_active_until)
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+
+    @_builtins.property
+    @pulumi.getter(name="attackModeActiveUntil")
+    def attack_mode_active_until(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        """
+        return pulumi.get(self, "attack_mode_active_until")
+
+    @attack_mode_active_until.setter
+    def attack_mode_active_until(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "attack_mode_active_until", value)
 
     @_builtins.property
     @pulumi.getter
@@ -132,6 +163,7 @@ class AttackChallengeMode(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 attack_mode_active_until: Optional[pulumi.Input[_builtins.int]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
@@ -140,6 +172,8 @@ class AttackChallengeMode(pulumi.CustomResource):
         Provides an Attack Challenge Mode resource.
 
         Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
+
+        Note: When attack_mode_active_until is reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.
 
         ## Example Usage
 
@@ -150,7 +184,8 @@ class AttackChallengeMode(pulumi.CustomResource):
         example = vercel.Project("example", name="example-project")
         example_attack_challenge_mode = vercel.AttackChallengeMode("example",
             project_id=example.id,
-            enabled=True)
+            enabled=True,
+            attack_mode_active_until=attack_mode_active_until)
         ```
 
         ## Import
@@ -167,6 +202,7 @@ class AttackChallengeMode(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.int] attack_mode_active_until: Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
         :param pulumi.Input[_builtins.bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -182,6 +218,8 @@ class AttackChallengeMode(pulumi.CustomResource):
 
         Attack Challenge Mode prevent malicious traffic by showing a verification challenge for every visitor.
 
+        Note: When attack_mode_active_until is reached, Vercel automatically disables Attack Challenge Mode. This will cause enabled to drift to false.
+
         ## Example Usage
 
         ```python
@@ -191,7 +229,8 @@ class AttackChallengeMode(pulumi.CustomResource):
         example = vercel.Project("example", name="example-project")
         example_attack_challenge_mode = vercel.AttackChallengeMode("example",
             project_id=example.id,
-            enabled=True)
+            enabled=True,
+            attack_mode_active_until=attack_mode_active_until)
         ```
 
         ## Import
@@ -221,6 +260,7 @@ class AttackChallengeMode(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 attack_mode_active_until: Optional[pulumi.Input[_builtins.int]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
@@ -233,6 +273,9 @@ class AttackChallengeMode(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = AttackChallengeModeArgs.__new__(AttackChallengeModeArgs)
 
+            if attack_mode_active_until is None and not opts.urn:
+                raise TypeError("Missing required property 'attack_mode_active_until'")
+            __props__.__dict__["attack_mode_active_until"] = attack_mode_active_until
             if enabled is None and not opts.urn:
                 raise TypeError("Missing required property 'enabled'")
             __props__.__dict__["enabled"] = enabled
@@ -250,6 +293,7 @@ class AttackChallengeMode(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            attack_mode_active_until: Optional[pulumi.Input[_builtins.int]] = None,
             enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             project_id: Optional[pulumi.Input[_builtins.str]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'AttackChallengeMode':
@@ -260,6 +304,7 @@ class AttackChallengeMode(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.int] attack_mode_active_until: Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
         :param pulumi.Input[_builtins.bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -268,10 +313,19 @@ class AttackChallengeMode(pulumi.CustomResource):
 
         __props__ = _AttackChallengeModeState.__new__(_AttackChallengeModeState)
 
+        __props__.__dict__["attack_mode_active_until"] = attack_mode_active_until
         __props__.__dict__["enabled"] = enabled
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["team_id"] = team_id
         return AttackChallengeMode(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="attackModeActiveUntil")
+    def attack_mode_active_until(self) -> pulumi.Output[_builtins.int]:
+        """
+        Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        """
+        return pulumi.get(self, "attack_mode_active_until")
 
     @_builtins.property
     @pulumi.getter

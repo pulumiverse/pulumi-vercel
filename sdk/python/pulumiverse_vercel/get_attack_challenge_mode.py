@@ -26,7 +26,10 @@ class GetAttackChallengeModeResult:
     """
     A collection of values returned by getAttackChallengeMode.
     """
-    def __init__(__self__, enabled=None, id=None, project_id=None, team_id=None):
+    def __init__(__self__, attack_mode_active_until=None, enabled=None, id=None, project_id=None, team_id=None):
+        if attack_mode_active_until and not isinstance(attack_mode_active_until, int):
+            raise TypeError("Expected argument 'attack_mode_active_until' to be a int")
+        pulumi.set(__self__, "attack_mode_active_until", attack_mode_active_until)
         if enabled and not isinstance(enabled, bool):
             raise TypeError("Expected argument 'enabled' to be a bool")
         pulumi.set(__self__, "enabled", enabled)
@@ -39,6 +42,14 @@ class GetAttackChallengeModeResult:
         if team_id and not isinstance(team_id, str):
             raise TypeError("Expected argument 'team_id' to be a str")
         pulumi.set(__self__, "team_id", team_id)
+
+    @_builtins.property
+    @pulumi.getter(name="attackModeActiveUntil")
+    def attack_mode_active_until(self) -> _builtins.int:
+        """
+        Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+        """
+        return pulumi.get(self, "attack_mode_active_until")
 
     @_builtins.property
     @pulumi.getter
@@ -79,6 +90,7 @@ class AwaitableGetAttackChallengeModeResult(GetAttackChallengeModeResult):
         if False:
             yield self
         return GetAttackChallengeModeResult(
+            attack_mode_active_until=self.attack_mode_active_until,
             enabled=self.enabled,
             id=self.id,
             project_id=self.project_id,
@@ -113,6 +125,7 @@ def get_attack_challenge_mode(project_id: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getAttackChallengeMode:getAttackChallengeMode', __args__, opts=opts, typ=GetAttackChallengeModeResult).value
 
     return AwaitableGetAttackChallengeModeResult(
+        attack_mode_active_until=pulumi.get(__ret__, 'attack_mode_active_until'),
         enabled=pulumi.get(__ret__, 'enabled'),
         id=pulumi.get(__ret__, 'id'),
         project_id=pulumi.get(__ret__, 'project_id'),
@@ -144,6 +157,7 @@ def get_attack_challenge_mode_output(project_id: Optional[pulumi.Input[_builtins
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getAttackChallengeMode:getAttackChallengeMode', __args__, opts=opts, typ=GetAttackChallengeModeResult)
     return __ret__.apply(lambda __response__: GetAttackChallengeModeResult(
+        attack_mode_active_until=pulumi.get(__response__, 'attack_mode_active_until'),
         enabled=pulumi.get(__response__, 'enabled'),
         id=pulumi.get(__response__, 'id'),
         project_id=pulumi.get(__response__, 'project_id'),
