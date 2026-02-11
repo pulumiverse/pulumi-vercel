@@ -123,6 +123,11 @@ func NewEdgeConfigToken(ctx *pulumi.Context,
 	if args.Label == nil {
 		return nil, errors.New("invalid value for required argument 'Label'")
 	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"connectionString",
+		"token",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource EdgeConfigToken
 	err := ctx.RegisterResource("vercel:index/edgeConfigToken:EdgeConfigToken", name, args, &resource, opts...)

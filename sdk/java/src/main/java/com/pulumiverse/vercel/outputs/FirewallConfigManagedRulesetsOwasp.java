@@ -12,6 +12,7 @@ import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspPhp;
 import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspRce;
 import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspRfi;
 import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspSd;
+import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspSf;
 import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspSqli;
 import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsOwaspXss;
 import java.util.Objects;
@@ -60,6 +61,11 @@ public final class FirewallConfigManagedRulesetsOwasp {
      * 
      */
     private @Nullable FirewallConfigManagedRulesetsOwaspSd sd;
+    /**
+     * @return Session Fixation Attack
+     * 
+     */
+    private @Nullable FirewallConfigManagedRulesetsOwaspSf sf;
     /**
      * @return SQL Injection Rules
      * 
@@ -129,6 +135,13 @@ public final class FirewallConfigManagedRulesetsOwasp {
         return Optional.ofNullable(this.sd);
     }
     /**
+     * @return Session Fixation Attack
+     * 
+     */
+    public Optional<FirewallConfigManagedRulesetsOwaspSf> sf() {
+        return Optional.ofNullable(this.sf);
+    }
+    /**
      * @return SQL Injection Rules
      * 
      */
@@ -160,6 +173,7 @@ public final class FirewallConfigManagedRulesetsOwasp {
         private @Nullable FirewallConfigManagedRulesetsOwaspRce rce;
         private @Nullable FirewallConfigManagedRulesetsOwaspRfi rfi;
         private @Nullable FirewallConfigManagedRulesetsOwaspSd sd;
+        private @Nullable FirewallConfigManagedRulesetsOwaspSf sf;
         private @Nullable FirewallConfigManagedRulesetsOwaspSqli sqli;
         private @Nullable FirewallConfigManagedRulesetsOwaspXss xss;
         public Builder() {}
@@ -173,6 +187,7 @@ public final class FirewallConfigManagedRulesetsOwasp {
     	      this.rce = defaults.rce;
     	      this.rfi = defaults.rfi;
     	      this.sd = defaults.sd;
+    	      this.sf = defaults.sf;
     	      this.sqli = defaults.sqli;
     	      this.xss = defaults.xss;
         }
@@ -226,6 +241,12 @@ public final class FirewallConfigManagedRulesetsOwasp {
             return this;
         }
         @CustomType.Setter
+        public Builder sf(@Nullable FirewallConfigManagedRulesetsOwaspSf sf) {
+
+            this.sf = sf;
+            return this;
+        }
+        @CustomType.Setter
         public Builder sqli(@Nullable FirewallConfigManagedRulesetsOwaspSqli sqli) {
 
             this.sqli = sqli;
@@ -247,6 +268,7 @@ public final class FirewallConfigManagedRulesetsOwasp {
             _resultValue.rce = rce;
             _resultValue.rfi = rfi;
             _resultValue.sd = sd;
+            _resultValue.sf = sf;
             _resultValue.sqli = sqli;
             _resultValue.xss = xss;
             return _resultValue;

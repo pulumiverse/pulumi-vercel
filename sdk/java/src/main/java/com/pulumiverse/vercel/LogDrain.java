@@ -288,6 +288,7 @@ public class LogDrain extends com.pulumi.resources.CustomResource {
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/pulumiverse")
             .additionalSecretOutputs(List.of(
+                "headers",
                 "secret"
             ))
             .build();

@@ -62,6 +62,12 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<Inputs.FirewallConfigManagedRulesetsOwaspSdGetArgs>? Sd { get; set; }
 
         /// <summary>
+        /// Session Fixation Attack
+        /// </summary>
+        [Input("sf")]
+        public Input<Inputs.FirewallConfigManagedRulesetsOwaspSfGetArgs>? Sf { get; set; }
+
+        /// <summary>
         /// SQL Injection Rules
         /// </summary>
         [Input("sqli")]

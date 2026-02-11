@@ -140,10 +140,14 @@ func NewLogDrain(ctx *pulumi.Context,
 	if args.Sources == nil {
 		return nil, errors.New("invalid value for required argument 'Sources'")
 	}
+	if args.Headers != nil {
+		args.Headers = pulumi.ToSecret(args.Headers).(pulumi.StringMapInput)
+	}
 	if args.Secret != nil {
 		args.Secret = pulumi.ToSecret(args.Secret).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"headers",
 		"secret",
 	})
 	opts = append(opts, secrets)

@@ -47,6 +47,10 @@ export interface GetAttackChallengeModeArgs {
  */
 export interface GetAttackChallengeModeResult {
     /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     */
+    readonly attackModeActiveUntil: number;
+    /**
      * Whether Attack Challenge Mode is enabled or not.
      */
     readonly enabled: boolean;

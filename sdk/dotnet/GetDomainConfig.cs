@@ -53,20 +53,20 @@ namespace Pulumiverse.Vercel
         ///     //
         ///     // External DNS provider example
         ///     // 
-        ///     var exampleComA = new Aws.Route53.Record("example_com_a", new()
+        ///     var exampleComA = new Aws.Index.Route53Record("example_com_a", new()
         ///     {
         ///         ZoneId = "...zone_id_from_somewhere...",
         ///         Name = exampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.Domain),
-        ///         Type = Aws.Route53.RecordType.A,
+        ///         Type = "A",
         ///         Ttl = 300,
         ///         Records = exampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.RecommendedIpv4s),
         ///     });
         /// 
-        ///     var wwwExampleComCname = new Aws.Route53.Record("www_example_com_cname", new()
+        ///     var wwwExampleComCname = new Aws.Index.Route53Record("www_example_com_cname", new()
         ///     {
         ///         ZoneId = "...zone_id_from_somewhere...",
         ///         Name = wwwExampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.Domain),
-        ///         Type = Aws.Route53.RecordType.CNAME,
+        ///         Type = "CNAME",
         ///         Ttl = 300,
         ///         Records = new[]
         ///         {
@@ -121,20 +121,20 @@ namespace Pulumiverse.Vercel
         ///     //
         ///     // External DNS provider example
         ///     // 
-        ///     var exampleComA = new Aws.Route53.Record("example_com_a", new()
+        ///     var exampleComA = new Aws.Index.Route53Record("example_com_a", new()
         ///     {
         ///         ZoneId = "...zone_id_from_somewhere...",
         ///         Name = exampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.Domain),
-        ///         Type = Aws.Route53.RecordType.A,
+        ///         Type = "A",
         ///         Ttl = 300,
         ///         Records = exampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.RecommendedIpv4s),
         ///     });
         /// 
-        ///     var wwwExampleComCname = new Aws.Route53.Record("www_example_com_cname", new()
+        ///     var wwwExampleComCname = new Aws.Index.Route53Record("www_example_com_cname", new()
         ///     {
         ///         ZoneId = "...zone_id_from_somewhere...",
         ///         Name = wwwExampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.Domain),
-        ///         Type = Aws.Route53.RecordType.CNAME,
+        ///         Type = "CNAME",
         ///         Ttl = 300,
         ///         Records = new[]
         ///         {
@@ -189,20 +189,20 @@ namespace Pulumiverse.Vercel
         ///     //
         ///     // External DNS provider example
         ///     // 
-        ///     var exampleComA = new Aws.Route53.Record("example_com_a", new()
+        ///     var exampleComA = new Aws.Index.Route53Record("example_com_a", new()
         ///     {
         ///         ZoneId = "...zone_id_from_somewhere...",
         ///         Name = exampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.Domain),
-        ///         Type = Aws.Route53.RecordType.A,
+        ///         Type = "A",
         ///         Ttl = 300,
         ///         Records = exampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.RecommendedIpv4s),
         ///     });
         /// 
-        ///     var wwwExampleComCname = new Aws.Route53.Record("www_example_com_cname", new()
+        ///     var wwwExampleComCname = new Aws.Index.Route53Record("www_example_com_cname", new()
         ///     {
         ///         ZoneId = "...zone_id_from_somewhere...",
         ///         Name = wwwExampleCom.Apply(getDomainConfigResult =&gt; getDomainConfigResult.Domain),
-        ///         Type = Aws.Route53.RecordType.CNAME,
+        ///         Type = "CNAME",
         ///         Ttl = 300,
         ///         Records = new[]
         ///         {

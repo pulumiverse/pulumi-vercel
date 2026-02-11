@@ -146,6 +146,10 @@ export interface FirewallConfigManagedRulesetsOwasp {
      */
     sd?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspSd>;
     /**
+     * Session Fixation Attack
+     */
+    sf?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspSf>;
+    /**
      * SQL Injection Rules
      */
     sqli?: pulumi.Input<inputs.FirewallConfigManagedRulesetsOwaspSqli>;
@@ -191,6 +195,11 @@ export interface FirewallConfigManagedRulesetsOwaspRfi {
 }
 
 export interface FirewallConfigManagedRulesetsOwaspSd {
+    action: pulumi.Input<string>;
+    active?: pulumi.Input<boolean>;
+}
+
+export interface FirewallConfigManagedRulesetsOwaspSf {
     action: pulumi.Input<string>;
     active?: pulumi.Input<boolean>;
 }

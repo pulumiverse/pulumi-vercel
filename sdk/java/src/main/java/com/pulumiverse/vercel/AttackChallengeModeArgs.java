@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,6 +17,21 @@ import javax.annotation.Nullable;
 public final class AttackChallengeModeArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final AttackChallengeModeArgs Empty = new AttackChallengeModeArgs();
+
+    /**
+     * Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    @Import(name="attackModeActiveUntil", required=true)
+    private Output<Integer> attackModeActiveUntil;
+
+    /**
+     * @return Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+     * 
+     */
+    public Output<Integer> attackModeActiveUntil() {
+        return this.attackModeActiveUntil;
+    }
 
     /**
      * Whether Attack Challenge Mode is enabled or not.
@@ -65,6 +81,7 @@ public final class AttackChallengeModeArgs extends com.pulumi.resources.Resource
     private AttackChallengeModeArgs() {}
 
     private AttackChallengeModeArgs(AttackChallengeModeArgs $) {
+        this.attackModeActiveUntil = $.attackModeActiveUntil;
         this.enabled = $.enabled;
         this.projectId = $.projectId;
         this.teamId = $.teamId;
@@ -86,6 +103,27 @@ public final class AttackChallengeModeArgs extends com.pulumi.resources.Resource
 
         public Builder(AttackChallengeModeArgs defaults) {
             $ = new AttackChallengeModeArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param attackModeActiveUntil Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder attackModeActiveUntil(Output<Integer> attackModeActiveUntil) {
+            $.attackModeActiveUntil = attackModeActiveUntil;
+            return this;
+        }
+
+        /**
+         * @param attackModeActiveUntil Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder attackModeActiveUntil(Integer attackModeActiveUntil) {
+            return attackModeActiveUntil(Output.of(attackModeActiveUntil));
         }
 
         /**
@@ -152,6 +190,9 @@ public final class AttackChallengeModeArgs extends com.pulumi.resources.Resource
         }
 
         public AttackChallengeModeArgs build() {
+            if ($.attackModeActiveUntil == null) {
+                throw new MissingRequiredPropertyException("AttackChallengeModeArgs", "attackModeActiveUntil");
+            }
             if ($.enabled == null) {
                 throw new MissingRequiredPropertyException("AttackChallengeModeArgs", "enabled");
             }

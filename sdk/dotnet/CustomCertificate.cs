@@ -98,6 +98,10 @@ namespace Pulumiverse.Vercel
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "privateKey",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -133,11 +137,21 @@ namespace Pulumiverse.Vercel
         [Input("certificateAuthorityCertificate", required: true)]
         public Input<string> CertificateAuthorityCertificate { get; set; } = null!;
 
+        [Input("privateKey", required: true)]
+        private Input<string>? _privateKey;
+
         /// <summary>
         /// The private key of the Certificate. Should be in PEM format.
         /// </summary>
-        [Input("privateKey", required: true)]
-        public Input<string> PrivateKey { get; set; } = null!;
+        public Input<string>? PrivateKey
+        {
+            get => _privateKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _privateKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The ID of the team the Custom Certificate should exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -165,11 +179,21 @@ namespace Pulumiverse.Vercel
         [Input("certificateAuthorityCertificate")]
         public Input<string>? CertificateAuthorityCertificate { get; set; }
 
+        [Input("privateKey")]
+        private Input<string>? _privateKey;
+
         /// <summary>
         /// The private key of the Certificate. Should be in PEM format.
         /// </summary>
-        [Input("privateKey")]
-        public Input<string>? PrivateKey { get; set; }
+        public Input<string>? PrivateKey
+        {
+            get => _privateKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _privateKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The ID of the team the Custom Certificate should exist under. Required when configuring a team resource if a default team has not been set in the provider.

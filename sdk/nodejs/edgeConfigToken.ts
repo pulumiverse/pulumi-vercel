@@ -143,6 +143,8 @@ export class EdgeConfigToken extends pulumi.CustomResource {
             resourceInputs["token"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["connectionString", "token"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(EdgeConfigToken.__pulumiType, name, resourceInputs, opts);
     }
 }

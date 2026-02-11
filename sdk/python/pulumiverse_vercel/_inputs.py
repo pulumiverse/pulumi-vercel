@@ -51,6 +51,8 @@ __all__ = [
     'FirewallConfigManagedRulesetsOwaspRfiArgsDict',
     'FirewallConfigManagedRulesetsOwaspSdArgs',
     'FirewallConfigManagedRulesetsOwaspSdArgsDict',
+    'FirewallConfigManagedRulesetsOwaspSfArgs',
+    'FirewallConfigManagedRulesetsOwaspSfArgsDict',
     'FirewallConfigManagedRulesetsOwaspSqliArgs',
     'FirewallConfigManagedRulesetsOwaspSqliArgsDict',
     'FirewallConfigManagedRulesetsOwaspXssArgs',
@@ -716,6 +718,10 @@ if not MYPY:
         """
         Scanner Detection Rules
         """
+        sf: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgsDict']]
+        """
+        Session Fixation Attack
+        """
         sqli: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSqliArgsDict']]
         """
         SQL Injection Rules
@@ -738,6 +744,7 @@ class FirewallConfigManagedRulesetsOwaspArgs:
                  rce: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspRceArgs']] = None,
                  rfi: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspRfiArgs']] = None,
                  sd: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspSdArgs']] = None,
+                 sf: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgs']] = None,
                  sqli: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspSqliArgs']] = None,
                  xss: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspXssArgs']] = None):
         """
@@ -749,6 +756,7 @@ class FirewallConfigManagedRulesetsOwaspArgs:
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspRceArgs'] rce: Remote Code Execution Rules
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspRfiArgs'] rfi: Remote File Inclusion Rules
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspSdArgs'] sd: Scanner Detection Rules
+        :param pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgs'] sf: Session Fixation Attack
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspSqliArgs'] sqli: SQL Injection Rules
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspXssArgs'] xss: Cross Site Scripting Rules
         """
@@ -768,6 +776,8 @@ class FirewallConfigManagedRulesetsOwaspArgs:
             pulumi.set(__self__, "rfi", rfi)
         if sd is not None:
             pulumi.set(__self__, "sd", sd)
+        if sf is not None:
+            pulumi.set(__self__, "sf", sf)
         if sqli is not None:
             pulumi.set(__self__, "sqli", sqli)
         if xss is not None:
@@ -868,6 +878,18 @@ class FirewallConfigManagedRulesetsOwaspArgs:
     @sd.setter
     def sd(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspSdArgs']]):
         pulumi.set(self, "sd", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def sf(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgs']]:
+        """
+        Session Fixation Attack
+        """
+        return pulumi.get(self, "sf")
+
+    @sf.setter
+    def sf(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgs']]):
+        pulumi.set(self, "sf", value)
 
     @_builtins.property
     @pulumi.getter
@@ -1148,6 +1170,41 @@ elif False:
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspSdArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[_builtins.str],
+                 active: Optional[pulumi.Input[_builtins.bool]] = None):
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def active(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        return pulumi.get(self, "active")
+
+    @active.setter
+    def active(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "active", value)
+
+
+if not MYPY:
+    class FirewallConfigManagedRulesetsOwaspSfArgsDict(TypedDict):
+        action: pulumi.Input[_builtins.str]
+        active: NotRequired[pulumi.Input[_builtins.bool]]
+elif False:
+    FirewallConfigManagedRulesetsOwaspSfArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class FirewallConfigManagedRulesetsOwaspSfArgs:
     def __init__(__self__, *,
                  action: pulumi.Input[_builtins.str],
                  active: Optional[pulumi.Input[_builtins.bool]] = None):

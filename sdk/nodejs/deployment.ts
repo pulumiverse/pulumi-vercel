@@ -117,7 +117,7 @@ export class Deployment extends pulumi.CustomResource {
             }
             resourceInputs["customEnvironmentId"] = args?.customEnvironmentId;
             resourceInputs["deleteOnDestroy"] = args?.deleteOnDestroy;
-            resourceInputs["environment"] = args?.environment;
+            resourceInputs["environment"] = args?.environment ? pulumi.secret(args.environment) : undefined;
             resourceInputs["files"] = args?.files;
             resourceInputs["meta"] = args?.meta;
             resourceInputs["pathPrefix"] = args?.pathPrefix;
@@ -130,6 +130,8 @@ export class Deployment extends pulumi.CustomResource {
             resourceInputs["url"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["environment"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Deployment.__pulumiType, name, resourceInputs, opts);
     }
 }

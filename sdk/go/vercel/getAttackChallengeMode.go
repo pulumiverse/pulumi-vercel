@@ -60,6 +60,8 @@ type LookupAttackChallengeModeArgs struct {
 
 // A collection of values returned by getAttackChallengeMode.
 type LookupAttackChallengeModeResult struct {
+	// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+	AttackModeActiveUntil int `pulumi:"attackModeActiveUntil"`
 	// Whether Attack Challenge Mode is enabled or not.
 	Enabled bool `pulumi:"enabled"`
 	// The resource identifier.
@@ -104,6 +106,11 @@ func (o LookupAttackChallengeModeResultOutput) ToLookupAttackChallengeModeResult
 
 func (o LookupAttackChallengeModeResultOutput) ToLookupAttackChallengeModeResultOutputWithContext(ctx context.Context) LookupAttackChallengeModeResultOutput {
 	return o
+}
+
+// Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
+func (o LookupAttackChallengeModeResultOutput) AttackModeActiveUntil() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupAttackChallengeModeResult) int { return v.AttackModeActiveUntil }).(pulumi.IntOutput)
 }
 
 // Whether Attack Challenge Mode is enabled or not.
