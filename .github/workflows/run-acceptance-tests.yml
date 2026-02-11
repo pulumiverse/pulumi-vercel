@@ -91,6 +91,9 @@ jobs:
         repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
         token: ${{ secrets.GITHUB_TOKEN }}
   lint:
+    permissions:
+      pull-requests: write
+      id-token: write
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
     name: lint
