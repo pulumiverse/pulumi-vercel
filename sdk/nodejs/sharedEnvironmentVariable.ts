@@ -5,12 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * Provides a Shared Environment Variable resource.
- *
- * A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
- *
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
- *
  * ## Example Usage
  *
  * ```typescript
@@ -106,9 +100,14 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
      */
     declare public readonly teamId: pulumi.Output<string>;
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      */
-    declare public readonly value: pulumi.Output<string>;
+    declare public readonly value: pulumi.Output<string | undefined>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     */
+    declare public readonly valueWo: pulumi.Output<string | undefined>;
 
     /**
      * Create a SharedEnvironmentVariable resource with the given unique name, arguments, and options.
@@ -131,6 +130,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["targets"] = state?.targets;
             resourceInputs["teamId"] = state?.teamId;
             resourceInputs["value"] = state?.value;
+            resourceInputs["valueWo"] = state?.valueWo;
         } else {
             const args = argsOrState as SharedEnvironmentVariableArgs | undefined;
             if (args?.key === undefined && !opts.urn) {
@@ -138,9 +138,6 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             }
             if (args?.projectIds === undefined && !opts.urn) {
                 throw new Error("Missing required property 'projectIds'");
-            }
-            if (args?.value === undefined && !opts.urn) {
-                throw new Error("Missing required property 'value'");
             }
             resourceInputs["applyToAllCustomEnvironments"] = args?.applyToAllCustomEnvironments;
             resourceInputs["comment"] = args?.comment;
@@ -150,9 +147,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["targets"] = args?.targets;
             resourceInputs["teamId"] = args?.teamId;
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
+            resourceInputs["valueWo"] = args?.valueWo ? pulumi.secret(args.valueWo) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["value"] };
+        const secretOpts = { additionalSecretOutputs: ["value", "valueWo"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(SharedEnvironmentVariable.__pulumiType, name, resourceInputs, opts);
     }
@@ -191,9 +189,14 @@ export interface SharedEnvironmentVariableState {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      */
     value?: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     */
+    valueWo?: pulumi.Input<string>;
 }
 
 /**
@@ -229,7 +232,12 @@ export interface SharedEnvironmentVariableArgs {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      */
-    value: pulumi.Input<string>;
+    value?: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     */
+    valueWo?: pulumi.Input<string>;
 }

@@ -5,38 +5,18 @@ backend = "asdf:dotnet"
 [[tools."github:pulumi/pulumictl"]]
 version = "0.0.50"
 backend = "github:pulumi/pulumictl"
-"platforms.linux-arm64" = { checksum = "sha256:c1d58544bee6f67ba67611faaab4422840934385d043c5be44e1662c35c7fee4", url = "https://github.com/pulumi/pulumictl/releases/download/v0.0.50/pulumictl-v0.0.50-linux-arm64.tar.gz", url_api = "https://api.github.com/repos/pulumi/pulumictl/releases/assets/278054512"}
-"platforms.linux-x64" = { checksum = "sha256:a988418240d3a985bdcb9753b7c65ba4b06608deb359dc2942cb8c9374abc164", url = "https://github.com/pulumi/pulumictl/releases/download/v0.0.50/pulumictl-v0.0.50-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/pulumi/pulumictl/releases/assets/278054496"}
-"platforms.macos-arm64" = { checksum = "sha256:0010e993bc9aac1901b9c86291efa678aa317d094d57e2e927359d51e5247b68", url = "https://github.com/pulumi/pulumictl/releases/download/v0.0.50/pulumictl-v0.0.50-darwin-arm64.tar.gz", url_api = "https://api.github.com/repos/pulumi/pulumictl/releases/assets/278054511"}
-"platforms.macos-x64" = { checksum = "sha256:8b528f32d83b86d38a85882ab0d955453977342b85bd5f0e25bcf5f2904a9b13", url = "https://github.com/pulumi/pulumictl/releases/download/v0.0.50/pulumictl-v0.0.50-darwin-amd64.tar.gz", url_api = "https://api.github.com/repos/pulumi/pulumictl/releases/assets/278054510"}
-"platforms.windows-x64" = { checksum = "sha256:f9c9c6bf54355952d45bcec1235be8e2a245a083f75a589257b8f380515daee2", url = "https://github.com/pulumi/pulumictl/releases/download/v0.0.50/pulumictl-v0.0.50-windows-amd64.zip", url_api = "https://api.github.com/repos/pulumi/pulumictl/releases/assets/278054497"}
 
 [[tools."github:pulumi/schema-tools"]]
 version = "0.6.0"
 backend = "github:pulumi/schema-tools"
-"platforms.linux-arm64" = { checksum = "sha256:8b79500434e99c04bb2aedf38a0740e12fb20d744d99b8816bb54bcd93fdf2f3", url = "https://github.com/pulumi/schema-tools/releases/download/v0.6.0/schema-tools-v0.6.0-linux-arm64.tar.gz", url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/118725906"}
-"platforms.linux-x64" = { checksum = "sha256:07c3a2e52484b8936d20d4b71f9ff7427c38af6c5c4bbe764b3a19354d5a92e2", url = "https://github.com/pulumi/schema-tools/releases/download/v0.6.0/schema-tools-v0.6.0-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/118725905"}
-"platforms.macos-arm64" = { checksum = "sha256:d11df5c890252a6dbb0c92a011cb9a3d5c48e92e472c7dae5b868a216b3e8ea4", url = "https://github.com/pulumi/schema-tools/releases/download/v0.6.0/schema-tools-v0.6.0-darwin-arm64.tar.gz", url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/118725919"}
-"platforms.macos-x64" = { checksum = "sha256:962b7f1d008990238d8f74e1c29c14fdd6d85893a39d1729e401620740a0b17d", url = "https://github.com/pulumi/schema-tools/releases/download/v0.6.0/schema-tools-v0.6.0-darwin-amd64.tar.gz", url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/118725922"}
-"platforms.windows-x64" = { checksum = "sha256:032e60b3455583a3683c2a0a81576525d341375f00f304b63ac3fbba77edfbb1", url = "https://github.com/pulumi/schema-tools/releases/download/v0.6.0/schema-tools-v0.6.0-windows-amd64.zip", url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/118725912"}
 
 [[tools.go]]
 version = "1.24.8"
 backend = "core:go"
-"platforms.linux-arm64" = { checksum = "sha256:38ac33b4cfa41e8a32132de7a87c6db49277ab5c0de1412512484db1ed77637e", url = "https://dl.google.com/go/go1.24.8.linux-arm64.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:6842c516ca66c89d648a7f1dbe28e28c47b61b59f8f06633eb2ceb1188e9251d", url = "https://dl.google.com/go/go1.24.8.linux-amd64.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:0db27ff8c3e35fd93ccf9d31dd88a0f9c6454e8d9b30c28bd88a70b930cc4240", url = "https://dl.google.com/go/go1.24.8.darwin-arm64.tar.gz"}
-"platforms.macos-x64" = { checksum = "sha256:ecb3cecb1e0bcfb24e50039701f9505b09744cc4730a8b9fc512b0a3b47cf232", url = "https://dl.google.com/go/go1.24.8.darwin-amd64.tar.gz"}
-"platforms.windows-x64" = { checksum = "sha256:0de7b65422d9377404a22f3903f17b20e4065f6c43e136ae2de16494c8c6b057", url = "https://dl.google.com/go/go1.24.8.windows-amd64.zip"}
 
 [[tools.golangci-lint]]
 version = "2.6.2"
 backend = "aqua:golangci/golangci-lint"
-"platforms.linux-arm64" = { checksum = "sha256:a2f9c6fe1800d0a6ba2a94ada95debe2c498a636ffc12308ee03022f97be1f33", url = "https://github.com/golangci/golangci-lint/releases/download/v2.6.2/golangci-lint-2.6.2-linux-arm64.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:499c864b5fd9841c4fa8e80b5e2be30f73f085cf186f1b111ff81a2783b7de12", url = "https://github.com/golangci/golangci-lint/releases/download/v2.6.2/golangci-lint-2.6.2-linux-amd64.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:6164de2b9a9e6b4b8deea57c5072ada5d6d41bf5cca0b2f744e7b3d6e818fe0d", url = "https://github.com/golangci/golangci-lint/releases/download/v2.6.2/golangci-lint-2.6.2-darwin-arm64.tar.gz"}
-"platforms.macos-x64" = { checksum = "sha256:ad9ad19db485d224441a77453d2a18c009184408eea92ab479d3ee5c975889f8", url = "https://github.com/golangci/golangci-lint/releases/download/v2.6.2/golangci-lint-2.6.2-darwin-amd64.tar.gz"}
-"platforms.windows-x64" = { checksum = "sha256:c7f1d036892411148397fe5dae0cefb8736160b5269c4d5b081232d7b83aefcb", url = "https://github.com/golangci/golangci-lint/releases/download/v2.6.2/golangci-lint-2.6.2-windows-amd64.zip"}
 
 [[tools.gradle]]
 version = "7.6.6"
@@ -45,16 +25,10 @@ backend = "aqua:gradle/gradle"
 [[tools.java]]
 version = "corretto-17.0.18.9.1"
 backend = "core:java"
-"platforms.macos-arm64" = { checksum = "sha256:00feafc025457a04e486042dd7db3c97294f033e438b69b46b5e03669abdf233", url = "https://corretto.aws/downloads/resources/17.0.18.9.1/amazon-corretto-17.0.18.9.1-macosx-aarch64.tar.gz"}
 
 [[tools.node]]
 version = "20.19.5"
 backend = "core:node"
-"platforms.linux-arm64" = { checksum = "sha256:a08b513de673853ca16395ec461a104a99bf0e941ebb7baedb98b30cd221d8cc", url = "https://nodejs.org/dist/v20.19.5/node-v20.19.5-linux-arm64.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:4eba5fbe1fb10753bc06e42f001a91c5cec16798b7764a3e9257adc59af47fe1", url = "https://nodejs.org/dist/v20.19.5/node-v20.19.5-linux-x64.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:cfed7503d8d99fbcf2f52e408ec52f616058eb0867b34dbc3437259993ef5cba", url = "https://nodejs.org/dist/v20.19.5/node-v20.19.5-darwin-arm64.tar.gz"}
-"platforms.macos-x64" = { checksum = "sha256:f9cff058f2766d4d0631dc69b5f7f27664b3a42ff186e25ac7e1ac269af7e696", url = "https://nodejs.org/dist/v20.19.5/node-v20.19.5-darwin-x64.tar.gz"}
-"platforms.windows-x64" = { checksum = "sha256:c48159529572a5a947eef2d55d6485dfdc4ce8e67216402e2f6de52ad5d95695", url = "https://nodejs.org/dist/v20.19.5/node-v20.19.5-win-x64.zip"}
 
 [[tools."npm:yarn"]]
 version = "1.22.22"
@@ -63,11 +37,6 @@ backend = "npm:yarn"
 [[tools.pulumi]]
 version = "3.218.0"
 backend = "aqua:pulumi/pulumi"
-"platforms.linux-arm64" = { checksum = "sha256:4112b4dc4a1c726ac5a87a00280b3c18e4a93027af287e1243e6f94d3f0b0254", url = "https://github.com/pulumi/pulumi/releases/download/v3.218.0/pulumi-v3.218.0-linux-arm64.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:a24e45f707559b735b26fc188913132fce9c6a1b63b125710a40514e9c77ed47", url = "https://github.com/pulumi/pulumi/releases/download/v3.218.0/pulumi-v3.218.0-linux-x64.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:eabf89f36b201c5ebc65221ad759eb73a293a3443bb67630330b786c7b280209", url = "https://github.com/pulumi/pulumi/releases/download/v3.218.0/pulumi-v3.218.0-darwin-arm64.tar.gz"}
-"platforms.macos-x64" = { checksum = "sha256:90f3a4446adfdee9e585cc6bfc02c8fb3140cf431d2961ce994803a43921b106", url = "https://github.com/pulumi/pulumi/releases/download/v3.218.0/pulumi-v3.218.0-darwin-x64.tar.gz"}
-"platforms.windows-x64" = { checksum = "sha256:22372f077b1881a9e77b01a582a3dfbd59e8f9032b638bdc6f4abe97bcc06e15", url = "https://github.com/pulumi/pulumi/releases/download/v3.218.0/pulumi-v3.218.0-windows-x64.zip"}
 
 [[tools.python]]
 version = "3.11.8"

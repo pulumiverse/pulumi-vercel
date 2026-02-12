@@ -21,26 +21,28 @@ class SharedEnvironmentVariableArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[_builtins.str],
                  project_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
-                 value: pulumi.Input[_builtins.str],
                  apply_to_all_custom_environments: Optional[pulumi.Input[_builtins.bool]] = None,
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 team_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 team_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a SharedEnvironmentVariable resource.
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: The ID of the Vercel project.
-        :param pulumi.Input[_builtins.str] value: The value of the Environment Variable.
         :param pulumi.Input[_builtins.bool] apply_to_all_custom_environments: Whether the shared environment variable should be applied to all custom environments in the linked projects.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Shared environment variables require a team.
+        :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "project_ids", project_ids)
-        pulumi.set(__self__, "value", value)
         if apply_to_all_custom_environments is not None:
             pulumi.set(__self__, "apply_to_all_custom_environments", apply_to_all_custom_environments)
         if comment is not None:
@@ -51,6 +53,10 @@ class SharedEnvironmentVariableArgs:
             pulumi.set(__self__, "targets", targets)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+        if value_wo is not None:
+            pulumi.set(__self__, "value_wo", value_wo)
 
     @_builtins.property
     @pulumi.getter
@@ -75,18 +81,6 @@ class SharedEnvironmentVariableArgs:
     @project_ids.setter
     def project_ids(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
         pulumi.set(self, "project_ids", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def value(self) -> pulumi.Input[_builtins.str]:
-        """
-        The value of the Environment Variable.
-        """
-        return pulumi.get(self, "value")
-
-    @value.setter
-    def value(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "value", value)
 
     @_builtins.property
     @pulumi.getter(name="applyToAllCustomEnvironments")
@@ -148,6 +142,31 @@ class SharedEnvironmentVariableArgs:
     def team_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "team_id", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueWo")
+    def value_wo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        """
+        return pulumi.get(self, "value_wo")
+
+    @value_wo.setter
+    def value_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_wo", value)
+
 
 @pulumi.input_type
 class _SharedEnvironmentVariableState:
@@ -159,7 +178,8 @@ class _SharedEnvironmentVariableState:
                  sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 value: Optional[pulumi.Input[_builtins.str]] = None):
+                 value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering SharedEnvironmentVariable resources.
         :param pulumi.Input[_builtins.bool] apply_to_all_custom_environments: Whether the shared environment variable should be applied to all custom environments in the linked projects.
@@ -169,7 +189,9 @@ class _SharedEnvironmentVariableState:
         :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Shared environment variables require a team.
-        :param pulumi.Input[_builtins.str] value: The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         """
         if apply_to_all_custom_environments is not None:
             pulumi.set(__self__, "apply_to_all_custom_environments", apply_to_all_custom_environments)
@@ -187,6 +209,8 @@ class _SharedEnvironmentVariableState:
             pulumi.set(__self__, "team_id", team_id)
         if value is not None:
             pulumi.set(__self__, "value", value)
+        if value_wo is not None:
+            pulumi.set(__self__, "value_wo", value_wo)
 
     @_builtins.property
     @pulumi.getter(name="applyToAllCustomEnvironments")
@@ -276,13 +300,26 @@ class _SharedEnvironmentVariableState:
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The value of the Environment Variable.
+        (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         """
         return pulumi.get(self, "value")
 
     @value.setter
     def value(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "value", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueWo")
+    def value_wo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        """
+        return pulumi.get(self, "value_wo")
+
+    @value_wo.setter
+    def value_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_wo", value)
 
 
 @pulumi.type_token("vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable")
@@ -299,14 +336,9 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Provides a Shared Environment Variable resource.
-
-        A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
-
-        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
-
         ## Example Usage
 
         ```python
@@ -352,7 +384,9 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Shared environment variables require a team.
-        :param pulumi.Input[_builtins.str] value: The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         """
         ...
     @overload
@@ -361,12 +395,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  args: SharedEnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Provides a Shared Environment Variable resource.
-
-        A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
-
-        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
-
         ## Example Usage
 
         ```python
@@ -426,6 +454,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -446,10 +475,9 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             __props__.__dict__["sensitive"] = sensitive
             __props__.__dict__["targets"] = targets
             __props__.__dict__["team_id"] = team_id
-            if value is None and not opts.urn:
-                raise TypeError("Missing required property 'value'")
             __props__.__dict__["value"] = None if value is None else pulumi.Output.secret(value)
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value"])
+            __props__.__dict__["value_wo"] = None if value_wo is None else pulumi.Output.secret(value_wo)
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value", "valueWo"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(SharedEnvironmentVariable, __self__).__init__(
             'vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable',
@@ -468,7 +496,8 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
             targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None,
-            value: Optional[pulumi.Input[_builtins.str]] = None) -> 'SharedEnvironmentVariable':
+            value: Optional[pulumi.Input[_builtins.str]] = None,
+            value_wo: Optional[pulumi.Input[_builtins.str]] = None) -> 'SharedEnvironmentVariable':
         """
         Get an existing SharedEnvironmentVariable resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -483,7 +512,9 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Shared environment variables require a team.
-        :param pulumi.Input[_builtins.str] value: The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -497,6 +528,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         __props__.__dict__["targets"] = targets
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["value"] = value
+        __props__.__dict__["value_wo"] = value_wo
         return SharedEnvironmentVariable(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -557,9 +589,18 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def value(self) -> pulumi.Output[_builtins.str]:
+    def value(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The value of the Environment Variable.
+        (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         """
         return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter(name="valueWo")
+    def value_wo(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        """
+        return pulumi.get(self, "value_wo")
 

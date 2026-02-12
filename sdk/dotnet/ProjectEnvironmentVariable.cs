@@ -13,71 +13,6 @@ namespace Pulumiverse.Vercel
     /// <summary>
     /// ## Example Usage
     /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Vercel = Pulumiverse.Vercel;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var example = new Vercel.Project("example", new()
-    ///     {
-    ///         Name = "example-project",
-    ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
-    ///         {
-    ///             Type = "github",
-    ///             Repo = "vercel/some-repo",
-    ///         },
-    ///     });
-    /// 
-    ///     // An environment variable that will be created
-    ///     // for this project for the "production" environment.
-    ///     var exampleProjectEnvironmentVariable = new Vercel.ProjectEnvironmentVariable("example", new()
-    ///     {
-    ///         ProjectId = example.Id,
-    ///         Key = "foo",
-    ///         Value = "bar",
-    ///         Targets = new[]
-    ///         {
-    ///             "production",
-    ///         },
-    ///         Comment = "a production secret",
-    ///     });
-    /// 
-    ///     // An environment variable that will be created
-    ///     // for this project for the "preview" environment when the branch is "staging".
-    ///     var exampleGitBranch = new Vercel.ProjectEnvironmentVariable("example_git_branch", new()
-    ///     {
-    ///         ProjectId = example.Id,
-    ///         Key = "foo",
-    ///         Value = "bar-staging",
-    ///         Targets = new[]
-    ///         {
-    ///             "preview",
-    ///         },
-    ///         GitBranch = "staging",
-    ///         Comment = "a staging secret",
-    ///     });
-    /// 
-    ///     // A sensitive environment variable that will be created
-    ///     // for this project for the "production" environment.
-    ///     var exampleSensitive = new Vercel.ProjectEnvironmentVariable("example_sensitive", new()
-    ///     {
-    ///         ProjectId = example.Id,
-    ///         Key = "foo",
-    ///         Value = "bar-production",
-    ///         Targets = new[]
-    ///         {
-    ///             "production",
-    ///         },
-    ///         Sensitive = true,
-    ///         Comment = "a sensitive production secret",
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// If importing into a personal account, or with a team configured on
@@ -166,10 +101,17 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// (Optional, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable.
         /// </summary>
         [Output("value")]
-        public Output<string> Value { get; private set; } = null!;
+        public Output<string?> Value { get; private set; } = null!;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// (Optional, Write-Only, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable, from an `Ephemeral` resource.
+        /// </summary>
+        [Output("valueWo")]
+        public Output<string?> ValueWo { get; private set; } = null!;
 
 
         /// <summary>
@@ -198,6 +140,7 @@ namespace Pulumiverse.Vercel
                 AdditionalSecretOutputs =
                 {
                     "value",
+                    "valueWo",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -282,11 +225,11 @@ namespace Pulumiverse.Vercel
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
-        [Input("value", required: true)]
+        [Input("value")]
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// (Optional, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable.
         /// </summary>
         public Input<string>? Value
         {
@@ -295,6 +238,23 @@ namespace Pulumiverse.Vercel
             {
                 var emptySecret = Output.CreateSecret(0);
                 _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("valueWo")]
+        private Input<string>? _valueWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// (Optional, Write-Only, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable, from an `Ephemeral` resource.
+        /// </summary>
+        public Input<string>? ValueWo
+        {
+            get => _valueWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
 
@@ -370,7 +330,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// (Optional, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable.
         /// </summary>
         public Input<string>? Value
         {
@@ -379,6 +339,23 @@ namespace Pulumiverse.Vercel
             {
                 var emptySecret = Output.CreateSecret(0);
                 _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("valueWo")]
+        private Input<string>? _valueWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// (Optional, Write-Only, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable, from an `Ephemeral` resource.
+        /// </summary>
+        public Input<string>? ValueWo
+        {
+            get => _valueWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
 

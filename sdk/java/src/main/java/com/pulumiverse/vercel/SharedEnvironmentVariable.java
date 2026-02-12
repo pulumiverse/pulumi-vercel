@@ -13,15 +13,10 @@ import com.pulumiverse.vercel.inputs.SharedEnvironmentVariableState;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
- * Provides a Shared Environment Variable resource.
- * 
- * A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
- * 
- * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
- * 
  * ## Example Usage
  * 
  * <pre>
@@ -188,18 +183,34 @@ public class SharedEnvironmentVariable extends com.pulumi.resources.CustomResour
         return this.teamId;
     }
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
     @Export(name="value", refs={String.class}, tree="[0]")
-    private Output<String> value;
+    private Output</* @Nullable */ String> value;
 
     /**
-     * @return The value of the Environment Variable.
+     * @return (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
-    public Output<String> value() {
-        return this.value;
+    public Output<Optional<String>> value() {
+        return Codegen.optional(this.value);
+    }
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    @Export(name="valueWo", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> valueWo;
+
+    /**
+     * @return **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    public Output<Optional<String>> valueWo() {
+        return Codegen.optional(this.valueWo);
     }
 
     /**
@@ -243,7 +254,8 @@ public class SharedEnvironmentVariable extends com.pulumi.resources.CustomResour
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/pulumiverse")
             .additionalSecretOutputs(List.of(
-                "value"
+                "value",
+                "valueWo"
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

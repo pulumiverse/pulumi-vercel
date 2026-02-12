@@ -138,18 +138,35 @@ public final class ProjectEnvironmentVariableState extends com.pulumi.resources.
     }
 
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
     @Import(name="value")
     private @Nullable Output<String> value;
 
     /**
-     * @return The value of the Environment Variable.
+     * @return (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
     public Optional<Output<String>> value() {
         return Optional.ofNullable(this.value);
+    }
+
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    @Import(name="valueWo")
+    private @Nullable Output<String> valueWo;
+
+    /**
+     * @return **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    public Optional<Output<String>> valueWo() {
+        return Optional.ofNullable(this.valueWo);
     }
 
     private ProjectEnvironmentVariableState() {}
@@ -164,6 +181,7 @@ public final class ProjectEnvironmentVariableState extends com.pulumi.resources.
         this.targets = $.targets;
         this.teamId = $.teamId;
         this.value = $.value;
+        this.valueWo = $.valueWo;
     }
 
     public static Builder builder() {
@@ -373,7 +391,7 @@ public final class ProjectEnvironmentVariableState extends com.pulumi.resources.
         }
 
         /**
-         * @param value The value of the Environment Variable.
+         * @param value (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
          * 
          * @return builder
          * 
@@ -384,13 +402,36 @@ public final class ProjectEnvironmentVariableState extends com.pulumi.resources.
         }
 
         /**
-         * @param value The value of the Environment Variable.
+         * @param value (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
          * 
          * @return builder
          * 
          */
         public Builder value(String value) {
             return value(Output.of(value));
+        }
+
+        /**
+         * @param valueWo **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+         * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWo(@Nullable Output<String> valueWo) {
+            $.valueWo = valueWo;
+            return this;
+        }
+
+        /**
+         * @param valueWo **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+         * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWo(String valueWo) {
+            return valueWo(Output.of(valueWo));
         }
 
         public ProjectEnvironmentVariableState build() {
