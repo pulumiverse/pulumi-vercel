@@ -139,18 +139,35 @@ public final class ProjectEnvironmentVariableArgs extends com.pulumi.resources.R
     }
 
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
-    @Import(name="value", required=true)
-    private Output<String> value;
+    @Import(name="value")
+    private @Nullable Output<String> value;
 
     /**
-     * @return The value of the Environment Variable.
+     * @return (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
-    public Output<String> value() {
-        return this.value;
+    public Optional<Output<String>> value() {
+        return Optional.ofNullable(this.value);
+    }
+
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    @Import(name="valueWo")
+    private @Nullable Output<String> valueWo;
+
+    /**
+     * @return **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    public Optional<Output<String>> valueWo() {
+        return Optional.ofNullable(this.valueWo);
     }
 
     private ProjectEnvironmentVariableArgs() {}
@@ -165,6 +182,7 @@ public final class ProjectEnvironmentVariableArgs extends com.pulumi.resources.R
         this.targets = $.targets;
         this.teamId = $.teamId;
         this.value = $.value;
+        this.valueWo = $.valueWo;
     }
 
     public static Builder builder() {
@@ -374,18 +392,18 @@ public final class ProjectEnvironmentVariableArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param value The value of the Environment Variable.
+         * @param value (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
          * 
          * @return builder
          * 
          */
-        public Builder value(Output<String> value) {
+        public Builder value(@Nullable Output<String> value) {
             $.value = value;
             return this;
         }
 
         /**
-         * @param value The value of the Environment Variable.
+         * @param value (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
          * 
          * @return builder
          * 
@@ -394,15 +412,35 @@ public final class ProjectEnvironmentVariableArgs extends com.pulumi.resources.R
             return value(Output.of(value));
         }
 
+        /**
+         * @param valueWo **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+         * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWo(@Nullable Output<String> valueWo) {
+            $.valueWo = valueWo;
+            return this;
+        }
+
+        /**
+         * @param valueWo **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+         * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWo(String valueWo) {
+            return valueWo(Output.of(valueWo));
+        }
+
         public ProjectEnvironmentVariableArgs build() {
             if ($.key == null) {
                 throw new MissingRequiredPropertyException("ProjectEnvironmentVariableArgs", "key");
             }
             if ($.projectId == null) {
                 throw new MissingRequiredPropertyException("ProjectEnvironmentVariableArgs", "projectId");
-            }
-            if ($.value == null) {
-                throw new MissingRequiredPropertyException("ProjectEnvironmentVariableArgs", "value");
             }
             return $;
         }

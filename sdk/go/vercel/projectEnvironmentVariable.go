@@ -14,78 +14,6 @@ import (
 
 // ## Example Usage
 //
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
-//				Name: pulumi.String("example-project"),
-//				GitRepository: &vercel.ProjectGitRepositoryArgs{
-//					Type: pulumi.String("github"),
-//					Repo: pulumi.String("vercel/some-repo"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			// An environment variable that will be created
-//			// for this project for the "production" environment.
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: example.ID(),
-//				Key:       pulumi.String("foo"),
-//				Value:     pulumi.String("bar"),
-//				Targets: pulumi.StringArray{
-//					pulumi.String("production"),
-//				},
-//				Comment: pulumi.String("a production secret"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			// An environment variable that will be created
-//			// for this project for the "preview" environment when the branch is "staging".
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example_git_branch", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: example.ID(),
-//				Key:       pulumi.String("foo"),
-//				Value:     pulumi.String("bar-staging"),
-//				Targets: pulumi.StringArray{
-//					pulumi.String("preview"),
-//				},
-//				GitBranch: pulumi.String("staging"),
-//				Comment:   pulumi.String("a staging secret"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			// A sensitive environment variable that will be created
-//			// for this project for the "production" environment.
-//			_, err = vercel.NewProjectEnvironmentVariable(ctx, "example_sensitive", &vercel.ProjectEnvironmentVariableArgs{
-//				ProjectId: example.ID(),
-//				Key:       pulumi.String("foo"),
-//				Value:     pulumi.String("bar-production"),
-//				Targets: pulumi.StringArray{
-//					pulumi.String("production"),
-//				},
-//				Sensitive: pulumi.Bool(true),
-//				Comment:   pulumi.String("a sensitive production secret"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
 // ## Import
 //
 // # If importing into a personal account, or with a team configured on
@@ -140,8 +68,11 @@ type ProjectEnvironmentVariable struct {
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
-	// The value of the Environment Variable.
-	Value pulumi.StringOutput `pulumi:"value"`
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+	Value pulumi.StringPtrOutput `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo pulumi.StringPtrOutput `pulumi:"valueWo"`
 }
 
 // NewProjectEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -157,14 +88,15 @@ func NewProjectEnvironmentVariable(ctx *pulumi.Context,
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
-	if args.Value == nil {
-		return nil, errors.New("invalid value for required argument 'Value'")
-	}
 	if args.Value != nil {
-		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringInput)
+		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringPtrInput)
+	}
+	if args.ValueWo != nil {
+		args.ValueWo = pulumi.ToSecret(args.ValueWo).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"value",
+		"valueWo",
 	})
 	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -206,8 +138,11 @@ type projectEnvironmentVariableState struct {
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
-	// The value of the Environment Variable.
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
 	Value *string `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo *string `pulumi:"valueWo"`
 }
 
 type ProjectEnvironmentVariableState struct {
@@ -227,8 +162,11 @@ type ProjectEnvironmentVariableState struct {
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
-	// The value of the Environment Variable.
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
 	Value pulumi.StringPtrInput
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo pulumi.StringPtrInput
 }
 
 func (ProjectEnvironmentVariableState) ElementType() reflect.Type {
@@ -252,8 +190,11 @@ type projectEnvironmentVariableArgs struct {
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
-	// The value of the Environment Variable.
-	Value string `pulumi:"value"`
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+	Value *string `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo *string `pulumi:"valueWo"`
 }
 
 // The set of arguments for constructing a ProjectEnvironmentVariable resource.
@@ -274,8 +215,11 @@ type ProjectEnvironmentVariableArgs struct {
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
-	// The value of the Environment Variable.
-	Value pulumi.StringInput
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+	Value pulumi.StringPtrInput
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo pulumi.StringPtrInput
 }
 
 func (ProjectEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -405,9 +349,15 @@ func (o ProjectEnvironmentVariableOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The value of the Environment Variable.
-func (o ProjectEnvironmentVariableOutput) Value() pulumi.StringOutput {
-	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.Value }).(pulumi.StringOutput)
+// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+func (o ProjectEnvironmentVariableOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+func (o ProjectEnvironmentVariableOutput) ValueWo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringPtrOutput { return v.ValueWo }).(pulumi.StringPtrOutput)
 }
 
 type ProjectEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }

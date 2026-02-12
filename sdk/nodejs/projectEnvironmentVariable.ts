@@ -7,48 +7,6 @@ import * as utilities from "./utilities";
 /**
  * ## Example Usage
  *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const example = new vercel.Project("example", {
- *     name: "example-project",
- *     gitRepository: {
- *         type: "github",
- *         repo: "vercel/some-repo",
- *     },
- * });
- * // An environment variable that will be created
- * // for this project for the "production" environment.
- * const exampleProjectEnvironmentVariable = new vercel.ProjectEnvironmentVariable("example", {
- *     projectId: example.id,
- *     key: "foo",
- *     value: "bar",
- *     targets: ["production"],
- *     comment: "a production secret",
- * });
- * // An environment variable that will be created
- * // for this project for the "preview" environment when the branch is "staging".
- * const exampleGitBranch = new vercel.ProjectEnvironmentVariable("example_git_branch", {
- *     projectId: example.id,
- *     key: "foo",
- *     value: "bar-staging",
- *     targets: ["preview"],
- *     gitBranch: "staging",
- *     comment: "a staging secret",
- * });
- * // A sensitive environment variable that will be created
- * // for this project for the "production" environment.
- * const exampleSensitive = new vercel.ProjectEnvironmentVariable("example_sensitive", {
- *     projectId: example.id,
- *     key: "foo",
- *     value: "bar-production",
- *     targets: ["production"],
- *     sensitive: true,
- *     comment: "a sensitive production secret",
- * });
- * ```
- *
  * ## Import
  *
  * If importing into a personal account, or with a team configured on
@@ -146,9 +104,14 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     declare public readonly teamId: pulumi.Output<string>;
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      */
-    declare public readonly value: pulumi.Output<string>;
+    declare public readonly value: pulumi.Output<string | undefined>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     */
+    declare public readonly valueWo: pulumi.Output<string | undefined>;
 
     /**
      * Create a ProjectEnvironmentVariable resource with the given unique name, arguments, and options.
@@ -172,6 +135,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["targets"] = state?.targets;
             resourceInputs["teamId"] = state?.teamId;
             resourceInputs["value"] = state?.value;
+            resourceInputs["valueWo"] = state?.valueWo;
         } else {
             const args = argsOrState as ProjectEnvironmentVariableArgs | undefined;
             if (args?.key === undefined && !opts.urn) {
@@ -179,9 +143,6 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             }
             if (args?.projectId === undefined && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
-            }
-            if (args?.value === undefined && !opts.urn) {
-                throw new Error("Missing required property 'value'");
             }
             resourceInputs["comment"] = args?.comment;
             resourceInputs["customEnvironmentIds"] = args?.customEnvironmentIds;
@@ -192,9 +153,10 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["targets"] = args?.targets;
             resourceInputs["teamId"] = args?.teamId;
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
+            resourceInputs["valueWo"] = args?.valueWo ? pulumi.secret(args.valueWo) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["value"] };
+        const secretOpts = { additionalSecretOutputs: ["value", "valueWo"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(ProjectEnvironmentVariable.__pulumiType, name, resourceInputs, opts);
     }
@@ -237,9 +199,14 @@ export interface ProjectEnvironmentVariableState {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      */
     value?: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     */
+    valueWo?: pulumi.Input<string>;
 }
 
 /**
@@ -279,7 +246,12 @@ export interface ProjectEnvironmentVariableArgs {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      */
-    value: pulumi.Input<string>;
+    value?: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     */
+    valueWo?: pulumi.Input<string>;
 }

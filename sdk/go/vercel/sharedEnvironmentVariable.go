@@ -12,12 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
-// Provides a Shared Environment Variable resource.
-//
-// A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
-//
-// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
-//
 // ## Example Usage
 //
 // ```go
@@ -94,8 +88,11 @@ type SharedEnvironmentVariable struct {
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
-	// The value of the Environment Variable.
-	Value pulumi.StringOutput `pulumi:"value"`
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+	Value pulumi.StringPtrOutput `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo pulumi.StringPtrOutput `pulumi:"valueWo"`
 }
 
 // NewSharedEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -111,14 +108,15 @@ func NewSharedEnvironmentVariable(ctx *pulumi.Context,
 	if args.ProjectIds == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectIds'")
 	}
-	if args.Value == nil {
-		return nil, errors.New("invalid value for required argument 'Value'")
-	}
 	if args.Value != nil {
-		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringInput)
+		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringPtrInput)
+	}
+	if args.ValueWo != nil {
+		args.ValueWo = pulumi.ToSecret(args.ValueWo).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"value",
+		"valueWo",
 	})
 	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -158,8 +156,11 @@ type sharedEnvironmentVariableState struct {
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
 	TeamId *string `pulumi:"teamId"`
-	// The value of the Environment Variable.
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
 	Value *string `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo *string `pulumi:"valueWo"`
 }
 
 type SharedEnvironmentVariableState struct {
@@ -177,8 +178,11 @@ type SharedEnvironmentVariableState struct {
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team. Shared environment variables require a team.
 	TeamId pulumi.StringPtrInput
-	// The value of the Environment Variable.
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
 	Value pulumi.StringPtrInput
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo pulumi.StringPtrInput
 }
 
 func (SharedEnvironmentVariableState) ElementType() reflect.Type {
@@ -200,8 +204,11 @@ type sharedEnvironmentVariableArgs struct {
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
 	TeamId *string `pulumi:"teamId"`
-	// The value of the Environment Variable.
-	Value string `pulumi:"value"`
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+	Value *string `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo *string `pulumi:"valueWo"`
 }
 
 // The set of arguments for constructing a SharedEnvironmentVariable resource.
@@ -220,8 +227,11 @@ type SharedEnvironmentVariableArgs struct {
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team. Shared environment variables require a team.
 	TeamId pulumi.StringPtrInput
-	// The value of the Environment Variable.
-	Value pulumi.StringInput
+	// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+	Value pulumi.StringPtrInput
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+	ValueWo pulumi.StringPtrInput
 }
 
 func (SharedEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -346,9 +356,15 @@ func (o SharedEnvironmentVariableOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The value of the Environment Variable.
-func (o SharedEnvironmentVariableOutput) Value() pulumi.StringOutput {
-	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringOutput { return v.Value }).(pulumi.StringOutput)
+// (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
+func (o SharedEnvironmentVariableOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+func (o SharedEnvironmentVariableOutput) ValueWo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringPtrOutput { return v.ValueWo }).(pulumi.StringPtrOutput)
 }
 
 type SharedEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }

@@ -11,12 +11,6 @@ using Pulumi;
 namespace Pulumiverse.Vercel
 {
     /// <summary>
-    /// Provides a Shared Environment Variable resource.
-    /// 
-    /// A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
-    /// 
-    /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
-    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -117,10 +111,17 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// (Optional, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable.
         /// </summary>
         [Output("value")]
-        public Output<string> Value { get; private set; } = null!;
+        public Output<string?> Value { get; private set; } = null!;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// (Optional, Write-Only, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable, from an `Ephemeral` resource.
+        /// </summary>
+        [Output("valueWo")]
+        public Output<string?> ValueWo { get; private set; } = null!;
 
 
         /// <summary>
@@ -149,6 +150,7 @@ namespace Pulumiverse.Vercel
                 AdditionalSecretOutputs =
                 {
                     "value",
+                    "valueWo",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -227,11 +229,11 @@ namespace Pulumiverse.Vercel
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
-        [Input("value", required: true)]
+        [Input("value")]
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// (Optional, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable.
         /// </summary>
         public Input<string>? Value
         {
@@ -240,6 +242,23 @@ namespace Pulumiverse.Vercel
             {
                 var emptySecret = Output.CreateSecret(0);
                 _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("valueWo")]
+        private Input<string>? _valueWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// (Optional, Write-Only, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable, from an `Ephemeral` resource.
+        /// </summary>
+        public Input<string>? ValueWo
+        {
+            get => _valueWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
 
@@ -309,7 +328,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the Environment Variable.
+        /// (Optional, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable.
         /// </summary>
         public Input<string>? Value
         {
@@ -318,6 +337,23 @@ namespace Pulumiverse.Vercel
             {
                 var emptySecret = Output.CreateSecret(0);
                 _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("valueWo")]
+        private Input<string>? _valueWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// (Optional, Write-Only, exactly one of `Value` or `ValueWo` is required) The value of the Environment Variable, from an `Ephemeral` resource.
+        /// </summary>
+        public Input<string>? ValueWo
+        {
+            get => _valueWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
 

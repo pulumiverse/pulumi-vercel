@@ -19,76 +19,6 @@ import javax.annotation.Nullable;
 /**
  * ## Example Usage
  * 
- * <pre>
- * {@code
- * package generated_program;
- * 
- * import com.pulumi.Context;
- * import com.pulumi.Pulumi;
- * import com.pulumi.core.Output;
- * import com.pulumiverse.vercel.Project;
- * import com.pulumiverse.vercel.ProjectArgs;
- * import com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;
- * import com.pulumiverse.vercel.ProjectEnvironmentVariable;
- * import com.pulumiverse.vercel.ProjectEnvironmentVariableArgs;
- * import java.util.List;
- * import java.util.ArrayList;
- * import java.util.Map;
- * import java.io.File;
- * import java.nio.file.Files;
- * import java.nio.file.Paths;
- * 
- * public class App {
- *     public static void main(String[] args) {
- *         Pulumi.run(App::stack);
- *     }
- * 
- *     public static void stack(Context ctx) {
- *         var example = new Project("example", ProjectArgs.builder()
- *             .name("example-project")
- *             .gitRepository(ProjectGitRepositoryArgs.builder()
- *                 .type("github")
- *                 .repo("vercel/some-repo")
- *                 .build())
- *             .build());
- * 
- *         // An environment variable that will be created
- *         // for this project for the "production" environment.
- *         var exampleProjectEnvironmentVariable = new ProjectEnvironmentVariable("exampleProjectEnvironmentVariable", ProjectEnvironmentVariableArgs.builder()
- *             .projectId(example.id())
- *             .key("foo")
- *             .value("bar")
- *             .targets("production")
- *             .comment("a production secret")
- *             .build());
- * 
- *         // An environment variable that will be created
- *         // for this project for the "preview" environment when the branch is "staging".
- *         var exampleGitBranch = new ProjectEnvironmentVariable("exampleGitBranch", ProjectEnvironmentVariableArgs.builder()
- *             .projectId(example.id())
- *             .key("foo")
- *             .value("bar-staging")
- *             .targets("preview")
- *             .gitBranch("staging")
- *             .comment("a staging secret")
- *             .build());
- * 
- *         // A sensitive environment variable that will be created
- *         // for this project for the "production" environment.
- *         var exampleSensitive = new ProjectEnvironmentVariable("exampleSensitive", ProjectEnvironmentVariableArgs.builder()
- *             .projectId(example.id())
- *             .key("foo")
- *             .value("bar-production")
- *             .targets("production")
- *             .sensitive(true)
- *             .comment("a sensitive production secret")
- *             .build());
- * 
- *     }
- * }
- * }
- * </pre>
- * 
  * ## Import
  * 
  * If importing into a personal account, or with a team configured on
@@ -241,18 +171,34 @@ public class ProjectEnvironmentVariable extends com.pulumi.resources.CustomResou
         return this.teamId;
     }
     /**
-     * The value of the Environment Variable.
+     * (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
     @Export(name="value", refs={String.class}, tree="[0]")
-    private Output<String> value;
+    private Output</* @Nullable */ String> value;
 
     /**
-     * @return The value of the Environment Variable.
+     * @return (Optional, exactly one of `value` or `valueWo` is required) The value of the Environment Variable.
      * 
      */
-    public Output<String> value() {
-        return this.value;
+    public Output<Optional<String>> value() {
+        return Codegen.optional(this.value);
+    }
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    @Export(name="valueWo", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> valueWo;
+
+    /**
+     * @return **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+     * 
+     */
+    public Output<Optional<String>> valueWo() {
+        return Codegen.optional(this.valueWo);
     }
 
     /**
@@ -296,7 +242,8 @@ public class ProjectEnvironmentVariable extends com.pulumi.resources.CustomResou
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/pulumiverse")
             .additionalSecretOutputs(List.of(
-                "value"
+                "value",
+                "valueWo"
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
