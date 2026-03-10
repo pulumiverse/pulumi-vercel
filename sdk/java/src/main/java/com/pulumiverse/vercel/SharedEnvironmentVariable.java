@@ -17,6 +17,14 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
+ * Provides a Shared Environment Variable resource.
+ * 
+ * A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+ * 
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+ * 
+ * &gt; **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
+ * 
  * ## Example Usage
  * 
  * <pre>
@@ -69,10 +77,8 @@ import javax.annotation.Nullable;
  * 
  * ## Import
  * 
- * You can import via the team_id and environment variable id.
- * 
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- * 
+ * You can import via the teamId and environment variable id.
+ * - teamId can be found in the team `settings` tab in the Vercel UI.
  * - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
  * 
  * Note also, that the value field for sensitive environment variables will be imported as `null`.

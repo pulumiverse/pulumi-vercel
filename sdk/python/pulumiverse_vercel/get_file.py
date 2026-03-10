@@ -56,6 +56,9 @@ class GetFileResult:
     @_builtins.property
     @pulumi.getter
     def path(self) -> _builtins.str:
+        """
+        The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+        """
         return pulumi.get(self, "path")
 
 
@@ -92,6 +95,9 @@ def get_file(path: Optional[_builtins.str] = None,
         project_id=example_get_project.id,
         files=example.file)
     ```
+
+
+    :param _builtins.str path: The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
     """
     __args__ = dict()
     __args__['path'] = path
@@ -124,6 +130,9 @@ def get_file_output(path: Optional[pulumi.Input[_builtins.str]] = None,
         project_id=example_get_project.id,
         files=example.file)
     ```
+
+
+    :param _builtins.str path: The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
     """
     __args__ = dict()
     __args__['path'] = path

@@ -26,6 +26,7 @@ class EdgeConfigItemArgs:
                  value_json: Optional[Any] = None):
         """
         The set of arguments for constructing a EdgeConfigItem resource.
+
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -112,6 +113,7 @@ class _EdgeConfigItemState:
                  value_json: Optional[Any] = None):
         """
         Input properties used for looking up and filtering EdgeConfigItem resources.
+
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -235,11 +237,8 @@ class EdgeConfigItem(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the edge config id and the key of the item to import.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - key is the key of teh item to import.
 
         ```sh
@@ -247,16 +246,14 @@ class EdgeConfigItem(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, edge_config_id and the key of the item to import.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - key is the key of the item to import.
 
         ```sh
         $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -305,11 +302,8 @@ class EdgeConfigItem(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the edge config id and the key of the item to import.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - key is the key of teh item to import.
 
         ```sh
@@ -317,16 +311,14 @@ class EdgeConfigItem(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, edge_config_id and the key of the item to import.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - key is the key of the item to import.
 
         ```sh
         $ pulumi import vercel:index/edgeConfigItem:EdgeConfigItem example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example_key
         ```
+
 
         :param str resource_name: The name of the resource.
         :param EdgeConfigItemArgs args: The arguments to use to populate this resource's properties.

@@ -10,6 +10,37 @@ using Pulumi;
 
 namespace Pulumiverse.Vercel
 {
+    /// <summary>
+    /// Provides a Deployment resource.
+    /// 
+    /// A Deployment is the result of building your Project and making it available through a live URL.
+    /// 
+    /// When making deployments, the Project will be uploaded and transformed into a production-ready output through the use of a Build Step.
+    /// 
+    /// Once the build step has completed successfully, a new, immutable deployment will be made available at the preview URL. Deployments are retained indefinitely unless deleted manually.
+    /// 
+    /// &gt; In order to provide files to a deployment, you'll need to use the `vercel.getFile` or `vercel.getProjectDirectory` data sources.
+    /// 
+    /// &gt; If you are creating Deployments through terraform and intend to use both preview and production
+    /// deployments, you may wish to 'layer' your terraform, creating the Project with a different set of
+    /// terraform to your Deployment.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // In this example, we are assuming that a nextjs UI
+    ///     // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+    ///     // E.g.
+    ///     // ```
+    /// ```
+    /// </summary>
     [VercelResourceType("vercel:index/deployment:Deployment")]
     public partial class Deployment : global::Pulumi.CustomResource
     {
@@ -19,6 +50,9 @@ namespace Pulumiverse.Vercel
         [Output("customEnvironmentId")]
         public Output<string?> CustomEnvironmentId { get; private set; } = null!;
 
+        /// <summary>
+        /// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+        /// </summary>
         [Output("deleteOnDestroy")]
         public Output<bool?> DeleteOnDestroy { get; private set; } = null!;
 
@@ -145,6 +179,9 @@ namespace Pulumiverse.Vercel
         [Input("customEnvironmentId")]
         public Input<string>? CustomEnvironmentId { get; set; }
 
+        /// <summary>
+        /// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+        /// </summary>
         [Input("deleteOnDestroy")]
         public Input<bool>? DeleteOnDestroy { get; set; }
 
@@ -238,6 +275,9 @@ namespace Pulumiverse.Vercel
         [Input("customEnvironmentId")]
         public Input<string>? CustomEnvironmentId { get; set; }
 
+        /// <summary>
+        /// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+        /// </summary>
         [Input("deleteOnDestroy")]
         public Input<bool>? DeleteOnDestroy { get; set; }
 

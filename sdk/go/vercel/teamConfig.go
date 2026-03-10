@@ -60,8 +60,7 @@ import (
 // ## Import
 //
 // Team config can be imported via the team ID.
-//
-// - team_id can be found in the team `settings` tab in the Vercel UI.
+// - teamId can be found in the team `settings` tab in the Vercel UI.
 //
 // ```sh
 // $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx

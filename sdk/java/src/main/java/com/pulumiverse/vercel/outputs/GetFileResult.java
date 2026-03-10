@@ -21,6 +21,10 @@ public final class GetFileResult {
      * 
      */
     private String id;
+    /**
+     * @return The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     private String path;
 
     private GetFileResult() {}
@@ -38,6 +42,10 @@ public final class GetFileResult {
     public String id() {
         return this.id;
     }
+    /**
+     * @return The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     public String path() {
         return this.path;
     }

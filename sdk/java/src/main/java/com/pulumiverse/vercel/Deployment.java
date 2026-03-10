@@ -18,6 +18,60 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
+/**
+ * Provides a Deployment resource.
+ * 
+ * A Deployment is the result of building your Project and making it available through a live URL.
+ * 
+ * When making deployments, the Project will be uploaded and transformed into a production-ready output through the use of a Build Step.
+ * 
+ * Once the build step has completed successfully, a new, immutable deployment will be made available at the preview URL. Deployments are retained indefinitely unless deleted manually.
+ * 
+ * &gt; In order to provide files to a deployment, you&#39;ll need to use the `vercel.getFile` or `vercel.getProjectDirectory` data sources.
+ * 
+ * &gt; If you are creating Deployments through terraform and intend to use both preview and production
+ * deployments, you may wish to &#39;layer&#39; your terraform, creating the Project with a different set of
+ * terraform to your Deployment.
+ * 
+ * ## Example Usage
+ * 
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.vercel.VercelFunctions;
+ * import com.pulumi.vercel.inputs.GetProjectDirectoryArgs;
+ * import com.pulumi.vercel.inputs.GetProjectArgs;
+ * import com.pulumiverse.vercel.Deployment;
+ * import com.pulumiverse.vercel.DeploymentArgs;
+ * import com.pulumiverse.vercel.Project;
+ * import com.pulumiverse.vercel.ProjectArgs;
+ * import com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;
+ * import com.pulumi.vercel.inputs.GetPrebuiltProjectArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App }{{@code
+ *     public static void main(String[] args) }{{@code
+ *         Pulumi.run(App::stack);
+ *     }}{@code
+ * 
+ *     public static void stack(Context ctx) }{{@code
+ *         // In this example, we are assuming that a nextjs UI
+ *         // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+ *         // E.g.
+ *         // }
+ * </pre>
+ * ```
+ * 
+ */
 @ResourceType(type="vercel:index/deployment:Deployment")
 public class Deployment extends com.pulumi.resources.CustomResource {
     /**
@@ -34,9 +88,17 @@ public class Deployment extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> customEnvironmentId() {
         return Codegen.optional(this.customEnvironmentId);
     }
+    /**
+     * Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+     * 
+     */
     @Export(name="deleteOnDestroy", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> deleteOnDestroy;
 
+    /**
+     * @return Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+     * 
+     */
     public Output<Optional<Boolean>> deleteOnDestroy() {
         return Codegen.optional(this.deleteOnDestroy);
     }

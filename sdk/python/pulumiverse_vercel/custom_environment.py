@@ -28,6 +28,7 @@ class CustomEnvironmentArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a CustomEnvironment resource.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project.
         :param pulumi.Input['CustomEnvironmentBranchTrackingArgs'] branch_tracking: The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
         :param pulumi.Input[_builtins.str] description: A description of what the environment is.
@@ -115,6 +116,7 @@ class _CustomEnvironmentState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering CustomEnvironment resources.
+
         :param pulumi.Input['CustomEnvironmentBranchTrackingArgs'] branch_tracking: The branch tracking configuration for the environment. When enabled, each qualifying merge will generate a deployment.
         :param pulumi.Input[_builtins.str] description: A description of what the environment is.
         :param pulumi.Input[_builtins.str] name: The name of the environment.
@@ -234,9 +236,7 @@ class CustomEnvironment(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the project_id and custom environment name.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
@@ -244,9 +244,7 @@ class CustomEnvironment(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, project_id and environment variable id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
@@ -254,6 +252,7 @@ class CustomEnvironment(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -298,9 +297,7 @@ class CustomEnvironment(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the project_id and custom environment name.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
@@ -308,9 +305,7 @@ class CustomEnvironment(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, project_id and environment variable id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
@@ -318,6 +313,7 @@ class CustomEnvironment(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
         ```
+
 
         :param str resource_name: The name of the resource.
         :param CustomEnvironmentArgs args: The arguments to use to populate this resource's properties.

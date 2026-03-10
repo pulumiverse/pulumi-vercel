@@ -24,6 +24,7 @@ class ProjectCronsArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectCrons resource.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether crons are enabled for the project.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle crons for.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -78,6 +79,7 @@ class _ProjectCronsState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectCrons resources.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether crons are enabled for the project.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle crons for.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -162,7 +164,6 @@ class ProjectCrons(pulumi.CustomResource):
         ## Import
 
         If importing with a team configured on the provider, simply use the project ID.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
@@ -170,14 +171,13 @@ class ProjectCrons(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and project_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/projectCrons:ProjectCrons example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -217,7 +217,6 @@ class ProjectCrons(pulumi.CustomResource):
         ## Import
 
         If importing with a team configured on the provider, simply use the project ID.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
@@ -225,14 +224,13 @@ class ProjectCrons(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and project_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/projectCrons:ProjectCrons example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectCronsArgs args: The arguments to use to populate this resource's properties.

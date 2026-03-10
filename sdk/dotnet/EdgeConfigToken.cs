@@ -62,23 +62,17 @@ namespace Pulumiverse.Vercel
     /// ## Import
     /// 
     /// If importing into a personal account, or with a team configured on
-    /// 
     /// the provider, simply use the edge config id and token value.
-    /// 
-    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-    /// 
+    /// - EdgeConfigId can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
     /// - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
     /// ```
     /// 
-    /// Alternatively, you can import via the team_id and edge_config_id.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
-    /// - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-    /// 
+    /// Alternatively, you can import via the TeamId and edge_config_id.
+    /// - TeamId can be found in the team `Settings` tab in the Vercel UI.
+    /// - EdgeConfigId can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
     /// - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
     /// 
     /// ```sh

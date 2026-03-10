@@ -72,20 +72,16 @@ import javax.annotation.Nullable;
  * ## Import
  * 
  * If importing into a personal account, or with a team configured on
- * 
- * the provider, simply use the project_id and custom environment name.
- * 
- * - project_id can be found in the project `settings` tab in the Vercel UI.
+ * the provider, simply use the projectId and custom environment name.
+ * - projectId can be found in the project `settings` tab in the Vercel UI.
  * 
  * ```sh
  * $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
  * ```
  * 
- * Alternatively, you can import via the team_id, project_id and environment variable id.
- * 
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- * 
- * - project_id can be found in the project `settings` tab in the Vercel UI.
+ * Alternatively, you can import via the team_id, projectId and environment variable id.
+ * - teamId can be found in the team `settings` tab in the Vercel UI.
+ * - projectId can be found in the project `settings` tab in the Vercel UI.
  * 
  * Note also, that the value field for sensitive environment variables will be imported as `null`.
  * 

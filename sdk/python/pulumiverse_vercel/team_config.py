@@ -36,6 +36,7 @@ class TeamConfigArgs:
                  slug: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a TeamConfig resource.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
         :param pulumi.Input[_builtins.str] description: A description of the team.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -253,6 +254,7 @@ class _TeamConfigState:
                  slug: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering TeamConfig resources.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
         :param pulumi.Input[_builtins.str] description: A description of the team.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -516,12 +518,12 @@ class TeamConfig(pulumi.CustomResource):
         ## Import
 
         Team config can be imported via the team ID.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -575,12 +577,12 @@ class TeamConfig(pulumi.CustomResource):
         ## Import
 
         Team config can be imported via the team ID.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TeamConfigArgs args: The arguments to use to populate this resource's properties.

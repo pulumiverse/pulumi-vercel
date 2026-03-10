@@ -30,6 +30,7 @@ class SharedEnvironmentVariableArgs:
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a SharedEnvironmentVariable resource.
+
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[_builtins.bool] apply_to_all_custom_environments: Whether the shared environment variable should be applied to all custom environments in the linked projects.
@@ -182,6 +183,7 @@ class _SharedEnvironmentVariableState:
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering SharedEnvironmentVariable resources.
+
         :param pulumi.Input[_builtins.bool] apply_to_all_custom_environments: Whether the shared environment variable should be applied to all custom environments in the linked projects.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
@@ -339,6 +341,14 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        Provides a Shared Environment Variable resource.
+
+        A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+
+        > **Note:** Write-Only argument `value_wo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
+
         ## Example Usage
 
         ```python
@@ -364,9 +374,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         ## Import
 
         You can import via the team_id and environment variable id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
@@ -374,6 +382,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -395,6 +404,14 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
                  args: SharedEnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Provides a Shared Environment Variable resource.
+
+        A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+
+        > **Note:** Write-Only argument `value_wo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
+
         ## Example Usage
 
         ```python
@@ -420,9 +437,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         ## Import
 
         You can import via the team_id and environment variable id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
@@ -430,6 +445,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy
         ```
+
 
         :param str resource_name: The name of the resource.
         :param SharedEnvironmentVariableArgs args: The arguments to use to populate this resource's properties.

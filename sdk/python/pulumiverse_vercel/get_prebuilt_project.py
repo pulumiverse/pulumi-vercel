@@ -56,6 +56,9 @@ class GetPrebuiltProjectResult:
     @_builtins.property
     @pulumi.getter
     def path(self) -> _builtins.str:
+        """
+        The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+        """
         return pulumi.get(self, "path")
 
 
@@ -73,7 +76,29 @@ class AwaitableGetPrebuiltProjectResult(GetPrebuiltProjectResult):
 def get_prebuilt_project(path: Optional[_builtins.str] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPrebuiltProjectResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides the output of a project built via `vercel build` and provides metadata for use with a `Deployment`
+
+    The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+    Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+
+    This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+    import pulumiverse_vercel as vercel
+
+    # In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+    # and has been prebuilt via `vercel build`. 
+    # We assume any terraform code exists in a separate `terraform` directory.
+    # E.g.
+    # ```
+    ```
+
+
+    :param _builtins.str path: The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
     """
     __args__ = dict()
     __args__['path'] = path
@@ -87,7 +112,29 @@ def get_prebuilt_project(path: Optional[_builtins.str] = None,
 def get_prebuilt_project_output(path: Optional[pulumi.Input[_builtins.str]] = None,
                                 opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPrebuiltProjectResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides the output of a project built via `vercel build` and provides metadata for use with a `Deployment`
+
+    The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+    Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+
+    This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+    import pulumiverse_vercel as vercel
+
+    # In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+    # and has been prebuilt via `vercel build`. 
+    # We assume any terraform code exists in a separate `terraform` directory.
+    # E.g.
+    # ```
+    ```
+
+
+    :param _builtins.str path: The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
     """
     __args__ = dict()
     __args__['path'] = path

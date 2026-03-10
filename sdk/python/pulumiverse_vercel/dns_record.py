@@ -32,6 +32,7 @@ class DnsRecordArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a DnsRecord resource.
+
         :param pulumi.Input[_builtins.str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the DNS record is for.
@@ -196,6 +197,7 @@ class _DnsRecordState:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering DnsRecord resources.
+
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[_builtins.str] domain: The domain name, or zone, that the DNS record should be created beneath.
         :param pulumi.Input[_builtins.int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -438,28 +440,23 @@ class DnsRecord(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the record id.
-
         - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
-
-        or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
+          or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
 
         ```sh
         $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
         Alternatively, you can import via the team_id and record_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
-
-        or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
+          or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
 
         ```sh
         $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -560,28 +557,23 @@ class DnsRecord(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the record id.
-
         - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
-
-        or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
+          or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
 
         ```sh
         $ pulumi import vercel:index/dnsRecord:DnsRecord example rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
         Alternatively, you can import via the team_id and record_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
-
-        or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
+          or can be queried from the Vercel API directly (https://vercel.com/docs/rest-api/endpoints/dns#list-existing-dns-records).
 
         ```sh
         $ pulumi import vercel:index/dnsRecord:DnsRecord example team_xxxxxxxxxxxxxxxxxxxxxxxx/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param DnsRecordArgs args: The arguments to use to populate this resource's properties.

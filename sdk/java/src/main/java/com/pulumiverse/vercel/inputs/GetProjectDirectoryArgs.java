@@ -14,9 +14,17 @@ public final class GetProjectDirectoryArgs extends com.pulumi.resources.InvokeAr
 
     public static final GetProjectDirectoryArgs Empty = new GetProjectDirectoryArgs();
 
+    /**
+     * The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     @Import(name="path", required=true)
     private Output<String> path;
 
+    /**
+     * @return The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     public Output<String> path() {
         return this.path;
     }
@@ -45,11 +53,23 @@ public final class GetProjectDirectoryArgs extends com.pulumi.resources.InvokeAr
             $ = new GetProjectDirectoryArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param path The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(Output<String> path) {
             $.path = path;
             return this;
         }
 
+        /**
+         * @param path The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(String path) {
             return path(Output.of(path));
         }

@@ -21,6 +21,10 @@ public final class GetPrebuiltProjectResult {
      * 
      */
     private Map<String,String> output;
+    /**
+     * @return The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     * 
+     */
     private String path;
 
     private GetPrebuiltProjectResult() {}
@@ -38,6 +42,10 @@ public final class GetPrebuiltProjectResult {
     public Map<String,String> output() {
         return this.output;
     }
+    /**
+     * @return The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     * 
+     */
     public String path() {
         return this.path;
     }

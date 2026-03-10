@@ -4,6 +4,27 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+ *
+ * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+ * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+ *
+ * This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+ * // and has been prebuilt via `vercel build`. 
+ * // We assume any terraform code exists in a separate `terraform` directory.
+ * // E.g.
+ * // ```
+ * ```
+ */
 export function getPrebuiltProject(args: GetPrebuiltProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetPrebuiltProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getPrebuiltProject:getPrebuiltProject", {
@@ -15,6 +36,9 @@ export function getPrebuiltProject(args: GetPrebuiltProjectArgs, opts?: pulumi.I
  * A collection of arguments for invoking getPrebuiltProject.
  */
 export interface GetPrebuiltProjectArgs {
+    /**
+     * The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     */
     path: string;
 }
 
@@ -30,8 +54,32 @@ export interface GetPrebuiltProjectResult {
      * A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
      */
     readonly output: {[key: string]: string};
+    /**
+     * The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     */
     readonly path: string;
 }
+/**
+ * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+ *
+ * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+ * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+ *
+ * This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+ * // and has been prebuilt via `vercel build`. 
+ * // We assume any terraform code exists in a separate `terraform` directory.
+ * // E.g.
+ * // ```
+ * ```
+ */
 export function getPrebuiltProjectOutput(args: GetPrebuiltProjectOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetPrebuiltProjectResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getPrebuiltProject:getPrebuiltProject", {
@@ -43,5 +91,8 @@ export function getPrebuiltProjectOutput(args: GetPrebuiltProjectOutputArgs, opt
  * A collection of arguments for invoking getPrebuiltProject.
  */
 export interface GetPrebuiltProjectOutputArgs {
+    /**
+     * The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     */
     path: pulumi.Input<string>;
 }

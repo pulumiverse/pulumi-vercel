@@ -25,6 +25,7 @@ class CustomCertificateArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a CustomCertificate resource.
+
         :param pulumi.Input[_builtins.str] certificate: The certificate itself. Should be in PEM format.
         :param pulumi.Input[_builtins.str] certificate_authority_certificate: The Certificate Authority root certificate such as one of Let's Encrypt's ISRG root certificates. This will be provided by your certificate issuer and is different to the core certificate. This may be included in their download process or available for download on their website. Should be in PEM format.
         :param pulumi.Input[_builtins.str] private_key: The private key of the Certificate. Should be in PEM format.
@@ -94,6 +95,7 @@ class _CustomCertificateState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering CustomCertificate resources.
+
         :param pulumi.Input[_builtins.str] certificate: The certificate itself. Should be in PEM format.
         :param pulumi.Input[_builtins.str] certificate_authority_certificate: The Certificate Authority root certificate such as one of Let's Encrypt's ISRG root certificates. This will be provided by your certificate issuer and is different to the core certificate. This may be included in their download process or available for download on their website. Should be in PEM format.
         :param pulumi.Input[_builtins.str] private_key: The private key of the Certificate. Should be in PEM format.
@@ -188,6 +190,7 @@ class CustomCertificate(pulumi.CustomResource):
             certificate_authority_certificate=std.index.file(input="ca.crt")["result"])
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] certificate: The certificate itself. Should be in PEM format.
@@ -220,6 +223,7 @@ class CustomCertificate(pulumi.CustomResource):
             certificate=std.index.file(input="certificate.crt")["result"],
             certificate_authority_certificate=std.index.file(input="ca.crt")["result"])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param CustomCertificateArgs args: The arguments to use to populate this resource's properties.

@@ -34,8 +34,10 @@ class DeploymentArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Deployment resource.
+
         :param pulumi.Input[_builtins.str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[_builtins.str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        :param pulumi.Input[_builtins.bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] meta: Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
@@ -94,6 +96,9 @@ class DeploymentArgs:
     @_builtins.property
     @pulumi.getter(name="deleteOnDestroy")
     def delete_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+        """
         return pulumi.get(self, "delete_on_destroy")
 
     @delete_on_destroy.setter
@@ -215,7 +220,9 @@ class _DeploymentState:
                  url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Deployment resources.
+
         :param pulumi.Input[_builtins.str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        :param pulumi.Input[_builtins.bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
@@ -270,6 +277,9 @@ class _DeploymentState:
     @_builtins.property
     @pulumi.getter(name="deleteOnDestroy")
     def delete_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+        """
         return pulumi.get(self, "delete_on_destroy")
 
     @delete_on_destroy.setter
@@ -428,10 +438,38 @@ class Deployment(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Deployment resource with the given unique name, props, and options.
+        Provides a Deployment resource.
+
+        A Deployment is the result of building your Project and making it available through a live URL.
+
+        When making deployments, the Project will be uploaded and transformed into a production-ready output through the use of a Build Step.
+
+        Once the build step has completed successfully, a new, immutable deployment will be made available at the preview URL. Deployments are retained indefinitely unless deleted manually.
+
+        > In order to provide files to a deployment, you'll need to use the `get_file` or `get_project_directory` data sources.
+
+        > If you are creating Deployments through terraform and intend to use both preview and production
+        deployments, you may wish to 'layer' your terraform, creating the Project with a different set of
+        terraform to your Deployment.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_vercel as vercel
+        import pulumiverse_vercel as vercel
+
+        # In this example, we are assuming that a nextjs UI
+        # exists in a `ui` directory and any terraform exists in a `terraform` directory.
+        # E.g.
+        # ```
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        :param pulumi.Input[_builtins.bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] meta: Arbitrary key/value metadata to attach to the deployment (equivalent to the Vercel CLI --meta flags).
@@ -449,7 +487,34 @@ class Deployment(pulumi.CustomResource):
                  args: DeploymentArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Deployment resource with the given unique name, props, and options.
+        Provides a Deployment resource.
+
+        A Deployment is the result of building your Project and making it available through a live URL.
+
+        When making deployments, the Project will be uploaded and transformed into a production-ready output through the use of a Build Step.
+
+        Once the build step has completed successfully, a new, immutable deployment will be made available at the preview URL. Deployments are retained indefinitely unless deleted manually.
+
+        > In order to provide files to a deployment, you'll need to use the `get_file` or `get_project_directory` data sources.
+
+        > If you are creating Deployments through terraform and intend to use both preview and production
+        deployments, you may wish to 'layer' your terraform, creating the Project with a different set of
+        terraform to your Deployment.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_vercel as vercel
+        import pulumiverse_vercel as vercel
+
+        # In this example, we are assuming that a nextjs UI
+        # exists in a `ui` directory and any terraform exists in a `terraform` directory.
+        # E.g.
+        # ```
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param DeploymentArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -533,6 +598,7 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] custom_environment_id: The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
+        :param pulumi.Input[_builtins.bool] delete_on_destroy: Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] domains: A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment: A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] files: A map of files to be uploaded for the deployment. This should be provided by a `get_project_directory` or `get_file` data source. Required if `git_source` is not set.
@@ -575,6 +641,9 @@ class Deployment(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="deleteOnDestroy")
     def delete_on_destroy(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+        """
         return pulumi.get(self, "delete_on_destroy")
 
     @_builtins.property

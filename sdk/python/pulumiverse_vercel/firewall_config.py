@@ -29,6 +29,7 @@ class FirewallConfigArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a FirewallConfig resource.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the project this configuration belongs to.
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
         :param pulumi.Input['FirewallConfigIpRulesArgs'] ip_rules: IP rules to apply to the project.
@@ -132,6 +133,7 @@ class _FirewallConfigState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering FirewallConfig resources.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
         :param pulumi.Input['FirewallConfigIpRulesArgs'] ip_rules: IP rules to apply to the project.
         :param pulumi.Input['FirewallConfigManagedRulesetsArgs'] managed_rulesets: The managed rulesets that are enabled.
@@ -461,6 +463,7 @@ class FirewallConfig(pulumi.CustomResource):
         $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
@@ -698,6 +701,7 @@ class FirewallConfig(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param FirewallConfigArgs args: The arguments to use to populate this resource's properties.

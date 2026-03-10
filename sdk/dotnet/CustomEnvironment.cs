@@ -52,22 +52,18 @@ namespace Pulumiverse.Vercel
     /// ## Import
     /// 
     /// If importing into a personal account, or with a team configured on
-    /// 
-    /// the provider, simply use the project_id and custom environment name.
-    /// 
-    /// - project_id can be found in the project `settings` tab in the Vercel UI.
+    /// the provider, simply use the ProjectId and custom environment name.
+    /// - ProjectId can be found in the project `Settings` tab in the Vercel UI.
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/customEnvironment:CustomEnvironment example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env
     /// ```
     /// 
-    /// Alternatively, you can import via the team_id, project_id and environment variable id.
+    /// Alternatively, you can import via the team_id, ProjectId and environment variable id.
+    /// - TeamId can be found in the team `Settings` tab in the Vercel UI.
+    /// - ProjectId can be found in the project `Settings` tab in the Vercel UI.
     /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
-    /// - project_id can be found in the project `settings` tab in the Vercel UI.
-    /// 
-    /// Note also, that the value field for sensitive environment variables will be imported as `null`.
+    /// Note also, that the value field for sensitive environment variables will be imported as `Null`.
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/customEnvironment:CustomEnvironment example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example-custom-env

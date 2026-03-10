@@ -45,15 +45,14 @@ import (
 //
 // ## Import
 //
-// # If importing into a personal account, or with a team configured on
-//
+// If importing into a personal account, or with a team configured on
 // the provider, simply use the access_group_id.
 //
 // ```sh
 // $ pulumi import vercel:index/accessGroup:AccessGroup example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // ```
 //
-// If importing to a team, use the team_id and access_group_id.
+// If importing to a team, use the teamId and access_group_id.
 //
 // ```sh
 // $ pulumi import vercel:index/accessGroup:AccessGroup example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

@@ -27,11 +27,9 @@ import * as utilities from "./utilities";
  *
  * ## Import
  *
- * You can import via the team_id and project_id.
- *
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- *
- * - project_id can be found in the project `settings` tab in the Vercel UI.
+ * You can import via the teamId and project_id.
+ * - teamId can be found in the team `settings` tab in the Vercel UI.
+ * - projectId can be found in the project `settings` tab in the Vercel UI.
  *
  * ```sh
  * $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

@@ -133,6 +133,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetFileArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
@@ -144,6 +147,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetFileInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -165,6 +171,9 @@ namespace Pulumiverse.Vercel
         /// The ID of this resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+        /// </summary>
         public readonly string Path;
 
         [OutputConstructor]

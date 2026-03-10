@@ -23,6 +23,7 @@ class EdgeConfigSchemaArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a EdgeConfigSchema resource.
+
         :param pulumi.Input[_builtins.str] definition: A JSON schema that will be used to validate data in the Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -62,6 +63,7 @@ class _EdgeConfigSchemaState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering EdgeConfigSchema resources.
+
         :param pulumi.Input[_builtins.str] definition: A JSON schema that will be used to validate data in the Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -132,9 +134,7 @@ class EdgeConfigSchema(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the edge config id.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
 
         ```sh
@@ -142,14 +142,13 @@ class EdgeConfigSchema(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and edge_config_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
 
         ```sh
         $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -190,9 +189,7 @@ class EdgeConfigSchema(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the edge config id.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
 
         ```sh
@@ -200,14 +197,13 @@ class EdgeConfigSchema(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and edge_config_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
 
         ```sh
         $ pulumi import vercel:index/edgeConfigSchema:EdgeConfigSchema example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param EdgeConfigSchemaArgs args: The arguments to use to populate this resource's properties.

@@ -117,20 +117,15 @@ __all__ = [
     'TeamMemberProjectArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class CustomEnvironmentBranchTrackingArgsDict(TypedDict):
-        pattern: pulumi.Input[_builtins.str]
-        """
-        The pattern of the branch name to track.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
-        """
-elif False:
-    CustomEnvironmentBranchTrackingArgsDict: TypeAlias = Mapping[str, Any]
+class CustomEnvironmentBranchTrackingArgsDict(TypedDict):
+    pattern: pulumi.Input[_builtins.str]
+    """
+    The pattern of the branch name to track.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
+    """
 
 @pulumi.input_type
 class CustomEnvironmentBranchTrackingArgs:
@@ -169,30 +164,27 @@ class CustomEnvironmentBranchTrackingArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class DeploymentProjectSettingsArgsDict(TypedDict):
-        build_command: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
-        """
-        framework: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The framework that is being used for this deployment. If omitted, no framework is selected.
-        """
-        install_command: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
-        """
-        output_directory: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
-        """
-        root_directory: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
-        """
-elif False:
-    DeploymentProjectSettingsArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentProjectSettingsArgsDict(TypedDict):
+    build_command: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+    """
+    framework: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The framework that is being used for this deployment. If omitted, no framework is selected.
+    """
+    install_command: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The install command for this deployment. If omitted, this value will be taken from the project or automatically detected.
+    """
+    output_directory: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The output directory of the deployment. If omitted, this value will be taken from the project or automatically detected.
+    """
+    root_directory: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
+    """
 
 @pulumi.input_type
 class DeploymentProjectSettingsArgs:
@@ -281,26 +273,23 @@ class DeploymentProjectSettingsArgs:
         pulumi.set(self, "root_directory", value)
 
 
-if not MYPY:
-    class DnsRecordSrvArgsDict(TypedDict):
-        port: pulumi.Input[_builtins.int]
-        """
-        The TCP or UDP port on which the service is to be found.
-        """
-        priority: pulumi.Input[_builtins.int]
-        """
-        The priority of the target host, lower value means more preferred.
-        """
-        target: pulumi.Input[_builtins.str]
-        """
-        The canonical hostname of the machine providing the service, ending in a dot.
-        """
-        weight: pulumi.Input[_builtins.int]
-        """
-        A relative weight for records with the same priority, higher value means higher chance of getting picked.
-        """
-elif False:
-    DnsRecordSrvArgsDict: TypeAlias = Mapping[str, Any]
+class DnsRecordSrvArgsDict(TypedDict):
+    port: pulumi.Input[_builtins.int]
+    """
+    The TCP or UDP port on which the service is to be found.
+    """
+    priority: pulumi.Input[_builtins.int]
+    """
+    The priority of the target host, lower value means more preferred.
+    """
+    target: pulumi.Input[_builtins.str]
+    """
+    The canonical hostname of the machine providing the service, ending in a dot.
+    """
+    weight: pulumi.Input[_builtins.int]
+    """
+    A relative weight for records with the same priority, higher value means higher chance of getting picked.
+    """
 
 @pulumi.input_type
 class DnsRecordSrvArgs:
@@ -369,11 +358,8 @@ class DnsRecordSrvArgs:
         pulumi.set(self, "weight", value)
 
 
-if not MYPY:
-    class FirewallConfigIpRulesArgsDict(TypedDict):
-        rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['FirewallConfigIpRulesRuleArgsDict']]]]
-elif False:
-    FirewallConfigIpRulesArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigIpRulesArgsDict(TypedDict):
+    rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['FirewallConfigIpRulesRuleArgsDict']]]]
 
 @pulumi.input_type
 class FirewallConfigIpRulesArgs:
@@ -392,21 +378,18 @@ class FirewallConfigIpRulesArgs:
         pulumi.set(self, "rules", value)
 
 
-if not MYPY:
-    class FirewallConfigIpRulesRuleArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        hostname: pulumi.Input[_builtins.str]
-        """
-        Hosts to apply these rules to
-        """
-        ip: pulumi.Input[_builtins.str]
-        """
-        IP or CIDR to block
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        notes: NotRequired[pulumi.Input[_builtins.str]]
-elif False:
-    FirewallConfigIpRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigIpRulesRuleArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    hostname: pulumi.Input[_builtins.str]
+    """
+    Hosts to apply these rules to
+    """
+    ip: pulumi.Input[_builtins.str]
+    """
+    IP or CIDR to block
+    """
+    id: NotRequired[pulumi.Input[_builtins.str]]
+    notes: NotRequired[pulumi.Input[_builtins.str]]
 
 @pulumi.input_type
 class FirewallConfigIpRulesRuleArgs:
@@ -480,26 +463,23 @@ class FirewallConfigIpRulesRuleArgs:
         pulumi.set(self, "notes", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsArgsDict(TypedDict):
-        ai_bots: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgsDict']]
-        """
-        Enable the ai*bots managed ruleset and select action
-        """
-        bot_filter: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgsDict']]
-        """
-        DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
-        """
-        bot_protection: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgsDict']]
-        """
-        Enable the bot*protection managed ruleset and select action
-        """
-        owasp: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgsDict']]
-        """
-        Enable the owasp managed rulesets and select ruleset behaviors
-        """
-elif False:
-    FirewallConfigManagedRulesetsArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsArgsDict(TypedDict):
+    ai_bots: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgsDict']]
+    """
+    Enable the ai*bots managed ruleset and select action
+    """
+    bot_filter: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgsDict']]
+    """
+    DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
+    """
+    bot_protection: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgsDict']]
+    """
+    Enable the bot*protection managed ruleset and select action
+    """
+    owasp: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgsDict']]
+    """
+    Enable the owasp managed rulesets and select ruleset behaviors
+    """
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsArgs:
@@ -576,12 +556,9 @@ class FirewallConfigManagedRulesetsArgs:
         pulumi.set(self, "owasp", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsAiBotsArgsDict(TypedDict):
-        action: NotRequired[pulumi.Input[_builtins.str]]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsAiBotsArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsAiBotsArgsDict(TypedDict):
+    action: NotRequired[pulumi.Input[_builtins.str]]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsAiBotsArgs:
@@ -612,12 +589,9 @@ class FirewallConfigManagedRulesetsAiBotsArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsBotFilterArgsDict(TypedDict):
-        action: NotRequired[pulumi.Input[_builtins.str]]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsBotFilterArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsBotFilterArgsDict(TypedDict):
+    action: NotRequired[pulumi.Input[_builtins.str]]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsBotFilterArgs:
@@ -648,12 +622,9 @@ class FirewallConfigManagedRulesetsBotFilterArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsBotProtectionArgsDict(TypedDict):
-        action: NotRequired[pulumi.Input[_builtins.str]]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsBotProtectionArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsBotProtectionArgsDict(TypedDict):
+    action: NotRequired[pulumi.Input[_builtins.str]]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsBotProtectionArgs:
@@ -684,54 +655,51 @@ class FirewallConfigManagedRulesetsBotProtectionArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspArgsDict(TypedDict):
-        gen: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspGenArgsDict']]
-        """
-        Generic Attack Detection
-        """
-        java: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspJavaArgsDict']]
-        """
-        Java Attack Detection
-        """
-        lfi: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspLfiArgsDict']]
-        """
-        Local File Inclusion Rules
-        """
-        ma: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspMaArgsDict']]
-        """
-        Multipart Rules
-        """
-        php: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspPhpArgsDict']]
-        """
-        PHP Attack Detection
-        """
-        rce: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspRceArgsDict']]
-        """
-        Remote Code Execution Rules
-        """
-        rfi: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspRfiArgsDict']]
-        """
-        Remote File Inclusion Rules
-        """
-        sd: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSdArgsDict']]
-        """
-        Scanner Detection Rules
-        """
-        sf: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgsDict']]
-        """
-        Session Fixation Attack
-        """
-        sqli: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSqliArgsDict']]
-        """
-        SQL Injection Rules
-        """
-        xss: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspXssArgsDict']]
-        """
-        Cross Site Scripting Rules
-        """
-elif False:
-    FirewallConfigManagedRulesetsOwaspArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspArgsDict(TypedDict):
+    gen: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspGenArgsDict']]
+    """
+    Generic Attack Detection
+    """
+    java: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspJavaArgsDict']]
+    """
+    Java Attack Detection
+    """
+    lfi: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspLfiArgsDict']]
+    """
+    Local File Inclusion Rules
+    """
+    ma: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspMaArgsDict']]
+    """
+    Multipart Rules
+    """
+    php: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspPhpArgsDict']]
+    """
+    PHP Attack Detection
+    """
+    rce: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspRceArgsDict']]
+    """
+    Remote Code Execution Rules
+    """
+    rfi: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspRfiArgsDict']]
+    """
+    Remote File Inclusion Rules
+    """
+    sd: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSdArgsDict']]
+    """
+    Scanner Detection Rules
+    """
+    sf: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSfArgsDict']]
+    """
+    Session Fixation Attack
+    """
+    sqli: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspSqliArgsDict']]
+    """
+    SQL Injection Rules
+    """
+    xss: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsOwaspXssArgsDict']]
+    """
+    Cross Site Scripting Rules
+    """
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspArgs:
@@ -916,12 +884,9 @@ class FirewallConfigManagedRulesetsOwaspArgs:
         pulumi.set(self, "xss", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspGenArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspGenArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspGenArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspGenArgs:
@@ -951,12 +916,9 @@ class FirewallConfigManagedRulesetsOwaspGenArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspJavaArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspJavaArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspJavaArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspJavaArgs:
@@ -986,12 +948,9 @@ class FirewallConfigManagedRulesetsOwaspJavaArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspLfiArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspLfiArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspLfiArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspLfiArgs:
@@ -1021,12 +980,9 @@ class FirewallConfigManagedRulesetsOwaspLfiArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspMaArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspMaArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspMaArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspMaArgs:
@@ -1056,12 +1012,9 @@ class FirewallConfigManagedRulesetsOwaspMaArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspPhpArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspPhpArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspPhpArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspPhpArgs:
@@ -1091,12 +1044,9 @@ class FirewallConfigManagedRulesetsOwaspPhpArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspRceArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspRceArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspRceArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspRceArgs:
@@ -1126,12 +1076,9 @@ class FirewallConfigManagedRulesetsOwaspRceArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspRfiArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspRfiArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspRfiArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspRfiArgs:
@@ -1161,12 +1108,9 @@ class FirewallConfigManagedRulesetsOwaspRfiArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspSdArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspSdArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspSdArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspSdArgs:
@@ -1196,12 +1140,9 @@ class FirewallConfigManagedRulesetsOwaspSdArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspSfArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspSfArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspSfArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspSfArgs:
@@ -1231,12 +1172,9 @@ class FirewallConfigManagedRulesetsOwaspSfArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspSqliArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspSqliArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspSqliArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspSqliArgs:
@@ -1266,12 +1204,9 @@ class FirewallConfigManagedRulesetsOwaspSqliArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigManagedRulesetsOwaspXssArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-elif False:
-    FirewallConfigManagedRulesetsOwaspXssArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigManagedRulesetsOwaspXssArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    active: NotRequired[pulumi.Input[_builtins.bool]]
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsOwaspXssArgs:
@@ -1301,11 +1236,8 @@ class FirewallConfigManagedRulesetsOwaspXssArgs:
         pulumi.set(self, "active", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesArgsDict(TypedDict):
-        rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleArgsDict']]]]
-elif False:
-    FirewallConfigRulesArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesArgsDict(TypedDict):
+    rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleArgsDict']]]]
 
 @pulumi.input_type
 class FirewallConfigRulesArgs:
@@ -1324,28 +1256,25 @@ class FirewallConfigRulesArgs:
         pulumi.set(self, "rules", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesRuleArgsDict(TypedDict):
-        action: pulumi.Input['FirewallConfigRulesRuleActionArgsDict']
-        """
-        Actions to take when the condition groups match a request
-        """
-        condition_groups: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupArgsDict']]]
-        """
-        Sets of conditions that may match a request
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        Name to identify the rule
-        """
-        active: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Rule is active or disabled
-        """
-        description: NotRequired[pulumi.Input[_builtins.str]]
-        id: NotRequired[pulumi.Input[_builtins.str]]
-elif False:
-    FirewallConfigRulesRuleArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesRuleArgsDict(TypedDict):
+    action: pulumi.Input['FirewallConfigRulesRuleActionArgsDict']
+    """
+    Actions to take when the condition groups match a request
+    """
+    condition_groups: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupArgsDict']]]
+    """
+    Sets of conditions that may match a request
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name to identify the rule
+    """
+    active: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Rule is active or disabled
+    """
+    description: NotRequired[pulumi.Input[_builtins.str]]
+    id: NotRequired[pulumi.Input[_builtins.str]]
 
 @pulumi.input_type
 class FirewallConfigRulesRuleArgs:
@@ -1439,26 +1368,23 @@ class FirewallConfigRulesRuleArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesRuleActionArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        """
-        Base action
-        """
-        action_duration: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Forward persistence of a rule action
-        """
-        rate_limit: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgsDict']]
-        """
-        Behavior or a rate limiting action. Required if action is rate*limit
-        """
-        redirect: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgsDict']]
-        """
-        How to redirect a request. Required if action is redirect
-        """
-elif False:
-    FirewallConfigRulesRuleActionArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesRuleActionArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    """
+    Base action
+    """
+    action_duration: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Forward persistence of a rule action
+    """
+    rate_limit: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRateLimitArgsDict']]
+    """
+    Behavior or a rate limiting action. Required if action is rate*limit
+    """
+    redirect: NotRequired[pulumi.Input['FirewallConfigRulesRuleActionRedirectArgsDict']]
+    """
+    How to redirect a request. Required if action is redirect
+    """
 
 @pulumi.input_type
 class FirewallConfigRulesRuleActionArgs:
@@ -1530,30 +1456,27 @@ class FirewallConfigRulesRuleActionArgs:
         pulumi.set(self, "redirect", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesRuleActionRateLimitArgsDict(TypedDict):
-        action: pulumi.Input[_builtins.str]
-        """
-        Action to take when rate limit is exceeded
-        """
-        algo: pulumi.Input[_builtins.str]
-        """
-        Rate limiting algorithm
-        """
-        keys: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-        """
-        Keys used to bucket an individual client
-        """
-        limit: pulumi.Input[_builtins.int]
-        """
-        number of requests allowed in the window
-        """
-        window: pulumi.Input[_builtins.int]
-        """
-        Time window in seconds
-        """
-elif False:
-    FirewallConfigRulesRuleActionRateLimitArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesRuleActionRateLimitArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    """
+    Action to take when rate limit is exceeded
+    """
+    algo: pulumi.Input[_builtins.str]
+    """
+    Rate limiting algorithm
+    """
+    keys: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    Keys used to bucket an individual client
+    """
+    limit: pulumi.Input[_builtins.int]
+    """
+    number of requests allowed in the window
+    """
+    window: pulumi.Input[_builtins.int]
+    """
+    Time window in seconds
+    """
 
 @pulumi.input_type
 class FirewallConfigRulesRuleActionRateLimitArgs:
@@ -1637,12 +1560,9 @@ class FirewallConfigRulesRuleActionRateLimitArgs:
         pulumi.set(self, "window", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesRuleActionRedirectArgsDict(TypedDict):
-        location: pulumi.Input[_builtins.str]
-        permanent: pulumi.Input[_builtins.bool]
-elif False:
-    FirewallConfigRulesRuleActionRedirectArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesRuleActionRedirectArgsDict(TypedDict):
+    location: pulumi.Input[_builtins.str]
+    permanent: pulumi.Input[_builtins.bool]
 
 @pulumi.input_type
 class FirewallConfigRulesRuleActionRedirectArgs:
@@ -1671,14 +1591,11 @@ class FirewallConfigRulesRuleActionRedirectArgs:
         pulumi.set(self, "permanent", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesRuleConditionGroupArgsDict(TypedDict):
-        conditions: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupConditionArgsDict']]]
-        """
-        Conditions that must all match within a group
-        """
-elif False:
-    FirewallConfigRulesRuleConditionGroupArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesRuleConditionGroupArgsDict(TypedDict):
+    conditions: pulumi.Input[Sequence[pulumi.Input['FirewallConfigRulesRuleConditionGroupConditionArgsDict']]]
+    """
+    Conditions that must all match within a group
+    """
 
 @pulumi.input_type
 class FirewallConfigRulesRuleConditionGroupArgs:
@@ -1702,34 +1619,31 @@ class FirewallConfigRulesRuleConditionGroupArgs:
         pulumi.set(self, "conditions", value)
 
 
-if not MYPY:
-    class FirewallConfigRulesRuleConditionGroupConditionArgsDict(TypedDict):
-        op: pulumi.Input[_builtins.str]
-        """
-        Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Request key type to match against
-        """
-        key: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Key within type to match against
-        """
-        neg: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Negate the condition
-        """
-        value: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
-        """
-        values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Values to match against if op is inc, ninc
-        """
-elif False:
-    FirewallConfigRulesRuleConditionGroupConditionArgsDict: TypeAlias = Mapping[str, Any]
+class FirewallConfigRulesRuleConditionGroupConditionArgsDict(TypedDict):
+    op: pulumi.Input[_builtins.str]
+    """
+    Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Request key type to match against
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Key within type to match against
+    """
+    neg: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Negate the condition
+    """
+    value: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
+    """
+    values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Values to match against if op is inc, ninc
+    """
 
 @pulumi.input_type
 class FirewallConfigRulesRuleConditionGroupConditionArgs:
@@ -1832,22 +1746,19 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
         pulumi.set(self, "values", value)
 
 
-if not MYPY:
-    class MicrofrontendGroupDefaultAppArgsDict(TypedDict):
-        project_id: pulumi.Input[_builtins.str]
-        """
-        The ID of the project.
-        """
-        default_route: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The default route for the project. Used for the screenshot of deployments.
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The unique identifier for this resource. Format: team*id/microfrontend*group_id.
-        """
-elif False:
-    MicrofrontendGroupDefaultAppArgsDict: TypeAlias = Mapping[str, Any]
+class MicrofrontendGroupDefaultAppArgsDict(TypedDict):
+    project_id: pulumi.Input[_builtins.str]
+    """
+    The ID of the project.
+    """
+    default_route: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The default route for the project. Used for the screenshot of deployments.
+    """
+    id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The unique identifier for this resource. Format: team*id/microfrontend*group_id.
+    """
 
 @pulumi.input_type
 class MicrofrontendGroupDefaultAppArgs:
@@ -1903,14 +1814,11 @@ class MicrofrontendGroupDefaultAppArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class NetworkTimeoutsArgsDict(TypedDict):
-        create: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
-        """
-elif False:
-    NetworkTimeoutsArgsDict: TypeAlias = Mapping[str, Any]
+class NetworkTimeoutsArgsDict(TypedDict):
+    create: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+    """
 
 @pulumi.input_type
 class NetworkTimeoutsArgs:
@@ -1935,42 +1843,39 @@ class NetworkTimeoutsArgs:
         pulumi.set(self, "create", value)
 
 
-if not MYPY:
-    class ProjectEnvironmentArgsDict(TypedDict):
-        key: pulumi.Input[_builtins.str]
-        """
-        The name of the Environment Variable.
-        """
-        value: pulumi.Input[_builtins.str]
-        """
-        The value of the Environment Variable.
-        """
-        comment: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A comment explaining what the environment variable is for.
-        """
-        custom_environment_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
-        """
-        git_branch: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The git branch of the Environment Variable.
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The ID of the Environment Variable.
-        """
-        sensitive: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        """
-        targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
-        """
-elif False:
-    ProjectEnvironmentArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectEnvironmentArgsDict(TypedDict):
+    key: pulumi.Input[_builtins.str]
+    """
+    The name of the Environment Variable.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    The value of the Environment Variable.
+    """
+    comment: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A comment explaining what the environment variable is for.
+    """
+    custom_environment_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+    """
+    git_branch: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The git branch of the Environment Variable.
+    """
+    id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The ID of the Environment Variable.
+    """
+    sensitive: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+    """
+    targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+    """
 
 @pulumi.input_type
 class ProjectEnvironmentArgs:
@@ -2105,42 +2010,39 @@ class ProjectEnvironmentArgs:
         pulumi.set(self, "targets", value)
 
 
-if not MYPY:
-    class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
-        key: pulumi.Input[_builtins.str]
-        """
-        The name of the Environment Variable.
-        """
-        value: pulumi.Input[_builtins.str]
-        """
-        The value of the Environment Variable.
-        """
-        comment: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A comment explaining what the environment variable is for.
-        """
-        custom_environment_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
-        """
-        git_branch: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The git branch of the Environment Variable.
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The ID of the Environment Variable.
-        """
-        sensitive: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether the Environment Variable is sensitive or not.
-        """
-        targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
-        """
-elif False:
-    ProjectEnvironmentVariablesVariableArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
+    key: pulumi.Input[_builtins.str]
+    """
+    The name of the Environment Variable.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    The value of the Environment Variable.
+    """
+    comment: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A comment explaining what the environment variable is for.
+    """
+    custom_environment_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
+    """
+    git_branch: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The git branch of the Environment Variable.
+    """
+    id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The ID of the Environment Variable.
+    """
+    sensitive: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the Environment Variable is sensitive or not.
+    """
+    targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+    """
 
 @pulumi.input_type
 class ProjectEnvironmentVariablesVariableArgs:
@@ -2275,18 +2177,15 @@ class ProjectEnvironmentVariablesVariableArgs:
         pulumi.set(self, "targets", value)
 
 
-if not MYPY:
-    class ProjectGitCommentsArgsDict(TypedDict):
-        on_commit: pulumi.Input[_builtins.bool]
-        """
-        Whether Commit comments are enabled
-        """
-        on_pull_request: pulumi.Input[_builtins.bool]
-        """
-        Whether Pull Request comments are enabled
-        """
-elif False:
-    ProjectGitCommentsArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectGitCommentsArgsDict(TypedDict):
+    on_commit: pulumi.Input[_builtins.bool]
+    """
+    Whether Commit comments are enabled
+    """
+    on_pull_request: pulumi.Input[_builtins.bool]
+    """
+    Whether Pull Request comments are enabled
+    """
 
 @pulumi.input_type
 class ProjectGitCommentsArgs:
@@ -2325,22 +2224,19 @@ class ProjectGitCommentsArgs:
         pulumi.set(self, "on_pull_request", value)
 
 
-if not MYPY:
-    class ProjectGitProviderOptionsArgsDict(TypedDict):
-        create_deployments: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create deployments
-        """
-        repository_dispatch_events: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to enable repository dispatch events
-        """
-        require_verified_commits: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to require verified commits
-        """
-elif False:
-    ProjectGitProviderOptionsArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectGitProviderOptionsArgsDict(TypedDict):
+    create_deployments: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create deployments
+    """
+    repository_dispatch_events: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to enable repository dispatch events
+    """
+    require_verified_commits: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to require verified commits
+    """
 
 @pulumi.input_type
 class ProjectGitProviderOptionsArgs:
@@ -2397,26 +2293,23 @@ class ProjectGitProviderOptionsArgs:
         pulumi.set(self, "require_verified_commits", value)
 
 
-if not MYPY:
-    class ProjectGitRepositoryArgsDict(TypedDict):
-        repo: pulumi.Input[_builtins.str]
-        """
-        The name of the git repository. For example: `vercel/next.js`.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
-        """
-        deploy_hooks: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgsDict']]]]
-        """
-        Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
-        """
-        production_branch: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
-        """
-elif False:
-    ProjectGitRepositoryArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectGitRepositoryArgsDict(TypedDict):
+    repo: pulumi.Input[_builtins.str]
+    """
+    The name of the git repository. For example: `vercel/next.js`.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    The git provider of the repository. Must be either `github`, `gitlab`, or `bitbucket`.
+    """
+    deploy_hooks: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectGitRepositoryDeployHookArgsDict']]]]
+    """
+    Deploy hooks are unique URLs that allow you to trigger a deployment of a given branch. See https://vercel.com/docs/deployments/deploy-hooks for full information.
+    """
+    production_branch: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    By default, every commit pushed to the main branch will trigger a Production Deployment instead of the usual Preview Deployment. You can switch to a different branch here.
+    """
 
 @pulumi.input_type
 class ProjectGitRepositoryArgs:
@@ -2487,26 +2380,23 @@ class ProjectGitRepositoryArgs:
         pulumi.set(self, "production_branch", value)
 
 
-if not MYPY:
-    class ProjectGitRepositoryDeployHookArgsDict(TypedDict):
-        name: pulumi.Input[_builtins.str]
-        """
-        The name of the deploy hook.
-        """
-        ref: pulumi.Input[_builtins.str]
-        """
-        The branch or commit hash that should be deployed.
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The ID of the deploy hook.
-        """
-        url: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A URL that, when a POST request is made to, will trigger a new deployment.
-        """
-elif False:
-    ProjectGitRepositoryDeployHookArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectGitRepositoryDeployHookArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    The name of the deploy hook.
+    """
+    ref: pulumi.Input[_builtins.str]
+    """
+    The branch or commit hash that should be deployed.
+    """
+    id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The ID of the deploy hook.
+    """
+    url: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A URL that, when a POST request is made to, will trigger a new deployment.
+    """
 
 @pulumi.input_type
 class ProjectGitRepositoryDeployHookArgs:
@@ -2577,26 +2467,23 @@ class ProjectGitRepositoryDeployHookArgs:
         pulumi.set(self, "url", value)
 
 
-if not MYPY:
-    class ProjectMembersMemberArgsDict(TypedDict):
-        role: pulumi.Input[_builtins.str]
-        """
-        The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
-        """
-        email: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
-        """
-        user_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
-        """
-        username: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
-        """
-elif False:
-    ProjectMembersMemberArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectMembersMemberArgsDict(TypedDict):
+    role: pulumi.Input[_builtins.str]
+    """
+    The role that the user should have in the project. One of 'ADMIN', 'PROJECT*DEVELOPER', or 'PROJECT*VIEWER'.
+    """
+    email: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The email of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+    """
+    user_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The ID of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+    """
+    username: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The username of the user to add to the project. Exactly one of `user_id`, `email`, or `username` must be specified.
+    """
 
 @pulumi.input_type
 class ProjectMembersMemberArgs:
@@ -2668,14 +2555,11 @@ class ProjectMembersMemberArgs:
         pulumi.set(self, "username", value)
 
 
-if not MYPY:
-    class ProjectOidcTokenConfigArgsDict(TypedDict):
-        issuer_mode: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
-        """
-elif False:
-    ProjectOidcTokenConfigArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectOidcTokenConfigArgsDict(TypedDict):
+    issuer_mode: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Configures the URL of the `iss` claim. `team` = `https://oidc.vercel.com/[team_slug]` `global` = `https://oidc.vercel.com`
+    """
 
 @pulumi.input_type
 class ProjectOidcTokenConfigArgs:
@@ -2700,14 +2584,11 @@ class ProjectOidcTokenConfigArgs:
         pulumi.set(self, "issuer_mode", value)
 
 
-if not MYPY:
-    class ProjectOptionsAllowlistArgsDict(TypedDict):
-        paths: pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgsDict']]]
-        """
-        The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
-        """
-elif False:
-    ProjectOptionsAllowlistArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectOptionsAllowlistArgsDict(TypedDict):
+    paths: pulumi.Input[Sequence[pulumi.Input['ProjectOptionsAllowlistPathArgsDict']]]
+    """
+    The allowed paths for the OPTIONS Allowlist. Incoming requests will bypass Deployment Protection if they have the method `OPTIONS` and **start with** one of the path values.
+    """
 
 @pulumi.input_type
 class ProjectOptionsAllowlistArgs:
@@ -2731,14 +2612,11 @@ class ProjectOptionsAllowlistArgs:
         pulumi.set(self, "paths", value)
 
 
-if not MYPY:
-    class ProjectOptionsAllowlistPathArgsDict(TypedDict):
-        value: pulumi.Input[_builtins.str]
-        """
-        The path prefix to compare with the incoming request path.
-        """
-elif False:
-    ProjectOptionsAllowlistPathArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectOptionsAllowlistPathArgsDict(TypedDict):
+    value: pulumi.Input[_builtins.str]
+    """
+    The path prefix to compare with the incoming request path.
+    """
 
 @pulumi.input_type
 class ProjectOptionsAllowlistPathArgs:
@@ -2762,18 +2640,15 @@ class ProjectOptionsAllowlistPathArgs:
         pulumi.set(self, "value", value)
 
 
-if not MYPY:
-    class ProjectPasswordProtectionArgsDict(TypedDict):
-        deployment_type: pulumi.Input[_builtins.str]
-        """
-        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
-        """
-        password: pulumi.Input[_builtins.str]
-        """
-        The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
-        """
-elif False:
-    ProjectPasswordProtectionArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectPasswordProtectionArgsDict(TypedDict):
+    deployment_type: pulumi.Input[_builtins.str]
+    """
+    The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, or `only_preview_deployments`.
+    """
+    password: pulumi.Input[_builtins.str]
+    """
+    The password that visitors must enter to gain access to your Preview Deployments. Drift detection is not possible for this field.
+    """
 
 @pulumi.input_type
 class ProjectPasswordProtectionArgs:
@@ -2812,26 +2687,23 @@ class ProjectPasswordProtectionArgs:
         pulumi.set(self, "password", value)
 
 
-if not MYPY:
-    class ProjectResourceConfigArgsDict(TypedDict):
-        fluid: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
-        """
-        function_default_cpu_type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
-        """
-        function_default_regions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        The default regions for Serverless Functions. Must be an array of valid region identifiers.
-        """
-        function_default_timeout: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The default timeout for Serverless Functions.
-        """
-elif False:
-    ProjectResourceConfigArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectResourceConfigArgsDict(TypedDict):
+    fluid: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable fluid compute for your Vercel Functions to automatically manage concurrency and optimize performance. Vercel will handle the defaults to ensure the best experience for your workload.
+    """
+    function_default_cpu_type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The amount of CPU available to your Serverless Functions. Should be one of 'standard_legacy' (0.6vCPU), 'standard' (1vCPU) or 'performance' (1.7vCPUs).
+    """
+    function_default_regions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    The default regions for Serverless Functions. Must be an array of valid region identifiers.
+    """
+    function_default_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The default timeout for Serverless Functions.
+    """
 
 @pulumi.input_type
 class ProjectResourceConfigArgs:
@@ -2904,18 +2776,15 @@ class ProjectResourceConfigArgs:
         pulumi.set(self, "function_default_timeout", value)
 
 
-if not MYPY:
-    class ProjectRollingReleaseStageArgsDict(TypedDict):
-        target_percentage: pulumi.Input[_builtins.int]
-        """
-        The percentage of traffic to route to this stage.
-        """
-        duration: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
-        """
-elif False:
-    ProjectRollingReleaseStageArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectRollingReleaseStageArgsDict(TypedDict):
+    target_percentage: pulumi.Input[_builtins.int]
+    """
+    The percentage of traffic to route to this stage.
+    """
+    duration: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The duration in minutes to wait before advancing to the next stage. Required for automatic advancement type.
+    """
 
 @pulumi.input_type
 class ProjectRollingReleaseStageArgs:
@@ -2955,22 +2824,19 @@ class ProjectRollingReleaseStageArgs:
         pulumi.set(self, "duration", value)
 
 
-if not MYPY:
-    class ProjectTrustedIpsArgsDict(TypedDict):
-        addresses: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgsDict']]]
-        """
-        The allowed IP addressses and CIDR ranges with optional descriptions.
-        """
-        deployment_type: pulumi.Input[_builtins.str]
-        """
-        The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
-        """
-        protection_mode: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
-        """
-elif False:
-    ProjectTrustedIpsArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectTrustedIpsArgsDict(TypedDict):
+    addresses: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgsDict']]]
+    """
+    The allowed IP addressses and CIDR ranges with optional descriptions.
+    """
+    deployment_type: pulumi.Input[_builtins.str]
+    """
+    The deployment environment to protect. Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_production_deployments`, or `only_preview_deployments`.
+    """
+    protection_mode: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Whether or not Trusted IPs is optional to access a deployment. Must be either `trusted_ip_required` or `trusted_ip_optional`. `trusted_ip_optional` is only available with Standalone Trusted IPs.
+    """
 
 @pulumi.input_type
 class ProjectTrustedIpsArgs:
@@ -3025,18 +2891,15 @@ class ProjectTrustedIpsArgs:
         pulumi.set(self, "protection_mode", value)
 
 
-if not MYPY:
-    class ProjectTrustedIpsAddressArgsDict(TypedDict):
-        value: pulumi.Input[_builtins.str]
-        """
-        The address or CIDR range that can access deployments.
-        """
-        note: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A description for the value
-        """
-elif False:
-    ProjectTrustedIpsAddressArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectTrustedIpsAddressArgsDict(TypedDict):
+    value: pulumi.Input[_builtins.str]
+    """
+    The address or CIDR range that can access deployments.
+    """
+    note: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A description for the value
+    """
 
 @pulumi.input_type
 class ProjectTrustedIpsAddressArgs:
@@ -3076,14 +2939,11 @@ class ProjectTrustedIpsAddressArgs:
         pulumi.set(self, "note", value)
 
 
-if not MYPY:
-    class ProjectVercelAuthenticationArgsDict(TypedDict):
-        deployment_type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
-        """
-elif False:
-    ProjectVercelAuthenticationArgsDict: TypeAlias = Mapping[str, Any]
+class ProjectVercelAuthenticationArgsDict(TypedDict):
+    deployment_type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
+    """
 
 @pulumi.input_type
 class ProjectVercelAuthenticationArgs:
@@ -3108,14 +2968,11 @@ class ProjectVercelAuthenticationArgs:
         pulumi.set(self, "deployment_type", value)
 
 
-if not MYPY:
-    class TeamConfigRemoteCachingArgsDict(TypedDict):
-        enabled: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Indicates if Remote Caching is enabled.
-        """
-elif False:
-    TeamConfigRemoteCachingArgsDict: TypeAlias = Mapping[str, Any]
+class TeamConfigRemoteCachingArgsDict(TypedDict):
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Indicates if Remote Caching is enabled.
+    """
 
 @pulumi.input_type
 class TeamConfigRemoteCachingArgs:
@@ -3140,18 +2997,15 @@ class TeamConfigRemoteCachingArgs:
         pulumi.set(self, "enabled", value)
 
 
-if not MYPY:
-    class TeamConfigSamlArgsDict(TypedDict):
-        enforced: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Indicates if SAML is enforced for the team.
-        """
-        roles: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgsDict']]]]
-        """
-        Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
-        """
-elif False:
-    TeamConfigSamlArgsDict: TypeAlias = Mapping[str, Any]
+class TeamConfigSamlArgsDict(TypedDict):
+    enforced: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Indicates if SAML is enforced for the team.
+    """
+    roles: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['TeamConfigSamlRolesArgsDict']]]]
+    """
+    Directory groups to role or access group mappings. For each directory group, specify either a role or access group id.
+    """
 
 @pulumi.input_type
 class TeamConfigSamlArgs:
@@ -3192,18 +3046,15 @@ class TeamConfigSamlArgs:
         pulumi.set(self, "roles", value)
 
 
-if not MYPY:
-    class TeamConfigSamlRolesArgsDict(TypedDict):
-        access_group_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The access group id to assign to the user.
-        """
-        role: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
-        """
-elif False:
-    TeamConfigSamlRolesArgsDict: TypeAlias = Mapping[str, Any]
+class TeamConfigSamlRolesArgsDict(TypedDict):
+    access_group_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The access group id to assign to the user.
+    """
+    role: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The team level role to assign to the user. One of 'MEMBER', 'OWNER', 'VIEWER', 'DEVELOPER', 'BILLING' or 'CONTRIBUTOR'.
+    """
 
 @pulumi.input_type
 class TeamConfigSamlRolesArgs:
@@ -3244,18 +3095,15 @@ class TeamConfigSamlRolesArgs:
         pulumi.set(self, "role", value)
 
 
-if not MYPY:
-    class TeamMemberProjectArgsDict(TypedDict):
-        project_id: pulumi.Input[_builtins.str]
-        """
-        The ID of the project that the user should be granted access to.
-        """
-        role: pulumi.Input[_builtins.str]
-        """
-        The role that the user should have in the project.
-        """
-elif False:
-    TeamMemberProjectArgsDict: TypeAlias = Mapping[str, Any]
+class TeamMemberProjectArgsDict(TypedDict):
+    project_id: pulumi.Input[_builtins.str]
+    """
+    The ID of the project that the user should be granted access to.
+    """
+    role: pulumi.Input[_builtins.str]
+    """
+    The role that the user should have in the project.
+    """
 
 @pulumi.input_type
 class TeamMemberProjectArgs:

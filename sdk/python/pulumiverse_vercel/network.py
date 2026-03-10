@@ -29,6 +29,7 @@ class NetworkArgs:
                  timeouts: Optional[pulumi.Input['NetworkTimeoutsArgs']] = None):
         """
         The set of arguments for constructing a Network resource.
+
         :param pulumi.Input[_builtins.str] cidr: The CIDR range of the Network.
         :param pulumi.Input[_builtins.str] region: The Vercel region in which the Network exists.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] aws_availability_zone_ids: The IDs of the AWS Availability Zones in which the network exists, if specified during creation.
@@ -132,6 +133,7 @@ class _NetworkState:
                  vpc_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Network resources.
+
         :param pulumi.Input[_builtins.str] aws_account_id: The ID of the AWS Account in which the network exists.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] aws_availability_zone_ids: The IDs of the AWS Availability Zones in which the network exists, if specified during creation.
         :param pulumi.Input[_builtins.str] aws_region: The AWS Region in which the network exists.
@@ -312,6 +314,7 @@ class Network(pulumi.CustomResource):
         """
         Provides a Network resource.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] aws_availability_zone_ids: The IDs of the AWS Availability Zones in which the network exists, if specified during creation.
@@ -328,6 +331,7 @@ class Network(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Provides a Network resource.
+
 
         :param str resource_name: The name of the resource.
         :param NetworkArgs args: The arguments to use to populate this resource's properties.

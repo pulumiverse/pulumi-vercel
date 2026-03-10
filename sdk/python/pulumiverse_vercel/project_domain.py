@@ -28,6 +28,7 @@ class ProjectDomainArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectDomain resource.
+
         :param pulumi.Input[_builtins.str] domain: The domain name to associate with the project.
         :param pulumi.Input[_builtins.str] project_id: The project ID to add the deployment to.
         :param pulumi.Input[_builtins.str] custom_environment_id: The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be assigned the domain name.
@@ -146,6 +147,7 @@ class _ProjectDomainState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectDomain resources.
+
         :param pulumi.Input[_builtins.str] custom_environment_id: The name of the Custom Environment to link to the Project Domain. Deployments from this custom environment will be assigned the domain name.
         :param pulumi.Input[_builtins.str] domain: The domain name to associate with the project.
         :param pulumi.Input[_builtins.str] git_branch: Git branch to link to the project domain. Deployments from this git branch will be assigned the domain name.
@@ -299,9 +301,7 @@ class ProjectDomain(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the project ID and domain.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
@@ -309,14 +309,13 @@ class ProjectDomain(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, project_id and domain name.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -365,9 +364,7 @@ class ProjectDomain(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the project ID and domain.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
@@ -375,14 +372,13 @@ class ProjectDomain(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, project_id and domain name.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectDomainArgs args: The arguments to use to populate this resource's properties.

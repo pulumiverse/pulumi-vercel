@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
  * 
  * ## Import
  * 
- * To import, use the team_id and user_id.
+ * To import, use the teamId and user_id.
  * 
  * ```sh
  * $ pulumi import vercel:index/teamMember:TeamMember example team_xxxxxxxxxxxxxxxxxxxxxxxx/uuuuuuuuuuuuuuuuuuuuuuuuuu

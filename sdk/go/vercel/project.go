@@ -11,6 +11,15 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
+// Provides a Project resource.
+//
+// A Project groups deployments and custom domains. To deploy on Vercel, you need to create a Project.
+//
+// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+//
+// > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
+// At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+//
 // ## Example Usage
 //
 // ```go
@@ -57,21 +66,17 @@ import (
 //
 // ## Import
 //
-// # If importing into a personal account, or with a team configured on
-//
+// If importing into a personal account, or with a team configured on
 // the provider, simply use the project ID.
-//
-// - project_id can be found in the project `settings` tab in the Vercel UI.
+// - projectId can be found in the project `settings` tab in the Vercel UI.
 //
 // ```sh
 // $ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // ```
 //
-// Alternatively, you can import via the team_id and project_id.
-//
-// - team_id can be found in the team `settings` tab in the Vercel UI.
-//
-// - project_id can be found in the project `settings` tab in the Vercel UI.
+// Alternatively, you can import via the teamId and project_id.
+// - teamId can be found in the team `settings` tab in the Vercel UI.
+// - projectId can be found in the project `settings` tab in the Vercel UI.
 //
 // ```sh
 // $ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

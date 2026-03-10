@@ -14,9 +14,17 @@ public final class GetFileArgs extends com.pulumi.resources.InvokeArgs {
 
     public static final GetFileArgs Empty = new GetFileArgs();
 
+    /**
+     * The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     @Import(name="path", required=true)
     private Output<String> path;
 
+    /**
+     * @return The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     public Output<String> path() {
         return this.path;
     }
@@ -45,11 +53,23 @@ public final class GetFileArgs extends com.pulumi.resources.InvokeArgs {
             $ = new GetFileArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param path The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(Output<String> path) {
             $.path = path;
             return this;
         }
 
+        /**
+         * @param path The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(String path) {
             return path(Output.of(path));
         }

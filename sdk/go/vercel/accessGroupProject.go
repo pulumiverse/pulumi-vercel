@@ -60,15 +60,14 @@ import (
 //
 // ## Import
 //
-// # If importing into a personal account, or with a team configured on
-//
-// the provider, use the access_group_id and project_id.
+// If importing into a personal account, or with a team configured on
+// the provider, use the accessGroupId and project_id.
 //
 // ```sh
 // $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // ```
 //
-// If importing to a team, use the team_id, access_group_id and project_id.
+// If importing to a team, use the team_id, accessGroupId and project_id.
 //
 // ```sh
 // $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

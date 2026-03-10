@@ -52,8 +52,7 @@ namespace Pulumiverse.Vercel
     /// ## Import
     /// 
     /// Team config can be imported via the team ID.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
+    /// - TeamId can be found in the team `Settings` tab in the Vercel UI.
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/teamConfig:TeamConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx

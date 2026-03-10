@@ -26,6 +26,7 @@ class FirewallBypassArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a FirewallBypass resource.
+
         :param pulumi.Input[_builtins.str] domain: The domain to configure the bypass rule for.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to assign the bypass rule to
         :param pulumi.Input[_builtins.str] source_ip: The source IP address to configure the bypass rule for.
@@ -111,6 +112,7 @@ class _FirewallBypassState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering FirewallBypass resources.
+
         :param pulumi.Input[_builtins.str] domain: The domain to configure the bypass rule for.
         :param pulumi.Input[_builtins.str] note: A note to describe the bypass rule. Maximum length is 500 characters.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to assign the bypass rule to
@@ -233,11 +235,11 @@ class FirewallBypass(pulumi.CustomResource):
 
         ```sh
         $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#mybypasshost.com#3.4.5.0/24
-        ```
 
-        ```sh
+
         $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#3.4.5.0/24
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -285,11 +287,11 @@ class FirewallBypass(pulumi.CustomResource):
 
         ```sh
         $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#mybypasshost.com#3.4.5.0/24
-        ```
 
-        ```sh
+
         $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#3.4.5.0/24
         ```
+
 
         :param str resource_name: The name of the resource.
         :param FirewallBypassArgs args: The arguments to use to populate this resource's properties.
