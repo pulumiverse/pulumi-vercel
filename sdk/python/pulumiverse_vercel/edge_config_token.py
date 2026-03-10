@@ -24,6 +24,7 @@ class EdgeConfigTokenArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a EdgeConfigToken resource.
+
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] label: The label of the Edge Config Token.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -80,6 +81,7 @@ class _EdgeConfigTokenState:
                  token: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering EdgeConfigToken resources.
+
         :param pulumi.Input[_builtins.str] connection_string: A connection string is a URL that connects a project to an Edge Config. The variable can be called anything, but our Edge Config client SDK will search for process.env.EDGE_CONFIG by default.
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] label: The label of the Edge Config Token.
@@ -200,11 +202,8 @@ class EdgeConfigToken(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the edge config id and token value.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
 
         ```sh
@@ -212,16 +211,14 @@ class EdgeConfigToken(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and edge_config_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
 
         ```sh
         $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -267,11 +264,8 @@ class EdgeConfigToken(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the edge config id and token value.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
 
         ```sh
@@ -279,16 +273,14 @@ class EdgeConfigToken(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and edge_config_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
-
         - token can be found in the Vercel UI under Storage, Edge Config, the specific Edge Config, Tokens.
 
         ```sh
         $ pulumi import vercel:index/edgeConfigToken:EdgeConfigToken example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param EdgeConfigTokenArgs args: The arguments to use to populate this resource's properties.

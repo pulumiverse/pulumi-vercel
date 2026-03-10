@@ -24,6 +24,7 @@ class IntegrationProjectAccessArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a IntegrationProjectAccess resource.
+
         :param pulumi.Input[_builtins.str] integration_id: The ID of the integration.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
@@ -78,6 +79,7 @@ class _IntegrationProjectAccessState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering IntegrationProjectAccess resources.
+
         :param pulumi.Input[_builtins.str] integration_id: The ID of the integration.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
@@ -139,6 +141,7 @@ class IntegrationProjectAccess(pulumi.CustomResource):
         """
         Provides Project access to an existing Integration. This requires the integration already exists and is already configured for Specific Project access.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] integration_id: The ID of the integration.
@@ -153,6 +156,7 @@ class IntegrationProjectAccess(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Provides Project access to an existing Integration. This requires the integration already exists and is already configured for Specific Project access.
+
 
         :param str resource_name: The name of the resource.
         :param IntegrationProjectAccessArgs args: The arguments to use to populate this resource's properties.

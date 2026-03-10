@@ -40,6 +40,9 @@ export function getFile(args: GetFileArgs, opts?: pulumi.InvokeOptions): Promise
  * A collection of arguments for invoking getFile.
  */
 export interface GetFileArgs {
+    /**
+     * The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     */
     path: string;
 }
 
@@ -55,6 +58,9 @@ export interface GetFileResult {
      * The ID of this resource.
      */
     readonly id: string;
+    /**
+     * The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     */
     readonly path: string;
 }
 /**
@@ -93,5 +99,8 @@ export function getFileOutput(args: GetFileOutputArgs, opts?: pulumi.InvokeOutpu
  * A collection of arguments for invoking getFile.
  */
 export interface GetFileOutputArgs {
+    /**
+     * The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
+     */
     path: pulumi.Input<string>;
 }

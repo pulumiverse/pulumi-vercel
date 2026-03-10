@@ -67,6 +67,7 @@ func GetFile(ctx *pulumi.Context, args *GetFileArgs, opts ...pulumi.InvokeOption
 
 // A collection of arguments for invoking getFile.
 type GetFileArgs struct {
+	// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
 	Path string `pulumi:"path"`
 }
 
@@ -75,7 +76,8 @@ type GetFileResult struct {
 	// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 	File map[string]string `pulumi:"file"`
 	// The ID of this resource.
-	Id   string `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
 	Path string `pulumi:"path"`
 }
 
@@ -90,6 +92,7 @@ func GetFileOutput(ctx *pulumi.Context, args GetFileOutputArgs, opts ...pulumi.I
 
 // A collection of arguments for invoking getFile.
 type GetFileOutputArgs struct {
+	// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
 	Path pulumi.StringInput `pulumi:"path"`
 }
 
@@ -122,6 +125,7 @@ func (o GetFileResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFileResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The path to the file on your filesystem. Note that the path is relative to the root of the terraform files.
 func (o GetFileResultOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFileResult) string { return v.Path }).(pulumi.StringOutput)
 }

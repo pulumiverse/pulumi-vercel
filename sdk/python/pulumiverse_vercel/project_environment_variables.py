@@ -26,6 +26,7 @@ class ProjectEnvironmentVariablesArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectEnvironmentVariables resource.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentVariablesVariableArgs']]] variables: A set of Environment Variables that should be configured for the project.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Required when configuring a team resource if a default team has not been set in the provider.
@@ -80,6 +81,7 @@ class _ProjectEnvironmentVariablesState:
                  variables: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentVariablesVariableArgs']]]] = None):
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariables resources.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentVariablesVariableArgs']]] variables: A set of Environment Variables that should be configured for the project.
@@ -139,6 +141,15 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                  variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentVariablesVariableArgs', 'ProjectEnvironmentVariablesVariableArgsDict']]]]] = None,
                  __props__=None):
         """
+        Provides a resource for managing a number of Project Environment Variables.
+
+        This resource defines multiple Environment Variables on a Vercel Project.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).
+
+        > Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
+        At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+
         ## Example Usage
 
         ```python
@@ -176,6 +187,7 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                 },
             ])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -190,6 +202,15 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                  args: ProjectEnvironmentVariablesArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Provides a resource for managing a number of Project Environment Variables.
+
+        This resource defines multiple Environment Variables on a Vercel Project.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).
+
+        > Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
+        At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+
         ## Example Usage
 
         ```python
@@ -227,6 +248,7 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                 },
             ])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectEnvironmentVariablesArgs args: The arguments to use to populate this resource's properties.

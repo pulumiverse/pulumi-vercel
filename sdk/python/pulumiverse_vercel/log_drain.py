@@ -31,6 +31,7 @@ class LogDrainArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a LogDrain resource.
+
         :param pulumi.Input[_builtins.str] delivery_format: The format log data should be delivered in. Can be `json` or `ndjson`.
         :param pulumi.Input[_builtins.str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
@@ -195,6 +196,7 @@ class _LogDrainState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering LogDrain resources.
+
         :param pulumi.Input[_builtins.str] delivery_format: The format log data should be delivered in. Can be `json` or `ndjson`.
         :param pulumi.Input[_builtins.str] endpoint: Logs will be sent as POST requests to this URL. The endpoint will be verified, and must return a `200` status code and an `x-vercel-verify` header taken from the endpoint_verification data source. The value the `x-vercel-verify` header should be can be read from the `vercel_endpoint_verification_code` data source.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] environments: Logs from the selected environments will be forwarded to your webhook. At least one must be present.
@@ -403,9 +405,7 @@ class LogDrain(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the log_drain_id.
-
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
 
         ```sh
@@ -413,14 +413,13 @@ class LogDrain(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and edge_config_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
 
         ```sh
         $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -479,9 +478,7 @@ class LogDrain(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the log_drain_id.
-
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
 
         ```sh
@@ -489,14 +486,13 @@ class LogDrain(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and edge_config_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
 
         ```sh
         $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param LogDrainArgs args: The arguments to use to populate this resource's properties.

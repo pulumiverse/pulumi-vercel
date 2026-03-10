@@ -25,6 +25,7 @@ class AccessGroupProjectArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a AccessGroupProject resource.
+
         :param pulumi.Input[_builtins.str] access_group_id: The ID of the Access Group.
         :param pulumi.Input[_builtins.str] project_id: The Project ID to assign to the access group.
         :param pulumi.Input[_builtins.str] role: The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
@@ -94,6 +95,7 @@ class _AccessGroupProjectState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AccessGroupProject resources.
+
         :param pulumi.Input[_builtins.str] access_group_id: The ID of the Access Group.
         :param pulumi.Input[_builtins.str] project_id: The Project ID to assign to the access group.
         :param pulumi.Input[_builtins.str] role: The project role to assign to the access group. Must be either `ADMIN`, `PROJECT_DEVELOPER`, or `PROJECT_VIEWER`.
@@ -192,7 +194,6 @@ class AccessGroupProject(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, use the access_group_id and project_id.
 
         ```sh
@@ -204,6 +205,7 @@ class AccessGroupProject(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -242,7 +244,6 @@ class AccessGroupProject(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, use the access_group_id and project_id.
 
         ```sh
@@ -254,6 +255,7 @@ class AccessGroupProject(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/accessGroupProject:AccessGroupProject example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param AccessGroupProjectArgs args: The arguments to use to populate this resource's properties.

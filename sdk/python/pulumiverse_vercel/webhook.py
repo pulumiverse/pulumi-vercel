@@ -25,6 +25,7 @@ class WebhookArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Webhook resource.
+
         :param pulumi.Input[_builtins.str] endpoint: Webhooks events will be sent as POST requests to this URL.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] events: A list of the events the webhook will listen to. At least one must be present.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
@@ -96,6 +97,7 @@ class _WebhookState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Webhook resources.
+
         :param pulumi.Input[_builtins.str] endpoint: Webhooks events will be sent as POST requests to this URL.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] events: A list of the events the webhook will listen to. At least one must be present.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the webhook should be associated with. These projects should send events to the specified endpoint.
@@ -218,6 +220,7 @@ class Webhook(pulumi.CustomResource):
             endpoint="https://example.com/endpoint")
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] endpoint: Webhooks events will be sent as POST requests to this URL.
@@ -263,6 +266,7 @@ class Webhook(pulumi.CustomResource):
             ],
             endpoint="https://example.com/endpoint")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param WebhookArgs args: The arguments to use to populate this resource's properties.

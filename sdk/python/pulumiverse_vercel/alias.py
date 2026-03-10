@@ -24,6 +24,7 @@ class AliasArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Alias resource.
+
         :param pulumi.Input[_builtins.str] alias: The Alias we want to assign to the deployment defined in the URL.
         :param pulumi.Input[_builtins.str] deployment_id: The id of the Deployment the Alias should be associated with.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -78,6 +79,7 @@ class _AliasState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Alias resources.
+
         :param pulumi.Input[_builtins.str] alias: The Alias we want to assign to the deployment defined in the URL.
         :param pulumi.Input[_builtins.str] deployment_id: The id of the Deployment the Alias should be associated with.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Alias and Deployment exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -141,6 +143,7 @@ class Alias(pulumi.CustomResource):
 
         An Alias allows a `Deployment` to be accessed through a different URL.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] alias: The Alias we want to assign to the deployment defined in the URL.
@@ -157,6 +160,7 @@ class Alias(pulumi.CustomResource):
         Provides an Alias resource.
 
         An Alias allows a `Deployment` to be accessed through a different URL.
+
 
         :param str resource_name: The name of the resource.
         :param AliasArgs args: The arguments to use to populate this resource's properties.

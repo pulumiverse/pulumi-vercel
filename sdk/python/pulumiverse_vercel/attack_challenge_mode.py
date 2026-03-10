@@ -25,6 +25,7 @@ class AttackChallengeModeArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a AttackChallengeMode resource.
+
         :param pulumi.Input[_builtins.int] attack_mode_active_until: Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
         :param pulumi.Input[_builtins.bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
@@ -94,6 +95,7 @@ class _AttackChallengeModeState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AttackChallengeMode resources.
+
         :param pulumi.Input[_builtins.int] attack_mode_active_until: Unix timestamp in milliseconds (like Date.now()) until which Attack Challenge Mode stays active.
         :param pulumi.Input[_builtins.bool] enabled: Whether Attack Challenge Mode is enabled or not.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project to toggle Attack Challenge Mode on.
@@ -191,14 +193,13 @@ class AttackChallengeMode(pulumi.CustomResource):
         ## Import
 
         You can import via the team_id and project_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -236,14 +237,13 @@ class AttackChallengeMode(pulumi.CustomResource):
         ## Import
 
         You can import via the team_id and project_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/attackChallengeMode:AttackChallengeMode example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param AttackChallengeModeArgs args: The arguments to use to populate this resource's properties.

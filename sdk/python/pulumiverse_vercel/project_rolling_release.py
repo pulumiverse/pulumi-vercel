@@ -27,6 +27,7 @@ class ProjectRollingReleaseArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectRollingRelease resource.
+
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]] stages: The stages for the rolling release configuration. The last stage must have target_percentage = 100.
@@ -96,6 +97,7 @@ class _ProjectRollingReleaseState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectRollingRelease resources.
+
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
         :param pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]] stages: The stages for the rolling release configuration. The last stage must have target_percentage = 100.
@@ -195,6 +197,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
             ])
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
@@ -232,6 +235,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
                 },
             ])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectRollingReleaseArgs args: The arguments to use to populate this resource's properties.

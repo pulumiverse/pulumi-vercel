@@ -13,9 +13,17 @@ public final class GetPrebuiltProjectPlainArgs extends com.pulumi.resources.Invo
 
     public static final GetPrebuiltProjectPlainArgs Empty = new GetPrebuiltProjectPlainArgs();
 
+    /**
+     * The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     * 
+     */
     @Import(name="path", required=true)
     private String path;
 
+    /**
+     * @return The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     * 
+     */
     public String path() {
         return this.path;
     }
@@ -44,6 +52,12 @@ public final class GetPrebuiltProjectPlainArgs extends com.pulumi.resources.Invo
             $ = new GetPrebuiltProjectPlainArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param path The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(String path) {
             $.path = path;
             return this;

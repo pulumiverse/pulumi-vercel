@@ -14,6 +14,14 @@ import java.lang.String;
 import javax.annotation.Nullable;
 
 /**
+ * Provides a Project Deployment Retention resource.
+ * 
+ * A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
+ * 
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
+ * 
+ * &gt; Note that deleting a Deployment Retention will not update the settings in the project, it will only prevent it from being managed via Terraform.
+ * 
  * ## Example Usage
  * 
  * <pre>
@@ -67,11 +75,9 @@ import javax.annotation.Nullable;
  * 
  * ## Import
  * 
- * You can import via the team_id and project_id.
- * 
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- * 
- * - project_id can be found in the project `settings` tab in the Vercel UI.
+ * You can import via the teamId and project_id.
+ * - teamId can be found in the team `settings` tab in the Vercel UI.
+ * - projectId can be found in the project `settings` tab in the Vercel UI.
  * 
  * ```sh
  * $ pulumi import vercel:index/projectDeploymentRetention:ProjectDeploymentRetention example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

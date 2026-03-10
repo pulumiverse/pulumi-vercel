@@ -21,6 +21,10 @@ public final class GetProjectDirectoryResult {
      * 
      */
     private String id;
+    /**
+     * @return The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     private String path;
 
     private GetProjectDirectoryResult() {}
@@ -38,6 +42,10 @@ public final class GetProjectDirectoryResult {
     public String id() {
         return this.id;
     }
+    /**
+     * @return The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     public String path() {
         return this.path;
     }

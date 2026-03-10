@@ -56,6 +56,9 @@ class GetProjectDirectoryResult:
     @_builtins.property
     @pulumi.getter
     def path(self) -> _builtins.str:
+        """
+        The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+        """
         return pulumi.get(self, "path")
 
 
@@ -73,7 +76,27 @@ class AwaitableGetProjectDirectoryResult(GetProjectDirectoryResult):
 def get_project_directory(path: Optional[_builtins.str] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProjectDirectoryResult:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about files within a directory on disk.
+
+    This will recursively read files, providing metadata for use with a `Deployment`.
+
+    > If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+    import pulumiverse_vercel as vercel
+
+    # In this example, we are assuming that a nextjs UI
+    # exists in a `ui` directory and any terraform exists in a `terraform` directory.
+    # E.g.
+    # ```
+    ```
+
+
+    :param _builtins.str path: The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
     """
     __args__ = dict()
     __args__['path'] = path
@@ -87,7 +110,27 @@ def get_project_directory(path: Optional[_builtins.str] = None,
 def get_project_directory_output(path: Optional[pulumi.Input[_builtins.str]] = None,
                                  opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetProjectDirectoryResult]:
     """
-    Use this data source to access information about an existing resource.
+    Provides information about files within a directory on disk.
+
+    This will recursively read files, providing metadata for use with a `Deployment`.
+
+    > If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_vercel as vercel
+    import pulumiverse_vercel as vercel
+
+    # In this example, we are assuming that a nextjs UI
+    # exists in a `ui` directory and any terraform exists in a `terraform` directory.
+    # E.g.
+    # ```
+    ```
+
+
+    :param _builtins.str path: The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
     """
     __args__ = dict()
     __args__['path'] = path

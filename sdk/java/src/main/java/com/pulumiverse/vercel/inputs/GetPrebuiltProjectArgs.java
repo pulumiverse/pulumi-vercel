@@ -14,9 +14,17 @@ public final class GetPrebuiltProjectArgs extends com.pulumi.resources.InvokeArg
 
     public static final GetPrebuiltProjectArgs Empty = new GetPrebuiltProjectArgs();
 
+    /**
+     * The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     * 
+     */
     @Import(name="path", required=true)
     private Output<String> path;
 
+    /**
+     * @return The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+     * 
+     */
     public Output<String> path() {
         return this.path;
     }
@@ -45,11 +53,23 @@ public final class GetPrebuiltProjectArgs extends com.pulumi.resources.InvokeArg
             $ = new GetPrebuiltProjectArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param path The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(Output<String> path) {
             $.path = path;
             return this;
         }
 
+        /**
+         * @param path The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(String path) {
             return path(Output.of(path));
         }

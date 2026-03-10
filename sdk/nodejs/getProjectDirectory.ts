@@ -4,6 +4,25 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Provides information about files within a directory on disk.
+ *
+ * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+ *
+ * > If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * // In this example, we are assuming that a nextjs UI
+ * // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+ * // E.g.
+ * // ```
+ * ```
+ */
 export function getProjectDirectory(args: GetProjectDirectoryArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectDirectoryResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProjectDirectory:getProjectDirectory", {
@@ -15,6 +34,9 @@ export function getProjectDirectory(args: GetProjectDirectoryArgs, opts?: pulumi
  * A collection of arguments for invoking getProjectDirectory.
  */
 export interface GetProjectDirectoryArgs {
+    /**
+     * The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     */
     path: string;
 }
 
@@ -30,8 +52,30 @@ export interface GetProjectDirectoryResult {
      * The ID of this resource.
      */
     readonly id: string;
+    /**
+     * The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     */
     readonly path: string;
 }
+/**
+ * Provides information about files within a directory on disk.
+ *
+ * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+ *
+ * > If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * // In this example, we are assuming that a nextjs UI
+ * // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+ * // E.g.
+ * // ```
+ * ```
+ */
 export function getProjectDirectoryOutput(args: GetProjectDirectoryOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetProjectDirectoryResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProjectDirectory:getProjectDirectory", {
@@ -43,5 +87,8 @@ export function getProjectDirectoryOutput(args: GetProjectDirectoryOutputArgs, o
  * A collection of arguments for invoking getProjectDirectory.
  */
 export interface GetProjectDirectoryOutputArgs {
+    /**
+     * The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     */
     path: pulumi.Input<string>;
 }

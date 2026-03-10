@@ -23,6 +23,7 @@ class AccessGroupArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a AccessGroup resource.
+
         :param pulumi.Input[_builtins.str] name: The name of the Access Group
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -63,6 +64,7 @@ class _AccessGroupState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AccessGroup resources.
+
         :param pulumi.Input[_builtins.str] name: The name of the Access Group
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -124,7 +126,6 @@ class AccessGroup(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the access_group_id.
 
         ```sh
@@ -136,6 +137,7 @@ class AccessGroup(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/accessGroup:AccessGroup example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -167,7 +169,6 @@ class AccessGroup(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the access_group_id.
 
         ```sh
@@ -179,6 +180,7 @@ class AccessGroup(pulumi.CustomResource):
         ```sh
         $ pulumi import vercel:index/accessGroup:AccessGroup example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param AccessGroupArgs args: The arguments to use to populate this resource's properties.

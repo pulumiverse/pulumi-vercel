@@ -16,6 +16,15 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 /**
+ * Provides a resource for managing a number of Project Environment Variables.
+ * 
+ * This resource defines multiple Environment Variables on a Vercel Project.
+ * 
+ * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).
+ * 
+ * &gt; Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
+ * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+ * 
  * ## Example Usage
  * 
  * <pre>

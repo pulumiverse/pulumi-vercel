@@ -12,12 +12,47 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
+// Provides a Deployment resource.
+//
+// A Deployment is the result of building your Project and making it available through a live URL.
+//
+// When making deployments, the Project will be uploaded and transformed into a production-ready output through the use of a Build Step.
+//
+// Once the build step has completed successfully, a new, immutable deployment will be made available at the preview URL. Deployments are retained indefinitely unless deleted manually.
+//
+// > In order to provide files to a deployment, you'll need to use the `getFile` or `getProjectDirectory` data sources.
+//
+// > If you are creating Deployments through terraform and intend to use both preview and production
+// deployments, you may wish to 'layer' your terraform, creating the Project with a different set of
+// terraform to your Deployment.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// In this example, we are assuming that a nextjs UI
+//			// exists in a `ui` directory and any terraform exists in a `terraform` directory.
+//			// E.g.
+//			// ```
+//
+// ```
 type Deployment struct {
 	pulumi.CustomResourceState
 
 	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
 	CustomEnvironmentId pulumi.StringPtrOutput `pulumi:"customEnvironmentId"`
-	DeleteOnDestroy     pulumi.BoolPtrOutput   `pulumi:"deleteOnDestroy"`
+	// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+	DeleteOnDestroy pulumi.BoolPtrOutput `pulumi:"deleteOnDestroy"`
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains pulumi.StringArrayOutput `pulumi:"domains"`
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
@@ -84,7 +119,8 @@ func GetDeployment(ctx *pulumi.Context,
 type deploymentState struct {
 	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
 	CustomEnvironmentId *string `pulumi:"customEnvironmentId"`
-	DeleteOnDestroy     *bool   `pulumi:"deleteOnDestroy"`
+	// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+	DeleteOnDestroy *bool `pulumi:"deleteOnDestroy"`
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains []string `pulumi:"domains"`
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
@@ -112,7 +148,8 @@ type deploymentState struct {
 type DeploymentState struct {
 	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
 	CustomEnvironmentId pulumi.StringPtrInput
-	DeleteOnDestroy     pulumi.BoolPtrInput
+	// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+	DeleteOnDestroy pulumi.BoolPtrInput
 	// A list of all the domains (default domains, staging domains and production domains) that were assigned upon deployment creation.
 	Domains pulumi.StringArrayInput
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
@@ -144,7 +181,8 @@ func (DeploymentState) ElementType() reflect.Type {
 type deploymentArgs struct {
 	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
 	CustomEnvironmentId *string `pulumi:"customEnvironmentId"`
-	DeleteOnDestroy     *bool   `pulumi:"deleteOnDestroy"`
+	// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+	DeleteOnDestroy *bool `pulumi:"deleteOnDestroy"`
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment map[string]string `pulumi:"environment"`
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
@@ -169,7 +207,8 @@ type deploymentArgs struct {
 type DeploymentArgs struct {
 	// The ID of the Custom Environment to deploy to. If not specified, the deployment will use the standard environments (production/preview).
 	CustomEnvironmentId pulumi.StringPtrInput
-	DeleteOnDestroy     pulumi.BoolPtrInput
+	// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+	DeleteOnDestroy pulumi.BoolPtrInput
 	// A map of environment variable names to values. These are specific to a Deployment, and can also be configured on the `Project` resource.
 	Environment pulumi.StringMapInput
 	// A map of files to be uploaded for the deployment. This should be provided by a `getProjectDirectory` or `getFile` data source. Required if `gitSource` is not set.
@@ -282,6 +321,7 @@ func (o DeploymentOutput) CustomEnvironmentId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.CustomEnvironmentId }).(pulumi.StringPtrOutput)
 }
 
+// Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
 func (o DeploymentOutput) DeleteOnDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Deployment) pulumi.BoolPtrOutput { return v.DeleteOnDestroy }).(pulumi.BoolPtrOutput)
 }

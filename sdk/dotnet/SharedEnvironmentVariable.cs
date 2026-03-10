@@ -11,6 +11,14 @@ using Pulumi;
 namespace Pulumiverse.Vercel
 {
     /// <summary>
+    /// Provides a Shared Environment Variable resource.
+    /// 
+    /// A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
+    /// 
+    /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+    /// 
+    /// &gt; **Note:** Write-Only argument `ValueWo` is available to use in place of `Value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -53,13 +61,11 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
-    /// You can import via the team_id and environment variable id.
-    /// 
-    /// - team_id can be found in the team `settings` tab in the Vercel UI.
-    /// 
+    /// You can import via the TeamId and environment variable id.
+    /// - TeamId can be found in the team `Settings` tab in the Vercel UI.
     /// - environment variable id can be taken from the network tab inside developer tools, while you are on the project page.
     /// 
-    /// Note also, that the value field for sensitive environment variables will be imported as `null`.
+    /// Note also, that the value field for sensitive environment variables will be imported as `Null`.
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/env_yyyyyyyyyyyyy

@@ -12,12 +12,78 @@ namespace Pulumiverse.Vercel
 {
     public static class GetProjectDirectory
     {
+        /// <summary>
+        /// Provides information about files within a directory on disk.
+        /// 
+        /// This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+        /// 
+        /// &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumiverse.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // In this example, we are assuming that a nextjs UI
+        ///     // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+        ///     // E.g.
+        ///     // ```
+        /// </summary>
         public static Task<GetProjectDirectoryResult> InvokeAsync(GetProjectDirectoryArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectDirectoryResult>("vercel:index/getProjectDirectory:getProjectDirectory", args ?? new GetProjectDirectoryArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about files within a directory on disk.
+        /// 
+        /// This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+        /// 
+        /// &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumiverse.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // In this example, we are assuming that a nextjs UI
+        ///     // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+        ///     // E.g.
+        ///     // ```
+        /// </summary>
         public static Output<GetProjectDirectoryResult> Invoke(GetProjectDirectoryInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectDirectoryResult>("vercel:index/getProjectDirectory:getProjectDirectory", args ?? new GetProjectDirectoryInvokeArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides information about files within a directory on disk.
+        /// 
+        /// This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+        /// 
+        /// &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumiverse.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // In this example, we are assuming that a nextjs UI
+        ///     // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+        ///     // E.g.
+        ///     // ```
+        /// </summary>
         public static Output<GetProjectDirectoryResult> Invoke(GetProjectDirectoryInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectDirectoryResult>("vercel:index/getProjectDirectory:getProjectDirectory", args ?? new GetProjectDirectoryInvokeArgs(), options.WithDefaults());
     }
@@ -25,6 +91,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectDirectoryArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
@@ -36,6 +105,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetProjectDirectoryInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -57,6 +129,9 @@ namespace Pulumiverse.Vercel
         /// The ID of this resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+        /// </summary>
         public readonly string Path;
 
         [OutputConstructor]

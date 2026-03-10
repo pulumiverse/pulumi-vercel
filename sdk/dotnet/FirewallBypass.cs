@@ -60,9 +60,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#mybypasshost.com#3.4.5.0/24
-    /// ```
     /// 
-    /// ```sh
+    /// 
     /// $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#3.4.5.0/24
     /// ```
     /// </summary>

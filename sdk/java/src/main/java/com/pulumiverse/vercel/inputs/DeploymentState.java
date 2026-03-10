@@ -34,9 +34,17 @@ public final class DeploymentState extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.customEnvironmentId);
     }
 
+    /**
+     * Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+     * 
+     */
     @Import(name="deleteOnDestroy")
     private @Nullable Output<Boolean> deleteOnDestroy;
 
+    /**
+     * @return Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+     * 
+     */
     public Optional<Output<Boolean>> deleteOnDestroy() {
         return Optional.ofNullable(this.deleteOnDestroy);
     }
@@ -263,11 +271,23 @@ public final class DeploymentState extends com.pulumi.resources.ResourceArgs {
             return customEnvironmentId(Output.of(customEnvironmentId));
         }
 
+        /**
+         * @param deleteOnDestroy Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+         * 
+         * @return builder
+         * 
+         */
         public Builder deleteOnDestroy(@Nullable Output<Boolean> deleteOnDestroy) {
             $.deleteOnDestroy = deleteOnDestroy;
             return this;
         }
 
+        /**
+         * @param deleteOnDestroy Set to true to hard delete the Vercel deployment when destroying the Terraform resource. If unspecified, deployments are retained indefinitely. Note that deleted deployments are not recoverable.
+         * 
+         * @return builder
+         * 
+         */
         public Builder deleteOnDestroy(Boolean deleteOnDestroy) {
             return deleteOnDestroy(Output.of(deleteOnDestroy));
         }

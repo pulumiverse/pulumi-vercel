@@ -16,6 +16,12 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 /**
+ * Manages members and their roles for a Vercel Project.
+ * 
+ * &gt; Note that this resource does not manage the complete set of members for a project, only the members that
+ * are explicitly configured here. This is deliberately done to allow granular additions.
+ * This, however, means config drift will not be detected for members that are added or removed outside of terraform.
+ * 
  * ## Example Usage
  * 
  * <pre>

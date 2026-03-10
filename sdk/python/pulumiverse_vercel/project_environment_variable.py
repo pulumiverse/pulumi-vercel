@@ -31,6 +31,7 @@ class ProjectEnvironmentVariableArgs:
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectEnvironmentVariable resource.
+
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
@@ -199,6 +200,7 @@ class _ProjectEnvironmentVariableState:
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
+
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
@@ -372,19 +374,24 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        ## Example Usage
+        Provides a Project Environment Variable resource.
+
+        A Project Environment Variable resource defines an Environment Variable on a Vercel Project.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).
+
+        > Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
+        At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+
+        > **Note:** Write-Only argument `value_wo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the project_id and environment variable id.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
-
         - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
-
-        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+          or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
 
@@ -393,22 +400,18 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, project_id and
-
         environment variable id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
-
         - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
-
-        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+          or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
 
         ```sh
         $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -431,19 +434,24 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  args: ProjectEnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Example Usage
+        Provides a Project Environment Variable resource.
+
+        A Project Environment Variable resource defines an Environment Variable on a Vercel Project.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).
+
+        > Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
+        At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+
+        > **Note:** Write-Only argument `value_wo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 
         ## Import
 
         If importing into a personal account, or with a team configured on
-
         the provider, simply use the project_id and environment variable id.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
-
         - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
-
-        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+          or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
 
@@ -452,22 +460,18 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id, project_id and
-
         environment variable id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
-
         - environment variable id can be taken from the network tab inside developer tools, while you are on the project page,
-
-        or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
+          or can be queried from Vercel API directly (https://vercel.com/docs/rest-api/endpoints/projects#retrieve-the-environment-variables-of-a-project-by-id-or-name)
 
         Note also, that the value field for sensitive environment variables will be imported as `null`.
 
         ```sh
         $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectEnvironmentVariableArgs args: The arguments to use to populate this resource's properties.

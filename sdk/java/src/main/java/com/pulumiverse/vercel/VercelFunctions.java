@@ -4328,18 +4328,238 @@ public final class VercelFunctions {
     public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getNetwork:getNetwork", TypeShape.of(GetNetworkResult.class), args, Utilities.withVersion(options));
     }
+    /**
+     * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+     * 
+     * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+     * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+     * 
+     * This allows a Vercel Deployment to be created without sharing the Project&#39;s source code with Vercel.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetPrebuiltProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+     *         // and has been prebuilt via `vercel build`. 
+     *         // We assume any terraform code exists in a separate `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static Output<GetPrebuiltProjectResult> getPrebuiltProject(GetPrebuiltProjectArgs args) {
         return getPrebuiltProject(args, InvokeOptions.Empty);
     }
+    /**
+     * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+     * 
+     * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+     * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+     * 
+     * This allows a Vercel Deployment to be created without sharing the Project&#39;s source code with Vercel.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetPrebuiltProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+     *         // and has been prebuilt via `vercel build`. 
+     *         // We assume any terraform code exists in a separate `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static CompletableFuture<GetPrebuiltProjectResult> getPrebuiltProjectPlain(GetPrebuiltProjectPlainArgs args) {
         return getPrebuiltProjectPlain(args, InvokeOptions.Empty);
     }
+    /**
+     * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+     * 
+     * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+     * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+     * 
+     * This allows a Vercel Deployment to be created without sharing the Project&#39;s source code with Vercel.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetPrebuiltProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+     *         // and has been prebuilt via `vercel build`. 
+     *         // We assume any terraform code exists in a separate `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static Output<GetPrebuiltProjectResult> getPrebuiltProject(GetPrebuiltProjectArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("vercel:index/getPrebuiltProject:getPrebuiltProject", TypeShape.of(GetPrebuiltProjectResult.class), args, Utilities.withVersion(options));
     }
+    /**
+     * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+     * 
+     * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+     * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+     * 
+     * This allows a Vercel Deployment to be created without sharing the Project&#39;s source code with Vercel.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetPrebuiltProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+     *         // and has been prebuilt via `vercel build`. 
+     *         // We assume any terraform code exists in a separate `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static Output<GetPrebuiltProjectResult> getPrebuiltProject(GetPrebuiltProjectArgs args, InvokeOutputOptions options) {
         return Deployment.getInstance().invoke("vercel:index/getPrebuiltProject:getPrebuiltProject", TypeShape.of(GetPrebuiltProjectResult.class), args, Utilities.withVersion(options));
     }
+    /**
+     * Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+     * 
+     * The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+     * Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+     * 
+     * This allows a Vercel Deployment to be created without sharing the Project&#39;s source code with Vercel.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetPrebuiltProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+     *         // and has been prebuilt via `vercel build`. 
+     *         // We assume any terraform code exists in a separate `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static CompletableFuture<GetPrebuiltProjectResult> getPrebuiltProjectPlain(GetPrebuiltProjectPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getPrebuiltProject:getPrebuiltProject", TypeShape.of(GetPrebuiltProjectResult.class), args, Utilities.withVersion(options));
     }
@@ -4618,18 +4838,228 @@ public final class VercelFunctions {
     public static CompletableFuture<GetProjectDeploymentRetentionResult> getProjectDeploymentRetentionPlain(GetProjectDeploymentRetentionPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getProjectDeploymentRetention:getProjectDeploymentRetention", TypeShape.of(GetProjectDeploymentRetentionResult.class), args, Utilities.withVersion(options));
     }
+    /**
+     * Provides information about files within a directory on disk.
+     * 
+     * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+     * 
+     * &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectDirectoryArgs;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI
+     *         // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static Output<GetProjectDirectoryResult> getProjectDirectory(GetProjectDirectoryArgs args) {
         return getProjectDirectory(args, InvokeOptions.Empty);
     }
+    /**
+     * Provides information about files within a directory on disk.
+     * 
+     * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+     * 
+     * &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectDirectoryArgs;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI
+     *         // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static CompletableFuture<GetProjectDirectoryResult> getProjectDirectoryPlain(GetProjectDirectoryPlainArgs args) {
         return getProjectDirectoryPlain(args, InvokeOptions.Empty);
     }
+    /**
+     * Provides information about files within a directory on disk.
+     * 
+     * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+     * 
+     * &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectDirectoryArgs;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI
+     *         // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static Output<GetProjectDirectoryResult> getProjectDirectory(GetProjectDirectoryArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("vercel:index/getProjectDirectory:getProjectDirectory", TypeShape.of(GetProjectDirectoryResult.class), args, Utilities.withVersion(options));
     }
+    /**
+     * Provides information about files within a directory on disk.
+     * 
+     * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+     * 
+     * &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectDirectoryArgs;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI
+     *         // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static Output<GetProjectDirectoryResult> getProjectDirectory(GetProjectDirectoryArgs args, InvokeOutputOptions options) {
         return Deployment.getInstance().invoke("vercel:index/getProjectDirectory:getProjectDirectory", TypeShape.of(GetProjectDirectoryResult.class), args, Utilities.withVersion(options));
     }
+    /**
+     * Provides information about files within a directory on disk.
+     * 
+     * This will recursively read files, providing metadata for use with a `vercel.Deployment`.
+     * 
+     * &gt; If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectDirectoryArgs;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumiverse.vercel.Deployment;
+     * import com.pulumiverse.vercel.DeploymentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App }{{@code
+     *     public static void main(String[] args) }{{@code
+     *         Pulumi.run(App::stack);
+     *     }}{@code
+     * 
+     *     public static void stack(Context ctx) }{{@code
+     *         // In this example, we are assuming that a nextjs UI
+     *         // exists in a `ui` directory and any terraform exists in a `terraform` directory.
+     *         // E.g.
+     *         // }
+     * </pre>
+     * ```
+     * 
+     */
     public static CompletableFuture<GetProjectDirectoryResult> getProjectDirectoryPlain(GetProjectDirectoryPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getProjectDirectory:getProjectDirectory", TypeShape.of(GetProjectDirectoryResult.class), args, Utilities.withVersion(options));
     }

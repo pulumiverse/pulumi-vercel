@@ -11,6 +11,34 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
+// Provides the output of a project built via `vercel build` and provides metadata for use with a `Deployment`
+//
+// The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+// Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+//
+// This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// In this example, we are assuming that a nextjs UI exists in a `ui` directory
+//			// and has been prebuilt via `vercel build`.
+//			// We assume any terraform code exists in a separate `terraform` directory.
+//			// E.g.
+//			// ```
+//
+// ```
 func GetPrebuiltProject(ctx *pulumi.Context, args *GetPrebuiltProjectArgs, opts ...pulumi.InvokeOption) (*GetPrebuiltProjectResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetPrebuiltProjectResult
@@ -23,6 +51,7 @@ func GetPrebuiltProject(ctx *pulumi.Context, args *GetPrebuiltProjectArgs, opts 
 
 // A collection of arguments for invoking getPrebuiltProject.
 type GetPrebuiltProjectArgs struct {
+	// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
 	Path string `pulumi:"path"`
 }
 
@@ -32,7 +61,8 @@ type GetPrebuiltProjectResult struct {
 	Id string `pulumi:"id"`
 	// A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 	Output map[string]string `pulumi:"output"`
-	Path   string            `pulumi:"path"`
+	// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+	Path string `pulumi:"path"`
 }
 
 func GetPrebuiltProjectOutput(ctx *pulumi.Context, args GetPrebuiltProjectOutputArgs, opts ...pulumi.InvokeOption) GetPrebuiltProjectResultOutput {
@@ -46,6 +76,7 @@ func GetPrebuiltProjectOutput(ctx *pulumi.Context, args GetPrebuiltProjectOutput
 
 // A collection of arguments for invoking getPrebuiltProject.
 type GetPrebuiltProjectOutputArgs struct {
+	// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
 	Path pulumi.StringInput `pulumi:"path"`
 }
 
@@ -78,6 +109,7 @@ func (o GetPrebuiltProjectResultOutput) Output() pulumi.StringMapOutput {
 	return o.ApplyT(func(v GetPrebuiltProjectResult) map[string]string { return v.Output }).(pulumi.StringMapOutput)
 }
 
+// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
 func (o GetPrebuiltProjectResultOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GetPrebuiltProjectResult) string { return v.Path }).(pulumi.StringOutput)
 }

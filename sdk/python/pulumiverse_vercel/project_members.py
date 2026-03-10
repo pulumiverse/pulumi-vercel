@@ -26,6 +26,7 @@ class ProjectMembersArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectMembers resource.
+
         :param pulumi.Input[Sequence[pulumi.Input['ProjectMembersMemberArgs']]] members: The set of members to manage for this project.
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project.
         :param pulumi.Input[_builtins.str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
@@ -80,6 +81,7 @@ class _ProjectMembersState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectMembers resources.
+
         :param pulumi.Input[Sequence[pulumi.Input['ProjectMembersMemberArgs']]] members: The set of members to manage for this project.
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project.
         :param pulumi.Input[_builtins.str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
@@ -139,6 +141,12 @@ class ProjectMembers(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        Manages members and their roles for a Vercel Project.
+
+        > Note that this resource does not manage the complete set of members for a project, only the members that
+        are explicitly configured here. This is deliberately done to allow granular additions.
+        This, however, means config drift will not be detected for members that are added or removed outside of terraform.
+
         ## Example Usage
 
         ```python
@@ -159,6 +167,7 @@ class ProjectMembers(pulumi.CustomResource):
                 },
             ])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -173,6 +182,12 @@ class ProjectMembers(pulumi.CustomResource):
                  args: ProjectMembersArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Manages members and their roles for a Vercel Project.
+
+        > Note that this resource does not manage the complete set of members for a project, only the members that
+        are explicitly configured here. This is deliberately done to allow granular additions.
+        This, however, means config drift will not be detected for members that are added or removed outside of terraform.
+
         ## Example Usage
 
         ```python
@@ -193,6 +208,7 @@ class ProjectMembers(pulumi.CustomResource):
                 },
             ])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectMembersArgs args: The arguments to use to populate this resource's properties.

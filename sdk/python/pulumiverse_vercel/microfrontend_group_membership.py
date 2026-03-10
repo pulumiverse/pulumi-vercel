@@ -26,6 +26,7 @@ class MicrofrontendGroupMembershipArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a MicrofrontendGroupMembership resource.
+
         :param pulumi.Input[_builtins.str] microfrontend_group_id: The ID of the microfrontend group.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
         :param pulumi.Input[_builtins.str] default_route: The default route for the project. Used for the screenshot of deployments.
@@ -112,6 +113,7 @@ class _MicrofrontendGroupMembershipState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering MicrofrontendGroupMembership resources.
+
         :param pulumi.Input[_builtins.str] default_route: The default route for the project. Used for the screenshot of deployments.
         :param pulumi.Input[_builtins.str] microfrontend_group_id: The ID of the microfrontend group.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
@@ -229,9 +231,7 @@ class MicrofrontendGroupMembership(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on the provider, simply use the record id.
-
         - the microfrontend ID can be taken from the microfrontend settings page
-
         - the project ID can be taken from the project settings page
 
         ```sh
@@ -239,16 +239,14 @@ class MicrofrontendGroupMembership(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and microfrontend_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - the microfrontend ID can be taken from the microfrontend settings page
-
         - the project ID can be taken from the project settings page
 
         ```sh
         $ pulumi import vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership example team_xxxxxxxxxxxxxxxxxxxxxxxx/mfe_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/pid_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -291,9 +289,7 @@ class MicrofrontendGroupMembership(pulumi.CustomResource):
         ## Import
 
         If importing into a personal account, or with a team configured on the provider, simply use the record id.
-
         - the microfrontend ID can be taken from the microfrontend settings page
-
         - the project ID can be taken from the project settings page
 
         ```sh
@@ -301,16 +297,14 @@ class MicrofrontendGroupMembership(pulumi.CustomResource):
         ```
 
         Alternatively, you can import via the team_id and microfrontend_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - the microfrontend ID can be taken from the microfrontend settings page
-
         - the project ID can be taken from the project settings page
 
         ```sh
         $ pulumi import vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership example team_xxxxxxxxxxxxxxxxxxxxxxxx/mfe_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/pid_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param MicrofrontendGroupMembershipArgs args: The arguments to use to populate this resource's properties.

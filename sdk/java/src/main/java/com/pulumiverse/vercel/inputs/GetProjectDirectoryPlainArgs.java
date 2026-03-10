@@ -13,9 +13,17 @@ public final class GetProjectDirectoryPlainArgs extends com.pulumi.resources.Inv
 
     public static final GetProjectDirectoryPlainArgs Empty = new GetProjectDirectoryPlainArgs();
 
+    /**
+     * The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     @Import(name="path", required=true)
     private String path;
 
+    /**
+     * @return The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+     * 
+     */
     public String path() {
         return this.path;
     }
@@ -44,6 +52,12 @@ public final class GetProjectDirectoryPlainArgs extends com.pulumi.resources.Inv
             $ = new GetProjectDirectoryPlainArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param path The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
+         * 
+         * @return builder
+         * 
+         */
         public Builder path(String path) {
             $.path = path;
             return this;

@@ -11,6 +11,32 @@ import (
 	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
 )
 
+// Provides information about files within a directory on disk.
+//
+// This will recursively read files, providing metadata for use with a `Deployment`.
+//
+// > If you want to prevent files from being included, this can be done with a [vercelignore file](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// In this example, we are assuming that a nextjs UI
+//			// exists in a `ui` directory and any terraform exists in a `terraform` directory.
+//			// E.g.
+//			// ```
+//
+// ```
 func GetProjectDirectory(ctx *pulumi.Context, args *GetProjectDirectoryArgs, opts ...pulumi.InvokeOption) (*GetProjectDirectoryResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetProjectDirectoryResult
@@ -23,6 +49,7 @@ func GetProjectDirectory(ctx *pulumi.Context, args *GetProjectDirectoryArgs, opt
 
 // A collection of arguments for invoking getProjectDirectory.
 type GetProjectDirectoryArgs struct {
+	// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
 	Path string `pulumi:"path"`
 }
 
@@ -31,7 +58,8 @@ type GetProjectDirectoryResult struct {
 	// A map of filename to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
 	Files map[string]string `pulumi:"files"`
 	// The ID of this resource.
-	Id   string `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
 	Path string `pulumi:"path"`
 }
 
@@ -46,6 +74,7 @@ func GetProjectDirectoryOutput(ctx *pulumi.Context, args GetProjectDirectoryOutp
 
 // A collection of arguments for invoking getProjectDirectory.
 type GetProjectDirectoryOutputArgs struct {
+	// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
 	Path pulumi.StringInput `pulumi:"path"`
 }
 
@@ -78,6 +107,7 @@ func (o GetProjectDirectoryResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectDirectoryResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The path to the directory on your filesystem. Note that the path is relative to the root of the terraform files.
 func (o GetProjectDirectoryResultOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectDirectoryResult) string { return v.Path }).(pulumi.StringOutput)
 }

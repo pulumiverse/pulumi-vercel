@@ -79,20 +79,16 @@ import javax.annotation.Nullable;
  * ## Import
  * 
  * If importing into a personal account, or with a team configured on
- * 
  * the provider, simply use the edge config id.
- * 
- * - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+ * - edgeConfigId can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
  * 
  * ```sh
  * $ pulumi import vercel:index/edgeConfig:EdgeConfig example ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
  * ```
  * 
- * Alternatively, you can import via the team_id and edge_config_id.
- * 
- * - team_id can be found in the team `settings` tab in the Vercel UI.
- * 
- * - edge_config_id can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
+ * Alternatively, you can import via the teamId and edge_config_id.
+ * - teamId can be found in the team `settings` tab in the Vercel UI.
+ * - edgeConfigId can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.
  * 
  * ```sh
  * $ pulumi import vercel:index/edgeConfig:EdgeConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/ecfg_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

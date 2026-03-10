@@ -27,6 +27,7 @@ class ProjectDeploymentRetentionArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectDeploymentRetention resource.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the Project for the retention policy
         :param pulumi.Input[_builtins.str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[_builtins.str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
@@ -130,6 +131,7 @@ class _ProjectDeploymentRetentionState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectDeploymentRetention resources.
+
         :param pulumi.Input[_builtins.str] expiration_canceled: The retention period for canceled deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[_builtins.str] expiration_errored: The retention period for errored deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
         :param pulumi.Input[_builtins.str] expiration_preview: The retention period for preview deployments. Should be one of '1d', '1w', '1m', '2m', '3m', '6m', '1y'.
@@ -237,6 +239,14 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        Provides a Project Deployment Retention resource.
+
+        A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
+
+        > Note that deleting a Deployment Retention will not update the settings in the project, it will only prevent it from being managed via Terraform.
+
         ## Example Usage
 
         ```python
@@ -263,14 +273,13 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
         ## Import
 
         You can import via the team_id and project_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/projectDeploymentRetention:ProjectDeploymentRetention example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -288,6 +297,14 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
                  args: ProjectDeploymentRetentionArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Provides a Project Deployment Retention resource.
+
+        A Project Deployment Retention resource defines an Deployment Retention on a Vercel Project.
+
+        For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/security/deployment-retention).
+
+        > Note that deleting a Deployment Retention will not update the settings in the project, it will only prevent it from being managed via Terraform.
+
         ## Example Usage
 
         ```python
@@ -314,14 +331,13 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
         ## Import
 
         You can import via the team_id and project_id.
-
         - team_id can be found in the team `settings` tab in the Vercel UI.
-
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
         ```sh
         $ pulumi import vercel:index/projectDeploymentRetention:ProjectDeploymentRetention example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ProjectDeploymentRetentionArgs args: The arguments to use to populate this resource's properties.

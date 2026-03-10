@@ -12,12 +12,84 @@ namespace Pulumiverse.Vercel
 {
     public static class GetPrebuiltProject
     {
+        /// <summary>
+        /// Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+        /// 
+        /// The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+        /// Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+        /// 
+        /// This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumiverse.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+        ///     // and has been prebuilt via `vercel build`. 
+        ///     // We assume any terraform code exists in a separate `terraform` directory.
+        ///     // E.g.
+        ///     // ```
+        /// </summary>
         public static Task<GetPrebuiltProjectResult> InvokeAsync(GetPrebuiltProjectArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetPrebuiltProjectResult>("vercel:index/getPrebuiltProject:getPrebuiltProject", args ?? new GetPrebuiltProjectArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+        /// 
+        /// The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+        /// Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+        /// 
+        /// This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumiverse.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+        ///     // and has been prebuilt via `vercel build`. 
+        ///     // We assume any terraform code exists in a separate `terraform` directory.
+        ///     // E.g.
+        ///     // ```
+        /// </summary>
         public static Output<GetPrebuiltProjectResult> Invoke(GetPrebuiltProjectInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetPrebuiltProjectResult>("vercel:index/getPrebuiltProject:getPrebuiltProject", args ?? new GetPrebuiltProjectInvokeArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Provides the output of a project built via `vercel build` and provides metadata for use with a `vercel.Deployment`
+        /// 
+        /// The [build command](https://vercel.com/docs/cli#commands/build) can be used to build a project locally or in your own CI environment.
+        /// Build artifacts are placed into the `.vercel/output` directory according to the [Build Output API](https://vercel.com/docs/build-output-api/v3).
+        /// 
+        /// This allows a Vercel Deployment to be created without sharing the Project's source code with Vercel.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Vercel = Pulumiverse.Vercel;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // In this example, we are assuming that a nextjs UI exists in a `ui` directory 
+        ///     // and has been prebuilt via `vercel build`. 
+        ///     // We assume any terraform code exists in a separate `terraform` directory.
+        ///     // E.g.
+        ///     // ```
+        /// </summary>
         public static Output<GetPrebuiltProjectResult> Invoke(GetPrebuiltProjectInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetPrebuiltProjectResult>("vercel:index/getPrebuiltProject:getPrebuiltProject", args ?? new GetPrebuiltProjectInvokeArgs(), options.WithDefaults());
     }
@@ -25,6 +97,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetPrebuiltProjectArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
@@ -36,6 +111,9 @@ namespace Pulumiverse.Vercel
 
     public sealed class GetPrebuiltProjectInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -57,6 +135,9 @@ namespace Pulumiverse.Vercel
         /// A map of output file to metadata about the file. The metadata contains the file size and hash, and allows a deployment to be created if the file changes.
         /// </summary>
         public readonly ImmutableDictionary<string, string> Output;
+        /// <summary>
+        /// The path to the project. Note that this path is relative to the root of your terraform files. This should be the directory that contains the `.vercel/output` directory.
+        /// </summary>
         public readonly string Path;
 
         [OutputConstructor]

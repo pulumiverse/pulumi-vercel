@@ -24,6 +24,7 @@ class SharedEnvironmentVariableProjectLinkArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a SharedEnvironmentVariableProjectLink resource.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[_builtins.str] shared_environment_variable_id: The ID of the shared environment variable.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Required when configuring a team resource if a default team has not been set in the provider.
@@ -78,6 +79,7 @@ class _SharedEnvironmentVariableProjectLinkState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering SharedEnvironmentVariableProjectLink resources.
+
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
         :param pulumi.Input[_builtins.str] shared_environment_variable_id: The ID of the shared environment variable.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Required when configuring a team resource if a default team has not been set in the provider.
@@ -159,6 +161,7 @@ class SharedEnvironmentVariableProjectLink(pulumi.CustomResource):
             project_id=example_project.id)
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
@@ -193,6 +196,7 @@ class SharedEnvironmentVariableProjectLink(pulumi.CustomResource):
             shared_environment_variable_id=example.id,
             project_id=example_project.id)
         ```
+
 
         :param str resource_name: The name of the resource.
         :param SharedEnvironmentVariableProjectLinkArgs args: The arguments to use to populate this resource's properties.
