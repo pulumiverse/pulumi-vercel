@@ -15,12 +15,26 @@ else:
 from . import _utilities
 
 __all__ = [
+    'BulkRedirectsRedirectArgs',
+    'BulkRedirectsRedirectArgsDict',
     'CustomEnvironmentBranchTrackingArgs',
     'CustomEnvironmentBranchTrackingArgsDict',
     'DeploymentProjectSettingsArgs',
     'DeploymentProjectSettingsArgsDict',
     'DnsRecordSrvArgs',
     'DnsRecordSrvArgsDict',
+    'FeatureFlagConfigDevelopmentArgs',
+    'FeatureFlagConfigDevelopmentArgsDict',
+    'FeatureFlagConfigPreviewArgs',
+    'FeatureFlagConfigPreviewArgsDict',
+    'FeatureFlagConfigProductionArgs',
+    'FeatureFlagConfigProductionArgsDict',
+    'FeatureFlagDefinitionVariantArgs',
+    'FeatureFlagDefinitionVariantArgsDict',
+    'FeatureFlagSegmentExcludeArgs',
+    'FeatureFlagSegmentExcludeArgsDict',
+    'FeatureFlagSegmentIncludeArgs',
+    'FeatureFlagSegmentIncludeArgsDict',
     'FirewallConfigIpRulesArgs',
     'FirewallConfigIpRulesArgsDict',
     'FirewallConfigIpRulesRuleArgs',
@@ -101,6 +115,16 @@ __all__ = [
     'ProjectResourceConfigArgsDict',
     'ProjectRollingReleaseStageArgs',
     'ProjectRollingReleaseStageArgsDict',
+    'ProjectRoutePositionArgs',
+    'ProjectRoutePositionArgsDict',
+    'ProjectRouteRouteArgs',
+    'ProjectRouteRouteArgsDict',
+    'ProjectRouteRouteHaArgs',
+    'ProjectRouteRouteHaArgsDict',
+    'ProjectRouteRouteMissingArgs',
+    'ProjectRouteRouteMissingArgsDict',
+    'ProjectRouteRouteTransformArgs',
+    'ProjectRouteRouteTransformArgsDict',
     'ProjectTrustedIpsArgs',
     'ProjectTrustedIpsArgsDict',
     'ProjectTrustedIpsAddressArgs',
@@ -116,6 +140,112 @@ __all__ = [
     'TeamMemberProjectArgs',
     'TeamMemberProjectArgsDict',
 ]
+
+class BulkRedirectsRedirectArgsDict(TypedDict):
+    destination: pulumi.Input[_builtins.str]
+    """
+    The destination pathname or URL to redirect to.
+    """
+    source: pulumi.Input[_builtins.str]
+    """
+    The source pathname to match.
+    """
+    status_code: pulumi.Input[_builtins.int]
+    """
+    The HTTP status code for the redirect.
+    """
+    case_sensitive: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the source match is case-sensitive.
+    """
+    query: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether query parameters are considered when matching the redirect.
+    """
+
+@pulumi.input_type
+class BulkRedirectsRedirectArgs:
+    def __init__(__self__, *,
+                 destination: pulumi.Input[_builtins.str],
+                 source: pulumi.Input[_builtins.str],
+                 status_code: pulumi.Input[_builtins.int],
+                 case_sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
+                 query: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] destination: The destination pathname or URL to redirect to.
+        :param pulumi.Input[_builtins.str] source: The source pathname to match.
+        :param pulumi.Input[_builtins.int] status_code: The HTTP status code for the redirect.
+        :param pulumi.Input[_builtins.bool] case_sensitive: Whether the source match is case-sensitive.
+        :param pulumi.Input[_builtins.bool] query: Whether query parameters are considered when matching the redirect.
+        """
+        pulumi.set(__self__, "destination", destination)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "status_code", status_code)
+        if case_sensitive is not None:
+            pulumi.set(__self__, "case_sensitive", case_sensitive)
+        if query is not None:
+            pulumi.set(__self__, "query", query)
+
+    @_builtins.property
+    @pulumi.getter
+    def destination(self) -> pulumi.Input[_builtins.str]:
+        """
+        The destination pathname or URL to redirect to.
+        """
+        return pulumi.get(self, "destination")
+
+    @destination.setter
+    def destination(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "destination", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> pulumi.Input[_builtins.str]:
+        """
+        The source pathname to match.
+        """
+        return pulumi.get(self, "source")
+
+    @source.setter
+    def source(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "source", value)
+
+    @_builtins.property
+    @pulumi.getter(name="statusCode")
+    def status_code(self) -> pulumi.Input[_builtins.int]:
+        """
+        The HTTP status code for the redirect.
+        """
+        return pulumi.get(self, "status_code")
+
+    @status_code.setter
+    def status_code(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "status_code", value)
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the source match is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @case_sensitive.setter
+    def case_sensitive(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "case_sensitive", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether query parameters are considered when matching the redirect.
+        """
+        return pulumi.get(self, "query")
+
+    @query.setter
+    def query(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "query", value)
+
 
 class CustomEnvironmentBranchTrackingArgsDict(TypedDict):
     pattern: pulumi.Input[_builtins.str]
@@ -356,6 +486,467 @@ class DnsRecordSrvArgs:
     @weight.setter
     def weight(self, value: pulumi.Input[_builtins.int]):
         pulumi.set(self, "weight", value)
+
+
+class FeatureFlagConfigDevelopmentArgsDict(TypedDict):
+    default_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve when this environment is enabled and no rules match.
+    """
+    disabled_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve while this environment is disabled or paused.
+    """
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the flag should actively evaluate in this environment.
+    """
+
+@pulumi.input_type
+class FeatureFlagConfigDevelopmentArgs:
+    def __init__(__self__, *,
+                 default_variant_id: pulumi.Input[_builtins.str],
+                 disabled_variant_id: pulumi.Input[_builtins.str],
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param pulumi.Input[_builtins.str] disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param pulumi.Input[_builtins.bool] enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @default_variant_id.setter
+    def default_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "default_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @disabled_variant_id.setter
+    def disabled_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "disabled_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class FeatureFlagConfigPreviewArgsDict(TypedDict):
+    default_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve when this environment is enabled and no rules match.
+    """
+    disabled_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve while this environment is disabled or paused.
+    """
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the flag should actively evaluate in this environment.
+    """
+
+@pulumi.input_type
+class FeatureFlagConfigPreviewArgs:
+    def __init__(__self__, *,
+                 default_variant_id: pulumi.Input[_builtins.str],
+                 disabled_variant_id: pulumi.Input[_builtins.str],
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param pulumi.Input[_builtins.str] disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param pulumi.Input[_builtins.bool] enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @default_variant_id.setter
+    def default_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "default_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @disabled_variant_id.setter
+    def disabled_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "disabled_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class FeatureFlagConfigProductionArgsDict(TypedDict):
+    default_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve when this environment is enabled and no rules match.
+    """
+    disabled_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve while this environment is disabled or paused.
+    """
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the flag should actively evaluate in this environment.
+    """
+
+@pulumi.input_type
+class FeatureFlagConfigProductionArgs:
+    def __init__(__self__, *,
+                 default_variant_id: pulumi.Input[_builtins.str],
+                 disabled_variant_id: pulumi.Input[_builtins.str],
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param pulumi.Input[_builtins.str] disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param pulumi.Input[_builtins.bool] enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @default_variant_id.setter
+    def default_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "default_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @disabled_variant_id.setter
+    def disabled_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "disabled_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class FeatureFlagDefinitionVariantArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    The stable variant identifier referenced by flag configuration.
+    """
+    description: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human-readable description for the variant.
+    """
+    label: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human-readable label for the variant.
+    """
+    value_bool: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    The boolean value for this variant. Use this when `kind = "boolean"`.
+    """
+    value_number: NotRequired[pulumi.Input[_builtins.float]]
+    """
+    The numeric value for this variant. Use this when `kind = "number"`.
+    """
+    value_string: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The string value for this variant. Use this when `kind = "string"`.
+    """
+
+@pulumi.input_type
+class FeatureFlagDefinitionVariantArgs:
+    def __init__(__self__, *,
+                 id: pulumi.Input[_builtins.str],
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
+                 label: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_bool: Optional[pulumi.Input[_builtins.bool]] = None,
+                 value_number: Optional[pulumi.Input[_builtins.float]] = None,
+                 value_string: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] id: The stable variant identifier referenced by flag configuration.
+        :param pulumi.Input[_builtins.str] description: A human-readable description for the variant.
+        :param pulumi.Input[_builtins.str] label: A human-readable label for the variant.
+        :param pulumi.Input[_builtins.bool] value_bool: The boolean value for this variant. Use this when `kind = "boolean"`.
+        :param pulumi.Input[_builtins.float] value_number: The numeric value for this variant. Use this when `kind = "number"`.
+        :param pulumi.Input[_builtins.str] value_string: The string value for this variant. Use this when `kind = "string"`.
+        """
+        pulumi.set(__self__, "id", id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+        if value_bool is not None:
+            pulumi.set(__self__, "value_bool", value_bool)
+        if value_number is not None:
+            pulumi.set(__self__, "value_number", value_number)
+        if value_string is not None:
+            pulumi.set(__self__, "value_string", value_string)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The stable variant identifier referenced by flag configuration.
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable description for the variant.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable label for the variant.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueBool")
+    def value_bool(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        The boolean value for this variant. Use this when `kind = "boolean"`.
+        """
+        return pulumi.get(self, "value_bool")
+
+    @value_bool.setter
+    def value_bool(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "value_bool", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueNumber")
+    def value_number(self) -> Optional[pulumi.Input[_builtins.float]]:
+        """
+        The numeric value for this variant. Use this when `kind = "number"`.
+        """
+        return pulumi.get(self, "value_number")
+
+    @value_number.setter
+    def value_number(self, value: Optional[pulumi.Input[_builtins.float]]):
+        pulumi.set(self, "value_number", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueString")
+    def value_string(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The string value for this variant. Use this when `kind = "string"`.
+        """
+        return pulumi.get(self, "value_string")
+
+    @value_string.setter
+    def value_string(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_string", value)
+
+
+class FeatureFlagSegmentExcludeArgsDict(TypedDict):
+    attribute: pulumi.Input[_builtins.str]
+    """
+    The entity attribute to match, for example `email`.
+    """
+    entity: pulumi.Input[_builtins.str]
+    """
+    The entity type to match, for example `user`.
+    """
+    values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    The exact values to include or exclude for this entity attribute.
+    """
+
+@pulumi.input_type
+class FeatureFlagSegmentExcludeArgs:
+    def __init__(__self__, *,
+                 attribute: pulumi.Input[_builtins.str],
+                 entity: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        """
+        :param pulumi.Input[_builtins.str] attribute: The entity attribute to match, for example `email`.
+        :param pulumi.Input[_builtins.str] entity: The entity type to match, for example `user`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity attribute to match, for example `email`.
+        """
+        return pulumi.get(self, "attribute")
+
+    @attribute.setter
+    def attribute(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "attribute", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity type to match, for example `user`.
+        """
+        return pulumi.get(self, "entity")
+
+    @entity.setter
+    def entity(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "entity", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "values", value)
+
+
+class FeatureFlagSegmentIncludeArgsDict(TypedDict):
+    attribute: pulumi.Input[_builtins.str]
+    """
+    The entity attribute to match, for example `email`.
+    """
+    entity: pulumi.Input[_builtins.str]
+    """
+    The entity type to match, for example `user`.
+    """
+    values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    The exact values to include or exclude for this entity attribute.
+    """
+
+@pulumi.input_type
+class FeatureFlagSegmentIncludeArgs:
+    def __init__(__self__, *,
+                 attribute: pulumi.Input[_builtins.str],
+                 entity: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        """
+        :param pulumi.Input[_builtins.str] attribute: The entity attribute to match, for example `email`.
+        :param pulumi.Input[_builtins.str] entity: The entity type to match, for example `user`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity attribute to match, for example `email`.
+        """
+        return pulumi.get(self, "attribute")
+
+    @attribute.setter
+    def attribute(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "attribute", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity type to match, for example `user`.
+        """
+        return pulumi.get(self, "entity")
+
+    @entity.setter
+    def entity(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "entity", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "values", value)
 
 
 class FirewallConfigIpRulesArgsDict(TypedDict):
@@ -2822,6 +3413,485 @@ class ProjectRollingReleaseStageArgs:
     @duration.setter
     def duration(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "duration", value)
+
+
+class ProjectRoutePositionArgsDict(TypedDict):
+    placement: pulumi.Input[_builtins.str]
+    """
+    Where to place the rule. One of `start`, `end`, `before`, or `after`.
+    """
+    reference_route_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The existing route ID to place this rule before or after.
+    """
+
+@pulumi.input_type
+class ProjectRoutePositionArgs:
+    def __init__(__self__, *,
+                 placement: pulumi.Input[_builtins.str],
+                 reference_route_id: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] placement: Where to place the rule. One of `start`, `end`, `before`, or `after`.
+        :param pulumi.Input[_builtins.str] reference_route_id: The existing route ID to place this rule before or after.
+        """
+        pulumi.set(__self__, "placement", placement)
+        if reference_route_id is not None:
+            pulumi.set(__self__, "reference_route_id", reference_route_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def placement(self) -> pulumi.Input[_builtins.str]:
+        """
+        Where to place the rule. One of `start`, `end`, `before`, or `after`.
+        """
+        return pulumi.get(self, "placement")
+
+    @placement.setter
+    def placement(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "placement", value)
+
+    @_builtins.property
+    @pulumi.getter(name="referenceRouteId")
+    def reference_route_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The existing route ID to place this rule before or after.
+        """
+        return pulumi.get(self, "reference_route_id")
+
+    @reference_route_id.setter
+    def reference_route_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "reference_route_id", value)
+
+
+class ProjectRouteRouteArgsDict(TypedDict):
+    src: pulumi.Input[_builtins.str]
+    """
+    The source pattern to match.
+    """
+    case_sensitive: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the `src` matcher is case-sensitive.
+    """
+    dest: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The destination for rewrites or redirects.
+    """
+    has: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgsDict']]]]
+    """
+    Conditions that must be present for the rule to match.
+    """
+    headers: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    Headers to set for the matched request.
+    """
+    missings: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgsDict']]]]
+    """
+    Conditions that must be absent for the rule to match.
+    """
+    respect_origin_cache_control: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the rule should respect cache control headers from the origin.
+    """
+    status: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The HTTP status code to set for redirects or status-only rules.
+    """
+    transforms: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgsDict']]]]
+    """
+    Transforms applied to the request or response when the rule matches.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteArgs:
+    def __init__(__self__, *,
+                 src: pulumi.Input[_builtins.str],
+                 case_sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
+                 dest: Optional[pulumi.Input[_builtins.str]] = None,
+                 has: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]]] = None,
+                 headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 missings: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]]] = None,
+                 respect_origin_cache_control: Optional[pulumi.Input[_builtins.bool]] = None,
+                 status: Optional[pulumi.Input[_builtins.int]] = None,
+                 transforms: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] src: The source pattern to match.
+        :param pulumi.Input[_builtins.bool] case_sensitive: Whether the `src` matcher is case-sensitive.
+        :param pulumi.Input[_builtins.str] dest: The destination for rewrites or redirects.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]] has: Conditions that must be present for the rule to match.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Headers to set for the matched request.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]] missings: Conditions that must be absent for the rule to match.
+        :param pulumi.Input[_builtins.bool] respect_origin_cache_control: Whether the rule should respect cache control headers from the origin.
+        :param pulumi.Input[_builtins.int] status: The HTTP status code to set for redirects or status-only rules.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]] transforms: Transforms applied to the request or response when the rule matches.
+        """
+        pulumi.set(__self__, "src", src)
+        if case_sensitive is not None:
+            pulumi.set(__self__, "case_sensitive", case_sensitive)
+        if dest is not None:
+            pulumi.set(__self__, "dest", dest)
+        if has is not None:
+            pulumi.set(__self__, "has", has)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if missings is not None:
+            pulumi.set(__self__, "missings", missings)
+        if respect_origin_cache_control is not None:
+            pulumi.set(__self__, "respect_origin_cache_control", respect_origin_cache_control)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if transforms is not None:
+            pulumi.set(__self__, "transforms", transforms)
+
+    @_builtins.property
+    @pulumi.getter
+    def src(self) -> pulumi.Input[_builtins.str]:
+        """
+        The source pattern to match.
+        """
+        return pulumi.get(self, "src")
+
+    @src.setter
+    def src(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "src", value)
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the `src` matcher is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @case_sensitive.setter
+    def case_sensitive(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "case_sensitive", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def dest(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The destination for rewrites or redirects.
+        """
+        return pulumi.get(self, "dest")
+
+    @dest.setter
+    def dest(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "dest", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def has(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]]]:
+        """
+        Conditions that must be present for the rule to match.
+        """
+        return pulumi.get(self, "has")
+
+    @has.setter
+    def has(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]]]):
+        pulumi.set(self, "has", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Headers to set for the matched request.
+        """
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "headers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def missings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]]]:
+        """
+        Conditions that must be absent for the rule to match.
+        """
+        return pulumi.get(self, "missings")
+
+    @missings.setter
+    def missings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]]]):
+        pulumi.set(self, "missings", value)
+
+    @_builtins.property
+    @pulumi.getter(name="respectOriginCacheControl")
+    def respect_origin_cache_control(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the rule should respect cache control headers from the origin.
+        """
+        return pulumi.get(self, "respect_origin_cache_control")
+
+    @respect_origin_cache_control.setter
+    def respect_origin_cache_control(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "respect_origin_cache_control", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The HTTP status code to set for redirects or status-only rules.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "status", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def transforms(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]]]:
+        """
+        Transforms applied to the request or response when the rule matches.
+        """
+        return pulumi.get(self, "transforms")
+
+    @transforms.setter
+    def transforms(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]]]):
+        pulumi.set(self, "transforms", value)
+
+
+class ProjectRouteRouteHaArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    The condition type. One of `host`, `header`, `cookie`, or `query`.
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The key to match for `header`, `cookie`, or `query` conditions.
+    """
+    value: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The value to match.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteHaArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 key: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] type: The condition type. One of `host`, `header`, `cookie`, or `query`.
+        :param pulumi.Input[_builtins.str] key: The key to match for `header`, `cookie`, or `query` conditions.
+        :param pulumi.Input[_builtins.str] value: The value to match.
+        """
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The condition type. One of `host`, `header`, `cookie`, or `query`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The key to match for `header`, `cookie`, or `query` conditions.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The value to match.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class ProjectRouteRouteMissingArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    The condition type. One of `host`, `header`, `cookie`, or `query`.
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The key to match for `header`, `cookie`, or `query` conditions.
+    """
+    value: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The value to match.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteMissingArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 key: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] type: The condition type. One of `host`, `header`, `cookie`, or `query`.
+        :param pulumi.Input[_builtins.str] key: The key to match for `header`, `cookie`, or `query` conditions.
+        :param pulumi.Input[_builtins.str] value: The value to match.
+        """
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The condition type. One of `host`, `header`, `cookie`, or `query`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The key to match for `header`, `cookie`, or `query` conditions.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The value to match.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class ProjectRouteRouteTransformArgsDict(TypedDict):
+    op: pulumi.Input[_builtins.str]
+    """
+    The transform operation. One of `append`, `set`, or `delete`.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+    """
+    args: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+    """
+    envs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Environment names that gate this transform.
+    """
+    target: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteTransformArgs:
+    def __init__(__self__, *,
+                 op: pulumi.Input[_builtins.str],
+                 type: pulumi.Input[_builtins.str],
+                 args: Optional[pulumi.Input[_builtins.str]] = None,
+                 envs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 target: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] op: The transform operation. One of `append`, `set`, or `delete`.
+        :param pulumi.Input[_builtins.str] type: The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+        :param pulumi.Input[_builtins.str] args: A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] envs: Environment names that gate this transform.
+        :param pulumi.Input[_builtins.str] target: A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+        """
+        pulumi.set(__self__, "op", op)
+        pulumi.set(__self__, "type", type)
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if envs is not None:
+            pulumi.set(__self__, "envs", envs)
+        if target is not None:
+            pulumi.set(__self__, "target", target)
+
+    @_builtins.property
+    @pulumi.getter
+    def op(self) -> pulumi.Input[_builtins.str]:
+        """
+        The transform operation. One of `append`, `set`, or `delete`.
+        """
+        return pulumi.get(self, "op")
+
+    @op.setter
+    def op(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "op", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def args(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+        """
+        return pulumi.get(self, "args")
+
+    @args.setter
+    def args(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "args", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def envs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Environment names that gate this transform.
+        """
+        return pulumi.get(self, "envs")
+
+    @envs.setter
+    def envs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "envs", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+        """
+        return pulumi.get(self, "target")
+
+    @target.setter
+    def target(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "target", value)
 
 
 class ProjectTrustedIpsArgsDict(TypedDict):

@@ -5,6 +5,29 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface BulkRedirectsRedirect {
+    /**
+     * Whether the source match is case-sensitive.
+     */
+    caseSensitive?: pulumi.Input<boolean>;
+    /**
+     * The destination pathname or URL to redirect to.
+     */
+    destination: pulumi.Input<string>;
+    /**
+     * Whether query parameters are considered when matching the redirect.
+     */
+    query?: pulumi.Input<boolean>;
+    /**
+     * The source pathname to match.
+     */
+    source: pulumi.Input<string>;
+    /**
+     * The HTTP status code for the redirect.
+     */
+    statusCode: pulumi.Input<number>;
+}
+
 export interface CustomEnvironmentBranchTracking {
     /**
      * The pattern of the branch name to track.
@@ -56,6 +79,108 @@ export interface DnsRecordSrv {
      * A relative weight for records with the same priority, higher value means higher chance of getting picked.
      */
     weight: pulumi.Input<number>;
+}
+
+export interface FeatureFlagConfigDevelopment {
+    /**
+     * The variant to serve when this environment is enabled and no rules match.
+     */
+    defaultVariantId: pulumi.Input<string>;
+    /**
+     * The variant to serve while this environment is disabled or paused.
+     */
+    disabledVariantId: pulumi.Input<string>;
+    /**
+     * Whether the flag should actively evaluate in this environment.
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface FeatureFlagConfigPreview {
+    /**
+     * The variant to serve when this environment is enabled and no rules match.
+     */
+    defaultVariantId: pulumi.Input<string>;
+    /**
+     * The variant to serve while this environment is disabled or paused.
+     */
+    disabledVariantId: pulumi.Input<string>;
+    /**
+     * Whether the flag should actively evaluate in this environment.
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface FeatureFlagConfigProduction {
+    /**
+     * The variant to serve when this environment is enabled and no rules match.
+     */
+    defaultVariantId: pulumi.Input<string>;
+    /**
+     * The variant to serve while this environment is disabled or paused.
+     */
+    disabledVariantId: pulumi.Input<string>;
+    /**
+     * Whether the flag should actively evaluate in this environment.
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface FeatureFlagDefinitionVariant {
+    /**
+     * A human-readable description for the variant.
+     */
+    description?: pulumi.Input<string>;
+    /**
+     * The stable variant identifier referenced by flag configuration.
+     */
+    id: pulumi.Input<string>;
+    /**
+     * A human-readable label for the variant.
+     */
+    label?: pulumi.Input<string>;
+    /**
+     * The boolean value for this variant. Use this when `kind = "boolean"`.
+     */
+    valueBool?: pulumi.Input<boolean>;
+    /**
+     * The numeric value for this variant. Use this when `kind = "number"`.
+     */
+    valueNumber?: pulumi.Input<number>;
+    /**
+     * The string value for this variant. Use this when `kind = "string"`.
+     */
+    valueString?: pulumi.Input<string>;
+}
+
+export interface FeatureFlagSegmentExclude {
+    /**
+     * The entity attribute to match, for example `email`.
+     */
+    attribute: pulumi.Input<string>;
+    /**
+     * The entity type to match, for example `user`.
+     */
+    entity: pulumi.Input<string>;
+    /**
+     * The exact values to include or exclude for this entity attribute.
+     */
+    values: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface FeatureFlagSegmentInclude {
+    /**
+     * The entity attribute to match, for example `email`.
+     */
+    attribute: pulumi.Input<string>;
+    /**
+     * The entity type to match, for example `user`.
+     */
+    entity: pulumi.Input<string>;
+    /**
+     * The exact values to include or exclude for this entity attribute.
+     */
+    values: pulumi.Input<pulumi.Input<string>[]>;
 }
 
 export interface FirewallConfigIpRules {
@@ -555,6 +680,109 @@ export interface ProjectRollingReleaseStage {
      * The percentage of traffic to route to this stage.
      */
     targetPercentage: pulumi.Input<number>;
+}
+
+export interface ProjectRoutePosition {
+    /**
+     * Where to place the rule. One of `start`, `end`, `before`, or `after`.
+     */
+    placement: pulumi.Input<string>;
+    /**
+     * The existing route ID to place this rule before or after.
+     */
+    referenceRouteId?: pulumi.Input<string>;
+}
+
+export interface ProjectRouteRoute {
+    /**
+     * Whether the `src` matcher is case-sensitive.
+     */
+    caseSensitive?: pulumi.Input<boolean>;
+    /**
+     * The destination for rewrites or redirects.
+     */
+    dest?: pulumi.Input<string>;
+    /**
+     * Conditions that must be present for the rule to match.
+     */
+    has?: pulumi.Input<pulumi.Input<inputs.ProjectRouteRouteHa>[]>;
+    /**
+     * Headers to set for the matched request.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Conditions that must be absent for the rule to match.
+     */
+    missings?: pulumi.Input<pulumi.Input<inputs.ProjectRouteRouteMissing>[]>;
+    /**
+     * Whether the rule should respect cache control headers from the origin.
+     */
+    respectOriginCacheControl?: pulumi.Input<boolean>;
+    /**
+     * The source pattern to match.
+     */
+    src: pulumi.Input<string>;
+    /**
+     * The HTTP status code to set for redirects or status-only rules.
+     */
+    status?: pulumi.Input<number>;
+    /**
+     * Transforms applied to the request or response when the rule matches.
+     */
+    transforms?: pulumi.Input<pulumi.Input<inputs.ProjectRouteRouteTransform>[]>;
+}
+
+export interface ProjectRouteRouteHa {
+    /**
+     * The key to match for `header`, `cookie`, or `query` conditions.
+     */
+    key?: pulumi.Input<string>;
+    /**
+     * The condition type. One of `host`, `header`, `cookie`, or `query`.
+     */
+    type: pulumi.Input<string>;
+    /**
+     * The value to match.
+     */
+    value?: pulumi.Input<string>;
+}
+
+export interface ProjectRouteRouteMissing {
+    /**
+     * The key to match for `header`, `cookie`, or `query` conditions.
+     */
+    key?: pulumi.Input<string>;
+    /**
+     * The condition type. One of `host`, `header`, `cookie`, or `query`.
+     */
+    type: pulumi.Input<string>;
+    /**
+     * The value to match.
+     */
+    value?: pulumi.Input<string>;
+}
+
+export interface ProjectRouteRouteTransform {
+    /**
+     * A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+     */
+    args?: pulumi.Input<string>;
+    /**
+     * Environment names that gate this transform.
+     */
+    envs?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The transform operation. One of `append`, `set`, or `delete`.
+     */
+    op: pulumi.Input<string>;
+    /**
+     * A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+     */
+    target?: pulumi.Input<string>;
+    /**
+     * The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+     */
+    type: pulumi.Input<string>;
 }
 
 export interface ProjectTrustedIps {
