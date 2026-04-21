@@ -7,19 +7,24 @@ version = "0.0.50"
 backend = "github:pulumi/pulumictl"
 
 [[tools."github:pulumi/schema-tools"]]
-version = "0.7.0"
+version = "0.7.1"
 backend = "github:pulumi/schema-tools"
 
 [tools."github:pulumi/schema-tools".platforms.linux-x64]
-checksum = "sha256:e81fc48cb4a88bd5820b99cfc7dab3ffee82a8e35e7d71048e9f0e91ff456581"
-name = "schema-tools-v0.7.0-linux-amd64.tar.gz"
-size = 20300562
-url = "https://github.com/pulumi/schema-tools/releases/download/v0.7.0/schema-tools-v0.7.0-linux-amd64.tar.gz"
-url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/367439699"
+checksum = "sha256:5560e87df3e466fd1961bbef7e66c4b5b3363b18b300d313d5edcee05926bb5c"
+name = "schema-tools-v0.7.1-linux-amd64.tar.gz"
+size = 20003499
+url = "https://github.com/pulumi/schema-tools/releases/download/v0.7.1/schema-tools-v0.7.1-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/pulumi/schema-tools/releases/assets/386360404"
 
 [[tools.go]]
-version = "1.25.7"
+version = "1.26.2"
 backend = "core:go"
+
+[tools.go.platforms.linux-x64]
+checksum = "sha256:990e6b4bbba816dc3ee129eaeaf4b42f17c2800b88a2166c265ac1a200262282"
+size = 66798306
+url = "https://dl.google.com/go/go1.26.2.linux-amd64.tar.gz"
 
 [[tools.golangci-lint]]
 version = "2.8.0"

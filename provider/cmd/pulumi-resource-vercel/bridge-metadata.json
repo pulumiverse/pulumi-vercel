@@ -18,6 +18,32 @@
                 "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
                 "majorVersion": 4
             },
+            "vercel_blob_object": {
+                "current": "vercel:index/blobObject:BlobObject",
+                "majorVersion": 4
+            },
+            "vercel_blob_project_connection": {
+                "current": "vercel:index/blobProjectConnection:BlobProjectConnection",
+                "majorVersion": 4,
+                "fields": {
+                    "environments": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_blob_store": {
+                "current": "vercel:index/blobStore:BlobStore",
+                "majorVersion": 4
+            },
+            "vercel_bulk_redirects": {
+                "current": "vercel:index/bulkRedirects:BulkRedirects",
+                "majorVersion": 4,
+                "fields": {
+                    "redirects": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_custom_certificate": {
                 "current": "vercel:index/customCertificate:CustomCertificate",
                 "majorVersion": 4
@@ -54,6 +80,49 @@
             "vercel_edge_config_token": {
                 "current": "vercel:index/edgeConfigToken:EdgeConfigToken",
                 "majorVersion": 4
+            },
+            "vercel_feature_flag_config": {
+                "current": "vercel:index/featureFlagConfig:FeatureFlagConfig",
+                "majorVersion": 4
+            },
+            "vercel_feature_flag_definition": {
+                "current": "vercel:index/featureFlagDefinition:FeatureFlagDefinition",
+                "majorVersion": 4,
+                "fields": {
+                    "variant": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_feature_flag_sdk_key": {
+                "current": "vercel:index/featureFlagSdkKey:FeatureFlagSdkKey",
+                "majorVersion": 4
+            },
+            "vercel_feature_flag_segment": {
+                "current": "vercel:index/featureFlagSegment:FeatureFlagSegment",
+                "majorVersion": 4,
+                "fields": {
+                    "exclude": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "values": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "include": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "values": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "vercel_firewall_bypass": {
                 "current": "vercel:index/firewallBypass:FirewallBypass",
@@ -258,6 +327,32 @@
                     }
                 }
             },
+            "vercel_project_route": {
+                "current": "vercel:index/projectRoute:ProjectRoute",
+                "majorVersion": 4,
+                "fields": {
+                    "route": {
+                        "fields": {
+                            "has": {
+                                "maxItemsOne": false
+                            },
+                            "missing": {
+                                "maxItemsOne": false
+                            },
+                            "transforms": {
+                                "maxItemsOne": false,
+                                "elem": {
+                                    "fields": {
+                                        "env": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "vercel_shared_environment_variable": {
                 "current": "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable",
                 "majorVersion": 4,
@@ -290,6 +385,10 @@
                     }
                 }
             },
+            "vercel_user_token": {
+                "current": "vercel:index/userToken:UserToken",
+                "majorVersion": 4
+            },
             "vercel_webhook": {
                 "current": "vercel:index/webhook:Webhook",
                 "majorVersion": 4,
@@ -319,6 +418,52 @@
             "vercel_attack_challenge_mode": {
                 "current": "vercel:index/getAttackChallengeMode:getAttackChallengeMode",
                 "majorVersion": 4
+            },
+            "vercel_blob_object": {
+                "current": "vercel:index/getBlobObject:getBlobObject",
+                "majorVersion": 4
+            },
+            "vercel_blob_project_connections": {
+                "current": "vercel:index/getBlobProjectConnections:getBlobProjectConnections",
+                "majorVersion": 4,
+                "fields": {
+                    "connections": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "environments": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "vercel_blob_store": {
+                "current": "vercel:index/getBlobStore:getBlobStore",
+                "majorVersion": 4
+            },
+            "vercel_blob_store_secrets": {
+                "current": "vercel:index/getBlobStoreSecrets:getBlobStoreSecrets",
+                "majorVersion": 4
+            },
+            "vercel_blob_stores": {
+                "current": "vercel:index/getBlobStores:getBlobStores",
+                "majorVersion": 4,
+                "fields": {
+                    "stores": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_bulk_redirects": {
+                "current": "vercel:index/getBulkRedirects:getBulkRedirects",
+                "majorVersion": 4,
+                "fields": {
+                    "redirects": {
+                        "maxItemsOne": false
+                    }
+                }
             },
             "vercel_custom_environment": {
                 "current": "vercel:index/getCustomEnvironment:getCustomEnvironment",
@@ -370,6 +515,45 @@
             "vercel_endpoint_verification": {
                 "current": "vercel:index/getEndpointVerification:getEndpointVerification",
                 "majorVersion": 4
+            },
+            "vercel_feature_flag": {
+                "current": "vercel:index/getFeatureFlag:getFeatureFlag",
+                "majorVersion": 4,
+                "fields": {
+                    "variant": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_feature_flag_sdk_key": {
+                "current": "vercel:index/getFeatureFlagSdkKey:getFeatureFlagSdkKey",
+                "majorVersion": 4
+            },
+            "vercel_feature_flag_segment": {
+                "current": "vercel:index/getFeatureFlagSegment:getFeatureFlagSegment",
+                "majorVersion": 4,
+                "fields": {
+                    "exclude": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "values": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "include": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "values": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "vercel_file": {
                 "current": "vercel:index/getFile:getFile",
@@ -484,6 +668,39 @@
                 "fields": {
                     "stages": {
                         "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_project_routes": {
+                "current": "vercel:index/getProjectRoutes:getProjectRoutes",
+                "majorVersion": 4,
+                "fields": {
+                    "rules": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "route": {
+                                    "fields": {
+                                        "has": {
+                                            "maxItemsOne": false
+                                        },
+                                        "missing": {
+                                            "maxItemsOne": false
+                                        },
+                                        "transforms": {
+                                            "maxItemsOne": false,
+                                            "elem": {
+                                                "fields": {
+                                                    "env": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
