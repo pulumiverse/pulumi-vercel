@@ -17,6 +17,18 @@ import com.pulumiverse.vercel.inputs.GetAliasArgs;
 import com.pulumiverse.vercel.inputs.GetAliasPlainArgs;
 import com.pulumiverse.vercel.inputs.GetAttackChallengeModeArgs;
 import com.pulumiverse.vercel.inputs.GetAttackChallengeModePlainArgs;
+import com.pulumiverse.vercel.inputs.GetBlobObjectArgs;
+import com.pulumiverse.vercel.inputs.GetBlobObjectPlainArgs;
+import com.pulumiverse.vercel.inputs.GetBlobProjectConnectionsArgs;
+import com.pulumiverse.vercel.inputs.GetBlobProjectConnectionsPlainArgs;
+import com.pulumiverse.vercel.inputs.GetBlobStoreArgs;
+import com.pulumiverse.vercel.inputs.GetBlobStorePlainArgs;
+import com.pulumiverse.vercel.inputs.GetBlobStoreSecretsArgs;
+import com.pulumiverse.vercel.inputs.GetBlobStoreSecretsPlainArgs;
+import com.pulumiverse.vercel.inputs.GetBlobStoresArgs;
+import com.pulumiverse.vercel.inputs.GetBlobStoresPlainArgs;
+import com.pulumiverse.vercel.inputs.GetBulkRedirectsArgs;
+import com.pulumiverse.vercel.inputs.GetBulkRedirectsPlainArgs;
 import com.pulumiverse.vercel.inputs.GetCustomEnvironmentArgs;
 import com.pulumiverse.vercel.inputs.GetCustomEnvironmentPlainArgs;
 import com.pulumiverse.vercel.inputs.GetDeploymentArgs;
@@ -35,6 +47,12 @@ import com.pulumiverse.vercel.inputs.GetEdgeConfigTokenArgs;
 import com.pulumiverse.vercel.inputs.GetEdgeConfigTokenPlainArgs;
 import com.pulumiverse.vercel.inputs.GetEndpointVerificationArgs;
 import com.pulumiverse.vercel.inputs.GetEndpointVerificationPlainArgs;
+import com.pulumiverse.vercel.inputs.GetFeatureFlagArgs;
+import com.pulumiverse.vercel.inputs.GetFeatureFlagPlainArgs;
+import com.pulumiverse.vercel.inputs.GetFeatureFlagSdkKeyArgs;
+import com.pulumiverse.vercel.inputs.GetFeatureFlagSdkKeyPlainArgs;
+import com.pulumiverse.vercel.inputs.GetFeatureFlagSegmentArgs;
+import com.pulumiverse.vercel.inputs.GetFeatureFlagSegmentPlainArgs;
 import com.pulumiverse.vercel.inputs.GetFileArgs;
 import com.pulumiverse.vercel.inputs.GetFilePlainArgs;
 import com.pulumiverse.vercel.inputs.GetLogDrainArgs;
@@ -57,6 +75,8 @@ import com.pulumiverse.vercel.inputs.GetProjectMembersPlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectPlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRollingReleaseArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRollingReleasePlainArgs;
+import com.pulumiverse.vercel.inputs.GetProjectRoutesArgs;
+import com.pulumiverse.vercel.inputs.GetProjectRoutesPlainArgs;
 import com.pulumiverse.vercel.inputs.GetSharedEnvironmentVariableArgs;
 import com.pulumiverse.vercel.inputs.GetSharedEnvironmentVariablePlainArgs;
 import com.pulumiverse.vercel.inputs.GetTeamConfigArgs;
@@ -67,6 +87,12 @@ import com.pulumiverse.vercel.outputs.GetAccessGroupProjectResult;
 import com.pulumiverse.vercel.outputs.GetAccessGroupResult;
 import com.pulumiverse.vercel.outputs.GetAliasResult;
 import com.pulumiverse.vercel.outputs.GetAttackChallengeModeResult;
+import com.pulumiverse.vercel.outputs.GetBlobObjectResult;
+import com.pulumiverse.vercel.outputs.GetBlobProjectConnectionsResult;
+import com.pulumiverse.vercel.outputs.GetBlobStoreResult;
+import com.pulumiverse.vercel.outputs.GetBlobStoreSecretsResult;
+import com.pulumiverse.vercel.outputs.GetBlobStoresResult;
+import com.pulumiverse.vercel.outputs.GetBulkRedirectsResult;
 import com.pulumiverse.vercel.outputs.GetCustomEnvironmentResult;
 import com.pulumiverse.vercel.outputs.GetDeploymentResult;
 import com.pulumiverse.vercel.outputs.GetDomainConfigResult;
@@ -76,6 +102,9 @@ import com.pulumiverse.vercel.outputs.GetEdgeConfigResult;
 import com.pulumiverse.vercel.outputs.GetEdgeConfigSchemaResult;
 import com.pulumiverse.vercel.outputs.GetEdgeConfigTokenResult;
 import com.pulumiverse.vercel.outputs.GetEndpointVerificationResult;
+import com.pulumiverse.vercel.outputs.GetFeatureFlagResult;
+import com.pulumiverse.vercel.outputs.GetFeatureFlagSdkKeyResult;
+import com.pulumiverse.vercel.outputs.GetFeatureFlagSegmentResult;
 import com.pulumiverse.vercel.outputs.GetFileResult;
 import com.pulumiverse.vercel.outputs.GetLogDrainResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupMembershipResult;
@@ -87,6 +116,7 @@ import com.pulumiverse.vercel.outputs.GetProjectDirectoryResult;
 import com.pulumiverse.vercel.outputs.GetProjectMembersResult;
 import com.pulumiverse.vercel.outputs.GetProjectResult;
 import com.pulumiverse.vercel.outputs.GetProjectRollingReleaseResult;
+import com.pulumiverse.vercel.outputs.GetProjectRoutesResult;
 import com.pulumiverse.vercel.outputs.GetSharedEnvironmentVariableResult;
 import com.pulumiverse.vercel.outputs.GetTeamConfigResult;
 import com.pulumiverse.vercel.outputs.GetTeamMemberResult;
@@ -797,6 +827,1309 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetAttackChallengeModeResult> getAttackChallengeModePlain(GetAttackChallengeModePlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getAttackChallengeMode:getAttackChallengeMode", TypeShape.of(GetAttackChallengeModeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides metadata about an existing object in a Vercel Blob store.
+     * 
+     */
+    public static Output<GetBlobObjectResult> getBlobObject(GetBlobObjectArgs args) {
+        return getBlobObject(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides metadata about an existing object in a Vercel Blob store.
+     * 
+     */
+    public static CompletableFuture<GetBlobObjectResult> getBlobObjectPlain(GetBlobObjectPlainArgs args) {
+        return getBlobObjectPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides metadata about an existing object in a Vercel Blob store.
+     * 
+     */
+    public static Output<GetBlobObjectResult> getBlobObject(GetBlobObjectArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobObject:getBlobObject", TypeShape.of(GetBlobObjectResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides metadata about an existing object in a Vercel Blob store.
+     * 
+     */
+    public static Output<GetBlobObjectResult> getBlobObject(GetBlobObjectArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobObject:getBlobObject", TypeShape.of(GetBlobObjectResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides metadata about an existing object in a Vercel Blob store.
+     * 
+     */
+    public static CompletableFuture<GetBlobObjectResult> getBlobObjectPlain(GetBlobObjectPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getBlobObject:getBlobObject", TypeShape.of(GetBlobObjectResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the project connections for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumiverse.vercel.BlobProjectConnection;
+     * import com.pulumiverse.vercel.BlobProjectConnectionArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobProjectConnectionsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-blob-project")
+     *             .build());
+     * 
+     *         var exampleBlobProjectConnection = new BlobProjectConnection("exampleBlobProjectConnection", BlobProjectConnectionArgs.builder()
+     *             .blobStoreId(exampleBlobStore.id())
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobProjectConnections(GetBlobProjectConnectionsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobProjectConnectionsResult> getBlobProjectConnections(GetBlobProjectConnectionsArgs args) {
+        return getBlobProjectConnections(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the project connections for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumiverse.vercel.BlobProjectConnection;
+     * import com.pulumiverse.vercel.BlobProjectConnectionArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobProjectConnectionsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-blob-project")
+     *             .build());
+     * 
+     *         var exampleBlobProjectConnection = new BlobProjectConnection("exampleBlobProjectConnection", BlobProjectConnectionArgs.builder()
+     *             .blobStoreId(exampleBlobStore.id())
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobProjectConnections(GetBlobProjectConnectionsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobProjectConnectionsResult> getBlobProjectConnectionsPlain(GetBlobProjectConnectionsPlainArgs args) {
+        return getBlobProjectConnectionsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the project connections for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumiverse.vercel.BlobProjectConnection;
+     * import com.pulumiverse.vercel.BlobProjectConnectionArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobProjectConnectionsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-blob-project")
+     *             .build());
+     * 
+     *         var exampleBlobProjectConnection = new BlobProjectConnection("exampleBlobProjectConnection", BlobProjectConnectionArgs.builder()
+     *             .blobStoreId(exampleBlobStore.id())
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobProjectConnections(GetBlobProjectConnectionsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobProjectConnectionsResult> getBlobProjectConnections(GetBlobProjectConnectionsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobProjectConnections:getBlobProjectConnections", TypeShape.of(GetBlobProjectConnectionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the project connections for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumiverse.vercel.BlobProjectConnection;
+     * import com.pulumiverse.vercel.BlobProjectConnectionArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobProjectConnectionsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-blob-project")
+     *             .build());
+     * 
+     *         var exampleBlobProjectConnection = new BlobProjectConnection("exampleBlobProjectConnection", BlobProjectConnectionArgs.builder()
+     *             .blobStoreId(exampleBlobStore.id())
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobProjectConnections(GetBlobProjectConnectionsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobProjectConnectionsResult> getBlobProjectConnections(GetBlobProjectConnectionsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobProjectConnections:getBlobProjectConnections", TypeShape.of(GetBlobProjectConnectionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the project connections for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumiverse.vercel.BlobProjectConnection;
+     * import com.pulumiverse.vercel.BlobProjectConnectionArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobProjectConnectionsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-blob-project")
+     *             .build());
+     * 
+     *         var exampleBlobProjectConnection = new BlobProjectConnection("exampleBlobProjectConnection", BlobProjectConnectionArgs.builder()
+     *             .blobStoreId(exampleBlobStore.id())
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobProjectConnections(GetBlobProjectConnectionsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobProjectConnectionsResult> getBlobProjectConnectionsPlain(GetBlobProjectConnectionsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getBlobProjectConnections:getBlobProjectConnections", TypeShape.of(GetBlobProjectConnectionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStore(GetBlobStoreArgs.builder()
+     *             .id(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoreResult> getBlobStore(GetBlobStoreArgs args) {
+        return getBlobStore(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStore(GetBlobStoreArgs.builder()
+     *             .id(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoreResult> getBlobStorePlain(GetBlobStorePlainArgs args) {
+        return getBlobStorePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStore(GetBlobStoreArgs.builder()
+     *             .id(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoreResult> getBlobStore(GetBlobStoreArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobStore:getBlobStore", TypeShape.of(GetBlobStoreResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStore(GetBlobStoreArgs.builder()
+     *             .id(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoreResult> getBlobStore(GetBlobStoreArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobStore:getBlobStore", TypeShape.of(GetBlobStoreResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStore(GetBlobStoreArgs.builder()
+     *             .id(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoreResult> getBlobStorePlain(GetBlobStorePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getBlobStore:getBlobStore", TypeShape.of(GetBlobStoreResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the default read/write token for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreSecretsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStoreSecrets(GetBlobStoreSecretsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoreSecretsResult> getBlobStoreSecrets(GetBlobStoreSecretsArgs args) {
+        return getBlobStoreSecrets(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the default read/write token for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreSecretsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStoreSecrets(GetBlobStoreSecretsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoreSecretsResult> getBlobStoreSecretsPlain(GetBlobStoreSecretsPlainArgs args) {
+        return getBlobStoreSecretsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the default read/write token for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreSecretsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStoreSecrets(GetBlobStoreSecretsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoreSecretsResult> getBlobStoreSecrets(GetBlobStoreSecretsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobStoreSecrets:getBlobStoreSecrets", TypeShape.of(GetBlobStoreSecretsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the default read/write token for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreSecretsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStoreSecrets(GetBlobStoreSecretsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoreSecretsResult> getBlobStoreSecrets(GetBlobStoreSecretsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobStoreSecrets:getBlobStoreSecrets", TypeShape.of(GetBlobStoreSecretsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the default read/write token for a Vercel Blob store.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.BlobStore;
+     * import com.pulumiverse.vercel.BlobStoreArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoreSecretsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleBlobStore = new BlobStore("exampleBlobStore", BlobStoreArgs.builder()
+     *             .name("example-blob-store")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBlobStoreSecrets(GetBlobStoreSecretsArgs.builder()
+     *             .storeId(exampleBlobStore.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoreSecretsResult> getBlobStoreSecretsPlain(GetBlobStoreSecretsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getBlobStoreSecrets:getBlobStoreSecrets", TypeShape.of(GetBlobStoreSecretsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoresResult> getBlobStores() {
+        return getBlobStores(GetBlobStoresArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoresResult> getBlobStoresPlain() {
+        return getBlobStoresPlain(GetBlobStoresPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoresResult> getBlobStores(GetBlobStoresArgs args) {
+        return getBlobStores(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoresResult> getBlobStoresPlain(GetBlobStoresPlainArgs args) {
+        return getBlobStoresPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoresResult> getBlobStores(GetBlobStoresArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobStores:getBlobStores", TypeShape.of(GetBlobStoresResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBlobStoresResult> getBlobStores(GetBlobStoresArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBlobStores:getBlobStores", TypeShape.of(GetBlobStoresResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides the Blob stores available to the configured team or personal account.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBlobStoresArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getBlobStores(GetBlobStoresArgs.builder()
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBlobStoresResult> getBlobStoresPlain(GetBlobStoresPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getBlobStores:getBlobStores", TypeShape.of(GetBlobStoresResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides a Bulk Redirects data source.
+     * 
+     * If versionId is omitted, the data source reads the live production bulk redirects for the project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBulkRedirectsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBulkRedirects(GetBulkRedirectsArgs.builder()
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBulkRedirectsResult> getBulkRedirects(GetBulkRedirectsArgs args) {
+        return getBulkRedirects(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides a Bulk Redirects data source.
+     * 
+     * If versionId is omitted, the data source reads the live production bulk redirects for the project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBulkRedirectsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBulkRedirects(GetBulkRedirectsArgs.builder()
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBulkRedirectsResult> getBulkRedirectsPlain(GetBulkRedirectsPlainArgs args) {
+        return getBulkRedirectsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides a Bulk Redirects data source.
+     * 
+     * If versionId is omitted, the data source reads the live production bulk redirects for the project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBulkRedirectsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBulkRedirects(GetBulkRedirectsArgs.builder()
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBulkRedirectsResult> getBulkRedirects(GetBulkRedirectsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBulkRedirects:getBulkRedirects", TypeShape.of(GetBulkRedirectsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides a Bulk Redirects data source.
+     * 
+     * If versionId is omitted, the data source reads the live production bulk redirects for the project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBulkRedirectsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBulkRedirects(GetBulkRedirectsArgs.builder()
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetBulkRedirectsResult> getBulkRedirects(GetBulkRedirectsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getBulkRedirects:getBulkRedirects", TypeShape.of(GetBulkRedirectsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides a Bulk Redirects data source.
+     * 
+     * If versionId is omitted, the data source reads the live production bulk redirects for the project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetBulkRedirectsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var example = VercelFunctions.getBulkRedirects(GetBulkRedirectsArgs.builder()
+     *             .projectId(exampleProject.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetBulkRedirectsResult> getBulkRedirectsPlain(GetBulkRedirectsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getBulkRedirects:getBulkRedirects", TypeShape.of(GetBulkRedirectsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Provides information about an existing CustomEnvironment resource.
@@ -3369,6 +4702,651 @@ public final class VercelFunctions {
         return Deployment.getInstance().invokeAsync("vercel:index/getEndpointVerification:getEndpointVerification", TypeShape.of(GetEndpointVerificationResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Provides information about an existing Feature Flag.
+     * 
+     * This data source reads the simplified static flag shape exposed by this provider and looks up the flag by its stable `key` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlag(GetFeatureFlagArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .key("checkout-redesign")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagResult> getFeatureFlag(GetFeatureFlagArgs args) {
+        return getFeatureFlag(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Feature Flag.
+     * 
+     * This data source reads the simplified static flag shape exposed by this provider and looks up the flag by its stable `key` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlag(GetFeatureFlagArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .key("checkout-redesign")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetFeatureFlagResult> getFeatureFlagPlain(GetFeatureFlagPlainArgs args) {
+        return getFeatureFlagPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Feature Flag.
+     * 
+     * This data source reads the simplified static flag shape exposed by this provider and looks up the flag by its stable `key` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlag(GetFeatureFlagArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .key("checkout-redesign")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagResult> getFeatureFlag(GetFeatureFlagArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getFeatureFlag:getFeatureFlag", TypeShape.of(GetFeatureFlagResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag.
+     * 
+     * This data source reads the simplified static flag shape exposed by this provider and looks up the flag by its stable `key` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlag(GetFeatureFlagArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .key("checkout-redesign")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagResult> getFeatureFlag(GetFeatureFlagArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getFeatureFlag:getFeatureFlag", TypeShape.of(GetFeatureFlagResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag.
+     * 
+     * This data source reads the simplified static flag shape exposed by this provider and looks up the flag by its stable `key` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlag(GetFeatureFlagArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .key("checkout-redesign")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetFeatureFlagResult> getFeatureFlagPlain(GetFeatureFlagPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getFeatureFlag:getFeatureFlag", TypeShape.of(GetFeatureFlagResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag SDK Key.
+     * 
+     * Vercel only returns the cleartext SDK key and connection string at creation time, so this data source exposes lookup metadata only.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSdkKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .id("sdk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagSdkKeyResult> getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs args) {
+        return getFeatureFlagSdkKey(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Feature Flag SDK Key.
+     * 
+     * Vercel only returns the cleartext SDK key and connection string at creation time, so this data source exposes lookup metadata only.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSdkKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .id("sdk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetFeatureFlagSdkKeyResult> getFeatureFlagSdkKeyPlain(GetFeatureFlagSdkKeyPlainArgs args) {
+        return getFeatureFlagSdkKeyPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Feature Flag SDK Key.
+     * 
+     * Vercel only returns the cleartext SDK key and connection string at creation time, so this data source exposes lookup metadata only.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSdkKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .id("sdk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagSdkKeyResult> getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getFeatureFlagSdkKey:getFeatureFlagSdkKey", TypeShape.of(GetFeatureFlagSdkKeyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag SDK Key.
+     * 
+     * Vercel only returns the cleartext SDK key and connection string at creation time, so this data source exposes lookup metadata only.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSdkKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .id("sdk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagSdkKeyResult> getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getFeatureFlagSdkKey:getFeatureFlagSdkKey", TypeShape.of(GetFeatureFlagSdkKeyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag SDK Key.
+     * 
+     * Vercel only returns the cleartext SDK key and connection string at creation time, so this data source exposes lookup metadata only.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSdkKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSdkKey(GetFeatureFlagSdkKeyArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .id("sdk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetFeatureFlagSdkKeyResult> getFeatureFlagSdkKeyPlain(GetFeatureFlagSdkKeyPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getFeatureFlagSdkKey:getFeatureFlagSdkKey", TypeShape.of(GetFeatureFlagSdkKeyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag Segment.
+     * 
+     * This data source reads the simplified exact-match segment shape exposed by this provider and looks up the segment by its stable `slug` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSegmentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSegment(GetFeatureFlagSegmentArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .slug("internal-users")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagSegmentResult> getFeatureFlagSegment(GetFeatureFlagSegmentArgs args) {
+        return getFeatureFlagSegment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Feature Flag Segment.
+     * 
+     * This data source reads the simplified exact-match segment shape exposed by this provider and looks up the segment by its stable `slug` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSegmentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSegment(GetFeatureFlagSegmentArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .slug("internal-users")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetFeatureFlagSegmentResult> getFeatureFlagSegmentPlain(GetFeatureFlagSegmentPlainArgs args) {
+        return getFeatureFlagSegmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Feature Flag Segment.
+     * 
+     * This data source reads the simplified exact-match segment shape exposed by this provider and looks up the segment by its stable `slug` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSegmentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSegment(GetFeatureFlagSegmentArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .slug("internal-users")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagSegmentResult> getFeatureFlagSegment(GetFeatureFlagSegmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getFeatureFlagSegment:getFeatureFlagSegment", TypeShape.of(GetFeatureFlagSegmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag Segment.
+     * 
+     * This data source reads the simplified exact-match segment shape exposed by this provider and looks up the segment by its stable `slug` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSegmentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSegment(GetFeatureFlagSegmentArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .slug("internal-users")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetFeatureFlagSegmentResult> getFeatureFlagSegment(GetFeatureFlagSegmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getFeatureFlagSegment:getFeatureFlagSegment", TypeShape.of(GetFeatureFlagSegmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Feature Flag Segment.
+     * 
+     * This data source reads the simplified exact-match segment shape exposed by this provider and looks up the segment by its stable `slug` within a project.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetFeatureFlagSegmentArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getFeatureFlagSegment(GetFeatureFlagSegmentArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .slug("internal-users")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetFeatureFlagSegmentResult> getFeatureFlagSegmentPlain(GetFeatureFlagSegmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getFeatureFlagSegment:getFeatureFlagSegment", TypeShape.of(GetFeatureFlagSegmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Provides information about a file on disk.
      * 
      * This will read a single file, providing metadata for use with a `vercel.Deployment`.
@@ -5512,6 +7490,241 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetProjectRollingReleaseResult> getProjectRollingReleasePlain(GetProjectRollingReleasePlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getProjectRollingRelease:getProjectRollingRelease", TypeShape.of(GetProjectRollingReleaseResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about the live project routing rules configured for a Vercel project.
+     * 
+     * This data source intentionally reads the current live version and ignores unpublished staged drafts.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetProjectRoutesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var exampleGetProjectRoutes = VercelFunctions.getProjectRoutes(GetProjectRoutesArgs.builder()
+     *             .projectId(example.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectRoutesResult> getProjectRoutes(GetProjectRoutesArgs args) {
+        return getProjectRoutes(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about the live project routing rules configured for a Vercel project.
+     * 
+     * This data source intentionally reads the current live version and ignores unpublished staged drafts.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetProjectRoutesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var exampleGetProjectRoutes = VercelFunctions.getProjectRoutes(GetProjectRoutesArgs.builder()
+     *             .projectId(example.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetProjectRoutesResult> getProjectRoutesPlain(GetProjectRoutesPlainArgs args) {
+        return getProjectRoutesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about the live project routing rules configured for a Vercel project.
+     * 
+     * This data source intentionally reads the current live version and ignores unpublished staged drafts.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetProjectRoutesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var exampleGetProjectRoutes = VercelFunctions.getProjectRoutes(GetProjectRoutesArgs.builder()
+     *             .projectId(example.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectRoutesResult> getProjectRoutes(GetProjectRoutesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getProjectRoutes:getProjectRoutes", TypeShape.of(GetProjectRoutesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about the live project routing rules configured for a Vercel project.
+     * 
+     * This data source intentionally reads the current live version and ignores unpublished staged drafts.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetProjectRoutesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var exampleGetProjectRoutes = VercelFunctions.getProjectRoutes(GetProjectRoutesArgs.builder()
+     *             .projectId(example.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectRoutesResult> getProjectRoutes(GetProjectRoutesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getProjectRoutes:getProjectRoutes", TypeShape.of(GetProjectRoutesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about the live project routing rules configured for a Vercel project.
+     * 
+     * This data source intentionally reads the current live version and ignores unpublished staged drafts.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import com.pulumi.vercel.inputs.GetProjectRoutesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("example-project")
+     *             .build());
+     * 
+     *         final var exampleGetProjectRoutes = VercelFunctions.getProjectRoutes(GetProjectRoutesArgs.builder()
+     *             .projectId(example.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetProjectRoutesResult> getProjectRoutesPlain(GetProjectRoutesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getProjectRoutes:getProjectRoutes", TypeShape.of(GetProjectRoutesResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Provides information about an existing Shared Environment Variable within Vercel.

@@ -66,6 +66,8 @@ import (
 //
 // ## Import
 //
+// The `pulumi import` command can be used, for example:
+//
 // If importing into a personal account, or with a team configured on
 // the provider, simply use the project ID and domain.
 // - projectId can be found in the project `settings` tab in the Vercel UI.

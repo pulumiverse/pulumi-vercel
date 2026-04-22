@@ -94,18 +94,18 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
-    @Import(name="sensitive")
-    private @Nullable Output<Boolean> sensitive;
+    @Import(name="sensitive", required=true)
+    private Output<Boolean> sensitive;
 
     /**
-     * @return Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
-    public Optional<Output<Boolean>> sensitive() {
-        return Optional.ofNullable(this.sensitive);
+    public Output<Boolean> sensitive() {
+        return this.sensitive;
     }
 
     /**
@@ -285,18 +285,18 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param sensitive Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
          * 
          * @return builder
          * 
          */
-        public Builder sensitive(@Nullable Output<Boolean> sensitive) {
+        public Builder sensitive(Output<Boolean> sensitive) {
             $.sensitive = sensitive;
             return this;
         }
 
         /**
-         * @param sensitive Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
          * 
          * @return builder
          * 
@@ -360,6 +360,9 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
         public ProjectEnvironmentArgs build() {
             if ($.key == null) {
                 throw new MissingRequiredPropertyException("ProjectEnvironmentArgs", "key");
+            }
+            if ($.sensitive == null) {
+                throw new MissingRequiredPropertyException("ProjectEnvironmentArgs", "sensitive");
             }
             if ($.value == null) {
                 throw new MissingRequiredPropertyException("ProjectEnvironmentArgs", "value");

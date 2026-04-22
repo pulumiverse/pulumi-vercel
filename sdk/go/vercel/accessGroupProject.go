@@ -60,6 +60,8 @@ import (
 //
 // ## Import
 //
+// The `pulumi import` command can be used, for example:
+//
 // If importing into a personal account, or with a team configured on
 // the provider, use the accessGroupId and project_id.
 //

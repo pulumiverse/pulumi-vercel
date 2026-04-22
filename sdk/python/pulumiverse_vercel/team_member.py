@@ -283,6 +283,8 @@ class TeamMember(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         To import, use the team_id and user_id.
 
         ```sh
@@ -324,6 +326,8 @@ class TeamMember(pulumi.CustomResource):
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         To import, use the team_id and user_id.
 

@@ -20,6 +20,8 @@ namespace Pulumiverse.Vercel
     /// &gt; Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `Environment` field.
     /// At this time you cannot use a Vercel Project resource with in-line `Environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
     /// 
+    /// &gt; **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `Sensitive` value. Variables targeting only `Development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `Preview`, `Production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `Development` together with `Preview`, `Production`, or custom environments.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -57,6 +59,8 @@ namespace Pulumiverse.Vercel
     /// ```
     /// 
     /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
     /// 
     /// If importing into a personal account, or with a team configured on
     /// the provider, simply use the project ID.

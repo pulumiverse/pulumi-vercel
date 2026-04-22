@@ -404,6 +404,8 @@ class LogDrain(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         If importing into a personal account, or with a team configured on
         the provider, simply use the log_drain_id.
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
@@ -476,6 +478,8 @@ class LogDrain(pulumi.CustomResource):
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
         the provider, simply use the log_drain_id.

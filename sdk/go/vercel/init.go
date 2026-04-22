@@ -29,6 +29,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Alias{}
 	case "vercel:index/attackChallengeMode:AttackChallengeMode":
 		r = &AttackChallengeMode{}
+	case "vercel:index/blobObject:BlobObject":
+		r = &BlobObject{}
+	case "vercel:index/blobProjectConnection:BlobProjectConnection":
+		r = &BlobProjectConnection{}
+	case "vercel:index/blobStore:BlobStore":
+		r = &BlobStore{}
+	case "vercel:index/bulkRedirects:BulkRedirects":
+		r = &BulkRedirects{}
 	case "vercel:index/customCertificate:CustomCertificate":
 		r = &CustomCertificate{}
 	case "vercel:index/customEnvironment:CustomEnvironment":
@@ -45,6 +53,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EdgeConfigSchema{}
 	case "vercel:index/edgeConfigToken:EdgeConfigToken":
 		r = &EdgeConfigToken{}
+	case "vercel:index/featureFlagConfig:FeatureFlagConfig":
+		r = &FeatureFlagConfig{}
+	case "vercel:index/featureFlagDefinition:FeatureFlagDefinition":
+		r = &FeatureFlagDefinition{}
+	case "vercel:index/featureFlagSdkKey:FeatureFlagSdkKey":
+		r = &FeatureFlagSdkKey{}
+	case "vercel:index/featureFlagSegment:FeatureFlagSegment":
+		r = &FeatureFlagSegment{}
 	case "vercel:index/firewallBypass:FirewallBypass":
 		r = &FirewallBypass{}
 	case "vercel:index/firewallConfig:FirewallConfig":
@@ -75,6 +91,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectMembers{}
 	case "vercel:index/projectRollingRelease:ProjectRollingRelease":
 		r = &ProjectRollingRelease{}
+	case "vercel:index/projectRoute:ProjectRoute":
+		r = &ProjectRoute{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
 	case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
@@ -83,6 +101,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TeamConfig{}
 	case "vercel:index/teamMember:TeamMember":
 		r = &TeamMember{}
+	case "vercel:index/userToken:UserToken":
+		r = &UserToken{}
 	case "vercel:index/webhook:Webhook":
 		r = &Webhook{}
 	default:
@@ -138,6 +158,26 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/blobObject",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/blobProjectConnection",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/blobStore",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/bulkRedirects",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/customCertificate",
 		&module{version},
 	)
@@ -174,6 +214,26 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/edgeConfigToken",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/featureFlagConfig",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/featureFlagDefinition",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/featureFlagSdkKey",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/featureFlagSegment",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -253,6 +313,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/projectRoute",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/sharedEnvironmentVariable",
 		&module{version},
 	)
@@ -269,6 +334,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/teamMember",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/userToken",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
