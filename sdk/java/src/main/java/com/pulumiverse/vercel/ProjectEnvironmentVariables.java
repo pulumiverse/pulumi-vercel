@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
  * &gt; Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
  * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
  * 
+ * &gt; **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * 
  * ## Example Usage
  * 
  * <pre>
@@ -62,7 +64,7 @@ import javax.annotation.Nullable;
  *             .build());
  * 
  *         var exampleProjectEnvironmentVariables = new ProjectEnvironmentVariables("exampleProjectEnvironmentVariables", ProjectEnvironmentVariablesArgs.builder()
- *             .projectId(test.id())
+ *             .projectId(example.id())
  *             .variables(            
  *                 ProjectEnvironmentVariablesVariableArgs.builder()
  *                     .key("SOME_VARIABLE")
@@ -70,18 +72,20 @@ import javax.annotation.Nullable;
  *                     .target(List.of(                    
  *                         "production",
  *                         "preview"))
+ *                     .sensitive(true)
  *                     .build(),
  *                 ProjectEnvironmentVariablesVariableArgs.builder()
  *                     .key("ANOTHER_VARIABLE")
  *                     .value("another_value")
  *                     .gitBranch("staging")
  *                     .target(List.of("preview"))
+ *                     .sensitive(true)
  *                     .build(),
  *                 ProjectEnvironmentVariablesVariableArgs.builder()
- *                     .key("SENSITIVE_VARIABLE")
- *                     .value("sensitive_value")
- *                     .target(List.of("production"))
- *                     .sensitive(true)
+ *                     .key("DEVELOPMENT_VARIABLE")
+ *                     .value("development_value")
+ *                     .target(List.of("development"))
+ *                     .sensitive(false)
  *                     .build())
  *             .build());
  * 

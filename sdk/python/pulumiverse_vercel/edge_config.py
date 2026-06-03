@@ -128,13 +128,15 @@ class EdgeConfig(pulumi.CustomResource):
             targets=[
                 "production",
                 "preview",
-                "development",
             ],
+            sensitive=True,
             key="EDGE_CONFIG",
             value=example_edge_config_token.connection_string)
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
         the provider, simply use the edge config id.
@@ -185,13 +187,15 @@ class EdgeConfig(pulumi.CustomResource):
             targets=[
                 "production",
                 "preview",
-                "development",
             ],
+            sensitive=True,
             key="EDGE_CONFIG",
             value=example_edge_config_token.connection_string)
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
         the provider, simply use the edge config id.

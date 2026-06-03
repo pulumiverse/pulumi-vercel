@@ -38,6 +38,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
     /// To import, use the TeamId and user_id.
     /// 
     /// ```sh

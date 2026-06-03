@@ -54,6 +54,8 @@ import (
 //
 // ## Import
 //
+// The `pulumi import` command can be used, for example:
+//
 // You can import via the teamId and project_id.
 // - teamId can be found in the team `settings` tab in the Vercel UI.
 // - projectId can be found in the project `settings` tab in the Vercel UI.

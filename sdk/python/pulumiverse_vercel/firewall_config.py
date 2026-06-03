@@ -459,6 +459,8 @@ class FirewallConfig(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         ```sh
         $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
@@ -697,6 +699,8 @@ class FirewallConfig(pulumi.CustomResource):
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         ```sh
         $ pulumi import vercel:index/firewallConfig:FirewallConfig example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx

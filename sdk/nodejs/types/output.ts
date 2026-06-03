@@ -5,6 +5,29 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface BulkRedirectsRedirect {
+    /**
+     * Whether the source match is case-sensitive.
+     */
+    caseSensitive: boolean;
+    /**
+     * The destination pathname or URL to redirect to.
+     */
+    destination: string;
+    /**
+     * Whether query parameters are considered when matching the redirect.
+     */
+    query: boolean;
+    /**
+     * The source pathname to match.
+     */
+    source: string;
+    /**
+     * The HTTP status code for the redirect.
+     */
+    statusCode: number;
+}
+
 export interface CustomEnvironmentBranchTracking {
     /**
      * The pattern of the branch name to track.
@@ -56,6 +79,108 @@ export interface DnsRecordSrv {
      * A relative weight for records with the same priority, higher value means higher chance of getting picked.
      */
     weight: number;
+}
+
+export interface FeatureFlagConfigDevelopment {
+    /**
+     * The variant to serve when this environment is enabled and no rules match.
+     */
+    defaultVariantId: string;
+    /**
+     * The variant to serve while this environment is disabled or paused.
+     */
+    disabledVariantId: string;
+    /**
+     * Whether the flag should actively evaluate in this environment.
+     */
+    enabled: boolean;
+}
+
+export interface FeatureFlagConfigPreview {
+    /**
+     * The variant to serve when this environment is enabled and no rules match.
+     */
+    defaultVariantId: string;
+    /**
+     * The variant to serve while this environment is disabled or paused.
+     */
+    disabledVariantId: string;
+    /**
+     * Whether the flag should actively evaluate in this environment.
+     */
+    enabled: boolean;
+}
+
+export interface FeatureFlagConfigProduction {
+    /**
+     * The variant to serve when this environment is enabled and no rules match.
+     */
+    defaultVariantId: string;
+    /**
+     * The variant to serve while this environment is disabled or paused.
+     */
+    disabledVariantId: string;
+    /**
+     * Whether the flag should actively evaluate in this environment.
+     */
+    enabled: boolean;
+}
+
+export interface FeatureFlagDefinitionVariant {
+    /**
+     * A human-readable description for the variant.
+     */
+    description?: string;
+    /**
+     * The stable variant identifier referenced by flag configuration.
+     */
+    id: string;
+    /**
+     * A human-readable label for the variant.
+     */
+    label?: string;
+    /**
+     * The boolean value for this variant. Use this when `kind = "boolean"`.
+     */
+    valueBool?: boolean;
+    /**
+     * The numeric value for this variant. Use this when `kind = "number"`.
+     */
+    valueNumber?: number;
+    /**
+     * The string value for this variant. Use this when `kind = "string"`.
+     */
+    valueString?: string;
+}
+
+export interface FeatureFlagSegmentExclude {
+    /**
+     * The entity attribute to match, for example `email`.
+     */
+    attribute: string;
+    /**
+     * The entity type to match, for example `user`.
+     */
+    entity: string;
+    /**
+     * The exact values to include or exclude for this entity attribute.
+     */
+    values: string[];
+}
+
+export interface FeatureFlagSegmentInclude {
+    /**
+     * The entity attribute to match, for example `email`.
+     */
+    attribute: string;
+    /**
+     * The entity type to match, for example `user`.
+     */
+    entity: string;
+    /**
+     * The exact values to include or exclude for this entity attribute.
+     */
+    values: string[];
 }
 
 export interface FirewallConfigIpRules {
@@ -320,6 +445,107 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
     values?: string[];
 }
 
+export interface GetBlobProjectConnectionsConnection {
+    /**
+     * The prefix used for the generated Blob environment variable names.
+     */
+    envVarPrefix: string;
+    /**
+     * The environments in which the generated Blob environment variables exist.
+     */
+    environments: string[];
+    /**
+     * The ID of the Blob store project connection.
+     */
+    id: string;
+    /**
+     * The ID of the latest production deployment for the connected project, if any.
+     */
+    productionDeploymentId: string;
+    /**
+     * The URL of the latest production deployment for the connected project, if any.
+     */
+    productionDeploymentUrl: string;
+    /**
+     * The framework configured for the connected Vercel project, if any.
+     */
+    projectFramework: string;
+    /**
+     * The ID of the connected Vercel project.
+     */
+    projectId: string;
+    /**
+     * The name of the connected Vercel project.
+     */
+    projectName: string;
+    /**
+     * The generated environment variable name that contains the Blob read/write token.
+     */
+    readWriteTokenEnvVarName: string;
+}
+
+export interface GetBlobStoresStore {
+    /**
+     * Whether blobs created in this store are `public` or `private` by default.
+     */
+    access: string;
+    /**
+     * The Unix timestamp, in milliseconds, when the Blob store was created.
+     */
+    createdAt: number;
+    /**
+     * The number of files currently stored in the Blob store.
+     */
+    fileCount: number;
+    /**
+     * The ID of the Blob store.
+     */
+    id: string;
+    /**
+     * The name of the Blob store.
+     */
+    name: string;
+    /**
+     * The region in which the Blob store exists.
+     */
+    region: string;
+    /**
+     * The size of the Blob store in bytes.
+     */
+    size: number;
+    /**
+     * The current status of the Blob store.
+     */
+    status: string;
+    /**
+     * The Unix timestamp, in milliseconds, when the Blob store was last updated.
+     */
+    updatedAt: number;
+}
+
+export interface GetBulkRedirectsRedirect {
+    /**
+     * Whether the source match is case-sensitive.
+     */
+    caseSensitive: boolean;
+    /**
+     * The destination pathname or URL to redirect to.
+     */
+    destination: string;
+    /**
+     * Whether query parameters are considered when matching the redirect.
+     */
+    query: boolean;
+    /**
+     * The source pathname to match.
+     */
+    source: string;
+    /**
+     * The HTTP status code for the redirect.
+     */
+    statusCode: number;
+}
+
 export interface GetCustomEnvironmentBranchTracking {
     /**
      * The pattern of the branch name to track.
@@ -340,6 +566,108 @@ export interface GetDsyncGroupsList {
      * The name of the group on the Identity Provider.
      */
     name: string;
+}
+
+export interface GetFeatureFlagDevelopment {
+    /**
+     * The variant served when this environment is enabled and no rules match.
+     */
+    defaultVariantId: string;
+    /**
+     * The variant served while this environment is disabled or paused.
+     */
+    disabledVariantId: string;
+    /**
+     * Whether the flag actively evaluates in this environment.
+     */
+    enabled: boolean;
+}
+
+export interface GetFeatureFlagPreview {
+    /**
+     * The variant served when this environment is enabled and no rules match.
+     */
+    defaultVariantId: string;
+    /**
+     * The variant served while this environment is disabled or paused.
+     */
+    disabledVariantId: string;
+    /**
+     * Whether the flag actively evaluates in this environment.
+     */
+    enabled: boolean;
+}
+
+export interface GetFeatureFlagProduction {
+    /**
+     * The variant served when this environment is enabled and no rules match.
+     */
+    defaultVariantId: string;
+    /**
+     * The variant served while this environment is disabled or paused.
+     */
+    disabledVariantId: string;
+    /**
+     * Whether the flag actively evaluates in this environment.
+     */
+    enabled: boolean;
+}
+
+export interface GetFeatureFlagSegmentExclude {
+    /**
+     * The entity attribute to match.
+     */
+    attribute: string;
+    /**
+     * The entity type to match.
+     */
+    entity: string;
+    /**
+     * The exact values to include or exclude for this entity attribute.
+     */
+    values: string[];
+}
+
+export interface GetFeatureFlagSegmentInclude {
+    /**
+     * The entity attribute to match.
+     */
+    attribute: string;
+    /**
+     * The entity type to match.
+     */
+    entity: string;
+    /**
+     * The exact values to include or exclude for this entity attribute.
+     */
+    values: string[];
+}
+
+export interface GetFeatureFlagVariant {
+    /**
+     * A human-readable description for the variant.
+     */
+    description: string;
+    /**
+     * The stable variant identifier.
+     */
+    id: string;
+    /**
+     * A human-readable label for the variant.
+     */
+    label: string;
+    /**
+     * The boolean value for this variant when `kind = "boolean"`.
+     */
+    valueBool: boolean;
+    /**
+     * The numeric value for this variant when `kind = "number"`.
+     */
+    valueNumber: number;
+    /**
+     * The string value for this variant when `kind = "string"`.
+     */
+    valueString: string;
 }
 
 export interface GetMicrofrontendGroupDefaultApp {
@@ -405,9 +733,17 @@ export interface GetProjectGitComments {
 
 export interface GetProjectGitProviderOptions {
     /**
+     * **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
+     */
+    consolidatedGitCommitStatus: outputs.GetProjectGitProviderOptionsConsolidatedGitCommitStatus;
+    /**
      * Whether to create deployments.
      */
     createDeployments: boolean;
+    /**
+     * Whether Vercel posts git commit statuses for this project.
+     */
+    gitCommitStatus: boolean;
     /**
      * Whether repository dispatch events are enabled.
      */
@@ -416,6 +752,17 @@ export interface GetProjectGitProviderOptions {
      * Whether to require verified commits.
      */
     requireVerifiedCommits: boolean;
+}
+
+export interface GetProjectGitProviderOptionsConsolidatedGitCommitStatus {
+    /**
+     * **Beta:** Whether consolidated commit status is enabled.
+     */
+    enabled: boolean;
+    /**
+     * **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+     */
+    propagateFailures: boolean;
 }
 
 export interface GetProjectGitRepository {
@@ -530,6 +877,96 @@ export interface GetProjectRollingReleaseStage {
     targetPercentage: number;
 }
 
+export interface GetProjectRoutesRule {
+    /**
+     * An optional description of the rule.
+     */
+    description: string;
+    /**
+     * Whether the rule is enabled.
+     */
+    enabled: boolean;
+    /**
+     * The rule ID managed by Vercel.
+     */
+    id: string;
+    /**
+     * A human-readable name for the rule.
+     */
+    name: string;
+    /**
+     * The routing rule definition.
+     */
+    route: outputs.GetProjectRoutesRuleRoute;
+    /**
+     * The computed route type returned by Vercel. One of `rewrite`, `redirect`, `setStatus`, or `transform`.
+     */
+    routeType: string;
+    /**
+     * The source pattern syntax inferred or stored by Vercel.
+     */
+    srcSyntax: string;
+}
+
+export interface GetProjectRoutesRuleRoute {
+    /**
+     * Whether the `src` matcher is case-sensitive.
+     */
+    caseSensitive: boolean;
+    /**
+     * The destination for rewrites or redirects.
+     */
+    dest: string;
+    /**
+     * Conditions that must be present for the rule to match.
+     */
+    has: outputs.GetProjectRoutesRuleRouteHa[];
+    /**
+     * Headers to set for the matched request.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Conditions that must be absent for the rule to match.
+     */
+    missings: outputs.GetProjectRoutesRuleRouteMissing[];
+    /**
+     * Whether the rule should respect cache control headers from the origin.
+     */
+    respectOriginCacheControl: boolean;
+    /**
+     * The source pattern to match.
+     */
+    src: string;
+    /**
+     * The HTTP status code to set for redirects or status-only rules.
+     */
+    status: number;
+    /**
+     * Transforms applied to the request or response when the rule matches.
+     */
+    transforms: outputs.GetProjectRoutesRuleRouteTransform[];
+}
+
+export interface GetProjectRoutesRuleRouteHa {
+    key: string;
+    type: string;
+    value: string;
+}
+
+export interface GetProjectRoutesRuleRouteMissing {
+    key: string;
+    type: string;
+    value: string;
+}
+
+export interface GetProjectRoutesRuleRouteTransform {
+    args: string;
+    envs: string[];
+    op: string;
+    target: string;
+    type: string;
+}
+
 export interface GetProjectTrustedIps {
     /**
      * The allowed IP addressses and CIDR ranges with optional descriptions.
@@ -548,6 +985,95 @@ export interface GetProjectTrustedIps {
 export interface GetProjectTrustedIpsAddress {
     note: string;
     value: string;
+}
+
+export interface GetProjectTrustedSources {
+    /**
+     * External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+     */
+    externalSources: outputs.GetProjectTrustedSourcesExternalSource[];
+    /**
+     * Vercel projects in the same team that can reach this project's protected deployments.
+     */
+    projects: outputs.GetProjectTrustedSourcesProject[];
+}
+
+export interface GetProjectTrustedSourcesExternalSource {
+    /**
+     * Claims that must match on the OIDC token.
+     */
+    claims: {[key: string]: string[]};
+    /**
+     * The OIDC issuer URL.
+     */
+    issuer: string;
+    /**
+     * A label or description for the trusted external source entry.
+     */
+    label: string;
+    /**
+     * The target environments on this project that may be accessed.
+     */
+    to: outputs.GetProjectTrustedSourcesExternalSourceTo;
+}
+
+export interface GetProjectTrustedSourcesExternalSourceTo {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs: string[];
+}
+
+export interface GetProjectTrustedSourcesProject {
+    /**
+     * Optional overrides for default same-environment matching.
+     */
+    customAllows: outputs.GetProjectTrustedSourcesProjectCustomAllow[];
+    /**
+     * A label or description for the trusted project.
+     */
+    label: string;
+    /**
+     * The trusted Vercel project ID.
+     */
+    projectId: string;
+}
+
+export interface GetProjectTrustedSourcesProjectCustomAllow {
+    /**
+     * The source environments on the trusted project that are allowed to access the target environments.
+     */
+    from: outputs.GetProjectTrustedSourcesProjectCustomAllowFrom;
+    /**
+     * The target environments on this project that may be accessed.
+     */
+    to: outputs.GetProjectTrustedSourcesProjectCustomAllowTo;
+}
+
+export interface GetProjectTrustedSourcesProjectCustomAllowFrom {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs: string[];
+}
+
+export interface GetProjectTrustedSourcesProjectCustomAllowTo {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs: string[];
 }
 
 export interface GetProjectVercelAuthentication {
@@ -641,7 +1167,7 @@ export interface ProjectEnvironment {
      */
     key: string;
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      */
     sensitive: boolean;
     /**
@@ -676,7 +1202,7 @@ export interface ProjectEnvironmentVariablesVariable {
      */
     key: string;
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      */
     sensitive: boolean;
     /**
@@ -702,9 +1228,17 @@ export interface ProjectGitComments {
 
 export interface ProjectGitProviderOptions {
     /**
+     * **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+     */
+    consolidatedGitCommitStatus: outputs.ProjectGitProviderOptionsConsolidatedGitCommitStatus;
+    /**
      * Whether to create deployments
      */
     createDeployments: boolean;
+    /**
+     * Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+     */
+    gitCommitStatus: boolean;
     /**
      * Whether to enable repository dispatch events
      */
@@ -713,6 +1247,17 @@ export interface ProjectGitProviderOptions {
      * Whether to require verified commits
      */
     requireVerifiedCommits: boolean;
+}
+
+export interface ProjectGitProviderOptionsConsolidatedGitCommitStatus {
+    /**
+     * **Beta:** Whether consolidated commit status is enabled.
+     */
+    enabled: boolean;
+    /**
+     * **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+     */
+    propagateFailures: boolean;
 }
 
 export interface ProjectGitRepository {
@@ -834,6 +1379,109 @@ export interface ProjectRollingReleaseStage {
     targetPercentage: number;
 }
 
+export interface ProjectRoutePosition {
+    /**
+     * Where to place the rule. One of `start`, `end`, `before`, or `after`.
+     */
+    placement: string;
+    /**
+     * The existing route ID to place this rule before or after.
+     */
+    referenceRouteId?: string;
+}
+
+export interface ProjectRouteRoute {
+    /**
+     * Whether the `src` matcher is case-sensitive.
+     */
+    caseSensitive: boolean;
+    /**
+     * The destination for rewrites or redirects.
+     */
+    dest: string;
+    /**
+     * Conditions that must be present for the rule to match.
+     */
+    has: outputs.ProjectRouteRouteHa[];
+    /**
+     * Headers to set for the matched request.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Conditions that must be absent for the rule to match.
+     */
+    missings: outputs.ProjectRouteRouteMissing[];
+    /**
+     * Whether the rule should respect cache control headers from the origin.
+     */
+    respectOriginCacheControl: boolean;
+    /**
+     * The source pattern to match.
+     */
+    src: string;
+    /**
+     * The HTTP status code to set for redirects or status-only rules.
+     */
+    status: number;
+    /**
+     * Transforms applied to the request or response when the rule matches.
+     */
+    transforms: outputs.ProjectRouteRouteTransform[];
+}
+
+export interface ProjectRouteRouteHa {
+    /**
+     * The key to match for `header`, `cookie`, or `query` conditions.
+     */
+    key: string;
+    /**
+     * The condition type. One of `host`, `header`, `cookie`, or `query`.
+     */
+    type: string;
+    /**
+     * The value to match.
+     */
+    value: string;
+}
+
+export interface ProjectRouteRouteMissing {
+    /**
+     * The key to match for `header`, `cookie`, or `query` conditions.
+     */
+    key: string;
+    /**
+     * The condition type. One of `host`, `header`, `cookie`, or `query`.
+     */
+    type: string;
+    /**
+     * The value to match.
+     */
+    value: string;
+}
+
+export interface ProjectRouteRouteTransform {
+    /**
+     * A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+     */
+    args: string;
+    /**
+     * Environment names that gate this transform.
+     */
+    envs: string[];
+    /**
+     * The transform operation. One of `append`, `set`, or `delete`.
+     */
+    op: string;
+    /**
+     * A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+     */
+    target: string;
+    /**
+     * The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+     */
+    type: string;
+}
+
 export interface ProjectTrustedIps {
     /**
      * The allowed IP addressses and CIDR ranges with optional descriptions.
@@ -858,6 +1506,95 @@ export interface ProjectTrustedIpsAddress {
      * The address or CIDR range that can access deployments.
      */
     value: string;
+}
+
+export interface ProjectTrustedSources {
+    /**
+     * External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+     */
+    externalSources?: outputs.ProjectTrustedSourcesExternalSource[];
+    /**
+     * Vercel projects in the same team that can reach this project's protected deployments.
+     */
+    projects?: outputs.ProjectTrustedSourcesProject[];
+}
+
+export interface ProjectTrustedSourcesExternalSource {
+    /**
+     * Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+     */
+    claims: {[key: string]: string[]};
+    /**
+     * The OIDC issuer URL.
+     */
+    issuer: string;
+    /**
+     * A label or description for the trusted external source entry.
+     */
+    label?: string;
+    /**
+     * The target environments on this project that may be accessed.
+     */
+    to: outputs.ProjectTrustedSourcesExternalSourceTo;
+}
+
+export interface ProjectTrustedSourcesExternalSourceTo {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset?: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs?: string[];
+}
+
+export interface ProjectTrustedSourcesProject {
+    /**
+     * Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+     */
+    customAllows?: outputs.ProjectTrustedSourcesProjectCustomAllow[];
+    /**
+     * A label or description for the trusted project.
+     */
+    label?: string;
+    /**
+     * The trusted Vercel project ID.
+     */
+    projectId: string;
+}
+
+export interface ProjectTrustedSourcesProjectCustomAllow {
+    /**
+     * The source environments on the trusted project that are allowed to access the target environments.
+     */
+    from: outputs.ProjectTrustedSourcesProjectCustomAllowFrom;
+    /**
+     * The target environments on this project that may be accessed.
+     */
+    to: outputs.ProjectTrustedSourcesProjectCustomAllowTo;
+}
+
+export interface ProjectTrustedSourcesProjectCustomAllowFrom {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset?: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs?: string[];
+}
+
+export interface ProjectTrustedSourcesProjectCustomAllowTo {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset?: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs?: string[];
 }
 
 export interface ProjectVercelAuthentication {

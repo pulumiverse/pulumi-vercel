@@ -191,13 +191,17 @@ export interface GetProjectResult {
      */
     readonly prioritiseProductionBuilds: boolean;
     /**
-     * Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protectionBypassForAutomationSecret`.
+     * Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
+     *
+     * @deprecated Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
      */
     readonly protectionBypassForAutomation: boolean;
     /**
-     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
+     * The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
+     *
+     * @deprecated Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
      */
-    readonly protectionBypassForAutomationSecret: string;
+    readonly protectionBypassForAutomationSecrets: string[];
     /**
      * Specifies whether the source code and logs of the deployments for this project should be public or not.
      */
@@ -226,6 +230,10 @@ export interface GetProjectResult {
      * Ensures only visitors from an allowed IP address can access your deployment.
      */
     readonly trustedIps: outputs.GetProjectTrustedIps;
+    /**
+     * Vercel projects and external sources that can reach this project's protected deployments using short-lived OIDC tokens.
+     */
+    readonly trustedSources: outputs.GetProjectTrustedSources;
     /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      */

@@ -21,6 +21,8 @@ import (
 // > Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
 // At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 //
+// > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+//
 // ## Example Usage
 //
 // ```go
@@ -35,7 +37,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
+//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
 //				Name: pulumi.String("example-project"),
 //				GitRepository: &vercel.ProjectGitRepositoryArgs{
 //					Type: pulumi.String("github"),
@@ -46,7 +48,7 @@ import (
 //				return err
 //			}
 //			_, err = vercel.NewProjectEnvironmentVariables(ctx, "example", &vercel.ProjectEnvironmentVariablesArgs{
-//				ProjectId: pulumi.Any(test.Id),
+//				ProjectId: example.ID(),
 //				Variables: vercel.ProjectEnvironmentVariablesVariableArray{
 //					&vercel.ProjectEnvironmentVariablesVariableArgs{
 //						Key:   pulumi.String("SOME_VARIABLE"),
@@ -55,6 +57,7 @@ import (
 //							"production",
 //							"preview",
 //						},
+//						Sensitive: pulumi.Bool(true),
 //					},
 //					&vercel.ProjectEnvironmentVariablesVariableArgs{
 //						Key:       pulumi.String("ANOTHER_VARIABLE"),
@@ -63,14 +66,15 @@ import (
 //						Target: []string{
 //							"preview",
 //						},
+//						Sensitive: pulumi.Bool(true),
 //					},
 //					&vercel.ProjectEnvironmentVariablesVariableArgs{
-//						Key:   pulumi.String("SENSITIVE_VARIABLE"),
-//						Value: pulumi.String("sensitive_value"),
+//						Key:   pulumi.String("DEVELOPMENT_VARIABLE"),
+//						Value: pulumi.String("development_value"),
 //						Target: []string{
-//							"production",
+//							"development",
 //						},
-//						Sensitive: pulumi.Bool(true),
+//						Sensitive: pulumi.Bool(false),
 //					},
 //				},
 //			})

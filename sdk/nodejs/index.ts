@@ -25,6 +25,26 @@ export type AttackChallengeMode = import("./attackChallengeMode").AttackChalleng
 export const AttackChallengeMode: typeof import("./attackChallengeMode").AttackChallengeMode = null as any;
 utilities.lazyLoad(exports, ["AttackChallengeMode"], () => require("./attackChallengeMode"));
 
+export { BlobObjectArgs, BlobObjectState } from "./blobObject";
+export type BlobObject = import("./blobObject").BlobObject;
+export const BlobObject: typeof import("./blobObject").BlobObject = null as any;
+utilities.lazyLoad(exports, ["BlobObject"], () => require("./blobObject"));
+
+export { BlobProjectConnectionArgs, BlobProjectConnectionState } from "./blobProjectConnection";
+export type BlobProjectConnection = import("./blobProjectConnection").BlobProjectConnection;
+export const BlobProjectConnection: typeof import("./blobProjectConnection").BlobProjectConnection = null as any;
+utilities.lazyLoad(exports, ["BlobProjectConnection"], () => require("./blobProjectConnection"));
+
+export { BlobStoreArgs, BlobStoreState } from "./blobStore";
+export type BlobStore = import("./blobStore").BlobStore;
+export const BlobStore: typeof import("./blobStore").BlobStore = null as any;
+utilities.lazyLoad(exports, ["BlobStore"], () => require("./blobStore"));
+
+export { BulkRedirectsArgs, BulkRedirectsState } from "./bulkRedirects";
+export type BulkRedirects = import("./bulkRedirects").BulkRedirects;
+export const BulkRedirects: typeof import("./bulkRedirects").BulkRedirects = null as any;
+utilities.lazyLoad(exports, ["BulkRedirects"], () => require("./bulkRedirects"));
+
 export { CustomCertificateArgs, CustomCertificateState } from "./customCertificate";
 export type CustomCertificate = import("./customCertificate").CustomCertificate;
 export const CustomCertificate: typeof import("./customCertificate").CustomCertificate = null as any;
@@ -65,6 +85,26 @@ export type EdgeConfigToken = import("./edgeConfigToken").EdgeConfigToken;
 export const EdgeConfigToken: typeof import("./edgeConfigToken").EdgeConfigToken = null as any;
 utilities.lazyLoad(exports, ["EdgeConfigToken"], () => require("./edgeConfigToken"));
 
+export { FeatureFlagConfigArgs, FeatureFlagConfigState } from "./featureFlagConfig";
+export type FeatureFlagConfig = import("./featureFlagConfig").FeatureFlagConfig;
+export const FeatureFlagConfig: typeof import("./featureFlagConfig").FeatureFlagConfig = null as any;
+utilities.lazyLoad(exports, ["FeatureFlagConfig"], () => require("./featureFlagConfig"));
+
+export { FeatureFlagDefinitionArgs, FeatureFlagDefinitionState } from "./featureFlagDefinition";
+export type FeatureFlagDefinition = import("./featureFlagDefinition").FeatureFlagDefinition;
+export const FeatureFlagDefinition: typeof import("./featureFlagDefinition").FeatureFlagDefinition = null as any;
+utilities.lazyLoad(exports, ["FeatureFlagDefinition"], () => require("./featureFlagDefinition"));
+
+export { FeatureFlagSdkKeyArgs, FeatureFlagSdkKeyState } from "./featureFlagSdkKey";
+export type FeatureFlagSdkKey = import("./featureFlagSdkKey").FeatureFlagSdkKey;
+export const FeatureFlagSdkKey: typeof import("./featureFlagSdkKey").FeatureFlagSdkKey = null as any;
+utilities.lazyLoad(exports, ["FeatureFlagSdkKey"], () => require("./featureFlagSdkKey"));
+
+export { FeatureFlagSegmentArgs, FeatureFlagSegmentState } from "./featureFlagSegment";
+export type FeatureFlagSegment = import("./featureFlagSegment").FeatureFlagSegment;
+export const FeatureFlagSegment: typeof import("./featureFlagSegment").FeatureFlagSegment = null as any;
+utilities.lazyLoad(exports, ["FeatureFlagSegment"], () => require("./featureFlagSegment"));
+
 export { FirewallBypassArgs, FirewallBypassState } from "./firewallBypass";
 export type FirewallBypass = import("./firewallBypass").FirewallBypass;
 export const FirewallBypass: typeof import("./firewallBypass").FirewallBypass = null as any;
@@ -94,6 +134,36 @@ export { GetAttackChallengeModeArgs, GetAttackChallengeModeResult, GetAttackChal
 export const getAttackChallengeMode: typeof import("./getAttackChallengeMode").getAttackChallengeMode = null as any;
 export const getAttackChallengeModeOutput: typeof import("./getAttackChallengeMode").getAttackChallengeModeOutput = null as any;
 utilities.lazyLoad(exports, ["getAttackChallengeMode","getAttackChallengeModeOutput"], () => require("./getAttackChallengeMode"));
+
+export { GetBlobObjectArgs, GetBlobObjectResult, GetBlobObjectOutputArgs } from "./getBlobObject";
+export const getBlobObject: typeof import("./getBlobObject").getBlobObject = null as any;
+export const getBlobObjectOutput: typeof import("./getBlobObject").getBlobObjectOutput = null as any;
+utilities.lazyLoad(exports, ["getBlobObject","getBlobObjectOutput"], () => require("./getBlobObject"));
+
+export { GetBlobProjectConnectionsArgs, GetBlobProjectConnectionsResult, GetBlobProjectConnectionsOutputArgs } from "./getBlobProjectConnections";
+export const getBlobProjectConnections: typeof import("./getBlobProjectConnections").getBlobProjectConnections = null as any;
+export const getBlobProjectConnectionsOutput: typeof import("./getBlobProjectConnections").getBlobProjectConnectionsOutput = null as any;
+utilities.lazyLoad(exports, ["getBlobProjectConnections","getBlobProjectConnectionsOutput"], () => require("./getBlobProjectConnections"));
+
+export { GetBlobStoreArgs, GetBlobStoreResult, GetBlobStoreOutputArgs } from "./getBlobStore";
+export const getBlobStore: typeof import("./getBlobStore").getBlobStore = null as any;
+export const getBlobStoreOutput: typeof import("./getBlobStore").getBlobStoreOutput = null as any;
+utilities.lazyLoad(exports, ["getBlobStore","getBlobStoreOutput"], () => require("./getBlobStore"));
+
+export { GetBlobStoreSecretsArgs, GetBlobStoreSecretsResult, GetBlobStoreSecretsOutputArgs } from "./getBlobStoreSecrets";
+export const getBlobStoreSecrets: typeof import("./getBlobStoreSecrets").getBlobStoreSecrets = null as any;
+export const getBlobStoreSecretsOutput: typeof import("./getBlobStoreSecrets").getBlobStoreSecretsOutput = null as any;
+utilities.lazyLoad(exports, ["getBlobStoreSecrets","getBlobStoreSecretsOutput"], () => require("./getBlobStoreSecrets"));
+
+export { GetBlobStoresArgs, GetBlobStoresResult, GetBlobStoresOutputArgs } from "./getBlobStores";
+export const getBlobStores: typeof import("./getBlobStores").getBlobStores = null as any;
+export const getBlobStoresOutput: typeof import("./getBlobStores").getBlobStoresOutput = null as any;
+utilities.lazyLoad(exports, ["getBlobStores","getBlobStoresOutput"], () => require("./getBlobStores"));
+
+export { GetBulkRedirectsArgs, GetBulkRedirectsResult, GetBulkRedirectsOutputArgs } from "./getBulkRedirects";
+export const getBulkRedirects: typeof import("./getBulkRedirects").getBulkRedirects = null as any;
+export const getBulkRedirectsOutput: typeof import("./getBulkRedirects").getBulkRedirectsOutput = null as any;
+utilities.lazyLoad(exports, ["getBulkRedirects","getBulkRedirectsOutput"], () => require("./getBulkRedirects"));
 
 export { GetCustomEnvironmentArgs, GetCustomEnvironmentResult, GetCustomEnvironmentOutputArgs } from "./getCustomEnvironment";
 export const getCustomEnvironment: typeof import("./getCustomEnvironment").getCustomEnvironment = null as any;
@@ -139,6 +209,21 @@ export { GetEndpointVerificationArgs, GetEndpointVerificationResult, GetEndpoint
 export const getEndpointVerification: typeof import("./getEndpointVerification").getEndpointVerification = null as any;
 export const getEndpointVerificationOutput: typeof import("./getEndpointVerification").getEndpointVerificationOutput = null as any;
 utilities.lazyLoad(exports, ["getEndpointVerification","getEndpointVerificationOutput"], () => require("./getEndpointVerification"));
+
+export { GetFeatureFlagArgs, GetFeatureFlagResult, GetFeatureFlagOutputArgs } from "./getFeatureFlag";
+export const getFeatureFlag: typeof import("./getFeatureFlag").getFeatureFlag = null as any;
+export const getFeatureFlagOutput: typeof import("./getFeatureFlag").getFeatureFlagOutput = null as any;
+utilities.lazyLoad(exports, ["getFeatureFlag","getFeatureFlagOutput"], () => require("./getFeatureFlag"));
+
+export { GetFeatureFlagSdkKeyArgs, GetFeatureFlagSdkKeyResult, GetFeatureFlagSdkKeyOutputArgs } from "./getFeatureFlagSdkKey";
+export const getFeatureFlagSdkKey: typeof import("./getFeatureFlagSdkKey").getFeatureFlagSdkKey = null as any;
+export const getFeatureFlagSdkKeyOutput: typeof import("./getFeatureFlagSdkKey").getFeatureFlagSdkKeyOutput = null as any;
+utilities.lazyLoad(exports, ["getFeatureFlagSdkKey","getFeatureFlagSdkKeyOutput"], () => require("./getFeatureFlagSdkKey"));
+
+export { GetFeatureFlagSegmentArgs, GetFeatureFlagSegmentResult, GetFeatureFlagSegmentOutputArgs } from "./getFeatureFlagSegment";
+export const getFeatureFlagSegment: typeof import("./getFeatureFlagSegment").getFeatureFlagSegment = null as any;
+export const getFeatureFlagSegmentOutput: typeof import("./getFeatureFlagSegment").getFeatureFlagSegmentOutput = null as any;
+utilities.lazyLoad(exports, ["getFeatureFlagSegment","getFeatureFlagSegmentOutput"], () => require("./getFeatureFlagSegment"));
 
 export { GetFileArgs, GetFileResult, GetFileOutputArgs } from "./getFile";
 export const getFile: typeof import("./getFile").getFile = null as any;
@@ -194,6 +279,11 @@ export { GetProjectRollingReleaseArgs, GetProjectRollingReleaseResult, GetProjec
 export const getProjectRollingRelease: typeof import("./getProjectRollingRelease").getProjectRollingRelease = null as any;
 export const getProjectRollingReleaseOutput: typeof import("./getProjectRollingRelease").getProjectRollingReleaseOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectRollingRelease","getProjectRollingReleaseOutput"], () => require("./getProjectRollingRelease"));
+
+export { GetProjectRoutesArgs, GetProjectRoutesResult, GetProjectRoutesOutputArgs } from "./getProjectRoutes";
+export const getProjectRoutes: typeof import("./getProjectRoutes").getProjectRoutes = null as any;
+export const getProjectRoutesOutput: typeof import("./getProjectRoutes").getProjectRoutesOutput = null as any;
+utilities.lazyLoad(exports, ["getProjectRoutes","getProjectRoutesOutput"], () => require("./getProjectRoutes"));
 
 export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
 export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
@@ -270,10 +360,20 @@ export type ProjectMembers = import("./projectMembers").ProjectMembers;
 export const ProjectMembers: typeof import("./projectMembers").ProjectMembers = null as any;
 utilities.lazyLoad(exports, ["ProjectMembers"], () => require("./projectMembers"));
 
+export { ProjectProtectionBypassArgs, ProjectProtectionBypassState } from "./projectProtectionBypass";
+export type ProjectProtectionBypass = import("./projectProtectionBypass").ProjectProtectionBypass;
+export const ProjectProtectionBypass: typeof import("./projectProtectionBypass").ProjectProtectionBypass = null as any;
+utilities.lazyLoad(exports, ["ProjectProtectionBypass"], () => require("./projectProtectionBypass"));
+
 export { ProjectRollingReleaseArgs, ProjectRollingReleaseState } from "./projectRollingRelease";
 export type ProjectRollingRelease = import("./projectRollingRelease").ProjectRollingRelease;
 export const ProjectRollingRelease: typeof import("./projectRollingRelease").ProjectRollingRelease = null as any;
 utilities.lazyLoad(exports, ["ProjectRollingRelease"], () => require("./projectRollingRelease"));
+
+export { ProjectRouteArgs, ProjectRouteState } from "./projectRoute";
+export type ProjectRoute = import("./projectRoute").ProjectRoute;
+export const ProjectRoute: typeof import("./projectRoute").ProjectRoute = null as any;
+utilities.lazyLoad(exports, ["ProjectRoute"], () => require("./projectRoute"));
 
 export * from "./provider";
 import { Provider } from "./provider";
@@ -297,6 +397,11 @@ export { TeamMemberArgs, TeamMemberState } from "./teamMember";
 export type TeamMember = import("./teamMember").TeamMember;
 export const TeamMember: typeof import("./teamMember").TeamMember = null as any;
 utilities.lazyLoad(exports, ["TeamMember"], () => require("./teamMember"));
+
+export { UserTokenArgs, UserTokenState } from "./userToken";
+export type UserToken = import("./userToken").UserToken;
+export const UserToken: typeof import("./userToken").UserToken = null as any;
+utilities.lazyLoad(exports, ["UserToken"], () => require("./userToken"));
 
 export { WebhookArgs, WebhookState } from "./webhook";
 export type Webhook = import("./webhook").Webhook;
@@ -325,6 +430,14 @@ const _module = {
                 return new Alias(name, <any>undefined, { urn })
             case "vercel:index/attackChallengeMode:AttackChallengeMode":
                 return new AttackChallengeMode(name, <any>undefined, { urn })
+            case "vercel:index/blobObject:BlobObject":
+                return new BlobObject(name, <any>undefined, { urn })
+            case "vercel:index/blobProjectConnection:BlobProjectConnection":
+                return new BlobProjectConnection(name, <any>undefined, { urn })
+            case "vercel:index/blobStore:BlobStore":
+                return new BlobStore(name, <any>undefined, { urn })
+            case "vercel:index/bulkRedirects:BulkRedirects":
+                return new BulkRedirects(name, <any>undefined, { urn })
             case "vercel:index/customCertificate:CustomCertificate":
                 return new CustomCertificate(name, <any>undefined, { urn })
             case "vercel:index/customEnvironment:CustomEnvironment":
@@ -341,6 +454,14 @@ const _module = {
                 return new EdgeConfigSchema(name, <any>undefined, { urn })
             case "vercel:index/edgeConfigToken:EdgeConfigToken":
                 return new EdgeConfigToken(name, <any>undefined, { urn })
+            case "vercel:index/featureFlagConfig:FeatureFlagConfig":
+                return new FeatureFlagConfig(name, <any>undefined, { urn })
+            case "vercel:index/featureFlagDefinition:FeatureFlagDefinition":
+                return new FeatureFlagDefinition(name, <any>undefined, { urn })
+            case "vercel:index/featureFlagSdkKey:FeatureFlagSdkKey":
+                return new FeatureFlagSdkKey(name, <any>undefined, { urn })
+            case "vercel:index/featureFlagSegment:FeatureFlagSegment":
+                return new FeatureFlagSegment(name, <any>undefined, { urn })
             case "vercel:index/firewallBypass:FirewallBypass":
                 return new FirewallBypass(name, <any>undefined, { urn })
             case "vercel:index/firewallConfig:FirewallConfig":
@@ -369,8 +490,12 @@ const _module = {
                 return new ProjectEnvironmentVariables(name, <any>undefined, { urn })
             case "vercel:index/projectMembers:ProjectMembers":
                 return new ProjectMembers(name, <any>undefined, { urn })
+            case "vercel:index/projectProtectionBypass:ProjectProtectionBypass":
+                return new ProjectProtectionBypass(name, <any>undefined, { urn })
             case "vercel:index/projectRollingRelease:ProjectRollingRelease":
                 return new ProjectRollingRelease(name, <any>undefined, { urn })
+            case "vercel:index/projectRoute:ProjectRoute":
+                return new ProjectRoute(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
@@ -379,6 +504,8 @@ const _module = {
                 return new TeamConfig(name, <any>undefined, { urn })
             case "vercel:index/teamMember:TeamMember":
                 return new TeamMember(name, <any>undefined, { urn })
+            case "vercel:index/userToken:UserToken":
+                return new UserToken(name, <any>undefined, { urn })
             case "vercel:index/webhook:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
@@ -390,6 +517,10 @@ pulumi.runtime.registerResourceModule("vercel", "index/accessGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/blobObject", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/blobProjectConnection", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/blobStore", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/bulkRedirects", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customCertificate", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customEnvironment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
@@ -398,6 +529,10 @@ pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigItem", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/featureFlagConfig", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/featureFlagDefinition", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/featureFlagSdkKey", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/featureFlagSegment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/firewallBypass", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/firewallConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/integrationProjectAccess", _module)
@@ -412,11 +547,14 @@ pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariables", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectMembers", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectProtectionBypass", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectRollingRelease", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectRoute", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariableProjectLink", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamMember", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/userToken", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("vercel", {
     version: utilities.getVersion(),

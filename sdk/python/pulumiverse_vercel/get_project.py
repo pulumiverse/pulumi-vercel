@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secret=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secrets=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, trusted_sources=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -127,9 +127,9 @@ class GetProjectResult:
         if protection_bypass_for_automation and not isinstance(protection_bypass_for_automation, bool):
             raise TypeError("Expected argument 'protection_bypass_for_automation' to be a bool")
         pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
-        if protection_bypass_for_automation_secret and not isinstance(protection_bypass_for_automation_secret, str):
-            raise TypeError("Expected argument 'protection_bypass_for_automation_secret' to be a str")
-        pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
+        if protection_bypass_for_automation_secrets and not isinstance(protection_bypass_for_automation_secrets, list):
+            raise TypeError("Expected argument 'protection_bypass_for_automation_secrets' to be a list")
+        pulumi.set(__self__, "protection_bypass_for_automation_secrets", protection_bypass_for_automation_secrets)
         if public_source and not isinstance(public_source, bool):
             raise TypeError("Expected argument 'public_source' to be a bool")
         pulumi.set(__self__, "public_source", public_source)
@@ -151,6 +151,9 @@ class GetProjectResult:
         if trusted_ips and not isinstance(trusted_ips, dict):
             raise TypeError("Expected argument 'trusted_ips' to be a dict")
         pulumi.set(__self__, "trusted_ips", trusted_ips)
+        if trusted_sources and not isinstance(trusted_sources, dict):
+            raise TypeError("Expected argument 'trusted_sources' to be a dict")
+        pulumi.set(__self__, "trusted_sources", trusted_sources)
         if vercel_authentication and not isinstance(vercel_authentication, dict):
             raise TypeError("Expected argument 'vercel_authentication' to be a dict")
         pulumi.set(__self__, "vercel_authentication", vercel_authentication)
@@ -414,19 +417,21 @@ class GetProjectResult:
 
     @_builtins.property
     @pulumi.getter(name="protectionBypassForAutomation")
+    @_utilities.deprecated("""Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.""")
     def protection_bypass_for_automation(self) -> _builtins.bool:
         """
-        Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protection_bypass_for_automation_secret`.
+        Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protection_bypass_for_automation_secret`. Deprecated: use the `ProjectProtectionBypass` resource instead.
         """
         return pulumi.get(self, "protection_bypass_for_automation")
 
     @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomationSecret")
-    def protection_bypass_for_automation_secret(self) -> _builtins.str:
+    @pulumi.getter(name="protectionBypassForAutomationSecrets")
+    @_utilities.deprecated("""Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.""")
+    def protection_bypass_for_automation_secrets(self) -> Sequence[_builtins.str]:
         """
-        If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
+        The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `ProjectProtectionBypass` resource instead.
         """
-        return pulumi.get(self, "protection_bypass_for_automation_secret")
+        return pulumi.get(self, "protection_bypass_for_automation_secrets")
 
     @_builtins.property
     @pulumi.getter(name="publicSource")
@@ -485,6 +490,14 @@ class GetProjectResult:
         return pulumi.get(self, "trusted_ips")
 
     @_builtins.property
+    @pulumi.getter(name="trustedSources")
+    def trusted_sources(self) -> 'outputs.GetProjectTrustedSourcesResult':
+        """
+        Vercel projects and external sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "trusted_sources")
+
+    @_builtins.property
     @pulumi.getter(name="vercelAuthentication")
     def vercel_authentication(self) -> 'outputs.GetProjectVercelAuthenticationResult':
         """
@@ -532,7 +545,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             preview_deployments_disabled=self.preview_deployments_disabled,
             prioritise_production_builds=self.prioritise_production_builds,
             protection_bypass_for_automation=self.protection_bypass_for_automation,
-            protection_bypass_for_automation_secret=self.protection_bypass_for_automation_secret,
+            protection_bypass_for_automation_secrets=self.protection_bypass_for_automation_secrets,
             public_source=self.public_source,
             resource_config=self.resource_config,
             root_directory=self.root_directory,
@@ -540,6 +553,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             skew_protection=self.skew_protection,
             team_id=self.team_id,
             trusted_ips=self.trusted_ips,
+            trusted_sources=self.trusted_sources,
             vercel_authentication=self.vercel_authentication)
 
 
@@ -612,7 +626,7 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         preview_deployments_disabled=pulumi.get(__ret__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
-        protection_bypass_for_automation_secret=pulumi.get(__ret__, 'protection_bypass_for_automation_secret'),
+        protection_bypass_for_automation_secrets=pulumi.get(__ret__, 'protection_bypass_for_automation_secrets'),
         public_source=pulumi.get(__ret__, 'public_source'),
         resource_config=pulumi.get(__ret__, 'resource_config'),
         root_directory=pulumi.get(__ret__, 'root_directory'),
@@ -620,6 +634,7 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         skew_protection=pulumi.get(__ret__, 'skew_protection'),
         team_id=pulumi.get(__ret__, 'team_id'),
         trusted_ips=pulumi.get(__ret__, 'trusted_ips'),
+        trusted_sources=pulumi.get(__ret__, 'trusted_sources'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))
 def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -689,7 +704,7 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
         preview_deployments_disabled=pulumi.get(__response__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__response__, 'prioritise_production_builds'),
         protection_bypass_for_automation=pulumi.get(__response__, 'protection_bypass_for_automation'),
-        protection_bypass_for_automation_secret=pulumi.get(__response__, 'protection_bypass_for_automation_secret'),
+        protection_bypass_for_automation_secrets=pulumi.get(__response__, 'protection_bypass_for_automation_secrets'),
         public_source=pulumi.get(__response__, 'public_source'),
         resource_config=pulumi.get(__response__, 'resource_config'),
         root_directory=pulumi.get(__response__, 'root_directory'),
@@ -697,4 +712,5 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
         skew_protection=pulumi.get(__response__, 'skew_protection'),
         team_id=pulumi.get(__response__, 'team_id'),
         trusted_ips=pulumi.get(__response__, 'trusted_ips'),
+        trusted_sources=pulumi.get(__response__, 'trusted_sources'),
         vercel_authentication=pulumi.get(__response__, 'vercel_authentication')))

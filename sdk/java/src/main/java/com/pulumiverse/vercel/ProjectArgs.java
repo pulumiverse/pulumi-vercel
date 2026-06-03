@@ -14,6 +14,7 @@ import com.pulumiverse.vercel.inputs.ProjectOptionsAllowlistArgs;
 import com.pulumiverse.vercel.inputs.ProjectPasswordProtectionArgs;
 import com.pulumiverse.vercel.inputs.ProjectResourceConfigArgs;
 import com.pulumiverse.vercel.inputs.ProjectTrustedIpsArgs;
+import com.pulumiverse.vercel.inputs.ProjectTrustedSourcesArgs;
 import com.pulumiverse.vercel.inputs.ProjectVercelAuthenticationArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -73,14 +74,14 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The build machine type to use for this project. Must be one of &#34;enhanced&#34; or &#34;turbo&#34;.
+     * The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     @Import(name="buildMachineType")
     private @Nullable Output<String> buildMachineType;
 
     /**
-     * @return The build machine type to use for this project. Must be one of &#34;enhanced&#34; or &#34;turbo&#34;.
+     * @return The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     public Optional<Output<String>> buildMachineType() {
@@ -501,36 +502,6 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
-     * 
-     */
-    @Import(name="protectionBypassForAutomation")
-    private @Nullable Output<Boolean> protectionBypassForAutomation;
-
-    /**
-     * @return Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
-     * 
-     */
-    public Optional<Output<Boolean>> protectionBypassForAutomation() {
-        return Optional.ofNullable(this.protectionBypassForAutomation);
-    }
-
-    /**
-     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-     * 
-     */
-    @Import(name="protectionBypassForAutomationSecret")
-    private @Nullable Output<String> protectionBypassForAutomationSecret;
-
-    /**
-     * @return If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-     * 
-     */
-    public Optional<Output<String>> protectionBypassForAutomationSecret() {
-        return Optional.ofNullable(this.protectionBypassForAutomationSecret);
-    }
-
-    /**
      * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
      * 
      */
@@ -644,6 +615,21 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Allows configured Vercel projects and external sources to reach this project&#39;s protected deployments using short-lived OIDC tokens.
+     * 
+     */
+    @Import(name="trustedSources")
+    private @Nullable Output<ProjectTrustedSourcesArgs> trustedSources;
+
+    /**
+     * @return Allows configured Vercel projects and external sources to reach this project&#39;s protected deployments using short-lived OIDC tokens.
+     * 
+     */
+    public Optional<Output<ProjectTrustedSourcesArgs>> trustedSources() {
+        return Optional.ofNullable(this.trustedSources);
+    }
+
+    /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      * 
      */
@@ -692,8 +678,6 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         this.previewDeploymentSuffix = $.previewDeploymentSuffix;
         this.previewDeploymentsDisabled = $.previewDeploymentsDisabled;
         this.prioritiseProductionBuilds = $.prioritiseProductionBuilds;
-        this.protectionBypassForAutomation = $.protectionBypassForAutomation;
-        this.protectionBypassForAutomationSecret = $.protectionBypassForAutomationSecret;
         this.publicSource = $.publicSource;
         this.resourceConfig = $.resourceConfig;
         this.rootDirectory = $.rootDirectory;
@@ -701,6 +685,7 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         this.skewProtection = $.skewProtection;
         this.teamId = $.teamId;
         this.trustedIps = $.trustedIps;
+        this.trustedSources = $.trustedSources;
         this.vercelAuthentication = $.vercelAuthentication;
     }
 
@@ -786,7 +771,7 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;enhanced&#34; or &#34;turbo&#34;.
+         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
          * 
          * @return builder
          * 
@@ -797,7 +782,7 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;enhanced&#34; or &#34;turbo&#34;.
+         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
          * 
          * @return builder
          * 
@@ -1392,48 +1377,6 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param protectionBypassForAutomation Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder protectionBypassForAutomation(@Nullable Output<Boolean> protectionBypassForAutomation) {
-            $.protectionBypassForAutomation = protectionBypassForAutomation;
-            return this;
-        }
-
-        /**
-         * @param protectionBypassForAutomation Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder protectionBypassForAutomation(Boolean protectionBypassForAutomation) {
-            return protectionBypassForAutomation(Output.of(protectionBypassForAutomation));
-        }
-
-        /**
-         * @param protectionBypassForAutomationSecret If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder protectionBypassForAutomationSecret(@Nullable Output<String> protectionBypassForAutomationSecret) {
-            $.protectionBypassForAutomationSecret = protectionBypassForAutomationSecret;
-            return this;
-        }
-
-        /**
-         * @param protectionBypassForAutomationSecret If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder protectionBypassForAutomationSecret(String protectionBypassForAutomationSecret) {
-            return protectionBypassForAutomationSecret(Output.of(protectionBypassForAutomationSecret));
-        }
-
-        /**
          * @param publicSource By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
          * 
          * @return builder
@@ -1586,6 +1529,27 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder trustedIps(ProjectTrustedIpsArgs trustedIps) {
             return trustedIps(Output.of(trustedIps));
+        }
+
+        /**
+         * @param trustedSources Allows configured Vercel projects and external sources to reach this project&#39;s protected deployments using short-lived OIDC tokens.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder trustedSources(@Nullable Output<ProjectTrustedSourcesArgs> trustedSources) {
+            $.trustedSources = trustedSources;
+            return this;
+        }
+
+        /**
+         * @param trustedSources Allows configured Vercel projects and external sources to reach this project&#39;s protected deployments using short-lived OIDC tokens.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder trustedSources(ProjectTrustedSourcesArgs trustedSources) {
+            return trustedSources(Output.of(trustedSources));
         }
 
         /**

@@ -59,6 +59,8 @@ import (
 //
 // ## Import
 //
+// The `pulumi import` command can be used, for example:
+//
 // Team config can be imported via the team ID.
 // - teamId can be found in the team `settings` tab in the Vercel UI.
 //

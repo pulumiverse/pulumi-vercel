@@ -23,6 +23,8 @@ import javax.annotation.Nullable;
  * 
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
  * 
+ * &gt; **Note:** Starting in provider version `4.8.0`, Shared Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * 
  * &gt; **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
  * 
  * ## Example Usage
@@ -60,13 +62,23 @@ import javax.annotation.Nullable;
  *                 .build())
  *             .build());
  * 
- *         // A shared environment variable that will be created
- *         // and associated with the "example" project.
+ *         // Shared environment variables must explicitly set `sensitive`.
  *         var exampleSharedEnvironmentVariable = new SharedEnvironmentVariable("exampleSharedEnvironmentVariable", SharedEnvironmentVariableArgs.builder()
  *             .key("EXAMPLE")
  *             .value("some_value")
  *             .targets("production")
+ *             .sensitive(true)
  *             .comment("an example shared variable")
+ *             .projectIds(example.id())
+ *             .build());
+ * 
+ *         // Shared environment variables targeting `development` must explicitly set `sensitive = false`.
+ *         var exampleDevelopment = new SharedEnvironmentVariable("exampleDevelopment", SharedEnvironmentVariableArgs.builder()
+ *             .key("EXAMPLE_DEVELOPMENT")
+ *             .value("some_development_value")
+ *             .targets("development")
+ *             .sensitive(false)
+ *             .comment("available during local development")
  *             .projectIds(example.id())
  *             .build());
  * 
@@ -76,6 +88,8 @@ import javax.annotation.Nullable;
  * </pre>
  * 
  * ## Import
+ * 
+ * The `pulumi import` command can be used, for example:
  * 
  * You can import via the teamId and environment variable id.
  * - teamId can be found in the team `settings` tab in the Vercel UI.
@@ -147,14 +161,14 @@ public class SharedEnvironmentVariable extends com.pulumi.resources.CustomResour
         return this.projectIds;
     }
     /**
-     * Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
     @Export(name="sensitive", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> sensitive;
 
     /**
-     * @return Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
     public Output<Boolean> sensitive() {

@@ -49,6 +49,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
     /// If importing into a personal account, or with a team configured on
     /// the provider, simply use the edge config id.
     /// - EdgeConfigId can be found by navigating to the Edge Config in the Vercel UI. It should begin with `ecfg_`.

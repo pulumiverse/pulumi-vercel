@@ -53,10 +53,10 @@ import (
 //				Targets: pulumi.StringArray{
 //					pulumi.String("production"),
 //					pulumi.String("preview"),
-//					pulumi.String("development"),
 //				},
-//				Key:   pulumi.String("EDGE_CONFIG"),
-//				Value: exampleEdgeConfigToken.ConnectionString,
+//				Sensitive: pulumi.Bool(true),
+//				Key:       pulumi.String("EDGE_CONFIG"),
+//				Value:     exampleEdgeConfigToken.ConnectionString,
 //			})
 //			if err != nil {
 //				return err
@@ -68,6 +68,8 @@ import (
 // ```
 //
 // ## Import
+//
+// The `pulumi import` command can be used, for example:
 //
 // If importing into a personal account, or with a team configured on
 // the provider, simply use the edge config id.

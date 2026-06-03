@@ -14,6 +14,7 @@ import com.pulumiverse.vercel.outputs.GetProjectOptionsAllowlist;
 import com.pulumiverse.vercel.outputs.GetProjectPasswordProtection;
 import com.pulumiverse.vercel.outputs.GetProjectResourceConfig;
 import com.pulumiverse.vercel.outputs.GetProjectTrustedIps;
+import com.pulumiverse.vercel.outputs.GetProjectTrustedSources;
 import com.pulumiverse.vercel.outputs.GetProjectVercelAuthentication;
 import java.lang.Boolean;
 import java.lang.String;
@@ -187,15 +188,23 @@ public final class GetProjectResult {
      */
     private Boolean prioritiseProductionBuilds;
     /**
-     * @return Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protectionBypassForAutomationSecret`.
+     * @return Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
+     * 
+     * @deprecated
+     * Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
      * 
      */
+    @Deprecated /* Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release. */
     private Boolean protectionBypassForAutomation;
     /**
-     * @return If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
+     * @return The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
+     * 
+     * @deprecated
+     * Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
      * 
      */
-    private String protectionBypassForAutomationSecret;
+    @Deprecated /* Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release. */
+    private List<String> protectionBypassForAutomationSecrets;
     /**
      * @return Specifies whether the source code and logs of the deployments for this project should be public or not.
      * 
@@ -231,6 +240,11 @@ public final class GetProjectResult {
      * 
      */
     private GetProjectTrustedIps trustedIps;
+    /**
+     * @return Vercel projects and external sources that can reach this project&#39;s protected deployments using short-lived OIDC tokens.
+     * 
+     */
+    private GetProjectTrustedSources trustedSources;
     /**
      * @return Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      * 
@@ -467,18 +481,26 @@ public final class GetProjectResult {
         return this.prioritiseProductionBuilds;
     }
     /**
-     * @return Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protectionBypassForAutomationSecret`.
+     * @return Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
+     * 
+     * @deprecated
+     * Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
      * 
      */
+    @Deprecated /* Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release. */
     public Boolean protectionBypassForAutomation() {
         return this.protectionBypassForAutomation;
     }
     /**
-     * @return If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
+     * @return The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
+     * 
+     * @deprecated
+     * Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
      * 
      */
-    public String protectionBypassForAutomationSecret() {
-        return this.protectionBypassForAutomationSecret;
+    @Deprecated /* Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release. */
+    public List<String> protectionBypassForAutomationSecrets() {
+        return this.protectionBypassForAutomationSecrets;
     }
     /**
      * @return Specifies whether the source code and logs of the deployments for this project should be public or not.
@@ -530,6 +552,13 @@ public final class GetProjectResult {
         return this.trustedIps;
     }
     /**
+     * @return Vercel projects and external sources that can reach this project&#39;s protected deployments using short-lived OIDC tokens.
+     * 
+     */
+    public GetProjectTrustedSources trustedSources() {
+        return this.trustedSources;
+    }
+    /**
      * @return Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      * 
      */
@@ -579,7 +608,7 @@ public final class GetProjectResult {
         private Boolean previewDeploymentsDisabled;
         private Boolean prioritiseProductionBuilds;
         private Boolean protectionBypassForAutomation;
-        private String protectionBypassForAutomationSecret;
+        private List<String> protectionBypassForAutomationSecrets;
         private Boolean publicSource;
         private GetProjectResourceConfig resourceConfig;
         private String rootDirectory;
@@ -587,6 +616,7 @@ public final class GetProjectResult {
         private String skewProtection;
         private String teamId;
         private GetProjectTrustedIps trustedIps;
+        private GetProjectTrustedSources trustedSources;
         private GetProjectVercelAuthentication vercelAuthentication;
         public Builder() {}
         public Builder(GetProjectResult defaults) {
@@ -624,7 +654,7 @@ public final class GetProjectResult {
     	      this.previewDeploymentsDisabled = defaults.previewDeploymentsDisabled;
     	      this.prioritiseProductionBuilds = defaults.prioritiseProductionBuilds;
     	      this.protectionBypassForAutomation = defaults.protectionBypassForAutomation;
-    	      this.protectionBypassForAutomationSecret = defaults.protectionBypassForAutomationSecret;
+    	      this.protectionBypassForAutomationSecrets = defaults.protectionBypassForAutomationSecrets;
     	      this.publicSource = defaults.publicSource;
     	      this.resourceConfig = defaults.resourceConfig;
     	      this.rootDirectory = defaults.rootDirectory;
@@ -632,6 +662,7 @@ public final class GetProjectResult {
     	      this.skewProtection = defaults.skewProtection;
     	      this.teamId = defaults.teamId;
     	      this.trustedIps = defaults.trustedIps;
+    	      this.trustedSources = defaults.trustedSources;
     	      this.vercelAuthentication = defaults.vercelAuthentication;
         }
 
@@ -903,12 +934,15 @@ public final class GetProjectResult {
             return this;
         }
         @CustomType.Setter
-        public Builder protectionBypassForAutomationSecret(String protectionBypassForAutomationSecret) {
-            if (protectionBypassForAutomationSecret == null) {
-              throw new MissingRequiredPropertyException("GetProjectResult", "protectionBypassForAutomationSecret");
+        public Builder protectionBypassForAutomationSecrets(List<String> protectionBypassForAutomationSecrets) {
+            if (protectionBypassForAutomationSecrets == null) {
+              throw new MissingRequiredPropertyException("GetProjectResult", "protectionBypassForAutomationSecrets");
             }
-            this.protectionBypassForAutomationSecret = protectionBypassForAutomationSecret;
+            this.protectionBypassForAutomationSecrets = protectionBypassForAutomationSecrets;
             return this;
+        }
+        public Builder protectionBypassForAutomationSecrets(String... protectionBypassForAutomationSecrets) {
+            return protectionBypassForAutomationSecrets(List.of(protectionBypassForAutomationSecrets));
         }
         @CustomType.Setter
         public Builder publicSource(Boolean publicSource) {
@@ -967,6 +1001,14 @@ public final class GetProjectResult {
             return this;
         }
         @CustomType.Setter
+        public Builder trustedSources(GetProjectTrustedSources trustedSources) {
+            if (trustedSources == null) {
+              throw new MissingRequiredPropertyException("GetProjectResult", "trustedSources");
+            }
+            this.trustedSources = trustedSources;
+            return this;
+        }
+        @CustomType.Setter
         public Builder vercelAuthentication(GetProjectVercelAuthentication vercelAuthentication) {
             if (vercelAuthentication == null) {
               throw new MissingRequiredPropertyException("GetProjectResult", "vercelAuthentication");
@@ -1009,7 +1051,7 @@ public final class GetProjectResult {
             _resultValue.previewDeploymentsDisabled = previewDeploymentsDisabled;
             _resultValue.prioritiseProductionBuilds = prioritiseProductionBuilds;
             _resultValue.protectionBypassForAutomation = protectionBypassForAutomation;
-            _resultValue.protectionBypassForAutomationSecret = protectionBypassForAutomationSecret;
+            _resultValue.protectionBypassForAutomationSecrets = protectionBypassForAutomationSecrets;
             _resultValue.publicSource = publicSource;
             _resultValue.resourceConfig = resourceConfig;
             _resultValue.rootDirectory = rootDirectory;
@@ -1017,6 +1059,7 @@ public final class GetProjectResult {
             _resultValue.skewProtection = skewProtection;
             _resultValue.teamId = teamId;
             _resultValue.trustedIps = trustedIps;
+            _resultValue.trustedSources = trustedSources;
             _resultValue.vercelAuthentication = vercelAuthentication;
             return _resultValue;
         }

@@ -52,8 +52,6 @@ class ProjectArgs:
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation_secret: Optional[pulumi.Input[_builtins.str]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input['ProjectResourceConfigArgs']] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -61,6 +59,7 @@ class ProjectArgs:
                  skew_protection: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  trusted_ips: Optional[pulumi.Input['ProjectTrustedIpsArgs']] = None,
+                 trusted_sources: Optional[pulumi.Input['ProjectTrustedSourcesArgs']] = None,
                  vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None):
         """
         The set of arguments for constructing a Project resource.
@@ -68,7 +67,7 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -96,8 +95,6 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
-        :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        :param pulumi.Input[_builtins.str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
         :param pulumi.Input[_builtins.bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         :param pulumi.Input['ProjectResourceConfigArgs'] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -105,6 +102,7 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
         :param pulumi.Input[_builtins.str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input['ProjectTrustedIpsArgs'] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
+        :param pulumi.Input['ProjectTrustedSourcesArgs'] trusted_sources: Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         if auto_assign_custom_domains is not None:
@@ -172,10 +170,6 @@ class ProjectArgs:
             pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
             pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
-        if protection_bypass_for_automation is not None:
-            pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
-        if protection_bypass_for_automation_secret is not None:
-            pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
         if public_source is not None:
             pulumi.set(__self__, "public_source", public_source)
         if resource_config is not None:
@@ -193,6 +187,8 @@ class ProjectArgs:
             pulumi.set(__self__, "team_id", team_id)
         if trusted_ips is not None:
             pulumi.set(__self__, "trusted_ips", trusted_ips)
+        if trusted_sources is not None:
+            pulumi.set(__self__, "trusted_sources", trusted_sources)
         if vercel_authentication is not None:
             pulumi.set(__self__, "vercel_authentication", vercel_authentication)
 
@@ -236,7 +232,7 @@ class ProjectArgs:
     @pulumi.getter(name="buildMachineType")
     def build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         """
         return pulumi.get(self, "build_machine_type")
 
@@ -570,30 +566,6 @@ class ProjectArgs:
         pulumi.set(self, "prioritise_production_builds", value)
 
     @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomation")
-    def protection_bypass_for_automation(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        """
-        return pulumi.get(self, "protection_bypass_for_automation")
-
-    @protection_bypass_for_automation.setter
-    def protection_bypass_for_automation(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "protection_bypass_for_automation", value)
-
-    @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomationSecret")
-    def protection_bypass_for_automation_secret(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-        """
-        return pulumi.get(self, "protection_bypass_for_automation_secret")
-
-    @protection_bypass_for_automation_secret.setter
-    def protection_bypass_for_automation_secret(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "protection_bypass_for_automation_secret", value)
-
-    @_builtins.property
     @pulumi.getter(name="publicSource")
     def public_source(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
@@ -677,6 +649,18 @@ class ProjectArgs:
     @trusted_ips.setter
     def trusted_ips(self, value: Optional[pulumi.Input['ProjectTrustedIpsArgs']]):
         pulumi.set(self, "trusted_ips", value)
+
+    @_builtins.property
+    @pulumi.getter(name="trustedSources")
+    def trusted_sources(self) -> Optional[pulumi.Input['ProjectTrustedSourcesArgs']]:
+        """
+        Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "trusted_sources")
+
+    @trusted_sources.setter
+    def trusted_sources(self, value: Optional[pulumi.Input['ProjectTrustedSourcesArgs']]):
+        pulumi.set(self, "trusted_sources", value)
 
     @_builtins.property
     @pulumi.getter(name="vercelAuthentication")
@@ -725,8 +709,6 @@ class _ProjectState:
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation_secret: Optional[pulumi.Input[_builtins.str]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input['ProjectResourceConfigArgs']] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -734,6 +716,7 @@ class _ProjectState:
                  skew_protection: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  trusted_ips: Optional[pulumi.Input['ProjectTrustedIpsArgs']] = None,
+                 trusted_sources: Optional[pulumi.Input['ProjectTrustedSourcesArgs']] = None,
                  vercel_authentication: Optional[pulumi.Input['ProjectVercelAuthenticationArgs']] = None):
         """
         Input properties used for looking up and filtering Project resources.
@@ -741,7 +724,7 @@ class _ProjectState:
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -769,8 +752,6 @@ class _ProjectState:
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
-        :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        :param pulumi.Input[_builtins.str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
         :param pulumi.Input[_builtins.bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         :param pulumi.Input['ProjectResourceConfigArgs'] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -778,6 +759,7 @@ class _ProjectState:
         :param pulumi.Input[_builtins.str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
         :param pulumi.Input[_builtins.str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input['ProjectTrustedIpsArgs'] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
+        :param pulumi.Input['ProjectTrustedSourcesArgs'] trusted_sources: Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
         :param pulumi.Input['ProjectVercelAuthenticationArgs'] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         if auto_assign_custom_domains is not None:
@@ -845,10 +827,6 @@ class _ProjectState:
             pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
             pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
-        if protection_bypass_for_automation is not None:
-            pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
-        if protection_bypass_for_automation_secret is not None:
-            pulumi.set(__self__, "protection_bypass_for_automation_secret", protection_bypass_for_automation_secret)
         if public_source is not None:
             pulumi.set(__self__, "public_source", public_source)
         if resource_config is not None:
@@ -866,6 +844,8 @@ class _ProjectState:
             pulumi.set(__self__, "team_id", team_id)
         if trusted_ips is not None:
             pulumi.set(__self__, "trusted_ips", trusted_ips)
+        if trusted_sources is not None:
+            pulumi.set(__self__, "trusted_sources", trusted_sources)
         if vercel_authentication is not None:
             pulumi.set(__self__, "vercel_authentication", vercel_authentication)
 
@@ -909,7 +889,7 @@ class _ProjectState:
     @pulumi.getter(name="buildMachineType")
     def build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         """
         return pulumi.get(self, "build_machine_type")
 
@@ -1243,30 +1223,6 @@ class _ProjectState:
         pulumi.set(self, "prioritise_production_builds", value)
 
     @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomation")
-    def protection_bypass_for_automation(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        """
-        return pulumi.get(self, "protection_bypass_for_automation")
-
-    @protection_bypass_for_automation.setter
-    def protection_bypass_for_automation(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "protection_bypass_for_automation", value)
-
-    @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomationSecret")
-    def protection_bypass_for_automation_secret(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-        """
-        return pulumi.get(self, "protection_bypass_for_automation_secret")
-
-    @protection_bypass_for_automation_secret.setter
-    def protection_bypass_for_automation_secret(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "protection_bypass_for_automation_secret", value)
-
-    @_builtins.property
     @pulumi.getter(name="publicSource")
     def public_source(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
@@ -1350,6 +1306,18 @@ class _ProjectState:
     @trusted_ips.setter
     def trusted_ips(self, value: Optional[pulumi.Input['ProjectTrustedIpsArgs']]):
         pulumi.set(self, "trusted_ips", value)
+
+    @_builtins.property
+    @pulumi.getter(name="trustedSources")
+    def trusted_sources(self) -> Optional[pulumi.Input['ProjectTrustedSourcesArgs']]:
+        """
+        Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "trusted_sources")
+
+    @trusted_sources.setter
+    def trusted_sources(self, value: Optional[pulumi.Input['ProjectTrustedSourcesArgs']]):
+        pulumi.set(self, "trusted_sources", value)
 
     @_builtins.property
     @pulumi.getter(name="vercelAuthentication")
@@ -1401,8 +1369,6 @@ class Project(pulumi.CustomResource):
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation_secret: Optional[pulumi.Input[_builtins.str]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1410,6 +1376,7 @@ class Project(pulumi.CustomResource):
                  skew_protection: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  trusted_ips: Optional[pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']]] = None,
+                 trusted_sources: Optional[pulumi.Input[Union['ProjectTrustedSourcesArgs', 'ProjectTrustedSourcesArgsDict']]] = None,
                  vercel_authentication: Optional[pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']]] = None,
                  __props__=None):
         """
@@ -1421,6 +1388,8 @@ class Project(pulumi.CustomResource):
 
         > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+
+        > **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
 
         ## Example Usage
 
@@ -1444,9 +1413,44 @@ class Project(pulumi.CustomResource):
         example = vercel.Project("example",
             name="example-project",
             framework="nextjs")
+        github_actions_trusted_source = {
+            "issuer": "https://token.actions.githubusercontent.com",
+            "label": "GitHub Actions",
+            "to": {
+                "slugs": ["preview"],
+            },
+            "claims": {
+                "aud": ["example-audience"],
+                "sub": ["repo:vercel/some-repo:ref:refs/heads/main"],
+            },
+        }
+        # A project that allows trusted sources to bypass Deployment Protection.
+        with_trusted_sources = vercel.Project("with_trusted_sources",
+            name="example-project-with-trusted-sources",
+            framework="nextjs",
+            trusted_sources={
+                "projects": [{
+                    "project_id": with_git.id,
+                    "label": "Source project",
+                    "custom_allow": [{
+                        "from": {
+                            "slugs": ["production"],
+                        },
+                        "to": {
+                            "slugs": [
+                                "preview",
+                                "production",
+                            ],
+                        },
+                    }],
+                }],
+                "external_sources": [github_actions_trusted_source],
+            })
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
         the provider, simply use the project ID.
@@ -1470,7 +1474,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -1498,8 +1502,6 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
-        :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        :param pulumi.Input[_builtins.str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
         :param pulumi.Input[_builtins.bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         :param pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -1507,6 +1509,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
         :param pulumi.Input[_builtins.str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
+        :param pulumi.Input[Union['ProjectTrustedSourcesArgs', 'ProjectTrustedSourcesArgsDict']] trusted_sources: Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
         :param pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         ...
@@ -1524,6 +1527,8 @@ class Project(pulumi.CustomResource):
 
         > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
+
+        > **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
 
         ## Example Usage
 
@@ -1547,9 +1552,44 @@ class Project(pulumi.CustomResource):
         example = vercel.Project("example",
             name="example-project",
             framework="nextjs")
+        github_actions_trusted_source = {
+            "issuer": "https://token.actions.githubusercontent.com",
+            "label": "GitHub Actions",
+            "to": {
+                "slugs": ["preview"],
+            },
+            "claims": {
+                "aud": ["example-audience"],
+                "sub": ["repo:vercel/some-repo:ref:refs/heads/main"],
+            },
+        }
+        # A project that allows trusted sources to bypass Deployment Protection.
+        with_trusted_sources = vercel.Project("with_trusted_sources",
+            name="example-project-with-trusted-sources",
+            framework="nextjs",
+            trusted_sources={
+                "projects": [{
+                    "project_id": with_git.id,
+                    "label": "Source project",
+                    "custom_allow": [{
+                        "from": {
+                            "slugs": ["production"],
+                        },
+                        "to": {
+                            "slugs": [
+                                "preview",
+                                "production",
+                            ],
+                        },
+                    }],
+                }],
+                "external_sources": [github_actions_trusted_source],
+            })
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
         the provider, simply use the project ID.
@@ -1614,8 +1654,6 @@ class Project(pulumi.CustomResource):
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 protection_bypass_for_automation_secret: Optional[pulumi.Input[_builtins.str]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1623,6 +1661,7 @@ class Project(pulumi.CustomResource):
                  skew_protection: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  trusted_ips: Optional[pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']]] = None,
+                 trusted_sources: Optional[pulumi.Input[Union['ProjectTrustedSourcesArgs', 'ProjectTrustedSourcesArgsDict']]] = None,
                  vercel_authentication: Optional[pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -1664,8 +1703,6 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
             __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
             __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
-            __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
-            __props__.__dict__["protection_bypass_for_automation_secret"] = None if protection_bypass_for_automation_secret is None else pulumi.Output.secret(protection_bypass_for_automation_secret)
             __props__.__dict__["public_source"] = public_source
             __props__.__dict__["resource_config"] = resource_config
             __props__.__dict__["root_directory"] = root_directory
@@ -1673,9 +1710,8 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["skew_protection"] = skew_protection
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["trusted_ips"] = trusted_ips
+            __props__.__dict__["trusted_sources"] = trusted_sources
             __props__.__dict__["vercel_authentication"] = vercel_authentication
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["protectionBypassForAutomationSecret"])
-        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Project, __self__).__init__(
             'vercel:index/project:Project',
             resource_name,
@@ -1717,8 +1753,6 @@ class Project(pulumi.CustomResource):
             preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
             preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
             prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-            protection_bypass_for_automation: Optional[pulumi.Input[_builtins.bool]] = None,
-            protection_bypass_for_automation_secret: Optional[pulumi.Input[_builtins.str]] = None,
             public_source: Optional[pulumi.Input[_builtins.bool]] = None,
             resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
             root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1726,6 +1760,7 @@ class Project(pulumi.CustomResource):
             skew_protection: Optional[pulumi.Input[_builtins.str]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None,
             trusted_ips: Optional[pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']]] = None,
+            trusted_sources: Optional[pulumi.Input[Union['ProjectTrustedSourcesArgs', 'ProjectTrustedSourcesArgsDict']]] = None,
             vercel_authentication: Optional[pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']]] = None) -> 'Project':
         """
         Get an existing Project resource's state with the given name, id, and optional extra
@@ -1737,7 +1772,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
@@ -1765,8 +1800,6 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
-        :param pulumi.Input[_builtins.bool] protection_bypass_for_automation: Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        :param pulumi.Input[_builtins.str] protection_bypass_for_automation_secret: If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
         :param pulumi.Input[_builtins.bool] public_source: By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `public_source` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         :param pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -1774,6 +1807,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] skew_protection: Ensures that outdated clients always fetch the correct version for a given deployment. This value defines how long Vercel keeps Skew Protection active.
         :param pulumi.Input[_builtins.str] team_id: The team ID to add the project to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[Union['ProjectTrustedIpsArgs', 'ProjectTrustedIpsArgsDict']] trusted_ips: Ensures only visitors from an allowed IP address can access your deployment.
+        :param pulumi.Input[Union['ProjectTrustedSourcesArgs', 'ProjectTrustedSourcesArgsDict']] trusted_sources: Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
         :param pulumi.Input[Union['ProjectVercelAuthenticationArgs', 'ProjectVercelAuthenticationArgsDict']] vercel_authentication: Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1811,8 +1845,6 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
         __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
         __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
-        __props__.__dict__["protection_bypass_for_automation"] = protection_bypass_for_automation
-        __props__.__dict__["protection_bypass_for_automation_secret"] = protection_bypass_for_automation_secret
         __props__.__dict__["public_source"] = public_source
         __props__.__dict__["resource_config"] = resource_config
         __props__.__dict__["root_directory"] = root_directory
@@ -1820,6 +1852,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["skew_protection"] = skew_protection
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["trusted_ips"] = trusted_ips
+        __props__.__dict__["trusted_sources"] = trusted_sources
         __props__.__dict__["vercel_authentication"] = vercel_authentication
         return Project(resource_name, opts=opts, __props__=__props__)
 
@@ -1851,7 +1884,7 @@ class Project(pulumi.CustomResource):
     @pulumi.getter(name="buildMachineType")
     def build_machine_type(self) -> pulumi.Output[_builtins.str]:
         """
-        The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         """
         return pulumi.get(self, "build_machine_type")
 
@@ -2073,22 +2106,6 @@ class Project(pulumi.CustomResource):
         return pulumi.get(self, "prioritise_production_builds")
 
     @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomation")
-    def protection_bypass_for_automation(self) -> pulumi.Output[Optional[_builtins.bool]]:
-        """
-        Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protection_bypass_for_automation_secret` field.
-        """
-        return pulumi.get(self, "protection_bypass_for_automation")
-
-    @_builtins.property
-    @pulumi.getter(name="protectionBypassForAutomationSecret")
-    def protection_bypass_for_automation_secret(self) -> pulumi.Output[_builtins.str]:
-        """
-        If `protection_bypass_for_automation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-        """
-        return pulumi.get(self, "protection_bypass_for_automation_secret")
-
-    @_builtins.property
     @pulumi.getter(name="publicSource")
     def public_source(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
@@ -2144,6 +2161,14 @@ class Project(pulumi.CustomResource):
         Ensures only visitors from an allowed IP address can access your deployment.
         """
         return pulumi.get(self, "trusted_ips")
+
+    @_builtins.property
+    @pulumi.getter(name="trustedSources")
+    def trusted_sources(self) -> pulumi.Output[Optional['outputs.ProjectTrustedSources']]:
+        """
+        Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "trusted_sources")
 
     @_builtins.property
     @pulumi.getter(name="vercelAuthentication")

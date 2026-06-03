@@ -8,6 +8,8 @@
       "matchPackageNames": [
         "github.com/vercel/terraform-provider-vercel",
         "github.com/vercel/terraform-provider-vercel/v2",
+        "github.com/vercel/terraform-provider-vercel/v4",
+        "github.com/vercel/terraform-provider-vercel/v5",
         "github.com/pulumi/pulumi-terraform-bridge",
         "github.com/pulumi/pulumi-terraform-bridge/pf"
       ],

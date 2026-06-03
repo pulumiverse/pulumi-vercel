@@ -16,9 +16,16 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'BulkRedirectsRedirect',
     'CustomEnvironmentBranchTracking',
     'DeploymentProjectSettings',
     'DnsRecordSrv',
+    'FeatureFlagConfigDevelopment',
+    'FeatureFlagConfigPreview',
+    'FeatureFlagConfigProduction',
+    'FeatureFlagDefinitionVariant',
+    'FeatureFlagSegmentExclude',
+    'FeatureFlagSegmentInclude',
     'FirewallConfigIpRules',
     'FirewallConfigIpRulesRule',
     'FirewallConfigManagedRulesets',
@@ -50,6 +57,7 @@ __all__ = [
     'ProjectEnvironmentVariablesVariable',
     'ProjectGitComments',
     'ProjectGitProviderOptions',
+    'ProjectGitProviderOptionsConsolidatedGitCommitStatus',
     'ProjectGitRepository',
     'ProjectGitRepositoryDeployHook',
     'ProjectMembersMember',
@@ -59,19 +67,41 @@ __all__ = [
     'ProjectPasswordProtection',
     'ProjectResourceConfig',
     'ProjectRollingReleaseStage',
+    'ProjectRoutePosition',
+    'ProjectRouteRoute',
+    'ProjectRouteRouteHa',
+    'ProjectRouteRouteMissing',
+    'ProjectRouteRouteTransform',
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
+    'ProjectTrustedSources',
+    'ProjectTrustedSourcesExternalSource',
+    'ProjectTrustedSourcesExternalSourceTo',
+    'ProjectTrustedSourcesProject',
+    'ProjectTrustedSourcesProjectCustomAllow',
+    'ProjectTrustedSourcesProjectCustomAllowFrom',
+    'ProjectTrustedSourcesProjectCustomAllowTo',
     'ProjectVercelAuthentication',
     'TeamConfigRemoteCaching',
     'TeamConfigSaml',
     'TeamConfigSamlRoles',
     'TeamMemberProject',
+    'GetBlobProjectConnectionsConnectionResult',
+    'GetBlobStoresStoreResult',
+    'GetBulkRedirectsRedirectResult',
     'GetCustomEnvironmentBranchTrackingResult',
     'GetDsyncGroupsListResult',
+    'GetFeatureFlagDevelopmentResult',
+    'GetFeatureFlagPreviewResult',
+    'GetFeatureFlagProductionResult',
+    'GetFeatureFlagSegmentExcludeResult',
+    'GetFeatureFlagSegmentIncludeResult',
+    'GetFeatureFlagVariantResult',
     'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
     'GetProjectGitProviderOptionsResult',
+    'GetProjectGitProviderOptionsConsolidatedGitCommitStatusResult',
     'GetProjectGitRepositoryResult',
     'GetProjectGitRepositoryDeployHookResult',
     'GetProjectMembersMemberResult',
@@ -81,14 +111,109 @@ __all__ = [
     'GetProjectPasswordProtectionResult',
     'GetProjectResourceConfigResult',
     'GetProjectRollingReleaseStageResult',
+    'GetProjectRoutesRuleResult',
+    'GetProjectRoutesRuleRouteResult',
+    'GetProjectRoutesRuleRouteHaResult',
+    'GetProjectRoutesRuleRouteMissingResult',
+    'GetProjectRoutesRuleRouteTransformResult',
     'GetProjectTrustedIpsResult',
     'GetProjectTrustedIpsAddressResult',
+    'GetProjectTrustedSourcesResult',
+    'GetProjectTrustedSourcesExternalSourceResult',
+    'GetProjectTrustedSourcesExternalSourceToResult',
+    'GetProjectTrustedSourcesProjectResult',
+    'GetProjectTrustedSourcesProjectCustomAllowResult',
+    'GetProjectTrustedSourcesProjectCustomAllowFromResult',
+    'GetProjectTrustedSourcesProjectCustomAllowToResult',
     'GetProjectVercelAuthenticationResult',
     'GetTeamConfigRemoteCachingResult',
     'GetTeamConfigSamlResult',
     'GetTeamConfigSamlRolesResult',
     'GetTeamMemberProjectResult',
 ]
+
+@pulumi.output_type
+class BulkRedirectsRedirect(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "statusCode":
+            suggest = "status_code"
+        elif key == "caseSensitive":
+            suggest = "case_sensitive"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in BulkRedirectsRedirect. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        BulkRedirectsRedirect.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        BulkRedirectsRedirect.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 destination: _builtins.str,
+                 source: _builtins.str,
+                 status_code: _builtins.int,
+                 case_sensitive: Optional[_builtins.bool] = None,
+                 query: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str destination: The destination pathname or URL to redirect to.
+        :param _builtins.str source: The source pathname to match.
+        :param _builtins.int status_code: The HTTP status code for the redirect.
+        :param _builtins.bool case_sensitive: Whether the source match is case-sensitive.
+        :param _builtins.bool query: Whether query parameters are considered when matching the redirect.
+        """
+        pulumi.set(__self__, "destination", destination)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "status_code", status_code)
+        if case_sensitive is not None:
+            pulumi.set(__self__, "case_sensitive", case_sensitive)
+        if query is not None:
+            pulumi.set(__self__, "query", query)
+
+    @_builtins.property
+    @pulumi.getter
+    def destination(self) -> _builtins.str:
+        """
+        The destination pathname or URL to redirect to.
+        """
+        return pulumi.get(self, "destination")
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> _builtins.str:
+        """
+        The source pathname to match.
+        """
+        return pulumi.get(self, "source")
+
+    @_builtins.property
+    @pulumi.getter(name="statusCode")
+    def status_code(self) -> _builtins.int:
+        """
+        The HTTP status code for the redirect.
+        """
+        return pulumi.get(self, "status_code")
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> Optional[_builtins.bool]:
+        """
+        Whether the source match is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> Optional[_builtins.bool]:
+        """
+        Whether query parameters are considered when matching the redirect.
+        """
+        return pulumi.get(self, "query")
+
 
 @pulumi.output_type
 class CustomEnvironmentBranchTracking(dict):
@@ -258,6 +383,365 @@ class DnsRecordSrv(dict):
         A relative weight for records with the same priority, higher value means higher chance of getting picked.
         """
         return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
+class FeatureFlagConfigDevelopment(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultVariantId":
+            suggest = "default_variant_id"
+        elif key == "disabledVariantId":
+            suggest = "disabled_variant_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FeatureFlagConfigDevelopment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FeatureFlagConfigDevelopment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FeatureFlagConfigDevelopment.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_variant_id: _builtins.str,
+                 disabled_variant_id: _builtins.str,
+                 enabled: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param _builtins.str disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param _builtins.bool enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> _builtins.str:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> _builtins.str:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class FeatureFlagConfigPreview(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultVariantId":
+            suggest = "default_variant_id"
+        elif key == "disabledVariantId":
+            suggest = "disabled_variant_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FeatureFlagConfigPreview. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FeatureFlagConfigPreview.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FeatureFlagConfigPreview.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_variant_id: _builtins.str,
+                 disabled_variant_id: _builtins.str,
+                 enabled: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param _builtins.str disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param _builtins.bool enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> _builtins.str:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> _builtins.str:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class FeatureFlagConfigProduction(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultVariantId":
+            suggest = "default_variant_id"
+        elif key == "disabledVariantId":
+            suggest = "disabled_variant_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FeatureFlagConfigProduction. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FeatureFlagConfigProduction.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FeatureFlagConfigProduction.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_variant_id: _builtins.str,
+                 disabled_variant_id: _builtins.str,
+                 enabled: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param _builtins.str disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param _builtins.bool enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> _builtins.str:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> _builtins.str:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class FeatureFlagDefinitionVariant(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "valueBool":
+            suggest = "value_bool"
+        elif key == "valueNumber":
+            suggest = "value_number"
+        elif key == "valueString":
+            suggest = "value_string"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FeatureFlagDefinitionVariant. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FeatureFlagDefinitionVariant.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FeatureFlagDefinitionVariant.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id: _builtins.str,
+                 description: Optional[_builtins.str] = None,
+                 label: Optional[_builtins.str] = None,
+                 value_bool: Optional[_builtins.bool] = None,
+                 value_number: Optional[_builtins.float] = None,
+                 value_string: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str id: The stable variant identifier referenced by flag configuration.
+        :param _builtins.str description: A human-readable description for the variant.
+        :param _builtins.str label: A human-readable label for the variant.
+        :param _builtins.bool value_bool: The boolean value for this variant. Use this when `kind = "boolean"`.
+        :param _builtins.float value_number: The numeric value for this variant. Use this when `kind = "number"`.
+        :param _builtins.str value_string: The string value for this variant. Use this when `kind = "string"`.
+        """
+        pulumi.set(__self__, "id", id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+        if value_bool is not None:
+            pulumi.set(__self__, "value_bool", value_bool)
+        if value_number is not None:
+            pulumi.set(__self__, "value_number", value_number)
+        if value_string is not None:
+            pulumi.set(__self__, "value_string", value_string)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The stable variant identifier referenced by flag configuration.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        A human-readable description for the variant.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        A human-readable label for the variant.
+        """
+        return pulumi.get(self, "label")
+
+    @_builtins.property
+    @pulumi.getter(name="valueBool")
+    def value_bool(self) -> Optional[_builtins.bool]:
+        """
+        The boolean value for this variant. Use this when `kind = "boolean"`.
+        """
+        return pulumi.get(self, "value_bool")
+
+    @_builtins.property
+    @pulumi.getter(name="valueNumber")
+    def value_number(self) -> Optional[_builtins.float]:
+        """
+        The numeric value for this variant. Use this when `kind = "number"`.
+        """
+        return pulumi.get(self, "value_number")
+
+    @_builtins.property
+    @pulumi.getter(name="valueString")
+    def value_string(self) -> Optional[_builtins.str]:
+        """
+        The string value for this variant. Use this when `kind = "string"`.
+        """
+        return pulumi.get(self, "value_string")
+
+
+@pulumi.output_type
+class FeatureFlagSegmentExclude(dict):
+    def __init__(__self__, *,
+                 attribute: _builtins.str,
+                 entity: _builtins.str,
+                 values: Sequence[_builtins.str]):
+        """
+        :param _builtins.str attribute: The entity attribute to match, for example `email`.
+        :param _builtins.str entity: The entity type to match, for example `user`.
+        :param Sequence[_builtins.str] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> _builtins.str:
+        """
+        The entity attribute to match, for example `email`.
+        """
+        return pulumi.get(self, "attribute")
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> _builtins.str:
+        """
+        The entity type to match, for example `user`.
+        """
+        return pulumi.get(self, "entity")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence[_builtins.str]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class FeatureFlagSegmentInclude(dict):
+    def __init__(__self__, *,
+                 attribute: _builtins.str,
+                 entity: _builtins.str,
+                 values: Sequence[_builtins.str]):
+        """
+        :param _builtins.str attribute: The entity attribute to match, for example `email`.
+        :param _builtins.str entity: The entity type to match, for example `user`.
+        :param Sequence[_builtins.str] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> _builtins.str:
+        """
+        The entity attribute to match, for example `email`.
+        """
+        return pulumi.get(self, "attribute")
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> _builtins.str:
+        """
+        The entity type to match, for example `user`.
+        """
+        return pulumi.get(self, "entity")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence[_builtins.str]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
 
 
 @pulumi.output_type
@@ -1274,24 +1758,25 @@ class ProjectEnvironment(dict):
 
     def __init__(__self__, *,
                  key: _builtins.str,
+                 sensitive: _builtins.bool,
                  value: _builtins.str,
                  comment: Optional[_builtins.str] = None,
                  custom_environment_ids: Optional[Sequence[_builtins.str]] = None,
                  git_branch: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
-                 sensitive: Optional[_builtins.bool] = None,
                  targets: Optional[Sequence[_builtins.str]] = None):
         """
         :param _builtins.str key: The name of the Environment Variable.
+        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
         :param _builtins.str value: The value of the Environment Variable.
         :param _builtins.str comment: A comment explaining what the environment variable is for.
         :param Sequence[_builtins.str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param _builtins.str git_branch: The git branch of the Environment Variable.
         :param _builtins.str id: The ID of the Environment Variable.
-        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param Sequence[_builtins.str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -1301,8 +1786,6 @@ class ProjectEnvironment(dict):
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
-        if sensitive is not None:
-            pulumi.set(__self__, "sensitive", sensitive)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
 
@@ -1313,6 +1796,14 @@ class ProjectEnvironment(dict):
         The name of the Environment Variable.
         """
         return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def sensitive(self) -> _builtins.bool:
+        """
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        """
+        return pulumi.get(self, "sensitive")
 
     @_builtins.property
     @pulumi.getter
@@ -1353,14 +1844,6 @@ class ProjectEnvironment(dict):
         The ID of the Environment Variable.
         """
         return pulumi.get(self, "id")
-
-    @_builtins.property
-    @pulumi.getter
-    def sensitive(self) -> Optional[_builtins.bool]:
-        """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        """
-        return pulumi.get(self, "sensitive")
 
     @_builtins.property
     @pulumi.getter
@@ -1394,24 +1877,25 @@ class ProjectEnvironmentVariablesVariable(dict):
 
     def __init__(__self__, *,
                  key: _builtins.str,
+                 sensitive: _builtins.bool,
                  value: _builtins.str,
                  comment: Optional[_builtins.str] = None,
                  custom_environment_ids: Optional[Sequence[_builtins.str]] = None,
                  git_branch: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
-                 sensitive: Optional[_builtins.bool] = None,
                  targets: Optional[Sequence[_builtins.str]] = None):
         """
         :param _builtins.str key: The name of the Environment Variable.
+        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
         :param _builtins.str value: The value of the Environment Variable.
         :param _builtins.str comment: A comment explaining what the environment variable is for.
         :param Sequence[_builtins.str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param _builtins.str git_branch: The git branch of the Environment Variable.
         :param _builtins.str id: The ID of the Environment Variable.
-        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive or not.
         :param Sequence[_builtins.str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -1421,8 +1905,6 @@ class ProjectEnvironmentVariablesVariable(dict):
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
-        if sensitive is not None:
-            pulumi.set(__self__, "sensitive", sensitive)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
 
@@ -1433,6 +1915,14 @@ class ProjectEnvironmentVariablesVariable(dict):
         The name of the Environment Variable.
         """
         return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def sensitive(self) -> _builtins.bool:
+        """
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        """
+        return pulumi.get(self, "sensitive")
 
     @_builtins.property
     @pulumi.getter
@@ -1473,14 +1963,6 @@ class ProjectEnvironmentVariablesVariable(dict):
         The ID of the Environment Variable.
         """
         return pulumi.get(self, "id")
-
-    @_builtins.property
-    @pulumi.getter
-    def sensitive(self) -> Optional[_builtins.bool]:
-        """
-        Whether the Environment Variable is sensitive or not.
-        """
-        return pulumi.get(self, "sensitive")
 
     @_builtins.property
     @pulumi.getter
@@ -1544,8 +2026,12 @@ class ProjectGitProviderOptions(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "createDeployments":
+        if key == "consolidatedGitCommitStatus":
+            suggest = "consolidated_git_commit_status"
+        elif key == "createDeployments":
             suggest = "create_deployments"
+        elif key == "gitCommitStatus":
+            suggest = "git_commit_status"
         elif key == "repositoryDispatchEvents":
             suggest = "repository_dispatch_events"
         elif key == "requireVerifiedCommits":
@@ -1563,20 +2049,36 @@ class ProjectGitProviderOptions(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 consolidated_git_commit_status: Optional['outputs.ProjectGitProviderOptionsConsolidatedGitCommitStatus'] = None,
                  create_deployments: Optional[_builtins.bool] = None,
+                 git_commit_status: Optional[_builtins.bool] = None,
                  repository_dispatch_events: Optional[_builtins.bool] = None,
                  require_verified_commits: Optional[_builtins.bool] = None):
         """
+        :param 'ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs' consolidated_git_commit_status: **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
         :param _builtins.bool create_deployments: Whether to create deployments
+        :param _builtins.bool git_commit_status: Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
         :param _builtins.bool repository_dispatch_events: Whether to enable repository dispatch events
         :param _builtins.bool require_verified_commits: Whether to require verified commits
         """
+        if consolidated_git_commit_status is not None:
+            pulumi.set(__self__, "consolidated_git_commit_status", consolidated_git_commit_status)
         if create_deployments is not None:
             pulumi.set(__self__, "create_deployments", create_deployments)
+        if git_commit_status is not None:
+            pulumi.set(__self__, "git_commit_status", git_commit_status)
         if repository_dispatch_events is not None:
             pulumi.set(__self__, "repository_dispatch_events", repository_dispatch_events)
         if require_verified_commits is not None:
             pulumi.set(__self__, "require_verified_commits", require_verified_commits)
+
+    @_builtins.property
+    @pulumi.getter(name="consolidatedGitCommitStatus")
+    def consolidated_git_commit_status(self) -> Optional['outputs.ProjectGitProviderOptionsConsolidatedGitCommitStatus']:
+        """
+        **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+        """
+        return pulumi.get(self, "consolidated_git_commit_status")
 
     @_builtins.property
     @pulumi.getter(name="createDeployments")
@@ -1585,6 +2087,14 @@ class ProjectGitProviderOptions(dict):
         Whether to create deployments
         """
         return pulumi.get(self, "create_deployments")
+
+    @_builtins.property
+    @pulumi.getter(name="gitCommitStatus")
+    def git_commit_status(self) -> Optional[_builtins.bool]:
+        """
+        Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+        """
+        return pulumi.get(self, "git_commit_status")
 
     @_builtins.property
     @pulumi.getter(name="repositoryDispatchEvents")
@@ -1601,6 +2111,52 @@ class ProjectGitProviderOptions(dict):
         Whether to require verified commits
         """
         return pulumi.get(self, "require_verified_commits")
+
+
+@pulumi.output_type
+class ProjectGitProviderOptionsConsolidatedGitCommitStatus(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "propagateFailures":
+            suggest = "propagate_failures"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectGitProviderOptionsConsolidatedGitCommitStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectGitProviderOptionsConsolidatedGitCommitStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectGitProviderOptionsConsolidatedGitCommitStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 propagate_failures: _builtins.bool):
+        """
+        :param _builtins.bool enabled: **Beta:** Whether consolidated commit status is enabled.
+        :param _builtins.bool propagate_failures: **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "propagate_failures", propagate_failures)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        **Beta:** Whether consolidated commit status is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="propagateFailures")
+    def propagate_failures(self) -> _builtins.bool:
+        """
+        **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+        """
+        return pulumi.get(self, "propagate_failures")
 
 
 @pulumi.output_type
@@ -2041,6 +2597,335 @@ class ProjectRollingReleaseStage(dict):
 
 
 @pulumi.output_type
+class ProjectRoutePosition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "referenceRouteId":
+            suggest = "reference_route_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectRoutePosition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectRoutePosition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectRoutePosition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 placement: _builtins.str,
+                 reference_route_id: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str placement: Where to place the rule. One of `start`, `end`, `before`, or `after`.
+        :param _builtins.str reference_route_id: The existing route ID to place this rule before or after.
+        """
+        pulumi.set(__self__, "placement", placement)
+        if reference_route_id is not None:
+            pulumi.set(__self__, "reference_route_id", reference_route_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def placement(self) -> _builtins.str:
+        """
+        Where to place the rule. One of `start`, `end`, `before`, or `after`.
+        """
+        return pulumi.get(self, "placement")
+
+    @_builtins.property
+    @pulumi.getter(name="referenceRouteId")
+    def reference_route_id(self) -> Optional[_builtins.str]:
+        """
+        The existing route ID to place this rule before or after.
+        """
+        return pulumi.get(self, "reference_route_id")
+
+
+@pulumi.output_type
+class ProjectRouteRoute(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "caseSensitive":
+            suggest = "case_sensitive"
+        elif key == "respectOriginCacheControl":
+            suggest = "respect_origin_cache_control"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectRouteRoute. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectRouteRoute.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectRouteRoute.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 src: _builtins.str,
+                 case_sensitive: Optional[_builtins.bool] = None,
+                 dest: Optional[_builtins.str] = None,
+                 has: Optional[Sequence['outputs.ProjectRouteRouteHa']] = None,
+                 headers: Optional[Mapping[str, _builtins.str]] = None,
+                 missings: Optional[Sequence['outputs.ProjectRouteRouteMissing']] = None,
+                 respect_origin_cache_control: Optional[_builtins.bool] = None,
+                 status: Optional[_builtins.int] = None,
+                 transforms: Optional[Sequence['outputs.ProjectRouteRouteTransform']] = None):
+        """
+        :param _builtins.str src: The source pattern to match.
+        :param _builtins.bool case_sensitive: Whether the `src` matcher is case-sensitive.
+        :param _builtins.str dest: The destination for rewrites or redirects.
+        :param Sequence['ProjectRouteRouteHaArgs'] has: Conditions that must be present for the rule to match.
+        :param Mapping[str, _builtins.str] headers: Headers to set for the matched request.
+        :param Sequence['ProjectRouteRouteMissingArgs'] missings: Conditions that must be absent for the rule to match.
+        :param _builtins.bool respect_origin_cache_control: Whether the rule should respect cache control headers from the origin.
+        :param _builtins.int status: The HTTP status code to set for redirects or status-only rules.
+        :param Sequence['ProjectRouteRouteTransformArgs'] transforms: Transforms applied to the request or response when the rule matches.
+        """
+        pulumi.set(__self__, "src", src)
+        if case_sensitive is not None:
+            pulumi.set(__self__, "case_sensitive", case_sensitive)
+        if dest is not None:
+            pulumi.set(__self__, "dest", dest)
+        if has is not None:
+            pulumi.set(__self__, "has", has)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if missings is not None:
+            pulumi.set(__self__, "missings", missings)
+        if respect_origin_cache_control is not None:
+            pulumi.set(__self__, "respect_origin_cache_control", respect_origin_cache_control)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if transforms is not None:
+            pulumi.set(__self__, "transforms", transforms)
+
+    @_builtins.property
+    @pulumi.getter
+    def src(self) -> _builtins.str:
+        """
+        The source pattern to match.
+        """
+        return pulumi.get(self, "src")
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> Optional[_builtins.bool]:
+        """
+        Whether the `src` matcher is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @_builtins.property
+    @pulumi.getter
+    def dest(self) -> Optional[_builtins.str]:
+        """
+        The destination for rewrites or redirects.
+        """
+        return pulumi.get(self, "dest")
+
+    @_builtins.property
+    @pulumi.getter
+    def has(self) -> Optional[Sequence['outputs.ProjectRouteRouteHa']]:
+        """
+        Conditions that must be present for the rule to match.
+        """
+        return pulumi.get(self, "has")
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Headers to set for the matched request.
+        """
+        return pulumi.get(self, "headers")
+
+    @_builtins.property
+    @pulumi.getter
+    def missings(self) -> Optional[Sequence['outputs.ProjectRouteRouteMissing']]:
+        """
+        Conditions that must be absent for the rule to match.
+        """
+        return pulumi.get(self, "missings")
+
+    @_builtins.property
+    @pulumi.getter(name="respectOriginCacheControl")
+    def respect_origin_cache_control(self) -> Optional[_builtins.bool]:
+        """
+        Whether the rule should respect cache control headers from the origin.
+        """
+        return pulumi.get(self, "respect_origin_cache_control")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[_builtins.int]:
+        """
+        The HTTP status code to set for redirects or status-only rules.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def transforms(self) -> Optional[Sequence['outputs.ProjectRouteRouteTransform']]:
+        """
+        Transforms applied to the request or response when the rule matches.
+        """
+        return pulumi.get(self, "transforms")
+
+
+@pulumi.output_type
+class ProjectRouteRouteHa(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 key: Optional[_builtins.str] = None,
+                 value: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The condition type. One of `host`, `header`, `cookie`, or `query`.
+        :param _builtins.str key: The key to match for `header`, `cookie`, or `query` conditions.
+        :param _builtins.str value: The value to match.
+        """
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The condition type. One of `host`, `header`, `cookie`, or `query`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[_builtins.str]:
+        """
+        The key to match for `header`, `cookie`, or `query` conditions.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[_builtins.str]:
+        """
+        The value to match.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class ProjectRouteRouteMissing(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 key: Optional[_builtins.str] = None,
+                 value: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The condition type. One of `host`, `header`, `cookie`, or `query`.
+        :param _builtins.str key: The key to match for `header`, `cookie`, or `query` conditions.
+        :param _builtins.str value: The value to match.
+        """
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The condition type. One of `host`, `header`, `cookie`, or `query`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[_builtins.str]:
+        """
+        The key to match for `header`, `cookie`, or `query` conditions.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[_builtins.str]:
+        """
+        The value to match.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class ProjectRouteRouteTransform(dict):
+    def __init__(__self__, *,
+                 op: _builtins.str,
+                 type: _builtins.str,
+                 args: Optional[_builtins.str] = None,
+                 envs: Optional[Sequence[_builtins.str]] = None,
+                 target: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str op: The transform operation. One of `append`, `set`, or `delete`.
+        :param _builtins.str type: The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+        :param _builtins.str args: A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+        :param Sequence[_builtins.str] envs: Environment names that gate this transform.
+        :param _builtins.str target: A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+        """
+        pulumi.set(__self__, "op", op)
+        pulumi.set(__self__, "type", type)
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if envs is not None:
+            pulumi.set(__self__, "envs", envs)
+        if target is not None:
+            pulumi.set(__self__, "target", target)
+
+    @_builtins.property
+    @pulumi.getter
+    def op(self) -> _builtins.str:
+        """
+        The transform operation. One of `append`, `set`, or `delete`.
+        """
+        return pulumi.get(self, "op")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def args(self) -> Optional[_builtins.str]:
+        """
+        A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+        """
+        return pulumi.get(self, "args")
+
+    @_builtins.property
+    @pulumi.getter
+    def envs(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Environment names that gate this transform.
+        """
+        return pulumi.get(self, "envs")
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> Optional[_builtins.str]:
+        """
+        A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+        """
+        return pulumi.get(self, "target")
+
+
+@pulumi.output_type
 class ProjectTrustedIps(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -2128,6 +3013,306 @@ class ProjectTrustedIpsAddress(dict):
         A description for the value
         """
         return pulumi.get(self, "note")
+
+
+@pulumi.output_type
+class ProjectTrustedSources(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "externalSources":
+            suggest = "external_sources"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectTrustedSources. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectTrustedSources.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectTrustedSources.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 external_sources: Optional[Sequence['outputs.ProjectTrustedSourcesExternalSource']] = None,
+                 projects: Optional[Sequence['outputs.ProjectTrustedSourcesProject']] = None):
+        """
+        :param Sequence['ProjectTrustedSourcesExternalSourceArgs'] external_sources: External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        :param Sequence['ProjectTrustedSourcesProjectArgs'] projects: Vercel projects in the same team that can reach this project's protected deployments.
+        """
+        if external_sources is not None:
+            pulumi.set(__self__, "external_sources", external_sources)
+        if projects is not None:
+            pulumi.set(__self__, "projects", projects)
+
+    @_builtins.property
+    @pulumi.getter(name="externalSources")
+    def external_sources(self) -> Optional[Sequence['outputs.ProjectTrustedSourcesExternalSource']]:
+        """
+        External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "external_sources")
+
+    @_builtins.property
+    @pulumi.getter
+    def projects(self) -> Optional[Sequence['outputs.ProjectTrustedSourcesProject']]:
+        """
+        Vercel projects in the same team that can reach this project's protected deployments.
+        """
+        return pulumi.get(self, "projects")
+
+
+@pulumi.output_type
+class ProjectTrustedSourcesExternalSource(dict):
+    def __init__(__self__, *,
+                 claims: Mapping[str, Sequence[_builtins.str]],
+                 issuer: _builtins.str,
+                 to: 'outputs.ProjectTrustedSourcesExternalSourceTo',
+                 label: Optional[_builtins.str] = None):
+        """
+        :param Mapping[str, Sequence[_builtins.str]] claims: Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+        :param _builtins.str issuer: The OIDC issuer URL.
+        :param 'ProjectTrustedSourcesExternalSourceToArgs' to: The target environments on this project that may be accessed.
+        :param _builtins.str label: A label or description for the trusted external source entry.
+        """
+        pulumi.set(__self__, "claims", claims)
+        pulumi.set(__self__, "issuer", issuer)
+        pulumi.set(__self__, "to", to)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def claims(self) -> Mapping[str, Sequence[_builtins.str]]:
+        """
+        Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+        """
+        return pulumi.get(self, "claims")
+
+    @_builtins.property
+    @pulumi.getter
+    def issuer(self) -> _builtins.str:
+        """
+        The OIDC issuer URL.
+        """
+        return pulumi.get(self, "issuer")
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> 'outputs.ProjectTrustedSourcesExternalSourceTo':
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        A label or description for the trusted external source entry.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ProjectTrustedSourcesExternalSourceTo(dict):
+    def __init__(__self__, *,
+                 preset: Optional[_builtins.str] = None,
+                 slugs: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        if preset is not None:
+            pulumi.set(__self__, "preset", preset)
+        if slugs is not None:
+            pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> Optional[_builtins.str]:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+
+@pulumi.output_type
+class ProjectTrustedSourcesProject(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectId":
+            suggest = "project_id"
+        elif key == "customAllows":
+            suggest = "custom_allows"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectTrustedSourcesProject. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectTrustedSourcesProject.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectTrustedSourcesProject.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 project_id: _builtins.str,
+                 custom_allows: Optional[Sequence['outputs.ProjectTrustedSourcesProjectCustomAllow']] = None,
+                 label: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str project_id: The trusted Vercel project ID.
+        :param Sequence['ProjectTrustedSourcesProjectCustomAllowArgs'] custom_allows: Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+        :param _builtins.str label: A label or description for the trusted project.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        if custom_allows is not None:
+            pulumi.set(__self__, "custom_allows", custom_allows)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> _builtins.str:
+        """
+        The trusted Vercel project ID.
+        """
+        return pulumi.get(self, "project_id")
+
+    @_builtins.property
+    @pulumi.getter(name="customAllows")
+    def custom_allows(self) -> Optional[Sequence['outputs.ProjectTrustedSourcesProjectCustomAllow']]:
+        """
+        Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+        """
+        return pulumi.get(self, "custom_allows")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        A label or description for the trusted project.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ProjectTrustedSourcesProjectCustomAllow(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "from":
+            suggest = "from_"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectTrustedSourcesProjectCustomAllow. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectTrustedSourcesProjectCustomAllow.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectTrustedSourcesProjectCustomAllow.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 from_: 'outputs.ProjectTrustedSourcesProjectCustomAllowFrom',
+                 to: 'outputs.ProjectTrustedSourcesProjectCustomAllowTo'):
+        """
+        :param 'ProjectTrustedSourcesProjectCustomAllowFromArgs' from_: The source environments on the trusted project that are allowed to access the target environments.
+        :param 'ProjectTrustedSourcesProjectCustomAllowToArgs' to: The target environments on this project that may be accessed.
+        """
+        pulumi.set(__self__, "from_", from_)
+        pulumi.set(__self__, "to", to)
+
+    @_builtins.property
+    @pulumi.getter(name="from")
+    def from_(self) -> 'outputs.ProjectTrustedSourcesProjectCustomAllowFrom':
+        """
+        The source environments on the trusted project that are allowed to access the target environments.
+        """
+        return pulumi.get(self, "from_")
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> 'outputs.ProjectTrustedSourcesProjectCustomAllowTo':
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+
+@pulumi.output_type
+class ProjectTrustedSourcesProjectCustomAllowFrom(dict):
+    def __init__(__self__, *,
+                 preset: Optional[_builtins.str] = None,
+                 slugs: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        if preset is not None:
+            pulumi.set(__self__, "preset", preset)
+        if slugs is not None:
+            pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> Optional[_builtins.str]:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+
+@pulumi.output_type
+class ProjectTrustedSourcesProjectCustomAllowTo(dict):
+    def __init__(__self__, *,
+                 preset: Optional[_builtins.str] = None,
+                 slugs: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        if preset is not None:
+            pulumi.set(__self__, "preset", preset)
+        if slugs is not None:
+            pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> Optional[_builtins.str]:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
 
 
 @pulumi.output_type
@@ -2311,6 +3496,280 @@ class TeamMemberProject(dict):
 
 
 @pulumi.output_type
+class GetBlobProjectConnectionsConnectionResult(dict):
+    def __init__(__self__, *,
+                 env_var_prefix: _builtins.str,
+                 environments: Sequence[_builtins.str],
+                 id: _builtins.str,
+                 production_deployment_id: _builtins.str,
+                 production_deployment_url: _builtins.str,
+                 project_framework: _builtins.str,
+                 project_id: _builtins.str,
+                 project_name: _builtins.str,
+                 read_write_token_env_var_name: _builtins.str):
+        """
+        :param _builtins.str env_var_prefix: The prefix used for the generated Blob environment variable names.
+        :param Sequence[_builtins.str] environments: The environments in which the generated Blob environment variables exist.
+        :param _builtins.str id: The ID of the Blob store project connection.
+        :param _builtins.str production_deployment_id: The ID of the latest production deployment for the connected project, if any.
+        :param _builtins.str production_deployment_url: The URL of the latest production deployment for the connected project, if any.
+        :param _builtins.str project_framework: The framework configured for the connected Vercel project, if any.
+        :param _builtins.str project_id: The ID of the connected Vercel project.
+        :param _builtins.str project_name: The name of the connected Vercel project.
+        :param _builtins.str read_write_token_env_var_name: The generated environment variable name that contains the Blob read/write token.
+        """
+        pulumi.set(__self__, "env_var_prefix", env_var_prefix)
+        pulumi.set(__self__, "environments", environments)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "production_deployment_id", production_deployment_id)
+        pulumi.set(__self__, "production_deployment_url", production_deployment_url)
+        pulumi.set(__self__, "project_framework", project_framework)
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "project_name", project_name)
+        pulumi.set(__self__, "read_write_token_env_var_name", read_write_token_env_var_name)
+
+    @_builtins.property
+    @pulumi.getter(name="envVarPrefix")
+    def env_var_prefix(self) -> _builtins.str:
+        """
+        The prefix used for the generated Blob environment variable names.
+        """
+        return pulumi.get(self, "env_var_prefix")
+
+    @_builtins.property
+    @pulumi.getter
+    def environments(self) -> Sequence[_builtins.str]:
+        """
+        The environments in which the generated Blob environment variables exist.
+        """
+        return pulumi.get(self, "environments")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The ID of the Blob store project connection.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter(name="productionDeploymentId")
+    def production_deployment_id(self) -> _builtins.str:
+        """
+        The ID of the latest production deployment for the connected project, if any.
+        """
+        return pulumi.get(self, "production_deployment_id")
+
+    @_builtins.property
+    @pulumi.getter(name="productionDeploymentUrl")
+    def production_deployment_url(self) -> _builtins.str:
+        """
+        The URL of the latest production deployment for the connected project, if any.
+        """
+        return pulumi.get(self, "production_deployment_url")
+
+    @_builtins.property
+    @pulumi.getter(name="projectFramework")
+    def project_framework(self) -> _builtins.str:
+        """
+        The framework configured for the connected Vercel project, if any.
+        """
+        return pulumi.get(self, "project_framework")
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> _builtins.str:
+        """
+        The ID of the connected Vercel project.
+        """
+        return pulumi.get(self, "project_id")
+
+    @_builtins.property
+    @pulumi.getter(name="projectName")
+    def project_name(self) -> _builtins.str:
+        """
+        The name of the connected Vercel project.
+        """
+        return pulumi.get(self, "project_name")
+
+    @_builtins.property
+    @pulumi.getter(name="readWriteTokenEnvVarName")
+    def read_write_token_env_var_name(self) -> _builtins.str:
+        """
+        The generated environment variable name that contains the Blob read/write token.
+        """
+        return pulumi.get(self, "read_write_token_env_var_name")
+
+
+@pulumi.output_type
+class GetBlobStoresStoreResult(dict):
+    def __init__(__self__, *,
+                 access: _builtins.str,
+                 created_at: _builtins.int,
+                 file_count: _builtins.int,
+                 id: _builtins.str,
+                 name: _builtins.str,
+                 region: _builtins.str,
+                 size: _builtins.int,
+                 status: _builtins.str,
+                 updated_at: _builtins.int):
+        """
+        :param _builtins.str access: Whether blobs created in this store are `public` or `private` by default.
+        :param _builtins.int created_at: The Unix timestamp, in milliseconds, when the Blob store was created.
+        :param _builtins.int file_count: The number of files currently stored in the Blob store.
+        :param _builtins.str id: The ID of the Blob store.
+        :param _builtins.str name: The name of the Blob store.
+        :param _builtins.str region: The region in which the Blob store exists.
+        :param _builtins.int size: The size of the Blob store in bytes.
+        :param _builtins.str status: The current status of the Blob store.
+        :param _builtins.int updated_at: The Unix timestamp, in milliseconds, when the Blob store was last updated.
+        """
+        pulumi.set(__self__, "access", access)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "file_count", file_count)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "size", size)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter
+    def access(self) -> _builtins.str:
+        """
+        Whether blobs created in this store are `public` or `private` by default.
+        """
+        return pulumi.get(self, "access")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> _builtins.int:
+        """
+        The Unix timestamp, in milliseconds, when the Blob store was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter(name="fileCount")
+    def file_count(self) -> _builtins.int:
+        """
+        The number of files currently stored in the Blob store.
+        """
+        return pulumi.get(self, "file_count")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The ID of the Blob store.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the Blob store.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def region(self) -> _builtins.str:
+        """
+        The region in which the Blob store exists.
+        """
+        return pulumi.get(self, "region")
+
+    @_builtins.property
+    @pulumi.getter
+    def size(self) -> _builtins.int:
+        """
+        The size of the Blob store in bytes.
+        """
+        return pulumi.get(self, "size")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The current status of the Blob store.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> _builtins.int:
+        """
+        The Unix timestamp, in milliseconds, when the Blob store was last updated.
+        """
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
+class GetBulkRedirectsRedirectResult(dict):
+    def __init__(__self__, *,
+                 case_sensitive: _builtins.bool,
+                 destination: _builtins.str,
+                 query: _builtins.bool,
+                 source: _builtins.str,
+                 status_code: _builtins.int):
+        """
+        :param _builtins.bool case_sensitive: Whether the source match is case-sensitive.
+        :param _builtins.str destination: The destination pathname or URL to redirect to.
+        :param _builtins.bool query: Whether query parameters are considered when matching the redirect.
+        :param _builtins.str source: The source pathname to match.
+        :param _builtins.int status_code: The HTTP status code for the redirect.
+        """
+        pulumi.set(__self__, "case_sensitive", case_sensitive)
+        pulumi.set(__self__, "destination", destination)
+        pulumi.set(__self__, "query", query)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "status_code", status_code)
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> _builtins.bool:
+        """
+        Whether the source match is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @_builtins.property
+    @pulumi.getter
+    def destination(self) -> _builtins.str:
+        """
+        The destination pathname or URL to redirect to.
+        """
+        return pulumi.get(self, "destination")
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> _builtins.bool:
+        """
+        Whether query parameters are considered when matching the redirect.
+        """
+        return pulumi.get(self, "query")
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> _builtins.str:
+        """
+        The source pathname to match.
+        """
+        return pulumi.get(self, "source")
+
+    @_builtins.property
+    @pulumi.getter(name="statusCode")
+    def status_code(self) -> _builtins.int:
+        """
+        The HTTP status code for the redirect.
+        """
+        return pulumi.get(self, "status_code")
+
+
+@pulumi.output_type
 class GetCustomEnvironmentBranchTrackingResult(dict):
     def __init__(__self__, *,
                  pattern: _builtins.str,
@@ -2366,6 +3825,279 @@ class GetDsyncGroupsListResult(dict):
         The name of the group on the Identity Provider.
         """
         return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class GetFeatureFlagDevelopmentResult(dict):
+    def __init__(__self__, *,
+                 default_variant_id: _builtins.str,
+                 disabled_variant_id: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str default_variant_id: The variant served when this environment is enabled and no rules match.
+        :param _builtins.str disabled_variant_id: The variant served while this environment is disabled or paused.
+        :param _builtins.bool enabled: Whether the flag actively evaluates in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> _builtins.str:
+        """
+        The variant served when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> _builtins.str:
+        """
+        The variant served while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether the flag actively evaluates in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetFeatureFlagPreviewResult(dict):
+    def __init__(__self__, *,
+                 default_variant_id: _builtins.str,
+                 disabled_variant_id: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str default_variant_id: The variant served when this environment is enabled and no rules match.
+        :param _builtins.str disabled_variant_id: The variant served while this environment is disabled or paused.
+        :param _builtins.bool enabled: Whether the flag actively evaluates in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> _builtins.str:
+        """
+        The variant served when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> _builtins.str:
+        """
+        The variant served while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether the flag actively evaluates in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetFeatureFlagProductionResult(dict):
+    def __init__(__self__, *,
+                 default_variant_id: _builtins.str,
+                 disabled_variant_id: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str default_variant_id: The variant served when this environment is enabled and no rules match.
+        :param _builtins.str disabled_variant_id: The variant served while this environment is disabled or paused.
+        :param _builtins.bool enabled: Whether the flag actively evaluates in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> _builtins.str:
+        """
+        The variant served when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> _builtins.str:
+        """
+        The variant served while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether the flag actively evaluates in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetFeatureFlagSegmentExcludeResult(dict):
+    def __init__(__self__, *,
+                 attribute: _builtins.str,
+                 entity: _builtins.str,
+                 values: Sequence[_builtins.str]):
+        """
+        :param _builtins.str attribute: The entity attribute to match.
+        :param _builtins.str entity: The entity type to match.
+        :param Sequence[_builtins.str] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> _builtins.str:
+        """
+        The entity attribute to match.
+        """
+        return pulumi.get(self, "attribute")
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> _builtins.str:
+        """
+        The entity type to match.
+        """
+        return pulumi.get(self, "entity")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence[_builtins.str]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetFeatureFlagSegmentIncludeResult(dict):
+    def __init__(__self__, *,
+                 attribute: _builtins.str,
+                 entity: _builtins.str,
+                 values: Sequence[_builtins.str]):
+        """
+        :param _builtins.str attribute: The entity attribute to match.
+        :param _builtins.str entity: The entity type to match.
+        :param Sequence[_builtins.str] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> _builtins.str:
+        """
+        The entity attribute to match.
+        """
+        return pulumi.get(self, "attribute")
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> _builtins.str:
+        """
+        The entity type to match.
+        """
+        return pulumi.get(self, "entity")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence[_builtins.str]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetFeatureFlagVariantResult(dict):
+    def __init__(__self__, *,
+                 description: _builtins.str,
+                 id: _builtins.str,
+                 label: _builtins.str,
+                 value_bool: _builtins.bool,
+                 value_number: _builtins.float,
+                 value_string: _builtins.str):
+        """
+        :param _builtins.str description: A human-readable description for the variant.
+        :param _builtins.str id: The stable variant identifier.
+        :param _builtins.str label: A human-readable label for the variant.
+        :param _builtins.bool value_bool: The boolean value for this variant when `kind = "boolean"`.
+        :param _builtins.float value_number: The numeric value for this variant when `kind = "number"`.
+        :param _builtins.str value_string: The string value for this variant when `kind = "string"`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "label", label)
+        pulumi.set(__self__, "value_bool", value_bool)
+        pulumi.set(__self__, "value_number", value_number)
+        pulumi.set(__self__, "value_string", value_string)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        A human-readable description for the variant.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The stable variant identifier.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> _builtins.str:
+        """
+        A human-readable label for the variant.
+        """
+        return pulumi.get(self, "label")
+
+    @_builtins.property
+    @pulumi.getter(name="valueBool")
+    def value_bool(self) -> _builtins.bool:
+        """
+        The boolean value for this variant when `kind = "boolean"`.
+        """
+        return pulumi.get(self, "value_bool")
+
+    @_builtins.property
+    @pulumi.getter(name="valueNumber")
+    def value_number(self) -> _builtins.float:
+        """
+        The numeric value for this variant when `kind = "number"`.
+        """
+        return pulumi.get(self, "value_number")
+
+    @_builtins.property
+    @pulumi.getter(name="valueString")
+    def value_string(self) -> _builtins.str:
+        """
+        The string value for this variant when `kind = "string"`.
+        """
+        return pulumi.get(self, "value_string")
 
 
 @pulumi.output_type
@@ -2535,17 +4267,31 @@ class GetProjectGitCommentsResult(dict):
 @pulumi.output_type
 class GetProjectGitProviderOptionsResult(dict):
     def __init__(__self__, *,
+                 consolidated_git_commit_status: 'outputs.GetProjectGitProviderOptionsConsolidatedGitCommitStatusResult',
                  create_deployments: _builtins.bool,
+                 git_commit_status: _builtins.bool,
                  repository_dispatch_events: _builtins.bool,
                  require_verified_commits: _builtins.bool):
         """
+        :param 'GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs' consolidated_git_commit_status: **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
         :param _builtins.bool create_deployments: Whether to create deployments.
+        :param _builtins.bool git_commit_status: Whether Vercel posts git commit statuses for this project.
         :param _builtins.bool repository_dispatch_events: Whether repository dispatch events are enabled.
         :param _builtins.bool require_verified_commits: Whether to require verified commits.
         """
+        pulumi.set(__self__, "consolidated_git_commit_status", consolidated_git_commit_status)
         pulumi.set(__self__, "create_deployments", create_deployments)
+        pulumi.set(__self__, "git_commit_status", git_commit_status)
         pulumi.set(__self__, "repository_dispatch_events", repository_dispatch_events)
         pulumi.set(__self__, "require_verified_commits", require_verified_commits)
+
+    @_builtins.property
+    @pulumi.getter(name="consolidatedGitCommitStatus")
+    def consolidated_git_commit_status(self) -> 'outputs.GetProjectGitProviderOptionsConsolidatedGitCommitStatusResult':
+        """
+        **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
+        """
+        return pulumi.get(self, "consolidated_git_commit_status")
 
     @_builtins.property
     @pulumi.getter(name="createDeployments")
@@ -2554,6 +4300,14 @@ class GetProjectGitProviderOptionsResult(dict):
         Whether to create deployments.
         """
         return pulumi.get(self, "create_deployments")
+
+    @_builtins.property
+    @pulumi.getter(name="gitCommitStatus")
+    def git_commit_status(self) -> _builtins.bool:
+        """
+        Whether Vercel posts git commit statuses for this project.
+        """
+        return pulumi.get(self, "git_commit_status")
 
     @_builtins.property
     @pulumi.getter(name="repositoryDispatchEvents")
@@ -2570,6 +4324,35 @@ class GetProjectGitProviderOptionsResult(dict):
         Whether to require verified commits.
         """
         return pulumi.get(self, "require_verified_commits")
+
+
+@pulumi.output_type
+class GetProjectGitProviderOptionsConsolidatedGitCommitStatusResult(dict):
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 propagate_failures: _builtins.bool):
+        """
+        :param _builtins.bool enabled: **Beta:** Whether consolidated commit status is enabled.
+        :param _builtins.bool propagate_failures: **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "propagate_failures", propagate_failures)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        **Beta:** Whether consolidated commit status is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="propagateFailures")
+    def propagate_failures(self) -> _builtins.bool:
+        """
+        **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+        """
+        return pulumi.get(self, "propagate_failures")
 
 
 @pulumi.output_type
@@ -2872,6 +4655,288 @@ class GetProjectRollingReleaseStageResult(dict):
 
 
 @pulumi.output_type
+class GetProjectRoutesRuleResult(dict):
+    def __init__(__self__, *,
+                 description: _builtins.str,
+                 enabled: _builtins.bool,
+                 id: _builtins.str,
+                 name: _builtins.str,
+                 route: 'outputs.GetProjectRoutesRuleRouteResult',
+                 route_type: _builtins.str,
+                 src_syntax: _builtins.str):
+        """
+        :param _builtins.str description: An optional description of the rule.
+        :param _builtins.bool enabled: Whether the rule is enabled.
+        :param _builtins.str id: The rule ID managed by Vercel.
+        :param _builtins.str name: A human-readable name for the rule.
+        :param 'GetProjectRoutesRuleRouteArgs' route: The routing rule definition.
+        :param _builtins.str route_type: The computed route type returned by Vercel. One of `rewrite`, `redirect`, `set_status`, or `transform`.
+        :param _builtins.str src_syntax: The source pattern syntax inferred or stored by Vercel.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "route", route)
+        pulumi.set(__self__, "route_type", route_type)
+        pulumi.set(__self__, "src_syntax", src_syntax)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        An optional description of the rule.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether the rule is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The rule ID managed by Vercel.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        A human-readable name for the rule.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def route(self) -> 'outputs.GetProjectRoutesRuleRouteResult':
+        """
+        The routing rule definition.
+        """
+        return pulumi.get(self, "route")
+
+    @_builtins.property
+    @pulumi.getter(name="routeType")
+    def route_type(self) -> _builtins.str:
+        """
+        The computed route type returned by Vercel. One of `rewrite`, `redirect`, `set_status`, or `transform`.
+        """
+        return pulumi.get(self, "route_type")
+
+    @_builtins.property
+    @pulumi.getter(name="srcSyntax")
+    def src_syntax(self) -> _builtins.str:
+        """
+        The source pattern syntax inferred or stored by Vercel.
+        """
+        return pulumi.get(self, "src_syntax")
+
+
+@pulumi.output_type
+class GetProjectRoutesRuleRouteResult(dict):
+    def __init__(__self__, *,
+                 case_sensitive: _builtins.bool,
+                 dest: _builtins.str,
+                 has: Sequence['outputs.GetProjectRoutesRuleRouteHaResult'],
+                 headers: Mapping[str, _builtins.str],
+                 missings: Sequence['outputs.GetProjectRoutesRuleRouteMissingResult'],
+                 respect_origin_cache_control: _builtins.bool,
+                 src: _builtins.str,
+                 status: _builtins.int,
+                 transforms: Sequence['outputs.GetProjectRoutesRuleRouteTransformResult']):
+        """
+        :param _builtins.bool case_sensitive: Whether the `src` matcher is case-sensitive.
+        :param _builtins.str dest: The destination for rewrites or redirects.
+        :param Sequence['GetProjectRoutesRuleRouteHaArgs'] has: Conditions that must be present for the rule to match.
+        :param Mapping[str, _builtins.str] headers: Headers to set for the matched request.
+        :param Sequence['GetProjectRoutesRuleRouteMissingArgs'] missings: Conditions that must be absent for the rule to match.
+        :param _builtins.bool respect_origin_cache_control: Whether the rule should respect cache control headers from the origin.
+        :param _builtins.str src: The source pattern to match.
+        :param _builtins.int status: The HTTP status code to set for redirects or status-only rules.
+        :param Sequence['GetProjectRoutesRuleRouteTransformArgs'] transforms: Transforms applied to the request or response when the rule matches.
+        """
+        pulumi.set(__self__, "case_sensitive", case_sensitive)
+        pulumi.set(__self__, "dest", dest)
+        pulumi.set(__self__, "has", has)
+        pulumi.set(__self__, "headers", headers)
+        pulumi.set(__self__, "missings", missings)
+        pulumi.set(__self__, "respect_origin_cache_control", respect_origin_cache_control)
+        pulumi.set(__self__, "src", src)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "transforms", transforms)
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> _builtins.bool:
+        """
+        Whether the `src` matcher is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @_builtins.property
+    @pulumi.getter
+    def dest(self) -> _builtins.str:
+        """
+        The destination for rewrites or redirects.
+        """
+        return pulumi.get(self, "dest")
+
+    @_builtins.property
+    @pulumi.getter
+    def has(self) -> Sequence['outputs.GetProjectRoutesRuleRouteHaResult']:
+        """
+        Conditions that must be present for the rule to match.
+        """
+        return pulumi.get(self, "has")
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Mapping[str, _builtins.str]:
+        """
+        Headers to set for the matched request.
+        """
+        return pulumi.get(self, "headers")
+
+    @_builtins.property
+    @pulumi.getter
+    def missings(self) -> Sequence['outputs.GetProjectRoutesRuleRouteMissingResult']:
+        """
+        Conditions that must be absent for the rule to match.
+        """
+        return pulumi.get(self, "missings")
+
+    @_builtins.property
+    @pulumi.getter(name="respectOriginCacheControl")
+    def respect_origin_cache_control(self) -> _builtins.bool:
+        """
+        Whether the rule should respect cache control headers from the origin.
+        """
+        return pulumi.get(self, "respect_origin_cache_control")
+
+    @_builtins.property
+    @pulumi.getter
+    def src(self) -> _builtins.str:
+        """
+        The source pattern to match.
+        """
+        return pulumi.get(self, "src")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.int:
+        """
+        The HTTP status code to set for redirects or status-only rules.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def transforms(self) -> Sequence['outputs.GetProjectRoutesRuleRouteTransformResult']:
+        """
+        Transforms applied to the request or response when the rule matches.
+        """
+        return pulumi.get(self, "transforms")
+
+
+@pulumi.output_type
+class GetProjectRoutesRuleRouteHaResult(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetProjectRoutesRuleRouteMissingResult(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetProjectRoutesRuleRouteTransformResult(dict):
+    def __init__(__self__, *,
+                 args: _builtins.str,
+                 envs: Sequence[_builtins.str],
+                 op: _builtins.str,
+                 target: _builtins.str,
+                 type: _builtins.str):
+        pulumi.set(__self__, "args", args)
+        pulumi.set(__self__, "envs", envs)
+        pulumi.set(__self__, "op", op)
+        pulumi.set(__self__, "target", target)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def args(self) -> _builtins.str:
+        return pulumi.get(self, "args")
+
+    @_builtins.property
+    @pulumi.getter
+    def envs(self) -> Sequence[_builtins.str]:
+        return pulumi.get(self, "envs")
+
+    @_builtins.property
+    @pulumi.getter
+    def op(self) -> _builtins.str:
+        return pulumi.get(self, "op")
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> _builtins.str:
+        return pulumi.get(self, "target")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class GetProjectTrustedIpsResult(dict):
     def __init__(__self__, *,
                  addresses: Sequence['outputs.GetProjectTrustedIpsAddressResult'],
@@ -2928,6 +4993,242 @@ class GetProjectTrustedIpsAddressResult(dict):
     @pulumi.getter
     def value(self) -> _builtins.str:
         return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesResult(dict):
+    def __init__(__self__, *,
+                 external_sources: Sequence['outputs.GetProjectTrustedSourcesExternalSourceResult'],
+                 projects: Sequence['outputs.GetProjectTrustedSourcesProjectResult']):
+        """
+        :param Sequence['GetProjectTrustedSourcesExternalSourceArgs'] external_sources: External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        :param Sequence['GetProjectTrustedSourcesProjectArgs'] projects: Vercel projects in the same team that can reach this project's protected deployments.
+        """
+        pulumi.set(__self__, "external_sources", external_sources)
+        pulumi.set(__self__, "projects", projects)
+
+    @_builtins.property
+    @pulumi.getter(name="externalSources")
+    def external_sources(self) -> Sequence['outputs.GetProjectTrustedSourcesExternalSourceResult']:
+        """
+        External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "external_sources")
+
+    @_builtins.property
+    @pulumi.getter
+    def projects(self) -> Sequence['outputs.GetProjectTrustedSourcesProjectResult']:
+        """
+        Vercel projects in the same team that can reach this project's protected deployments.
+        """
+        return pulumi.get(self, "projects")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesExternalSourceResult(dict):
+    def __init__(__self__, *,
+                 claims: Mapping[str, Sequence[_builtins.str]],
+                 issuer: _builtins.str,
+                 label: _builtins.str,
+                 to: 'outputs.GetProjectTrustedSourcesExternalSourceToResult'):
+        """
+        :param Mapping[str, Sequence[_builtins.str]] claims: Claims that must match on the OIDC token.
+        :param _builtins.str issuer: The OIDC issuer URL.
+        :param _builtins.str label: A label or description for the trusted external source entry.
+        :param 'GetProjectTrustedSourcesExternalSourceToArgs' to: The target environments on this project that may be accessed.
+        """
+        pulumi.set(__self__, "claims", claims)
+        pulumi.set(__self__, "issuer", issuer)
+        pulumi.set(__self__, "label", label)
+        pulumi.set(__self__, "to", to)
+
+    @_builtins.property
+    @pulumi.getter
+    def claims(self) -> Mapping[str, Sequence[_builtins.str]]:
+        """
+        Claims that must match on the OIDC token.
+        """
+        return pulumi.get(self, "claims")
+
+    @_builtins.property
+    @pulumi.getter
+    def issuer(self) -> _builtins.str:
+        """
+        The OIDC issuer URL.
+        """
+        return pulumi.get(self, "issuer")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> _builtins.str:
+        """
+        A label or description for the trusted external source entry.
+        """
+        return pulumi.get(self, "label")
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> 'outputs.GetProjectTrustedSourcesExternalSourceToResult':
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesExternalSourceToResult(dict):
+    def __init__(__self__, *,
+                 preset: _builtins.str,
+                 slugs: Sequence[_builtins.str]):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        pulumi.set(__self__, "preset", preset)
+        pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> _builtins.str:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Sequence[_builtins.str]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesProjectResult(dict):
+    def __init__(__self__, *,
+                 custom_allows: Sequence['outputs.GetProjectTrustedSourcesProjectCustomAllowResult'],
+                 label: _builtins.str,
+                 project_id: _builtins.str):
+        """
+        :param Sequence['GetProjectTrustedSourcesProjectCustomAllowArgs'] custom_allows: Optional overrides for default same-environment matching.
+        :param _builtins.str label: A label or description for the trusted project.
+        :param _builtins.str project_id: The trusted Vercel project ID.
+        """
+        pulumi.set(__self__, "custom_allows", custom_allows)
+        pulumi.set(__self__, "label", label)
+        pulumi.set(__self__, "project_id", project_id)
+
+    @_builtins.property
+    @pulumi.getter(name="customAllows")
+    def custom_allows(self) -> Sequence['outputs.GetProjectTrustedSourcesProjectCustomAllowResult']:
+        """
+        Optional overrides for default same-environment matching.
+        """
+        return pulumi.get(self, "custom_allows")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> _builtins.str:
+        """
+        A label or description for the trusted project.
+        """
+        return pulumi.get(self, "label")
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> _builtins.str:
+        """
+        The trusted Vercel project ID.
+        """
+        return pulumi.get(self, "project_id")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesProjectCustomAllowResult(dict):
+    def __init__(__self__, *,
+                 from_: 'outputs.GetProjectTrustedSourcesProjectCustomAllowFromResult',
+                 to: 'outputs.GetProjectTrustedSourcesProjectCustomAllowToResult'):
+        """
+        :param 'GetProjectTrustedSourcesProjectCustomAllowFromArgs' from_: The source environments on the trusted project that are allowed to access the target environments.
+        :param 'GetProjectTrustedSourcesProjectCustomAllowToArgs' to: The target environments on this project that may be accessed.
+        """
+        pulumi.set(__self__, "from_", from_)
+        pulumi.set(__self__, "to", to)
+
+    @_builtins.property
+    @pulumi.getter(name="from")
+    def from_(self) -> 'outputs.GetProjectTrustedSourcesProjectCustomAllowFromResult':
+        """
+        The source environments on the trusted project that are allowed to access the target environments.
+        """
+        return pulumi.get(self, "from_")
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> 'outputs.GetProjectTrustedSourcesProjectCustomAllowToResult':
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesProjectCustomAllowFromResult(dict):
+    def __init__(__self__, *,
+                 preset: _builtins.str,
+                 slugs: Sequence[_builtins.str]):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        pulumi.set(__self__, "preset", preset)
+        pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> _builtins.str:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Sequence[_builtins.str]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+
+@pulumi.output_type
+class GetProjectTrustedSourcesProjectCustomAllowToResult(dict):
+    def __init__(__self__, *,
+                 preset: _builtins.str,
+                 slugs: Sequence[_builtins.str]):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        pulumi.set(__self__, "preset", preset)
+        pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> _builtins.str:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Sequence[_builtins.str]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
 
 
 @pulumi.output_type

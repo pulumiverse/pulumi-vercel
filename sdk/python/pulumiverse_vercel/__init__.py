@@ -10,6 +10,10 @@ from .access_group import *
 from .access_group_project import *
 from .alias import *
 from .attack_challenge_mode import *
+from .blob_object import *
+from .blob_project_connection import *
+from .blob_store import *
+from .bulk_redirects import *
 from .custom_certificate import *
 from .custom_environment import *
 from .deployment import *
@@ -18,12 +22,22 @@ from .edge_config import *
 from .edge_config_item import *
 from .edge_config_schema import *
 from .edge_config_token import *
+from .feature_flag_config import *
+from .feature_flag_definition import *
+from .feature_flag_sdk_key import *
+from .feature_flag_segment import *
 from .firewall_bypass import *
 from .firewall_config import *
 from .get_access_group import *
 from .get_access_group_project import *
 from .get_alias import *
 from .get_attack_challenge_mode import *
+from .get_blob_object import *
+from .get_blob_project_connections import *
+from .get_blob_store import *
+from .get_blob_store_secrets import *
+from .get_blob_stores import *
+from .get_bulk_redirects import *
 from .get_custom_environment import *
 from .get_deployment import *
 from .get_domain_config import *
@@ -33,6 +47,9 @@ from .get_edge_config_item import *
 from .get_edge_config_schema import *
 from .get_edge_config_token import *
 from .get_endpoint_verification import *
+from .get_feature_flag import *
+from .get_feature_flag_sdk_key import *
+from .get_feature_flag_segment import *
 from .get_file import *
 from .get_log_drain import *
 from .get_microfrontend_group import *
@@ -44,6 +61,7 @@ from .get_project_deployment_retention import *
 from .get_project_directory import *
 from .get_project_members import *
 from .get_project_rolling_release import *
+from .get_project_routes import *
 from .get_shared_environment_variable import *
 from .get_team_config import *
 from .get_team_member import *
@@ -59,12 +77,15 @@ from .project_domain import *
 from .project_environment_variable import *
 from .project_environment_variables import *
 from .project_members import *
+from .project_protection_bypass import *
 from .project_rolling_release import *
+from .project_route import *
 from .provider import *
 from .shared_environment_variable import *
 from .shared_environment_variable_project_link import *
 from .team_config import *
 from .team_member import *
+from .user_token import *
 from .webhook import *
 from ._inputs import *
 from . import outputs
@@ -109,6 +130,38 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/attackChallengeMode:AttackChallengeMode": "AttackChallengeMode"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/blobObject",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/blobObject:BlobObject": "BlobObject"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/blobProjectConnection",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/blobProjectConnection:BlobProjectConnection": "BlobProjectConnection"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/blobStore",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/blobStore:BlobStore": "BlobStore"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/bulkRedirects",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/bulkRedirects:BulkRedirects": "BulkRedirects"
   }
  },
  {
@@ -173,6 +226,38 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/edgeConfigToken:EdgeConfigToken": "EdgeConfigToken"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/featureFlagConfig",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/featureFlagConfig:FeatureFlagConfig": "FeatureFlagConfig"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/featureFlagDefinition",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/featureFlagDefinition:FeatureFlagDefinition": "FeatureFlagDefinition"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/featureFlagSdkKey",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/featureFlagSdkKey:FeatureFlagSdkKey": "FeatureFlagSdkKey"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/featureFlagSegment",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/featureFlagSegment:FeatureFlagSegment": "FeatureFlagSegment"
   }
  },
  {
@@ -289,10 +374,26 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/projectProtectionBypass",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectProtectionBypass:ProjectProtectionBypass": "ProjectProtectionBypass"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/projectRollingRelease",
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectRollingRelease:ProjectRollingRelease": "ProjectRollingRelease"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectRoute",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectRoute:ProjectRoute": "ProjectRoute"
   }
  },
  {
@@ -325,6 +426,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/teamMember:TeamMember": "TeamMember"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/userToken",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/userToken:UserToken": "UserToken"
   }
  },
  {

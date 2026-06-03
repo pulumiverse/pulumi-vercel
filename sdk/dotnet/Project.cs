@@ -20,6 +20,8 @@ namespace Pulumiverse.Vercel
     /// &gt; Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `Environment` field.
     /// At this time you cannot use a Vercel Project resource with in-line `Environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
     /// 
+    /// &gt; **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `Sensitive` value. Variables targeting only `Development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `Preview`, `Production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `Development` together with `Preview`, `Production`, or custom environments.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -53,10 +55,79 @@ namespace Pulumiverse.Vercel
     ///         Framework = "nextjs",
     ///     });
     /// 
+    ///     var githubActionsTrustedSource = 
+    ///     {
+    ///         { "issuer", "https://token.actions.githubusercontent.com" },
+    ///         { "label", "GitHub Actions" },
+    ///         { "to", 
+    ///         {
+    ///             { "slugs", new[]
+    ///             {
+    ///                 "preview",
+    ///             } },
+    ///         } },
+    ///         { "claims", 
+    ///         {
+    ///             { "aud", new[]
+    ///             {
+    ///                 "example-audience",
+    ///             } },
+    ///             { "sub", new[]
+    ///             {
+    ///                 "repo:vercel/some-repo:ref:refs/heads/main",
+    ///             } },
+    ///         } },
+    ///     };
+    /// 
+    ///     // A project that allows trusted sources to bypass Deployment Protection.
+    ///     var withTrustedSources = new Vercel.Project("with_trusted_sources", new()
+    ///     {
+    ///         Name = "example-project-with-trusted-sources",
+    ///         Framework = "nextjs",
+    ///         TrustedSources = new Vercel.Inputs.ProjectTrustedSourcesArgs
+    ///         {
+    ///             Projects = new[]
+    ///             {
+    ///                 new Vercel.Inputs.ProjectTrustedSourcesProjectArgs
+    ///                 {
+    ///                     ProjectId = withGit.Id,
+    ///                     Label = "Source project",
+    ///                     CustomAllow = new[]
+    ///                     {
+    ///                         
+    ///                         {
+    ///                             { "from", 
+    ///                             {
+    ///                                 { "slugs", new[]
+    ///                                 {
+    ///                                     "production",
+    ///                                 } },
+    ///                             } },
+    ///                             { "to", 
+    ///                             {
+    ///                                 { "slugs", new[]
+    ///                                 {
+    ///                                     "preview",
+    ///                                     "production",
+    ///                                 } },
+    ///                             } },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///             ExternalSources = new[]
+    ///             {
+    ///                 githubActionsTrustedSource,
+    ///             },
+    ///         },
+    ///     });
+    /// 
     /// });
     /// ```
     /// 
     /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
     /// 
     /// If importing into a personal account, or with a team configured on
     /// the provider, simply use the project ID.
@@ -96,7 +167,7 @@ namespace Pulumiverse.Vercel
         public Output<string?> BuildCommand { get; private set; } = null!;
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Output("buildMachineType")]
         public Output<string> BuildMachineType { get; private set; } = null!;
@@ -264,18 +335,6 @@ namespace Pulumiverse.Vercel
         public Output<bool> PrioritiseProductionBuilds { get; private set; } = null!;
 
         /// <summary>
-        /// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `ProtectionBypassForAutomationSecret` field.
-        /// </summary>
-        [Output("protectionBypassForAutomation")]
-        public Output<bool?> ProtectionBypassForAutomation { get; private set; } = null!;
-
-        /// <summary>
-        /// If `ProtectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-        /// </summary>
-        [Output("protectionBypassForAutomationSecret")]
-        public Output<string> ProtectionBypassForAutomationSecret { get; private set; } = null!;
-
-        /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `PublicSource` to `True` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         /// </summary>
         [Output("publicSource")]
@@ -318,6 +377,12 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.ProjectTrustedIps?> TrustedIps { get; private set; } = null!;
 
         /// <summary>
+        /// Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
+        /// </summary>
+        [Output("trustedSources")]
+        public Output<Outputs.ProjectTrustedSources?> TrustedSources { get; private set; } = null!;
+
+        /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
         [Output("vercelAuthentication")]
@@ -347,10 +412,6 @@ namespace Pulumiverse.Vercel
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
-                AdditionalSecretOutputs =
-                {
-                    "protectionBypassForAutomationSecret",
-                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -393,7 +454,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
@@ -567,28 +628,6 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PrioritiseProductionBuilds { get; set; }
 
         /// <summary>
-        /// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `ProtectionBypassForAutomationSecret` field.
-        /// </summary>
-        [Input("protectionBypassForAutomation")]
-        public Input<bool>? ProtectionBypassForAutomation { get; set; }
-
-        [Input("protectionBypassForAutomationSecret")]
-        private Input<string>? _protectionBypassForAutomationSecret;
-
-        /// <summary>
-        /// If `ProtectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-        /// </summary>
-        public Input<string>? ProtectionBypassForAutomationSecret
-        {
-            get => _protectionBypassForAutomationSecret;
-            set
-            {
-                var emptySecret = Output.CreateSecret(0);
-                _protectionBypassForAutomationSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
-            }
-        }
-
-        /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `PublicSource` to `True` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         /// </summary>
         [Input("publicSource")]
@@ -631,6 +670,12 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.ProjectTrustedIpsArgs>? TrustedIps { get; set; }
 
         /// <summary>
+        /// Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
+        /// </summary>
+        [Input("trustedSources")]
+        public Input<Inputs.ProjectTrustedSourcesArgs>? TrustedSources { get; set; }
+
+        /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
         [Input("vercelAuthentication")]
@@ -663,7 +708,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "enhanced" or "turbo".
+        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
@@ -837,28 +882,6 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PrioritiseProductionBuilds { get; set; }
 
         /// <summary>
-        /// Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `ProtectionBypassForAutomationSecret` field.
-        /// </summary>
-        [Input("protectionBypassForAutomation")]
-        public Input<bool>? ProtectionBypassForAutomation { get; set; }
-
-        [Input("protectionBypassForAutomationSecret")]
-        private Input<string>? _protectionBypassForAutomationSecret;
-
-        /// <summary>
-        /// If `ProtectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-        /// </summary>
-        public Input<string>? ProtectionBypassForAutomationSecret
-        {
-            get => _protectionBypassForAutomationSecret;
-            set
-            {
-                var emptySecret = Output.CreateSecret(0);
-                _protectionBypassForAutomationSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
-            }
-        }
-
-        /// <summary>
         /// By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `PublicSource` to `True` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
         /// </summary>
         [Input("publicSource")]
@@ -899,6 +922,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("trustedIps")]
         public Input<Inputs.ProjectTrustedIpsGetArgs>? TrustedIps { get; set; }
+
+        /// <summary>
+        /// Allows configured Vercel projects and external sources to reach this project's protected deployments using short-lived OIDC tokens.
+        /// </summary>
+        [Input("trustedSources")]
+        public Input<Inputs.ProjectTrustedSourcesGetArgs>? TrustedSources { get; set; }
 
         /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.

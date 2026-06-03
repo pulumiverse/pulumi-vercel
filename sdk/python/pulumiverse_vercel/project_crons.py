@@ -163,6 +163,8 @@ class ProjectCrons(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         If importing with a team configured on the provider, simply use the project ID.
         - project_id can be found in the project `settings` tab in the Vercel UI.
 
@@ -215,6 +217,8 @@ class ProjectCrons(pulumi.CustomResource):
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing with a team configured on the provider, simply use the project ID.
         - project_id can be found in the project `settings` tab in the Vercel UI.

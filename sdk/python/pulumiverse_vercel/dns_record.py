@@ -439,6 +439,8 @@ class DnsRecord(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         If importing into a personal account, or with a team configured on
         the provider, simply use the record id.
         - record_id can be taken from the network tab inside developer tools, while you are on the domains page,
@@ -555,6 +557,8 @@ class DnsRecord(pulumi.CustomResource):
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
         the provider, simply use the record id.
