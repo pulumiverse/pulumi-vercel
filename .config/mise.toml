@@ -19,7 +19,7 @@ java = 'corretto-17'
 pulumi = "{{ get_env(name='PULUMI_VERSION_MISE', default='latest') }}"
 "github:pulumi/pulumictl" = 'latest'
 "github:pulumi/schema-tools" = "latest"
-gradle = '7.6'
+gradle = '9.6.1'
 golangci-lint = "2.8.0" # See note about about overrides if you need to customize this.
 "npm:yarn" = "1.22.22"
 "vfox-pulumi:pulumi/pulumi-converter-terraform" = "latest"
