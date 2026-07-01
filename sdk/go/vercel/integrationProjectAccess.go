@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel/internal"
 )
 
 // Provides Project access to an existing Integration. This requires the integration already exists and is already configured for Specific Project access.

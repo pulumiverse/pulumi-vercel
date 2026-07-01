@@ -19,6 +19,7 @@ import com.pulumiverse.vercel.outputs.ProjectOptionsAllowlist;
 import com.pulumiverse.vercel.outputs.ProjectPasswordProtection;
 import com.pulumiverse.vercel.outputs.ProjectResourceConfig;
 import com.pulumiverse.vercel.outputs.ProjectTrustedIps;
+import com.pulumiverse.vercel.outputs.ProjectTrustedSources;
 import com.pulumiverse.vercel.outputs.ProjectVercelAuthentication;
 import java.lang.Boolean;
 import java.lang.String;
@@ -36,6 +37,8 @@ import javax.annotation.Nullable;
  * &gt; Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
  * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
  * 
+ * &gt; **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * 
  * ## Example Usage
  * 
  * <pre>
@@ -48,6 +51,7 @@ import javax.annotation.Nullable;
  * import com.pulumiverse.vercel.Project;
  * import com.pulumiverse.vercel.ProjectArgs;
  * import com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;
+ * import com.pulumi.vercel.inputs.ProjectTrustedSourcesArgs;
  * import java.util.List;
  * import java.util.ArrayList;
  * import java.util.Map;
@@ -81,12 +85,43 @@ import javax.annotation.Nullable;
  *             .framework("nextjs")
  *             .build());
  * 
+ *         final var githubActionsTrustedSource = Map.ofEntries(
+ *             Map.entry("issuer", "https://token.actions.githubusercontent.com"),
+ *             Map.entry("label", "GitHub Actions"),
+ *             Map.entry("to", Map.of("slugs", "preview")),
+ *             Map.entry("claims", Map.ofEntries(
+ *                 Map.entry("aud", "example-audience"),
+ *                 Map.entry("sub", "repo:vercel/some-repo:ref:refs/heads/main")
+ *             ))
+ *         );
+ * 
+ *         // A project that allows trusted sources to bypass Deployment Protection.
+ *         var withTrustedSources = new Project("withTrustedSources", ProjectArgs.builder()
+ *             .name("example-project-with-trusted-sources")
+ *             .framework("nextjs")
+ *             .trustedSources(ProjectTrustedSourcesArgs.builder()
+ *                 .projects(ProjectTrustedSourcesProjectArgs.builder()
+ *                     .projectId(withGit.id())
+ *                     .label("Source project")
+ *                     .customAllow(List.of(Map.ofEntries(
+ *                         Map.entry("from", Map.of("slugs", List.of("production"))),
+ *                         Map.entry("to", Map.of("slugs", List.of(                        
+ *                             "preview",
+ *                             "production")))
+ *                     )))
+ *                     .build())
+ *                 .externalSources(githubActionsTrustedSource)
+ *                 .build())
+ *             .build());
+ * 
  *     }
  * }
  * }
  * </pre>
  * 
  * ## Import
+ * 
+ * The `pulumi import` command can be used, for example:
  * 
  * If importing into a personal account, or with a team configured on
  * the provider, simply use the project ID.
@@ -150,14 +185,14 @@ public class Project extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.buildCommand);
     }
     /**
-     * The build machine type to use for this project. Must be one of &#34;enhanced&#34; or &#34;turbo&#34;.
+     * The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     @Export(name="buildMachineType", refs={String.class}, tree="[0]")
     private Output<String> buildMachineType;
 
     /**
-     * @return The build machine type to use for this project. Must be one of &#34;enhanced&#34; or &#34;turbo&#34;.
+     * @return The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     public Output<String> buildMachineType() {
@@ -546,42 +581,18 @@ public class Project extends com.pulumi.resources.CustomResource {
         return this.prioritiseProductionBuilds;
     }
     /**
-     * Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
+     * Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
+     * 
+     * @deprecated
+     * This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
      * 
      */
-    @Export(name="protectionBypassForAutomation", refs={Boolean.class}, tree="[0]")
-    private Output</* @Nullable */ Boolean> protectionBypassForAutomation;
-
-    /**
-     * @return Allow automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value of the `protectionBypassForAutomationSecret` field.
-     * 
-     */
-    public Output<Optional<Boolean>> protectionBypassForAutomation() {
-        return Codegen.optional(this.protectionBypassForAutomation);
-    }
-    /**
-     * If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-     * 
-     */
-    @Export(name="protectionBypassForAutomationSecret", refs={String.class}, tree="[0]")
-    private Output<String> protectionBypassForAutomationSecret;
-
-    /**
-     * @return If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-     * 
-     */
-    public Output<String> protectionBypassForAutomationSecret() {
-        return this.protectionBypassForAutomationSecret;
-    }
-    /**
-     * By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
-     * 
-     */
+    @Deprecated /* This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider. */
     @Export(name="publicSource", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> publicSource;
 
     /**
-     * @return By default, visitors to the `/_logs` and `/_src` paths of your Production and Preview Deployments must log in with Vercel (requires being a member of your team) to see the Source, Logs and Deployment Status of your project. Setting `publicSource` to `true` disables this behaviour, meaning the Source, Logs and Deployment Status can be publicly viewed.
+     * @return Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
      * 
      */
     public Output<Optional<Boolean>> publicSource() {
@@ -676,6 +687,20 @@ public class Project extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.trustedIps);
     }
     /**
+     * Allows configured Vercel projects and external sources to reach this project&#39;s protected deployments using short-lived OIDC tokens.
+     * 
+     */
+    @Export(name="trustedSources", refs={ProjectTrustedSources.class}, tree="[0]")
+    private Output</* @Nullable */ ProjectTrustedSources> trustedSources;
+
+    /**
+     * @return Allows configured Vercel projects and external sources to reach this project&#39;s protected deployments using short-lived OIDC tokens.
+     * 
+     */
+    public Output<Optional<ProjectTrustedSources>> trustedSources() {
+        return Codegen.optional(this.trustedSources);
+    }
+    /**
      * Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
      * 
      */
@@ -730,9 +755,6 @@ public class Project extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .pluginDownloadURL("github://api.github.com/pulumiverse")
-            .additionalSecretOutputs(List.of(
-                "protectionBypassForAutomationSecret"
-            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

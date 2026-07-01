@@ -55,6 +55,8 @@ import javax.annotation.Nullable;
  * 
  * ## Import
  * 
+ * The `pulumi import` command can be used, for example:
+ * 
  * If importing into a personal account, or with a team configured on
  * the provider, simply use the access_group_id.
  * 

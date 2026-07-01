@@ -4,6 +4,7 @@
 package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumiverse.vercel.outputs.ProjectGitProviderOptionsConsolidatedGitCommitStatus;
 import java.lang.Boolean;
 import java.util.Objects;
 import java.util.Optional;
@@ -12,10 +13,20 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ProjectGitProviderOptions {
     /**
+     * @return **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+     * 
+     */
+    private @Nullable ProjectGitProviderOptionsConsolidatedGitCommitStatus consolidatedGitCommitStatus;
+    /**
      * @return Whether to create deployments
      * 
      */
     private @Nullable Boolean createDeployments;
+    /**
+     * @return Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+     * 
+     */
+    private @Nullable Boolean gitCommitStatus;
     /**
      * @return Whether to enable repository dispatch events
      * 
@@ -29,11 +40,25 @@ public final class ProjectGitProviderOptions {
 
     private ProjectGitProviderOptions() {}
     /**
+     * @return **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+     * 
+     */
+    public Optional<ProjectGitProviderOptionsConsolidatedGitCommitStatus> consolidatedGitCommitStatus() {
+        return Optional.ofNullable(this.consolidatedGitCommitStatus);
+    }
+    /**
      * @return Whether to create deployments
      * 
      */
     public Optional<Boolean> createDeployments() {
         return Optional.ofNullable(this.createDeployments);
+    }
+    /**
+     * @return Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+     * 
+     */
+    public Optional<Boolean> gitCommitStatus() {
+        return Optional.ofNullable(this.gitCommitStatus);
     }
     /**
      * @return Whether to enable repository dispatch events
@@ -59,21 +84,37 @@ public final class ProjectGitProviderOptions {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable ProjectGitProviderOptionsConsolidatedGitCommitStatus consolidatedGitCommitStatus;
         private @Nullable Boolean createDeployments;
+        private @Nullable Boolean gitCommitStatus;
         private @Nullable Boolean repositoryDispatchEvents;
         private @Nullable Boolean requireVerifiedCommits;
         public Builder() {}
         public Builder(ProjectGitProviderOptions defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.consolidatedGitCommitStatus = defaults.consolidatedGitCommitStatus;
     	      this.createDeployments = defaults.createDeployments;
+    	      this.gitCommitStatus = defaults.gitCommitStatus;
     	      this.repositoryDispatchEvents = defaults.repositoryDispatchEvents;
     	      this.requireVerifiedCommits = defaults.requireVerifiedCommits;
         }
 
         @CustomType.Setter
+        public Builder consolidatedGitCommitStatus(@Nullable ProjectGitProviderOptionsConsolidatedGitCommitStatus consolidatedGitCommitStatus) {
+
+            this.consolidatedGitCommitStatus = consolidatedGitCommitStatus;
+            return this;
+        }
+        @CustomType.Setter
         public Builder createDeployments(@Nullable Boolean createDeployments) {
 
             this.createDeployments = createDeployments;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder gitCommitStatus(@Nullable Boolean gitCommitStatus) {
+
+            this.gitCommitStatus = gitCommitStatus;
             return this;
         }
         @CustomType.Setter
@@ -90,7 +131,9 @@ public final class ProjectGitProviderOptions {
         }
         public ProjectGitProviderOptions build() {
             final var _resultValue = new ProjectGitProviderOptions();
+            _resultValue.consolidatedGitCommitStatus = consolidatedGitCommitStatus;
             _resultValue.createDeployments = createDeployments;
+            _resultValue.gitCommitStatus = gitCommitStatus;
             _resultValue.repositoryDispatchEvents = repositoryDispatchEvents;
             _resultValue.requireVerifiedCommits = requireVerifiedCommits;
             return _resultValue;

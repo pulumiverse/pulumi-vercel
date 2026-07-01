@@ -15,12 +15,26 @@ else:
 from . import _utilities
 
 __all__ = [
+    'BulkRedirectsRedirectArgs',
+    'BulkRedirectsRedirectArgsDict',
     'CustomEnvironmentBranchTrackingArgs',
     'CustomEnvironmentBranchTrackingArgsDict',
     'DeploymentProjectSettingsArgs',
     'DeploymentProjectSettingsArgsDict',
     'DnsRecordSrvArgs',
     'DnsRecordSrvArgsDict',
+    'FeatureFlagConfigDevelopmentArgs',
+    'FeatureFlagConfigDevelopmentArgsDict',
+    'FeatureFlagConfigPreviewArgs',
+    'FeatureFlagConfigPreviewArgsDict',
+    'FeatureFlagConfigProductionArgs',
+    'FeatureFlagConfigProductionArgsDict',
+    'FeatureFlagDefinitionVariantArgs',
+    'FeatureFlagDefinitionVariantArgsDict',
+    'FeatureFlagSegmentExcludeArgs',
+    'FeatureFlagSegmentExcludeArgsDict',
+    'FeatureFlagSegmentIncludeArgs',
+    'FeatureFlagSegmentIncludeArgsDict',
     'FirewallConfigIpRulesArgs',
     'FirewallConfigIpRulesArgsDict',
     'FirewallConfigIpRulesRuleArgs',
@@ -83,6 +97,8 @@ __all__ = [
     'ProjectGitCommentsArgsDict',
     'ProjectGitProviderOptionsArgs',
     'ProjectGitProviderOptionsArgsDict',
+    'ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs',
+    'ProjectGitProviderOptionsConsolidatedGitCommitStatusArgsDict',
     'ProjectGitRepositoryArgs',
     'ProjectGitRepositoryArgsDict',
     'ProjectGitRepositoryDeployHookArgs',
@@ -101,10 +117,34 @@ __all__ = [
     'ProjectResourceConfigArgsDict',
     'ProjectRollingReleaseStageArgs',
     'ProjectRollingReleaseStageArgsDict',
+    'ProjectRoutePositionArgs',
+    'ProjectRoutePositionArgsDict',
+    'ProjectRouteRouteArgs',
+    'ProjectRouteRouteArgsDict',
+    'ProjectRouteRouteHaArgs',
+    'ProjectRouteRouteHaArgsDict',
+    'ProjectRouteRouteMissingArgs',
+    'ProjectRouteRouteMissingArgsDict',
+    'ProjectRouteRouteTransformArgs',
+    'ProjectRouteRouteTransformArgsDict',
     'ProjectTrustedIpsArgs',
     'ProjectTrustedIpsArgsDict',
     'ProjectTrustedIpsAddressArgs',
     'ProjectTrustedIpsAddressArgsDict',
+    'ProjectTrustedSourcesArgs',
+    'ProjectTrustedSourcesArgsDict',
+    'ProjectTrustedSourcesExternalSourceArgs',
+    'ProjectTrustedSourcesExternalSourceArgsDict',
+    'ProjectTrustedSourcesExternalSourceToArgs',
+    'ProjectTrustedSourcesExternalSourceToArgsDict',
+    'ProjectTrustedSourcesProjectArgs',
+    'ProjectTrustedSourcesProjectArgsDict',
+    'ProjectTrustedSourcesProjectCustomAllowArgs',
+    'ProjectTrustedSourcesProjectCustomAllowArgsDict',
+    'ProjectTrustedSourcesProjectCustomAllowFromArgs',
+    'ProjectTrustedSourcesProjectCustomAllowFromArgsDict',
+    'ProjectTrustedSourcesProjectCustomAllowToArgs',
+    'ProjectTrustedSourcesProjectCustomAllowToArgsDict',
     'ProjectVercelAuthenticationArgs',
     'ProjectVercelAuthenticationArgsDict',
     'TeamConfigRemoteCachingArgs',
@@ -116,6 +156,112 @@ __all__ = [
     'TeamMemberProjectArgs',
     'TeamMemberProjectArgsDict',
 ]
+
+class BulkRedirectsRedirectArgsDict(TypedDict):
+    destination: pulumi.Input[_builtins.str]
+    """
+    The destination pathname or URL to redirect to.
+    """
+    source: pulumi.Input[_builtins.str]
+    """
+    The source pathname to match.
+    """
+    status_code: pulumi.Input[_builtins.int]
+    """
+    The HTTP status code for the redirect.
+    """
+    case_sensitive: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the source match is case-sensitive.
+    """
+    query: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether query parameters are considered when matching the redirect.
+    """
+
+@pulumi.input_type
+class BulkRedirectsRedirectArgs:
+    def __init__(__self__, *,
+                 destination: pulumi.Input[_builtins.str],
+                 source: pulumi.Input[_builtins.str],
+                 status_code: pulumi.Input[_builtins.int],
+                 case_sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
+                 query: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] destination: The destination pathname or URL to redirect to.
+        :param pulumi.Input[_builtins.str] source: The source pathname to match.
+        :param pulumi.Input[_builtins.int] status_code: The HTTP status code for the redirect.
+        :param pulumi.Input[_builtins.bool] case_sensitive: Whether the source match is case-sensitive.
+        :param pulumi.Input[_builtins.bool] query: Whether query parameters are considered when matching the redirect.
+        """
+        pulumi.set(__self__, "destination", destination)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "status_code", status_code)
+        if case_sensitive is not None:
+            pulumi.set(__self__, "case_sensitive", case_sensitive)
+        if query is not None:
+            pulumi.set(__self__, "query", query)
+
+    @_builtins.property
+    @pulumi.getter
+    def destination(self) -> pulumi.Input[_builtins.str]:
+        """
+        The destination pathname or URL to redirect to.
+        """
+        return pulumi.get(self, "destination")
+
+    @destination.setter
+    def destination(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "destination", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> pulumi.Input[_builtins.str]:
+        """
+        The source pathname to match.
+        """
+        return pulumi.get(self, "source")
+
+    @source.setter
+    def source(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "source", value)
+
+    @_builtins.property
+    @pulumi.getter(name="statusCode")
+    def status_code(self) -> pulumi.Input[_builtins.int]:
+        """
+        The HTTP status code for the redirect.
+        """
+        return pulumi.get(self, "status_code")
+
+    @status_code.setter
+    def status_code(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "status_code", value)
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the source match is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @case_sensitive.setter
+    def case_sensitive(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "case_sensitive", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether query parameters are considered when matching the redirect.
+        """
+        return pulumi.get(self, "query")
+
+    @query.setter
+    def query(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "query", value)
+
 
 class CustomEnvironmentBranchTrackingArgsDict(TypedDict):
     pattern: pulumi.Input[_builtins.str]
@@ -356,6 +502,467 @@ class DnsRecordSrvArgs:
     @weight.setter
     def weight(self, value: pulumi.Input[_builtins.int]):
         pulumi.set(self, "weight", value)
+
+
+class FeatureFlagConfigDevelopmentArgsDict(TypedDict):
+    default_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve when this environment is enabled and no rules match.
+    """
+    disabled_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve while this environment is disabled or paused.
+    """
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the flag should actively evaluate in this environment.
+    """
+
+@pulumi.input_type
+class FeatureFlagConfigDevelopmentArgs:
+    def __init__(__self__, *,
+                 default_variant_id: pulumi.Input[_builtins.str],
+                 disabled_variant_id: pulumi.Input[_builtins.str],
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param pulumi.Input[_builtins.str] disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param pulumi.Input[_builtins.bool] enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @default_variant_id.setter
+    def default_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "default_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @disabled_variant_id.setter
+    def disabled_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "disabled_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class FeatureFlagConfigPreviewArgsDict(TypedDict):
+    default_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve when this environment is enabled and no rules match.
+    """
+    disabled_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve while this environment is disabled or paused.
+    """
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the flag should actively evaluate in this environment.
+    """
+
+@pulumi.input_type
+class FeatureFlagConfigPreviewArgs:
+    def __init__(__self__, *,
+                 default_variant_id: pulumi.Input[_builtins.str],
+                 disabled_variant_id: pulumi.Input[_builtins.str],
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param pulumi.Input[_builtins.str] disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param pulumi.Input[_builtins.bool] enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @default_variant_id.setter
+    def default_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "default_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @disabled_variant_id.setter
+    def disabled_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "disabled_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class FeatureFlagConfigProductionArgsDict(TypedDict):
+    default_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve when this environment is enabled and no rules match.
+    """
+    disabled_variant_id: pulumi.Input[_builtins.str]
+    """
+    The variant to serve while this environment is disabled or paused.
+    """
+    enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the flag should actively evaluate in this environment.
+    """
+
+@pulumi.input_type
+class FeatureFlagConfigProductionArgs:
+    def __init__(__self__, *,
+                 default_variant_id: pulumi.Input[_builtins.str],
+                 disabled_variant_id: pulumi.Input[_builtins.str],
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] default_variant_id: The variant to serve when this environment is enabled and no rules match.
+        :param pulumi.Input[_builtins.str] disabled_variant_id: The variant to serve while this environment is disabled or paused.
+        :param pulumi.Input[_builtins.bool] enabled: Whether the flag should actively evaluate in this environment.
+        """
+        pulumi.set(__self__, "default_variant_id", default_variant_id)
+        pulumi.set(__self__, "disabled_variant_id", disabled_variant_id)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultVariantId")
+    def default_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve when this environment is enabled and no rules match.
+        """
+        return pulumi.get(self, "default_variant_id")
+
+    @default_variant_id.setter
+    def default_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "default_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disabledVariantId")
+    def disabled_variant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The variant to serve while this environment is disabled or paused.
+        """
+        return pulumi.get(self, "disabled_variant_id")
+
+    @disabled_variant_id.setter
+    def disabled_variant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "disabled_variant_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the flag should actively evaluate in this environment.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class FeatureFlagDefinitionVariantArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    The stable variant identifier referenced by flag configuration.
+    """
+    description: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human-readable description for the variant.
+    """
+    label: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human-readable label for the variant.
+    """
+    value_bool: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    The boolean value for this variant. Use this when `kind = "boolean"`.
+    """
+    value_number: NotRequired[pulumi.Input[_builtins.float]]
+    """
+    The numeric value for this variant. Use this when `kind = "number"`.
+    """
+    value_string: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The string value for this variant. Use this when `kind = "string"`.
+    """
+
+@pulumi.input_type
+class FeatureFlagDefinitionVariantArgs:
+    def __init__(__self__, *,
+                 id: pulumi.Input[_builtins.str],
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
+                 label: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_bool: Optional[pulumi.Input[_builtins.bool]] = None,
+                 value_number: Optional[pulumi.Input[_builtins.float]] = None,
+                 value_string: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] id: The stable variant identifier referenced by flag configuration.
+        :param pulumi.Input[_builtins.str] description: A human-readable description for the variant.
+        :param pulumi.Input[_builtins.str] label: A human-readable label for the variant.
+        :param pulumi.Input[_builtins.bool] value_bool: The boolean value for this variant. Use this when `kind = "boolean"`.
+        :param pulumi.Input[_builtins.float] value_number: The numeric value for this variant. Use this when `kind = "number"`.
+        :param pulumi.Input[_builtins.str] value_string: The string value for this variant. Use this when `kind = "string"`.
+        """
+        pulumi.set(__self__, "id", id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+        if value_bool is not None:
+            pulumi.set(__self__, "value_bool", value_bool)
+        if value_number is not None:
+            pulumi.set(__self__, "value_number", value_number)
+        if value_string is not None:
+            pulumi.set(__self__, "value_string", value_string)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The stable variant identifier referenced by flag configuration.
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable description for the variant.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable label for the variant.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueBool")
+    def value_bool(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        The boolean value for this variant. Use this when `kind = "boolean"`.
+        """
+        return pulumi.get(self, "value_bool")
+
+    @value_bool.setter
+    def value_bool(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "value_bool", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueNumber")
+    def value_number(self) -> Optional[pulumi.Input[_builtins.float]]:
+        """
+        The numeric value for this variant. Use this when `kind = "number"`.
+        """
+        return pulumi.get(self, "value_number")
+
+    @value_number.setter
+    def value_number(self, value: Optional[pulumi.Input[_builtins.float]]):
+        pulumi.set(self, "value_number", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueString")
+    def value_string(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The string value for this variant. Use this when `kind = "string"`.
+        """
+        return pulumi.get(self, "value_string")
+
+    @value_string.setter
+    def value_string(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_string", value)
+
+
+class FeatureFlagSegmentExcludeArgsDict(TypedDict):
+    attribute: pulumi.Input[_builtins.str]
+    """
+    The entity attribute to match, for example `email`.
+    """
+    entity: pulumi.Input[_builtins.str]
+    """
+    The entity type to match, for example `user`.
+    """
+    values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    The exact values to include or exclude for this entity attribute.
+    """
+
+@pulumi.input_type
+class FeatureFlagSegmentExcludeArgs:
+    def __init__(__self__, *,
+                 attribute: pulumi.Input[_builtins.str],
+                 entity: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        """
+        :param pulumi.Input[_builtins.str] attribute: The entity attribute to match, for example `email`.
+        :param pulumi.Input[_builtins.str] entity: The entity type to match, for example `user`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity attribute to match, for example `email`.
+        """
+        return pulumi.get(self, "attribute")
+
+    @attribute.setter
+    def attribute(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "attribute", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity type to match, for example `user`.
+        """
+        return pulumi.get(self, "entity")
+
+    @entity.setter
+    def entity(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "entity", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "values", value)
+
+
+class FeatureFlagSegmentIncludeArgsDict(TypedDict):
+    attribute: pulumi.Input[_builtins.str]
+    """
+    The entity attribute to match, for example `email`.
+    """
+    entity: pulumi.Input[_builtins.str]
+    """
+    The entity type to match, for example `user`.
+    """
+    values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    The exact values to include or exclude for this entity attribute.
+    """
+
+@pulumi.input_type
+class FeatureFlagSegmentIncludeArgs:
+    def __init__(__self__, *,
+                 attribute: pulumi.Input[_builtins.str],
+                 entity: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        """
+        :param pulumi.Input[_builtins.str] attribute: The entity attribute to match, for example `email`.
+        :param pulumi.Input[_builtins.str] entity: The entity type to match, for example `user`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: The exact values to include or exclude for this entity attribute.
+        """
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "entity", entity)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity attribute to match, for example `email`.
+        """
+        return pulumi.get(self, "attribute")
+
+    @attribute.setter
+    def attribute(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "attribute", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def entity(self) -> pulumi.Input[_builtins.str]:
+        """
+        The entity type to match, for example `user`.
+        """
+        return pulumi.get(self, "entity")
+
+    @entity.setter
+    def entity(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "entity", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        The exact values to include or exclude for this entity attribute.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "values", value)
 
 
 class FirewallConfigIpRulesArgsDict(TypedDict):
@@ -1848,6 +2455,10 @@ class ProjectEnvironmentArgsDict(TypedDict):
     """
     The name of the Environment Variable.
     """
+    sensitive: pulumi.Input[_builtins.bool]
+    """
+    Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+    """
     value: pulumi.Input[_builtins.str]
     """
     The value of the Environment Variable.
@@ -1868,10 +2479,6 @@ class ProjectEnvironmentArgsDict(TypedDict):
     """
     The ID of the Environment Variable.
     """
-    sensitive: NotRequired[pulumi.Input[_builtins.bool]]
-    """
-    Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-    """
     targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
     The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
@@ -1881,24 +2488,25 @@ class ProjectEnvironmentArgsDict(TypedDict):
 class ProjectEnvironmentArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[_builtins.str],
+                 sensitive: pulumi.Input[_builtins.bool],
                  value: pulumi.Input[_builtins.str],
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  git_branch: Optional[pulumi.Input[_builtins.str]] = None,
                  id: Optional[pulumi.Input[_builtins.str]] = None,
-                 sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
+        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
         :param pulumi.Input[_builtins.str] value: The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[_builtins.str] id: The ID of the Environment Variable.
-        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -1908,8 +2516,6 @@ class ProjectEnvironmentArgs:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
-        if sensitive is not None:
-            pulumi.set(__self__, "sensitive", sensitive)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
 
@@ -1924,6 +2530,18 @@ class ProjectEnvironmentArgs:
     @key.setter
     def key(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def sensitive(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        """
+        return pulumi.get(self, "sensitive")
+
+    @sensitive.setter
+    def sensitive(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "sensitive", value)
 
     @_builtins.property
     @pulumi.getter
@@ -1984,18 +2602,6 @@ class ProjectEnvironmentArgs:
     @id.setter
     def id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "id", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-        """
-        return pulumi.get(self, "sensitive")
-
-    @sensitive.setter
-    def sensitive(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "sensitive", value)
 
     @_builtins.property
     @pulumi.getter
@@ -2015,6 +2621,10 @@ class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
     """
     The name of the Environment Variable.
     """
+    sensitive: pulumi.Input[_builtins.bool]
+    """
+    Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+    """
     value: pulumi.Input[_builtins.str]
     """
     The value of the Environment Variable.
@@ -2035,10 +2645,6 @@ class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
     """
     The ID of the Environment Variable.
     """
-    sensitive: NotRequired[pulumi.Input[_builtins.bool]]
-    """
-    Whether the Environment Variable is sensitive or not.
-    """
     targets: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
     The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
@@ -2048,24 +2654,25 @@ class ProjectEnvironmentVariablesVariableArgsDict(TypedDict):
 class ProjectEnvironmentVariablesVariableArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[_builtins.str],
+                 sensitive: pulumi.Input[_builtins.bool],
                  value: pulumi.Input[_builtins.str],
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  custom_environment_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  git_branch: Optional[pulumi.Input[_builtins.str]] = None,
                  id: Optional[pulumi.Input[_builtins.str]] = None,
-                 sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
+        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
         :param pulumi.Input[_builtins.str] value: The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[_builtins.str] id: The ID of the Environment Variable.
-        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive or not.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "value", value)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -2075,8 +2682,6 @@ class ProjectEnvironmentVariablesVariableArgs:
             pulumi.set(__self__, "git_branch", git_branch)
         if id is not None:
             pulumi.set(__self__, "id", id)
-        if sensitive is not None:
-            pulumi.set(__self__, "sensitive", sensitive)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
 
@@ -2091,6 +2696,18 @@ class ProjectEnvironmentVariablesVariableArgs:
     @key.setter
     def key(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def sensitive(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        """
+        return pulumi.get(self, "sensitive")
+
+    @sensitive.setter
+    def sensitive(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "sensitive", value)
 
     @_builtins.property
     @pulumi.getter
@@ -2151,18 +2768,6 @@ class ProjectEnvironmentVariablesVariableArgs:
     @id.setter
     def id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "id", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Whether the Environment Variable is sensitive or not.
-        """
-        return pulumi.get(self, "sensitive")
-
-    @sensitive.setter
-    def sensitive(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "sensitive", value)
 
     @_builtins.property
     @pulumi.getter
@@ -2225,9 +2830,17 @@ class ProjectGitCommentsArgs:
 
 
 class ProjectGitProviderOptionsArgsDict(TypedDict):
+    consolidated_git_commit_status: NotRequired[pulumi.Input['ProjectGitProviderOptionsConsolidatedGitCommitStatusArgsDict']]
+    """
+    **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+    """
     create_deployments: NotRequired[pulumi.Input[_builtins.bool]]
     """
     Whether to create deployments
+    """
+    git_commit_status: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
     """
     repository_dispatch_events: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -2241,20 +2854,40 @@ class ProjectGitProviderOptionsArgsDict(TypedDict):
 @pulumi.input_type
 class ProjectGitProviderOptionsArgs:
     def __init__(__self__, *,
+                 consolidated_git_commit_status: Optional[pulumi.Input['ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs']] = None,
                  create_deployments: Optional[pulumi.Input[_builtins.bool]] = None,
+                 git_commit_status: Optional[pulumi.Input[_builtins.bool]] = None,
                  repository_dispatch_events: Optional[pulumi.Input[_builtins.bool]] = None,
                  require_verified_commits: Optional[pulumi.Input[_builtins.bool]] = None):
         """
+        :param pulumi.Input['ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs'] consolidated_git_commit_status: **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
         :param pulumi.Input[_builtins.bool] create_deployments: Whether to create deployments
+        :param pulumi.Input[_builtins.bool] git_commit_status: Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
         :param pulumi.Input[_builtins.bool] repository_dispatch_events: Whether to enable repository dispatch events
         :param pulumi.Input[_builtins.bool] require_verified_commits: Whether to require verified commits
         """
+        if consolidated_git_commit_status is not None:
+            pulumi.set(__self__, "consolidated_git_commit_status", consolidated_git_commit_status)
         if create_deployments is not None:
             pulumi.set(__self__, "create_deployments", create_deployments)
+        if git_commit_status is not None:
+            pulumi.set(__self__, "git_commit_status", git_commit_status)
         if repository_dispatch_events is not None:
             pulumi.set(__self__, "repository_dispatch_events", repository_dispatch_events)
         if require_verified_commits is not None:
             pulumi.set(__self__, "require_verified_commits", require_verified_commits)
+
+    @_builtins.property
+    @pulumi.getter(name="consolidatedGitCommitStatus")
+    def consolidated_git_commit_status(self) -> Optional[pulumi.Input['ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs']]:
+        """
+        **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+        """
+        return pulumi.get(self, "consolidated_git_commit_status")
+
+    @consolidated_git_commit_status.setter
+    def consolidated_git_commit_status(self, value: Optional[pulumi.Input['ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs']]):
+        pulumi.set(self, "consolidated_git_commit_status", value)
 
     @_builtins.property
     @pulumi.getter(name="createDeployments")
@@ -2267,6 +2900,18 @@ class ProjectGitProviderOptionsArgs:
     @create_deployments.setter
     def create_deployments(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "create_deployments", value)
+
+    @_builtins.property
+    @pulumi.getter(name="gitCommitStatus")
+    def git_commit_status(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+        """
+        return pulumi.get(self, "git_commit_status")
+
+    @git_commit_status.setter
+    def git_commit_status(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "git_commit_status", value)
 
     @_builtins.property
     @pulumi.getter(name="repositoryDispatchEvents")
@@ -2291,6 +2936,53 @@ class ProjectGitProviderOptionsArgs:
     @require_verified_commits.setter
     def require_verified_commits(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "require_verified_commits", value)
+
+
+class ProjectGitProviderOptionsConsolidatedGitCommitStatusArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    **Beta:** Whether consolidated commit status is enabled.
+    """
+    propagate_failures: pulumi.Input[_builtins.bool]
+    """
+    **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+    """
+
+@pulumi.input_type
+class ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs:
+    def __init__(__self__, *,
+                 enabled: pulumi.Input[_builtins.bool],
+                 propagate_failures: pulumi.Input[_builtins.bool]):
+        """
+        :param pulumi.Input[_builtins.bool] enabled: **Beta:** Whether consolidated commit status is enabled.
+        :param pulumi.Input[_builtins.bool] propagate_failures: **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "propagate_failures", propagate_failures)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[_builtins.bool]:
+        """
+        **Beta:** Whether consolidated commit status is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="propagateFailures")
+    def propagate_failures(self) -> pulumi.Input[_builtins.bool]:
+        """
+        **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+        """
+        return pulumi.get(self, "propagate_failures")
+
+    @propagate_failures.setter
+    def propagate_failures(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "propagate_failures", value)
 
 
 class ProjectGitRepositoryArgsDict(TypedDict):
@@ -2824,6 +3516,485 @@ class ProjectRollingReleaseStageArgs:
         pulumi.set(self, "duration", value)
 
 
+class ProjectRoutePositionArgsDict(TypedDict):
+    placement: pulumi.Input[_builtins.str]
+    """
+    Where to place the rule. One of `start`, `end`, `before`, or `after`.
+    """
+    reference_route_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The existing route ID to place this rule before or after.
+    """
+
+@pulumi.input_type
+class ProjectRoutePositionArgs:
+    def __init__(__self__, *,
+                 placement: pulumi.Input[_builtins.str],
+                 reference_route_id: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] placement: Where to place the rule. One of `start`, `end`, `before`, or `after`.
+        :param pulumi.Input[_builtins.str] reference_route_id: The existing route ID to place this rule before or after.
+        """
+        pulumi.set(__self__, "placement", placement)
+        if reference_route_id is not None:
+            pulumi.set(__self__, "reference_route_id", reference_route_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def placement(self) -> pulumi.Input[_builtins.str]:
+        """
+        Where to place the rule. One of `start`, `end`, `before`, or `after`.
+        """
+        return pulumi.get(self, "placement")
+
+    @placement.setter
+    def placement(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "placement", value)
+
+    @_builtins.property
+    @pulumi.getter(name="referenceRouteId")
+    def reference_route_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The existing route ID to place this rule before or after.
+        """
+        return pulumi.get(self, "reference_route_id")
+
+    @reference_route_id.setter
+    def reference_route_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "reference_route_id", value)
+
+
+class ProjectRouteRouteArgsDict(TypedDict):
+    src: pulumi.Input[_builtins.str]
+    """
+    The source pattern to match.
+    """
+    case_sensitive: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the `src` matcher is case-sensitive.
+    """
+    dest: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The destination for rewrites or redirects.
+    """
+    has: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgsDict']]]]
+    """
+    Conditions that must be present for the rule to match.
+    """
+    headers: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    Headers to set for the matched request.
+    """
+    missings: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgsDict']]]]
+    """
+    Conditions that must be absent for the rule to match.
+    """
+    respect_origin_cache_control: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the rule should respect cache control headers from the origin.
+    """
+    status: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The HTTP status code to set for redirects or status-only rules.
+    """
+    transforms: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgsDict']]]]
+    """
+    Transforms applied to the request or response when the rule matches.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteArgs:
+    def __init__(__self__, *,
+                 src: pulumi.Input[_builtins.str],
+                 case_sensitive: Optional[pulumi.Input[_builtins.bool]] = None,
+                 dest: Optional[pulumi.Input[_builtins.str]] = None,
+                 has: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]]] = None,
+                 headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 missings: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]]] = None,
+                 respect_origin_cache_control: Optional[pulumi.Input[_builtins.bool]] = None,
+                 status: Optional[pulumi.Input[_builtins.int]] = None,
+                 transforms: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] src: The source pattern to match.
+        :param pulumi.Input[_builtins.bool] case_sensitive: Whether the `src` matcher is case-sensitive.
+        :param pulumi.Input[_builtins.str] dest: The destination for rewrites or redirects.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]] has: Conditions that must be present for the rule to match.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Headers to set for the matched request.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]] missings: Conditions that must be absent for the rule to match.
+        :param pulumi.Input[_builtins.bool] respect_origin_cache_control: Whether the rule should respect cache control headers from the origin.
+        :param pulumi.Input[_builtins.int] status: The HTTP status code to set for redirects or status-only rules.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]] transforms: Transforms applied to the request or response when the rule matches.
+        """
+        pulumi.set(__self__, "src", src)
+        if case_sensitive is not None:
+            pulumi.set(__self__, "case_sensitive", case_sensitive)
+        if dest is not None:
+            pulumi.set(__self__, "dest", dest)
+        if has is not None:
+            pulumi.set(__self__, "has", has)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if missings is not None:
+            pulumi.set(__self__, "missings", missings)
+        if respect_origin_cache_control is not None:
+            pulumi.set(__self__, "respect_origin_cache_control", respect_origin_cache_control)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if transforms is not None:
+            pulumi.set(__self__, "transforms", transforms)
+
+    @_builtins.property
+    @pulumi.getter
+    def src(self) -> pulumi.Input[_builtins.str]:
+        """
+        The source pattern to match.
+        """
+        return pulumi.get(self, "src")
+
+    @src.setter
+    def src(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "src", value)
+
+    @_builtins.property
+    @pulumi.getter(name="caseSensitive")
+    def case_sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the `src` matcher is case-sensitive.
+        """
+        return pulumi.get(self, "case_sensitive")
+
+    @case_sensitive.setter
+    def case_sensitive(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "case_sensitive", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def dest(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The destination for rewrites or redirects.
+        """
+        return pulumi.get(self, "dest")
+
+    @dest.setter
+    def dest(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "dest", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def has(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]]]:
+        """
+        Conditions that must be present for the rule to match.
+        """
+        return pulumi.get(self, "has")
+
+    @has.setter
+    def has(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteHaArgs']]]]):
+        pulumi.set(self, "has", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Headers to set for the matched request.
+        """
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "headers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def missings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]]]:
+        """
+        Conditions that must be absent for the rule to match.
+        """
+        return pulumi.get(self, "missings")
+
+    @missings.setter
+    def missings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteMissingArgs']]]]):
+        pulumi.set(self, "missings", value)
+
+    @_builtins.property
+    @pulumi.getter(name="respectOriginCacheControl")
+    def respect_origin_cache_control(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the rule should respect cache control headers from the origin.
+        """
+        return pulumi.get(self, "respect_origin_cache_control")
+
+    @respect_origin_cache_control.setter
+    def respect_origin_cache_control(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "respect_origin_cache_control", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The HTTP status code to set for redirects or status-only rules.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "status", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def transforms(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]]]:
+        """
+        Transforms applied to the request or response when the rule matches.
+        """
+        return pulumi.get(self, "transforms")
+
+    @transforms.setter
+    def transforms(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRouteRouteTransformArgs']]]]):
+        pulumi.set(self, "transforms", value)
+
+
+class ProjectRouteRouteHaArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    The condition type. One of `host`, `header`, `cookie`, or `query`.
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The key to match for `header`, `cookie`, or `query` conditions.
+    """
+    value: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The value to match.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteHaArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 key: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] type: The condition type. One of `host`, `header`, `cookie`, or `query`.
+        :param pulumi.Input[_builtins.str] key: The key to match for `header`, `cookie`, or `query` conditions.
+        :param pulumi.Input[_builtins.str] value: The value to match.
+        """
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The condition type. One of `host`, `header`, `cookie`, or `query`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The key to match for `header`, `cookie`, or `query` conditions.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The value to match.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class ProjectRouteRouteMissingArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    The condition type. One of `host`, `header`, `cookie`, or `query`.
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The key to match for `header`, `cookie`, or `query` conditions.
+    """
+    value: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The value to match.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteMissingArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 key: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] type: The condition type. One of `host`, `header`, `cookie`, or `query`.
+        :param pulumi.Input[_builtins.str] key: The key to match for `header`, `cookie`, or `query` conditions.
+        :param pulumi.Input[_builtins.str] value: The value to match.
+        """
+        pulumi.set(__self__, "type", type)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The condition type. One of `host`, `header`, `cookie`, or `query`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The key to match for `header`, `cookie`, or `query` conditions.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The value to match.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class ProjectRouteRouteTransformArgsDict(TypedDict):
+    op: pulumi.Input[_builtins.str]
+    """
+    The transform operation. One of `append`, `set`, or `delete`.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+    """
+    args: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+    """
+    envs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Environment names that gate this transform.
+    """
+    target: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+    """
+
+@pulumi.input_type
+class ProjectRouteRouteTransformArgs:
+    def __init__(__self__, *,
+                 op: pulumi.Input[_builtins.str],
+                 type: pulumi.Input[_builtins.str],
+                 args: Optional[pulumi.Input[_builtins.str]] = None,
+                 envs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 target: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] op: The transform operation. One of `append`, `set`, or `delete`.
+        :param pulumi.Input[_builtins.str] type: The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+        :param pulumi.Input[_builtins.str] args: A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] envs: Environment names that gate this transform.
+        :param pulumi.Input[_builtins.str] target: A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+        """
+        pulumi.set(__self__, "op", op)
+        pulumi.set(__self__, "type", type)
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if envs is not None:
+            pulumi.set(__self__, "envs", envs)
+        if target is not None:
+            pulumi.set(__self__, "target", target)
+
+    @_builtins.property
+    @pulumi.getter
+    def op(self) -> pulumi.Input[_builtins.str]:
+        """
+        The transform operation. One of `append`, `set`, or `delete`.
+        """
+        return pulumi.get(self, "op")
+
+    @op.setter
+    def op(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "op", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def args(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+        """
+        return pulumi.get(self, "args")
+
+    @args.setter
+    def args(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "args", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def envs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Environment names that gate this transform.
+        """
+        return pulumi.get(self, "envs")
+
+    @envs.setter
+    def envs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "envs", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+        """
+        return pulumi.get(self, "target")
+
+    @target.setter
+    def target(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "target", value)
+
+
 class ProjectTrustedIpsArgsDict(TypedDict):
     addresses: pulumi.Input[Sequence[pulumi.Input['ProjectTrustedIpsAddressArgsDict']]]
     """
@@ -2937,6 +4108,403 @@ class ProjectTrustedIpsAddressArgs:
     @note.setter
     def note(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "note", value)
+
+
+class ProjectTrustedSourcesArgsDict(TypedDict):
+    external_sources: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesExternalSourceArgsDict']]]]
+    """
+    External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+    """
+    projects: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectArgsDict']]]]
+    """
+    Vercel projects in the same team that can reach this project's protected deployments.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesArgs:
+    def __init__(__self__, *,
+                 external_sources: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesExternalSourceArgs']]]] = None,
+                 projects: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectArgs']]]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesExternalSourceArgs']]] external_sources: External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectArgs']]] projects: Vercel projects in the same team that can reach this project's protected deployments.
+        """
+        if external_sources is not None:
+            pulumi.set(__self__, "external_sources", external_sources)
+        if projects is not None:
+            pulumi.set(__self__, "projects", projects)
+
+    @_builtins.property
+    @pulumi.getter(name="externalSources")
+    def external_sources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesExternalSourceArgs']]]]:
+        """
+        External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        """
+        return pulumi.get(self, "external_sources")
+
+    @external_sources.setter
+    def external_sources(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesExternalSourceArgs']]]]):
+        pulumi.set(self, "external_sources", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def projects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectArgs']]]]:
+        """
+        Vercel projects in the same team that can reach this project's protected deployments.
+        """
+        return pulumi.get(self, "projects")
+
+    @projects.setter
+    def projects(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectArgs']]]]):
+        pulumi.set(self, "projects", value)
+
+
+class ProjectTrustedSourcesExternalSourceArgsDict(TypedDict):
+    claims: pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+    """
+    issuer: pulumi.Input[_builtins.str]
+    """
+    The OIDC issuer URL.
+    """
+    to: pulumi.Input['ProjectTrustedSourcesExternalSourceToArgsDict']
+    """
+    The target environments on this project that may be accessed.
+    """
+    label: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A label or description for the trusted external source entry.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesExternalSourceArgs:
+    def __init__(__self__, *,
+                 claims: pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]],
+                 issuer: pulumi.Input[_builtins.str],
+                 to: pulumi.Input['ProjectTrustedSourcesExternalSourceToArgs'],
+                 label: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]] claims: Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+        :param pulumi.Input[_builtins.str] issuer: The OIDC issuer URL.
+        :param pulumi.Input['ProjectTrustedSourcesExternalSourceToArgs'] to: The target environments on this project that may be accessed.
+        :param pulumi.Input[_builtins.str] label: A label or description for the trusted external source entry.
+        """
+        pulumi.set(__self__, "claims", claims)
+        pulumi.set(__self__, "issuer", issuer)
+        pulumi.set(__self__, "to", to)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def claims(self) -> pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]:
+        """
+        Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+        """
+        return pulumi.get(self, "claims")
+
+    @claims.setter
+    def claims(self, value: pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]):
+        pulumi.set(self, "claims", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def issuer(self) -> pulumi.Input[_builtins.str]:
+        """
+        The OIDC issuer URL.
+        """
+        return pulumi.get(self, "issuer")
+
+    @issuer.setter
+    def issuer(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "issuer", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> pulumi.Input['ProjectTrustedSourcesExternalSourceToArgs']:
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+    @to.setter
+    def to(self, value: pulumi.Input['ProjectTrustedSourcesExternalSourceToArgs']):
+        pulumi.set(self, "to", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A label or description for the trusted external source entry.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+
+class ProjectTrustedSourcesExternalSourceToArgsDict(TypedDict):
+    preset: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Named environment preset. Currently only `all-custom` is supported.
+    """
+    slugs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesExternalSourceToArgs:
+    def __init__(__self__, *,
+                 preset: Optional[pulumi.Input[_builtins.str]] = None,
+                 slugs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] preset: Named environment preset. Currently only `all-custom` is supported.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        if preset is not None:
+            pulumi.set(__self__, "preset", preset)
+        if slugs is not None:
+            pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @preset.setter
+    def preset(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "preset", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+    @slugs.setter
+    def slugs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "slugs", value)
+
+
+class ProjectTrustedSourcesProjectArgsDict(TypedDict):
+    project_id: pulumi.Input[_builtins.str]
+    """
+    The trusted Vercel project ID.
+    """
+    custom_allows: NotRequired[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectCustomAllowArgsDict']]]]
+    """
+    Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+    """
+    label: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A label or description for the trusted project.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesProjectArgs:
+    def __init__(__self__, *,
+                 project_id: pulumi.Input[_builtins.str],
+                 custom_allows: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectCustomAllowArgs']]]] = None,
+                 label: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] project_id: The trusted Vercel project ID.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectCustomAllowArgs']]] custom_allows: Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+        :param pulumi.Input[_builtins.str] label: A label or description for the trusted project.
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        if custom_allows is not None:
+            pulumi.set(__self__, "custom_allows", custom_allows)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The trusted Vercel project ID.
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "project_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="customAllows")
+    def custom_allows(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectCustomAllowArgs']]]]:
+        """
+        Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+        """
+        return pulumi.get(self, "custom_allows")
+
+    @custom_allows.setter
+    def custom_allows(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectTrustedSourcesProjectCustomAllowArgs']]]]):
+        pulumi.set(self, "custom_allows", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A label or description for the trusted project.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+
+class ProjectTrustedSourcesProjectCustomAllowArgsDict(TypedDict):
+    from_: pulumi.Input['ProjectTrustedSourcesProjectCustomAllowFromArgsDict']
+    """
+    The source environments on the trusted project that are allowed to access the target environments.
+    """
+    to: pulumi.Input['ProjectTrustedSourcesProjectCustomAllowToArgsDict']
+    """
+    The target environments on this project that may be accessed.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesProjectCustomAllowArgs:
+    def __init__(__self__, *,
+                 from_: pulumi.Input['ProjectTrustedSourcesProjectCustomAllowFromArgs'],
+                 to: pulumi.Input['ProjectTrustedSourcesProjectCustomAllowToArgs']):
+        """
+        :param pulumi.Input['ProjectTrustedSourcesProjectCustomAllowFromArgs'] from_: The source environments on the trusted project that are allowed to access the target environments.
+        :param pulumi.Input['ProjectTrustedSourcesProjectCustomAllowToArgs'] to: The target environments on this project that may be accessed.
+        """
+        pulumi.set(__self__, "from_", from_)
+        pulumi.set(__self__, "to", to)
+
+    @_builtins.property
+    @pulumi.getter(name="from")
+    def from_(self) -> pulumi.Input['ProjectTrustedSourcesProjectCustomAllowFromArgs']:
+        """
+        The source environments on the trusted project that are allowed to access the target environments.
+        """
+        return pulumi.get(self, "from_")
+
+    @from_.setter
+    def from_(self, value: pulumi.Input['ProjectTrustedSourcesProjectCustomAllowFromArgs']):
+        pulumi.set(self, "from_", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> pulumi.Input['ProjectTrustedSourcesProjectCustomAllowToArgs']:
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+    @to.setter
+    def to(self, value: pulumi.Input['ProjectTrustedSourcesProjectCustomAllowToArgs']):
+        pulumi.set(self, "to", value)
+
+
+class ProjectTrustedSourcesProjectCustomAllowFromArgsDict(TypedDict):
+    preset: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Named environment preset. Currently only `all-custom` is supported.
+    """
+    slugs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesProjectCustomAllowFromArgs:
+    def __init__(__self__, *,
+                 preset: Optional[pulumi.Input[_builtins.str]] = None,
+                 slugs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] preset: Named environment preset. Currently only `all-custom` is supported.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        if preset is not None:
+            pulumi.set(__self__, "preset", preset)
+        if slugs is not None:
+            pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @preset.setter
+    def preset(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "preset", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+    @slugs.setter
+    def slugs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "slugs", value)
+
+
+class ProjectTrustedSourcesProjectCustomAllowToArgsDict(TypedDict):
+    preset: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Named environment preset. Currently only `all-custom` is supported.
+    """
+    slugs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+    """
+
+@pulumi.input_type
+class ProjectTrustedSourcesProjectCustomAllowToArgs:
+    def __init__(__self__, *,
+                 preset: Optional[pulumi.Input[_builtins.str]] = None,
+                 slugs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] preset: Named environment preset. Currently only `all-custom` is supported.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        if preset is not None:
+            pulumi.set(__self__, "preset", preset)
+        if slugs is not None:
+            pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @preset.setter
+    def preset(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "preset", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+    @slugs.setter
+    def slugs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "slugs", value)
 
 
 class ProjectVercelAuthenticationArgsDict(TypedDict):

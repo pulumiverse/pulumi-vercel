@@ -51,6 +51,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
     /// If importing into a personal account, or with a team configured on
     /// the provider, simply use the ProjectId and custom environment name.
     /// - ProjectId can be found in the project `Settings` tab in the Vercel UI.

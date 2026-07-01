@@ -5,6 +5,7 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumiverse.vercel.inputs.ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs;
 import java.lang.Boolean;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,6 +15,21 @@ import javax.annotation.Nullable;
 public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final ProjectGitProviderOptionsArgs Empty = new ProjectGitProviderOptionsArgs();
+
+    /**
+     * **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+     * 
+     */
+    @Import(name="consolidatedGitCommitStatus")
+    private @Nullable Output<ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs> consolidatedGitCommitStatus;
+
+    /**
+     * @return **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+     * 
+     */
+    public Optional<Output<ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs>> consolidatedGitCommitStatus() {
+        return Optional.ofNullable(this.consolidatedGitCommitStatus);
+    }
 
     /**
      * Whether to create deployments
@@ -28,6 +44,21 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
      */
     public Optional<Output<Boolean>> createDeployments() {
         return Optional.ofNullable(this.createDeployments);
+    }
+
+    /**
+     * Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+     * 
+     */
+    @Import(name="gitCommitStatus")
+    private @Nullable Output<Boolean> gitCommitStatus;
+
+    /**
+     * @return Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+     * 
+     */
+    public Optional<Output<Boolean>> gitCommitStatus() {
+        return Optional.ofNullable(this.gitCommitStatus);
     }
 
     /**
@@ -63,7 +94,9 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
     private ProjectGitProviderOptionsArgs() {}
 
     private ProjectGitProviderOptionsArgs(ProjectGitProviderOptionsArgs $) {
+        this.consolidatedGitCommitStatus = $.consolidatedGitCommitStatus;
         this.createDeployments = $.createDeployments;
+        this.gitCommitStatus = $.gitCommitStatus;
         this.repositoryDispatchEvents = $.repositoryDispatchEvents;
         this.requireVerifiedCommits = $.requireVerifiedCommits;
     }
@@ -87,6 +120,27 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
         }
 
         /**
+         * @param consolidatedGitCommitStatus **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder consolidatedGitCommitStatus(@Nullable Output<ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs> consolidatedGitCommitStatus) {
+            $.consolidatedGitCommitStatus = consolidatedGitCommitStatus;
+            return this;
+        }
+
+        /**
+         * @param consolidatedGitCommitStatus **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder consolidatedGitCommitStatus(ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs consolidatedGitCommitStatus) {
+            return consolidatedGitCommitStatus(Output.of(consolidatedGitCommitStatus));
+        }
+
+        /**
          * @param createDeployments Whether to create deployments
          * 
          * @return builder
@@ -105,6 +159,27 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
          */
         public Builder createDeployments(Boolean createDeployments) {
             return createDeployments(Output.of(createDeployments));
+        }
+
+        /**
+         * @param gitCommitStatus Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder gitCommitStatus(@Nullable Output<Boolean> gitCommitStatus) {
+            $.gitCommitStatus = gitCommitStatus;
+            return this;
+        }
+
+        /**
+         * @param gitCommitStatus Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder gitCommitStatus(Boolean gitCommitStatus) {
+            return gitCommitStatus(Output.of(gitCommitStatus));
         }
 
         /**

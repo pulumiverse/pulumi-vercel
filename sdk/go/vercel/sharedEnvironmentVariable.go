@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel/internal"
 )
 
 // Provides a Shared Environment Variable resource.
@@ -17,6 +17,8 @@ import (
 // A Shared Environment Variable resource defines an Environment Variable that can be shared between multiple Vercel Projects.
 //
 // For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
+//
+// > **Note:** Starting in provider version `4.8.0`, Shared Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
 //
 // > **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 //
@@ -28,7 +30,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
 //
 // )
 //
@@ -44,15 +46,31 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			// A shared environment variable that will be created
-//			// and associated with the "example" project.
+//			// Shared environment variables must explicitly set `sensitive`.
 //			_, err = vercel.NewSharedEnvironmentVariable(ctx, "example", &vercel.SharedEnvironmentVariableArgs{
 //				Key:   pulumi.String("EXAMPLE"),
 //				Value: pulumi.String("some_value"),
 //				Targets: pulumi.StringArray{
 //					pulumi.String("production"),
 //				},
-//				Comment: pulumi.String("an example shared variable"),
+//				Sensitive: pulumi.Bool(true),
+//				Comment:   pulumi.String("an example shared variable"),
+//				ProjectIds: pulumi.StringArray{
+//					example.ID(),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Shared environment variables targeting `development` must explicitly set `sensitive = false`.
+//			_, err = vercel.NewSharedEnvironmentVariable(ctx, "example_development", &vercel.SharedEnvironmentVariableArgs{
+//				Key:   pulumi.String("EXAMPLE_DEVELOPMENT"),
+//				Value: pulumi.String("some_development_value"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("development"),
+//				},
+//				Sensitive: pulumi.Bool(false),
+//				Comment:   pulumi.String("available during local development"),
 //				ProjectIds: pulumi.StringArray{
 //					example.ID(),
 //				},
@@ -67,6 +85,8 @@ import (
 // ```
 //
 // ## Import
+//
+// The `pulumi import` command can be used, for example:
 //
 // You can import via the teamId and environment variable id.
 // - teamId can be found in the team `settings` tab in the Vercel UI.
@@ -88,7 +108,7 @@ type SharedEnvironmentVariable struct {
 	Key pulumi.StringOutput `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectIds pulumi.StringArrayOutput `pulumi:"projectIds"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
 	Sensitive pulumi.BoolOutput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
@@ -113,6 +133,9 @@ func NewSharedEnvironmentVariable(ctx *pulumi.Context,
 	}
 	if args.ProjectIds == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectIds'")
+	}
+	if args.Sensitive == nil {
+		return nil, errors.New("invalid value for required argument 'Sensitive'")
 	}
 	if args.Value != nil {
 		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringPtrInput)
@@ -156,7 +179,7 @@ type sharedEnvironmentVariableState struct {
 	Key *string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectIds []string `pulumi:"projectIds"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
 	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
@@ -178,7 +201,7 @@ type SharedEnvironmentVariableState struct {
 	Key pulumi.StringPtrInput
 	// The ID of the Vercel project.
 	ProjectIds pulumi.StringArrayInput
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
 	Sensitive pulumi.BoolPtrInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput
@@ -204,8 +227,8 @@ type sharedEnvironmentVariableArgs struct {
 	Key string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectIds []string `pulumi:"projectIds"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-	Sensitive *bool `pulumi:"sensitive"`
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets []string `pulumi:"targets"`
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -227,8 +250,8 @@ type SharedEnvironmentVariableArgs struct {
 	Key pulumi.StringInput
 	// The ID of the Vercel project.
 	ProjectIds pulumi.StringArrayInput
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-	Sensitive pulumi.BoolPtrInput
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	Sensitive pulumi.BoolInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
 	Targets pulumi.StringArrayInput
 	// The ID of the Vercel team. Shared environment variables require a team.
@@ -347,7 +370,7 @@ func (o SharedEnvironmentVariableOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringArrayOutput { return v.ProjectIds }).(pulumi.StringArrayOutput)
 }
 
-// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
 func (o SharedEnvironmentVariableOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.BoolOutput { return v.Sensitive }).(pulumi.BoolOutput)
 }

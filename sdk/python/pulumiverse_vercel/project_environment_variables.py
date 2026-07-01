@@ -150,6 +150,8 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
         > Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 
+        > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+
         ## Example Usage
 
         ```python
@@ -163,7 +165,7 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                 "repo": "vercel/some-repo",
             })
         example_project_environment_variables = vercel.ProjectEnvironmentVariables("example",
-            project_id=test["id"],
+            project_id=example.id,
             variables=[
                 {
                     "key": "SOME_VARIABLE",
@@ -172,18 +174,20 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                         "production",
                         "preview",
                     ],
+                    "sensitive": True,
                 },
                 {
                     "key": "ANOTHER_VARIABLE",
                     "value": "another_value",
                     "git_branch": "staging",
                     "target": ["preview"],
+                    "sensitive": True,
                 },
                 {
-                    "key": "SENSITIVE_VARIABLE",
-                    "value": "sensitive_value",
-                    "target": ["production"],
-                    "sensitive": True,
+                    "key": "DEVELOPMENT_VARIABLE",
+                    "value": "development_value",
+                    "target": ["development"],
+                    "sensitive": False,
                 },
             ])
         ```
@@ -211,6 +215,8 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
         > Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the `environment` field.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 
+        > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+
         ## Example Usage
 
         ```python
@@ -224,7 +230,7 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                 "repo": "vercel/some-repo",
             })
         example_project_environment_variables = vercel.ProjectEnvironmentVariables("example",
-            project_id=test["id"],
+            project_id=example.id,
             variables=[
                 {
                     "key": "SOME_VARIABLE",
@@ -233,18 +239,20 @@ class ProjectEnvironmentVariables(pulumi.CustomResource):
                         "production",
                         "preview",
                     ],
+                    "sensitive": True,
                 },
                 {
                     "key": "ANOTHER_VARIABLE",
                     "value": "another_value",
                     "git_branch": "staging",
                     "target": ["preview"],
+                    "sensitive": True,
                 },
                 {
-                    "key": "SENSITIVE_VARIABLE",
-                    "value": "sensitive_value",
-                    "target": ["production"],
-                    "sensitive": True,
+                    "key": "DEVELOPMENT_VARIABLE",
+                    "value": "development_value",
+                    "target": ["development"],
+                    "sensitive": False,
                 },
             ])
         ```

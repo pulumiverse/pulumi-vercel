@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel/internal"
 )
 
 // Provides an Edge Config Token resource.
@@ -26,7 +26,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
 //
 // )
 //
@@ -56,10 +56,10 @@ import (
 //				Targets: pulumi.StringArray{
 //					pulumi.String("production"),
 //					pulumi.String("preview"),
-//					pulumi.String("development"),
 //				},
-//				Key:   pulumi.String("EDGE_CONFIG"),
-//				Value: exampleEdgeConfigToken.ConnectionString,
+//				Sensitive: pulumi.Bool(true),
+//				Key:       pulumi.String("EDGE_CONFIG"),
+//				Value:     exampleEdgeConfigToken.ConnectionString,
 //			})
 //			if err != nil {
 //				return err
@@ -71,6 +71,8 @@ import (
 // ```
 //
 // ## Import
+//
+// The `pulumi import` command can be used, for example:
 //
 // If importing into a personal account, or with a team configured on
 // the provider, simply use the edge config id and token value.

@@ -68,8 +68,8 @@ import javax.annotation.Nullable;
  *             .projectId(exampleProject.id())
  *             .targets(            
  *                 "production",
- *                 "preview",
- *                 "development")
+ *                 "preview")
+ *             .sensitive(true)
  *             .key("EDGE_CONFIG")
  *             .value(exampleEdgeConfigToken.connectionString())
  *             .build());
@@ -80,6 +80,8 @@ import javax.annotation.Nullable;
  * </pre>
  * 
  * ## Import
+ * 
+ * The `pulumi import` command can be used, for example:
  * 
  * If importing into a personal account, or with a team configured on
  * the provider, simply use the edge config id and token value.

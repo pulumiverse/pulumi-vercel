@@ -94,18 +94,18 @@ public final class ProjectEnvironmentVariablesVariableArgs extends com.pulumi.re
     }
 
     /**
-     * Whether the Environment Variable is sensitive or not.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
-    @Import(name="sensitive")
-    private @Nullable Output<Boolean> sensitive;
+    @Import(name="sensitive", required=true)
+    private Output<Boolean> sensitive;
 
     /**
-     * @return Whether the Environment Variable is sensitive or not.
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
-    public Optional<Output<Boolean>> sensitive() {
-        return Optional.ofNullable(this.sensitive);
+    public Output<Boolean> sensitive() {
+        return this.sensitive;
     }
 
     /**
@@ -285,18 +285,18 @@ public final class ProjectEnvironmentVariablesVariableArgs extends com.pulumi.re
         }
 
         /**
-         * @param sensitive Whether the Environment Variable is sensitive or not.
+         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
          * 
          * @return builder
          * 
          */
-        public Builder sensitive(@Nullable Output<Boolean> sensitive) {
+        public Builder sensitive(Output<Boolean> sensitive) {
             $.sensitive = sensitive;
             return this;
         }
 
         /**
-         * @param sensitive Whether the Environment Variable is sensitive or not.
+         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
          * 
          * @return builder
          * 
@@ -360,6 +360,9 @@ public final class ProjectEnvironmentVariablesVariableArgs extends com.pulumi.re
         public ProjectEnvironmentVariablesVariableArgs build() {
             if ($.key == null) {
                 throw new MissingRequiredPropertyException("ProjectEnvironmentVariablesVariableArgs", "key");
+            }
+            if ($.sensitive == null) {
+                throw new MissingRequiredPropertyException("ProjectEnvironmentVariablesVariableArgs", "sensitive");
             }
             if ($.value == null) {
                 throw new MissingRequiredPropertyException("ProjectEnvironmentVariablesVariableArgs", "value");

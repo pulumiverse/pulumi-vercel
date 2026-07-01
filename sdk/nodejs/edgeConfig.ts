@@ -26,14 +26,16 @@ import * as utilities from "./utilities";
  *     targets: [
  *         "production",
  *         "preview",
- *         "development",
  *     ],
+ *     sensitive: true,
  *     key: "EDGE_CONFIG",
  *     value: exampleEdgeConfigToken.connectionString,
  * });
  * ```
  *
  * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
  *
  * If importing into a personal account, or with a team configured on
  * the provider, simply use the edge config id.

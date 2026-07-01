@@ -50,10 +50,10 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `Development` must set this to `False`. Variables targeting `Preview`, `Production`, or custom environments may have to set this to `True`. A variable cannot target `Development` together with `Preview`, `Production`, or custom environments while that team policy is enabled.
         /// </summary>
-        [Input("sensitive")]
-        public Input<bool>? Sensitive { get; set; }
+        [Input("sensitive", required: true)]
+        public Input<bool> Sensitive { get; set; } = null!;
 
         [Input("targets")]
         private InputList<string>? _targets;

@@ -8,10 +8,143 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel/internal"
 )
 
 var _ = internal.GetEnvOrDefault
+
+type BulkRedirectsRedirect struct {
+	// Whether the source match is case-sensitive.
+	CaseSensitive *bool `pulumi:"caseSensitive"`
+	// The destination pathname or URL to redirect to.
+	Destination string `pulumi:"destination"`
+	// Whether query parameters are considered when matching the redirect.
+	Query *bool `pulumi:"query"`
+	// The source pathname to match.
+	Source string `pulumi:"source"`
+	// The HTTP status code for the redirect.
+	StatusCode int `pulumi:"statusCode"`
+}
+
+// BulkRedirectsRedirectInput is an input type that accepts BulkRedirectsRedirectArgs and BulkRedirectsRedirectOutput values.
+// You can construct a concrete instance of `BulkRedirectsRedirectInput` via:
+//
+//	BulkRedirectsRedirectArgs{...}
+type BulkRedirectsRedirectInput interface {
+	pulumi.Input
+
+	ToBulkRedirectsRedirectOutput() BulkRedirectsRedirectOutput
+	ToBulkRedirectsRedirectOutputWithContext(context.Context) BulkRedirectsRedirectOutput
+}
+
+type BulkRedirectsRedirectArgs struct {
+	// Whether the source match is case-sensitive.
+	CaseSensitive pulumi.BoolPtrInput `pulumi:"caseSensitive"`
+	// The destination pathname or URL to redirect to.
+	Destination pulumi.StringInput `pulumi:"destination"`
+	// Whether query parameters are considered when matching the redirect.
+	Query pulumi.BoolPtrInput `pulumi:"query"`
+	// The source pathname to match.
+	Source pulumi.StringInput `pulumi:"source"`
+	// The HTTP status code for the redirect.
+	StatusCode pulumi.IntInput `pulumi:"statusCode"`
+}
+
+func (BulkRedirectsRedirectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (i BulkRedirectsRedirectArgs) ToBulkRedirectsRedirectOutput() BulkRedirectsRedirectOutput {
+	return i.ToBulkRedirectsRedirectOutputWithContext(context.Background())
+}
+
+func (i BulkRedirectsRedirectArgs) ToBulkRedirectsRedirectOutputWithContext(ctx context.Context) BulkRedirectsRedirectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BulkRedirectsRedirectOutput)
+}
+
+// BulkRedirectsRedirectArrayInput is an input type that accepts BulkRedirectsRedirectArray and BulkRedirectsRedirectArrayOutput values.
+// You can construct a concrete instance of `BulkRedirectsRedirectArrayInput` via:
+//
+//	BulkRedirectsRedirectArray{ BulkRedirectsRedirectArgs{...} }
+type BulkRedirectsRedirectArrayInput interface {
+	pulumi.Input
+
+	ToBulkRedirectsRedirectArrayOutput() BulkRedirectsRedirectArrayOutput
+	ToBulkRedirectsRedirectArrayOutputWithContext(context.Context) BulkRedirectsRedirectArrayOutput
+}
+
+type BulkRedirectsRedirectArray []BulkRedirectsRedirectInput
+
+func (BulkRedirectsRedirectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (i BulkRedirectsRedirectArray) ToBulkRedirectsRedirectArrayOutput() BulkRedirectsRedirectArrayOutput {
+	return i.ToBulkRedirectsRedirectArrayOutputWithContext(context.Background())
+}
+
+func (i BulkRedirectsRedirectArray) ToBulkRedirectsRedirectArrayOutputWithContext(ctx context.Context) BulkRedirectsRedirectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BulkRedirectsRedirectArrayOutput)
+}
+
+type BulkRedirectsRedirectOutput struct{ *pulumi.OutputState }
+
+func (BulkRedirectsRedirectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (o BulkRedirectsRedirectOutput) ToBulkRedirectsRedirectOutput() BulkRedirectsRedirectOutput {
+	return o
+}
+
+func (o BulkRedirectsRedirectOutput) ToBulkRedirectsRedirectOutputWithContext(ctx context.Context) BulkRedirectsRedirectOutput {
+	return o
+}
+
+// Whether the source match is case-sensitive.
+func (o BulkRedirectsRedirectOutput) CaseSensitive() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v BulkRedirectsRedirect) *bool { return v.CaseSensitive }).(pulumi.BoolPtrOutput)
+}
+
+// The destination pathname or URL to redirect to.
+func (o BulkRedirectsRedirectOutput) Destination() pulumi.StringOutput {
+	return o.ApplyT(func(v BulkRedirectsRedirect) string { return v.Destination }).(pulumi.StringOutput)
+}
+
+// Whether query parameters are considered when matching the redirect.
+func (o BulkRedirectsRedirectOutput) Query() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v BulkRedirectsRedirect) *bool { return v.Query }).(pulumi.BoolPtrOutput)
+}
+
+// The source pathname to match.
+func (o BulkRedirectsRedirectOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v BulkRedirectsRedirect) string { return v.Source }).(pulumi.StringOutput)
+}
+
+// The HTTP status code for the redirect.
+func (o BulkRedirectsRedirectOutput) StatusCode() pulumi.IntOutput {
+	return o.ApplyT(func(v BulkRedirectsRedirect) int { return v.StatusCode }).(pulumi.IntOutput)
+}
+
+type BulkRedirectsRedirectArrayOutput struct{ *pulumi.OutputState }
+
+func (BulkRedirectsRedirectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (o BulkRedirectsRedirectArrayOutput) ToBulkRedirectsRedirectArrayOutput() BulkRedirectsRedirectArrayOutput {
+	return o
+}
+
+func (o BulkRedirectsRedirectArrayOutput) ToBulkRedirectsRedirectArrayOutputWithContext(ctx context.Context) BulkRedirectsRedirectArrayOutput {
+	return o
+}
+
+func (o BulkRedirectsRedirectArrayOutput) Index(i pulumi.IntInput) BulkRedirectsRedirectOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BulkRedirectsRedirect {
+		return vs[0].([]BulkRedirectsRedirect)[vs[1].(int)]
+	}).(BulkRedirectsRedirectOutput)
+}
 
 type CustomEnvironmentBranchTracking struct {
 	// The pattern of the branch name to track.
@@ -574,6 +707,903 @@ func (o DnsRecordSrvPtrOutput) Weight() pulumi.IntPtrOutput {
 		}
 		return &v.Weight
 	}).(pulumi.IntPtrOutput)
+}
+
+type FeatureFlagConfigDevelopment struct {
+	// The variant to serve when this environment is enabled and no rules match.
+	DefaultVariantId string `pulumi:"defaultVariantId"`
+	// The variant to serve while this environment is disabled or paused.
+	DisabledVariantId string `pulumi:"disabledVariantId"`
+	// Whether the flag should actively evaluate in this environment.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// FeatureFlagConfigDevelopmentInput is an input type that accepts FeatureFlagConfigDevelopmentArgs and FeatureFlagConfigDevelopmentOutput values.
+// You can construct a concrete instance of `FeatureFlagConfigDevelopmentInput` via:
+//
+//	FeatureFlagConfigDevelopmentArgs{...}
+type FeatureFlagConfigDevelopmentInput interface {
+	pulumi.Input
+
+	ToFeatureFlagConfigDevelopmentOutput() FeatureFlagConfigDevelopmentOutput
+	ToFeatureFlagConfigDevelopmentOutputWithContext(context.Context) FeatureFlagConfigDevelopmentOutput
+}
+
+type FeatureFlagConfigDevelopmentArgs struct {
+	// The variant to serve when this environment is enabled and no rules match.
+	DefaultVariantId pulumi.StringInput `pulumi:"defaultVariantId"`
+	// The variant to serve while this environment is disabled or paused.
+	DisabledVariantId pulumi.StringInput `pulumi:"disabledVariantId"`
+	// Whether the flag should actively evaluate in this environment.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (FeatureFlagConfigDevelopmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagConfigDevelopment)(nil)).Elem()
+}
+
+func (i FeatureFlagConfigDevelopmentArgs) ToFeatureFlagConfigDevelopmentOutput() FeatureFlagConfigDevelopmentOutput {
+	return i.ToFeatureFlagConfigDevelopmentOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagConfigDevelopmentArgs) ToFeatureFlagConfigDevelopmentOutputWithContext(ctx context.Context) FeatureFlagConfigDevelopmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigDevelopmentOutput)
+}
+
+func (i FeatureFlagConfigDevelopmentArgs) ToFeatureFlagConfigDevelopmentPtrOutput() FeatureFlagConfigDevelopmentPtrOutput {
+	return i.ToFeatureFlagConfigDevelopmentPtrOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagConfigDevelopmentArgs) ToFeatureFlagConfigDevelopmentPtrOutputWithContext(ctx context.Context) FeatureFlagConfigDevelopmentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigDevelopmentOutput).ToFeatureFlagConfigDevelopmentPtrOutputWithContext(ctx)
+}
+
+// FeatureFlagConfigDevelopmentPtrInput is an input type that accepts FeatureFlagConfigDevelopmentArgs, FeatureFlagConfigDevelopmentPtr and FeatureFlagConfigDevelopmentPtrOutput values.
+// You can construct a concrete instance of `FeatureFlagConfigDevelopmentPtrInput` via:
+//
+//	        FeatureFlagConfigDevelopmentArgs{...}
+//
+//	or:
+//
+//	        nil
+type FeatureFlagConfigDevelopmentPtrInput interface {
+	pulumi.Input
+
+	ToFeatureFlagConfigDevelopmentPtrOutput() FeatureFlagConfigDevelopmentPtrOutput
+	ToFeatureFlagConfigDevelopmentPtrOutputWithContext(context.Context) FeatureFlagConfigDevelopmentPtrOutput
+}
+
+type featureFlagConfigDevelopmentPtrType FeatureFlagConfigDevelopmentArgs
+
+func FeatureFlagConfigDevelopmentPtr(v *FeatureFlagConfigDevelopmentArgs) FeatureFlagConfigDevelopmentPtrInput {
+	return (*featureFlagConfigDevelopmentPtrType)(v)
+}
+
+func (*featureFlagConfigDevelopmentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FeatureFlagConfigDevelopment)(nil)).Elem()
+}
+
+func (i *featureFlagConfigDevelopmentPtrType) ToFeatureFlagConfigDevelopmentPtrOutput() FeatureFlagConfigDevelopmentPtrOutput {
+	return i.ToFeatureFlagConfigDevelopmentPtrOutputWithContext(context.Background())
+}
+
+func (i *featureFlagConfigDevelopmentPtrType) ToFeatureFlagConfigDevelopmentPtrOutputWithContext(ctx context.Context) FeatureFlagConfigDevelopmentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigDevelopmentPtrOutput)
+}
+
+type FeatureFlagConfigDevelopmentOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagConfigDevelopmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagConfigDevelopment)(nil)).Elem()
+}
+
+func (o FeatureFlagConfigDevelopmentOutput) ToFeatureFlagConfigDevelopmentOutput() FeatureFlagConfigDevelopmentOutput {
+	return o
+}
+
+func (o FeatureFlagConfigDevelopmentOutput) ToFeatureFlagConfigDevelopmentOutputWithContext(ctx context.Context) FeatureFlagConfigDevelopmentOutput {
+	return o
+}
+
+func (o FeatureFlagConfigDevelopmentOutput) ToFeatureFlagConfigDevelopmentPtrOutput() FeatureFlagConfigDevelopmentPtrOutput {
+	return o.ToFeatureFlagConfigDevelopmentPtrOutputWithContext(context.Background())
+}
+
+func (o FeatureFlagConfigDevelopmentOutput) ToFeatureFlagConfigDevelopmentPtrOutputWithContext(ctx context.Context) FeatureFlagConfigDevelopmentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FeatureFlagConfigDevelopment) *FeatureFlagConfigDevelopment {
+		return &v
+	}).(FeatureFlagConfigDevelopmentPtrOutput)
+}
+
+// The variant to serve when this environment is enabled and no rules match.
+func (o FeatureFlagConfigDevelopmentOutput) DefaultVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagConfigDevelopment) string { return v.DefaultVariantId }).(pulumi.StringOutput)
+}
+
+// The variant to serve while this environment is disabled or paused.
+func (o FeatureFlagConfigDevelopmentOutput) DisabledVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagConfigDevelopment) string { return v.DisabledVariantId }).(pulumi.StringOutput)
+}
+
+// Whether the flag should actively evaluate in this environment.
+func (o FeatureFlagConfigDevelopmentOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FeatureFlagConfigDevelopment) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type FeatureFlagConfigDevelopmentPtrOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagConfigDevelopmentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FeatureFlagConfigDevelopment)(nil)).Elem()
+}
+
+func (o FeatureFlagConfigDevelopmentPtrOutput) ToFeatureFlagConfigDevelopmentPtrOutput() FeatureFlagConfigDevelopmentPtrOutput {
+	return o
+}
+
+func (o FeatureFlagConfigDevelopmentPtrOutput) ToFeatureFlagConfigDevelopmentPtrOutputWithContext(ctx context.Context) FeatureFlagConfigDevelopmentPtrOutput {
+	return o
+}
+
+func (o FeatureFlagConfigDevelopmentPtrOutput) Elem() FeatureFlagConfigDevelopmentOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigDevelopment) FeatureFlagConfigDevelopment {
+		if v != nil {
+			return *v
+		}
+		var ret FeatureFlagConfigDevelopment
+		return ret
+	}).(FeatureFlagConfigDevelopmentOutput)
+}
+
+// The variant to serve when this environment is enabled and no rules match.
+func (o FeatureFlagConfigDevelopmentPtrOutput) DefaultVariantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigDevelopment) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DefaultVariantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The variant to serve while this environment is disabled or paused.
+func (o FeatureFlagConfigDevelopmentPtrOutput) DisabledVariantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigDevelopment) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DisabledVariantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the flag should actively evaluate in this environment.
+func (o FeatureFlagConfigDevelopmentPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigDevelopment) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FeatureFlagConfigPreview struct {
+	// The variant to serve when this environment is enabled and no rules match.
+	DefaultVariantId string `pulumi:"defaultVariantId"`
+	// The variant to serve while this environment is disabled or paused.
+	DisabledVariantId string `pulumi:"disabledVariantId"`
+	// Whether the flag should actively evaluate in this environment.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// FeatureFlagConfigPreviewInput is an input type that accepts FeatureFlagConfigPreviewArgs and FeatureFlagConfigPreviewOutput values.
+// You can construct a concrete instance of `FeatureFlagConfigPreviewInput` via:
+//
+//	FeatureFlagConfigPreviewArgs{...}
+type FeatureFlagConfigPreviewInput interface {
+	pulumi.Input
+
+	ToFeatureFlagConfigPreviewOutput() FeatureFlagConfigPreviewOutput
+	ToFeatureFlagConfigPreviewOutputWithContext(context.Context) FeatureFlagConfigPreviewOutput
+}
+
+type FeatureFlagConfigPreviewArgs struct {
+	// The variant to serve when this environment is enabled and no rules match.
+	DefaultVariantId pulumi.StringInput `pulumi:"defaultVariantId"`
+	// The variant to serve while this environment is disabled or paused.
+	DisabledVariantId pulumi.StringInput `pulumi:"disabledVariantId"`
+	// Whether the flag should actively evaluate in this environment.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (FeatureFlagConfigPreviewArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagConfigPreview)(nil)).Elem()
+}
+
+func (i FeatureFlagConfigPreviewArgs) ToFeatureFlagConfigPreviewOutput() FeatureFlagConfigPreviewOutput {
+	return i.ToFeatureFlagConfigPreviewOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagConfigPreviewArgs) ToFeatureFlagConfigPreviewOutputWithContext(ctx context.Context) FeatureFlagConfigPreviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigPreviewOutput)
+}
+
+func (i FeatureFlagConfigPreviewArgs) ToFeatureFlagConfigPreviewPtrOutput() FeatureFlagConfigPreviewPtrOutput {
+	return i.ToFeatureFlagConfigPreviewPtrOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagConfigPreviewArgs) ToFeatureFlagConfigPreviewPtrOutputWithContext(ctx context.Context) FeatureFlagConfigPreviewPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigPreviewOutput).ToFeatureFlagConfigPreviewPtrOutputWithContext(ctx)
+}
+
+// FeatureFlagConfigPreviewPtrInput is an input type that accepts FeatureFlagConfigPreviewArgs, FeatureFlagConfigPreviewPtr and FeatureFlagConfigPreviewPtrOutput values.
+// You can construct a concrete instance of `FeatureFlagConfigPreviewPtrInput` via:
+//
+//	        FeatureFlagConfigPreviewArgs{...}
+//
+//	or:
+//
+//	        nil
+type FeatureFlagConfigPreviewPtrInput interface {
+	pulumi.Input
+
+	ToFeatureFlagConfigPreviewPtrOutput() FeatureFlagConfigPreviewPtrOutput
+	ToFeatureFlagConfigPreviewPtrOutputWithContext(context.Context) FeatureFlagConfigPreviewPtrOutput
+}
+
+type featureFlagConfigPreviewPtrType FeatureFlagConfigPreviewArgs
+
+func FeatureFlagConfigPreviewPtr(v *FeatureFlagConfigPreviewArgs) FeatureFlagConfigPreviewPtrInput {
+	return (*featureFlagConfigPreviewPtrType)(v)
+}
+
+func (*featureFlagConfigPreviewPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FeatureFlagConfigPreview)(nil)).Elem()
+}
+
+func (i *featureFlagConfigPreviewPtrType) ToFeatureFlagConfigPreviewPtrOutput() FeatureFlagConfigPreviewPtrOutput {
+	return i.ToFeatureFlagConfigPreviewPtrOutputWithContext(context.Background())
+}
+
+func (i *featureFlagConfigPreviewPtrType) ToFeatureFlagConfigPreviewPtrOutputWithContext(ctx context.Context) FeatureFlagConfigPreviewPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigPreviewPtrOutput)
+}
+
+type FeatureFlagConfigPreviewOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagConfigPreviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagConfigPreview)(nil)).Elem()
+}
+
+func (o FeatureFlagConfigPreviewOutput) ToFeatureFlagConfigPreviewOutput() FeatureFlagConfigPreviewOutput {
+	return o
+}
+
+func (o FeatureFlagConfigPreviewOutput) ToFeatureFlagConfigPreviewOutputWithContext(ctx context.Context) FeatureFlagConfigPreviewOutput {
+	return o
+}
+
+func (o FeatureFlagConfigPreviewOutput) ToFeatureFlagConfigPreviewPtrOutput() FeatureFlagConfigPreviewPtrOutput {
+	return o.ToFeatureFlagConfigPreviewPtrOutputWithContext(context.Background())
+}
+
+func (o FeatureFlagConfigPreviewOutput) ToFeatureFlagConfigPreviewPtrOutputWithContext(ctx context.Context) FeatureFlagConfigPreviewPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FeatureFlagConfigPreview) *FeatureFlagConfigPreview {
+		return &v
+	}).(FeatureFlagConfigPreviewPtrOutput)
+}
+
+// The variant to serve when this environment is enabled and no rules match.
+func (o FeatureFlagConfigPreviewOutput) DefaultVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagConfigPreview) string { return v.DefaultVariantId }).(pulumi.StringOutput)
+}
+
+// The variant to serve while this environment is disabled or paused.
+func (o FeatureFlagConfigPreviewOutput) DisabledVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagConfigPreview) string { return v.DisabledVariantId }).(pulumi.StringOutput)
+}
+
+// Whether the flag should actively evaluate in this environment.
+func (o FeatureFlagConfigPreviewOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FeatureFlagConfigPreview) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type FeatureFlagConfigPreviewPtrOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagConfigPreviewPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FeatureFlagConfigPreview)(nil)).Elem()
+}
+
+func (o FeatureFlagConfigPreviewPtrOutput) ToFeatureFlagConfigPreviewPtrOutput() FeatureFlagConfigPreviewPtrOutput {
+	return o
+}
+
+func (o FeatureFlagConfigPreviewPtrOutput) ToFeatureFlagConfigPreviewPtrOutputWithContext(ctx context.Context) FeatureFlagConfigPreviewPtrOutput {
+	return o
+}
+
+func (o FeatureFlagConfigPreviewPtrOutput) Elem() FeatureFlagConfigPreviewOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigPreview) FeatureFlagConfigPreview {
+		if v != nil {
+			return *v
+		}
+		var ret FeatureFlagConfigPreview
+		return ret
+	}).(FeatureFlagConfigPreviewOutput)
+}
+
+// The variant to serve when this environment is enabled and no rules match.
+func (o FeatureFlagConfigPreviewPtrOutput) DefaultVariantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigPreview) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DefaultVariantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The variant to serve while this environment is disabled or paused.
+func (o FeatureFlagConfigPreviewPtrOutput) DisabledVariantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigPreview) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DisabledVariantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the flag should actively evaluate in this environment.
+func (o FeatureFlagConfigPreviewPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigPreview) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FeatureFlagConfigProduction struct {
+	// The variant to serve when this environment is enabled and no rules match.
+	DefaultVariantId string `pulumi:"defaultVariantId"`
+	// The variant to serve while this environment is disabled or paused.
+	DisabledVariantId string `pulumi:"disabledVariantId"`
+	// Whether the flag should actively evaluate in this environment.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// FeatureFlagConfigProductionInput is an input type that accepts FeatureFlagConfigProductionArgs and FeatureFlagConfigProductionOutput values.
+// You can construct a concrete instance of `FeatureFlagConfigProductionInput` via:
+//
+//	FeatureFlagConfigProductionArgs{...}
+type FeatureFlagConfigProductionInput interface {
+	pulumi.Input
+
+	ToFeatureFlagConfigProductionOutput() FeatureFlagConfigProductionOutput
+	ToFeatureFlagConfigProductionOutputWithContext(context.Context) FeatureFlagConfigProductionOutput
+}
+
+type FeatureFlagConfigProductionArgs struct {
+	// The variant to serve when this environment is enabled and no rules match.
+	DefaultVariantId pulumi.StringInput `pulumi:"defaultVariantId"`
+	// The variant to serve while this environment is disabled or paused.
+	DisabledVariantId pulumi.StringInput `pulumi:"disabledVariantId"`
+	// Whether the flag should actively evaluate in this environment.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (FeatureFlagConfigProductionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagConfigProduction)(nil)).Elem()
+}
+
+func (i FeatureFlagConfigProductionArgs) ToFeatureFlagConfigProductionOutput() FeatureFlagConfigProductionOutput {
+	return i.ToFeatureFlagConfigProductionOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagConfigProductionArgs) ToFeatureFlagConfigProductionOutputWithContext(ctx context.Context) FeatureFlagConfigProductionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigProductionOutput)
+}
+
+func (i FeatureFlagConfigProductionArgs) ToFeatureFlagConfigProductionPtrOutput() FeatureFlagConfigProductionPtrOutput {
+	return i.ToFeatureFlagConfigProductionPtrOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagConfigProductionArgs) ToFeatureFlagConfigProductionPtrOutputWithContext(ctx context.Context) FeatureFlagConfigProductionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigProductionOutput).ToFeatureFlagConfigProductionPtrOutputWithContext(ctx)
+}
+
+// FeatureFlagConfigProductionPtrInput is an input type that accepts FeatureFlagConfigProductionArgs, FeatureFlagConfigProductionPtr and FeatureFlagConfigProductionPtrOutput values.
+// You can construct a concrete instance of `FeatureFlagConfigProductionPtrInput` via:
+//
+//	        FeatureFlagConfigProductionArgs{...}
+//
+//	or:
+//
+//	        nil
+type FeatureFlagConfigProductionPtrInput interface {
+	pulumi.Input
+
+	ToFeatureFlagConfigProductionPtrOutput() FeatureFlagConfigProductionPtrOutput
+	ToFeatureFlagConfigProductionPtrOutputWithContext(context.Context) FeatureFlagConfigProductionPtrOutput
+}
+
+type featureFlagConfigProductionPtrType FeatureFlagConfigProductionArgs
+
+func FeatureFlagConfigProductionPtr(v *FeatureFlagConfigProductionArgs) FeatureFlagConfigProductionPtrInput {
+	return (*featureFlagConfigProductionPtrType)(v)
+}
+
+func (*featureFlagConfigProductionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FeatureFlagConfigProduction)(nil)).Elem()
+}
+
+func (i *featureFlagConfigProductionPtrType) ToFeatureFlagConfigProductionPtrOutput() FeatureFlagConfigProductionPtrOutput {
+	return i.ToFeatureFlagConfigProductionPtrOutputWithContext(context.Background())
+}
+
+func (i *featureFlagConfigProductionPtrType) ToFeatureFlagConfigProductionPtrOutputWithContext(ctx context.Context) FeatureFlagConfigProductionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagConfigProductionPtrOutput)
+}
+
+type FeatureFlagConfigProductionOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagConfigProductionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagConfigProduction)(nil)).Elem()
+}
+
+func (o FeatureFlagConfigProductionOutput) ToFeatureFlagConfigProductionOutput() FeatureFlagConfigProductionOutput {
+	return o
+}
+
+func (o FeatureFlagConfigProductionOutput) ToFeatureFlagConfigProductionOutputWithContext(ctx context.Context) FeatureFlagConfigProductionOutput {
+	return o
+}
+
+func (o FeatureFlagConfigProductionOutput) ToFeatureFlagConfigProductionPtrOutput() FeatureFlagConfigProductionPtrOutput {
+	return o.ToFeatureFlagConfigProductionPtrOutputWithContext(context.Background())
+}
+
+func (o FeatureFlagConfigProductionOutput) ToFeatureFlagConfigProductionPtrOutputWithContext(ctx context.Context) FeatureFlagConfigProductionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FeatureFlagConfigProduction) *FeatureFlagConfigProduction {
+		return &v
+	}).(FeatureFlagConfigProductionPtrOutput)
+}
+
+// The variant to serve when this environment is enabled and no rules match.
+func (o FeatureFlagConfigProductionOutput) DefaultVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagConfigProduction) string { return v.DefaultVariantId }).(pulumi.StringOutput)
+}
+
+// The variant to serve while this environment is disabled or paused.
+func (o FeatureFlagConfigProductionOutput) DisabledVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagConfigProduction) string { return v.DisabledVariantId }).(pulumi.StringOutput)
+}
+
+// Whether the flag should actively evaluate in this environment.
+func (o FeatureFlagConfigProductionOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FeatureFlagConfigProduction) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type FeatureFlagConfigProductionPtrOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagConfigProductionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FeatureFlagConfigProduction)(nil)).Elem()
+}
+
+func (o FeatureFlagConfigProductionPtrOutput) ToFeatureFlagConfigProductionPtrOutput() FeatureFlagConfigProductionPtrOutput {
+	return o
+}
+
+func (o FeatureFlagConfigProductionPtrOutput) ToFeatureFlagConfigProductionPtrOutputWithContext(ctx context.Context) FeatureFlagConfigProductionPtrOutput {
+	return o
+}
+
+func (o FeatureFlagConfigProductionPtrOutput) Elem() FeatureFlagConfigProductionOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigProduction) FeatureFlagConfigProduction {
+		if v != nil {
+			return *v
+		}
+		var ret FeatureFlagConfigProduction
+		return ret
+	}).(FeatureFlagConfigProductionOutput)
+}
+
+// The variant to serve when this environment is enabled and no rules match.
+func (o FeatureFlagConfigProductionPtrOutput) DefaultVariantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigProduction) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DefaultVariantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The variant to serve while this environment is disabled or paused.
+func (o FeatureFlagConfigProductionPtrOutput) DisabledVariantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigProduction) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DisabledVariantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the flag should actively evaluate in this environment.
+func (o FeatureFlagConfigProductionPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FeatureFlagConfigProduction) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FeatureFlagDefinitionVariant struct {
+	// A human-readable description for the variant.
+	Description *string `pulumi:"description"`
+	// The stable variant identifier referenced by flag configuration.
+	Id string `pulumi:"id"`
+	// A human-readable label for the variant.
+	Label *string `pulumi:"label"`
+	// The boolean value for this variant. Use this when `kind = "boolean"`.
+	ValueBool *bool `pulumi:"valueBool"`
+	// The numeric value for this variant. Use this when `kind = "number"`.
+	ValueNumber *float64 `pulumi:"valueNumber"`
+	// The string value for this variant. Use this when `kind = "string"`.
+	ValueString *string `pulumi:"valueString"`
+}
+
+// FeatureFlagDefinitionVariantInput is an input type that accepts FeatureFlagDefinitionVariantArgs and FeatureFlagDefinitionVariantOutput values.
+// You can construct a concrete instance of `FeatureFlagDefinitionVariantInput` via:
+//
+//	FeatureFlagDefinitionVariantArgs{...}
+type FeatureFlagDefinitionVariantInput interface {
+	pulumi.Input
+
+	ToFeatureFlagDefinitionVariantOutput() FeatureFlagDefinitionVariantOutput
+	ToFeatureFlagDefinitionVariantOutputWithContext(context.Context) FeatureFlagDefinitionVariantOutput
+}
+
+type FeatureFlagDefinitionVariantArgs struct {
+	// A human-readable description for the variant.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// The stable variant identifier referenced by flag configuration.
+	Id pulumi.StringInput `pulumi:"id"`
+	// A human-readable label for the variant.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// The boolean value for this variant. Use this when `kind = "boolean"`.
+	ValueBool pulumi.BoolPtrInput `pulumi:"valueBool"`
+	// The numeric value for this variant. Use this when `kind = "number"`.
+	ValueNumber pulumi.Float64PtrInput `pulumi:"valueNumber"`
+	// The string value for this variant. Use this when `kind = "string"`.
+	ValueString pulumi.StringPtrInput `pulumi:"valueString"`
+}
+
+func (FeatureFlagDefinitionVariantArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagDefinitionVariant)(nil)).Elem()
+}
+
+func (i FeatureFlagDefinitionVariantArgs) ToFeatureFlagDefinitionVariantOutput() FeatureFlagDefinitionVariantOutput {
+	return i.ToFeatureFlagDefinitionVariantOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagDefinitionVariantArgs) ToFeatureFlagDefinitionVariantOutputWithContext(ctx context.Context) FeatureFlagDefinitionVariantOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagDefinitionVariantOutput)
+}
+
+// FeatureFlagDefinitionVariantArrayInput is an input type that accepts FeatureFlagDefinitionVariantArray and FeatureFlagDefinitionVariantArrayOutput values.
+// You can construct a concrete instance of `FeatureFlagDefinitionVariantArrayInput` via:
+//
+//	FeatureFlagDefinitionVariantArray{ FeatureFlagDefinitionVariantArgs{...} }
+type FeatureFlagDefinitionVariantArrayInput interface {
+	pulumi.Input
+
+	ToFeatureFlagDefinitionVariantArrayOutput() FeatureFlagDefinitionVariantArrayOutput
+	ToFeatureFlagDefinitionVariantArrayOutputWithContext(context.Context) FeatureFlagDefinitionVariantArrayOutput
+}
+
+type FeatureFlagDefinitionVariantArray []FeatureFlagDefinitionVariantInput
+
+func (FeatureFlagDefinitionVariantArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FeatureFlagDefinitionVariant)(nil)).Elem()
+}
+
+func (i FeatureFlagDefinitionVariantArray) ToFeatureFlagDefinitionVariantArrayOutput() FeatureFlagDefinitionVariantArrayOutput {
+	return i.ToFeatureFlagDefinitionVariantArrayOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagDefinitionVariantArray) ToFeatureFlagDefinitionVariantArrayOutputWithContext(ctx context.Context) FeatureFlagDefinitionVariantArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagDefinitionVariantArrayOutput)
+}
+
+type FeatureFlagDefinitionVariantOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagDefinitionVariantOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagDefinitionVariant)(nil)).Elem()
+}
+
+func (o FeatureFlagDefinitionVariantOutput) ToFeatureFlagDefinitionVariantOutput() FeatureFlagDefinitionVariantOutput {
+	return o
+}
+
+func (o FeatureFlagDefinitionVariantOutput) ToFeatureFlagDefinitionVariantOutputWithContext(ctx context.Context) FeatureFlagDefinitionVariantOutput {
+	return o
+}
+
+// A human-readable description for the variant.
+func (o FeatureFlagDefinitionVariantOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FeatureFlagDefinitionVariant) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The stable variant identifier referenced by flag configuration.
+func (o FeatureFlagDefinitionVariantOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagDefinitionVariant) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// A human-readable label for the variant.
+func (o FeatureFlagDefinitionVariantOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FeatureFlagDefinitionVariant) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// The boolean value for this variant. Use this when `kind = "boolean"`.
+func (o FeatureFlagDefinitionVariantOutput) ValueBool() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FeatureFlagDefinitionVariant) *bool { return v.ValueBool }).(pulumi.BoolPtrOutput)
+}
+
+// The numeric value for this variant. Use this when `kind = "number"`.
+func (o FeatureFlagDefinitionVariantOutput) ValueNumber() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v FeatureFlagDefinitionVariant) *float64 { return v.ValueNumber }).(pulumi.Float64PtrOutput)
+}
+
+// The string value for this variant. Use this when `kind = "string"`.
+func (o FeatureFlagDefinitionVariantOutput) ValueString() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FeatureFlagDefinitionVariant) *string { return v.ValueString }).(pulumi.StringPtrOutput)
+}
+
+type FeatureFlagDefinitionVariantArrayOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagDefinitionVariantArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FeatureFlagDefinitionVariant)(nil)).Elem()
+}
+
+func (o FeatureFlagDefinitionVariantArrayOutput) ToFeatureFlagDefinitionVariantArrayOutput() FeatureFlagDefinitionVariantArrayOutput {
+	return o
+}
+
+func (o FeatureFlagDefinitionVariantArrayOutput) ToFeatureFlagDefinitionVariantArrayOutputWithContext(ctx context.Context) FeatureFlagDefinitionVariantArrayOutput {
+	return o
+}
+
+func (o FeatureFlagDefinitionVariantArrayOutput) Index(i pulumi.IntInput) FeatureFlagDefinitionVariantOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FeatureFlagDefinitionVariant {
+		return vs[0].([]FeatureFlagDefinitionVariant)[vs[1].(int)]
+	}).(FeatureFlagDefinitionVariantOutput)
+}
+
+type FeatureFlagSegmentExclude struct {
+	// The entity attribute to match, for example `email`.
+	Attribute string `pulumi:"attribute"`
+	// The entity type to match, for example `user`.
+	Entity string `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values []string `pulumi:"values"`
+}
+
+// FeatureFlagSegmentExcludeInput is an input type that accepts FeatureFlagSegmentExcludeArgs and FeatureFlagSegmentExcludeOutput values.
+// You can construct a concrete instance of `FeatureFlagSegmentExcludeInput` via:
+//
+//	FeatureFlagSegmentExcludeArgs{...}
+type FeatureFlagSegmentExcludeInput interface {
+	pulumi.Input
+
+	ToFeatureFlagSegmentExcludeOutput() FeatureFlagSegmentExcludeOutput
+	ToFeatureFlagSegmentExcludeOutputWithContext(context.Context) FeatureFlagSegmentExcludeOutput
+}
+
+type FeatureFlagSegmentExcludeArgs struct {
+	// The entity attribute to match, for example `email`.
+	Attribute pulumi.StringInput `pulumi:"attribute"`
+	// The entity type to match, for example `user`.
+	Entity pulumi.StringInput `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (FeatureFlagSegmentExcludeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (i FeatureFlagSegmentExcludeArgs) ToFeatureFlagSegmentExcludeOutput() FeatureFlagSegmentExcludeOutput {
+	return i.ToFeatureFlagSegmentExcludeOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagSegmentExcludeArgs) ToFeatureFlagSegmentExcludeOutputWithContext(ctx context.Context) FeatureFlagSegmentExcludeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagSegmentExcludeOutput)
+}
+
+// FeatureFlagSegmentExcludeArrayInput is an input type that accepts FeatureFlagSegmentExcludeArray and FeatureFlagSegmentExcludeArrayOutput values.
+// You can construct a concrete instance of `FeatureFlagSegmentExcludeArrayInput` via:
+//
+//	FeatureFlagSegmentExcludeArray{ FeatureFlagSegmentExcludeArgs{...} }
+type FeatureFlagSegmentExcludeArrayInput interface {
+	pulumi.Input
+
+	ToFeatureFlagSegmentExcludeArrayOutput() FeatureFlagSegmentExcludeArrayOutput
+	ToFeatureFlagSegmentExcludeArrayOutputWithContext(context.Context) FeatureFlagSegmentExcludeArrayOutput
+}
+
+type FeatureFlagSegmentExcludeArray []FeatureFlagSegmentExcludeInput
+
+func (FeatureFlagSegmentExcludeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (i FeatureFlagSegmentExcludeArray) ToFeatureFlagSegmentExcludeArrayOutput() FeatureFlagSegmentExcludeArrayOutput {
+	return i.ToFeatureFlagSegmentExcludeArrayOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagSegmentExcludeArray) ToFeatureFlagSegmentExcludeArrayOutputWithContext(ctx context.Context) FeatureFlagSegmentExcludeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagSegmentExcludeArrayOutput)
+}
+
+type FeatureFlagSegmentExcludeOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagSegmentExcludeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (o FeatureFlagSegmentExcludeOutput) ToFeatureFlagSegmentExcludeOutput() FeatureFlagSegmentExcludeOutput {
+	return o
+}
+
+func (o FeatureFlagSegmentExcludeOutput) ToFeatureFlagSegmentExcludeOutputWithContext(ctx context.Context) FeatureFlagSegmentExcludeOutput {
+	return o
+}
+
+// The entity attribute to match, for example `email`.
+func (o FeatureFlagSegmentExcludeOutput) Attribute() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagSegmentExclude) string { return v.Attribute }).(pulumi.StringOutput)
+}
+
+// The entity type to match, for example `user`.
+func (o FeatureFlagSegmentExcludeOutput) Entity() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagSegmentExclude) string { return v.Entity }).(pulumi.StringOutput)
+}
+
+// The exact values to include or exclude for this entity attribute.
+func (o FeatureFlagSegmentExcludeOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FeatureFlagSegmentExclude) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type FeatureFlagSegmentExcludeArrayOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagSegmentExcludeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (o FeatureFlagSegmentExcludeArrayOutput) ToFeatureFlagSegmentExcludeArrayOutput() FeatureFlagSegmentExcludeArrayOutput {
+	return o
+}
+
+func (o FeatureFlagSegmentExcludeArrayOutput) ToFeatureFlagSegmentExcludeArrayOutputWithContext(ctx context.Context) FeatureFlagSegmentExcludeArrayOutput {
+	return o
+}
+
+func (o FeatureFlagSegmentExcludeArrayOutput) Index(i pulumi.IntInput) FeatureFlagSegmentExcludeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FeatureFlagSegmentExclude {
+		return vs[0].([]FeatureFlagSegmentExclude)[vs[1].(int)]
+	}).(FeatureFlagSegmentExcludeOutput)
+}
+
+type FeatureFlagSegmentInclude struct {
+	// The entity attribute to match, for example `email`.
+	Attribute string `pulumi:"attribute"`
+	// The entity type to match, for example `user`.
+	Entity string `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values []string `pulumi:"values"`
+}
+
+// FeatureFlagSegmentIncludeInput is an input type that accepts FeatureFlagSegmentIncludeArgs and FeatureFlagSegmentIncludeOutput values.
+// You can construct a concrete instance of `FeatureFlagSegmentIncludeInput` via:
+//
+//	FeatureFlagSegmentIncludeArgs{...}
+type FeatureFlagSegmentIncludeInput interface {
+	pulumi.Input
+
+	ToFeatureFlagSegmentIncludeOutput() FeatureFlagSegmentIncludeOutput
+	ToFeatureFlagSegmentIncludeOutputWithContext(context.Context) FeatureFlagSegmentIncludeOutput
+}
+
+type FeatureFlagSegmentIncludeArgs struct {
+	// The entity attribute to match, for example `email`.
+	Attribute pulumi.StringInput `pulumi:"attribute"`
+	// The entity type to match, for example `user`.
+	Entity pulumi.StringInput `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (FeatureFlagSegmentIncludeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (i FeatureFlagSegmentIncludeArgs) ToFeatureFlagSegmentIncludeOutput() FeatureFlagSegmentIncludeOutput {
+	return i.ToFeatureFlagSegmentIncludeOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagSegmentIncludeArgs) ToFeatureFlagSegmentIncludeOutputWithContext(ctx context.Context) FeatureFlagSegmentIncludeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagSegmentIncludeOutput)
+}
+
+// FeatureFlagSegmentIncludeArrayInput is an input type that accepts FeatureFlagSegmentIncludeArray and FeatureFlagSegmentIncludeArrayOutput values.
+// You can construct a concrete instance of `FeatureFlagSegmentIncludeArrayInput` via:
+//
+//	FeatureFlagSegmentIncludeArray{ FeatureFlagSegmentIncludeArgs{...} }
+type FeatureFlagSegmentIncludeArrayInput interface {
+	pulumi.Input
+
+	ToFeatureFlagSegmentIncludeArrayOutput() FeatureFlagSegmentIncludeArrayOutput
+	ToFeatureFlagSegmentIncludeArrayOutputWithContext(context.Context) FeatureFlagSegmentIncludeArrayOutput
+}
+
+type FeatureFlagSegmentIncludeArray []FeatureFlagSegmentIncludeInput
+
+func (FeatureFlagSegmentIncludeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (i FeatureFlagSegmentIncludeArray) ToFeatureFlagSegmentIncludeArrayOutput() FeatureFlagSegmentIncludeArrayOutput {
+	return i.ToFeatureFlagSegmentIncludeArrayOutputWithContext(context.Background())
+}
+
+func (i FeatureFlagSegmentIncludeArray) ToFeatureFlagSegmentIncludeArrayOutputWithContext(ctx context.Context) FeatureFlagSegmentIncludeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FeatureFlagSegmentIncludeArrayOutput)
+}
+
+type FeatureFlagSegmentIncludeOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagSegmentIncludeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (o FeatureFlagSegmentIncludeOutput) ToFeatureFlagSegmentIncludeOutput() FeatureFlagSegmentIncludeOutput {
+	return o
+}
+
+func (o FeatureFlagSegmentIncludeOutput) ToFeatureFlagSegmentIncludeOutputWithContext(ctx context.Context) FeatureFlagSegmentIncludeOutput {
+	return o
+}
+
+// The entity attribute to match, for example `email`.
+func (o FeatureFlagSegmentIncludeOutput) Attribute() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagSegmentInclude) string { return v.Attribute }).(pulumi.StringOutput)
+}
+
+// The entity type to match, for example `user`.
+func (o FeatureFlagSegmentIncludeOutput) Entity() pulumi.StringOutput {
+	return o.ApplyT(func(v FeatureFlagSegmentInclude) string { return v.Entity }).(pulumi.StringOutput)
+}
+
+// The exact values to include or exclude for this entity attribute.
+func (o FeatureFlagSegmentIncludeOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FeatureFlagSegmentInclude) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type FeatureFlagSegmentIncludeArrayOutput struct{ *pulumi.OutputState }
+
+func (FeatureFlagSegmentIncludeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (o FeatureFlagSegmentIncludeArrayOutput) ToFeatureFlagSegmentIncludeArrayOutput() FeatureFlagSegmentIncludeArrayOutput {
+	return o
+}
+
+func (o FeatureFlagSegmentIncludeArrayOutput) ToFeatureFlagSegmentIncludeArrayOutputWithContext(ctx context.Context) FeatureFlagSegmentIncludeArrayOutput {
+	return o
+}
+
+func (o FeatureFlagSegmentIncludeArrayOutput) Index(i pulumi.IntInput) FeatureFlagSegmentIncludeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FeatureFlagSegmentInclude {
+		return vs[0].([]FeatureFlagSegmentInclude)[vs[1].(int)]
+	}).(FeatureFlagSegmentIncludeOutput)
 }
 
 type FirewallConfigIpRules struct {
@@ -4709,8 +5739,8 @@ type ProjectEnvironment struct {
 	Id *string `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key string `pulumi:"key"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-	Sensitive *bool `pulumi:"sensitive"`
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
@@ -4739,8 +5769,8 @@ type ProjectEnvironmentArgs struct {
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	Sensitive pulumi.BoolInput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
@@ -4823,9 +5853,9 @@ func (o ProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
-func (o ProjectEnvironmentOutput) Sensitive() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectEnvironment) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
+// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+func (o ProjectEnvironmentOutput) Sensitive() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectEnvironment) bool { return v.Sensitive }).(pulumi.BoolOutput)
 }
 
 // The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
@@ -4869,8 +5899,8 @@ type ProjectEnvironmentVariablesVariable struct {
 	Id *string `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key string `pulumi:"key"`
-	// Whether the Environment Variable is sensitive or not.
-	Sensitive *bool `pulumi:"sensitive"`
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
@@ -4899,8 +5929,8 @@ type ProjectEnvironmentVariablesVariableArgs struct {
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Whether the Environment Variable is sensitive or not.
-	Sensitive pulumi.BoolPtrInput `pulumi:"sensitive"`
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	Sensitive pulumi.BoolInput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
@@ -4983,9 +6013,9 @@ func (o ProjectEnvironmentVariablesVariableOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive or not.
-func (o ProjectEnvironmentVariablesVariableOutput) Sensitive() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *bool { return v.Sensitive }).(pulumi.BoolPtrOutput)
+// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+func (o ProjectEnvironmentVariablesVariableOutput) Sensitive() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) bool { return v.Sensitive }).(pulumi.BoolOutput)
 }
 
 // The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
@@ -5175,8 +6205,12 @@ func (o ProjectGitCommentsPtrOutput) OnPullRequest() pulumi.BoolPtrOutput {
 }
 
 type ProjectGitProviderOptions struct {
+	// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+	ConsolidatedGitCommitStatus *ProjectGitProviderOptionsConsolidatedGitCommitStatus `pulumi:"consolidatedGitCommitStatus"`
 	// Whether to create deployments
 	CreateDeployments *bool `pulumi:"createDeployments"`
+	// Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+	GitCommitStatus *bool `pulumi:"gitCommitStatus"`
 	// Whether to enable repository dispatch events
 	RepositoryDispatchEvents *bool `pulumi:"repositoryDispatchEvents"`
 	// Whether to require verified commits
@@ -5195,8 +6229,12 @@ type ProjectGitProviderOptionsInput interface {
 }
 
 type ProjectGitProviderOptionsArgs struct {
+	// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+	ConsolidatedGitCommitStatus ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput `pulumi:"consolidatedGitCommitStatus"`
 	// Whether to create deployments
 	CreateDeployments pulumi.BoolPtrInput `pulumi:"createDeployments"`
+	// Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+	GitCommitStatus pulumi.BoolPtrInput `pulumi:"gitCommitStatus"`
 	// Whether to enable repository dispatch events
 	RepositoryDispatchEvents pulumi.BoolPtrInput `pulumi:"repositoryDispatchEvents"`
 	// Whether to require verified commits
@@ -5280,9 +6318,21 @@ func (o ProjectGitProviderOptionsOutput) ToProjectGitProviderOptionsPtrOutputWit
 	}).(ProjectGitProviderOptionsPtrOutput)
 }
 
+// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+func (o ProjectGitProviderOptionsOutput) ConsolidatedGitCommitStatus() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return o.ApplyT(func(v ProjectGitProviderOptions) *ProjectGitProviderOptionsConsolidatedGitCommitStatus {
+		return v.ConsolidatedGitCommitStatus
+	}).(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput)
+}
+
 // Whether to create deployments
 func (o ProjectGitProviderOptionsOutput) CreateDeployments() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectGitProviderOptions) *bool { return v.CreateDeployments }).(pulumi.BoolPtrOutput)
+}
+
+// Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+func (o ProjectGitProviderOptionsOutput) GitCommitStatus() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectGitProviderOptions) *bool { return v.GitCommitStatus }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to enable repository dispatch events
@@ -5319,6 +6369,16 @@ func (o ProjectGitProviderOptionsPtrOutput) Elem() ProjectGitProviderOptionsOutp
 	}).(ProjectGitProviderOptionsOutput)
 }
 
+// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+func (o ProjectGitProviderOptionsPtrOutput) ConsolidatedGitCommitStatus() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return o.ApplyT(func(v *ProjectGitProviderOptions) *ProjectGitProviderOptionsConsolidatedGitCommitStatus {
+		if v == nil {
+			return nil
+		}
+		return v.ConsolidatedGitCommitStatus
+	}).(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput)
+}
+
 // Whether to create deployments
 func (o ProjectGitProviderOptionsPtrOutput) CreateDeployments() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectGitProviderOptions) *bool {
@@ -5326,6 +6386,16 @@ func (o ProjectGitProviderOptionsPtrOutput) CreateDeployments() pulumi.BoolPtrOu
 			return nil
 		}
 		return v.CreateDeployments
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
+func (o ProjectGitProviderOptionsPtrOutput) GitCommitStatus() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectGitProviderOptions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.GitCommitStatus
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -5346,6 +6416,162 @@ func (o ProjectGitProviderOptionsPtrOutput) RequireVerifiedCommits() pulumi.Bool
 			return nil
 		}
 		return v.RequireVerifiedCommits
+	}).(pulumi.BoolPtrOutput)
+}
+
+type ProjectGitProviderOptionsConsolidatedGitCommitStatus struct {
+	// **Beta:** Whether consolidated commit status is enabled.
+	Enabled bool `pulumi:"enabled"`
+	// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+	PropagateFailures bool `pulumi:"propagateFailures"`
+}
+
+// ProjectGitProviderOptionsConsolidatedGitCommitStatusInput is an input type that accepts ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs and ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput values.
+// You can construct a concrete instance of `ProjectGitProviderOptionsConsolidatedGitCommitStatusInput` via:
+//
+//	ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs{...}
+type ProjectGitProviderOptionsConsolidatedGitCommitStatusInput interface {
+	pulumi.Input
+
+	ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput
+	ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput
+}
+
+type ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs struct {
+	// **Beta:** Whether consolidated commit status is enabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+	PropagateFailures pulumi.BoolInput `pulumi:"propagateFailures"`
+}
+
+func (ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectGitProviderOptionsConsolidatedGitCommitStatus)(nil)).Elem()
+}
+
+func (i ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return i.ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(context.Background())
+}
+
+func (i ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(ctx context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput)
+}
+
+func (i ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return i.ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput).ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(ctx)
+}
+
+// ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput is an input type that accepts ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs, ProjectGitProviderOptionsConsolidatedGitCommitStatusPtr and ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput values.
+// You can construct a concrete instance of `ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput` via:
+//
+//	        ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput interface {
+	pulumi.Input
+
+	ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput
+	ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput
+}
+
+type projectGitProviderOptionsConsolidatedGitCommitStatusPtrType ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs
+
+func ProjectGitProviderOptionsConsolidatedGitCommitStatusPtr(v *ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput {
+	return (*projectGitProviderOptionsConsolidatedGitCommitStatusPtrType)(v)
+}
+
+func (*projectGitProviderOptionsConsolidatedGitCommitStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectGitProviderOptionsConsolidatedGitCommitStatus)(nil)).Elem()
+}
+
+func (i *projectGitProviderOptionsConsolidatedGitCommitStatusPtrType) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return i.ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *projectGitProviderOptionsConsolidatedGitCommitStatusPtrType) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput)
+}
+
+type ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput struct{ *pulumi.OutputState }
+
+func (ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectGitProviderOptionsConsolidatedGitCommitStatus)(nil)).Elem()
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return o
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ToProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(ctx context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return o
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return o.ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectGitProviderOptionsConsolidatedGitCommitStatus) *ProjectGitProviderOptionsConsolidatedGitCommitStatus {
+		return &v
+	}).(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput)
+}
+
+// **Beta:** Whether consolidated commit status is enabled.
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectGitProviderOptionsConsolidatedGitCommitStatus) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) PropagateFailures() pulumi.BoolOutput {
+	return o.ApplyT(func(v ProjectGitProviderOptionsConsolidatedGitCommitStatus) bool { return v.PropagateFailures }).(pulumi.BoolOutput)
+}
+
+type ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectGitProviderOptionsConsolidatedGitCommitStatus)(nil)).Elem()
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput() ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return o
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput) ToProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutputWithContext(ctx context.Context) ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput {
+	return o
+}
+
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput) Elem() ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return o.ApplyT(func(v *ProjectGitProviderOptionsConsolidatedGitCommitStatus) ProjectGitProviderOptionsConsolidatedGitCommitStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectGitProviderOptionsConsolidatedGitCommitStatus
+		return ret
+	}).(ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput)
+}
+
+// **Beta:** Whether consolidated commit status is enabled.
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectGitProviderOptionsConsolidatedGitCommitStatus) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+func (o ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput) PropagateFailures() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectGitProviderOptionsConsolidatedGitCommitStatus) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.PropagateFailures
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -6618,6 +7844,814 @@ func (o ProjectRollingReleaseStageArrayOutput) Index(i pulumi.IntInput) ProjectR
 	}).(ProjectRollingReleaseStageOutput)
 }
 
+type ProjectRoutePosition struct {
+	// Where to place the rule. One of `start`, `end`, `before`, or `after`.
+	Placement string `pulumi:"placement"`
+	// The existing route ID to place this rule before or after.
+	ReferenceRouteId *string `pulumi:"referenceRouteId"`
+}
+
+// ProjectRoutePositionInput is an input type that accepts ProjectRoutePositionArgs and ProjectRoutePositionOutput values.
+// You can construct a concrete instance of `ProjectRoutePositionInput` via:
+//
+//	ProjectRoutePositionArgs{...}
+type ProjectRoutePositionInput interface {
+	pulumi.Input
+
+	ToProjectRoutePositionOutput() ProjectRoutePositionOutput
+	ToProjectRoutePositionOutputWithContext(context.Context) ProjectRoutePositionOutput
+}
+
+type ProjectRoutePositionArgs struct {
+	// Where to place the rule. One of `start`, `end`, `before`, or `after`.
+	Placement pulumi.StringInput `pulumi:"placement"`
+	// The existing route ID to place this rule before or after.
+	ReferenceRouteId pulumi.StringPtrInput `pulumi:"referenceRouteId"`
+}
+
+func (ProjectRoutePositionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRoutePosition)(nil)).Elem()
+}
+
+func (i ProjectRoutePositionArgs) ToProjectRoutePositionOutput() ProjectRoutePositionOutput {
+	return i.ToProjectRoutePositionOutputWithContext(context.Background())
+}
+
+func (i ProjectRoutePositionArgs) ToProjectRoutePositionOutputWithContext(ctx context.Context) ProjectRoutePositionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRoutePositionOutput)
+}
+
+func (i ProjectRoutePositionArgs) ToProjectRoutePositionPtrOutput() ProjectRoutePositionPtrOutput {
+	return i.ToProjectRoutePositionPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectRoutePositionArgs) ToProjectRoutePositionPtrOutputWithContext(ctx context.Context) ProjectRoutePositionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRoutePositionOutput).ToProjectRoutePositionPtrOutputWithContext(ctx)
+}
+
+// ProjectRoutePositionPtrInput is an input type that accepts ProjectRoutePositionArgs, ProjectRoutePositionPtr and ProjectRoutePositionPtrOutput values.
+// You can construct a concrete instance of `ProjectRoutePositionPtrInput` via:
+//
+//	        ProjectRoutePositionArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectRoutePositionPtrInput interface {
+	pulumi.Input
+
+	ToProjectRoutePositionPtrOutput() ProjectRoutePositionPtrOutput
+	ToProjectRoutePositionPtrOutputWithContext(context.Context) ProjectRoutePositionPtrOutput
+}
+
+type projectRoutePositionPtrType ProjectRoutePositionArgs
+
+func ProjectRoutePositionPtr(v *ProjectRoutePositionArgs) ProjectRoutePositionPtrInput {
+	return (*projectRoutePositionPtrType)(v)
+}
+
+func (*projectRoutePositionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectRoutePosition)(nil)).Elem()
+}
+
+func (i *projectRoutePositionPtrType) ToProjectRoutePositionPtrOutput() ProjectRoutePositionPtrOutput {
+	return i.ToProjectRoutePositionPtrOutputWithContext(context.Background())
+}
+
+func (i *projectRoutePositionPtrType) ToProjectRoutePositionPtrOutputWithContext(ctx context.Context) ProjectRoutePositionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRoutePositionPtrOutput)
+}
+
+type ProjectRoutePositionOutput struct{ *pulumi.OutputState }
+
+func (ProjectRoutePositionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRoutePosition)(nil)).Elem()
+}
+
+func (o ProjectRoutePositionOutput) ToProjectRoutePositionOutput() ProjectRoutePositionOutput {
+	return o
+}
+
+func (o ProjectRoutePositionOutput) ToProjectRoutePositionOutputWithContext(ctx context.Context) ProjectRoutePositionOutput {
+	return o
+}
+
+func (o ProjectRoutePositionOutput) ToProjectRoutePositionPtrOutput() ProjectRoutePositionPtrOutput {
+	return o.ToProjectRoutePositionPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectRoutePositionOutput) ToProjectRoutePositionPtrOutputWithContext(ctx context.Context) ProjectRoutePositionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectRoutePosition) *ProjectRoutePosition {
+		return &v
+	}).(ProjectRoutePositionPtrOutput)
+}
+
+// Where to place the rule. One of `start`, `end`, `before`, or `after`.
+func (o ProjectRoutePositionOutput) Placement() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectRoutePosition) string { return v.Placement }).(pulumi.StringOutput)
+}
+
+// The existing route ID to place this rule before or after.
+func (o ProjectRoutePositionOutput) ReferenceRouteId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRoutePosition) *string { return v.ReferenceRouteId }).(pulumi.StringPtrOutput)
+}
+
+type ProjectRoutePositionPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectRoutePositionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectRoutePosition)(nil)).Elem()
+}
+
+func (o ProjectRoutePositionPtrOutput) ToProjectRoutePositionPtrOutput() ProjectRoutePositionPtrOutput {
+	return o
+}
+
+func (o ProjectRoutePositionPtrOutput) ToProjectRoutePositionPtrOutputWithContext(ctx context.Context) ProjectRoutePositionPtrOutput {
+	return o
+}
+
+func (o ProjectRoutePositionPtrOutput) Elem() ProjectRoutePositionOutput {
+	return o.ApplyT(func(v *ProjectRoutePosition) ProjectRoutePosition {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectRoutePosition
+		return ret
+	}).(ProjectRoutePositionOutput)
+}
+
+// Where to place the rule. One of `start`, `end`, `before`, or `after`.
+func (o ProjectRoutePositionPtrOutput) Placement() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectRoutePosition) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Placement
+	}).(pulumi.StringPtrOutput)
+}
+
+// The existing route ID to place this rule before or after.
+func (o ProjectRoutePositionPtrOutput) ReferenceRouteId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectRoutePosition) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ReferenceRouteId
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProjectRouteRoute struct {
+	// Whether the `src` matcher is case-sensitive.
+	CaseSensitive *bool `pulumi:"caseSensitive"`
+	// The destination for rewrites or redirects.
+	Dest *string `pulumi:"dest"`
+	// Conditions that must be present for the rule to match.
+	Has []ProjectRouteRouteHa `pulumi:"has"`
+	// Headers to set for the matched request.
+	Headers map[string]string `pulumi:"headers"`
+	// Conditions that must be absent for the rule to match.
+	Missings []ProjectRouteRouteMissing `pulumi:"missings"`
+	// Whether the rule should respect cache control headers from the origin.
+	RespectOriginCacheControl *bool `pulumi:"respectOriginCacheControl"`
+	// The source pattern to match.
+	Src string `pulumi:"src"`
+	// The HTTP status code to set for redirects or status-only rules.
+	Status *int `pulumi:"status"`
+	// Transforms applied to the request or response when the rule matches.
+	Transforms []ProjectRouteRouteTransform `pulumi:"transforms"`
+}
+
+// ProjectRouteRouteInput is an input type that accepts ProjectRouteRouteArgs and ProjectRouteRouteOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteInput` via:
+//
+//	ProjectRouteRouteArgs{...}
+type ProjectRouteRouteInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteOutput() ProjectRouteRouteOutput
+	ToProjectRouteRouteOutputWithContext(context.Context) ProjectRouteRouteOutput
+}
+
+type ProjectRouteRouteArgs struct {
+	// Whether the `src` matcher is case-sensitive.
+	CaseSensitive pulumi.BoolPtrInput `pulumi:"caseSensitive"`
+	// The destination for rewrites or redirects.
+	Dest pulumi.StringPtrInput `pulumi:"dest"`
+	// Conditions that must be present for the rule to match.
+	Has ProjectRouteRouteHaArrayInput `pulumi:"has"`
+	// Headers to set for the matched request.
+	Headers pulumi.StringMapInput `pulumi:"headers"`
+	// Conditions that must be absent for the rule to match.
+	Missings ProjectRouteRouteMissingArrayInput `pulumi:"missings"`
+	// Whether the rule should respect cache control headers from the origin.
+	RespectOriginCacheControl pulumi.BoolPtrInput `pulumi:"respectOriginCacheControl"`
+	// The source pattern to match.
+	Src pulumi.StringInput `pulumi:"src"`
+	// The HTTP status code to set for redirects or status-only rules.
+	Status pulumi.IntPtrInput `pulumi:"status"`
+	// Transforms applied to the request or response when the rule matches.
+	Transforms ProjectRouteRouteTransformArrayInput `pulumi:"transforms"`
+}
+
+func (ProjectRouteRouteArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRoute)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteArgs) ToProjectRouteRouteOutput() ProjectRouteRouteOutput {
+	return i.ToProjectRouteRouteOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteArgs) ToProjectRouteRouteOutputWithContext(ctx context.Context) ProjectRouteRouteOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteOutput)
+}
+
+func (i ProjectRouteRouteArgs) ToProjectRouteRoutePtrOutput() ProjectRouteRoutePtrOutput {
+	return i.ToProjectRouteRoutePtrOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteArgs) ToProjectRouteRoutePtrOutputWithContext(ctx context.Context) ProjectRouteRoutePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteOutput).ToProjectRouteRoutePtrOutputWithContext(ctx)
+}
+
+// ProjectRouteRoutePtrInput is an input type that accepts ProjectRouteRouteArgs, ProjectRouteRoutePtr and ProjectRouteRoutePtrOutput values.
+// You can construct a concrete instance of `ProjectRouteRoutePtrInput` via:
+//
+//	        ProjectRouteRouteArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectRouteRoutePtrInput interface {
+	pulumi.Input
+
+	ToProjectRouteRoutePtrOutput() ProjectRouteRoutePtrOutput
+	ToProjectRouteRoutePtrOutputWithContext(context.Context) ProjectRouteRoutePtrOutput
+}
+
+type projectRouteRoutePtrType ProjectRouteRouteArgs
+
+func ProjectRouteRoutePtr(v *ProjectRouteRouteArgs) ProjectRouteRoutePtrInput {
+	return (*projectRouteRoutePtrType)(v)
+}
+
+func (*projectRouteRoutePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectRouteRoute)(nil)).Elem()
+}
+
+func (i *projectRouteRoutePtrType) ToProjectRouteRoutePtrOutput() ProjectRouteRoutePtrOutput {
+	return i.ToProjectRouteRoutePtrOutputWithContext(context.Background())
+}
+
+func (i *projectRouteRoutePtrType) ToProjectRouteRoutePtrOutputWithContext(ctx context.Context) ProjectRouteRoutePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRoutePtrOutput)
+}
+
+type ProjectRouteRouteOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRoute)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteOutput) ToProjectRouteRouteOutput() ProjectRouteRouteOutput {
+	return o
+}
+
+func (o ProjectRouteRouteOutput) ToProjectRouteRouteOutputWithContext(ctx context.Context) ProjectRouteRouteOutput {
+	return o
+}
+
+func (o ProjectRouteRouteOutput) ToProjectRouteRoutePtrOutput() ProjectRouteRoutePtrOutput {
+	return o.ToProjectRouteRoutePtrOutputWithContext(context.Background())
+}
+
+func (o ProjectRouteRouteOutput) ToProjectRouteRoutePtrOutputWithContext(ctx context.Context) ProjectRouteRoutePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectRouteRoute) *ProjectRouteRoute {
+		return &v
+	}).(ProjectRouteRoutePtrOutput)
+}
+
+// Whether the `src` matcher is case-sensitive.
+func (o ProjectRouteRouteOutput) CaseSensitive() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) *bool { return v.CaseSensitive }).(pulumi.BoolPtrOutput)
+}
+
+// The destination for rewrites or redirects.
+func (o ProjectRouteRouteOutput) Dest() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) *string { return v.Dest }).(pulumi.StringPtrOutput)
+}
+
+// Conditions that must be present for the rule to match.
+func (o ProjectRouteRouteOutput) Has() ProjectRouteRouteHaArrayOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) []ProjectRouteRouteHa { return v.Has }).(ProjectRouteRouteHaArrayOutput)
+}
+
+// Headers to set for the matched request.
+func (o ProjectRouteRouteOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
+}
+
+// Conditions that must be absent for the rule to match.
+func (o ProjectRouteRouteOutput) Missings() ProjectRouteRouteMissingArrayOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) []ProjectRouteRouteMissing { return v.Missings }).(ProjectRouteRouteMissingArrayOutput)
+}
+
+// Whether the rule should respect cache control headers from the origin.
+func (o ProjectRouteRouteOutput) RespectOriginCacheControl() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) *bool { return v.RespectOriginCacheControl }).(pulumi.BoolPtrOutput)
+}
+
+// The source pattern to match.
+func (o ProjectRouteRouteOutput) Src() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) string { return v.Src }).(pulumi.StringOutput)
+}
+
+// The HTTP status code to set for redirects or status-only rules.
+func (o ProjectRouteRouteOutput) Status() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) *int { return v.Status }).(pulumi.IntPtrOutput)
+}
+
+// Transforms applied to the request or response when the rule matches.
+func (o ProjectRouteRouteOutput) Transforms() ProjectRouteRouteTransformArrayOutput {
+	return o.ApplyT(func(v ProjectRouteRoute) []ProjectRouteRouteTransform { return v.Transforms }).(ProjectRouteRouteTransformArrayOutput)
+}
+
+type ProjectRouteRoutePtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRoutePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectRouteRoute)(nil)).Elem()
+}
+
+func (o ProjectRouteRoutePtrOutput) ToProjectRouteRoutePtrOutput() ProjectRouteRoutePtrOutput {
+	return o
+}
+
+func (o ProjectRouteRoutePtrOutput) ToProjectRouteRoutePtrOutputWithContext(ctx context.Context) ProjectRouteRoutePtrOutput {
+	return o
+}
+
+func (o ProjectRouteRoutePtrOutput) Elem() ProjectRouteRouteOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) ProjectRouteRoute {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectRouteRoute
+		return ret
+	}).(ProjectRouteRouteOutput)
+}
+
+// Whether the `src` matcher is case-sensitive.
+func (o ProjectRouteRoutePtrOutput) CaseSensitive() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.CaseSensitive
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The destination for rewrites or redirects.
+func (o ProjectRouteRoutePtrOutput) Dest() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Dest
+	}).(pulumi.StringPtrOutput)
+}
+
+// Conditions that must be present for the rule to match.
+func (o ProjectRouteRoutePtrOutput) Has() ProjectRouteRouteHaArrayOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) []ProjectRouteRouteHa {
+		if v == nil {
+			return nil
+		}
+		return v.Has
+	}).(ProjectRouteRouteHaArrayOutput)
+}
+
+// Headers to set for the matched request.
+func (o ProjectRouteRoutePtrOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.StringMapOutput)
+}
+
+// Conditions that must be absent for the rule to match.
+func (o ProjectRouteRoutePtrOutput) Missings() ProjectRouteRouteMissingArrayOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) []ProjectRouteRouteMissing {
+		if v == nil {
+			return nil
+		}
+		return v.Missings
+	}).(ProjectRouteRouteMissingArrayOutput)
+}
+
+// Whether the rule should respect cache control headers from the origin.
+func (o ProjectRouteRoutePtrOutput) RespectOriginCacheControl() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.RespectOriginCacheControl
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The source pattern to match.
+func (o ProjectRouteRoutePtrOutput) Src() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Src
+	}).(pulumi.StringPtrOutput)
+}
+
+// The HTTP status code to set for redirects or status-only rules.
+func (o ProjectRouteRoutePtrOutput) Status() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Status
+	}).(pulumi.IntPtrOutput)
+}
+
+// Transforms applied to the request or response when the rule matches.
+func (o ProjectRouteRoutePtrOutput) Transforms() ProjectRouteRouteTransformArrayOutput {
+	return o.ApplyT(func(v *ProjectRouteRoute) []ProjectRouteRouteTransform {
+		if v == nil {
+			return nil
+		}
+		return v.Transforms
+	}).(ProjectRouteRouteTransformArrayOutput)
+}
+
+type ProjectRouteRouteHa struct {
+	// The key to match for `header`, `cookie`, or `query` conditions.
+	Key *string `pulumi:"key"`
+	// The condition type. One of `host`, `header`, `cookie`, or `query`.
+	Type string `pulumi:"type"`
+	// The value to match.
+	Value *string `pulumi:"value"`
+}
+
+// ProjectRouteRouteHaInput is an input type that accepts ProjectRouteRouteHaArgs and ProjectRouteRouteHaOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteHaInput` via:
+//
+//	ProjectRouteRouteHaArgs{...}
+type ProjectRouteRouteHaInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteHaOutput() ProjectRouteRouteHaOutput
+	ToProjectRouteRouteHaOutputWithContext(context.Context) ProjectRouteRouteHaOutput
+}
+
+type ProjectRouteRouteHaArgs struct {
+	// The key to match for `header`, `cookie`, or `query` conditions.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// The condition type. One of `host`, `header`, `cookie`, or `query`.
+	Type pulumi.StringInput `pulumi:"type"`
+	// The value to match.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ProjectRouteRouteHaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRouteHa)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteHaArgs) ToProjectRouteRouteHaOutput() ProjectRouteRouteHaOutput {
+	return i.ToProjectRouteRouteHaOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteHaArgs) ToProjectRouteRouteHaOutputWithContext(ctx context.Context) ProjectRouteRouteHaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteHaOutput)
+}
+
+// ProjectRouteRouteHaArrayInput is an input type that accepts ProjectRouteRouteHaArray and ProjectRouteRouteHaArrayOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteHaArrayInput` via:
+//
+//	ProjectRouteRouteHaArray{ ProjectRouteRouteHaArgs{...} }
+type ProjectRouteRouteHaArrayInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteHaArrayOutput() ProjectRouteRouteHaArrayOutput
+	ToProjectRouteRouteHaArrayOutputWithContext(context.Context) ProjectRouteRouteHaArrayOutput
+}
+
+type ProjectRouteRouteHaArray []ProjectRouteRouteHaInput
+
+func (ProjectRouteRouteHaArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRouteRouteHa)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteHaArray) ToProjectRouteRouteHaArrayOutput() ProjectRouteRouteHaArrayOutput {
+	return i.ToProjectRouteRouteHaArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteHaArray) ToProjectRouteRouteHaArrayOutputWithContext(ctx context.Context) ProjectRouteRouteHaArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteHaArrayOutput)
+}
+
+type ProjectRouteRouteHaOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteHaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRouteHa)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteHaOutput) ToProjectRouteRouteHaOutput() ProjectRouteRouteHaOutput {
+	return o
+}
+
+func (o ProjectRouteRouteHaOutput) ToProjectRouteRouteHaOutputWithContext(ctx context.Context) ProjectRouteRouteHaOutput {
+	return o
+}
+
+// The key to match for `header`, `cookie`, or `query` conditions.
+func (o ProjectRouteRouteHaOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRouteHa) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// The condition type. One of `host`, `header`, `cookie`, or `query`.
+func (o ProjectRouteRouteHaOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectRouteRouteHa) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// The value to match.
+func (o ProjectRouteRouteHaOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRouteHa) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ProjectRouteRouteHaArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteHaArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRouteRouteHa)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteHaArrayOutput) ToProjectRouteRouteHaArrayOutput() ProjectRouteRouteHaArrayOutput {
+	return o
+}
+
+func (o ProjectRouteRouteHaArrayOutput) ToProjectRouteRouteHaArrayOutputWithContext(ctx context.Context) ProjectRouteRouteHaArrayOutput {
+	return o
+}
+
+func (o ProjectRouteRouteHaArrayOutput) Index(i pulumi.IntInput) ProjectRouteRouteHaOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectRouteRouteHa {
+		return vs[0].([]ProjectRouteRouteHa)[vs[1].(int)]
+	}).(ProjectRouteRouteHaOutput)
+}
+
+type ProjectRouteRouteMissing struct {
+	// The key to match for `header`, `cookie`, or `query` conditions.
+	Key *string `pulumi:"key"`
+	// The condition type. One of `host`, `header`, `cookie`, or `query`.
+	Type string `pulumi:"type"`
+	// The value to match.
+	Value *string `pulumi:"value"`
+}
+
+// ProjectRouteRouteMissingInput is an input type that accepts ProjectRouteRouteMissingArgs and ProjectRouteRouteMissingOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteMissingInput` via:
+//
+//	ProjectRouteRouteMissingArgs{...}
+type ProjectRouteRouteMissingInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteMissingOutput() ProjectRouteRouteMissingOutput
+	ToProjectRouteRouteMissingOutputWithContext(context.Context) ProjectRouteRouteMissingOutput
+}
+
+type ProjectRouteRouteMissingArgs struct {
+	// The key to match for `header`, `cookie`, or `query` conditions.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// The condition type. One of `host`, `header`, `cookie`, or `query`.
+	Type pulumi.StringInput `pulumi:"type"`
+	// The value to match.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ProjectRouteRouteMissingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRouteMissing)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteMissingArgs) ToProjectRouteRouteMissingOutput() ProjectRouteRouteMissingOutput {
+	return i.ToProjectRouteRouteMissingOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteMissingArgs) ToProjectRouteRouteMissingOutputWithContext(ctx context.Context) ProjectRouteRouteMissingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteMissingOutput)
+}
+
+// ProjectRouteRouteMissingArrayInput is an input type that accepts ProjectRouteRouteMissingArray and ProjectRouteRouteMissingArrayOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteMissingArrayInput` via:
+//
+//	ProjectRouteRouteMissingArray{ ProjectRouteRouteMissingArgs{...} }
+type ProjectRouteRouteMissingArrayInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteMissingArrayOutput() ProjectRouteRouteMissingArrayOutput
+	ToProjectRouteRouteMissingArrayOutputWithContext(context.Context) ProjectRouteRouteMissingArrayOutput
+}
+
+type ProjectRouteRouteMissingArray []ProjectRouteRouteMissingInput
+
+func (ProjectRouteRouteMissingArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRouteRouteMissing)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteMissingArray) ToProjectRouteRouteMissingArrayOutput() ProjectRouteRouteMissingArrayOutput {
+	return i.ToProjectRouteRouteMissingArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteMissingArray) ToProjectRouteRouteMissingArrayOutputWithContext(ctx context.Context) ProjectRouteRouteMissingArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteMissingArrayOutput)
+}
+
+type ProjectRouteRouteMissingOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteMissingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRouteMissing)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteMissingOutput) ToProjectRouteRouteMissingOutput() ProjectRouteRouteMissingOutput {
+	return o
+}
+
+func (o ProjectRouteRouteMissingOutput) ToProjectRouteRouteMissingOutputWithContext(ctx context.Context) ProjectRouteRouteMissingOutput {
+	return o
+}
+
+// The key to match for `header`, `cookie`, or `query` conditions.
+func (o ProjectRouteRouteMissingOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRouteMissing) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// The condition type. One of `host`, `header`, `cookie`, or `query`.
+func (o ProjectRouteRouteMissingOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectRouteRouteMissing) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// The value to match.
+func (o ProjectRouteRouteMissingOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRouteMissing) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ProjectRouteRouteMissingArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteMissingArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRouteRouteMissing)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteMissingArrayOutput) ToProjectRouteRouteMissingArrayOutput() ProjectRouteRouteMissingArrayOutput {
+	return o
+}
+
+func (o ProjectRouteRouteMissingArrayOutput) ToProjectRouteRouteMissingArrayOutputWithContext(ctx context.Context) ProjectRouteRouteMissingArrayOutput {
+	return o
+}
+
+func (o ProjectRouteRouteMissingArrayOutput) Index(i pulumi.IntInput) ProjectRouteRouteMissingOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectRouteRouteMissing {
+		return vs[0].([]ProjectRouteRouteMissing)[vs[1].(int)]
+	}).(ProjectRouteRouteMissingOutput)
+}
+
+type ProjectRouteRouteTransform struct {
+	// A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+	Args *string `pulumi:"args"`
+	// Environment names that gate this transform.
+	Envs []string `pulumi:"envs"`
+	// The transform operation. One of `append`, `set`, or `delete`.
+	Op string `pulumi:"op"`
+	// A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+	Target *string `pulumi:"target"`
+	// The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+	Type string `pulumi:"type"`
+}
+
+// ProjectRouteRouteTransformInput is an input type that accepts ProjectRouteRouteTransformArgs and ProjectRouteRouteTransformOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteTransformInput` via:
+//
+//	ProjectRouteRouteTransformArgs{...}
+type ProjectRouteRouteTransformInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteTransformOutput() ProjectRouteRouteTransformOutput
+	ToProjectRouteRouteTransformOutputWithContext(context.Context) ProjectRouteRouteTransformOutput
+}
+
+type ProjectRouteRouteTransformArgs struct {
+	// A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+	Args pulumi.StringPtrInput `pulumi:"args"`
+	// Environment names that gate this transform.
+	Envs pulumi.StringArrayInput `pulumi:"envs"`
+	// The transform operation. One of `append`, `set`, or `delete`.
+	Op pulumi.StringInput `pulumi:"op"`
+	// A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+	Target pulumi.StringPtrInput `pulumi:"target"`
+	// The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (ProjectRouteRouteTransformArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRouteTransform)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteTransformArgs) ToProjectRouteRouteTransformOutput() ProjectRouteRouteTransformOutput {
+	return i.ToProjectRouteRouteTransformOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteTransformArgs) ToProjectRouteRouteTransformOutputWithContext(ctx context.Context) ProjectRouteRouteTransformOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteTransformOutput)
+}
+
+// ProjectRouteRouteTransformArrayInput is an input type that accepts ProjectRouteRouteTransformArray and ProjectRouteRouteTransformArrayOutput values.
+// You can construct a concrete instance of `ProjectRouteRouteTransformArrayInput` via:
+//
+//	ProjectRouteRouteTransformArray{ ProjectRouteRouteTransformArgs{...} }
+type ProjectRouteRouteTransformArrayInput interface {
+	pulumi.Input
+
+	ToProjectRouteRouteTransformArrayOutput() ProjectRouteRouteTransformArrayOutput
+	ToProjectRouteRouteTransformArrayOutputWithContext(context.Context) ProjectRouteRouteTransformArrayOutput
+}
+
+type ProjectRouteRouteTransformArray []ProjectRouteRouteTransformInput
+
+func (ProjectRouteRouteTransformArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRouteRouteTransform)(nil)).Elem()
+}
+
+func (i ProjectRouteRouteTransformArray) ToProjectRouteRouteTransformArrayOutput() ProjectRouteRouteTransformArrayOutput {
+	return i.ToProjectRouteRouteTransformArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectRouteRouteTransformArray) ToProjectRouteRouteTransformArrayOutputWithContext(ctx context.Context) ProjectRouteRouteTransformArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectRouteRouteTransformArrayOutput)
+}
+
+type ProjectRouteRouteTransformOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteTransformOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectRouteRouteTransform)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteTransformOutput) ToProjectRouteRouteTransformOutput() ProjectRouteRouteTransformOutput {
+	return o
+}
+
+func (o ProjectRouteRouteTransformOutput) ToProjectRouteRouteTransformOutputWithContext(ctx context.Context) ProjectRouteRouteTransformOutput {
+	return o
+}
+
+// A JSON document containing transform arguments. Prefer `jsonencode(...)` when setting this.
+func (o ProjectRouteRouteTransformOutput) Args() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRouteTransform) *string { return v.Args }).(pulumi.StringPtrOutput)
+}
+
+// Environment names that gate this transform.
+func (o ProjectRouteRouteTransformOutput) Envs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectRouteRouteTransform) []string { return v.Envs }).(pulumi.StringArrayOutput)
+}
+
+// The transform operation. One of `append`, `set`, or `delete`.
+func (o ProjectRouteRouteTransformOutput) Op() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectRouteRouteTransform) string { return v.Op }).(pulumi.StringOutput)
+}
+
+// A JSON document describing the transform target. Prefer `jsonencode(...)` when setting this.
+func (o ProjectRouteRouteTransformOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectRouteRouteTransform) *string { return v.Target }).(pulumi.StringPtrOutput)
+}
+
+// The transform target. One of `request.headers`, `request.query`, or `response.headers`.
+func (o ProjectRouteRouteTransformOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectRouteRouteTransform) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type ProjectRouteRouteTransformArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectRouteRouteTransformArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectRouteRouteTransform)(nil)).Elem()
+}
+
+func (o ProjectRouteRouteTransformArrayOutput) ToProjectRouteRouteTransformArrayOutput() ProjectRouteRouteTransformArrayOutput {
+	return o
+}
+
+func (o ProjectRouteRouteTransformArrayOutput) ToProjectRouteRouteTransformArrayOutputWithContext(ctx context.Context) ProjectRouteRouteTransformArrayOutput {
+	return o
+}
+
+func (o ProjectRouteRouteTransformArrayOutput) Index(i pulumi.IntInput) ProjectRouteRouteTransformOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectRouteRouteTransform {
+		return vs[0].([]ProjectRouteRouteTransform)[vs[1].(int)]
+	}).(ProjectRouteRouteTransformOutput)
+}
+
 type ProjectTrustedIps struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses []ProjectTrustedIpsAddress `pulumi:"addresses"`
@@ -6897,6 +8931,692 @@ func (o ProjectTrustedIpsAddressArrayOutput) Index(i pulumi.IntInput) ProjectTru
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectTrustedIpsAddress {
 		return vs[0].([]ProjectTrustedIpsAddress)[vs[1].(int)]
 	}).(ProjectTrustedIpsAddressOutput)
+}
+
+type ProjectTrustedSources struct {
+	// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+	ExternalSources []ProjectTrustedSourcesExternalSource `pulumi:"externalSources"`
+	// Vercel projects in the same team that can reach this project's protected deployments.
+	Projects []ProjectTrustedSourcesProject `pulumi:"projects"`
+}
+
+// ProjectTrustedSourcesInput is an input type that accepts ProjectTrustedSourcesArgs and ProjectTrustedSourcesOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesInput` via:
+//
+//	ProjectTrustedSourcesArgs{...}
+type ProjectTrustedSourcesInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesOutput() ProjectTrustedSourcesOutput
+	ToProjectTrustedSourcesOutputWithContext(context.Context) ProjectTrustedSourcesOutput
+}
+
+type ProjectTrustedSourcesArgs struct {
+	// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+	ExternalSources ProjectTrustedSourcesExternalSourceArrayInput `pulumi:"externalSources"`
+	// Vercel projects in the same team that can reach this project's protected deployments.
+	Projects ProjectTrustedSourcesProjectArrayInput `pulumi:"projects"`
+}
+
+func (ProjectTrustedSourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSources)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesArgs) ToProjectTrustedSourcesOutput() ProjectTrustedSourcesOutput {
+	return i.ToProjectTrustedSourcesOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesArgs) ToProjectTrustedSourcesOutputWithContext(ctx context.Context) ProjectTrustedSourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesOutput)
+}
+
+func (i ProjectTrustedSourcesArgs) ToProjectTrustedSourcesPtrOutput() ProjectTrustedSourcesPtrOutput {
+	return i.ToProjectTrustedSourcesPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesArgs) ToProjectTrustedSourcesPtrOutputWithContext(ctx context.Context) ProjectTrustedSourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesOutput).ToProjectTrustedSourcesPtrOutputWithContext(ctx)
+}
+
+// ProjectTrustedSourcesPtrInput is an input type that accepts ProjectTrustedSourcesArgs, ProjectTrustedSourcesPtr and ProjectTrustedSourcesPtrOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesPtrInput` via:
+//
+//	        ProjectTrustedSourcesArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectTrustedSourcesPtrInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesPtrOutput() ProjectTrustedSourcesPtrOutput
+	ToProjectTrustedSourcesPtrOutputWithContext(context.Context) ProjectTrustedSourcesPtrOutput
+}
+
+type projectTrustedSourcesPtrType ProjectTrustedSourcesArgs
+
+func ProjectTrustedSourcesPtr(v *ProjectTrustedSourcesArgs) ProjectTrustedSourcesPtrInput {
+	return (*projectTrustedSourcesPtrType)(v)
+}
+
+func (*projectTrustedSourcesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectTrustedSources)(nil)).Elem()
+}
+
+func (i *projectTrustedSourcesPtrType) ToProjectTrustedSourcesPtrOutput() ProjectTrustedSourcesPtrOutput {
+	return i.ToProjectTrustedSourcesPtrOutputWithContext(context.Background())
+}
+
+func (i *projectTrustedSourcesPtrType) ToProjectTrustedSourcesPtrOutputWithContext(ctx context.Context) ProjectTrustedSourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesPtrOutput)
+}
+
+type ProjectTrustedSourcesOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSources)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesOutput) ToProjectTrustedSourcesOutput() ProjectTrustedSourcesOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesOutput) ToProjectTrustedSourcesOutputWithContext(ctx context.Context) ProjectTrustedSourcesOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesOutput) ToProjectTrustedSourcesPtrOutput() ProjectTrustedSourcesPtrOutput {
+	return o.ToProjectTrustedSourcesPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectTrustedSourcesOutput) ToProjectTrustedSourcesPtrOutputWithContext(ctx context.Context) ProjectTrustedSourcesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectTrustedSources) *ProjectTrustedSources {
+		return &v
+	}).(ProjectTrustedSourcesPtrOutput)
+}
+
+// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+func (o ProjectTrustedSourcesOutput) ExternalSources() ProjectTrustedSourcesExternalSourceArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedSources) []ProjectTrustedSourcesExternalSource { return v.ExternalSources }).(ProjectTrustedSourcesExternalSourceArrayOutput)
+}
+
+// Vercel projects in the same team that can reach this project's protected deployments.
+func (o ProjectTrustedSourcesOutput) Projects() ProjectTrustedSourcesProjectArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedSources) []ProjectTrustedSourcesProject { return v.Projects }).(ProjectTrustedSourcesProjectArrayOutput)
+}
+
+type ProjectTrustedSourcesPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectTrustedSources)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesPtrOutput) ToProjectTrustedSourcesPtrOutput() ProjectTrustedSourcesPtrOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesPtrOutput) ToProjectTrustedSourcesPtrOutputWithContext(ctx context.Context) ProjectTrustedSourcesPtrOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesPtrOutput) Elem() ProjectTrustedSourcesOutput {
+	return o.ApplyT(func(v *ProjectTrustedSources) ProjectTrustedSources {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectTrustedSources
+		return ret
+	}).(ProjectTrustedSourcesOutput)
+}
+
+// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+func (o ProjectTrustedSourcesPtrOutput) ExternalSources() ProjectTrustedSourcesExternalSourceArrayOutput {
+	return o.ApplyT(func(v *ProjectTrustedSources) []ProjectTrustedSourcesExternalSource {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalSources
+	}).(ProjectTrustedSourcesExternalSourceArrayOutput)
+}
+
+// Vercel projects in the same team that can reach this project's protected deployments.
+func (o ProjectTrustedSourcesPtrOutput) Projects() ProjectTrustedSourcesProjectArrayOutput {
+	return o.ApplyT(func(v *ProjectTrustedSources) []ProjectTrustedSourcesProject {
+		if v == nil {
+			return nil
+		}
+		return v.Projects
+	}).(ProjectTrustedSourcesProjectArrayOutput)
+}
+
+type ProjectTrustedSourcesExternalSource struct {
+	// Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+	Claims map[string][]string `pulumi:"claims"`
+	// The OIDC issuer URL.
+	Issuer string `pulumi:"issuer"`
+	// A label or description for the trusted external source entry.
+	Label *string `pulumi:"label"`
+	// The target environments on this project that may be accessed.
+	To ProjectTrustedSourcesExternalSourceTo `pulumi:"to"`
+}
+
+// ProjectTrustedSourcesExternalSourceInput is an input type that accepts ProjectTrustedSourcesExternalSourceArgs and ProjectTrustedSourcesExternalSourceOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesExternalSourceInput` via:
+//
+//	ProjectTrustedSourcesExternalSourceArgs{...}
+type ProjectTrustedSourcesExternalSourceInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesExternalSourceOutput() ProjectTrustedSourcesExternalSourceOutput
+	ToProjectTrustedSourcesExternalSourceOutputWithContext(context.Context) ProjectTrustedSourcesExternalSourceOutput
+}
+
+type ProjectTrustedSourcesExternalSourceArgs struct {
+	// Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+	Claims pulumi.StringArrayMapInput `pulumi:"claims"`
+	// The OIDC issuer URL.
+	Issuer pulumi.StringInput `pulumi:"issuer"`
+	// A label or description for the trusted external source entry.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// The target environments on this project that may be accessed.
+	To ProjectTrustedSourcesExternalSourceToInput `pulumi:"to"`
+}
+
+func (ProjectTrustedSourcesExternalSourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesExternalSourceArgs) ToProjectTrustedSourcesExternalSourceOutput() ProjectTrustedSourcesExternalSourceOutput {
+	return i.ToProjectTrustedSourcesExternalSourceOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesExternalSourceArgs) ToProjectTrustedSourcesExternalSourceOutputWithContext(ctx context.Context) ProjectTrustedSourcesExternalSourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesExternalSourceOutput)
+}
+
+// ProjectTrustedSourcesExternalSourceArrayInput is an input type that accepts ProjectTrustedSourcesExternalSourceArray and ProjectTrustedSourcesExternalSourceArrayOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesExternalSourceArrayInput` via:
+//
+//	ProjectTrustedSourcesExternalSourceArray{ ProjectTrustedSourcesExternalSourceArgs{...} }
+type ProjectTrustedSourcesExternalSourceArrayInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesExternalSourceArrayOutput() ProjectTrustedSourcesExternalSourceArrayOutput
+	ToProjectTrustedSourcesExternalSourceArrayOutputWithContext(context.Context) ProjectTrustedSourcesExternalSourceArrayOutput
+}
+
+type ProjectTrustedSourcesExternalSourceArray []ProjectTrustedSourcesExternalSourceInput
+
+func (ProjectTrustedSourcesExternalSourceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesExternalSourceArray) ToProjectTrustedSourcesExternalSourceArrayOutput() ProjectTrustedSourcesExternalSourceArrayOutput {
+	return i.ToProjectTrustedSourcesExternalSourceArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesExternalSourceArray) ToProjectTrustedSourcesExternalSourceArrayOutputWithContext(ctx context.Context) ProjectTrustedSourcesExternalSourceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesExternalSourceArrayOutput)
+}
+
+type ProjectTrustedSourcesExternalSourceOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesExternalSourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesExternalSourceOutput) ToProjectTrustedSourcesExternalSourceOutput() ProjectTrustedSourcesExternalSourceOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesExternalSourceOutput) ToProjectTrustedSourcesExternalSourceOutputWithContext(ctx context.Context) ProjectTrustedSourcesExternalSourceOutput {
+	return o
+}
+
+// Claims that must match on the OIDC token. Each key is a claim name, and each value is a set of accepted values. The API requires `aud` and issuer-specific identity claims.
+func (o ProjectTrustedSourcesExternalSourceOutput) Claims() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesExternalSource) map[string][]string { return v.Claims }).(pulumi.StringArrayMapOutput)
+}
+
+// The OIDC issuer URL.
+func (o ProjectTrustedSourcesExternalSourceOutput) Issuer() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesExternalSource) string { return v.Issuer }).(pulumi.StringOutput)
+}
+
+// A label or description for the trusted external source entry.
+func (o ProjectTrustedSourcesExternalSourceOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesExternalSource) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// The target environments on this project that may be accessed.
+func (o ProjectTrustedSourcesExternalSourceOutput) To() ProjectTrustedSourcesExternalSourceToOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesExternalSource) ProjectTrustedSourcesExternalSourceTo { return v.To }).(ProjectTrustedSourcesExternalSourceToOutput)
+}
+
+type ProjectTrustedSourcesExternalSourceArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesExternalSourceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesExternalSourceArrayOutput) ToProjectTrustedSourcesExternalSourceArrayOutput() ProjectTrustedSourcesExternalSourceArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesExternalSourceArrayOutput) ToProjectTrustedSourcesExternalSourceArrayOutputWithContext(ctx context.Context) ProjectTrustedSourcesExternalSourceArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesExternalSourceArrayOutput) Index(i pulumi.IntInput) ProjectTrustedSourcesExternalSourceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectTrustedSourcesExternalSource {
+		return vs[0].([]ProjectTrustedSourcesExternalSource)[vs[1].(int)]
+	}).(ProjectTrustedSourcesExternalSourceOutput)
+}
+
+type ProjectTrustedSourcesExternalSourceTo struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset *string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// ProjectTrustedSourcesExternalSourceToInput is an input type that accepts ProjectTrustedSourcesExternalSourceToArgs and ProjectTrustedSourcesExternalSourceToOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesExternalSourceToInput` via:
+//
+//	ProjectTrustedSourcesExternalSourceToArgs{...}
+type ProjectTrustedSourcesExternalSourceToInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesExternalSourceToOutput() ProjectTrustedSourcesExternalSourceToOutput
+	ToProjectTrustedSourcesExternalSourceToOutputWithContext(context.Context) ProjectTrustedSourcesExternalSourceToOutput
+}
+
+type ProjectTrustedSourcesExternalSourceToArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringPtrInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (ProjectTrustedSourcesExternalSourceToArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesExternalSourceTo)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesExternalSourceToArgs) ToProjectTrustedSourcesExternalSourceToOutput() ProjectTrustedSourcesExternalSourceToOutput {
+	return i.ToProjectTrustedSourcesExternalSourceToOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesExternalSourceToArgs) ToProjectTrustedSourcesExternalSourceToOutputWithContext(ctx context.Context) ProjectTrustedSourcesExternalSourceToOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesExternalSourceToOutput)
+}
+
+type ProjectTrustedSourcesExternalSourceToOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesExternalSourceToOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesExternalSourceTo)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesExternalSourceToOutput) ToProjectTrustedSourcesExternalSourceToOutput() ProjectTrustedSourcesExternalSourceToOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesExternalSourceToOutput) ToProjectTrustedSourcesExternalSourceToOutputWithContext(ctx context.Context) ProjectTrustedSourcesExternalSourceToOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o ProjectTrustedSourcesExternalSourceToOutput) Preset() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesExternalSourceTo) *string { return v.Preset }).(pulumi.StringPtrOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o ProjectTrustedSourcesExternalSourceToOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesExternalSourceTo) []string { return v.Slugs }).(pulumi.StringArrayOutput)
+}
+
+type ProjectTrustedSourcesProject struct {
+	// Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+	CustomAllows []ProjectTrustedSourcesProjectCustomAllow `pulumi:"customAllows"`
+	// A label or description for the trusted project.
+	Label *string `pulumi:"label"`
+	// The trusted Vercel project ID.
+	ProjectId string `pulumi:"projectId"`
+}
+
+// ProjectTrustedSourcesProjectInput is an input type that accepts ProjectTrustedSourcesProjectArgs and ProjectTrustedSourcesProjectOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesProjectInput` via:
+//
+//	ProjectTrustedSourcesProjectArgs{...}
+type ProjectTrustedSourcesProjectInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesProjectOutput() ProjectTrustedSourcesProjectOutput
+	ToProjectTrustedSourcesProjectOutputWithContext(context.Context) ProjectTrustedSourcesProjectOutput
+}
+
+type ProjectTrustedSourcesProjectArgs struct {
+	// Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+	CustomAllows ProjectTrustedSourcesProjectCustomAllowArrayInput `pulumi:"customAllows"`
+	// A label or description for the trusted project.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// The trusted Vercel project ID.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+}
+
+func (ProjectTrustedSourcesProjectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesProjectArgs) ToProjectTrustedSourcesProjectOutput() ProjectTrustedSourcesProjectOutput {
+	return i.ToProjectTrustedSourcesProjectOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesProjectArgs) ToProjectTrustedSourcesProjectOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesProjectOutput)
+}
+
+// ProjectTrustedSourcesProjectArrayInput is an input type that accepts ProjectTrustedSourcesProjectArray and ProjectTrustedSourcesProjectArrayOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesProjectArrayInput` via:
+//
+//	ProjectTrustedSourcesProjectArray{ ProjectTrustedSourcesProjectArgs{...} }
+type ProjectTrustedSourcesProjectArrayInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesProjectArrayOutput() ProjectTrustedSourcesProjectArrayOutput
+	ToProjectTrustedSourcesProjectArrayOutputWithContext(context.Context) ProjectTrustedSourcesProjectArrayOutput
+}
+
+type ProjectTrustedSourcesProjectArray []ProjectTrustedSourcesProjectInput
+
+func (ProjectTrustedSourcesProjectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesProjectArray) ToProjectTrustedSourcesProjectArrayOutput() ProjectTrustedSourcesProjectArrayOutput {
+	return i.ToProjectTrustedSourcesProjectArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesProjectArray) ToProjectTrustedSourcesProjectArrayOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesProjectArrayOutput)
+}
+
+type ProjectTrustedSourcesProjectOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesProjectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesProjectOutput) ToProjectTrustedSourcesProjectOutput() ProjectTrustedSourcesProjectOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectOutput) ToProjectTrustedSourcesProjectOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectOutput {
+	return o
+}
+
+// Optional overrides for default same-environment matching. Saved rules replace the API defaults for this trusted project.
+func (o ProjectTrustedSourcesProjectOutput) CustomAllows() ProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProject) []ProjectTrustedSourcesProjectCustomAllow { return v.CustomAllows }).(ProjectTrustedSourcesProjectCustomAllowArrayOutput)
+}
+
+// A label or description for the trusted project.
+func (o ProjectTrustedSourcesProjectOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProject) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// The trusted Vercel project ID.
+func (o ProjectTrustedSourcesProjectOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProject) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+type ProjectTrustedSourcesProjectArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesProjectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesProjectArrayOutput) ToProjectTrustedSourcesProjectArrayOutput() ProjectTrustedSourcesProjectArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectArrayOutput) ToProjectTrustedSourcesProjectArrayOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectArrayOutput) Index(i pulumi.IntInput) ProjectTrustedSourcesProjectOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectTrustedSourcesProject {
+		return vs[0].([]ProjectTrustedSourcesProject)[vs[1].(int)]
+	}).(ProjectTrustedSourcesProjectOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllow struct {
+	// The source environments on the trusted project that are allowed to access the target environments.
+	From ProjectTrustedSourcesProjectCustomAllowFrom `pulumi:"from"`
+	// The target environments on this project that may be accessed.
+	To ProjectTrustedSourcesProjectCustomAllowTo `pulumi:"to"`
+}
+
+// ProjectTrustedSourcesProjectCustomAllowInput is an input type that accepts ProjectTrustedSourcesProjectCustomAllowArgs and ProjectTrustedSourcesProjectCustomAllowOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesProjectCustomAllowInput` via:
+//
+//	ProjectTrustedSourcesProjectCustomAllowArgs{...}
+type ProjectTrustedSourcesProjectCustomAllowInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesProjectCustomAllowOutput() ProjectTrustedSourcesProjectCustomAllowOutput
+	ToProjectTrustedSourcesProjectCustomAllowOutputWithContext(context.Context) ProjectTrustedSourcesProjectCustomAllowOutput
+}
+
+type ProjectTrustedSourcesProjectCustomAllowArgs struct {
+	// The source environments on the trusted project that are allowed to access the target environments.
+	From ProjectTrustedSourcesProjectCustomAllowFromInput `pulumi:"from"`
+	// The target environments on this project that may be accessed.
+	To ProjectTrustedSourcesProjectCustomAllowToInput `pulumi:"to"`
+}
+
+func (ProjectTrustedSourcesProjectCustomAllowArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowArgs) ToProjectTrustedSourcesProjectCustomAllowOutput() ProjectTrustedSourcesProjectCustomAllowOutput {
+	return i.ToProjectTrustedSourcesProjectCustomAllowOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowArgs) ToProjectTrustedSourcesProjectCustomAllowOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesProjectCustomAllowOutput)
+}
+
+// ProjectTrustedSourcesProjectCustomAllowArrayInput is an input type that accepts ProjectTrustedSourcesProjectCustomAllowArray and ProjectTrustedSourcesProjectCustomAllowArrayOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesProjectCustomAllowArrayInput` via:
+//
+//	ProjectTrustedSourcesProjectCustomAllowArray{ ProjectTrustedSourcesProjectCustomAllowArgs{...} }
+type ProjectTrustedSourcesProjectCustomAllowArrayInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesProjectCustomAllowArrayOutput() ProjectTrustedSourcesProjectCustomAllowArrayOutput
+	ToProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(context.Context) ProjectTrustedSourcesProjectCustomAllowArrayOutput
+}
+
+type ProjectTrustedSourcesProjectCustomAllowArray []ProjectTrustedSourcesProjectCustomAllowInput
+
+func (ProjectTrustedSourcesProjectCustomAllowArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowArray) ToProjectTrustedSourcesProjectCustomAllowArrayOutput() ProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return i.ToProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowArray) ToProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesProjectCustomAllowArrayOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllowOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesProjectCustomAllowOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowOutput) ToProjectTrustedSourcesProjectCustomAllowOutput() ProjectTrustedSourcesProjectCustomAllowOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowOutput) ToProjectTrustedSourcesProjectCustomAllowOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowOutput {
+	return o
+}
+
+// The source environments on the trusted project that are allowed to access the target environments.
+func (o ProjectTrustedSourcesProjectCustomAllowOutput) From() ProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProjectCustomAllow) ProjectTrustedSourcesProjectCustomAllowFrom {
+		return v.From
+	}).(ProjectTrustedSourcesProjectCustomAllowFromOutput)
+}
+
+// The target environments on this project that may be accessed.
+func (o ProjectTrustedSourcesProjectCustomAllowOutput) To() ProjectTrustedSourcesProjectCustomAllowToOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProjectCustomAllow) ProjectTrustedSourcesProjectCustomAllowTo { return v.To }).(ProjectTrustedSourcesProjectCustomAllowToOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllowArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesProjectCustomAllowArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowArrayOutput) ToProjectTrustedSourcesProjectCustomAllowArrayOutput() ProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowArrayOutput) ToProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowArrayOutput) Index(i pulumi.IntInput) ProjectTrustedSourcesProjectCustomAllowOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectTrustedSourcesProjectCustomAllow {
+		return vs[0].([]ProjectTrustedSourcesProjectCustomAllow)[vs[1].(int)]
+	}).(ProjectTrustedSourcesProjectCustomAllowOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllowFrom struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset *string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// ProjectTrustedSourcesProjectCustomAllowFromInput is an input type that accepts ProjectTrustedSourcesProjectCustomAllowFromArgs and ProjectTrustedSourcesProjectCustomAllowFromOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesProjectCustomAllowFromInput` via:
+//
+//	ProjectTrustedSourcesProjectCustomAllowFromArgs{...}
+type ProjectTrustedSourcesProjectCustomAllowFromInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesProjectCustomAllowFromOutput() ProjectTrustedSourcesProjectCustomAllowFromOutput
+	ToProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(context.Context) ProjectTrustedSourcesProjectCustomAllowFromOutput
+}
+
+type ProjectTrustedSourcesProjectCustomAllowFromArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringPtrInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (ProjectTrustedSourcesProjectCustomAllowFromArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowFrom)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowFromArgs) ToProjectTrustedSourcesProjectCustomAllowFromOutput() ProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return i.ToProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowFromArgs) ToProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesProjectCustomAllowFromOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllowFromOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesProjectCustomAllowFromOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowFrom)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowFromOutput) ToProjectTrustedSourcesProjectCustomAllowFromOutput() ProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowFromOutput) ToProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o ProjectTrustedSourcesProjectCustomAllowFromOutput) Preset() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProjectCustomAllowFrom) *string { return v.Preset }).(pulumi.StringPtrOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o ProjectTrustedSourcesProjectCustomAllowFromOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProjectCustomAllowFrom) []string { return v.Slugs }).(pulumi.StringArrayOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllowTo struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset *string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// ProjectTrustedSourcesProjectCustomAllowToInput is an input type that accepts ProjectTrustedSourcesProjectCustomAllowToArgs and ProjectTrustedSourcesProjectCustomAllowToOutput values.
+// You can construct a concrete instance of `ProjectTrustedSourcesProjectCustomAllowToInput` via:
+//
+//	ProjectTrustedSourcesProjectCustomAllowToArgs{...}
+type ProjectTrustedSourcesProjectCustomAllowToInput interface {
+	pulumi.Input
+
+	ToProjectTrustedSourcesProjectCustomAllowToOutput() ProjectTrustedSourcesProjectCustomAllowToOutput
+	ToProjectTrustedSourcesProjectCustomAllowToOutputWithContext(context.Context) ProjectTrustedSourcesProjectCustomAllowToOutput
+}
+
+type ProjectTrustedSourcesProjectCustomAllowToArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringPtrInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (ProjectTrustedSourcesProjectCustomAllowToArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowTo)(nil)).Elem()
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowToArgs) ToProjectTrustedSourcesProjectCustomAllowToOutput() ProjectTrustedSourcesProjectCustomAllowToOutput {
+	return i.ToProjectTrustedSourcesProjectCustomAllowToOutputWithContext(context.Background())
+}
+
+func (i ProjectTrustedSourcesProjectCustomAllowToArgs) ToProjectTrustedSourcesProjectCustomAllowToOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowToOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTrustedSourcesProjectCustomAllowToOutput)
+}
+
+type ProjectTrustedSourcesProjectCustomAllowToOutput struct{ *pulumi.OutputState }
+
+func (ProjectTrustedSourcesProjectCustomAllowToOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowTo)(nil)).Elem()
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowToOutput) ToProjectTrustedSourcesProjectCustomAllowToOutput() ProjectTrustedSourcesProjectCustomAllowToOutput {
+	return o
+}
+
+func (o ProjectTrustedSourcesProjectCustomAllowToOutput) ToProjectTrustedSourcesProjectCustomAllowToOutputWithContext(ctx context.Context) ProjectTrustedSourcesProjectCustomAllowToOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o ProjectTrustedSourcesProjectCustomAllowToOutput) Preset() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProjectCustomAllowTo) *string { return v.Preset }).(pulumi.StringPtrOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o ProjectTrustedSourcesProjectCustomAllowToOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProjectTrustedSourcesProjectCustomAllowTo) []string { return v.Slugs }).(pulumi.StringArrayOutput)
 }
 
 type ProjectVercelAuthentication struct {
@@ -7541,6 +10261,477 @@ func (o TeamMemberProjectArrayOutput) Index(i pulumi.IntInput) TeamMemberProject
 	}).(TeamMemberProjectOutput)
 }
 
+type GetBlobProjectConnectionsConnection struct {
+	// The prefix used for the generated Blob environment variable names.
+	EnvVarPrefix string `pulumi:"envVarPrefix"`
+	// The environments in which the generated Blob environment variables exist.
+	Environments []string `pulumi:"environments"`
+	// The ID of the Blob store project connection.
+	Id string `pulumi:"id"`
+	// The ID of the latest production deployment for the connected project, if any.
+	ProductionDeploymentId string `pulumi:"productionDeploymentId"`
+	// The URL of the latest production deployment for the connected project, if any.
+	ProductionDeploymentUrl string `pulumi:"productionDeploymentUrl"`
+	// The framework configured for the connected Vercel project, if any.
+	ProjectFramework string `pulumi:"projectFramework"`
+	// The ID of the connected Vercel project.
+	ProjectId string `pulumi:"projectId"`
+	// The name of the connected Vercel project.
+	ProjectName string `pulumi:"projectName"`
+	// The generated environment variable name that contains the Blob read/write token.
+	ReadWriteTokenEnvVarName string `pulumi:"readWriteTokenEnvVarName"`
+}
+
+// GetBlobProjectConnectionsConnectionInput is an input type that accepts GetBlobProjectConnectionsConnectionArgs and GetBlobProjectConnectionsConnectionOutput values.
+// You can construct a concrete instance of `GetBlobProjectConnectionsConnectionInput` via:
+//
+//	GetBlobProjectConnectionsConnectionArgs{...}
+type GetBlobProjectConnectionsConnectionInput interface {
+	pulumi.Input
+
+	ToGetBlobProjectConnectionsConnectionOutput() GetBlobProjectConnectionsConnectionOutput
+	ToGetBlobProjectConnectionsConnectionOutputWithContext(context.Context) GetBlobProjectConnectionsConnectionOutput
+}
+
+type GetBlobProjectConnectionsConnectionArgs struct {
+	// The prefix used for the generated Blob environment variable names.
+	EnvVarPrefix pulumi.StringInput `pulumi:"envVarPrefix"`
+	// The environments in which the generated Blob environment variables exist.
+	Environments pulumi.StringArrayInput `pulumi:"environments"`
+	// The ID of the Blob store project connection.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The ID of the latest production deployment for the connected project, if any.
+	ProductionDeploymentId pulumi.StringInput `pulumi:"productionDeploymentId"`
+	// The URL of the latest production deployment for the connected project, if any.
+	ProductionDeploymentUrl pulumi.StringInput `pulumi:"productionDeploymentUrl"`
+	// The framework configured for the connected Vercel project, if any.
+	ProjectFramework pulumi.StringInput `pulumi:"projectFramework"`
+	// The ID of the connected Vercel project.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The name of the connected Vercel project.
+	ProjectName pulumi.StringInput `pulumi:"projectName"`
+	// The generated environment variable name that contains the Blob read/write token.
+	ReadWriteTokenEnvVarName pulumi.StringInput `pulumi:"readWriteTokenEnvVarName"`
+}
+
+func (GetBlobProjectConnectionsConnectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBlobProjectConnectionsConnection)(nil)).Elem()
+}
+
+func (i GetBlobProjectConnectionsConnectionArgs) ToGetBlobProjectConnectionsConnectionOutput() GetBlobProjectConnectionsConnectionOutput {
+	return i.ToGetBlobProjectConnectionsConnectionOutputWithContext(context.Background())
+}
+
+func (i GetBlobProjectConnectionsConnectionArgs) ToGetBlobProjectConnectionsConnectionOutputWithContext(ctx context.Context) GetBlobProjectConnectionsConnectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBlobProjectConnectionsConnectionOutput)
+}
+
+// GetBlobProjectConnectionsConnectionArrayInput is an input type that accepts GetBlobProjectConnectionsConnectionArray and GetBlobProjectConnectionsConnectionArrayOutput values.
+// You can construct a concrete instance of `GetBlobProjectConnectionsConnectionArrayInput` via:
+//
+//	GetBlobProjectConnectionsConnectionArray{ GetBlobProjectConnectionsConnectionArgs{...} }
+type GetBlobProjectConnectionsConnectionArrayInput interface {
+	pulumi.Input
+
+	ToGetBlobProjectConnectionsConnectionArrayOutput() GetBlobProjectConnectionsConnectionArrayOutput
+	ToGetBlobProjectConnectionsConnectionArrayOutputWithContext(context.Context) GetBlobProjectConnectionsConnectionArrayOutput
+}
+
+type GetBlobProjectConnectionsConnectionArray []GetBlobProjectConnectionsConnectionInput
+
+func (GetBlobProjectConnectionsConnectionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBlobProjectConnectionsConnection)(nil)).Elem()
+}
+
+func (i GetBlobProjectConnectionsConnectionArray) ToGetBlobProjectConnectionsConnectionArrayOutput() GetBlobProjectConnectionsConnectionArrayOutput {
+	return i.ToGetBlobProjectConnectionsConnectionArrayOutputWithContext(context.Background())
+}
+
+func (i GetBlobProjectConnectionsConnectionArray) ToGetBlobProjectConnectionsConnectionArrayOutputWithContext(ctx context.Context) GetBlobProjectConnectionsConnectionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBlobProjectConnectionsConnectionArrayOutput)
+}
+
+type GetBlobProjectConnectionsConnectionOutput struct{ *pulumi.OutputState }
+
+func (GetBlobProjectConnectionsConnectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBlobProjectConnectionsConnection)(nil)).Elem()
+}
+
+func (o GetBlobProjectConnectionsConnectionOutput) ToGetBlobProjectConnectionsConnectionOutput() GetBlobProjectConnectionsConnectionOutput {
+	return o
+}
+
+func (o GetBlobProjectConnectionsConnectionOutput) ToGetBlobProjectConnectionsConnectionOutputWithContext(ctx context.Context) GetBlobProjectConnectionsConnectionOutput {
+	return o
+}
+
+// The prefix used for the generated Blob environment variable names.
+func (o GetBlobProjectConnectionsConnectionOutput) EnvVarPrefix() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.EnvVarPrefix }).(pulumi.StringOutput)
+}
+
+// The environments in which the generated Blob environment variables exist.
+func (o GetBlobProjectConnectionsConnectionOutput) Environments() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) []string { return v.Environments }).(pulumi.StringArrayOutput)
+}
+
+// The ID of the Blob store project connection.
+func (o GetBlobProjectConnectionsConnectionOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The ID of the latest production deployment for the connected project, if any.
+func (o GetBlobProjectConnectionsConnectionOutput) ProductionDeploymentId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.ProductionDeploymentId }).(pulumi.StringOutput)
+}
+
+// The URL of the latest production deployment for the connected project, if any.
+func (o GetBlobProjectConnectionsConnectionOutput) ProductionDeploymentUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.ProductionDeploymentUrl }).(pulumi.StringOutput)
+}
+
+// The framework configured for the connected Vercel project, if any.
+func (o GetBlobProjectConnectionsConnectionOutput) ProjectFramework() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.ProjectFramework }).(pulumi.StringOutput)
+}
+
+// The ID of the connected Vercel project.
+func (o GetBlobProjectConnectionsConnectionOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// The name of the connected Vercel project.
+func (o GetBlobProjectConnectionsConnectionOutput) ProjectName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.ProjectName }).(pulumi.StringOutput)
+}
+
+// The generated environment variable name that contains the Blob read/write token.
+func (o GetBlobProjectConnectionsConnectionOutput) ReadWriteTokenEnvVarName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobProjectConnectionsConnection) string { return v.ReadWriteTokenEnvVarName }).(pulumi.StringOutput)
+}
+
+type GetBlobProjectConnectionsConnectionArrayOutput struct{ *pulumi.OutputState }
+
+func (GetBlobProjectConnectionsConnectionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBlobProjectConnectionsConnection)(nil)).Elem()
+}
+
+func (o GetBlobProjectConnectionsConnectionArrayOutput) ToGetBlobProjectConnectionsConnectionArrayOutput() GetBlobProjectConnectionsConnectionArrayOutput {
+	return o
+}
+
+func (o GetBlobProjectConnectionsConnectionArrayOutput) ToGetBlobProjectConnectionsConnectionArrayOutputWithContext(ctx context.Context) GetBlobProjectConnectionsConnectionArrayOutput {
+	return o
+}
+
+func (o GetBlobProjectConnectionsConnectionArrayOutput) Index(i pulumi.IntInput) GetBlobProjectConnectionsConnectionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetBlobProjectConnectionsConnection {
+		return vs[0].([]GetBlobProjectConnectionsConnection)[vs[1].(int)]
+	}).(GetBlobProjectConnectionsConnectionOutput)
+}
+
+type GetBlobStoresStore struct {
+	// Whether blobs created in this store are `public` or `private` by default.
+	Access string `pulumi:"access"`
+	// The Unix timestamp, in milliseconds, when the Blob store was created.
+	CreatedAt int `pulumi:"createdAt"`
+	// The number of files currently stored in the Blob store.
+	FileCount int `pulumi:"fileCount"`
+	// The ID of the Blob store.
+	Id string `pulumi:"id"`
+	// The name of the Blob store.
+	Name string `pulumi:"name"`
+	// The region in which the Blob store exists.
+	Region string `pulumi:"region"`
+	// The size of the Blob store in bytes.
+	Size int `pulumi:"size"`
+	// The current status of the Blob store.
+	Status string `pulumi:"status"`
+	// The Unix timestamp, in milliseconds, when the Blob store was last updated.
+	UpdatedAt int `pulumi:"updatedAt"`
+}
+
+// GetBlobStoresStoreInput is an input type that accepts GetBlobStoresStoreArgs and GetBlobStoresStoreOutput values.
+// You can construct a concrete instance of `GetBlobStoresStoreInput` via:
+//
+//	GetBlobStoresStoreArgs{...}
+type GetBlobStoresStoreInput interface {
+	pulumi.Input
+
+	ToGetBlobStoresStoreOutput() GetBlobStoresStoreOutput
+	ToGetBlobStoresStoreOutputWithContext(context.Context) GetBlobStoresStoreOutput
+}
+
+type GetBlobStoresStoreArgs struct {
+	// Whether blobs created in this store are `public` or `private` by default.
+	Access pulumi.StringInput `pulumi:"access"`
+	// The Unix timestamp, in milliseconds, when the Blob store was created.
+	CreatedAt pulumi.IntInput `pulumi:"createdAt"`
+	// The number of files currently stored in the Blob store.
+	FileCount pulumi.IntInput `pulumi:"fileCount"`
+	// The ID of the Blob store.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The name of the Blob store.
+	Name pulumi.StringInput `pulumi:"name"`
+	// The region in which the Blob store exists.
+	Region pulumi.StringInput `pulumi:"region"`
+	// The size of the Blob store in bytes.
+	Size pulumi.IntInput `pulumi:"size"`
+	// The current status of the Blob store.
+	Status pulumi.StringInput `pulumi:"status"`
+	// The Unix timestamp, in milliseconds, when the Blob store was last updated.
+	UpdatedAt pulumi.IntInput `pulumi:"updatedAt"`
+}
+
+func (GetBlobStoresStoreArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBlobStoresStore)(nil)).Elem()
+}
+
+func (i GetBlobStoresStoreArgs) ToGetBlobStoresStoreOutput() GetBlobStoresStoreOutput {
+	return i.ToGetBlobStoresStoreOutputWithContext(context.Background())
+}
+
+func (i GetBlobStoresStoreArgs) ToGetBlobStoresStoreOutputWithContext(ctx context.Context) GetBlobStoresStoreOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBlobStoresStoreOutput)
+}
+
+// GetBlobStoresStoreArrayInput is an input type that accepts GetBlobStoresStoreArray and GetBlobStoresStoreArrayOutput values.
+// You can construct a concrete instance of `GetBlobStoresStoreArrayInput` via:
+//
+//	GetBlobStoresStoreArray{ GetBlobStoresStoreArgs{...} }
+type GetBlobStoresStoreArrayInput interface {
+	pulumi.Input
+
+	ToGetBlobStoresStoreArrayOutput() GetBlobStoresStoreArrayOutput
+	ToGetBlobStoresStoreArrayOutputWithContext(context.Context) GetBlobStoresStoreArrayOutput
+}
+
+type GetBlobStoresStoreArray []GetBlobStoresStoreInput
+
+func (GetBlobStoresStoreArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBlobStoresStore)(nil)).Elem()
+}
+
+func (i GetBlobStoresStoreArray) ToGetBlobStoresStoreArrayOutput() GetBlobStoresStoreArrayOutput {
+	return i.ToGetBlobStoresStoreArrayOutputWithContext(context.Background())
+}
+
+func (i GetBlobStoresStoreArray) ToGetBlobStoresStoreArrayOutputWithContext(ctx context.Context) GetBlobStoresStoreArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBlobStoresStoreArrayOutput)
+}
+
+type GetBlobStoresStoreOutput struct{ *pulumi.OutputState }
+
+func (GetBlobStoresStoreOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBlobStoresStore)(nil)).Elem()
+}
+
+func (o GetBlobStoresStoreOutput) ToGetBlobStoresStoreOutput() GetBlobStoresStoreOutput {
+	return o
+}
+
+func (o GetBlobStoresStoreOutput) ToGetBlobStoresStoreOutputWithContext(ctx context.Context) GetBlobStoresStoreOutput {
+	return o
+}
+
+// Whether blobs created in this store are `public` or `private` by default.
+func (o GetBlobStoresStoreOutput) Access() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) string { return v.Access }).(pulumi.StringOutput)
+}
+
+// The Unix timestamp, in milliseconds, when the Blob store was created.
+func (o GetBlobStoresStoreOutput) CreatedAt() pulumi.IntOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) int { return v.CreatedAt }).(pulumi.IntOutput)
+}
+
+// The number of files currently stored in the Blob store.
+func (o GetBlobStoresStoreOutput) FileCount() pulumi.IntOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) int { return v.FileCount }).(pulumi.IntOutput)
+}
+
+// The ID of the Blob store.
+func (o GetBlobStoresStoreOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The name of the Blob store.
+func (o GetBlobStoresStoreOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The region in which the Blob store exists.
+func (o GetBlobStoresStoreOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) string { return v.Region }).(pulumi.StringOutput)
+}
+
+// The size of the Blob store in bytes.
+func (o GetBlobStoresStoreOutput) Size() pulumi.IntOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) int { return v.Size }).(pulumi.IntOutput)
+}
+
+// The current status of the Blob store.
+func (o GetBlobStoresStoreOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The Unix timestamp, in milliseconds, when the Blob store was last updated.
+func (o GetBlobStoresStoreOutput) UpdatedAt() pulumi.IntOutput {
+	return o.ApplyT(func(v GetBlobStoresStore) int { return v.UpdatedAt }).(pulumi.IntOutput)
+}
+
+type GetBlobStoresStoreArrayOutput struct{ *pulumi.OutputState }
+
+func (GetBlobStoresStoreArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBlobStoresStore)(nil)).Elem()
+}
+
+func (o GetBlobStoresStoreArrayOutput) ToGetBlobStoresStoreArrayOutput() GetBlobStoresStoreArrayOutput {
+	return o
+}
+
+func (o GetBlobStoresStoreArrayOutput) ToGetBlobStoresStoreArrayOutputWithContext(ctx context.Context) GetBlobStoresStoreArrayOutput {
+	return o
+}
+
+func (o GetBlobStoresStoreArrayOutput) Index(i pulumi.IntInput) GetBlobStoresStoreOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetBlobStoresStore {
+		return vs[0].([]GetBlobStoresStore)[vs[1].(int)]
+	}).(GetBlobStoresStoreOutput)
+}
+
+type GetBulkRedirectsRedirect struct {
+	// Whether the source match is case-sensitive.
+	CaseSensitive bool `pulumi:"caseSensitive"`
+	// The destination pathname or URL to redirect to.
+	Destination string `pulumi:"destination"`
+	// Whether query parameters are considered when matching the redirect.
+	Query bool `pulumi:"query"`
+	// The source pathname to match.
+	Source string `pulumi:"source"`
+	// The HTTP status code for the redirect.
+	StatusCode int `pulumi:"statusCode"`
+}
+
+// GetBulkRedirectsRedirectInput is an input type that accepts GetBulkRedirectsRedirectArgs and GetBulkRedirectsRedirectOutput values.
+// You can construct a concrete instance of `GetBulkRedirectsRedirectInput` via:
+//
+//	GetBulkRedirectsRedirectArgs{...}
+type GetBulkRedirectsRedirectInput interface {
+	pulumi.Input
+
+	ToGetBulkRedirectsRedirectOutput() GetBulkRedirectsRedirectOutput
+	ToGetBulkRedirectsRedirectOutputWithContext(context.Context) GetBulkRedirectsRedirectOutput
+}
+
+type GetBulkRedirectsRedirectArgs struct {
+	// Whether the source match is case-sensitive.
+	CaseSensitive pulumi.BoolInput `pulumi:"caseSensitive"`
+	// The destination pathname or URL to redirect to.
+	Destination pulumi.StringInput `pulumi:"destination"`
+	// Whether query parameters are considered when matching the redirect.
+	Query pulumi.BoolInput `pulumi:"query"`
+	// The source pathname to match.
+	Source pulumi.StringInput `pulumi:"source"`
+	// The HTTP status code for the redirect.
+	StatusCode pulumi.IntInput `pulumi:"statusCode"`
+}
+
+func (GetBulkRedirectsRedirectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (i GetBulkRedirectsRedirectArgs) ToGetBulkRedirectsRedirectOutput() GetBulkRedirectsRedirectOutput {
+	return i.ToGetBulkRedirectsRedirectOutputWithContext(context.Background())
+}
+
+func (i GetBulkRedirectsRedirectArgs) ToGetBulkRedirectsRedirectOutputWithContext(ctx context.Context) GetBulkRedirectsRedirectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBulkRedirectsRedirectOutput)
+}
+
+// GetBulkRedirectsRedirectArrayInput is an input type that accepts GetBulkRedirectsRedirectArray and GetBulkRedirectsRedirectArrayOutput values.
+// You can construct a concrete instance of `GetBulkRedirectsRedirectArrayInput` via:
+//
+//	GetBulkRedirectsRedirectArray{ GetBulkRedirectsRedirectArgs{...} }
+type GetBulkRedirectsRedirectArrayInput interface {
+	pulumi.Input
+
+	ToGetBulkRedirectsRedirectArrayOutput() GetBulkRedirectsRedirectArrayOutput
+	ToGetBulkRedirectsRedirectArrayOutputWithContext(context.Context) GetBulkRedirectsRedirectArrayOutput
+}
+
+type GetBulkRedirectsRedirectArray []GetBulkRedirectsRedirectInput
+
+func (GetBulkRedirectsRedirectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (i GetBulkRedirectsRedirectArray) ToGetBulkRedirectsRedirectArrayOutput() GetBulkRedirectsRedirectArrayOutput {
+	return i.ToGetBulkRedirectsRedirectArrayOutputWithContext(context.Background())
+}
+
+func (i GetBulkRedirectsRedirectArray) ToGetBulkRedirectsRedirectArrayOutputWithContext(ctx context.Context) GetBulkRedirectsRedirectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBulkRedirectsRedirectArrayOutput)
+}
+
+type GetBulkRedirectsRedirectOutput struct{ *pulumi.OutputState }
+
+func (GetBulkRedirectsRedirectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (o GetBulkRedirectsRedirectOutput) ToGetBulkRedirectsRedirectOutput() GetBulkRedirectsRedirectOutput {
+	return o
+}
+
+func (o GetBulkRedirectsRedirectOutput) ToGetBulkRedirectsRedirectOutputWithContext(ctx context.Context) GetBulkRedirectsRedirectOutput {
+	return o
+}
+
+// Whether the source match is case-sensitive.
+func (o GetBulkRedirectsRedirectOutput) CaseSensitive() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetBulkRedirectsRedirect) bool { return v.CaseSensitive }).(pulumi.BoolOutput)
+}
+
+// The destination pathname or URL to redirect to.
+func (o GetBulkRedirectsRedirectOutput) Destination() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBulkRedirectsRedirect) string { return v.Destination }).(pulumi.StringOutput)
+}
+
+// Whether query parameters are considered when matching the redirect.
+func (o GetBulkRedirectsRedirectOutput) Query() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetBulkRedirectsRedirect) bool { return v.Query }).(pulumi.BoolOutput)
+}
+
+// The source pathname to match.
+func (o GetBulkRedirectsRedirectOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v GetBulkRedirectsRedirect) string { return v.Source }).(pulumi.StringOutput)
+}
+
+// The HTTP status code for the redirect.
+func (o GetBulkRedirectsRedirectOutput) StatusCode() pulumi.IntOutput {
+	return o.ApplyT(func(v GetBulkRedirectsRedirect) int { return v.StatusCode }).(pulumi.IntOutput)
+}
+
+type GetBulkRedirectsRedirectArrayOutput struct{ *pulumi.OutputState }
+
+func (GetBulkRedirectsRedirectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBulkRedirectsRedirect)(nil)).Elem()
+}
+
+func (o GetBulkRedirectsRedirectArrayOutput) ToGetBulkRedirectsRedirectArrayOutput() GetBulkRedirectsRedirectArrayOutput {
+	return o
+}
+
+func (o GetBulkRedirectsRedirectArrayOutput) ToGetBulkRedirectsRedirectArrayOutputWithContext(ctx context.Context) GetBulkRedirectsRedirectArrayOutput {
+	return o
+}
+
+func (o GetBulkRedirectsRedirectArrayOutput) Index(i pulumi.IntInput) GetBulkRedirectsRedirectOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetBulkRedirectsRedirect {
+		return vs[0].([]GetBulkRedirectsRedirect)[vs[1].(int)]
+	}).(GetBulkRedirectsRedirectOutput)
+}
+
 type GetCustomEnvironmentBranchTracking struct {
 	// The pattern of the branch name to track.
 	Pattern string `pulumi:"pattern"`
@@ -7706,6 +10897,588 @@ func (o GetDsyncGroupsListArrayOutput) Index(i pulumi.IntInput) GetDsyncGroupsLi
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetDsyncGroupsList {
 		return vs[0].([]GetDsyncGroupsList)[vs[1].(int)]
 	}).(GetDsyncGroupsListOutput)
+}
+
+type GetFeatureFlagDevelopment struct {
+	// The variant served when this environment is enabled and no rules match.
+	DefaultVariantId string `pulumi:"defaultVariantId"`
+	// The variant served while this environment is disabled or paused.
+	DisabledVariantId string `pulumi:"disabledVariantId"`
+	// Whether the flag actively evaluates in this environment.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetFeatureFlagDevelopmentInput is an input type that accepts GetFeatureFlagDevelopmentArgs and GetFeatureFlagDevelopmentOutput values.
+// You can construct a concrete instance of `GetFeatureFlagDevelopmentInput` via:
+//
+//	GetFeatureFlagDevelopmentArgs{...}
+type GetFeatureFlagDevelopmentInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagDevelopmentOutput() GetFeatureFlagDevelopmentOutput
+	ToGetFeatureFlagDevelopmentOutputWithContext(context.Context) GetFeatureFlagDevelopmentOutput
+}
+
+type GetFeatureFlagDevelopmentArgs struct {
+	// The variant served when this environment is enabled and no rules match.
+	DefaultVariantId pulumi.StringInput `pulumi:"defaultVariantId"`
+	// The variant served while this environment is disabled or paused.
+	DisabledVariantId pulumi.StringInput `pulumi:"disabledVariantId"`
+	// Whether the flag actively evaluates in this environment.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetFeatureFlagDevelopmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagDevelopment)(nil)).Elem()
+}
+
+func (i GetFeatureFlagDevelopmentArgs) ToGetFeatureFlagDevelopmentOutput() GetFeatureFlagDevelopmentOutput {
+	return i.ToGetFeatureFlagDevelopmentOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagDevelopmentArgs) ToGetFeatureFlagDevelopmentOutputWithContext(ctx context.Context) GetFeatureFlagDevelopmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagDevelopmentOutput)
+}
+
+type GetFeatureFlagDevelopmentOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagDevelopmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagDevelopment)(nil)).Elem()
+}
+
+func (o GetFeatureFlagDevelopmentOutput) ToGetFeatureFlagDevelopmentOutput() GetFeatureFlagDevelopmentOutput {
+	return o
+}
+
+func (o GetFeatureFlagDevelopmentOutput) ToGetFeatureFlagDevelopmentOutputWithContext(ctx context.Context) GetFeatureFlagDevelopmentOutput {
+	return o
+}
+
+// The variant served when this environment is enabled and no rules match.
+func (o GetFeatureFlagDevelopmentOutput) DefaultVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagDevelopment) string { return v.DefaultVariantId }).(pulumi.StringOutput)
+}
+
+// The variant served while this environment is disabled or paused.
+func (o GetFeatureFlagDevelopmentOutput) DisabledVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagDevelopment) string { return v.DisabledVariantId }).(pulumi.StringOutput)
+}
+
+// Whether the flag actively evaluates in this environment.
+func (o GetFeatureFlagDevelopmentOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetFeatureFlagDevelopment) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetFeatureFlagPreview struct {
+	// The variant served when this environment is enabled and no rules match.
+	DefaultVariantId string `pulumi:"defaultVariantId"`
+	// The variant served while this environment is disabled or paused.
+	DisabledVariantId string `pulumi:"disabledVariantId"`
+	// Whether the flag actively evaluates in this environment.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetFeatureFlagPreviewInput is an input type that accepts GetFeatureFlagPreviewArgs and GetFeatureFlagPreviewOutput values.
+// You can construct a concrete instance of `GetFeatureFlagPreviewInput` via:
+//
+//	GetFeatureFlagPreviewArgs{...}
+type GetFeatureFlagPreviewInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagPreviewOutput() GetFeatureFlagPreviewOutput
+	ToGetFeatureFlagPreviewOutputWithContext(context.Context) GetFeatureFlagPreviewOutput
+}
+
+type GetFeatureFlagPreviewArgs struct {
+	// The variant served when this environment is enabled and no rules match.
+	DefaultVariantId pulumi.StringInput `pulumi:"defaultVariantId"`
+	// The variant served while this environment is disabled or paused.
+	DisabledVariantId pulumi.StringInput `pulumi:"disabledVariantId"`
+	// Whether the flag actively evaluates in this environment.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetFeatureFlagPreviewArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagPreview)(nil)).Elem()
+}
+
+func (i GetFeatureFlagPreviewArgs) ToGetFeatureFlagPreviewOutput() GetFeatureFlagPreviewOutput {
+	return i.ToGetFeatureFlagPreviewOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagPreviewArgs) ToGetFeatureFlagPreviewOutputWithContext(ctx context.Context) GetFeatureFlagPreviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagPreviewOutput)
+}
+
+type GetFeatureFlagPreviewOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagPreviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagPreview)(nil)).Elem()
+}
+
+func (o GetFeatureFlagPreviewOutput) ToGetFeatureFlagPreviewOutput() GetFeatureFlagPreviewOutput {
+	return o
+}
+
+func (o GetFeatureFlagPreviewOutput) ToGetFeatureFlagPreviewOutputWithContext(ctx context.Context) GetFeatureFlagPreviewOutput {
+	return o
+}
+
+// The variant served when this environment is enabled and no rules match.
+func (o GetFeatureFlagPreviewOutput) DefaultVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagPreview) string { return v.DefaultVariantId }).(pulumi.StringOutput)
+}
+
+// The variant served while this environment is disabled or paused.
+func (o GetFeatureFlagPreviewOutput) DisabledVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagPreview) string { return v.DisabledVariantId }).(pulumi.StringOutput)
+}
+
+// Whether the flag actively evaluates in this environment.
+func (o GetFeatureFlagPreviewOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetFeatureFlagPreview) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetFeatureFlagProduction struct {
+	// The variant served when this environment is enabled and no rules match.
+	DefaultVariantId string `pulumi:"defaultVariantId"`
+	// The variant served while this environment is disabled or paused.
+	DisabledVariantId string `pulumi:"disabledVariantId"`
+	// Whether the flag actively evaluates in this environment.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetFeatureFlagProductionInput is an input type that accepts GetFeatureFlagProductionArgs and GetFeatureFlagProductionOutput values.
+// You can construct a concrete instance of `GetFeatureFlagProductionInput` via:
+//
+//	GetFeatureFlagProductionArgs{...}
+type GetFeatureFlagProductionInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagProductionOutput() GetFeatureFlagProductionOutput
+	ToGetFeatureFlagProductionOutputWithContext(context.Context) GetFeatureFlagProductionOutput
+}
+
+type GetFeatureFlagProductionArgs struct {
+	// The variant served when this environment is enabled and no rules match.
+	DefaultVariantId pulumi.StringInput `pulumi:"defaultVariantId"`
+	// The variant served while this environment is disabled or paused.
+	DisabledVariantId pulumi.StringInput `pulumi:"disabledVariantId"`
+	// Whether the flag actively evaluates in this environment.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetFeatureFlagProductionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagProduction)(nil)).Elem()
+}
+
+func (i GetFeatureFlagProductionArgs) ToGetFeatureFlagProductionOutput() GetFeatureFlagProductionOutput {
+	return i.ToGetFeatureFlagProductionOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagProductionArgs) ToGetFeatureFlagProductionOutputWithContext(ctx context.Context) GetFeatureFlagProductionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagProductionOutput)
+}
+
+type GetFeatureFlagProductionOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagProductionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagProduction)(nil)).Elem()
+}
+
+func (o GetFeatureFlagProductionOutput) ToGetFeatureFlagProductionOutput() GetFeatureFlagProductionOutput {
+	return o
+}
+
+func (o GetFeatureFlagProductionOutput) ToGetFeatureFlagProductionOutputWithContext(ctx context.Context) GetFeatureFlagProductionOutput {
+	return o
+}
+
+// The variant served when this environment is enabled and no rules match.
+func (o GetFeatureFlagProductionOutput) DefaultVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagProduction) string { return v.DefaultVariantId }).(pulumi.StringOutput)
+}
+
+// The variant served while this environment is disabled or paused.
+func (o GetFeatureFlagProductionOutput) DisabledVariantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagProduction) string { return v.DisabledVariantId }).(pulumi.StringOutput)
+}
+
+// Whether the flag actively evaluates in this environment.
+func (o GetFeatureFlagProductionOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetFeatureFlagProduction) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetFeatureFlagSegmentExclude struct {
+	// The entity attribute to match.
+	Attribute string `pulumi:"attribute"`
+	// The entity type to match.
+	Entity string `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values []string `pulumi:"values"`
+}
+
+// GetFeatureFlagSegmentExcludeInput is an input type that accepts GetFeatureFlagSegmentExcludeArgs and GetFeatureFlagSegmentExcludeOutput values.
+// You can construct a concrete instance of `GetFeatureFlagSegmentExcludeInput` via:
+//
+//	GetFeatureFlagSegmentExcludeArgs{...}
+type GetFeatureFlagSegmentExcludeInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagSegmentExcludeOutput() GetFeatureFlagSegmentExcludeOutput
+	ToGetFeatureFlagSegmentExcludeOutputWithContext(context.Context) GetFeatureFlagSegmentExcludeOutput
+}
+
+type GetFeatureFlagSegmentExcludeArgs struct {
+	// The entity attribute to match.
+	Attribute pulumi.StringInput `pulumi:"attribute"`
+	// The entity type to match.
+	Entity pulumi.StringInput `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetFeatureFlagSegmentExcludeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (i GetFeatureFlagSegmentExcludeArgs) ToGetFeatureFlagSegmentExcludeOutput() GetFeatureFlagSegmentExcludeOutput {
+	return i.ToGetFeatureFlagSegmentExcludeOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagSegmentExcludeArgs) ToGetFeatureFlagSegmentExcludeOutputWithContext(ctx context.Context) GetFeatureFlagSegmentExcludeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagSegmentExcludeOutput)
+}
+
+// GetFeatureFlagSegmentExcludeArrayInput is an input type that accepts GetFeatureFlagSegmentExcludeArray and GetFeatureFlagSegmentExcludeArrayOutput values.
+// You can construct a concrete instance of `GetFeatureFlagSegmentExcludeArrayInput` via:
+//
+//	GetFeatureFlagSegmentExcludeArray{ GetFeatureFlagSegmentExcludeArgs{...} }
+type GetFeatureFlagSegmentExcludeArrayInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagSegmentExcludeArrayOutput() GetFeatureFlagSegmentExcludeArrayOutput
+	ToGetFeatureFlagSegmentExcludeArrayOutputWithContext(context.Context) GetFeatureFlagSegmentExcludeArrayOutput
+}
+
+type GetFeatureFlagSegmentExcludeArray []GetFeatureFlagSegmentExcludeInput
+
+func (GetFeatureFlagSegmentExcludeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (i GetFeatureFlagSegmentExcludeArray) ToGetFeatureFlagSegmentExcludeArrayOutput() GetFeatureFlagSegmentExcludeArrayOutput {
+	return i.ToGetFeatureFlagSegmentExcludeArrayOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagSegmentExcludeArray) ToGetFeatureFlagSegmentExcludeArrayOutputWithContext(ctx context.Context) GetFeatureFlagSegmentExcludeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagSegmentExcludeArrayOutput)
+}
+
+type GetFeatureFlagSegmentExcludeOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagSegmentExcludeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (o GetFeatureFlagSegmentExcludeOutput) ToGetFeatureFlagSegmentExcludeOutput() GetFeatureFlagSegmentExcludeOutput {
+	return o
+}
+
+func (o GetFeatureFlagSegmentExcludeOutput) ToGetFeatureFlagSegmentExcludeOutputWithContext(ctx context.Context) GetFeatureFlagSegmentExcludeOutput {
+	return o
+}
+
+// The entity attribute to match.
+func (o GetFeatureFlagSegmentExcludeOutput) Attribute() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagSegmentExclude) string { return v.Attribute }).(pulumi.StringOutput)
+}
+
+// The entity type to match.
+func (o GetFeatureFlagSegmentExcludeOutput) Entity() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagSegmentExclude) string { return v.Entity }).(pulumi.StringOutput)
+}
+
+// The exact values to include or exclude for this entity attribute.
+func (o GetFeatureFlagSegmentExcludeOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetFeatureFlagSegmentExclude) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetFeatureFlagSegmentExcludeArrayOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagSegmentExcludeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFeatureFlagSegmentExclude)(nil)).Elem()
+}
+
+func (o GetFeatureFlagSegmentExcludeArrayOutput) ToGetFeatureFlagSegmentExcludeArrayOutput() GetFeatureFlagSegmentExcludeArrayOutput {
+	return o
+}
+
+func (o GetFeatureFlagSegmentExcludeArrayOutput) ToGetFeatureFlagSegmentExcludeArrayOutputWithContext(ctx context.Context) GetFeatureFlagSegmentExcludeArrayOutput {
+	return o
+}
+
+func (o GetFeatureFlagSegmentExcludeArrayOutput) Index(i pulumi.IntInput) GetFeatureFlagSegmentExcludeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetFeatureFlagSegmentExclude {
+		return vs[0].([]GetFeatureFlagSegmentExclude)[vs[1].(int)]
+	}).(GetFeatureFlagSegmentExcludeOutput)
+}
+
+type GetFeatureFlagSegmentInclude struct {
+	// The entity attribute to match.
+	Attribute string `pulumi:"attribute"`
+	// The entity type to match.
+	Entity string `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values []string `pulumi:"values"`
+}
+
+// GetFeatureFlagSegmentIncludeInput is an input type that accepts GetFeatureFlagSegmentIncludeArgs and GetFeatureFlagSegmentIncludeOutput values.
+// You can construct a concrete instance of `GetFeatureFlagSegmentIncludeInput` via:
+//
+//	GetFeatureFlagSegmentIncludeArgs{...}
+type GetFeatureFlagSegmentIncludeInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagSegmentIncludeOutput() GetFeatureFlagSegmentIncludeOutput
+	ToGetFeatureFlagSegmentIncludeOutputWithContext(context.Context) GetFeatureFlagSegmentIncludeOutput
+}
+
+type GetFeatureFlagSegmentIncludeArgs struct {
+	// The entity attribute to match.
+	Attribute pulumi.StringInput `pulumi:"attribute"`
+	// The entity type to match.
+	Entity pulumi.StringInput `pulumi:"entity"`
+	// The exact values to include or exclude for this entity attribute.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetFeatureFlagSegmentIncludeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (i GetFeatureFlagSegmentIncludeArgs) ToGetFeatureFlagSegmentIncludeOutput() GetFeatureFlagSegmentIncludeOutput {
+	return i.ToGetFeatureFlagSegmentIncludeOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagSegmentIncludeArgs) ToGetFeatureFlagSegmentIncludeOutputWithContext(ctx context.Context) GetFeatureFlagSegmentIncludeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagSegmentIncludeOutput)
+}
+
+// GetFeatureFlagSegmentIncludeArrayInput is an input type that accepts GetFeatureFlagSegmentIncludeArray and GetFeatureFlagSegmentIncludeArrayOutput values.
+// You can construct a concrete instance of `GetFeatureFlagSegmentIncludeArrayInput` via:
+//
+//	GetFeatureFlagSegmentIncludeArray{ GetFeatureFlagSegmentIncludeArgs{...} }
+type GetFeatureFlagSegmentIncludeArrayInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagSegmentIncludeArrayOutput() GetFeatureFlagSegmentIncludeArrayOutput
+	ToGetFeatureFlagSegmentIncludeArrayOutputWithContext(context.Context) GetFeatureFlagSegmentIncludeArrayOutput
+}
+
+type GetFeatureFlagSegmentIncludeArray []GetFeatureFlagSegmentIncludeInput
+
+func (GetFeatureFlagSegmentIncludeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (i GetFeatureFlagSegmentIncludeArray) ToGetFeatureFlagSegmentIncludeArrayOutput() GetFeatureFlagSegmentIncludeArrayOutput {
+	return i.ToGetFeatureFlagSegmentIncludeArrayOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagSegmentIncludeArray) ToGetFeatureFlagSegmentIncludeArrayOutputWithContext(ctx context.Context) GetFeatureFlagSegmentIncludeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagSegmentIncludeArrayOutput)
+}
+
+type GetFeatureFlagSegmentIncludeOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagSegmentIncludeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (o GetFeatureFlagSegmentIncludeOutput) ToGetFeatureFlagSegmentIncludeOutput() GetFeatureFlagSegmentIncludeOutput {
+	return o
+}
+
+func (o GetFeatureFlagSegmentIncludeOutput) ToGetFeatureFlagSegmentIncludeOutputWithContext(ctx context.Context) GetFeatureFlagSegmentIncludeOutput {
+	return o
+}
+
+// The entity attribute to match.
+func (o GetFeatureFlagSegmentIncludeOutput) Attribute() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagSegmentInclude) string { return v.Attribute }).(pulumi.StringOutput)
+}
+
+// The entity type to match.
+func (o GetFeatureFlagSegmentIncludeOutput) Entity() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagSegmentInclude) string { return v.Entity }).(pulumi.StringOutput)
+}
+
+// The exact values to include or exclude for this entity attribute.
+func (o GetFeatureFlagSegmentIncludeOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetFeatureFlagSegmentInclude) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetFeatureFlagSegmentIncludeArrayOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagSegmentIncludeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFeatureFlagSegmentInclude)(nil)).Elem()
+}
+
+func (o GetFeatureFlagSegmentIncludeArrayOutput) ToGetFeatureFlagSegmentIncludeArrayOutput() GetFeatureFlagSegmentIncludeArrayOutput {
+	return o
+}
+
+func (o GetFeatureFlagSegmentIncludeArrayOutput) ToGetFeatureFlagSegmentIncludeArrayOutputWithContext(ctx context.Context) GetFeatureFlagSegmentIncludeArrayOutput {
+	return o
+}
+
+func (o GetFeatureFlagSegmentIncludeArrayOutput) Index(i pulumi.IntInput) GetFeatureFlagSegmentIncludeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetFeatureFlagSegmentInclude {
+		return vs[0].([]GetFeatureFlagSegmentInclude)[vs[1].(int)]
+	}).(GetFeatureFlagSegmentIncludeOutput)
+}
+
+type GetFeatureFlagVariant struct {
+	// A human-readable description for the variant.
+	Description string `pulumi:"description"`
+	// The stable variant identifier.
+	Id string `pulumi:"id"`
+	// A human-readable label for the variant.
+	Label string `pulumi:"label"`
+	// The boolean value for this variant when `kind = "boolean"`.
+	ValueBool bool `pulumi:"valueBool"`
+	// The numeric value for this variant when `kind = "number"`.
+	ValueNumber float64 `pulumi:"valueNumber"`
+	// The string value for this variant when `kind = "string"`.
+	ValueString string `pulumi:"valueString"`
+}
+
+// GetFeatureFlagVariantInput is an input type that accepts GetFeatureFlagVariantArgs and GetFeatureFlagVariantOutput values.
+// You can construct a concrete instance of `GetFeatureFlagVariantInput` via:
+//
+//	GetFeatureFlagVariantArgs{...}
+type GetFeatureFlagVariantInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagVariantOutput() GetFeatureFlagVariantOutput
+	ToGetFeatureFlagVariantOutputWithContext(context.Context) GetFeatureFlagVariantOutput
+}
+
+type GetFeatureFlagVariantArgs struct {
+	// A human-readable description for the variant.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The stable variant identifier.
+	Id pulumi.StringInput `pulumi:"id"`
+	// A human-readable label for the variant.
+	Label pulumi.StringInput `pulumi:"label"`
+	// The boolean value for this variant when `kind = "boolean"`.
+	ValueBool pulumi.BoolInput `pulumi:"valueBool"`
+	// The numeric value for this variant when `kind = "number"`.
+	ValueNumber pulumi.Float64Input `pulumi:"valueNumber"`
+	// The string value for this variant when `kind = "string"`.
+	ValueString pulumi.StringInput `pulumi:"valueString"`
+}
+
+func (GetFeatureFlagVariantArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagVariant)(nil)).Elem()
+}
+
+func (i GetFeatureFlagVariantArgs) ToGetFeatureFlagVariantOutput() GetFeatureFlagVariantOutput {
+	return i.ToGetFeatureFlagVariantOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagVariantArgs) ToGetFeatureFlagVariantOutputWithContext(ctx context.Context) GetFeatureFlagVariantOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagVariantOutput)
+}
+
+// GetFeatureFlagVariantArrayInput is an input type that accepts GetFeatureFlagVariantArray and GetFeatureFlagVariantArrayOutput values.
+// You can construct a concrete instance of `GetFeatureFlagVariantArrayInput` via:
+//
+//	GetFeatureFlagVariantArray{ GetFeatureFlagVariantArgs{...} }
+type GetFeatureFlagVariantArrayInput interface {
+	pulumi.Input
+
+	ToGetFeatureFlagVariantArrayOutput() GetFeatureFlagVariantArrayOutput
+	ToGetFeatureFlagVariantArrayOutputWithContext(context.Context) GetFeatureFlagVariantArrayOutput
+}
+
+type GetFeatureFlagVariantArray []GetFeatureFlagVariantInput
+
+func (GetFeatureFlagVariantArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFeatureFlagVariant)(nil)).Elem()
+}
+
+func (i GetFeatureFlagVariantArray) ToGetFeatureFlagVariantArrayOutput() GetFeatureFlagVariantArrayOutput {
+	return i.ToGetFeatureFlagVariantArrayOutputWithContext(context.Background())
+}
+
+func (i GetFeatureFlagVariantArray) ToGetFeatureFlagVariantArrayOutputWithContext(ctx context.Context) GetFeatureFlagVariantArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFeatureFlagVariantArrayOutput)
+}
+
+type GetFeatureFlagVariantOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagVariantOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFeatureFlagVariant)(nil)).Elem()
+}
+
+func (o GetFeatureFlagVariantOutput) ToGetFeatureFlagVariantOutput() GetFeatureFlagVariantOutput {
+	return o
+}
+
+func (o GetFeatureFlagVariantOutput) ToGetFeatureFlagVariantOutputWithContext(ctx context.Context) GetFeatureFlagVariantOutput {
+	return o
+}
+
+// A human-readable description for the variant.
+func (o GetFeatureFlagVariantOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagVariant) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The stable variant identifier.
+func (o GetFeatureFlagVariantOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagVariant) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// A human-readable label for the variant.
+func (o GetFeatureFlagVariantOutput) Label() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagVariant) string { return v.Label }).(pulumi.StringOutput)
+}
+
+// The boolean value for this variant when `kind = "boolean"`.
+func (o GetFeatureFlagVariantOutput) ValueBool() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetFeatureFlagVariant) bool { return v.ValueBool }).(pulumi.BoolOutput)
+}
+
+// The numeric value for this variant when `kind = "number"`.
+func (o GetFeatureFlagVariantOutput) ValueNumber() pulumi.Float64Output {
+	return o.ApplyT(func(v GetFeatureFlagVariant) float64 { return v.ValueNumber }).(pulumi.Float64Output)
+}
+
+// The string value for this variant when `kind = "string"`.
+func (o GetFeatureFlagVariantOutput) ValueString() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFeatureFlagVariant) string { return v.ValueString }).(pulumi.StringOutput)
+}
+
+type GetFeatureFlagVariantArrayOutput struct{ *pulumi.OutputState }
+
+func (GetFeatureFlagVariantArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFeatureFlagVariant)(nil)).Elem()
+}
+
+func (o GetFeatureFlagVariantArrayOutput) ToGetFeatureFlagVariantArrayOutput() GetFeatureFlagVariantArrayOutput {
+	return o
+}
+
+func (o GetFeatureFlagVariantArrayOutput) ToGetFeatureFlagVariantArrayOutputWithContext(ctx context.Context) GetFeatureFlagVariantArrayOutput {
+	return o
+}
+
+func (o GetFeatureFlagVariantArrayOutput) Index(i pulumi.IntInput) GetFeatureFlagVariantOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetFeatureFlagVariant {
+		return vs[0].([]GetFeatureFlagVariant)[vs[1].(int)]
+	}).(GetFeatureFlagVariantOutput)
 }
 
 type GetMicrofrontendGroupDefaultApp struct {
@@ -8000,8 +11773,12 @@ func (o GetProjectGitCommentsOutput) OnPullRequest() pulumi.BoolOutput {
 }
 
 type GetProjectGitProviderOptions struct {
+	// **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
+	ConsolidatedGitCommitStatus GetProjectGitProviderOptionsConsolidatedGitCommitStatus `pulumi:"consolidatedGitCommitStatus"`
 	// Whether to create deployments.
 	CreateDeployments bool `pulumi:"createDeployments"`
+	// Whether Vercel posts git commit statuses for this project.
+	GitCommitStatus bool `pulumi:"gitCommitStatus"`
 	// Whether repository dispatch events are enabled.
 	RepositoryDispatchEvents bool `pulumi:"repositoryDispatchEvents"`
 	// Whether to require verified commits.
@@ -8020,8 +11797,12 @@ type GetProjectGitProviderOptionsInput interface {
 }
 
 type GetProjectGitProviderOptionsArgs struct {
+	// **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
+	ConsolidatedGitCommitStatus GetProjectGitProviderOptionsConsolidatedGitCommitStatusInput `pulumi:"consolidatedGitCommitStatus"`
 	// Whether to create deployments.
 	CreateDeployments pulumi.BoolInput `pulumi:"createDeployments"`
+	// Whether Vercel posts git commit statuses for this project.
+	GitCommitStatus pulumi.BoolInput `pulumi:"gitCommitStatus"`
 	// Whether repository dispatch events are enabled.
 	RepositoryDispatchEvents pulumi.BoolInput `pulumi:"repositoryDispatchEvents"`
 	// Whether to require verified commits.
@@ -8054,9 +11835,21 @@ func (o GetProjectGitProviderOptionsOutput) ToGetProjectGitProviderOptionsOutput
 	return o
 }
 
+// **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
+func (o GetProjectGitProviderOptionsOutput) ConsolidatedGitCommitStatus() GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return o.ApplyT(func(v GetProjectGitProviderOptions) GetProjectGitProviderOptionsConsolidatedGitCommitStatus {
+		return v.ConsolidatedGitCommitStatus
+	}).(GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput)
+}
+
 // Whether to create deployments.
 func (o GetProjectGitProviderOptionsOutput) CreateDeployments() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.CreateDeployments }).(pulumi.BoolOutput)
+}
+
+// Whether Vercel posts git commit statuses for this project.
+func (o GetProjectGitProviderOptionsOutput) GitCommitStatus() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.GitCommitStatus }).(pulumi.BoolOutput)
 }
 
 // Whether repository dispatch events are enabled.
@@ -8067,6 +11860,67 @@ func (o GetProjectGitProviderOptionsOutput) RepositoryDispatchEvents() pulumi.Bo
 // Whether to require verified commits.
 func (o GetProjectGitProviderOptionsOutput) RequireVerifiedCommits() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.RequireVerifiedCommits }).(pulumi.BoolOutput)
+}
+
+type GetProjectGitProviderOptionsConsolidatedGitCommitStatus struct {
+	// **Beta:** Whether consolidated commit status is enabled.
+	Enabled bool `pulumi:"enabled"`
+	// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+	PropagateFailures bool `pulumi:"propagateFailures"`
+}
+
+// GetProjectGitProviderOptionsConsolidatedGitCommitStatusInput is an input type that accepts GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs and GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput values.
+// You can construct a concrete instance of `GetProjectGitProviderOptionsConsolidatedGitCommitStatusInput` via:
+//
+//	GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs{...}
+type GetProjectGitProviderOptionsConsolidatedGitCommitStatusInput interface {
+	pulumi.Input
+
+	ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput() GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput
+	ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(context.Context) GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput
+}
+
+type GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs struct {
+	// **Beta:** Whether consolidated commit status is enabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+	PropagateFailures pulumi.BoolInput `pulumi:"propagateFailures"`
+}
+
+func (GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectGitProviderOptionsConsolidatedGitCommitStatus)(nil)).Elem()
+}
+
+func (i GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput() GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return i.ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(context.Background())
+}
+
+func (i GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs) ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(ctx context.Context) GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput)
+}
+
+type GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput struct{ *pulumi.OutputState }
+
+func (GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectGitProviderOptionsConsolidatedGitCommitStatus)(nil)).Elem()
+}
+
+func (o GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput() GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return o
+}
+
+func (o GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) ToGetProjectGitProviderOptionsConsolidatedGitCommitStatusOutputWithContext(ctx context.Context) GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput {
+	return o
+}
+
+// **Beta:** Whether consolidated commit status is enabled.
+func (o GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectGitProviderOptionsConsolidatedGitCommitStatus) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// **Beta:** Whether to propagate individual deployment failures to the consolidated status.
+func (o GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput) PropagateFailures() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectGitProviderOptionsConsolidatedGitCommitStatus) bool { return v.PropagateFailures }).(pulumi.BoolOutput)
 }
 
 type GetProjectGitRepository struct {
@@ -8831,6 +12685,611 @@ func (o GetProjectRollingReleaseStageArrayOutput) Index(i pulumi.IntInput) GetPr
 	}).(GetProjectRollingReleaseStageOutput)
 }
 
+type GetProjectRoutesRule struct {
+	// An optional description of the rule.
+	Description string `pulumi:"description"`
+	// Whether the rule is enabled.
+	Enabled bool `pulumi:"enabled"`
+	// The rule ID managed by Vercel.
+	Id string `pulumi:"id"`
+	// A human-readable name for the rule.
+	Name string `pulumi:"name"`
+	// The routing rule definition.
+	Route GetProjectRoutesRuleRoute `pulumi:"route"`
+	// The computed route type returned by Vercel. One of `rewrite`, `redirect`, `setStatus`, or `transform`.
+	RouteType string `pulumi:"routeType"`
+	// The source pattern syntax inferred or stored by Vercel.
+	SrcSyntax string `pulumi:"srcSyntax"`
+}
+
+// GetProjectRoutesRuleInput is an input type that accepts GetProjectRoutesRuleArgs and GetProjectRoutesRuleOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleInput` via:
+//
+//	GetProjectRoutesRuleArgs{...}
+type GetProjectRoutesRuleInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleOutput() GetProjectRoutesRuleOutput
+	ToGetProjectRoutesRuleOutputWithContext(context.Context) GetProjectRoutesRuleOutput
+}
+
+type GetProjectRoutesRuleArgs struct {
+	// An optional description of the rule.
+	Description pulumi.StringInput `pulumi:"description"`
+	// Whether the rule is enabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// The rule ID managed by Vercel.
+	Id pulumi.StringInput `pulumi:"id"`
+	// A human-readable name for the rule.
+	Name pulumi.StringInput `pulumi:"name"`
+	// The routing rule definition.
+	Route GetProjectRoutesRuleRouteInput `pulumi:"route"`
+	// The computed route type returned by Vercel. One of `rewrite`, `redirect`, `setStatus`, or `transform`.
+	RouteType pulumi.StringInput `pulumi:"routeType"`
+	// The source pattern syntax inferred or stored by Vercel.
+	SrcSyntax pulumi.StringInput `pulumi:"srcSyntax"`
+}
+
+func (GetProjectRoutesRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRule)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleArgs) ToGetProjectRoutesRuleOutput() GetProjectRoutesRuleOutput {
+	return i.ToGetProjectRoutesRuleOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleArgs) ToGetProjectRoutesRuleOutputWithContext(ctx context.Context) GetProjectRoutesRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleOutput)
+}
+
+// GetProjectRoutesRuleArrayInput is an input type that accepts GetProjectRoutesRuleArray and GetProjectRoutesRuleArrayOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleArrayInput` via:
+//
+//	GetProjectRoutesRuleArray{ GetProjectRoutesRuleArgs{...} }
+type GetProjectRoutesRuleArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleArrayOutput() GetProjectRoutesRuleArrayOutput
+	ToGetProjectRoutesRuleArrayOutputWithContext(context.Context) GetProjectRoutesRuleArrayOutput
+}
+
+type GetProjectRoutesRuleArray []GetProjectRoutesRuleInput
+
+func (GetProjectRoutesRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRule)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleArray) ToGetProjectRoutesRuleArrayOutput() GetProjectRoutesRuleArrayOutput {
+	return i.ToGetProjectRoutesRuleArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleArray) ToGetProjectRoutesRuleArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleArrayOutput)
+}
+
+type GetProjectRoutesRuleOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRule)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleOutput) ToGetProjectRoutesRuleOutput() GetProjectRoutesRuleOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleOutput) ToGetProjectRoutesRuleOutputWithContext(ctx context.Context) GetProjectRoutesRuleOutput {
+	return o
+}
+
+// An optional description of the rule.
+func (o GetProjectRoutesRuleOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// Whether the rule is enabled.
+func (o GetProjectRoutesRuleOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// The rule ID managed by Vercel.
+func (o GetProjectRoutesRuleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// A human-readable name for the rule.
+func (o GetProjectRoutesRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The routing rule definition.
+func (o GetProjectRoutesRuleOutput) Route() GetProjectRoutesRuleRouteOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) GetProjectRoutesRuleRoute { return v.Route }).(GetProjectRoutesRuleRouteOutput)
+}
+
+// The computed route type returned by Vercel. One of `rewrite`, `redirect`, `setStatus`, or `transform`.
+func (o GetProjectRoutesRuleOutput) RouteType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) string { return v.RouteType }).(pulumi.StringOutput)
+}
+
+// The source pattern syntax inferred or stored by Vercel.
+func (o GetProjectRoutesRuleOutput) SrcSyntax() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRule) string { return v.SrcSyntax }).(pulumi.StringOutput)
+}
+
+type GetProjectRoutesRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRule)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleArrayOutput) ToGetProjectRoutesRuleArrayOutput() GetProjectRoutesRuleArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleArrayOutput) ToGetProjectRoutesRuleArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleArrayOutput) Index(i pulumi.IntInput) GetProjectRoutesRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectRoutesRule {
+		return vs[0].([]GetProjectRoutesRule)[vs[1].(int)]
+	}).(GetProjectRoutesRuleOutput)
+}
+
+type GetProjectRoutesRuleRoute struct {
+	// Whether the `src` matcher is case-sensitive.
+	CaseSensitive bool `pulumi:"caseSensitive"`
+	// The destination for rewrites or redirects.
+	Dest string `pulumi:"dest"`
+	// Conditions that must be present for the rule to match.
+	Has []GetProjectRoutesRuleRouteHa `pulumi:"has"`
+	// Headers to set for the matched request.
+	Headers map[string]string `pulumi:"headers"`
+	// Conditions that must be absent for the rule to match.
+	Missings []GetProjectRoutesRuleRouteMissing `pulumi:"missings"`
+	// Whether the rule should respect cache control headers from the origin.
+	RespectOriginCacheControl bool `pulumi:"respectOriginCacheControl"`
+	// The source pattern to match.
+	Src string `pulumi:"src"`
+	// The HTTP status code to set for redirects or status-only rules.
+	Status int `pulumi:"status"`
+	// Transforms applied to the request or response when the rule matches.
+	Transforms []GetProjectRoutesRuleRouteTransform `pulumi:"transforms"`
+}
+
+// GetProjectRoutesRuleRouteInput is an input type that accepts GetProjectRoutesRuleRouteArgs and GetProjectRoutesRuleRouteOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteInput` via:
+//
+//	GetProjectRoutesRuleRouteArgs{...}
+type GetProjectRoutesRuleRouteInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteOutput() GetProjectRoutesRuleRouteOutput
+	ToGetProjectRoutesRuleRouteOutputWithContext(context.Context) GetProjectRoutesRuleRouteOutput
+}
+
+type GetProjectRoutesRuleRouteArgs struct {
+	// Whether the `src` matcher is case-sensitive.
+	CaseSensitive pulumi.BoolInput `pulumi:"caseSensitive"`
+	// The destination for rewrites or redirects.
+	Dest pulumi.StringInput `pulumi:"dest"`
+	// Conditions that must be present for the rule to match.
+	Has GetProjectRoutesRuleRouteHaArrayInput `pulumi:"has"`
+	// Headers to set for the matched request.
+	Headers pulumi.StringMapInput `pulumi:"headers"`
+	// Conditions that must be absent for the rule to match.
+	Missings GetProjectRoutesRuleRouteMissingArrayInput `pulumi:"missings"`
+	// Whether the rule should respect cache control headers from the origin.
+	RespectOriginCacheControl pulumi.BoolInput `pulumi:"respectOriginCacheControl"`
+	// The source pattern to match.
+	Src pulumi.StringInput `pulumi:"src"`
+	// The HTTP status code to set for redirects or status-only rules.
+	Status pulumi.IntInput `pulumi:"status"`
+	// Transforms applied to the request or response when the rule matches.
+	Transforms GetProjectRoutesRuleRouteTransformArrayInput `pulumi:"transforms"`
+}
+
+func (GetProjectRoutesRuleRouteArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRoute)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteArgs) ToGetProjectRoutesRuleRouteOutput() GetProjectRoutesRuleRouteOutput {
+	return i.ToGetProjectRoutesRuleRouteOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteArgs) ToGetProjectRoutesRuleRouteOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteOutput)
+}
+
+type GetProjectRoutesRuleRouteOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRoute)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteOutput) ToGetProjectRoutesRuleRouteOutput() GetProjectRoutesRuleRouteOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteOutput) ToGetProjectRoutesRuleRouteOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteOutput {
+	return o
+}
+
+// Whether the `src` matcher is case-sensitive.
+func (o GetProjectRoutesRuleRouteOutput) CaseSensitive() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) bool { return v.CaseSensitive }).(pulumi.BoolOutput)
+}
+
+// The destination for rewrites or redirects.
+func (o GetProjectRoutesRuleRouteOutput) Dest() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) string { return v.Dest }).(pulumi.StringOutput)
+}
+
+// Conditions that must be present for the rule to match.
+func (o GetProjectRoutesRuleRouteOutput) Has() GetProjectRoutesRuleRouteHaArrayOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) []GetProjectRoutesRuleRouteHa { return v.Has }).(GetProjectRoutesRuleRouteHaArrayOutput)
+}
+
+// Headers to set for the matched request.
+func (o GetProjectRoutesRuleRouteOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
+}
+
+// Conditions that must be absent for the rule to match.
+func (o GetProjectRoutesRuleRouteOutput) Missings() GetProjectRoutesRuleRouteMissingArrayOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) []GetProjectRoutesRuleRouteMissing { return v.Missings }).(GetProjectRoutesRuleRouteMissingArrayOutput)
+}
+
+// Whether the rule should respect cache control headers from the origin.
+func (o GetProjectRoutesRuleRouteOutput) RespectOriginCacheControl() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) bool { return v.RespectOriginCacheControl }).(pulumi.BoolOutput)
+}
+
+// The source pattern to match.
+func (o GetProjectRoutesRuleRouteOutput) Src() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) string { return v.Src }).(pulumi.StringOutput)
+}
+
+// The HTTP status code to set for redirects or status-only rules.
+func (o GetProjectRoutesRuleRouteOutput) Status() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) int { return v.Status }).(pulumi.IntOutput)
+}
+
+// Transforms applied to the request or response when the rule matches.
+func (o GetProjectRoutesRuleRouteOutput) Transforms() GetProjectRoutesRuleRouteTransformArrayOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRoute) []GetProjectRoutesRuleRouteTransform { return v.Transforms }).(GetProjectRoutesRuleRouteTransformArrayOutput)
+}
+
+type GetProjectRoutesRuleRouteHa struct {
+	Key   string `pulumi:"key"`
+	Type  string `pulumi:"type"`
+	Value string `pulumi:"value"`
+}
+
+// GetProjectRoutesRuleRouteHaInput is an input type that accepts GetProjectRoutesRuleRouteHaArgs and GetProjectRoutesRuleRouteHaOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteHaInput` via:
+//
+//	GetProjectRoutesRuleRouteHaArgs{...}
+type GetProjectRoutesRuleRouteHaInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteHaOutput() GetProjectRoutesRuleRouteHaOutput
+	ToGetProjectRoutesRuleRouteHaOutputWithContext(context.Context) GetProjectRoutesRuleRouteHaOutput
+}
+
+type GetProjectRoutesRuleRouteHaArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Type  pulumi.StringInput `pulumi:"type"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetProjectRoutesRuleRouteHaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRouteHa)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteHaArgs) ToGetProjectRoutesRuleRouteHaOutput() GetProjectRoutesRuleRouteHaOutput {
+	return i.ToGetProjectRoutesRuleRouteHaOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteHaArgs) ToGetProjectRoutesRuleRouteHaOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteHaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteHaOutput)
+}
+
+// GetProjectRoutesRuleRouteHaArrayInput is an input type that accepts GetProjectRoutesRuleRouteHaArray and GetProjectRoutesRuleRouteHaArrayOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteHaArrayInput` via:
+//
+//	GetProjectRoutesRuleRouteHaArray{ GetProjectRoutesRuleRouteHaArgs{...} }
+type GetProjectRoutesRuleRouteHaArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteHaArrayOutput() GetProjectRoutesRuleRouteHaArrayOutput
+	ToGetProjectRoutesRuleRouteHaArrayOutputWithContext(context.Context) GetProjectRoutesRuleRouteHaArrayOutput
+}
+
+type GetProjectRoutesRuleRouteHaArray []GetProjectRoutesRuleRouteHaInput
+
+func (GetProjectRoutesRuleRouteHaArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRuleRouteHa)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteHaArray) ToGetProjectRoutesRuleRouteHaArrayOutput() GetProjectRoutesRuleRouteHaArrayOutput {
+	return i.ToGetProjectRoutesRuleRouteHaArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteHaArray) ToGetProjectRoutesRuleRouteHaArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteHaArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteHaArrayOutput)
+}
+
+type GetProjectRoutesRuleRouteHaOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteHaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRouteHa)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteHaOutput) ToGetProjectRoutesRuleRouteHaOutput() GetProjectRoutesRuleRouteHaOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteHaOutput) ToGetProjectRoutesRuleRouteHaOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteHaOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteHaOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteHa) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteHaOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteHa) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteHaOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteHa) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetProjectRoutesRuleRouteHaArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteHaArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRuleRouteHa)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteHaArrayOutput) ToGetProjectRoutesRuleRouteHaArrayOutput() GetProjectRoutesRuleRouteHaArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteHaArrayOutput) ToGetProjectRoutesRuleRouteHaArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteHaArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteHaArrayOutput) Index(i pulumi.IntInput) GetProjectRoutesRuleRouteHaOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectRoutesRuleRouteHa {
+		return vs[0].([]GetProjectRoutesRuleRouteHa)[vs[1].(int)]
+	}).(GetProjectRoutesRuleRouteHaOutput)
+}
+
+type GetProjectRoutesRuleRouteMissing struct {
+	Key   string `pulumi:"key"`
+	Type  string `pulumi:"type"`
+	Value string `pulumi:"value"`
+}
+
+// GetProjectRoutesRuleRouteMissingInput is an input type that accepts GetProjectRoutesRuleRouteMissingArgs and GetProjectRoutesRuleRouteMissingOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteMissingInput` via:
+//
+//	GetProjectRoutesRuleRouteMissingArgs{...}
+type GetProjectRoutesRuleRouteMissingInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteMissingOutput() GetProjectRoutesRuleRouteMissingOutput
+	ToGetProjectRoutesRuleRouteMissingOutputWithContext(context.Context) GetProjectRoutesRuleRouteMissingOutput
+}
+
+type GetProjectRoutesRuleRouteMissingArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Type  pulumi.StringInput `pulumi:"type"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetProjectRoutesRuleRouteMissingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRouteMissing)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteMissingArgs) ToGetProjectRoutesRuleRouteMissingOutput() GetProjectRoutesRuleRouteMissingOutput {
+	return i.ToGetProjectRoutesRuleRouteMissingOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteMissingArgs) ToGetProjectRoutesRuleRouteMissingOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteMissingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteMissingOutput)
+}
+
+// GetProjectRoutesRuleRouteMissingArrayInput is an input type that accepts GetProjectRoutesRuleRouteMissingArray and GetProjectRoutesRuleRouteMissingArrayOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteMissingArrayInput` via:
+//
+//	GetProjectRoutesRuleRouteMissingArray{ GetProjectRoutesRuleRouteMissingArgs{...} }
+type GetProjectRoutesRuleRouteMissingArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteMissingArrayOutput() GetProjectRoutesRuleRouteMissingArrayOutput
+	ToGetProjectRoutesRuleRouteMissingArrayOutputWithContext(context.Context) GetProjectRoutesRuleRouteMissingArrayOutput
+}
+
+type GetProjectRoutesRuleRouteMissingArray []GetProjectRoutesRuleRouteMissingInput
+
+func (GetProjectRoutesRuleRouteMissingArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRuleRouteMissing)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteMissingArray) ToGetProjectRoutesRuleRouteMissingArrayOutput() GetProjectRoutesRuleRouteMissingArrayOutput {
+	return i.ToGetProjectRoutesRuleRouteMissingArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteMissingArray) ToGetProjectRoutesRuleRouteMissingArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteMissingArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteMissingArrayOutput)
+}
+
+type GetProjectRoutesRuleRouteMissingOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteMissingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRouteMissing)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteMissingOutput) ToGetProjectRoutesRuleRouteMissingOutput() GetProjectRoutesRuleRouteMissingOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteMissingOutput) ToGetProjectRoutesRuleRouteMissingOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteMissingOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteMissingOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteMissing) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteMissingOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteMissing) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteMissingOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteMissing) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetProjectRoutesRuleRouteMissingArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteMissingArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRuleRouteMissing)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteMissingArrayOutput) ToGetProjectRoutesRuleRouteMissingArrayOutput() GetProjectRoutesRuleRouteMissingArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteMissingArrayOutput) ToGetProjectRoutesRuleRouteMissingArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteMissingArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteMissingArrayOutput) Index(i pulumi.IntInput) GetProjectRoutesRuleRouteMissingOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectRoutesRuleRouteMissing {
+		return vs[0].([]GetProjectRoutesRuleRouteMissing)[vs[1].(int)]
+	}).(GetProjectRoutesRuleRouteMissingOutput)
+}
+
+type GetProjectRoutesRuleRouteTransform struct {
+	Args   string   `pulumi:"args"`
+	Envs   []string `pulumi:"envs"`
+	Op     string   `pulumi:"op"`
+	Target string   `pulumi:"target"`
+	Type   string   `pulumi:"type"`
+}
+
+// GetProjectRoutesRuleRouteTransformInput is an input type that accepts GetProjectRoutesRuleRouteTransformArgs and GetProjectRoutesRuleRouteTransformOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteTransformInput` via:
+//
+//	GetProjectRoutesRuleRouteTransformArgs{...}
+type GetProjectRoutesRuleRouteTransformInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteTransformOutput() GetProjectRoutesRuleRouteTransformOutput
+	ToGetProjectRoutesRuleRouteTransformOutputWithContext(context.Context) GetProjectRoutesRuleRouteTransformOutput
+}
+
+type GetProjectRoutesRuleRouteTransformArgs struct {
+	Args   pulumi.StringInput      `pulumi:"args"`
+	Envs   pulumi.StringArrayInput `pulumi:"envs"`
+	Op     pulumi.StringInput      `pulumi:"op"`
+	Target pulumi.StringInput      `pulumi:"target"`
+	Type   pulumi.StringInput      `pulumi:"type"`
+}
+
+func (GetProjectRoutesRuleRouteTransformArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRouteTransform)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteTransformArgs) ToGetProjectRoutesRuleRouteTransformOutput() GetProjectRoutesRuleRouteTransformOutput {
+	return i.ToGetProjectRoutesRuleRouteTransformOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteTransformArgs) ToGetProjectRoutesRuleRouteTransformOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteTransformOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteTransformOutput)
+}
+
+// GetProjectRoutesRuleRouteTransformArrayInput is an input type that accepts GetProjectRoutesRuleRouteTransformArray and GetProjectRoutesRuleRouteTransformArrayOutput values.
+// You can construct a concrete instance of `GetProjectRoutesRuleRouteTransformArrayInput` via:
+//
+//	GetProjectRoutesRuleRouteTransformArray{ GetProjectRoutesRuleRouteTransformArgs{...} }
+type GetProjectRoutesRuleRouteTransformArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectRoutesRuleRouteTransformArrayOutput() GetProjectRoutesRuleRouteTransformArrayOutput
+	ToGetProjectRoutesRuleRouteTransformArrayOutputWithContext(context.Context) GetProjectRoutesRuleRouteTransformArrayOutput
+}
+
+type GetProjectRoutesRuleRouteTransformArray []GetProjectRoutesRuleRouteTransformInput
+
+func (GetProjectRoutesRuleRouteTransformArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRuleRouteTransform)(nil)).Elem()
+}
+
+func (i GetProjectRoutesRuleRouteTransformArray) ToGetProjectRoutesRuleRouteTransformArrayOutput() GetProjectRoutesRuleRouteTransformArrayOutput {
+	return i.ToGetProjectRoutesRuleRouteTransformArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectRoutesRuleRouteTransformArray) ToGetProjectRoutesRuleRouteTransformArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteTransformArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectRoutesRuleRouteTransformArrayOutput)
+}
+
+type GetProjectRoutesRuleRouteTransformOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteTransformOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectRoutesRuleRouteTransform)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) ToGetProjectRoutesRuleRouteTransformOutput() GetProjectRoutesRuleRouteTransformOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) ToGetProjectRoutesRuleRouteTransformOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteTransformOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) Args() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteTransform) string { return v.Args }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) Envs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteTransform) []string { return v.Envs }).(pulumi.StringArrayOutput)
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) Op() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteTransform) string { return v.Op }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteTransform) string { return v.Target }).(pulumi.StringOutput)
+}
+
+func (o GetProjectRoutesRuleRouteTransformOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectRoutesRuleRouteTransform) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GetProjectRoutesRuleRouteTransformArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectRoutesRuleRouteTransformArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectRoutesRuleRouteTransform)(nil)).Elem()
+}
+
+func (o GetProjectRoutesRuleRouteTransformArrayOutput) ToGetProjectRoutesRuleRouteTransformArrayOutput() GetProjectRoutesRuleRouteTransformArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteTransformArrayOutput) ToGetProjectRoutesRuleRouteTransformArrayOutputWithContext(ctx context.Context) GetProjectRoutesRuleRouteTransformArrayOutput {
+	return o
+}
+
+func (o GetProjectRoutesRuleRouteTransformArrayOutput) Index(i pulumi.IntInput) GetProjectRoutesRuleRouteTransformOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectRoutesRuleRouteTransform {
+		return vs[0].([]GetProjectRoutesRuleRouteTransform)[vs[1].(int)]
+	}).(GetProjectRoutesRuleRouteTransformOutput)
+}
+
 type GetProjectTrustedIps struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses []GetProjectTrustedIpsAddress `pulumi:"addresses"`
@@ -8999,6 +13458,601 @@ func (o GetProjectTrustedIpsAddressArrayOutput) Index(i pulumi.IntInput) GetProj
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectTrustedIpsAddress {
 		return vs[0].([]GetProjectTrustedIpsAddress)[vs[1].(int)]
 	}).(GetProjectTrustedIpsAddressOutput)
+}
+
+type GetProjectTrustedSources struct {
+	// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+	ExternalSources []GetProjectTrustedSourcesExternalSource `pulumi:"externalSources"`
+	// Vercel projects in the same team that can reach this project's protected deployments.
+	Projects []GetProjectTrustedSourcesProject `pulumi:"projects"`
+}
+
+// GetProjectTrustedSourcesInput is an input type that accepts GetProjectTrustedSourcesArgs and GetProjectTrustedSourcesOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesInput` via:
+//
+//	GetProjectTrustedSourcesArgs{...}
+type GetProjectTrustedSourcesInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesOutput() GetProjectTrustedSourcesOutput
+	ToGetProjectTrustedSourcesOutputWithContext(context.Context) GetProjectTrustedSourcesOutput
+}
+
+type GetProjectTrustedSourcesArgs struct {
+	// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+	ExternalSources GetProjectTrustedSourcesExternalSourceArrayInput `pulumi:"externalSources"`
+	// Vercel projects in the same team that can reach this project's protected deployments.
+	Projects GetProjectTrustedSourcesProjectArrayInput `pulumi:"projects"`
+}
+
+func (GetProjectTrustedSourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSources)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesArgs) ToGetProjectTrustedSourcesOutput() GetProjectTrustedSourcesOutput {
+	return i.ToGetProjectTrustedSourcesOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesArgs) ToGetProjectTrustedSourcesOutputWithContext(ctx context.Context) GetProjectTrustedSourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesOutput)
+}
+
+type GetProjectTrustedSourcesOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSources)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesOutput) ToGetProjectTrustedSourcesOutput() GetProjectTrustedSourcesOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesOutput) ToGetProjectTrustedSourcesOutputWithContext(ctx context.Context) GetProjectTrustedSourcesOutput {
+	return o
+}
+
+// External sources that can reach this project's protected deployments using short-lived OIDC tokens.
+func (o GetProjectTrustedSourcesOutput) ExternalSources() GetProjectTrustedSourcesExternalSourceArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedSources) []GetProjectTrustedSourcesExternalSource { return v.ExternalSources }).(GetProjectTrustedSourcesExternalSourceArrayOutput)
+}
+
+// Vercel projects in the same team that can reach this project's protected deployments.
+func (o GetProjectTrustedSourcesOutput) Projects() GetProjectTrustedSourcesProjectArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedSources) []GetProjectTrustedSourcesProject { return v.Projects }).(GetProjectTrustedSourcesProjectArrayOutput)
+}
+
+type GetProjectTrustedSourcesExternalSource struct {
+	// Claims that must match on the OIDC token.
+	Claims map[string][]string `pulumi:"claims"`
+	// The OIDC issuer URL.
+	Issuer string `pulumi:"issuer"`
+	// A label or description for the trusted external source entry.
+	Label string `pulumi:"label"`
+	// The target environments on this project that may be accessed.
+	To GetProjectTrustedSourcesExternalSourceTo `pulumi:"to"`
+}
+
+// GetProjectTrustedSourcesExternalSourceInput is an input type that accepts GetProjectTrustedSourcesExternalSourceArgs and GetProjectTrustedSourcesExternalSourceOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesExternalSourceInput` via:
+//
+//	GetProjectTrustedSourcesExternalSourceArgs{...}
+type GetProjectTrustedSourcesExternalSourceInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesExternalSourceOutput() GetProjectTrustedSourcesExternalSourceOutput
+	ToGetProjectTrustedSourcesExternalSourceOutputWithContext(context.Context) GetProjectTrustedSourcesExternalSourceOutput
+}
+
+type GetProjectTrustedSourcesExternalSourceArgs struct {
+	// Claims that must match on the OIDC token.
+	Claims pulumi.StringArrayMapInput `pulumi:"claims"`
+	// The OIDC issuer URL.
+	Issuer pulumi.StringInput `pulumi:"issuer"`
+	// A label or description for the trusted external source entry.
+	Label pulumi.StringInput `pulumi:"label"`
+	// The target environments on this project that may be accessed.
+	To GetProjectTrustedSourcesExternalSourceToInput `pulumi:"to"`
+}
+
+func (GetProjectTrustedSourcesExternalSourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesExternalSourceArgs) ToGetProjectTrustedSourcesExternalSourceOutput() GetProjectTrustedSourcesExternalSourceOutput {
+	return i.ToGetProjectTrustedSourcesExternalSourceOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesExternalSourceArgs) ToGetProjectTrustedSourcesExternalSourceOutputWithContext(ctx context.Context) GetProjectTrustedSourcesExternalSourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesExternalSourceOutput)
+}
+
+// GetProjectTrustedSourcesExternalSourceArrayInput is an input type that accepts GetProjectTrustedSourcesExternalSourceArray and GetProjectTrustedSourcesExternalSourceArrayOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesExternalSourceArrayInput` via:
+//
+//	GetProjectTrustedSourcesExternalSourceArray{ GetProjectTrustedSourcesExternalSourceArgs{...} }
+type GetProjectTrustedSourcesExternalSourceArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesExternalSourceArrayOutput() GetProjectTrustedSourcesExternalSourceArrayOutput
+	ToGetProjectTrustedSourcesExternalSourceArrayOutputWithContext(context.Context) GetProjectTrustedSourcesExternalSourceArrayOutput
+}
+
+type GetProjectTrustedSourcesExternalSourceArray []GetProjectTrustedSourcesExternalSourceInput
+
+func (GetProjectTrustedSourcesExternalSourceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesExternalSourceArray) ToGetProjectTrustedSourcesExternalSourceArrayOutput() GetProjectTrustedSourcesExternalSourceArrayOutput {
+	return i.ToGetProjectTrustedSourcesExternalSourceArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesExternalSourceArray) ToGetProjectTrustedSourcesExternalSourceArrayOutputWithContext(ctx context.Context) GetProjectTrustedSourcesExternalSourceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesExternalSourceArrayOutput)
+}
+
+type GetProjectTrustedSourcesExternalSourceOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesExternalSourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesExternalSourceOutput) ToGetProjectTrustedSourcesExternalSourceOutput() GetProjectTrustedSourcesExternalSourceOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesExternalSourceOutput) ToGetProjectTrustedSourcesExternalSourceOutputWithContext(ctx context.Context) GetProjectTrustedSourcesExternalSourceOutput {
+	return o
+}
+
+// Claims that must match on the OIDC token.
+func (o GetProjectTrustedSourcesExternalSourceOutput) Claims() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesExternalSource) map[string][]string { return v.Claims }).(pulumi.StringArrayMapOutput)
+}
+
+// The OIDC issuer URL.
+func (o GetProjectTrustedSourcesExternalSourceOutput) Issuer() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesExternalSource) string { return v.Issuer }).(pulumi.StringOutput)
+}
+
+// A label or description for the trusted external source entry.
+func (o GetProjectTrustedSourcesExternalSourceOutput) Label() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesExternalSource) string { return v.Label }).(pulumi.StringOutput)
+}
+
+// The target environments on this project that may be accessed.
+func (o GetProjectTrustedSourcesExternalSourceOutput) To() GetProjectTrustedSourcesExternalSourceToOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesExternalSource) GetProjectTrustedSourcesExternalSourceTo { return v.To }).(GetProjectTrustedSourcesExternalSourceToOutput)
+}
+
+type GetProjectTrustedSourcesExternalSourceArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesExternalSourceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedSourcesExternalSource)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesExternalSourceArrayOutput) ToGetProjectTrustedSourcesExternalSourceArrayOutput() GetProjectTrustedSourcesExternalSourceArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesExternalSourceArrayOutput) ToGetProjectTrustedSourcesExternalSourceArrayOutputWithContext(ctx context.Context) GetProjectTrustedSourcesExternalSourceArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesExternalSourceArrayOutput) Index(i pulumi.IntInput) GetProjectTrustedSourcesExternalSourceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectTrustedSourcesExternalSource {
+		return vs[0].([]GetProjectTrustedSourcesExternalSource)[vs[1].(int)]
+	}).(GetProjectTrustedSourcesExternalSourceOutput)
+}
+
+type GetProjectTrustedSourcesExternalSourceTo struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// GetProjectTrustedSourcesExternalSourceToInput is an input type that accepts GetProjectTrustedSourcesExternalSourceToArgs and GetProjectTrustedSourcesExternalSourceToOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesExternalSourceToInput` via:
+//
+//	GetProjectTrustedSourcesExternalSourceToArgs{...}
+type GetProjectTrustedSourcesExternalSourceToInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesExternalSourceToOutput() GetProjectTrustedSourcesExternalSourceToOutput
+	ToGetProjectTrustedSourcesExternalSourceToOutputWithContext(context.Context) GetProjectTrustedSourcesExternalSourceToOutput
+}
+
+type GetProjectTrustedSourcesExternalSourceToArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (GetProjectTrustedSourcesExternalSourceToArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesExternalSourceTo)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesExternalSourceToArgs) ToGetProjectTrustedSourcesExternalSourceToOutput() GetProjectTrustedSourcesExternalSourceToOutput {
+	return i.ToGetProjectTrustedSourcesExternalSourceToOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesExternalSourceToArgs) ToGetProjectTrustedSourcesExternalSourceToOutputWithContext(ctx context.Context) GetProjectTrustedSourcesExternalSourceToOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesExternalSourceToOutput)
+}
+
+type GetProjectTrustedSourcesExternalSourceToOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesExternalSourceToOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesExternalSourceTo)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesExternalSourceToOutput) ToGetProjectTrustedSourcesExternalSourceToOutput() GetProjectTrustedSourcesExternalSourceToOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesExternalSourceToOutput) ToGetProjectTrustedSourcesExternalSourceToOutputWithContext(ctx context.Context) GetProjectTrustedSourcesExternalSourceToOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o GetProjectTrustedSourcesExternalSourceToOutput) Preset() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesExternalSourceTo) string { return v.Preset }).(pulumi.StringOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o GetProjectTrustedSourcesExternalSourceToOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesExternalSourceTo) []string { return v.Slugs }).(pulumi.StringArrayOutput)
+}
+
+type GetProjectTrustedSourcesProject struct {
+	// Optional overrides for default same-environment matching.
+	CustomAllows []GetProjectTrustedSourcesProjectCustomAllow `pulumi:"customAllows"`
+	// A label or description for the trusted project.
+	Label string `pulumi:"label"`
+	// The trusted Vercel project ID.
+	ProjectId string `pulumi:"projectId"`
+}
+
+// GetProjectTrustedSourcesProjectInput is an input type that accepts GetProjectTrustedSourcesProjectArgs and GetProjectTrustedSourcesProjectOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesProjectInput` via:
+//
+//	GetProjectTrustedSourcesProjectArgs{...}
+type GetProjectTrustedSourcesProjectInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesProjectOutput() GetProjectTrustedSourcesProjectOutput
+	ToGetProjectTrustedSourcesProjectOutputWithContext(context.Context) GetProjectTrustedSourcesProjectOutput
+}
+
+type GetProjectTrustedSourcesProjectArgs struct {
+	// Optional overrides for default same-environment matching.
+	CustomAllows GetProjectTrustedSourcesProjectCustomAllowArrayInput `pulumi:"customAllows"`
+	// A label or description for the trusted project.
+	Label pulumi.StringInput `pulumi:"label"`
+	// The trusted Vercel project ID.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+}
+
+func (GetProjectTrustedSourcesProjectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesProjectArgs) ToGetProjectTrustedSourcesProjectOutput() GetProjectTrustedSourcesProjectOutput {
+	return i.ToGetProjectTrustedSourcesProjectOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesProjectArgs) ToGetProjectTrustedSourcesProjectOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesProjectOutput)
+}
+
+// GetProjectTrustedSourcesProjectArrayInput is an input type that accepts GetProjectTrustedSourcesProjectArray and GetProjectTrustedSourcesProjectArrayOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesProjectArrayInput` via:
+//
+//	GetProjectTrustedSourcesProjectArray{ GetProjectTrustedSourcesProjectArgs{...} }
+type GetProjectTrustedSourcesProjectArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesProjectArrayOutput() GetProjectTrustedSourcesProjectArrayOutput
+	ToGetProjectTrustedSourcesProjectArrayOutputWithContext(context.Context) GetProjectTrustedSourcesProjectArrayOutput
+}
+
+type GetProjectTrustedSourcesProjectArray []GetProjectTrustedSourcesProjectInput
+
+func (GetProjectTrustedSourcesProjectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesProjectArray) ToGetProjectTrustedSourcesProjectArrayOutput() GetProjectTrustedSourcesProjectArrayOutput {
+	return i.ToGetProjectTrustedSourcesProjectArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesProjectArray) ToGetProjectTrustedSourcesProjectArrayOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesProjectArrayOutput)
+}
+
+type GetProjectTrustedSourcesProjectOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesProjectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesProjectOutput) ToGetProjectTrustedSourcesProjectOutput() GetProjectTrustedSourcesProjectOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectOutput) ToGetProjectTrustedSourcesProjectOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectOutput {
+	return o
+}
+
+// Optional overrides for default same-environment matching.
+func (o GetProjectTrustedSourcesProjectOutput) CustomAllows() GetProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProject) []GetProjectTrustedSourcesProjectCustomAllow {
+		return v.CustomAllows
+	}).(GetProjectTrustedSourcesProjectCustomAllowArrayOutput)
+}
+
+// A label or description for the trusted project.
+func (o GetProjectTrustedSourcesProjectOutput) Label() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProject) string { return v.Label }).(pulumi.StringOutput)
+}
+
+// The trusted Vercel project ID.
+func (o GetProjectTrustedSourcesProjectOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProject) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+type GetProjectTrustedSourcesProjectArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesProjectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedSourcesProject)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesProjectArrayOutput) ToGetProjectTrustedSourcesProjectArrayOutput() GetProjectTrustedSourcesProjectArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectArrayOutput) ToGetProjectTrustedSourcesProjectArrayOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectArrayOutput) Index(i pulumi.IntInput) GetProjectTrustedSourcesProjectOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectTrustedSourcesProject {
+		return vs[0].([]GetProjectTrustedSourcesProject)[vs[1].(int)]
+	}).(GetProjectTrustedSourcesProjectOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllow struct {
+	// The source environments on the trusted project that are allowed to access the target environments.
+	From GetProjectTrustedSourcesProjectCustomAllowFrom `pulumi:"from"`
+	// The target environments on this project that may be accessed.
+	To GetProjectTrustedSourcesProjectCustomAllowTo `pulumi:"to"`
+}
+
+// GetProjectTrustedSourcesProjectCustomAllowInput is an input type that accepts GetProjectTrustedSourcesProjectCustomAllowArgs and GetProjectTrustedSourcesProjectCustomAllowOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesProjectCustomAllowInput` via:
+//
+//	GetProjectTrustedSourcesProjectCustomAllowArgs{...}
+type GetProjectTrustedSourcesProjectCustomAllowInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesProjectCustomAllowOutput() GetProjectTrustedSourcesProjectCustomAllowOutput
+	ToGetProjectTrustedSourcesProjectCustomAllowOutputWithContext(context.Context) GetProjectTrustedSourcesProjectCustomAllowOutput
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowArgs struct {
+	// The source environments on the trusted project that are allowed to access the target environments.
+	From GetProjectTrustedSourcesProjectCustomAllowFromInput `pulumi:"from"`
+	// The target environments on this project that may be accessed.
+	To GetProjectTrustedSourcesProjectCustomAllowToInput `pulumi:"to"`
+}
+
+func (GetProjectTrustedSourcesProjectCustomAllowArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowArgs) ToGetProjectTrustedSourcesProjectCustomAllowOutput() GetProjectTrustedSourcesProjectCustomAllowOutput {
+	return i.ToGetProjectTrustedSourcesProjectCustomAllowOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowArgs) ToGetProjectTrustedSourcesProjectCustomAllowOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesProjectCustomAllowOutput)
+}
+
+// GetProjectTrustedSourcesProjectCustomAllowArrayInput is an input type that accepts GetProjectTrustedSourcesProjectCustomAllowArray and GetProjectTrustedSourcesProjectCustomAllowArrayOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesProjectCustomAllowArrayInput` via:
+//
+//	GetProjectTrustedSourcesProjectCustomAllowArray{ GetProjectTrustedSourcesProjectCustomAllowArgs{...} }
+type GetProjectTrustedSourcesProjectCustomAllowArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesProjectCustomAllowArrayOutput() GetProjectTrustedSourcesProjectCustomAllowArrayOutput
+	ToGetProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(context.Context) GetProjectTrustedSourcesProjectCustomAllowArrayOutput
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowArray []GetProjectTrustedSourcesProjectCustomAllowInput
+
+func (GetProjectTrustedSourcesProjectCustomAllowArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowArray) ToGetProjectTrustedSourcesProjectCustomAllowArrayOutput() GetProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return i.ToGetProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowArray) ToGetProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesProjectCustomAllowArrayOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesProjectCustomAllowOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowOutput) ToGetProjectTrustedSourcesProjectCustomAllowOutput() GetProjectTrustedSourcesProjectCustomAllowOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowOutput) ToGetProjectTrustedSourcesProjectCustomAllowOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowOutput {
+	return o
+}
+
+// The source environments on the trusted project that are allowed to access the target environments.
+func (o GetProjectTrustedSourcesProjectCustomAllowOutput) From() GetProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProjectCustomAllow) GetProjectTrustedSourcesProjectCustomAllowFrom {
+		return v.From
+	}).(GetProjectTrustedSourcesProjectCustomAllowFromOutput)
+}
+
+// The target environments on this project that may be accessed.
+func (o GetProjectTrustedSourcesProjectCustomAllowOutput) To() GetProjectTrustedSourcesProjectCustomAllowToOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProjectCustomAllow) GetProjectTrustedSourcesProjectCustomAllowTo {
+		return v.To
+	}).(GetProjectTrustedSourcesProjectCustomAllowToOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesProjectCustomAllowArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectTrustedSourcesProjectCustomAllow)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowArrayOutput) ToGetProjectTrustedSourcesProjectCustomAllowArrayOutput() GetProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowArrayOutput) ToGetProjectTrustedSourcesProjectCustomAllowArrayOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowArrayOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowArrayOutput) Index(i pulumi.IntInput) GetProjectTrustedSourcesProjectCustomAllowOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectTrustedSourcesProjectCustomAllow {
+		return vs[0].([]GetProjectTrustedSourcesProjectCustomAllow)[vs[1].(int)]
+	}).(GetProjectTrustedSourcesProjectCustomAllowOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowFrom struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// GetProjectTrustedSourcesProjectCustomAllowFromInput is an input type that accepts GetProjectTrustedSourcesProjectCustomAllowFromArgs and GetProjectTrustedSourcesProjectCustomAllowFromOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesProjectCustomAllowFromInput` via:
+//
+//	GetProjectTrustedSourcesProjectCustomAllowFromArgs{...}
+type GetProjectTrustedSourcesProjectCustomAllowFromInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesProjectCustomAllowFromOutput() GetProjectTrustedSourcesProjectCustomAllowFromOutput
+	ToGetProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(context.Context) GetProjectTrustedSourcesProjectCustomAllowFromOutput
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowFromArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (GetProjectTrustedSourcesProjectCustomAllowFromArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowFrom)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowFromArgs) ToGetProjectTrustedSourcesProjectCustomAllowFromOutput() GetProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return i.ToGetProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowFromArgs) ToGetProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesProjectCustomAllowFromOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowFromOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesProjectCustomAllowFromOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowFrom)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowFromOutput) ToGetProjectTrustedSourcesProjectCustomAllowFromOutput() GetProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowFromOutput) ToGetProjectTrustedSourcesProjectCustomAllowFromOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowFromOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o GetProjectTrustedSourcesProjectCustomAllowFromOutput) Preset() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProjectCustomAllowFrom) string { return v.Preset }).(pulumi.StringOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o GetProjectTrustedSourcesProjectCustomAllowFromOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProjectCustomAllowFrom) []string { return v.Slugs }).(pulumi.StringArrayOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowTo struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// GetProjectTrustedSourcesProjectCustomAllowToInput is an input type that accepts GetProjectTrustedSourcesProjectCustomAllowToArgs and GetProjectTrustedSourcesProjectCustomAllowToOutput values.
+// You can construct a concrete instance of `GetProjectTrustedSourcesProjectCustomAllowToInput` via:
+//
+//	GetProjectTrustedSourcesProjectCustomAllowToArgs{...}
+type GetProjectTrustedSourcesProjectCustomAllowToInput interface {
+	pulumi.Input
+
+	ToGetProjectTrustedSourcesProjectCustomAllowToOutput() GetProjectTrustedSourcesProjectCustomAllowToOutput
+	ToGetProjectTrustedSourcesProjectCustomAllowToOutputWithContext(context.Context) GetProjectTrustedSourcesProjectCustomAllowToOutput
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowToArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (GetProjectTrustedSourcesProjectCustomAllowToArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowTo)(nil)).Elem()
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowToArgs) ToGetProjectTrustedSourcesProjectCustomAllowToOutput() GetProjectTrustedSourcesProjectCustomAllowToOutput {
+	return i.ToGetProjectTrustedSourcesProjectCustomAllowToOutputWithContext(context.Background())
+}
+
+func (i GetProjectTrustedSourcesProjectCustomAllowToArgs) ToGetProjectTrustedSourcesProjectCustomAllowToOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowToOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectTrustedSourcesProjectCustomAllowToOutput)
+}
+
+type GetProjectTrustedSourcesProjectCustomAllowToOutput struct{ *pulumi.OutputState }
+
+func (GetProjectTrustedSourcesProjectCustomAllowToOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowTo)(nil)).Elem()
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowToOutput) ToGetProjectTrustedSourcesProjectCustomAllowToOutput() GetProjectTrustedSourcesProjectCustomAllowToOutput {
+	return o
+}
+
+func (o GetProjectTrustedSourcesProjectCustomAllowToOutput) ToGetProjectTrustedSourcesProjectCustomAllowToOutputWithContext(ctx context.Context) GetProjectTrustedSourcesProjectCustomAllowToOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o GetProjectTrustedSourcesProjectCustomAllowToOutput) Preset() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProjectCustomAllowTo) string { return v.Preset }).(pulumi.StringOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o GetProjectTrustedSourcesProjectCustomAllowToOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectTrustedSourcesProjectCustomAllowTo) []string { return v.Slugs }).(pulumi.StringArrayOutput)
 }
 
 type GetProjectVercelAuthentication struct {
@@ -9379,12 +14433,26 @@ func (o GetTeamMemberProjectArrayOutput) Index(i pulumi.IntInput) GetTeamMemberP
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectInput)(nil)).Elem(), BulkRedirectsRedirectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectArrayInput)(nil)).Elem(), BulkRedirectsRedirectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingPtrInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsPtrInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvInput)(nil)).Elem(), DnsRecordSrvArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvPtrInput)(nil)).Elem(), DnsRecordSrvArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigDevelopmentInput)(nil)).Elem(), FeatureFlagConfigDevelopmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigDevelopmentPtrInput)(nil)).Elem(), FeatureFlagConfigDevelopmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigPreviewInput)(nil)).Elem(), FeatureFlagConfigPreviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigPreviewPtrInput)(nil)).Elem(), FeatureFlagConfigPreviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigProductionInput)(nil)).Elem(), FeatureFlagConfigProductionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigProductionPtrInput)(nil)).Elem(), FeatureFlagConfigProductionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagDefinitionVariantInput)(nil)).Elem(), FeatureFlagDefinitionVariantArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagDefinitionVariantArrayInput)(nil)).Elem(), FeatureFlagDefinitionVariantArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagSegmentExcludeInput)(nil)).Elem(), FeatureFlagSegmentExcludeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagSegmentExcludeArrayInput)(nil)).Elem(), FeatureFlagSegmentExcludeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagSegmentIncludeInput)(nil)).Elem(), FeatureFlagSegmentIncludeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagSegmentIncludeArrayInput)(nil)).Elem(), FeatureFlagSegmentIncludeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesInput)(nil)).Elem(), FirewallConfigIpRulesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesPtrInput)(nil)).Elem(), FirewallConfigIpRulesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigIpRulesRuleInput)(nil)).Elem(), FirewallConfigIpRulesRuleArgs{})
@@ -9446,6 +14514,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitCommentsPtrInput)(nil)).Elem(), ProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitProviderOptionsInput)(nil)).Elem(), ProjectGitProviderOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitProviderOptionsPtrInput)(nil)).Elem(), ProjectGitProviderOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitProviderOptionsConsolidatedGitCommitStatusInput)(nil)).Elem(), ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput)(nil)).Elem(), ProjectGitProviderOptionsConsolidatedGitCommitStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryPtrInput)(nil)).Elem(), ProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectGitRepositoryDeployHookInput)(nil)).Elem(), ProjectGitRepositoryDeployHookArgs{})
@@ -9464,10 +14534,31 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigPtrInput)(nil)).Elem(), ProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRollingReleaseStageInput)(nil)).Elem(), ProjectRollingReleaseStageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRollingReleaseStageArrayInput)(nil)).Elem(), ProjectRollingReleaseStageArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRoutePositionInput)(nil)).Elem(), ProjectRoutePositionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRoutePositionPtrInput)(nil)).Elem(), ProjectRoutePositionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteInput)(nil)).Elem(), ProjectRouteRouteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRoutePtrInput)(nil)).Elem(), ProjectRouteRouteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteHaInput)(nil)).Elem(), ProjectRouteRouteHaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteHaArrayInput)(nil)).Elem(), ProjectRouteRouteHaArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteMissingInput)(nil)).Elem(), ProjectRouteRouteMissingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteMissingArrayInput)(nil)).Elem(), ProjectRouteRouteMissingArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteTransformInput)(nil)).Elem(), ProjectRouteRouteTransformArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteTransformArrayInput)(nil)).Elem(), ProjectRouteRouteTransformArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsPtrInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressInput)(nil)).Elem(), ProjectTrustedIpsAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressArrayInput)(nil)).Elem(), ProjectTrustedIpsAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesInput)(nil)).Elem(), ProjectTrustedSourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesPtrInput)(nil)).Elem(), ProjectTrustedSourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesExternalSourceInput)(nil)).Elem(), ProjectTrustedSourcesExternalSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesExternalSourceArrayInput)(nil)).Elem(), ProjectTrustedSourcesExternalSourceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesExternalSourceToInput)(nil)).Elem(), ProjectTrustedSourcesExternalSourceToArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectInput)(nil)).Elem(), ProjectTrustedSourcesProjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectArrayInput)(nil)).Elem(), ProjectTrustedSourcesProjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowInput)(nil)).Elem(), ProjectTrustedSourcesProjectCustomAllowArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowArrayInput)(nil)).Elem(), ProjectTrustedSourcesProjectCustomAllowArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowFromInput)(nil)).Elem(), ProjectTrustedSourcesProjectCustomAllowFromArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowToInput)(nil)).Elem(), ProjectTrustedSourcesProjectCustomAllowToArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationPtrInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
@@ -9478,14 +14569,30 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlRolesMapInput)(nil)).Elem(), TeamConfigSamlRolesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectInput)(nil)).Elem(), TeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectArrayInput)(nil)).Elem(), TeamMemberProjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobProjectConnectionsConnectionInput)(nil)).Elem(), GetBlobProjectConnectionsConnectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobProjectConnectionsConnectionArrayInput)(nil)).Elem(), GetBlobProjectConnectionsConnectionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobStoresStoreInput)(nil)).Elem(), GetBlobStoresStoreArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobStoresStoreArrayInput)(nil)).Elem(), GetBlobStoresStoreArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBulkRedirectsRedirectInput)(nil)).Elem(), GetBulkRedirectsRedirectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBulkRedirectsRedirectArrayInput)(nil)).Elem(), GetBulkRedirectsRedirectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCustomEnvironmentBranchTrackingInput)(nil)).Elem(), GetCustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDsyncGroupsListInput)(nil)).Elem(), GetDsyncGroupsListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDsyncGroupsListArrayInput)(nil)).Elem(), GetDsyncGroupsListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagDevelopmentInput)(nil)).Elem(), GetFeatureFlagDevelopmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagPreviewInput)(nil)).Elem(), GetFeatureFlagPreviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagProductionInput)(nil)).Elem(), GetFeatureFlagProductionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagSegmentExcludeInput)(nil)).Elem(), GetFeatureFlagSegmentExcludeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagSegmentExcludeArrayInput)(nil)).Elem(), GetFeatureFlagSegmentExcludeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagSegmentIncludeInput)(nil)).Elem(), GetFeatureFlagSegmentIncludeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagSegmentIncludeArrayInput)(nil)).Elem(), GetFeatureFlagSegmentIncludeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagVariantInput)(nil)).Elem(), GetFeatureFlagVariantArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagVariantArrayInput)(nil)).Elem(), GetFeatureFlagVariantArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMicrofrontendGroupDefaultAppInput)(nil)).Elem(), GetMicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitCommentsInput)(nil)).Elem(), GetProjectGitCommentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitProviderOptionsInput)(nil)).Elem(), GetProjectGitProviderOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitProviderOptionsConsolidatedGitCommitStatusInput)(nil)).Elem(), GetProjectGitProviderOptionsConsolidatedGitCommitStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryInput)(nil)).Elem(), GetProjectGitRepositoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectGitRepositoryDeployHookArrayInput)(nil)).Elem(), GetProjectGitRepositoryDeployHookArray{})
@@ -9499,9 +14606,28 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectResourceConfigInput)(nil)).Elem(), GetProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageInput)(nil)).Elem(), GetProjectRollingReleaseStageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageArrayInput)(nil)).Elem(), GetProjectRollingReleaseStageArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleInput)(nil)).Elem(), GetProjectRoutesRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleArrayInput)(nil)).Elem(), GetProjectRoutesRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteInput)(nil)).Elem(), GetProjectRoutesRuleRouteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteHaInput)(nil)).Elem(), GetProjectRoutesRuleRouteHaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteHaArrayInput)(nil)).Elem(), GetProjectRoutesRuleRouteHaArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteMissingInput)(nil)).Elem(), GetProjectRoutesRuleRouteMissingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteMissingArrayInput)(nil)).Elem(), GetProjectRoutesRuleRouteMissingArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteTransformInput)(nil)).Elem(), GetProjectRoutesRuleRouteTransformArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRoutesRuleRouteTransformArrayInput)(nil)).Elem(), GetProjectRoutesRuleRouteTransformArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsInput)(nil)).Elem(), GetProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressInput)(nil)).Elem(), GetProjectTrustedIpsAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedIpsAddressArrayInput)(nil)).Elem(), GetProjectTrustedIpsAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesInput)(nil)).Elem(), GetProjectTrustedSourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesExternalSourceInput)(nil)).Elem(), GetProjectTrustedSourcesExternalSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesExternalSourceArrayInput)(nil)).Elem(), GetProjectTrustedSourcesExternalSourceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesExternalSourceToInput)(nil)).Elem(), GetProjectTrustedSourcesExternalSourceToArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectInput)(nil)).Elem(), GetProjectTrustedSourcesProjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectArrayInput)(nil)).Elem(), GetProjectTrustedSourcesProjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowArrayInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowFromInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowFromArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowToInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowToArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigRemoteCachingInput)(nil)).Elem(), GetTeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlInput)(nil)).Elem(), GetTeamConfigSamlArgs{})
@@ -9509,12 +14635,26 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlRolesMapInput)(nil)).Elem(), GetTeamConfigSamlRolesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectInput)(nil)).Elem(), GetTeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectArrayInput)(nil)).Elem(), GetTeamMemberProjectArray{})
+	pulumi.RegisterOutputType(BulkRedirectsRedirectOutput{})
+	pulumi.RegisterOutputType(BulkRedirectsRedirectArrayOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingPtrOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvPtrOutput{})
+	pulumi.RegisterOutputType(FeatureFlagConfigDevelopmentOutput{})
+	pulumi.RegisterOutputType(FeatureFlagConfigDevelopmentPtrOutput{})
+	pulumi.RegisterOutputType(FeatureFlagConfigPreviewOutput{})
+	pulumi.RegisterOutputType(FeatureFlagConfigPreviewPtrOutput{})
+	pulumi.RegisterOutputType(FeatureFlagConfigProductionOutput{})
+	pulumi.RegisterOutputType(FeatureFlagConfigProductionPtrOutput{})
+	pulumi.RegisterOutputType(FeatureFlagDefinitionVariantOutput{})
+	pulumi.RegisterOutputType(FeatureFlagDefinitionVariantArrayOutput{})
+	pulumi.RegisterOutputType(FeatureFlagSegmentExcludeOutput{})
+	pulumi.RegisterOutputType(FeatureFlagSegmentExcludeArrayOutput{})
+	pulumi.RegisterOutputType(FeatureFlagSegmentIncludeOutput{})
+	pulumi.RegisterOutputType(FeatureFlagSegmentIncludeArrayOutput{})
 	pulumi.RegisterOutputType(FirewallConfigIpRulesOutput{})
 	pulumi.RegisterOutputType(FirewallConfigIpRulesPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigIpRulesRuleOutput{})
@@ -9576,6 +14716,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectGitCommentsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitProviderOptionsOutput{})
 	pulumi.RegisterOutputType(ProjectGitProviderOptionsPtrOutput{})
+	pulumi.RegisterOutputType(ProjectGitProviderOptionsConsolidatedGitCommitStatusOutput{})
+	pulumi.RegisterOutputType(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryPtrOutput{})
 	pulumi.RegisterOutputType(ProjectGitRepositoryDeployHookOutput{})
@@ -9594,10 +14736,31 @@ func init() {
 	pulumi.RegisterOutputType(ProjectResourceConfigPtrOutput{})
 	pulumi.RegisterOutputType(ProjectRollingReleaseStageOutput{})
 	pulumi.RegisterOutputType(ProjectRollingReleaseStageArrayOutput{})
+	pulumi.RegisterOutputType(ProjectRoutePositionOutput{})
+	pulumi.RegisterOutputType(ProjectRoutePositionPtrOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRoutePtrOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteHaOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteHaArrayOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteMissingOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteMissingArrayOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteTransformOutput{})
+	pulumi.RegisterOutputType(ProjectRouteRouteTransformArrayOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsAddressOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsAddressArrayOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesPtrOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesExternalSourceOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesExternalSourceArrayOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesExternalSourceToOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectArrayOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectCustomAllowOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectCustomAllowArrayOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectCustomAllowFromOutput{})
+	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectCustomAllowToOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationPtrOutput{})
 	pulumi.RegisterOutputType(TeamConfigRemoteCachingOutput{})
@@ -9608,14 +14771,30 @@ func init() {
 	pulumi.RegisterOutputType(TeamConfigSamlRolesMapOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectArrayOutput{})
+	pulumi.RegisterOutputType(GetBlobProjectConnectionsConnectionOutput{})
+	pulumi.RegisterOutputType(GetBlobProjectConnectionsConnectionArrayOutput{})
+	pulumi.RegisterOutputType(GetBlobStoresStoreOutput{})
+	pulumi.RegisterOutputType(GetBlobStoresStoreArrayOutput{})
+	pulumi.RegisterOutputType(GetBulkRedirectsRedirectOutput{})
+	pulumi.RegisterOutputType(GetBulkRedirectsRedirectArrayOutput{})
 	pulumi.RegisterOutputType(GetCustomEnvironmentBranchTrackingOutput{})
 	pulumi.RegisterOutputType(GetDsyncGroupsListOutput{})
 	pulumi.RegisterOutputType(GetDsyncGroupsListArrayOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagDevelopmentOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagPreviewOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagProductionOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagSegmentExcludeOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagSegmentExcludeArrayOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagSegmentIncludeOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagSegmentIncludeArrayOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagVariantOutput{})
+	pulumi.RegisterOutputType(GetFeatureFlagVariantArrayOutput{})
 	pulumi.RegisterOutputType(GetMicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectGitCommentsOutput{})
 	pulumi.RegisterOutputType(GetProjectGitProviderOptionsOutput{})
+	pulumi.RegisterOutputType(GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookOutput{})
 	pulumi.RegisterOutputType(GetProjectGitRepositoryDeployHookArrayOutput{})
@@ -9629,9 +14808,28 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectResourceConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectRollingReleaseStageOutput{})
 	pulumi.RegisterOutputType(GetProjectRollingReleaseStageArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteHaOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteHaArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteMissingOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteMissingArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteTransformOutput{})
+	pulumi.RegisterOutputType(GetProjectRoutesRuleRouteTransformArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedIpsAddressArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesExternalSourceOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesExternalSourceArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesExternalSourceToOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowFromOutput{})
+	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowToOutput{})
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigRemoteCachingOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigSamlOutput{})
