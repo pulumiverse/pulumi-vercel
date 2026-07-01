@@ -295,15 +295,15 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly bool PrioritiseProductionBuilds;
         /// <summary>
-        /// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `ProtectionBypassForAutomationSecret`.
+        /// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `ProtectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
         /// </summary>
         public readonly bool ProtectionBypassForAutomation;
         /// <summary>
-        /// If `ProtectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
+        /// The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
         /// </summary>
-        public readonly string ProtectionBypassForAutomationSecret;
+        public readonly ImmutableArray<string> ProtectionBypassForAutomationSecrets;
         /// <summary>
-        /// Specifies whether the source code and logs of the deployments for this project should be public or not.
+        /// Deprecated. The public source feature has been removed from Vercel; this attribute is no longer populated.
         /// </summary>
         public readonly bool PublicSource;
         /// <summary>
@@ -330,6 +330,10 @@ namespace Pulumiverse.Vercel
         /// Ensures only visitors from an allowed IP address can access your deployment.
         /// </summary>
         public readonly Outputs.GetProjectTrustedIpsResult TrustedIps;
+        /// <summary>
+        /// Vercel projects and external sources that can reach this project's protected deployments using short-lived OIDC tokens.
+        /// </summary>
+        public readonly Outputs.GetProjectTrustedSourcesResult TrustedSources;
         /// <summary>
         /// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
         /// </summary>
@@ -403,7 +407,7 @@ namespace Pulumiverse.Vercel
 
             bool protectionBypassForAutomation,
 
-            string protectionBypassForAutomationSecret,
+            ImmutableArray<string> protectionBypassForAutomationSecrets,
 
             bool publicSource,
 
@@ -418,6 +422,8 @@ namespace Pulumiverse.Vercel
             string teamId,
 
             Outputs.GetProjectTrustedIpsResult trustedIps,
+
+            Outputs.GetProjectTrustedSourcesResult trustedSources,
 
             Outputs.GetProjectVercelAuthenticationResult vercelAuthentication)
         {
@@ -454,7 +460,7 @@ namespace Pulumiverse.Vercel
             PreviewDeploymentsDisabled = previewDeploymentsDisabled;
             PrioritiseProductionBuilds = prioritiseProductionBuilds;
             ProtectionBypassForAutomation = protectionBypassForAutomation;
-            ProtectionBypassForAutomationSecret = protectionBypassForAutomationSecret;
+            ProtectionBypassForAutomationSecrets = protectionBypassForAutomationSecrets;
             PublicSource = publicSource;
             ResourceConfig = resourceConfig;
             RootDirectory = rootDirectory;
@@ -462,6 +468,7 @@ namespace Pulumiverse.Vercel
             SkewProtection = skewProtection;
             TeamId = teamId;
             TrustedIps = trustedIps;
+            TrustedSources = trustedSources;
             VercelAuthentication = vercelAuthentication;
         }
     }

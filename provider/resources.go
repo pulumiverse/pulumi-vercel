@@ -21,7 +21,7 @@ import (
 
 	_ "embed" // nolint: golint
 
-	"github.com/vercel/terraform-provider-vercel/v4/vercel"
+	"github.com/vercel/terraform-provider-vercel/v5/vercel"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
@@ -30,7 +30,7 @@ import (
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
-	"github.com/pulumiverse/pulumi-vercel/provider/v4/pkg/version"
+	"github.com/pulumiverse/pulumi-vercel/provider/v5/pkg/version"
 )
 
 // all of the token components used below.
@@ -64,7 +64,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:                []string{"pulumi", "vercel", "category/cloud"},
 		License:                 "Apache-2.0",
 		GitHubOrg:               "vercel",
-		TFProviderModuleVersion: "v4",
+		TFProviderModuleVersion: "v5",
 		Repository:              "https://github.com/pulumiverse/pulumi-vercel",
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"vercel_alias": {

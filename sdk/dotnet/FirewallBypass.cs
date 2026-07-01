@@ -58,6 +58,8 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
     /// ```sh
     /// $ pulumi import vercel:index/firewallBypass:FirewallBypass example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx#mybypasshost.com#3.4.5.0/24
     /// 

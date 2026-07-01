@@ -272,6 +272,8 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         You can import via the team_id and project_id.
         - team_id can be found in the team `settings` tab in the Vercel UI.
         - project_id can be found in the project `settings` tab in the Vercel UI.
@@ -329,6 +331,8 @@ class ProjectDeploymentRetention(pulumi.CustomResource):
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         You can import via the team_id and project_id.
         - team_id can be found in the team `settings` tab in the Vercel UI.

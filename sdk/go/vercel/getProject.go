@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel/internal"
 )
 
 // Provides information about an existing project within Vercel.
@@ -25,7 +25,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
 //
 // )
 //
@@ -132,11 +132,17 @@ type LookupProjectResult struct {
 	PreviewDeploymentsDisabled bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds bool `pulumi:"prioritiseProductionBuilds"`
-	// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protectionBypassForAutomationSecret`.
+	// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `ProjectProtectionBypass` resource instead.
+	//
+	// Deprecated: Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
 	ProtectionBypassForAutomation bool `pulumi:"protectionBypassForAutomation"`
-	// If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-	ProtectionBypassForAutomationSecret string `pulumi:"protectionBypassForAutomationSecret"`
-	// Specifies whether the source code and logs of the deployments for this project should be public or not.
+	// The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `ProjectProtectionBypass` resource instead.
+	//
+	// Deprecated: Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
+	ProtectionBypassForAutomationSecrets []string `pulumi:"protectionBypassForAutomationSecrets"`
+	// Deprecated. The public source feature has been removed from Vercel; this attribute is no longer populated.
+	//
+	// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel and is no longer returned by the API. It will be removed in a future major version of this provider.
 	PublicSource bool `pulumi:"publicSource"`
 	// Resource Configuration for the project.
 	ResourceConfig GetProjectResourceConfig `pulumi:"resourceConfig"`
@@ -150,6 +156,8 @@ type LookupProjectResult struct {
 	TeamId string `pulumi:"teamId"`
 	// Ensures only visitors from an allowed IP address can access your deployment.
 	TrustedIps GetProjectTrustedIps `pulumi:"trustedIps"`
+	// Vercel projects and external sources that can reach this project's protected deployments using short-lived OIDC tokens.
+	TrustedSources GetProjectTrustedSources `pulumi:"trustedSources"`
 	// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.
 	VercelAuthentication GetProjectVercelAuthentication `pulumi:"vercelAuthentication"`
 }
@@ -356,17 +364,23 @@ func (o LookupProjectResultOutput) PrioritiseProductionBuilds() pulumi.BoolOutpu
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PrioritiseProductionBuilds }).(pulumi.BoolOutput)
 }
 
-// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with the value from `protectionBypassForAutomationSecret`.
+// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `ProjectProtectionBypass` resource instead.
+//
+// Deprecated: Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
 func (o LookupProjectResultOutput) ProtectionBypassForAutomation() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.ProtectionBypassForAutomation }).(pulumi.BoolOutput)
 }
 
-// If `protectionBypassForAutomation` is enabled, optionally set this value to specify a 32 character secret, otherwise a secret will be generated.
-func (o LookupProjectResultOutput) ProtectionBypassForAutomationSecret() pulumi.StringOutput {
-	return o.ApplyT(func(v LookupProjectResult) string { return v.ProtectionBypassForAutomationSecret }).(pulumi.StringOutput)
+// The automation bypass secrets for this project. Use each value as the `x-vercel-protection-bypass` header. Deprecated: use the `ProjectProtectionBypass` resource instead.
+//
+// Deprecated: Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
+func (o LookupProjectResultOutput) ProtectionBypassForAutomationSecrets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupProjectResult) []string { return v.ProtectionBypassForAutomationSecrets }).(pulumi.StringArrayOutput)
 }
 
-// Specifies whether the source code and logs of the deployments for this project should be public or not.
+// Deprecated. The public source feature has been removed from Vercel; this attribute is no longer populated.
+//
+// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel and is no longer returned by the API. It will be removed in a future major version of this provider.
 func (o LookupProjectResultOutput) PublicSource() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PublicSource }).(pulumi.BoolOutput)
 }
@@ -399,6 +413,11 @@ func (o LookupProjectResultOutput) TeamId() pulumi.StringOutput {
 // Ensures only visitors from an allowed IP address can access your deployment.
 func (o LookupProjectResultOutput) TrustedIps() GetProjectTrustedIpsOutput {
 	return o.ApplyT(func(v LookupProjectResult) GetProjectTrustedIps { return v.TrustedIps }).(GetProjectTrustedIpsOutput)
+}
+
+// Vercel projects and external sources that can reach this project's protected deployments using short-lived OIDC tokens.
+func (o LookupProjectResultOutput) TrustedSources() GetProjectTrustedSourcesOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectTrustedSources { return v.TrustedSources }).(GetProjectTrustedSourcesOutput)
 }
 
 // Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team.

@@ -40,10 +40,10 @@ public final class ProjectEnvironment {
      */
     private String key;
     /**
-     * @return Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
-    private @Nullable Boolean sensitive;
+    private Boolean sensitive;
     /**
      * @return The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
      * 
@@ -92,11 +92,11 @@ public final class ProjectEnvironment {
         return this.key;
     }
     /**
-     * @return Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      * 
      */
-    public Optional<Boolean> sensitive() {
-        return Optional.ofNullable(this.sensitive);
+    public Boolean sensitive() {
+        return this.sensitive;
     }
     /**
      * @return The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
@@ -127,7 +127,7 @@ public final class ProjectEnvironment {
         private @Nullable String gitBranch;
         private @Nullable String id;
         private String key;
-        private @Nullable Boolean sensitive;
+        private Boolean sensitive;
         private @Nullable List<String> targets;
         private String value;
         public Builder() {}
@@ -179,8 +179,10 @@ public final class ProjectEnvironment {
             return this;
         }
         @CustomType.Setter
-        public Builder sensitive(@Nullable Boolean sensitive) {
-
+        public Builder sensitive(Boolean sensitive) {
+            if (sensitive == null) {
+              throw new MissingRequiredPropertyException("ProjectEnvironment", "sensitive");
+            }
             this.sensitive = sensitive;
             return this;
         }

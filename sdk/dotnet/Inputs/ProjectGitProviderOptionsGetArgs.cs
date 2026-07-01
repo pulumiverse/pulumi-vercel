@@ -14,10 +14,22 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectGitProviderOptionsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
+        /// </summary>
+        [Input("consolidatedGitCommitStatus")]
+        public Input<Inputs.ProjectGitProviderOptionsConsolidatedGitCommitStatusGetArgs>? ConsolidatedGitCommitStatus { get; set; }
+
+        /// <summary>
         /// Whether to create deployments
         /// </summary>
         [Input("createDeployments")]
         public Input<bool>? CreateDeployments { get; set; }
+
+        /// <summary>
+        /// Whether Vercel should post git commit statuses for this project. Defaults to `True` when unset.
+        /// </summary>
+        [Input("gitCommitStatus")]
+        public Input<bool>? GitCommitStatus { get; set; }
 
         /// <summary>
         /// Whether to enable repository dispatch events

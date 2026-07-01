@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel/internal"
+	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel/internal"
 )
 
 // Provides the output of a project built via `vercel build` and provides metadata for use with a `Deployment`
@@ -26,7 +26,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v4/go/vercel"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
 //
 // )
 //

@@ -35,9 +35,9 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string Key;
         /// <summary>
-        /// Whether the Environment Variable is sensitive or not. (May be affected by a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy))
+        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `Development` must set this to `False`. Variables targeting `Preview`, `Production`, or custom environments may have to set this to `True`. A variable cannot target `Development` together with `Preview`, `Production`, or custom environments while that team policy is enabled.
         /// </summary>
-        public readonly bool? Sensitive;
+        public readonly bool Sensitive;
         /// <summary>
         /// The environments that the Environment Variable should be present on. Valid targets are either `Production`, `Preview`, or `Development`. At least one of `Target` or `CustomEnvironmentIds` must be set.
         /// </summary>
@@ -59,7 +59,7 @@ namespace Pulumiverse.Vercel.Outputs
 
             string key,
 
-            bool? sensitive,
+            bool sensitive,
 
             ImmutableArray<string> targets,
 

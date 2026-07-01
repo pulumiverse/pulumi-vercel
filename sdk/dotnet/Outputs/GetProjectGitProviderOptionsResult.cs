@@ -15,9 +15,17 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class GetProjectGitProviderOptionsResult
     {
         /// <summary>
+        /// **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
+        /// </summary>
+        public readonly Outputs.GetProjectGitProviderOptionsConsolidatedGitCommitStatusResult ConsolidatedGitCommitStatus;
+        /// <summary>
         /// Whether to create deployments.
         /// </summary>
         public readonly bool CreateDeployments;
+        /// <summary>
+        /// Whether Vercel posts git commit statuses for this project.
+        /// </summary>
+        public readonly bool GitCommitStatus;
         /// <summary>
         /// Whether repository dispatch events are enabled.
         /// </summary>
@@ -29,13 +37,19 @@ namespace Pulumiverse.Vercel.Outputs
 
         [OutputConstructor]
         private GetProjectGitProviderOptionsResult(
+            Outputs.GetProjectGitProviderOptionsConsolidatedGitCommitStatusResult consolidatedGitCommitStatus,
+
             bool createDeployments,
+
+            bool gitCommitStatus,
 
             bool repositoryDispatchEvents,
 
             bool requireVerifiedCommits)
         {
+            ConsolidatedGitCommitStatus = consolidatedGitCommitStatus;
             CreateDeployments = createDeployments;
+            GitCommitStatus = gitCommitStatus;
             RepositoryDispatchEvents = repositoryDispatchEvents;
             RequireVerifiedCommits = requireVerifiedCommits;
         }
