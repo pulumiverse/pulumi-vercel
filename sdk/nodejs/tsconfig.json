@@ -14,6 +14,7 @@
     },
     "files": [
         "accessGroup.ts",
+        "accessGroupMember.ts",
         "accessGroupProject.ts",
         "alias.ts",
         "attackChallengeMode.ts",
@@ -26,6 +27,7 @@
         "customCertificate.ts",
         "customEnvironment.ts",
         "deployment.ts",
+        "deploymentProtectionException.ts",
         "dnsRecord.ts",
         "edgeConfig.ts",
         "edgeConfigItem.ts",
@@ -74,6 +76,8 @@
         "getSharedEnvironmentVariable.ts",
         "getTeamConfig.ts",
         "getTeamMember.ts",
+        "getTraceDrain.ts",
+        "getVcrRepository.ts",
         "index.ts",
         "integrationProjectAccess.ts",
         "logDrain.ts",
@@ -95,11 +99,13 @@
         "sharedEnvironmentVariableProjectLink.ts",
         "teamConfig.ts",
         "teamMember.ts",
+        "traceDrain.ts",
         "types/index.ts",
         "types/input.ts",
         "types/output.ts",
         "userToken.ts",
         "utilities.ts",
+        "vcrRepository.ts",
         "webhook.ts"
     ]
 }

@@ -467,6 +467,25 @@ export interface NetworkTimeouts {
     create?: pulumi.Input<string>;
 }
 
+export interface ProjectDomainVerification {
+    /**
+     * The domain name on which the DNS record must be created.
+     */
+    domain?: pulumi.Input<string>;
+    /**
+     * A human-readable explanation of why this challenge was issued.
+     */
+    reason?: pulumi.Input<string>;
+    /**
+     * The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+     */
+    type?: pulumi.Input<string>;
+    /**
+     * The value that the DNS record must contain.
+     */
+    value?: pulumi.Input<string>;
+}
+
 export interface ProjectEnvironment {
     /**
      * A comment explaining what the environment variable is for.
@@ -964,4 +983,19 @@ export interface TeamMemberProject {
      * The role that the user should have in the project.
      */
     role: pulumi.Input<string>;
+}
+
+export interface TraceDrainSamplingRule {
+    /**
+     * Environment to apply this sampling rule to. Can be `production` or `preview`.
+     */
+    environment?: pulumi.Input<string>;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: pulumi.Input<number>;
+    /**
+     * Request path prefix to apply this sampling rule to.
+     */
+    requestPath?: pulumi.Input<string>;
 }

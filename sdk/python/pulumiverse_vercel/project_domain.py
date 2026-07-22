@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['ProjectDomainArgs', 'ProjectDomain']
 
@@ -25,7 +27,8 @@ class ProjectDomainArgs:
                  git_branch: Optional[pulumi.Input[_builtins.str]] = None,
                  redirect: Optional[pulumi.Input[_builtins.str]] = None,
                  redirect_status_code: Optional[pulumi.Input[_builtins.int]] = None,
-                 team_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 team_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 wait_for_ready: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a ProjectDomain resource.
 
@@ -36,6 +39,7 @@ class ProjectDomainArgs:
         :param pulumi.Input[_builtins.str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[_builtins.int] redirect_status_code: The HTTP status code to use when serving as a redirect.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[_builtins.bool] wait_for_ready: Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "project_id", project_id)
@@ -49,6 +53,8 @@ class ProjectDomainArgs:
             pulumi.set(__self__, "redirect_status_code", redirect_status_code)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+        if wait_for_ready is not None:
+            pulumi.set(__self__, "wait_for_ready", wait_for_ready)
 
     @_builtins.property
     @pulumi.getter
@@ -134,6 +140,18 @@ class ProjectDomainArgs:
     def team_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "team_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="waitForReady")
+    def wait_for_ready(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        """
+        return pulumi.get(self, "wait_for_ready")
+
+    @wait_for_ready.setter
+    def wait_for_ready(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "wait_for_ready", value)
+
 
 @pulumi.input_type
 class _ProjectDomainState:
@@ -144,7 +162,10 @@ class _ProjectDomainState:
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  redirect: Optional[pulumi.Input[_builtins.str]] = None,
                  redirect_status_code: Optional[pulumi.Input[_builtins.int]] = None,
-                 team_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 team_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 verifications: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectDomainVerificationArgs']]]] = None,
+                 verified: Optional[pulumi.Input[_builtins.bool]] = None,
+                 wait_for_ready: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering ProjectDomain resources.
 
@@ -155,6 +176,9 @@ class _ProjectDomainState:
         :param pulumi.Input[_builtins.str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[_builtins.int] redirect_status_code: The HTTP status code to use when serving as a redirect.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectDomainVerificationArgs']]] verifications: A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        :param pulumi.Input[_builtins.bool] verified: Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+        :param pulumi.Input[_builtins.bool] wait_for_ready: Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
         """
         if custom_environment_id is not None:
             pulumi.set(__self__, "custom_environment_id", custom_environment_id)
@@ -170,6 +194,12 @@ class _ProjectDomainState:
             pulumi.set(__self__, "redirect_status_code", redirect_status_code)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+        if verifications is not None:
+            pulumi.set(__self__, "verifications", verifications)
+        if verified is not None:
+            pulumi.set(__self__, "verified", verified)
+        if wait_for_ready is not None:
+            pulumi.set(__self__, "wait_for_ready", wait_for_ready)
 
     @_builtins.property
     @pulumi.getter(name="customEnvironmentId")
@@ -255,6 +285,42 @@ class _ProjectDomainState:
     def team_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "team_id", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def verifications(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectDomainVerificationArgs']]]]:
+        """
+        A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        """
+        return pulumi.get(self, "verifications")
+
+    @verifications.setter
+    def verifications(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProjectDomainVerificationArgs']]]]):
+        pulumi.set(self, "verifications", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def verified(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+        """
+        return pulumi.get(self, "verified")
+
+    @verified.setter
+    def verified(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "verified", value)
+
+    @_builtins.property
+    @pulumi.getter(name="waitForReady")
+    def wait_for_ready(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        """
+        return pulumi.get(self, "wait_for_ready")
+
+    @wait_for_ready.setter
+    def wait_for_ready(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "wait_for_ready", value)
+
 
 @pulumi.type_token("vercel:index/projectDomain:ProjectDomain")
 class ProjectDomain(pulumi.CustomResource):
@@ -269,6 +335,7 @@ class ProjectDomain(pulumi.CustomResource):
                  redirect: Optional[pulumi.Input[_builtins.str]] = None,
                  redirect_status_code: Optional[pulumi.Input[_builtins.int]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 wait_for_ready: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
         Provides a Project Domain resource.
@@ -289,6 +356,11 @@ class ProjectDomain(pulumi.CustomResource):
         example_project_domain = vercel.ProjectDomain("example",
             project_id=example.id,
             domain="i-love.vercel.app")
+        # Wait for the domain to be verified before resources that depend on it run.
+        example_wait_for_ready = vercel.ProjectDomain("example_wait_for_ready",
+            project_id=example.id,
+            domain="i-wait.vercel.app",
+            wait_for_ready=True)
         # A redirect of a domain name to a second domain name.
         # The status_code can optionally be controlled.
         example_redirect = vercel.ProjectDomain("example_redirect",
@@ -328,6 +400,7 @@ class ProjectDomain(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[_builtins.int] redirect_status_code: The HTTP status code to use when serving as a redirect.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[_builtins.bool] wait_for_ready: Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
         """
         ...
     @overload
@@ -354,6 +427,11 @@ class ProjectDomain(pulumi.CustomResource):
         example_project_domain = vercel.ProjectDomain("example",
             project_id=example.id,
             domain="i-love.vercel.app")
+        # Wait for the domain to be verified before resources that depend on it run.
+        example_wait_for_ready = vercel.ProjectDomain("example_wait_for_ready",
+            project_id=example.id,
+            domain="i-wait.vercel.app",
+            wait_for_ready=True)
         # A redirect of a domain name to a second domain name.
         # The status_code can optionally be controlled.
         example_redirect = vercel.ProjectDomain("example_redirect",
@@ -406,6 +484,7 @@ class ProjectDomain(pulumi.CustomResource):
                  redirect: Optional[pulumi.Input[_builtins.str]] = None,
                  redirect_status_code: Optional[pulumi.Input[_builtins.int]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 wait_for_ready: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -426,6 +505,9 @@ class ProjectDomain(pulumi.CustomResource):
             __props__.__dict__["redirect"] = redirect
             __props__.__dict__["redirect_status_code"] = redirect_status_code
             __props__.__dict__["team_id"] = team_id
+            __props__.__dict__["wait_for_ready"] = wait_for_ready
+            __props__.__dict__["verifications"] = None
+            __props__.__dict__["verified"] = None
         super(ProjectDomain, __self__).__init__(
             'vercel:index/projectDomain:ProjectDomain',
             resource_name,
@@ -442,7 +524,10 @@ class ProjectDomain(pulumi.CustomResource):
             project_id: Optional[pulumi.Input[_builtins.str]] = None,
             redirect: Optional[pulumi.Input[_builtins.str]] = None,
             redirect_status_code: Optional[pulumi.Input[_builtins.int]] = None,
-            team_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'ProjectDomain':
+            team_id: Optional[pulumi.Input[_builtins.str]] = None,
+            verifications: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ProjectDomainVerificationArgs', 'ProjectDomainVerificationArgsDict']]]]] = None,
+            verified: Optional[pulumi.Input[_builtins.bool]] = None,
+            wait_for_ready: Optional[pulumi.Input[_builtins.bool]] = None) -> 'ProjectDomain':
         """
         Get an existing ProjectDomain resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -457,6 +542,9 @@ class ProjectDomain(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] redirect: The domain name that serves as a target destination for redirects.
         :param pulumi.Input[_builtins.int] redirect_status_code: The HTTP status code to use when serving as a redirect.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectDomainVerificationArgs', 'ProjectDomainVerificationArgsDict']]]] verifications: A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        :param pulumi.Input[_builtins.bool] verified: Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+        :param pulumi.Input[_builtins.bool] wait_for_ready: Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -469,6 +557,9 @@ class ProjectDomain(pulumi.CustomResource):
         __props__.__dict__["redirect"] = redirect
         __props__.__dict__["redirect_status_code"] = redirect_status_code
         __props__.__dict__["team_id"] = team_id
+        __props__.__dict__["verifications"] = verifications
+        __props__.__dict__["verified"] = verified
+        __props__.__dict__["wait_for_ready"] = wait_for_ready
         return ProjectDomain(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -526,4 +617,28 @@ class ProjectDomain(pulumi.CustomResource):
         The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         return pulumi.get(self, "team_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def verifications(self) -> pulumi.Output[Sequence['outputs.ProjectDomainVerification']]:
+        """
+        A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        """
+        return pulumi.get(self, "verifications")
+
+    @_builtins.property
+    @pulumi.getter
+    def verified(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+        """
+        return pulumi.get(self, "verified")
+
+    @_builtins.property
+    @pulumi.getter(name="waitForReady")
+    def wait_for_ready(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        """
+        return pulumi.get(self, "wait_for_ready")
 

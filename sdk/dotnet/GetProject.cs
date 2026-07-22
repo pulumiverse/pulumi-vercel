@@ -295,6 +295,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly bool PrioritiseProductionBuilds;
         /// <summary>
+        /// Specifies whether sourcemaps are protected and require authentication to access.
+        /// </summary>
+        public readonly bool ProtectedSourcemaps;
+        /// <summary>
         /// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `ProtectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
         /// </summary>
         public readonly bool ProtectionBypassForAutomation;
@@ -405,6 +409,8 @@ namespace Pulumiverse.Vercel
 
             bool prioritiseProductionBuilds,
 
+            bool protectedSourcemaps,
+
             bool protectionBypassForAutomation,
 
             ImmutableArray<string> protectionBypassForAutomationSecrets,
@@ -459,6 +465,7 @@ namespace Pulumiverse.Vercel
             PreviewDeploymentSuffix = previewDeploymentSuffix;
             PreviewDeploymentsDisabled = previewDeploymentsDisabled;
             PrioritiseProductionBuilds = prioritiseProductionBuilds;
+            ProtectedSourcemaps = protectedSourcemaps;
             ProtectionBypassForAutomation = protectionBypassForAutomation;
             ProtectionBypassForAutomationSecrets = protectionBypassForAutomationSecrets;
             PublicSource = publicSource;

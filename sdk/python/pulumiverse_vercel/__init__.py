@@ -7,6 +7,7 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .access_group import *
+from .access_group_member import *
 from .access_group_project import *
 from .alias import *
 from .attack_challenge_mode import *
@@ -17,6 +18,7 @@ from .bulk_redirects import *
 from .custom_certificate import *
 from .custom_environment import *
 from .deployment import *
+from .deployment_protection_exception import *
 from .dns_record import *
 from .edge_config import *
 from .edge_config_item import *
@@ -65,6 +67,8 @@ from .get_project_routes import *
 from .get_shared_environment_variable import *
 from .get_team_config import *
 from .get_team_member import *
+from .get_trace_drain import *
+from .get_vcr_repository import *
 from .integration_project_access import *
 from .log_drain import *
 from .microfrontend_group import *
@@ -85,7 +89,9 @@ from .shared_environment_variable import *
 from .shared_environment_variable_project_link import *
 from .team_config import *
 from .team_member import *
+from .trace_drain import *
 from .user_token import *
+from .vcr_repository import *
 from .webhook import *
 from ._inputs import *
 from . import outputs
@@ -106,6 +112,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/accessGroup:AccessGroup": "AccessGroup"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/accessGroupMember",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/accessGroupMember:AccessGroupMember": "AccessGroupMember"
   }
  },
  {
@@ -186,6 +200,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/deployment:Deployment": "Deployment"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/deploymentProtectionException",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/deploymentProtectionException:DeploymentProtectionException": "DeploymentProtectionException"
   }
  },
  {
@@ -430,10 +452,26 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/traceDrain",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/traceDrain:TraceDrain": "TraceDrain"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/userToken",
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/userToken:UserToken": "UserToken"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/vcrRepository",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/vcrRepository:VcrRepository": "VcrRepository"
   }
  },
  {

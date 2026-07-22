@@ -5728,6 +5728,130 @@ func (o NetworkTimeoutsPtrOutput) Create() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ProjectDomainVerification struct {
+	// The domain name on which the DNS record must be created.
+	Domain *string `pulumi:"domain"`
+	// A human-readable explanation of why this challenge was issued.
+	Reason *string `pulumi:"reason"`
+	// The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+	Type *string `pulumi:"type"`
+	// The value that the DNS record must contain.
+	Value *string `pulumi:"value"`
+}
+
+// ProjectDomainVerificationInput is an input type that accepts ProjectDomainVerificationArgs and ProjectDomainVerificationOutput values.
+// You can construct a concrete instance of `ProjectDomainVerificationInput` via:
+//
+//	ProjectDomainVerificationArgs{...}
+type ProjectDomainVerificationInput interface {
+	pulumi.Input
+
+	ToProjectDomainVerificationOutput() ProjectDomainVerificationOutput
+	ToProjectDomainVerificationOutputWithContext(context.Context) ProjectDomainVerificationOutput
+}
+
+type ProjectDomainVerificationArgs struct {
+	// The domain name on which the DNS record must be created.
+	Domain pulumi.StringPtrInput `pulumi:"domain"`
+	// A human-readable explanation of why this challenge was issued.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+	Type pulumi.StringPtrInput `pulumi:"type"`
+	// The value that the DNS record must contain.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ProjectDomainVerificationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDomainVerification)(nil)).Elem()
+}
+
+func (i ProjectDomainVerificationArgs) ToProjectDomainVerificationOutput() ProjectDomainVerificationOutput {
+	return i.ToProjectDomainVerificationOutputWithContext(context.Background())
+}
+
+func (i ProjectDomainVerificationArgs) ToProjectDomainVerificationOutputWithContext(ctx context.Context) ProjectDomainVerificationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDomainVerificationOutput)
+}
+
+// ProjectDomainVerificationArrayInput is an input type that accepts ProjectDomainVerificationArray and ProjectDomainVerificationArrayOutput values.
+// You can construct a concrete instance of `ProjectDomainVerificationArrayInput` via:
+//
+//	ProjectDomainVerificationArray{ ProjectDomainVerificationArgs{...} }
+type ProjectDomainVerificationArrayInput interface {
+	pulumi.Input
+
+	ToProjectDomainVerificationArrayOutput() ProjectDomainVerificationArrayOutput
+	ToProjectDomainVerificationArrayOutputWithContext(context.Context) ProjectDomainVerificationArrayOutput
+}
+
+type ProjectDomainVerificationArray []ProjectDomainVerificationInput
+
+func (ProjectDomainVerificationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectDomainVerification)(nil)).Elem()
+}
+
+func (i ProjectDomainVerificationArray) ToProjectDomainVerificationArrayOutput() ProjectDomainVerificationArrayOutput {
+	return i.ToProjectDomainVerificationArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectDomainVerificationArray) ToProjectDomainVerificationArrayOutputWithContext(ctx context.Context) ProjectDomainVerificationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDomainVerificationArrayOutput)
+}
+
+type ProjectDomainVerificationOutput struct{ *pulumi.OutputState }
+
+func (ProjectDomainVerificationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDomainVerification)(nil)).Elem()
+}
+
+func (o ProjectDomainVerificationOutput) ToProjectDomainVerificationOutput() ProjectDomainVerificationOutput {
+	return o
+}
+
+func (o ProjectDomainVerificationOutput) ToProjectDomainVerificationOutputWithContext(ctx context.Context) ProjectDomainVerificationOutput {
+	return o
+}
+
+// The domain name on which the DNS record must be created.
+func (o ProjectDomainVerificationOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDomainVerification) *string { return v.Domain }).(pulumi.StringPtrOutput)
+}
+
+// A human-readable explanation of why this challenge was issued.
+func (o ProjectDomainVerificationOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDomainVerification) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+func (o ProjectDomainVerificationOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDomainVerification) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+// The value that the DNS record must contain.
+func (o ProjectDomainVerificationOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDomainVerification) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ProjectDomainVerificationArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectDomainVerificationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectDomainVerification)(nil)).Elem()
+}
+
+func (o ProjectDomainVerificationArrayOutput) ToProjectDomainVerificationArrayOutput() ProjectDomainVerificationArrayOutput {
+	return o
+}
+
+func (o ProjectDomainVerificationArrayOutput) ToProjectDomainVerificationArrayOutputWithContext(ctx context.Context) ProjectDomainVerificationArrayOutput {
+	return o
+}
+
+func (o ProjectDomainVerificationArrayOutput) Index(i pulumi.IntInput) ProjectDomainVerificationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectDomainVerification {
+		return vs[0].([]ProjectDomainVerification)[vs[1].(int)]
+	}).(ProjectDomainVerificationOutput)
+}
+
 type ProjectEnvironment struct {
 	// A comment explaining what the environment variable is for.
 	Comment *string `pulumi:"comment"`
@@ -10261,6 +10385,121 @@ func (o TeamMemberProjectArrayOutput) Index(i pulumi.IntInput) TeamMemberProject
 	}).(TeamMemberProjectOutput)
 }
 
+type TraceDrainSamplingRule struct {
+	// Environment to apply this sampling rule to. Can be `production` or `preview`.
+	Environment *string `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate float64 `pulumi:"rate"`
+	// Request path prefix to apply this sampling rule to.
+	RequestPath *string `pulumi:"requestPath"`
+}
+
+// TraceDrainSamplingRuleInput is an input type that accepts TraceDrainSamplingRuleArgs and TraceDrainSamplingRuleOutput values.
+// You can construct a concrete instance of `TraceDrainSamplingRuleInput` via:
+//
+//	TraceDrainSamplingRuleArgs{...}
+type TraceDrainSamplingRuleInput interface {
+	pulumi.Input
+
+	ToTraceDrainSamplingRuleOutput() TraceDrainSamplingRuleOutput
+	ToTraceDrainSamplingRuleOutputWithContext(context.Context) TraceDrainSamplingRuleOutput
+}
+
+type TraceDrainSamplingRuleArgs struct {
+	// Environment to apply this sampling rule to. Can be `production` or `preview`.
+	Environment pulumi.StringPtrInput `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate pulumi.Float64Input `pulumi:"rate"`
+	// Request path prefix to apply this sampling rule to.
+	RequestPath pulumi.StringPtrInput `pulumi:"requestPath"`
+}
+
+func (TraceDrainSamplingRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (i TraceDrainSamplingRuleArgs) ToTraceDrainSamplingRuleOutput() TraceDrainSamplingRuleOutput {
+	return i.ToTraceDrainSamplingRuleOutputWithContext(context.Background())
+}
+
+func (i TraceDrainSamplingRuleArgs) ToTraceDrainSamplingRuleOutputWithContext(ctx context.Context) TraceDrainSamplingRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TraceDrainSamplingRuleOutput)
+}
+
+// TraceDrainSamplingRuleArrayInput is an input type that accepts TraceDrainSamplingRuleArray and TraceDrainSamplingRuleArrayOutput values.
+// You can construct a concrete instance of `TraceDrainSamplingRuleArrayInput` via:
+//
+//	TraceDrainSamplingRuleArray{ TraceDrainSamplingRuleArgs{...} }
+type TraceDrainSamplingRuleArrayInput interface {
+	pulumi.Input
+
+	ToTraceDrainSamplingRuleArrayOutput() TraceDrainSamplingRuleArrayOutput
+	ToTraceDrainSamplingRuleArrayOutputWithContext(context.Context) TraceDrainSamplingRuleArrayOutput
+}
+
+type TraceDrainSamplingRuleArray []TraceDrainSamplingRuleInput
+
+func (TraceDrainSamplingRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (i TraceDrainSamplingRuleArray) ToTraceDrainSamplingRuleArrayOutput() TraceDrainSamplingRuleArrayOutput {
+	return i.ToTraceDrainSamplingRuleArrayOutputWithContext(context.Background())
+}
+
+func (i TraceDrainSamplingRuleArray) ToTraceDrainSamplingRuleArrayOutputWithContext(ctx context.Context) TraceDrainSamplingRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TraceDrainSamplingRuleArrayOutput)
+}
+
+type TraceDrainSamplingRuleOutput struct{ *pulumi.OutputState }
+
+func (TraceDrainSamplingRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (o TraceDrainSamplingRuleOutput) ToTraceDrainSamplingRuleOutput() TraceDrainSamplingRuleOutput {
+	return o
+}
+
+func (o TraceDrainSamplingRuleOutput) ToTraceDrainSamplingRuleOutputWithContext(ctx context.Context) TraceDrainSamplingRuleOutput {
+	return o
+}
+
+// Environment to apply this sampling rule to. Can be `production` or `preview`.
+func (o TraceDrainSamplingRuleOutput) Environment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TraceDrainSamplingRule) *string { return v.Environment }).(pulumi.StringPtrOutput)
+}
+
+// Sampling rate from 0 to 1.
+func (o TraceDrainSamplingRuleOutput) Rate() pulumi.Float64Output {
+	return o.ApplyT(func(v TraceDrainSamplingRule) float64 { return v.Rate }).(pulumi.Float64Output)
+}
+
+// Request path prefix to apply this sampling rule to.
+func (o TraceDrainSamplingRuleOutput) RequestPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TraceDrainSamplingRule) *string { return v.RequestPath }).(pulumi.StringPtrOutput)
+}
+
+type TraceDrainSamplingRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (TraceDrainSamplingRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (o TraceDrainSamplingRuleArrayOutput) ToTraceDrainSamplingRuleArrayOutput() TraceDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o TraceDrainSamplingRuleArrayOutput) ToTraceDrainSamplingRuleArrayOutputWithContext(ctx context.Context) TraceDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o TraceDrainSamplingRuleArrayOutput) Index(i pulumi.IntInput) TraceDrainSamplingRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TraceDrainSamplingRule {
+		return vs[0].([]TraceDrainSamplingRule)[vs[1].(int)]
+	}).(TraceDrainSamplingRuleOutput)
+}
+
 type GetBlobProjectConnectionsConnection struct {
 	// The prefix used for the generated Blob environment variable names.
 	EnvVarPrefix string `pulumi:"envVarPrefix"`
@@ -14432,6 +14671,121 @@ func (o GetTeamMemberProjectArrayOutput) Index(i pulumi.IntInput) GetTeamMemberP
 	}).(GetTeamMemberProjectOutput)
 }
 
+type GetTraceDrainSamplingRule struct {
+	// Environment this sampling rule applies to.
+	Environment string `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate float64 `pulumi:"rate"`
+	// Request path prefix this sampling rule applies to.
+	RequestPath string `pulumi:"requestPath"`
+}
+
+// GetTraceDrainSamplingRuleInput is an input type that accepts GetTraceDrainSamplingRuleArgs and GetTraceDrainSamplingRuleOutput values.
+// You can construct a concrete instance of `GetTraceDrainSamplingRuleInput` via:
+//
+//	GetTraceDrainSamplingRuleArgs{...}
+type GetTraceDrainSamplingRuleInput interface {
+	pulumi.Input
+
+	ToGetTraceDrainSamplingRuleOutput() GetTraceDrainSamplingRuleOutput
+	ToGetTraceDrainSamplingRuleOutputWithContext(context.Context) GetTraceDrainSamplingRuleOutput
+}
+
+type GetTraceDrainSamplingRuleArgs struct {
+	// Environment this sampling rule applies to.
+	Environment pulumi.StringInput `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate pulumi.Float64Input `pulumi:"rate"`
+	// Request path prefix this sampling rule applies to.
+	RequestPath pulumi.StringInput `pulumi:"requestPath"`
+}
+
+func (GetTraceDrainSamplingRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (i GetTraceDrainSamplingRuleArgs) ToGetTraceDrainSamplingRuleOutput() GetTraceDrainSamplingRuleOutput {
+	return i.ToGetTraceDrainSamplingRuleOutputWithContext(context.Background())
+}
+
+func (i GetTraceDrainSamplingRuleArgs) ToGetTraceDrainSamplingRuleOutputWithContext(ctx context.Context) GetTraceDrainSamplingRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTraceDrainSamplingRuleOutput)
+}
+
+// GetTraceDrainSamplingRuleArrayInput is an input type that accepts GetTraceDrainSamplingRuleArray and GetTraceDrainSamplingRuleArrayOutput values.
+// You can construct a concrete instance of `GetTraceDrainSamplingRuleArrayInput` via:
+//
+//	GetTraceDrainSamplingRuleArray{ GetTraceDrainSamplingRuleArgs{...} }
+type GetTraceDrainSamplingRuleArrayInput interface {
+	pulumi.Input
+
+	ToGetTraceDrainSamplingRuleArrayOutput() GetTraceDrainSamplingRuleArrayOutput
+	ToGetTraceDrainSamplingRuleArrayOutputWithContext(context.Context) GetTraceDrainSamplingRuleArrayOutput
+}
+
+type GetTraceDrainSamplingRuleArray []GetTraceDrainSamplingRuleInput
+
+func (GetTraceDrainSamplingRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (i GetTraceDrainSamplingRuleArray) ToGetTraceDrainSamplingRuleArrayOutput() GetTraceDrainSamplingRuleArrayOutput {
+	return i.ToGetTraceDrainSamplingRuleArrayOutputWithContext(context.Background())
+}
+
+func (i GetTraceDrainSamplingRuleArray) ToGetTraceDrainSamplingRuleArrayOutputWithContext(ctx context.Context) GetTraceDrainSamplingRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTraceDrainSamplingRuleArrayOutput)
+}
+
+type GetTraceDrainSamplingRuleOutput struct{ *pulumi.OutputState }
+
+func (GetTraceDrainSamplingRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (o GetTraceDrainSamplingRuleOutput) ToGetTraceDrainSamplingRuleOutput() GetTraceDrainSamplingRuleOutput {
+	return o
+}
+
+func (o GetTraceDrainSamplingRuleOutput) ToGetTraceDrainSamplingRuleOutputWithContext(ctx context.Context) GetTraceDrainSamplingRuleOutput {
+	return o
+}
+
+// Environment this sampling rule applies to.
+func (o GetTraceDrainSamplingRuleOutput) Environment() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTraceDrainSamplingRule) string { return v.Environment }).(pulumi.StringOutput)
+}
+
+// Sampling rate from 0 to 1.
+func (o GetTraceDrainSamplingRuleOutput) Rate() pulumi.Float64Output {
+	return o.ApplyT(func(v GetTraceDrainSamplingRule) float64 { return v.Rate }).(pulumi.Float64Output)
+}
+
+// Request path prefix this sampling rule applies to.
+func (o GetTraceDrainSamplingRuleOutput) RequestPath() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTraceDrainSamplingRule) string { return v.RequestPath }).(pulumi.StringOutput)
+}
+
+type GetTraceDrainSamplingRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetTraceDrainSamplingRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTraceDrainSamplingRule)(nil)).Elem()
+}
+
+func (o GetTraceDrainSamplingRuleArrayOutput) ToGetTraceDrainSamplingRuleArrayOutput() GetTraceDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o GetTraceDrainSamplingRuleArrayOutput) ToGetTraceDrainSamplingRuleArrayOutputWithContext(ctx context.Context) GetTraceDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o GetTraceDrainSamplingRuleArrayOutput) Index(i pulumi.IntInput) GetTraceDrainSamplingRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetTraceDrainSamplingRule {
+		return vs[0].([]GetTraceDrainSamplingRule)[vs[1].(int)]
+	}).(GetTraceDrainSamplingRuleOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectInput)(nil)).Elem(), BulkRedirectsRedirectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectArrayInput)(nil)).Elem(), BulkRedirectsRedirectArray{})
@@ -14506,6 +14860,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsInput)(nil)).Elem(), NetworkTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsPtrInput)(nil)).Elem(), NetworkTimeoutsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationInput)(nil)).Elem(), ProjectDomainVerificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationArrayInput)(nil)).Elem(), ProjectDomainVerificationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentArrayInput)(nil)).Elem(), ProjectEnvironmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentVariablesVariableInput)(nil)).Elem(), ProjectEnvironmentVariablesVariableArgs{})
@@ -14569,6 +14925,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlRolesMapInput)(nil)).Elem(), TeamConfigSamlRolesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectInput)(nil)).Elem(), TeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamMemberProjectArrayInput)(nil)).Elem(), TeamMemberProjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TraceDrainSamplingRuleInput)(nil)).Elem(), TraceDrainSamplingRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TraceDrainSamplingRuleArrayInput)(nil)).Elem(), TraceDrainSamplingRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobProjectConnectionsConnectionInput)(nil)).Elem(), GetBlobProjectConnectionsConnectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobProjectConnectionsConnectionArrayInput)(nil)).Elem(), GetBlobProjectConnectionsConnectionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBlobStoresStoreInput)(nil)).Elem(), GetBlobStoresStoreArgs{})
@@ -14635,6 +14993,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlRolesMapInput)(nil)).Elem(), GetTeamConfigSamlRolesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectInput)(nil)).Elem(), GetTeamMemberProjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectArrayInput)(nil)).Elem(), GetTeamMemberProjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTraceDrainSamplingRuleInput)(nil)).Elem(), GetTraceDrainSamplingRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTraceDrainSamplingRuleArrayInput)(nil)).Elem(), GetTraceDrainSamplingRuleArray{})
 	pulumi.RegisterOutputType(BulkRedirectsRedirectOutput{})
 	pulumi.RegisterOutputType(BulkRedirectsRedirectArrayOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})
@@ -14708,6 +15068,8 @@ func init() {
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsPtrOutput{})
+	pulumi.RegisterOutputType(ProjectDomainVerificationOutput{})
+	pulumi.RegisterOutputType(ProjectDomainVerificationArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentVariablesVariableOutput{})
@@ -14771,6 +15133,8 @@ func init() {
 	pulumi.RegisterOutputType(TeamConfigSamlRolesMapOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectOutput{})
 	pulumi.RegisterOutputType(TeamMemberProjectArrayOutput{})
+	pulumi.RegisterOutputType(TraceDrainSamplingRuleOutput{})
+	pulumi.RegisterOutputType(TraceDrainSamplingRuleArrayOutput{})
 	pulumi.RegisterOutputType(GetBlobProjectConnectionsConnectionOutput{})
 	pulumi.RegisterOutputType(GetBlobProjectConnectionsConnectionArrayOutput{})
 	pulumi.RegisterOutputType(GetBlobStoresStoreOutput{})
@@ -14837,4 +15201,6 @@ func init() {
 	pulumi.RegisterOutputType(GetTeamConfigSamlRolesMapOutput{})
 	pulumi.RegisterOutputType(GetTeamMemberProjectOutput{})
 	pulumi.RegisterOutputType(GetTeamMemberProjectArrayOutput{})
+	pulumi.RegisterOutputType(GetTraceDrainSamplingRuleOutput{})
+	pulumi.RegisterOutputType(GetTraceDrainSamplingRuleArrayOutput{})
 }

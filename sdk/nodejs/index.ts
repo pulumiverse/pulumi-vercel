@@ -10,6 +10,11 @@ export type AccessGroup = import("./accessGroup").AccessGroup;
 export const AccessGroup: typeof import("./accessGroup").AccessGroup = null as any;
 utilities.lazyLoad(exports, ["AccessGroup"], () => require("./accessGroup"));
 
+export { AccessGroupMemberArgs, AccessGroupMemberState } from "./accessGroupMember";
+export type AccessGroupMember = import("./accessGroupMember").AccessGroupMember;
+export const AccessGroupMember: typeof import("./accessGroupMember").AccessGroupMember = null as any;
+utilities.lazyLoad(exports, ["AccessGroupMember"], () => require("./accessGroupMember"));
+
 export { AccessGroupProjectArgs, AccessGroupProjectState } from "./accessGroupProject";
 export type AccessGroupProject = import("./accessGroupProject").AccessGroupProject;
 export const AccessGroupProject: typeof import("./accessGroupProject").AccessGroupProject = null as any;
@@ -59,6 +64,11 @@ export { DeploymentArgs, DeploymentState } from "./deployment";
 export type Deployment = import("./deployment").Deployment;
 export const Deployment: typeof import("./deployment").Deployment = null as any;
 utilities.lazyLoad(exports, ["Deployment"], () => require("./deployment"));
+
+export { DeploymentProtectionExceptionArgs, DeploymentProtectionExceptionState } from "./deploymentProtectionException";
+export type DeploymentProtectionException = import("./deploymentProtectionException").DeploymentProtectionException;
+export const DeploymentProtectionException: typeof import("./deploymentProtectionException").DeploymentProtectionException = null as any;
+utilities.lazyLoad(exports, ["DeploymentProtectionException"], () => require("./deploymentProtectionException"));
 
 export { DnsRecordArgs, DnsRecordState } from "./dnsRecord";
 export type DnsRecord = import("./dnsRecord").DnsRecord;
@@ -300,6 +310,16 @@ export const getTeamMember: typeof import("./getTeamMember").getTeamMember = nul
 export const getTeamMemberOutput: typeof import("./getTeamMember").getTeamMemberOutput = null as any;
 utilities.lazyLoad(exports, ["getTeamMember","getTeamMemberOutput"], () => require("./getTeamMember"));
 
+export { GetTraceDrainArgs, GetTraceDrainResult, GetTraceDrainOutputArgs } from "./getTraceDrain";
+export const getTraceDrain: typeof import("./getTraceDrain").getTraceDrain = null as any;
+export const getTraceDrainOutput: typeof import("./getTraceDrain").getTraceDrainOutput = null as any;
+utilities.lazyLoad(exports, ["getTraceDrain","getTraceDrainOutput"], () => require("./getTraceDrain"));
+
+export { GetVcrRepositoryArgs, GetVcrRepositoryResult, GetVcrRepositoryOutputArgs } from "./getVcrRepository";
+export const getVcrRepository: typeof import("./getVcrRepository").getVcrRepository = null as any;
+export const getVcrRepositoryOutput: typeof import("./getVcrRepository").getVcrRepositoryOutput = null as any;
+utilities.lazyLoad(exports, ["getVcrRepository","getVcrRepositoryOutput"], () => require("./getVcrRepository"));
+
 export { IntegrationProjectAccessArgs, IntegrationProjectAccessState } from "./integrationProjectAccess";
 export type IntegrationProjectAccess = import("./integrationProjectAccess").IntegrationProjectAccess;
 export const IntegrationProjectAccess: typeof import("./integrationProjectAccess").IntegrationProjectAccess = null as any;
@@ -398,10 +418,20 @@ export type TeamMember = import("./teamMember").TeamMember;
 export const TeamMember: typeof import("./teamMember").TeamMember = null as any;
 utilities.lazyLoad(exports, ["TeamMember"], () => require("./teamMember"));
 
+export { TraceDrainArgs, TraceDrainState } from "./traceDrain";
+export type TraceDrain = import("./traceDrain").TraceDrain;
+export const TraceDrain: typeof import("./traceDrain").TraceDrain = null as any;
+utilities.lazyLoad(exports, ["TraceDrain"], () => require("./traceDrain"));
+
 export { UserTokenArgs, UserTokenState } from "./userToken";
 export type UserToken = import("./userToken").UserToken;
 export const UserToken: typeof import("./userToken").UserToken = null as any;
 utilities.lazyLoad(exports, ["UserToken"], () => require("./userToken"));
+
+export { VcrRepositoryArgs, VcrRepositoryState } from "./vcrRepository";
+export type VcrRepository = import("./vcrRepository").VcrRepository;
+export const VcrRepository: typeof import("./vcrRepository").VcrRepository = null as any;
+utilities.lazyLoad(exports, ["VcrRepository"], () => require("./vcrRepository"));
 
 export { WebhookArgs, WebhookState } from "./webhook";
 export type Webhook = import("./webhook").Webhook;
@@ -424,6 +454,8 @@ const _module = {
         switch (type) {
             case "vercel:index/accessGroup:AccessGroup":
                 return new AccessGroup(name, <any>undefined, { urn })
+            case "vercel:index/accessGroupMember:AccessGroupMember":
+                return new AccessGroupMember(name, <any>undefined, { urn })
             case "vercel:index/accessGroupProject:AccessGroupProject":
                 return new AccessGroupProject(name, <any>undefined, { urn })
             case "vercel:index/alias:Alias":
@@ -444,6 +476,8 @@ const _module = {
                 return new CustomEnvironment(name, <any>undefined, { urn })
             case "vercel:index/deployment:Deployment":
                 return new Deployment(name, <any>undefined, { urn })
+            case "vercel:index/deploymentProtectionException:DeploymentProtectionException":
+                return new DeploymentProtectionException(name, <any>undefined, { urn })
             case "vercel:index/dnsRecord:DnsRecord":
                 return new DnsRecord(name, <any>undefined, { urn })
             case "vercel:index/edgeConfig:EdgeConfig":
@@ -504,8 +538,12 @@ const _module = {
                 return new TeamConfig(name, <any>undefined, { urn })
             case "vercel:index/teamMember:TeamMember":
                 return new TeamMember(name, <any>undefined, { urn })
+            case "vercel:index/traceDrain:TraceDrain":
+                return new TraceDrain(name, <any>undefined, { urn })
             case "vercel:index/userToken:UserToken":
                 return new UserToken(name, <any>undefined, { urn })
+            case "vercel:index/vcrRepository:VcrRepository":
+                return new VcrRepository(name, <any>undefined, { urn })
             case "vercel:index/webhook:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
@@ -514,6 +552,7 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroup", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/accessGroupMember", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
@@ -524,6 +563,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/bulkRedirects", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customCertificate", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customEnvironment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/deploymentProtectionException", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigItem", _module)
@@ -554,7 +594,9 @@ pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariableProjectLink", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamMember", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/traceDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/userToken", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/vcrRepository", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("vercel", {
     version: utilities.getVersion(),

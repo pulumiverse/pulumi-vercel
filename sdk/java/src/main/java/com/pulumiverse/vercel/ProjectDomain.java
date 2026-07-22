@@ -10,8 +10,11 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumiverse.vercel.ProjectDomainArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.ProjectDomainState;
+import com.pulumiverse.vercel.outputs.ProjectDomainVerification;
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -57,6 +60,13 @@ import javax.annotation.Nullable;
  *         var exampleProjectDomain = new ProjectDomain("exampleProjectDomain", ProjectDomainArgs.builder()
  *             .projectId(example.id())
  *             .domain("i-love.vercel.app")
+ *             .build());
+ * 
+ *         // Wait for the domain to be verified before resources that depend on it run.
+ *         var exampleWaitForReady = new ProjectDomain("exampleWaitForReady", ProjectDomainArgs.builder()
+ *             .projectId(example.id())
+ *             .domain("i-wait.vercel.app")
+ *             .waitForReady(true)
  *             .build());
  * 
  *         // A redirect of a domain name to a second domain name.
@@ -193,6 +203,48 @@ public class ProjectDomain extends com.pulumi.resources.CustomResource {
      */
     public Output<String> teamId() {
         return this.teamId;
+    }
+    /**
+     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * 
+     */
+    @Export(name="verifications", refs={List.class,ProjectDomainVerification.class}, tree="[0,1]")
+    private Output<List<ProjectDomainVerification>> verifications;
+
+    /**
+     * @return A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * 
+     */
+    public Output<List<ProjectDomainVerification>> verifications() {
+        return this.verifications;
+    }
+    /**
+     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * 
+     */
+    @Export(name="verified", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> verified;
+
+    /**
+     * @return Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * 
+     */
+    public Output<Boolean> verified() {
+        return this.verified;
+    }
+    /**
+     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * 
+     */
+    @Export(name="waitForReady", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> waitForReady;
+
+    /**
+     * @return Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * 
+     */
+    public Output<Optional<Boolean>> waitForReady() {
+        return Codegen.optional(this.waitForReady);
     }
 
     /**

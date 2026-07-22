@@ -191,6 +191,10 @@ export interface GetProjectResult {
      */
     readonly prioritiseProductionBuilds: boolean;
     /**
+     * Specifies whether sourcemaps are protected and require authentication to access.
+     */
+    readonly protectedSourcemaps: boolean;
+    /**
      * Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
      *
      * @deprecated Use the `vercel.ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.

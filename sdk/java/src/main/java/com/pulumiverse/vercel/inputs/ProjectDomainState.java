@@ -5,8 +5,11 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumiverse.vercel.inputs.ProjectDomainVerificationArgs;
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -121,6 +124,51 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         return Optional.ofNullable(this.teamId);
     }
 
+    /**
+     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * 
+     */
+    @Import(name="verifications")
+    private @Nullable Output<List<ProjectDomainVerificationArgs>> verifications;
+
+    /**
+     * @return A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * 
+     */
+    public Optional<Output<List<ProjectDomainVerificationArgs>>> verifications() {
+        return Optional.ofNullable(this.verifications);
+    }
+
+    /**
+     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * 
+     */
+    @Import(name="verified")
+    private @Nullable Output<Boolean> verified;
+
+    /**
+     * @return Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * 
+     */
+    public Optional<Output<Boolean>> verified() {
+        return Optional.ofNullable(this.verified);
+    }
+
+    /**
+     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * 
+     */
+    @Import(name="waitForReady")
+    private @Nullable Output<Boolean> waitForReady;
+
+    /**
+     * @return Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * 
+     */
+    public Optional<Output<Boolean>> waitForReady() {
+        return Optional.ofNullable(this.waitForReady);
+    }
+
     private ProjectDomainState() {}
 
     private ProjectDomainState(ProjectDomainState $) {
@@ -131,6 +179,9 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         this.redirect = $.redirect;
         this.redirectStatusCode = $.redirectStatusCode;
         this.teamId = $.teamId;
+        this.verifications = $.verifications;
+        this.verified = $.verified;
+        this.waitForReady = $.waitForReady;
     }
 
     public static Builder builder() {
@@ -296,6 +347,79 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
          */
         public Builder teamId(String teamId) {
             return teamId(Output.of(teamId));
+        }
+
+        /**
+         * @param verifications A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verifications(@Nullable Output<List<ProjectDomainVerificationArgs>> verifications) {
+            $.verifications = verifications;
+            return this;
+        }
+
+        /**
+         * @param verifications A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verifications(List<ProjectDomainVerificationArgs> verifications) {
+            return verifications(Output.of(verifications));
+        }
+
+        /**
+         * @param verifications A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verifications(ProjectDomainVerificationArgs... verifications) {
+            return verifications(List.of(verifications));
+        }
+
+        /**
+         * @param verified Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verified(@Nullable Output<Boolean> verified) {
+            $.verified = verified;
+            return this;
+        }
+
+        /**
+         * @param verified Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verified(Boolean verified) {
+            return verified(Output.of(verified));
+        }
+
+        /**
+         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder waitForReady(@Nullable Output<Boolean> waitForReady) {
+            $.waitForReady = waitForReady;
+            return this;
+        }
+
+        /**
+         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder waitForReady(Boolean waitForReady) {
+            return waitForReady(Output.of(waitForReady));
         }
 
         public ProjectDomainState build() {

@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -23,6 +25,12 @@ import * as utilities from "./utilities";
  * const exampleProjectDomain = new vercel.ProjectDomain("example", {
  *     projectId: example.id,
  *     domain: "i-love.vercel.app",
+ * });
+ * // Wait for the domain to be verified before resources that depend on it run.
+ * const exampleWaitForReady = new vercel.ProjectDomain("example_wait_for_ready", {
+ *     projectId: example.id,
+ *     domain: "i-wait.vercel.app",
+ *     waitForReady: true,
  * });
  * // A redirect of a domain name to a second domain name.
  * // The status_code can optionally be controlled.
@@ -110,6 +118,18 @@ export class ProjectDomain extends pulumi.CustomResource {
      * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     declare public readonly teamId: pulumi.Output<string>;
+    /**
+     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     */
+    declare public /*out*/ readonly verifications: pulumi.Output<outputs.ProjectDomainVerification[]>;
+    /**
+     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     */
+    declare public /*out*/ readonly verified: pulumi.Output<boolean>;
+    /**
+     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     */
+    declare public readonly waitForReady: pulumi.Output<boolean | undefined>;
 
     /**
      * Create a ProjectDomain resource with the given unique name, arguments, and options.
@@ -131,6 +151,9 @@ export class ProjectDomain extends pulumi.CustomResource {
             resourceInputs["redirect"] = state?.redirect;
             resourceInputs["redirectStatusCode"] = state?.redirectStatusCode;
             resourceInputs["teamId"] = state?.teamId;
+            resourceInputs["verifications"] = state?.verifications;
+            resourceInputs["verified"] = state?.verified;
+            resourceInputs["waitForReady"] = state?.waitForReady;
         } else {
             const args = argsOrState as ProjectDomainArgs | undefined;
             if (args?.domain === undefined && !opts.urn) {
@@ -146,6 +169,9 @@ export class ProjectDomain extends pulumi.CustomResource {
             resourceInputs["redirect"] = args?.redirect;
             resourceInputs["redirectStatusCode"] = args?.redirectStatusCode;
             resourceInputs["teamId"] = args?.teamId;
+            resourceInputs["waitForReady"] = args?.waitForReady;
+            resourceInputs["verifications"] = undefined /*out*/;
+            resourceInputs["verified"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(ProjectDomain.__pulumiType, name, resourceInputs, opts);
@@ -184,6 +210,18 @@ export interface ProjectDomainState {
      * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
+    /**
+     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     */
+    verifications?: pulumi.Input<pulumi.Input<inputs.ProjectDomainVerification>[]>;
+    /**
+     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     */
+    verified?: pulumi.Input<boolean>;
+    /**
+     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     */
+    waitForReady?: pulumi.Input<boolean>;
 }
 
 /**
@@ -218,4 +256,8 @@ export interface ProjectDomainArgs {
      * The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     teamId?: pulumi.Input<string>;
+    /**
+     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     */
+    waitForReady?: pulumi.Input<boolean>;
 }

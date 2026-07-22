@@ -40,6 +40,14 @@ namespace Pulumiverse.Vercel
     ///         Domain = "i-love.vercel.app",
     ///     });
     /// 
+    ///     // Wait for the domain to be verified before resources that depend on it run.
+    ///     var exampleWaitForReady = new Vercel.ProjectDomain("example_wait_for_ready", new()
+    ///     {
+    ///         ProjectId = example.Id,
+    ///         Domain = "i-wait.vercel.app",
+    ///         WaitForReady = true,
+    ///     });
+    /// 
     ///     // A redirect of a domain name to a second domain name.
     ///     // The status_code can optionally be controlled.
     ///     var exampleRedirect = new Vercel.ProjectDomain("example_redirect", new()
@@ -117,6 +125,24 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
+
+        /// <summary>
+        /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        /// </summary>
+        [Output("verifications")]
+        public Output<ImmutableArray<Outputs.ProjectDomainVerification>> Verifications { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the domain is verified for use with the project. If `False`, the challenges in `Verification` must be completed before the domain will serve traffic for the project.
+        /// </summary>
+        [Output("verified")]
+        public Output<bool> Verified { get; private set; } = null!;
+
+        /// <summary>
+        /// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        /// </summary>
+        [Output("waitForReady")]
+        public Output<bool?> WaitForReady { get; private set; } = null!;
 
 
         /// <summary>
@@ -207,6 +233,12 @@ namespace Pulumiverse.Vercel
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
+        /// <summary>
+        /// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        /// </summary>
+        [Input("waitForReady")]
+        public Input<bool>? WaitForReady { get; set; }
+
         public ProjectDomainArgs()
         {
         }
@@ -256,6 +288,30 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
+
+        [Input("verifications")]
+        private InputList<Inputs.ProjectDomainVerificationGetArgs>? _verifications;
+
+        /// <summary>
+        /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        /// </summary>
+        public InputList<Inputs.ProjectDomainVerificationGetArgs> Verifications
+        {
+            get => _verifications ?? (_verifications = new InputList<Inputs.ProjectDomainVerificationGetArgs>());
+            set => _verifications = value;
+        }
+
+        /// <summary>
+        /// Whether the domain is verified for use with the project. If `False`, the challenges in `Verification` must be completed before the domain will serve traffic for the project.
+        /// </summary>
+        [Input("verified")]
+        public Input<bool>? Verified { get; set; }
+
+        /// <summary>
+        /// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        /// </summary>
+        [Input("waitForReady")]
+        public Input<bool>? WaitForReady { get; set; }
 
         public ProjectDomainState()
         {

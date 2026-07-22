@@ -188,6 +188,11 @@ public final class GetProjectResult {
      */
     private Boolean prioritiseProductionBuilds;
     /**
+     * @return Specifies whether sourcemaps are protected and require authentication to access.
+     * 
+     */
+    private Boolean protectedSourcemaps;
+    /**
      * @return Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
      * 
      * @deprecated
@@ -485,6 +490,13 @@ public final class GetProjectResult {
         return this.prioritiseProductionBuilds;
     }
     /**
+     * @return Specifies whether sourcemaps are protected and require authentication to access.
+     * 
+     */
+    public Boolean protectedSourcemaps() {
+        return this.protectedSourcemaps;
+    }
+    /**
      * @return Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `vercel.ProjectProtectionBypass` resource instead.
      * 
      * @deprecated
@@ -615,6 +627,7 @@ public final class GetProjectResult {
         private String previewDeploymentSuffix;
         private Boolean previewDeploymentsDisabled;
         private Boolean prioritiseProductionBuilds;
+        private Boolean protectedSourcemaps;
         private Boolean protectionBypassForAutomation;
         private List<String> protectionBypassForAutomationSecrets;
         private Boolean publicSource;
@@ -661,6 +674,7 @@ public final class GetProjectResult {
     	      this.previewDeploymentSuffix = defaults.previewDeploymentSuffix;
     	      this.previewDeploymentsDisabled = defaults.previewDeploymentsDisabled;
     	      this.prioritiseProductionBuilds = defaults.prioritiseProductionBuilds;
+    	      this.protectedSourcemaps = defaults.protectedSourcemaps;
     	      this.protectionBypassForAutomation = defaults.protectionBypassForAutomation;
     	      this.protectionBypassForAutomationSecrets = defaults.protectionBypassForAutomationSecrets;
     	      this.publicSource = defaults.publicSource;
@@ -934,6 +948,14 @@ public final class GetProjectResult {
             return this;
         }
         @CustomType.Setter
+        public Builder protectedSourcemaps(Boolean protectedSourcemaps) {
+            if (protectedSourcemaps == null) {
+              throw new MissingRequiredPropertyException("GetProjectResult", "protectedSourcemaps");
+            }
+            this.protectedSourcemaps = protectedSourcemaps;
+            return this;
+        }
+        @CustomType.Setter
         public Builder protectionBypassForAutomation(Boolean protectionBypassForAutomation) {
             if (protectionBypassForAutomation == null) {
               throw new MissingRequiredPropertyException("GetProjectResult", "protectionBypassForAutomation");
@@ -1058,6 +1080,7 @@ public final class GetProjectResult {
             _resultValue.previewDeploymentSuffix = previewDeploymentSuffix;
             _resultValue.previewDeploymentsDisabled = previewDeploymentsDisabled;
             _resultValue.prioritiseProductionBuilds = prioritiseProductionBuilds;
+            _resultValue.protectedSourcemaps = protectedSourcemaps;
             _resultValue.protectionBypassForAutomation = protectionBypassForAutomation;
             _resultValue.protectionBypassForAutomationSecrets = protectionBypassForAutomationSecrets;
             _resultValue.publicSource = publicSource;

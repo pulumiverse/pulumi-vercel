@@ -1123,6 +1123,21 @@ export interface GetTeamMemberProject {
     role: string;
 }
 
+export interface GetTraceDrainSamplingRule {
+    /**
+     * Environment this sampling rule applies to.
+     */
+    environment: string;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: number;
+    /**
+     * Request path prefix this sampling rule applies to.
+     */
+    requestPath: string;
+}
+
 export interface MicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -1143,6 +1158,25 @@ export interface NetworkTimeouts {
      * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
      */
     create?: string;
+}
+
+export interface ProjectDomainVerification {
+    /**
+     * The domain name on which the DNS record must be created.
+     */
+    domain: string;
+    /**
+     * A human-readable explanation of why this challenge was issued.
+     */
+    reason: string;
+    /**
+     * The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+     */
+    type: string;
+    /**
+     * The value that the DNS record must contain.
+     */
+    value: string;
 }
 
 export interface ProjectEnvironment {
@@ -1642,5 +1676,20 @@ export interface TeamMemberProject {
      * The role that the user should have in the project.
      */
     role: string;
+}
+
+export interface TraceDrainSamplingRule {
+    /**
+     * Environment to apply this sampling rule to. Can be `production` or `preview`.
+     */
+    environment?: string;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: number;
+    /**
+     * Request path prefix to apply this sampling rule to.
+     */
+    requestPath?: string;
 }
 

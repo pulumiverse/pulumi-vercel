@@ -89,6 +89,8 @@ __all__ = [
     'MicrofrontendGroupDefaultAppArgsDict',
     'NetworkTimeoutsArgs',
     'NetworkTimeoutsArgsDict',
+    'ProjectDomainVerificationArgs',
+    'ProjectDomainVerificationArgsDict',
     'ProjectEnvironmentArgs',
     'ProjectEnvironmentArgsDict',
     'ProjectEnvironmentVariablesVariableArgs',
@@ -155,6 +157,8 @@ __all__ = [
     'TeamConfigSamlRolesArgsDict',
     'TeamMemberProjectArgs',
     'TeamMemberProjectArgsDict',
+    'TraceDrainSamplingRuleArgs',
+    'TraceDrainSamplingRuleArgsDict',
 ]
 
 class BulkRedirectsRedirectArgsDict(TypedDict):
@@ -2450,6 +2454,95 @@ class NetworkTimeoutsArgs:
         pulumi.set(self, "create", value)
 
 
+class ProjectDomainVerificationArgsDict(TypedDict):
+    domain: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The domain name on which the DNS record must be created.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human-readable explanation of why this challenge was issued.
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+    """
+    value: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The value that the DNS record must contain.
+    """
+
+@pulumi.input_type
+class ProjectDomainVerificationArgs:
+    def __init__(__self__, *,
+                 domain: Optional[pulumi.Input[_builtins.str]] = None,
+                 reason: Optional[pulumi.Input[_builtins.str]] = None,
+                 type: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] domain: The domain name on which the DNS record must be created.
+        :param pulumi.Input[_builtins.str] reason: A human-readable explanation of why this challenge was issued.
+        :param pulumi.Input[_builtins.str] type: The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+        :param pulumi.Input[_builtins.str] value: The value that the DNS record must contain.
+        """
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The domain name on which the DNS record must be created.
+        """
+        return pulumi.get(self, "domain")
+
+    @domain.setter
+    def domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "domain", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A human-readable explanation of why this challenge was issued.
+        """
+        return pulumi.get(self, "reason")
+
+    @reason.setter
+    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "reason", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The value that the DNS record must contain.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
 class ProjectEnvironmentArgsDict(TypedDict):
     key: pulumi.Input[_builtins.str]
     """
@@ -4708,5 +4801,73 @@ class TeamMemberProjectArgs:
     @role.setter
     def role(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "role", value)
+
+
+class TraceDrainSamplingRuleArgsDict(TypedDict):
+    rate: pulumi.Input[_builtins.float]
+    """
+    Sampling rate from 0 to 1.
+    """
+    environment: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Environment to apply this sampling rule to. Can be `production` or `preview`.
+    """
+    request_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Request path prefix to apply this sampling rule to.
+    """
+
+@pulumi.input_type
+class TraceDrainSamplingRuleArgs:
+    def __init__(__self__, *,
+                 rate: pulumi.Input[_builtins.float],
+                 environment: Optional[pulumi.Input[_builtins.str]] = None,
+                 request_path: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.float] rate: Sampling rate from 0 to 1.
+        :param pulumi.Input[_builtins.str] environment: Environment to apply this sampling rule to. Can be `production` or `preview`.
+        :param pulumi.Input[_builtins.str] request_path: Request path prefix to apply this sampling rule to.
+        """
+        pulumi.set(__self__, "rate", rate)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
+        if request_path is not None:
+            pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> pulumi.Input[_builtins.float]:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @rate.setter
+    def rate(self, value: pulumi.Input[_builtins.float]):
+        pulumi.set(self, "rate", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Environment to apply this sampling rule to. Can be `production` or `preview`.
+        """
+        return pulumi.get(self, "environment")
+
+    @environment.setter
+    def environment(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "environment", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Request path prefix to apply this sampling rule to.
+        """
+        return pulumi.get(self, "request_path")
+
+    @request_path.setter
+    def request_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "request_path", value)
 
 
