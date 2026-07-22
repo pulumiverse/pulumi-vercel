@@ -53,6 +53,7 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroupCondition',
     'MicrofrontendGroupDefaultApp',
     'NetworkTimeouts',
+    'ProjectDomainVerification',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
     'ProjectGitComments',
@@ -86,6 +87,7 @@ __all__ = [
     'TeamConfigSaml',
     'TeamConfigSamlRoles',
     'TeamMemberProject',
+    'TraceDrainSamplingRule',
     'GetBlobProjectConnectionsConnectionResult',
     'GetBlobStoresStoreResult',
     'GetBulkRedirectsRedirectResult',
@@ -130,6 +132,7 @@ __all__ = [
     'GetTeamConfigSamlResult',
     'GetTeamConfigSamlRolesResult',
     'GetTeamMemberProjectResult',
+    'GetTraceDrainSamplingRuleResult',
 ]
 
 @pulumi.output_type
@@ -1733,6 +1736,61 @@ class NetworkTimeouts(dict):
         A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class ProjectDomainVerification(dict):
+    def __init__(__self__, *,
+                 domain: Optional[_builtins.str] = None,
+                 reason: Optional[_builtins.str] = None,
+                 type: Optional[_builtins.str] = None,
+                 value: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str domain: The domain name on which the DNS record must be created.
+        :param _builtins.str reason: A human-readable explanation of why this challenge was issued.
+        :param _builtins.str type: The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+        :param _builtins.str value: The value that the DNS record must contain.
+        """
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def domain(self) -> Optional[_builtins.str]:
+        """
+        The domain name on which the DNS record must be created.
+        """
+        return pulumi.get(self, "domain")
+
+    @_builtins.property
+    @pulumi.getter
+    def reason(self) -> Optional[_builtins.str]:
+        """
+        A human-readable explanation of why this challenge was issued.
+        """
+        return pulumi.get(self, "reason")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[_builtins.str]:
+        """
+        The value that the DNS record must contain.
+        """
+        return pulumi.get(self, "value")
 
 
 @pulumi.output_type
@@ -3493,6 +3551,65 @@ class TeamMemberProject(dict):
         The role that the user should have in the project.
         """
         return pulumi.get(self, "role")
+
+
+@pulumi.output_type
+class TraceDrainSamplingRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestPath":
+            suggest = "request_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TraceDrainSamplingRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TraceDrainSamplingRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TraceDrainSamplingRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rate: _builtins.float,
+                 environment: Optional[_builtins.str] = None,
+                 request_path: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float rate: Sampling rate from 0 to 1.
+        :param _builtins.str environment: Environment to apply this sampling rule to. Can be `production` or `preview`.
+        :param _builtins.str request_path: Request path prefix to apply this sampling rule to.
+        """
+        pulumi.set(__self__, "rate", rate)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
+        if request_path is not None:
+            pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> _builtins.float:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> Optional[_builtins.str]:
+        """
+        Environment to apply this sampling rule to. Can be `production` or `preview`.
+        """
+        return pulumi.get(self, "environment")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> Optional[_builtins.str]:
+        """
+        Request path prefix to apply this sampling rule to.
+        """
+        return pulumi.get(self, "request_path")
 
 
 @pulumi.output_type
@@ -5352,5 +5469,45 @@ class GetTeamMemberProjectResult(dict):
         The role that the user should have in the project.
         """
         return pulumi.get(self, "role")
+
+
+@pulumi.output_type
+class GetTraceDrainSamplingRuleResult(dict):
+    def __init__(__self__, *,
+                 environment: _builtins.str,
+                 rate: _builtins.float,
+                 request_path: _builtins.str):
+        """
+        :param _builtins.str environment: Environment this sampling rule applies to.
+        :param _builtins.float rate: Sampling rate from 0 to 1.
+        :param _builtins.str request_path: Request path prefix this sampling rule applies to.
+        """
+        pulumi.set(__self__, "environment", environment)
+        pulumi.set(__self__, "rate", rate)
+        pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> _builtins.str:
+        """
+        Environment this sampling rule applies to.
+        """
+        return pulumi.get(self, "environment")
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> _builtins.float:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> _builtins.str:
+        """
+        Request path prefix this sampling rule applies to.
+        """
+        return pulumi.get(self, "request_path")
 
 

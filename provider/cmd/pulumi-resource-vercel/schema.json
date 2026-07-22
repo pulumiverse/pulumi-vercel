@@ -877,6 +877,37 @@
             },
             "type": "object"
         },
+        "vercel:index/ProjectDomainVerification:ProjectDomainVerification": {
+            "properties": {
+                "domain": {
+                    "type": "string",
+                    "description": "The domain name on which the DNS record must be created.\n"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "A human-readable explanation of why this challenge was issued.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of DNS record that must be created to satisfy the challenge (e.g. `TXT`).\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value that the DNS record must contain.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "domain",
+                        "reason",
+                        "type",
+                        "value"
+                    ]
+                }
+            }
+        },
         "vercel:index/ProjectEnvironment:ProjectEnvironment": {
             "properties": {
                 "comment": {
@@ -1758,6 +1789,26 @@
             "required": [
                 "projectId",
                 "role"
+            ]
+        },
+        "vercel:index/TraceDrainSamplingRule:TraceDrainSamplingRule": {
+            "properties": {
+                "environment": {
+                    "type": "string",
+                    "description": "Environment to apply this sampling rule to. Can be \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e.\n"
+                },
+                "rate": {
+                    "type": "number",
+                    "description": "Sampling rate from 0 to 1.\n"
+                },
+                "requestPath": {
+                    "type": "string",
+                    "description": "Request path prefix to apply this sampling rule to.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "rate"
             ]
         },
         "vercel:index/getBlobProjectConnectionsConnection:getBlobProjectConnectionsConnection": {
@@ -3079,6 +3130,33 @@
                     "requiredInputs": []
                 }
             }
+        },
+        "vercel:index/getTraceDrainSamplingRule:getTraceDrainSamplingRule": {
+            "properties": {
+                "environment": {
+                    "type": "string",
+                    "description": "Environment this sampling rule applies to.\n"
+                },
+                "rate": {
+                    "type": "number",
+                    "description": "Sampling rate from 0 to 1.\n"
+                },
+                "requestPath": {
+                    "type": "string",
+                    "description": "Request path prefix this sampling rule applies to.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "environment",
+                "rate",
+                "requestPath"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
         }
     },
     "provider": {
@@ -3146,6 +3224,64 @@
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the Access Group should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/accessGroupMember:AccessGroupMember": {
+            "description": "Provides an Access Group Member Resource.\n\nAn Access Group Member resource defines the membership of a Vercel user (by their user ID) in a \u003cspan pulumi-lang-nodejs=\"`vercel.AccessGroup`\" pulumi-lang-dotnet=\"`vercel.AccessGroup`\" pulumi-lang-go=\"`AccessGroup`\" pulumi-lang-python=\"`AccessGroup`\" pulumi-lang-yaml=\"`vercel.AccessGroup`\" pulumi-lang-java=\"`vercel.AccessGroup`\"\u003e`vercel.AccessGroup`\u003c/span\u003e.\n\n\u003e Access group membership can also be managed through the \u003cspan pulumi-lang-nodejs=\"`accessGroups`\" pulumi-lang-dotnet=\"`AccessGroups`\" pulumi-lang-go=\"`accessGroups`\" pulumi-lang-python=\"`access_groups`\" pulumi-lang-yaml=\"`accessGroups`\" pulumi-lang-java=\"`accessGroups`\"\u003e`access_groups`\u003c/span\u003e attribute of the \u003cspan pulumi-lang-nodejs=\"`vercel.TeamMember`\" pulumi-lang-dotnet=\"`vercel.TeamMember`\" pulumi-lang-go=\"`TeamMember`\" pulumi-lang-python=\"`TeamMember`\" pulumi-lang-yaml=\"`vercel.TeamMember`\" pulumi-lang-java=\"`vercel.TeamMember`\"\u003e`vercel.TeamMember`\u003c/span\u003e resource. Do not manage the same user's membership of the same access group with both resources, as they will conflict and produce a perpetual diff.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/accounts/team-members-and-roles/access-groups).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.AccessGroup(\"example\", {\n    teamId: \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n    name: \"example-access-group\",\n});\nconst exampleAccessGroupMember = new vercel.AccessGroupMember(\"example\", {\n    teamId: \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n    accessGroupId: example.id,\n    userId: \"uuuuuuuuuuuuuuuuuuuuuuuuuu\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.AccessGroup(\"example\",\n    team_id=\"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n    name=\"example-access-group\")\nexample_access_group_member = vercel.AccessGroupMember(\"example\",\n    team_id=\"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n    access_group_id=example.id,\n    user_id=\"uuuuuuuuuuuuuuuuuuuuuuuuuu\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.AccessGroup(\"example\", new()\n    {\n        TeamId = \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n        Name = \"example-access-group\",\n    });\n\n    var exampleAccessGroupMember = new Vercel.AccessGroupMember(\"example\", new()\n    {\n        TeamId = \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n        AccessGroupId = example.Id,\n        UserId = \"uuuuuuuuuuuuuuuuuuuuuuuuuu\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewAccessGroup(ctx, \"example\", \u0026vercel.AccessGroupArgs{\n\t\t\tTeamId: pulumi.String(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\"),\n\t\t\tName:   pulumi.String(\"example-access-group\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewAccessGroupMember(ctx, \"example\", \u0026vercel.AccessGroupMemberArgs{\n\t\t\tTeamId:        pulumi.String(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\"),\n\t\t\tAccessGroupId: example.ID(),\n\t\t\tUserId:        pulumi.String(\"uuuuuuuuuuuuuuuuuuuuuuuuuu\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.AccessGroup;\nimport com.pulumiverse.vercel.AccessGroupArgs;\nimport com.pulumiverse.vercel.AccessGroupMember;\nimport com.pulumiverse.vercel.AccessGroupMemberArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new AccessGroup(\"example\", AccessGroupArgs.builder()\n            .teamId(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\")\n            .name(\"example-access-group\")\n            .build());\n\n        var exampleAccessGroupMember = new AccessGroupMember(\"exampleAccessGroupMember\", AccessGroupMemberArgs.builder()\n            .teamId(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\")\n            .accessGroupId(example.id())\n            .userId(\"uuuuuuuuuuuuuuuuuuuuuuuuuu\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:AccessGroup\n    properties:\n      teamId: team_xxxxxxxxxxxxxxxxxxxxxxxx\n      name: example-access-group\n  exampleAccessGroupMember:\n    type: vercel:AccessGroupMember\n    name: example\n    properties:\n      teamId: team_xxxxxxxxxxxxxxxxxxxxxxxx\n      accessGroupId: ${example.id}\n      userId: uuuuuuuuuuuuuuuuuuuuuuuuuu\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, use the\u003cspan pulumi-lang-nodejs=\" accessGroupId \" pulumi-lang-dotnet=\" AccessGroupId \" pulumi-lang-go=\" accessGroupId \" pulumi-lang-python=\" access_group_id \" pulumi-lang-yaml=\" accessGroupId \" pulumi-lang-java=\" accessGroupId \"\u003e access_group_id \u003c/span\u003eand user_id.\n\n```sh\n$ pulumi import vercel:index/accessGroupMember:AccessGroupMember example ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nIf importing to a team, use the team_id,\u003cspan pulumi-lang-nodejs=\" accessGroupId \" pulumi-lang-dotnet=\" AccessGroupId \" pulumi-lang-go=\" accessGroupId \" pulumi-lang-python=\" access_group_id \" pulumi-lang-yaml=\" accessGroupId \" pulumi-lang-java=\" accessGroupId \"\u003e access_group_id \u003c/span\u003eand user_id.\n\n```sh\n$ pulumi import vercel:index/accessGroupMember:AccessGroupMember example team_xxxxxxxxxxxxxxxxxxxxxxxx/ag_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "accessGroupId": {
+                    "type": "string",
+                    "description": "The ID of the Access Group.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the access group member should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The ID of the user to add to the access group.\n"
+                }
+            },
+            "required": [
+                "accessGroupId",
+                "teamId",
+                "userId"
+            ],
+            "inputProperties": {
+                "accessGroupId": {
+                    "type": "string",
+                    "description": "The ID of the Access Group.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the access group member should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The ID of the user to add to the access group.\n"
+                }
+            },
+            "requiredInputs": [
+                "accessGroupId",
+                "userId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AccessGroupMember resources.\n",
+                "properties": {
+                    "accessGroupId": {
+                        "type": "string",
+                        "description": "The ID of the Access Group.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the access group member should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "description": "The ID of the user to add to the access group.\n"
                     }
                 },
                 "type": "object"
@@ -4189,6 +4325,91 @@
                     "url": {
                         "type": "string",
                         "description": "A unique URL that is automatically generated for a deployment.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/deploymentProtectionException:DeploymentProtectionException": {
+            "description": "Provides a Deployment Protection Exception resource.\n\nA Deployment Protection Exception makes a preview alias or deployment URL publicly accessible by bypassing Deployment Protection for that URL.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {\n    name: \"deployment-protection-exception-example\",\n    framework: \"nextjs\",\n});\nconst exampleDeploymentProtectionException = new vercel.DeploymentProtectionException(\"example\", {\n    projectId: example.id,\n    alias: \"preview-branch-name.vercel.app\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\",\n    name=\"deployment-protection-exception-example\",\n    framework=\"nextjs\")\nexample_deployment_protection_exception = vercel.DeploymentProtectionException(\"example\",\n    project_id=example.id,\n    alias=\"preview-branch-name.vercel.app\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"deployment-protection-exception-example\",\n        Framework = \"nextjs\",\n    });\n\n    var exampleDeploymentProtectionException = new Vercel.DeploymentProtectionException(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Alias = \"preview-branch-name.vercel.app\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName:      pulumi.String(\"deployment-protection-exception-example\"),\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewDeploymentProtectionException(ctx, \"example\", \u0026vercel.DeploymentProtectionExceptionArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tAlias:     pulumi.String(\"preview-branch-name.vercel.app\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.DeploymentProtectionException;\nimport com.pulumiverse.vercel.DeploymentProtectionExceptionArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"deployment-protection-exception-example\")\n            .framework(\"nextjs\")\n            .build());\n\n        var exampleDeploymentProtectionException = new DeploymentProtectionException(\"exampleDeploymentProtectionException\", DeploymentProtectionExceptionArgs.builder()\n            .projectId(example.id())\n            .alias(\"preview-branch-name.vercel.app\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: deployment-protection-exception-example\n      framework: nextjs\n  exampleDeploymentProtectionException:\n    type: vercel:DeploymentProtectionException\n    name: example\n    properties:\n      projectId: ${example.id}\n      alias: preview-branch-name.vercel.app\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nImport using the project ID and alias.\n\n```sh\n$ pulumi import vercel:index/deploymentProtectionException:DeploymentProtectionException example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/preview-branch-name.vercel.app\n```\n\nAlternatively, import using team ID, project ID, and alias.\n\n```sh\n$ pulumi import vercel:index/deploymentProtectionException:DeploymentProtectionException example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/preview-branch-name.vercel.app\n```\n\n",
+            "properties": {
+                "alias": {
+                    "type": "string",
+                    "description": "The preview alias or deployment URL to add to Deployment Protection Exceptions.\n"
+                },
+                "createdAt": {
+                    "type": "integer",
+                    "description": "The unix timestamp in milliseconds at which the exception was created.\n"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "description": "The ID of the user who created the exception.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project the exception belongs to.\n"
+                },
+                "scope": {
+                    "type": "string",
+                    "description": "The scope of the exception. Always `alias-protection-override` for Deployment Protection Exceptions.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "alias",
+                "createdAt",
+                "createdBy",
+                "projectId",
+                "scope",
+                "teamId"
+            ],
+            "inputProperties": {
+                "alias": {
+                    "type": "string",
+                    "description": "The preview alias or deployment URL to add to Deployment Protection Exceptions.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project the exception belongs to.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "alias",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DeploymentProtectionException resources.\n",
+                "properties": {
+                    "alias": {
+                        "type": "string",
+                        "description": "The preview alias or deployment URL to add to Deployment Protection Exceptions.\n"
+                    },
+                    "createdAt": {
+                        "type": "integer",
+                        "description": "The unix timestamp in milliseconds at which the exception was created.\n"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "description": "The ID of the user who created the exception.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the project the exception belongs to.\n"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "description": "The scope of the exception. Always `alias-protection-override` for Deployment Protection Exceptions.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
                     }
                 },
                 "type": "object"
@@ -5769,7 +5990,7 @@
             }
         },
         "vercel:index/project:Project": {
-            "description": "Provides a Project resource.\n\nA Project groups deployments and custom domains. To deploy on Vercel, you need to create a Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).\n\n\u003e Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e field.\nAt this time you cannot use a Vercel Project resource with in-line \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e in conjunction with any \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-go=\"`ProjectEnvironmentVariables`\" pulumi-lang-python=\"`ProjectEnvironmentVariables`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariables`\"\u003e`vercel.ProjectEnvironmentVariables`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-go=\"`ProjectEnvironmentVariable`\" pulumi-lang-python=\"`ProjectEnvironmentVariable`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariable`\"\u003e`vercel.ProjectEnvironmentVariable`\u003c/span\u003e resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.\n\n\u003e **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit \u003cspan pulumi-lang-nodejs=\"`sensitive`\" pulumi-lang-dotnet=\"`Sensitive`\" pulumi-lang-go=\"`sensitive`\" pulumi-lang-python=\"`sensitive`\" pulumi-lang-yaml=\"`sensitive`\" pulumi-lang-java=\"`sensitive`\"\u003e`sensitive`\u003c/span\u003e value. Variables targeting only \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e together with \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\n// A project that is connected to a git repository.\n// Deployments will be created automatically\n// on every branch push and merges onto the Production Branch.\nconst withGit = new vercel.Project(\"with_git\", {\n    name: \"example-project-with-git\",\n    framework: \"nextjs\",\n    gitRepository: {\n        type: \"github\",\n        repo: \"vercel/some-repo\",\n    },\n});\n// A project that is not connected to a git repository.\n// Deployments will need to be created manually through\n// terraform, or via the vercel CLI.\nconst example = new vercel.Project(\"example\", {\n    name: \"example-project\",\n    framework: \"nextjs\",\n});\nconst githubActionsTrustedSource = {\n    issuer: \"https://token.actions.githubusercontent.com\",\n    label: \"GitHub Actions\",\n    to: {\n        slugs: [\"preview\"],\n    },\n    claims: {\n        aud: [\"example-audience\"],\n        sub: [\"repo:vercel/some-repo:ref:refs/heads/main\"],\n    },\n};\n// A project that allows trusted sources to bypass Deployment Protection.\nconst withTrustedSources = new vercel.Project(\"with_trusted_sources\", {\n    name: \"example-project-with-trusted-sources\",\n    framework: \"nextjs\",\n    trustedSources: {\n        projects: [{\n            projectId: withGit.id,\n            label: \"Source project\",\n            customAllow: [{\n                from: {\n                    slugs: [\"production\"],\n                },\n                to: {\n                    slugs: [\n                        \"preview\",\n                        \"production\",\n                    ],\n                },\n            }],\n        }],\n        externalSources: [githubActionsTrustedSource],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\n# A project that is connected to a git repository.\n# Deployments will be created automatically\n# on every branch push and merges onto the Production Branch.\nwith_git = vercel.Project(\"with_git\",\n    name=\"example-project-with-git\",\n    framework=\"nextjs\",\n    git_repository={\n        \"type\": \"github\",\n        \"repo\": \"vercel/some-repo\",\n    })\n# A project that is not connected to a git repository.\n# Deployments will need to be created manually through\n# terraform, or via the vercel CLI.\nexample = vercel.Project(\"example\",\n    name=\"example-project\",\n    framework=\"nextjs\")\ngithub_actions_trusted_source = {\n    \"issuer\": \"https://token.actions.githubusercontent.com\",\n    \"label\": \"GitHub Actions\",\n    \"to\": {\n        \"slugs\": [\"preview\"],\n    },\n    \"claims\": {\n        \"aud\": [\"example-audience\"],\n        \"sub\": [\"repo:vercel/some-repo:ref:refs/heads/main\"],\n    },\n}\n# A project that allows trusted sources to bypass Deployment Protection.\nwith_trusted_sources = vercel.Project(\"with_trusted_sources\",\n    name=\"example-project-with-trusted-sources\",\n    framework=\"nextjs\",\n    trusted_sources={\n        \"projects\": [{\n            \"project_id\": with_git.id,\n            \"label\": \"Source project\",\n            \"custom_allow\": [{\n                \"from\": {\n                    \"slugs\": [\"production\"],\n                },\n                \"to\": {\n                    \"slugs\": [\n                        \"preview\",\n                        \"production\",\n                    ],\n                },\n            }],\n        }],\n        \"external_sources\": [github_actions_trusted_source],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // A project that is connected to a git repository.\n    // Deployments will be created automatically\n    // on every branch push and merges onto the Production Branch.\n    var withGit = new Vercel.Project(\"with_git\", new()\n    {\n        Name = \"example-project-with-git\",\n        Framework = \"nextjs\",\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // A project that is not connected to a git repository.\n    // Deployments will need to be created manually through\n    // terraform, or via the vercel CLI.\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n        Framework = \"nextjs\",\n    });\n\n    var githubActionsTrustedSource = \n    {\n        { \"issuer\", \"https://token.actions.githubusercontent.com\" },\n        { \"label\", \"GitHub Actions\" },\n        { \"to\", \n        {\n            { \"slugs\", new[]\n            {\n                \"preview\",\n            } },\n        } },\n        { \"claims\", \n        {\n            { \"aud\", new[]\n            {\n                \"example-audience\",\n            } },\n            { \"sub\", new[]\n            {\n                \"repo:vercel/some-repo:ref:refs/heads/main\",\n            } },\n        } },\n    };\n\n    // A project that allows trusted sources to bypass Deployment Protection.\n    var withTrustedSources = new Vercel.Project(\"with_trusted_sources\", new()\n    {\n        Name = \"example-project-with-trusted-sources\",\n        Framework = \"nextjs\",\n        TrustedSources = new Vercel.Inputs.ProjectTrustedSourcesArgs\n        {\n            Projects = new[]\n            {\n                new Vercel.Inputs.ProjectTrustedSourcesProjectArgs\n                {\n                    ProjectId = withGit.Id,\n                    Label = \"Source project\",\n                    CustomAllow = new[]\n                    {\n                        \n                        {\n                            { \"from\", \n                            {\n                                { \"slugs\", new[]\n                                {\n                                    \"production\",\n                                } },\n                            } },\n                            { \"to\", \n                            {\n                                { \"slugs\", new[]\n                                {\n                                    \"preview\",\n                                    \"production\",\n                                } },\n                            } },\n                        },\n                    },\n                },\n            },\n            ExternalSources = new[]\n            {\n                githubActionsTrustedSource,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// A project that is connected to a git repository.\n\t\t// Deployments will be created automatically\n\t\t// on every branch push and merges onto the Production Branch.\n\t\twithGit, err := vercel.NewProject(ctx, \"with_git\", \u0026vercel.ProjectArgs{\n\t\t\tName:      pulumi.String(\"example-project-with-git\"),\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A project that is not connected to a git repository.\n\t\t// Deployments will need to be created manually through\n\t\t// terraform, or via the vercel CLI.\n\t\t_, err = vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName:      pulumi.String(\"example-project\"),\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tgithubActionsTrustedSource := map[string]interface{}{\n\t\t\t\"issuer\": \"https://token.actions.githubusercontent.com\",\n\t\t\t\"label\":  \"GitHub Actions\",\n\t\t\t\"to\": map[string]interface{}{\n\t\t\t\t\"slugs\": []string{\n\t\t\t\t\t\"preview\",\n\t\t\t\t},\n\t\t\t},\n\t\t\t\"claims\": map[string]interface{}{\n\t\t\t\t\"aud\": []string{\n\t\t\t\t\t\"example-audience\",\n\t\t\t\t},\n\t\t\t\t\"sub\": []string{\n\t\t\t\t\t\"repo:vercel/some-repo:ref:refs/heads/main\",\n\t\t\t\t},\n\t\t\t},\n\t\t}\n\t\t// A project that allows trusted sources to bypass Deployment Protection.\n\t\t_, err = vercel.NewProject(ctx, \"with_trusted_sources\", \u0026vercel.ProjectArgs{\n\t\t\tName:      pulumi.String(\"example-project-with-trusted-sources\"),\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t\tTrustedSources: \u0026vercel.ProjectTrustedSourcesArgs{\n\t\t\t\tProjects: vercel.ProjectTrustedSourcesProjectArray{\n\t\t\t\t\t\u0026vercel.ProjectTrustedSourcesProjectArgs{\n\t\t\t\t\t\tProjectId: withGit.ID(),\n\t\t\t\t\t\tLabel:     pulumi.String(\"Source project\"),\n\t\t\t\t\t\tCustomAllow: []map[string]interface{}{\n\t\t\t\t\t\t\tmap[string]interface{}{\n\t\t\t\t\t\t\t\t\"from\": map[string]interface{}{\n\t\t\t\t\t\t\t\t\t\"slugs\": []string{\n\t\t\t\t\t\t\t\t\t\t\"production\",\n\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\"to\": map[string]interface{}{\n\t\t\t\t\t\t\t\t\t\"slugs\": []string{\n\t\t\t\t\t\t\t\t\t\t\"preview\",\n\t\t\t\t\t\t\t\t\t\t\"production\",\n\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tExternalSources: vercel.ProjectTrustedSourcesExternalSourceArray{\n\t\t\t\t\tpulumi.Map(githubActionsTrustedSource),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.inputs.ProjectTrustedSourcesArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // A project that is connected to a git repository.\n        // Deployments will be created automatically\n        // on every branch push and merges onto the Production Branch.\n        var withGit = new Project(\"withGit\", ProjectArgs.builder()\n            .name(\"example-project-with-git\")\n            .framework(\"nextjs\")\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // A project that is not connected to a git repository.\n        // Deployments will need to be created manually through\n        // terraform, or via the vercel CLI.\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .framework(\"nextjs\")\n            .build());\n\n        final var githubActionsTrustedSource = Map.ofEntries(\n            Map.entry(\"issuer\", \"https://token.actions.githubusercontent.com\"),\n            Map.entry(\"label\", \"GitHub Actions\"),\n            Map.entry(\"to\", Map.of(\"slugs\", \"preview\")),\n            Map.entry(\"claims\", Map.ofEntries(\n                Map.entry(\"aud\", \"example-audience\"),\n                Map.entry(\"sub\", \"repo:vercel/some-repo:ref:refs/heads/main\")\n            ))\n        );\n\n        // A project that allows trusted sources to bypass Deployment Protection.\n        var withTrustedSources = new Project(\"withTrustedSources\", ProjectArgs.builder()\n            .name(\"example-project-with-trusted-sources\")\n            .framework(\"nextjs\")\n            .trustedSources(ProjectTrustedSourcesArgs.builder()\n                .projects(ProjectTrustedSourcesProjectArgs.builder()\n                    .projectId(withGit.id())\n                    .label(\"Source project\")\n                    .customAllow(List.of(Map.ofEntries(\n                        Map.entry(\"from\", Map.of(\"slugs\", List.of(\"production\"))),\n                        Map.entry(\"to\", Map.of(\"slugs\", List.of(                        \n                            \"preview\",\n                            \"production\")))\n                    )))\n                    .build())\n                .externalSources(githubActionsTrustedSource)\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # A project that is connected to a git repository.\n  # Deployments will be created automatically\n  # on every branch push and merges onto the Production Branch.\n  withGit:\n    type: vercel:Project\n    name: with_git\n    properties:\n      name: example-project-with-git\n      framework: nextjs\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # A project that is not connected to a git repository.\n  # Deployments will need to be created manually through\n  # terraform, or via the vercel CLI.\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n      framework: nextjs\n  # A project that allows trusted sources to bypass Deployment Protection.\n  withTrustedSources:\n    type: vercel:Project\n    name: with_trusted_sources\n    properties:\n      name: example-project-with-trusted-sources\n      framework: nextjs\n      trustedSources:\n        projects:\n          - projectId: ${withGit.id}\n            label: Source project\n            customAllow:\n              - from:\n                  slugs:\n                    - production\n                to:\n                  slugs:\n                    - preview\n                    - production\n        externalSources:\n          - ${githubActionsTrustedSource}\nvariables:\n  githubActionsTrustedSource:\n    issuer: https://token.actions.githubusercontent.com\n    label: GitHub Actions\n    to:\n      slugs:\n        - preview\n    claims:\n      aud:\n        - example-audience\n      sub:\n        - repo:vercel/some-repo:ref:refs/heads/main\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the project ID.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via the\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003eand project_id.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "description": "Provides a Project resource.\n\nA Project groups deployments and custom domains. To deploy on Vercel, you need to create a Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).\n\n\u003e Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e field.\nAt this time you cannot use a Vercel Project resource with in-line \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e in conjunction with any \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-go=\"`ProjectEnvironmentVariables`\" pulumi-lang-python=\"`ProjectEnvironmentVariables`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariables`\"\u003e`vercel.ProjectEnvironmentVariables`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-go=\"`ProjectEnvironmentVariable`\" pulumi-lang-python=\"`ProjectEnvironmentVariable`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariable`\"\u003e`vercel.ProjectEnvironmentVariable`\u003c/span\u003e resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.\n\n\u003e **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit \u003cspan pulumi-lang-nodejs=\"`sensitive`\" pulumi-lang-dotnet=\"`Sensitive`\" pulumi-lang-go=\"`sensitive`\" pulumi-lang-python=\"`sensitive`\" pulumi-lang-yaml=\"`sensitive`\" pulumi-lang-java=\"`sensitive`\"\u003e`sensitive`\u003c/span\u003e value. Variables targeting only \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e together with \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\n// A project that is connected to a git repository.\n// Deployments will be created automatically\n// on every branch push and merges onto the Production Branch.\nconst withGit = new vercel.Project(\"with_git\", {\n    name: \"example-project-with-git\",\n    framework: \"nextjs\",\n    gitRepository: {\n        type: \"github\",\n        repo: \"vercel/some-repo\",\n    },\n});\n// A project that is not connected to a git repository.\n// Deployments will need to be created manually through\n// terraform, or via the vercel CLI.\nconst example = new vercel.Project(\"example\", {\n    name: \"example-project\",\n    framework: \"nextjs\",\n    protectedSourcemaps: true,\n});\nconst githubActionsTrustedSource = {\n    issuer: \"https://token.actions.githubusercontent.com\",\n    label: \"GitHub Actions\",\n    to: {\n        slugs: [\"preview\"],\n    },\n    claims: {\n        aud: [\"example-audience\"],\n        sub: [\"repo:vercel/some-repo:ref:refs/heads/main\"],\n    },\n};\n// A project that allows trusted sources to bypass Deployment Protection.\nconst withTrustedSources = new vercel.Project(\"with_trusted_sources\", {\n    name: \"example-project-with-trusted-sources\",\n    framework: \"nextjs\",\n    trustedSources: {\n        projects: [{\n            projectId: withGit.id,\n            label: \"Source project\",\n            customAllow: [{\n                from: {\n                    slugs: [\"production\"],\n                },\n                to: {\n                    slugs: [\n                        \"preview\",\n                        \"production\",\n                    ],\n                },\n            }],\n        }],\n        externalSources: [githubActionsTrustedSource],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\n# A project that is connected to a git repository.\n# Deployments will be created automatically\n# on every branch push and merges onto the Production Branch.\nwith_git = vercel.Project(\"with_git\",\n    name=\"example-project-with-git\",\n    framework=\"nextjs\",\n    git_repository={\n        \"type\": \"github\",\n        \"repo\": \"vercel/some-repo\",\n    })\n# A project that is not connected to a git repository.\n# Deployments will need to be created manually through\n# terraform, or via the vercel CLI.\nexample = vercel.Project(\"example\",\n    name=\"example-project\",\n    framework=\"nextjs\",\n    protected_sourcemaps=True)\ngithub_actions_trusted_source = {\n    \"issuer\": \"https://token.actions.githubusercontent.com\",\n    \"label\": \"GitHub Actions\",\n    \"to\": {\n        \"slugs\": [\"preview\"],\n    },\n    \"claims\": {\n        \"aud\": [\"example-audience\"],\n        \"sub\": [\"repo:vercel/some-repo:ref:refs/heads/main\"],\n    },\n}\n# A project that allows trusted sources to bypass Deployment Protection.\nwith_trusted_sources = vercel.Project(\"with_trusted_sources\",\n    name=\"example-project-with-trusted-sources\",\n    framework=\"nextjs\",\n    trusted_sources={\n        \"projects\": [{\n            \"project_id\": with_git.id,\n            \"label\": \"Source project\",\n            \"custom_allow\": [{\n                \"from\": {\n                    \"slugs\": [\"production\"],\n                },\n                \"to\": {\n                    \"slugs\": [\n                        \"preview\",\n                        \"production\",\n                    ],\n                },\n            }],\n        }],\n        \"external_sources\": [github_actions_trusted_source],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // A project that is connected to a git repository.\n    // Deployments will be created automatically\n    // on every branch push and merges onto the Production Branch.\n    var withGit = new Vercel.Project(\"with_git\", new()\n    {\n        Name = \"example-project-with-git\",\n        Framework = \"nextjs\",\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    // A project that is not connected to a git repository.\n    // Deployments will need to be created manually through\n    // terraform, or via the vercel CLI.\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n        Framework = \"nextjs\",\n        ProtectedSourcemaps = true,\n    });\n\n    var githubActionsTrustedSource = \n    {\n        { \"issuer\", \"https://token.actions.githubusercontent.com\" },\n        { \"label\", \"GitHub Actions\" },\n        { \"to\", \n        {\n            { \"slugs\", new[]\n            {\n                \"preview\",\n            } },\n        } },\n        { \"claims\", \n        {\n            { \"aud\", new[]\n            {\n                \"example-audience\",\n            } },\n            { \"sub\", new[]\n            {\n                \"repo:vercel/some-repo:ref:refs/heads/main\",\n            } },\n        } },\n    };\n\n    // A project that allows trusted sources to bypass Deployment Protection.\n    var withTrustedSources = new Vercel.Project(\"with_trusted_sources\", new()\n    {\n        Name = \"example-project-with-trusted-sources\",\n        Framework = \"nextjs\",\n        TrustedSources = new Vercel.Inputs.ProjectTrustedSourcesArgs\n        {\n            Projects = new[]\n            {\n                new Vercel.Inputs.ProjectTrustedSourcesProjectArgs\n                {\n                    ProjectId = withGit.Id,\n                    Label = \"Source project\",\n                    CustomAllow = new[]\n                    {\n                        \n                        {\n                            { \"from\", \n                            {\n                                { \"slugs\", new[]\n                                {\n                                    \"production\",\n                                } },\n                            } },\n                            { \"to\", \n                            {\n                                { \"slugs\", new[]\n                                {\n                                    \"preview\",\n                                    \"production\",\n                                } },\n                            } },\n                        },\n                    },\n                },\n            },\n            ExternalSources = new[]\n            {\n                githubActionsTrustedSource,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// A project that is connected to a git repository.\n\t\t// Deployments will be created automatically\n\t\t// on every branch push and merges onto the Production Branch.\n\t\twithGit, err := vercel.NewProject(ctx, \"with_git\", \u0026vercel.ProjectArgs{\n\t\t\tName:      pulumi.String(\"example-project-with-git\"),\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A project that is not connected to a git repository.\n\t\t// Deployments will need to be created manually through\n\t\t// terraform, or via the vercel CLI.\n\t\t_, err = vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName:                pulumi.String(\"example-project\"),\n\t\t\tFramework:           pulumi.String(\"nextjs\"),\n\t\t\tProtectedSourcemaps: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tgithubActionsTrustedSource := map[string]interface{}{\n\t\t\t\"issuer\": \"https://token.actions.githubusercontent.com\",\n\t\t\t\"label\":  \"GitHub Actions\",\n\t\t\t\"to\": map[string]interface{}{\n\t\t\t\t\"slugs\": []string{\n\t\t\t\t\t\"preview\",\n\t\t\t\t},\n\t\t\t},\n\t\t\t\"claims\": map[string]interface{}{\n\t\t\t\t\"aud\": []string{\n\t\t\t\t\t\"example-audience\",\n\t\t\t\t},\n\t\t\t\t\"sub\": []string{\n\t\t\t\t\t\"repo:vercel/some-repo:ref:refs/heads/main\",\n\t\t\t\t},\n\t\t\t},\n\t\t}\n\t\t// A project that allows trusted sources to bypass Deployment Protection.\n\t\t_, err = vercel.NewProject(ctx, \"with_trusted_sources\", \u0026vercel.ProjectArgs{\n\t\t\tName:      pulumi.String(\"example-project-with-trusted-sources\"),\n\t\t\tFramework: pulumi.String(\"nextjs\"),\n\t\t\tTrustedSources: \u0026vercel.ProjectTrustedSourcesArgs{\n\t\t\t\tProjects: vercel.ProjectTrustedSourcesProjectArray{\n\t\t\t\t\t\u0026vercel.ProjectTrustedSourcesProjectArgs{\n\t\t\t\t\t\tProjectId: withGit.ID(),\n\t\t\t\t\t\tLabel:     pulumi.String(\"Source project\"),\n\t\t\t\t\t\tCustomAllow: []map[string]interface{}{\n\t\t\t\t\t\t\tmap[string]interface{}{\n\t\t\t\t\t\t\t\t\"from\": map[string]interface{}{\n\t\t\t\t\t\t\t\t\t\"slugs\": []string{\n\t\t\t\t\t\t\t\t\t\t\"production\",\n\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\"to\": map[string]interface{}{\n\t\t\t\t\t\t\t\t\t\"slugs\": []string{\n\t\t\t\t\t\t\t\t\t\t\"preview\",\n\t\t\t\t\t\t\t\t\t\t\"production\",\n\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tExternalSources: vercel.ProjectTrustedSourcesExternalSourceArray{\n\t\t\t\t\tpulumi.Map(githubActionsTrustedSource),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumi.vercel.inputs.ProjectTrustedSourcesArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // A project that is connected to a git repository.\n        // Deployments will be created automatically\n        // on every branch push and merges onto the Production Branch.\n        var withGit = new Project(\"withGit\", ProjectArgs.builder()\n            .name(\"example-project-with-git\")\n            .framework(\"nextjs\")\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        // A project that is not connected to a git repository.\n        // Deployments will need to be created manually through\n        // terraform, or via the vercel CLI.\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .framework(\"nextjs\")\n            .protectedSourcemaps(true)\n            .build());\n\n        final var githubActionsTrustedSource = Map.ofEntries(\n            Map.entry(\"issuer\", \"https://token.actions.githubusercontent.com\"),\n            Map.entry(\"label\", \"GitHub Actions\"),\n            Map.entry(\"to\", Map.of(\"slugs\", \"preview\")),\n            Map.entry(\"claims\", Map.ofEntries(\n                Map.entry(\"aud\", \"example-audience\"),\n                Map.entry(\"sub\", \"repo:vercel/some-repo:ref:refs/heads/main\")\n            ))\n        );\n\n        // A project that allows trusted sources to bypass Deployment Protection.\n        var withTrustedSources = new Project(\"withTrustedSources\", ProjectArgs.builder()\n            .name(\"example-project-with-trusted-sources\")\n            .framework(\"nextjs\")\n            .trustedSources(ProjectTrustedSourcesArgs.builder()\n                .projects(ProjectTrustedSourcesProjectArgs.builder()\n                    .projectId(withGit.id())\n                    .label(\"Source project\")\n                    .customAllow(List.of(Map.ofEntries(\n                        Map.entry(\"from\", Map.of(\"slugs\", List.of(\"production\"))),\n                        Map.entry(\"to\", Map.of(\"slugs\", List.of(                        \n                            \"preview\",\n                            \"production\")))\n                    )))\n                    .build())\n                .externalSources(githubActionsTrustedSource)\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # A project that is connected to a git repository.\n  # Deployments will be created automatically\n  # on every branch push and merges onto the Production Branch.\n  withGit:\n    type: vercel:Project\n    name: with_git\n    properties:\n      name: example-project-with-git\n      framework: nextjs\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  # A project that is not connected to a git repository.\n  # Deployments will need to be created manually through\n  # terraform, or via the vercel CLI.\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n      framework: nextjs\n      protectedSourcemaps: true\n  # A project that allows trusted sources to bypass Deployment Protection.\n  withTrustedSources:\n    type: vercel:Project\n    name: with_trusted_sources\n    properties:\n      name: example-project-with-trusted-sources\n      framework: nextjs\n      trustedSources:\n        projects:\n          - projectId: ${withGit.id}\n            label: Source project\n            customAllow:\n              - from:\n                  slugs:\n                    - production\n                to:\n                  slugs:\n                    - preview\n                    - production\n        externalSources:\n          - ${githubActionsTrustedSource}\nvariables:\n  githubActionsTrustedSource:\n    issuer: https://token.actions.githubusercontent.com\n    label: GitHub Actions\n    to:\n      slugs:\n        - preview\n    claims:\n      aud:\n        - example-audience\n      sub:\n        - repo:vercel/some-repo:ref:refs/heads/main\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the project ID.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via the\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003eand project_id.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/project:Project example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
             "properties": {
                 "autoAssignCustomDomains": {
                     "type": "boolean",
@@ -5899,6 +6120,10 @@
                     "type": "boolean",
                     "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
                 },
+                "protectedSourcemaps": {
+                    "type": "boolean",
+                    "description": "Specifies whether sourcemaps are protected and require authentication to access.\n"
+                },
                 "publicSource": {
                     "type": "boolean",
                     "description": "Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.\n",
@@ -5958,6 +6183,7 @@
                 "previewComments",
                 "previewDeploymentsDisabled",
                 "prioritiseProductionBuilds",
+                "protectedSourcemaps",
                 "resourceConfig",
                 "serverlessFunctionRegion",
                 "teamId",
@@ -6091,6 +6317,10 @@
                 "prioritiseProductionBuilds": {
                     "type": "boolean",
                     "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
+                },
+                "protectedSourcemaps": {
+                    "type": "boolean",
+                    "description": "Specifies whether sourcemaps are protected and require authentication to access.\n"
                 },
                 "publicSource": {
                     "type": "boolean",
@@ -6261,6 +6491,10 @@
                     "prioritiseProductionBuilds": {
                         "type": "boolean",
                         "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n"
+                    },
+                    "protectedSourcemaps": {
+                        "type": "boolean",
+                        "description": "Specifies whether sourcemaps are protected and require authentication to access.\n"
                     },
                     "publicSource": {
                         "type": "boolean",
@@ -6459,7 +6693,7 @@
             }
         },
         "vercel:index/projectDomain:ProjectDomain": {
-            "description": "Provides a Project Domain resource.\n\nA Project Domain is used to associate a domain name with a \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e.\n\nBy default, Project Domains will be automatically applied to any \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e deployments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project\"});\n// A simple domain that will be automatically\n// applied to each production deployment\nconst exampleProjectDomain = new vercel.ProjectDomain(\"example\", {\n    projectId: example.id,\n    domain: \"i-love.vercel.app\",\n});\n// A redirect of a domain name to a second domain name.\n// The status_code can optionally be controlled.\nconst exampleRedirect = new vercel.ProjectDomain(\"example_redirect\", {\n    projectId: example.id,\n    domain: \"i-also-love.vercel.app\",\n    redirect: exampleProjectDomain.domain,\n    redirectStatusCode: 307,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project\")\n# A simple domain that will be automatically\n# applied to each production deployment\nexample_project_domain = vercel.ProjectDomain(\"example\",\n    project_id=example.id,\n    domain=\"i-love.vercel.app\")\n# A redirect of a domain name to a second domain name.\n# The status_code can optionally be controlled.\nexample_redirect = vercel.ProjectDomain(\"example_redirect\",\n    project_id=example.id,\n    domain=\"i-also-love.vercel.app\",\n    redirect=example_project_domain.domain,\n    redirect_status_code=307)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n    });\n\n    // A simple domain that will be automatically\n    // applied to each production deployment\n    var exampleProjectDomain = new Vercel.ProjectDomain(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Domain = \"i-love.vercel.app\",\n    });\n\n    // A redirect of a domain name to a second domain name.\n    // The status_code can optionally be controlled.\n    var exampleRedirect = new Vercel.ProjectDomain(\"example_redirect\", new()\n    {\n        ProjectId = example.Id,\n        Domain = \"i-also-love.vercel.app\",\n        Redirect = exampleProjectDomain.Domain,\n        RedirectStatusCode = 307,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A simple domain that will be automatically\n\t\t// applied to each production deployment\n\t\texampleProjectDomain, err := vercel.NewProjectDomain(ctx, \"example\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tDomain:    pulumi.String(\"i-love.vercel.app\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A redirect of a domain name to a second domain name.\n\t\t// The status_code can optionally be controlled.\n\t\t_, err = vercel.NewProjectDomain(ctx, \"example_redirect\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId:          example.ID(),\n\t\t\tDomain:             pulumi.String(\"i-also-love.vercel.app\"),\n\t\t\tRedirect:           exampleProjectDomain.Domain,\n\t\t\tRedirectStatusCode: pulumi.Int(307),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.ProjectDomain;\nimport com.pulumiverse.vercel.ProjectDomainArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .build());\n\n        // A simple domain that will be automatically\n        // applied to each production deployment\n        var exampleProjectDomain = new ProjectDomain(\"exampleProjectDomain\", ProjectDomainArgs.builder()\n            .projectId(example.id())\n            .domain(\"i-love.vercel.app\")\n            .build());\n\n        // A redirect of a domain name to a second domain name.\n        // The status_code can optionally be controlled.\n        var exampleRedirect = new ProjectDomain(\"exampleRedirect\", ProjectDomainArgs.builder()\n            .projectId(example.id())\n            .domain(\"i-also-love.vercel.app\")\n            .redirect(exampleProjectDomain.domain())\n            .redirectStatusCode(307)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n  # A simple domain that will be automatically\n  # applied to each production deployment\n  exampleProjectDomain:\n    type: vercel:ProjectDomain\n    name: example\n    properties:\n      projectId: ${example.id}\n      domain: i-love.vercel.app\n  # A redirect of a domain name to a second domain name.\n  # The status_code can optionally be controlled.\n  exampleRedirect:\n    type: vercel:ProjectDomain\n    name: example_redirect\n    properties:\n      projectId: ${example.id}\n      domain: i-also-love.vercel.app\n      redirect: ${exampleProjectDomain.domain}\n      redirectStatusCode: 307\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the project ID and domain.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com\n```\n\nAlternatively, you can import via the team_id,\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand domain name.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com\n```\n\n",
+            "description": "Provides a Project Domain resource.\n\nA Project Domain is used to associate a domain name with a \u003cspan pulumi-lang-nodejs=\"`vercel.Project`\" pulumi-lang-dotnet=\"`vercel.Project`\" pulumi-lang-go=\"`Project`\" pulumi-lang-python=\"`Project`\" pulumi-lang-yaml=\"`vercel.Project`\" pulumi-lang-java=\"`vercel.Project`\"\u003e`vercel.Project`\u003c/span\u003e.\n\nBy default, Project Domains will be automatically applied to any \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e deployments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project\"});\n// A simple domain that will be automatically\n// applied to each production deployment\nconst exampleProjectDomain = new vercel.ProjectDomain(\"example\", {\n    projectId: example.id,\n    domain: \"i-love.vercel.app\",\n});\n// Wait for the domain to be verified before resources that depend on it run.\nconst exampleWaitForReady = new vercel.ProjectDomain(\"example_wait_for_ready\", {\n    projectId: example.id,\n    domain: \"i-wait.vercel.app\",\n    waitForReady: true,\n});\n// A redirect of a domain name to a second domain name.\n// The status_code can optionally be controlled.\nconst exampleRedirect = new vercel.ProjectDomain(\"example_redirect\", {\n    projectId: example.id,\n    domain: \"i-also-love.vercel.app\",\n    redirect: exampleProjectDomain.domain,\n    redirectStatusCode: 307,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project\")\n# A simple domain that will be automatically\n# applied to each production deployment\nexample_project_domain = vercel.ProjectDomain(\"example\",\n    project_id=example.id,\n    domain=\"i-love.vercel.app\")\n# Wait for the domain to be verified before resources that depend on it run.\nexample_wait_for_ready = vercel.ProjectDomain(\"example_wait_for_ready\",\n    project_id=example.id,\n    domain=\"i-wait.vercel.app\",\n    wait_for_ready=True)\n# A redirect of a domain name to a second domain name.\n# The status_code can optionally be controlled.\nexample_redirect = vercel.ProjectDomain(\"example_redirect\",\n    project_id=example.id,\n    domain=\"i-also-love.vercel.app\",\n    redirect=example_project_domain.domain,\n    redirect_status_code=307)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n    });\n\n    // A simple domain that will be automatically\n    // applied to each production deployment\n    var exampleProjectDomain = new Vercel.ProjectDomain(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Domain = \"i-love.vercel.app\",\n    });\n\n    // Wait for the domain to be verified before resources that depend on it run.\n    var exampleWaitForReady = new Vercel.ProjectDomain(\"example_wait_for_ready\", new()\n    {\n        ProjectId = example.Id,\n        Domain = \"i-wait.vercel.app\",\n        WaitForReady = true,\n    });\n\n    // A redirect of a domain name to a second domain name.\n    // The status_code can optionally be controlled.\n    var exampleRedirect = new Vercel.ProjectDomain(\"example_redirect\", new()\n    {\n        ProjectId = example.Id,\n        Domain = \"i-also-love.vercel.app\",\n        Redirect = exampleProjectDomain.Domain,\n        RedirectStatusCode = 307,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A simple domain that will be automatically\n\t\t// applied to each production deployment\n\t\texampleProjectDomain, err := vercel.NewProjectDomain(ctx, \"example\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tDomain:    pulumi.String(\"i-love.vercel.app\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Wait for the domain to be verified before resources that depend on it run.\n\t\t_, err = vercel.NewProjectDomain(ctx, \"example_wait_for_ready\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId:    example.ID(),\n\t\t\tDomain:       pulumi.String(\"i-wait.vercel.app\"),\n\t\t\tWaitForReady: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A redirect of a domain name to a second domain name.\n\t\t// The status_code can optionally be controlled.\n\t\t_, err = vercel.NewProjectDomain(ctx, \"example_redirect\", \u0026vercel.ProjectDomainArgs{\n\t\t\tProjectId:          example.ID(),\n\t\t\tDomain:             pulumi.String(\"i-also-love.vercel.app\"),\n\t\t\tRedirect:           exampleProjectDomain.Domain,\n\t\t\tRedirectStatusCode: pulumi.Int(307),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.ProjectDomain;\nimport com.pulumiverse.vercel.ProjectDomainArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .build());\n\n        // A simple domain that will be automatically\n        // applied to each production deployment\n        var exampleProjectDomain = new ProjectDomain(\"exampleProjectDomain\", ProjectDomainArgs.builder()\n            .projectId(example.id())\n            .domain(\"i-love.vercel.app\")\n            .build());\n\n        // Wait for the domain to be verified before resources that depend on it run.\n        var exampleWaitForReady = new ProjectDomain(\"exampleWaitForReady\", ProjectDomainArgs.builder()\n            .projectId(example.id())\n            .domain(\"i-wait.vercel.app\")\n            .waitForReady(true)\n            .build());\n\n        // A redirect of a domain name to a second domain name.\n        // The status_code can optionally be controlled.\n        var exampleRedirect = new ProjectDomain(\"exampleRedirect\", ProjectDomainArgs.builder()\n            .projectId(example.id())\n            .domain(\"i-also-love.vercel.app\")\n            .redirect(exampleProjectDomain.domain())\n            .redirectStatusCode(307)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n  # A simple domain that will be automatically\n  # applied to each production deployment\n  exampleProjectDomain:\n    type: vercel:ProjectDomain\n    name: example\n    properties:\n      projectId: ${example.id}\n      domain: i-love.vercel.app\n  # Wait for the domain to be verified before resources that depend on it run.\n  exampleWaitForReady:\n    type: vercel:ProjectDomain\n    name: example_wait_for_ready\n    properties:\n      projectId: ${example.id}\n      domain: i-wait.vercel.app\n      waitForReady: true\n  # A redirect of a domain name to a second domain name.\n  # The status_code can optionally be controlled.\n  exampleRedirect:\n    type: vercel:ProjectDomain\n    name: example_redirect\n    properties:\n      projectId: ${example.id}\n      domain: i-also-love.vercel.app\n      redirect: ${exampleProjectDomain.domain}\n      redirectStatusCode: 307\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the project ID and domain.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDomain:ProjectDomain example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com\n```\n\nAlternatively, you can import via the team_id,\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand domain name.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/projectDomain:ProjectDomain example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/example.com\n```\n\n",
             "properties": {
                 "customEnvironmentId": {
                     "type": "string",
@@ -6488,12 +6722,29 @@
                 "teamId": {
                     "type": "string",
                     "description": "The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "verifications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/ProjectDomainVerification:ProjectDomainVerification"
+                    },
+                    "description": "A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.\n"
+                },
+                "verified": {
+                    "type": "boolean",
+                    "description": "Whether the domain is verified for use with the project. If \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\"\u003e`false`\u003c/span\u003e, the challenges in \u003cspan pulumi-lang-nodejs=\"`verification`\" pulumi-lang-dotnet=\"`Verification`\" pulumi-lang-go=\"`verification`\" pulumi-lang-python=\"`verification`\" pulumi-lang-yaml=\"`verification`\" pulumi-lang-java=\"`verification`\"\u003e`verification`\u003c/span\u003e must be completed before the domain will serve traffic for the project.\n"
+                },
+                "waitForReady": {
+                    "type": "boolean",
+                    "description": "Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.\n"
                 }
             },
             "required": [
                 "domain",
                 "projectId",
-                "teamId"
+                "teamId",
+                "verifications",
+                "verified"
             ],
             "inputProperties": {
                 "customEnvironmentId": {
@@ -6523,6 +6774,10 @@
                 "teamId": {
                     "type": "string",
                     "description": "The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "waitForReady": {
+                    "type": "boolean",
+                    "description": "Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.\n"
                 }
             },
             "requiredInputs": [
@@ -6559,6 +6814,21 @@
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "verifications": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/ProjectDomainVerification:ProjectDomainVerification"
+                        },
+                        "description": "A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.\n"
+                    },
+                    "verified": {
+                        "type": "boolean",
+                        "description": "Whether the domain is verified for use with the project. If \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\"\u003e`false`\u003c/span\u003e, the challenges in \u003cspan pulumi-lang-nodejs=\"`verification`\" pulumi-lang-dotnet=\"`Verification`\" pulumi-lang-go=\"`verification`\" pulumi-lang-python=\"`verification`\" pulumi-lang-yaml=\"`verification`\" pulumi-lang-java=\"`verification`\"\u003e`verification`\u003c/span\u003e must be completed before the domain will serve traffic for the project.\n"
+                    },
+                    "waitForReady": {
+                        "type": "boolean",
+                        "description": "Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.\n"
                     }
                 },
                 "type": "object"
@@ -7736,6 +8006,159 @@
                 "type": "object"
             }
         },
+        "vercel:index/traceDrain:TraceDrain": {
+            "description": "Provides a configurable Trace Drain resource.\n\nTrace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.\n\n\u003e Only Pro and Enterprise teams can create configurable Trace Drains.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.TraceDrain(\"example\", {\n    name: \"example-trace-drain\",\n    deliveryFormat: \"json\",\n    endpoint: \"https://example.com/v1/traces\",\n    projectIds: [exampleVercelProject.id],\n    samplingRules: [{\n        rate: 0.8,\n        environment: \"production\",\n        requestPath: \"/api\",\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.TraceDrain(\"example\",\n    name=\"example-trace-drain\",\n    delivery_format=\"json\",\n    endpoint=\"https://example.com/v1/traces\",\n    project_ids=[example_vercel_project[\"id\"]],\n    sampling_rules=[{\n        \"rate\": 0.8,\n        \"environment\": \"production\",\n        \"request_path\": \"/api\",\n    }])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.TraceDrain(\"example\", new()\n    {\n        Name = \"example-trace-drain\",\n        DeliveryFormat = \"json\",\n        Endpoint = \"https://example.com/v1/traces\",\n        ProjectIds = new[]\n        {\n            exampleVercelProject.Id,\n        },\n        SamplingRules = new[]\n        {\n            new Vercel.Inputs.TraceDrainSamplingRuleArgs\n            {\n                Rate = 0.8,\n                Environment = \"production\",\n                RequestPath = \"/api\",\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.NewTraceDrain(ctx, \"example\", \u0026vercel.TraceDrainArgs{\n\t\t\tName:           pulumi.String(\"example-trace-drain\"),\n\t\t\tDeliveryFormat: pulumi.String(\"json\"),\n\t\t\tEndpoint:       pulumi.String(\"https://example.com/v1/traces\"),\n\t\t\tProjectIds: pulumi.StringArray{\n\t\t\t\texampleVercelProject.Id,\n\t\t\t},\n\t\t\tSamplingRules: vercel.TraceDrainSamplingRuleArray{\n\t\t\t\t\u0026vercel.TraceDrainSamplingRuleArgs{\n\t\t\t\t\tRate:        pulumi.Float64(0.8),\n\t\t\t\t\tEnvironment: pulumi.String(\"production\"),\n\t\t\t\t\tRequestPath: pulumi.String(\"/api\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.TraceDrain;\nimport com.pulumiverse.vercel.TraceDrainArgs;\nimport com.pulumi.vercel.inputs.TraceDrainSamplingRuleArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new TraceDrain(\"example\", TraceDrainArgs.builder()\n            .name(\"example-trace-drain\")\n            .deliveryFormat(\"json\")\n            .endpoint(\"https://example.com/v1/traces\")\n            .projectIds(exampleVercelProject.id())\n            .samplingRules(TraceDrainSamplingRuleArgs.builder()\n                .rate(0.8)\n                .environment(\"production\")\n                .requestPath(\"/api\")\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:TraceDrain\n    properties:\n      name: example-trace-drain\n      deliveryFormat: json\n      endpoint: https://example.com/v1/traces\n      projectIds:\n        - ${exampleVercelProject.id}\n      samplingRules:\n        - rate: 0.8\n          environment: production\n          requestPath: /api\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a default team configured in\nthe provider, simply use the trace_drain_id.\n\n```sh\n$ pulumi import vercel:index/traceDrain:TraceDrain example drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via team_id/trace_drain_id.\n\n```sh\n$ pulumi import vercel:index/traceDrain:TraceDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "deliveryFormat": {
+                    "type": "string",
+                    "description": "The OTLP/HTTP format trace data should be delivered in. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`proto`\" pulumi-lang-dotnet=\"`Proto`\" pulumi-lang-go=\"`proto`\" pulumi-lang-python=\"`proto`\" pulumi-lang-yaml=\"`proto`\" pulumi-lang-java=\"`proto`\"\u003e`proto`\u003c/span\u003e.\n"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "The OTLP/HTTP traces endpoint. This should be the full traces endpoint URL, commonly ending in `/v1/traces`.\n"
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Custom headers to include in requests to the trace drain endpoint.\n",
+                    "secret": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the trace drain.\n"
+                },
+                "projectIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of project IDs that the trace drain should be associated with. If omitted, traces will be sent for all projects.\n"
+                },
+                "samplingRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/TraceDrainSamplingRule:TraceDrainSamplingRule"
+                    },
+                    "description": "Ordered sampling rules for traces sent to this drain. If omitted, all traces are sent.\n"
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "A custom secret used to sign trace drain events. If omitted, Vercel generates one.\n",
+                    "secret": true
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Trace Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "deliveryFormat",
+                "endpoint",
+                "name",
+                "secret",
+                "teamId"
+            ],
+            "inputProperties": {
+                "deliveryFormat": {
+                    "type": "string",
+                    "description": "The OTLP/HTTP format trace data should be delivered in. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`proto`\" pulumi-lang-dotnet=\"`Proto`\" pulumi-lang-go=\"`proto`\" pulumi-lang-python=\"`proto`\" pulumi-lang-yaml=\"`proto`\" pulumi-lang-java=\"`proto`\"\u003e`proto`\u003c/span\u003e.\n"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "The OTLP/HTTP traces endpoint. This should be the full traces endpoint URL, commonly ending in `/v1/traces`.\n"
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Custom headers to include in requests to the trace drain endpoint.\n",
+                    "secret": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the trace drain.\n"
+                },
+                "projectIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of project IDs that the trace drain should be associated with. If omitted, traces will be sent for all projects.\n"
+                },
+                "samplingRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/vercel:index/TraceDrainSamplingRule:TraceDrainSamplingRule"
+                    },
+                    "description": "Ordered sampling rules for traces sent to this drain. If omitted, all traces are sent.\n"
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "A custom secret used to sign trace drain events. If omitted, Vercel generates one.\n",
+                    "secret": true
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Trace Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "deliveryFormat",
+                "endpoint"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TraceDrain resources.\n",
+                "properties": {
+                    "deliveryFormat": {
+                        "type": "string",
+                        "description": "The OTLP/HTTP format trace data should be delivered in. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`proto`\" pulumi-lang-dotnet=\"`Proto`\" pulumi-lang-go=\"`proto`\" pulumi-lang-python=\"`proto`\" pulumi-lang-yaml=\"`proto`\" pulumi-lang-java=\"`proto`\"\u003e`proto`\u003c/span\u003e.\n"
+                    },
+                    "endpoint": {
+                        "type": "string",
+                        "description": "The OTLP/HTTP traces endpoint. This should be the full traces endpoint URL, commonly ending in `/v1/traces`.\n"
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom headers to include in requests to the trace drain endpoint.\n",
+                        "secret": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A human-readable name for the trace drain.\n"
+                    },
+                    "projectIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of project IDs that the trace drain should be associated with. If omitted, traces will be sent for all projects.\n"
+                    },
+                    "samplingRules": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/vercel:index/TraceDrainSamplingRule:TraceDrainSamplingRule"
+                        },
+                        "description": "Ordered sampling rules for traces sent to this drain. If omitted, all traces are sent.\n"
+                    },
+                    "secret": {
+                        "type": "string",
+                        "description": "A custom secret used to sign trace drain events. If omitted, Vercel generates one.\n",
+                        "secret": true
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Trace Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "vercel:index/userToken:UserToken": {
             "description": "Provides a User Token resource.\n\nA User Token is an authentication token that can be used to access the Vercel API.\n\nCreating user tokens requires a Vercel API token with full account access. Limited tokens cannot create additional user tokens.\n\nThe \u003cspan pulumi-lang-nodejs=\"`bearerToken`\" pulumi-lang-dotnet=\"`BearerToken`\" pulumi-lang-go=\"`bearerToken`\" pulumi-lang-python=\"`bearer_token`\" pulumi-lang-yaml=\"`bearerToken`\" pulumi-lang-java=\"`bearerToken`\"\u003e`bearer_token`\u003c/span\u003e value is only returned during creation and cannot be retrieved again later. Imported resources will not populate \u003cspan pulumi-lang-nodejs=\"`bearerToken`\" pulumi-lang-dotnet=\"`BearerToken`\" pulumi-lang-go=\"`bearerToken`\" pulumi-lang-python=\"`bearer_token`\" pulumi-lang-yaml=\"`bearerToken`\" pulumi-lang-java=\"`bearerToken`\"\u003e`bearer_token`\u003c/span\u003e.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.UserToken(\"example\", {name: \"example-token\"});\nconst exampleExpiring = new vercel.UserToken(\"example_expiring\", {\n    name: \"example-expiring-token\",\n    expiresAt: 1767225600000,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.UserToken(\"example\", name=\"example-token\")\nexample_expiring = vercel.UserToken(\"example_expiring\",\n    name=\"example-expiring-token\",\n    expires_at=1767225600000)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.UserToken(\"example\", new()\n    {\n        Name = \"example-token\",\n    });\n\n    var exampleExpiring = new Vercel.UserToken(\"example_expiring\", new()\n    {\n        Name = \"example-expiring-token\",\n        ExpiresAt = 1767225600000,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.NewUserToken(ctx, \"example\", \u0026vercel.UserTokenArgs{\n\t\t\tName: pulumi.String(\"example-token\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewUserToken(ctx, \"example_expiring\", \u0026vercel.UserTokenArgs{\n\t\t\tName:      pulumi.String(\"example-expiring-token\"),\n\t\t\tExpiresAt: pulumi.Int(1767225600000),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.UserToken;\nimport com.pulumiverse.vercel.UserTokenArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new UserToken(\"example\", UserTokenArgs.builder()\n            .name(\"example-token\")\n            .build());\n\n        var exampleExpiring = new UserToken(\"exampleExpiring\", UserTokenArgs.builder()\n            .name(\"example-expiring-token\")\n            .expiresAt(1767225600000)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:UserToken\n    properties:\n      name: example-token\n  exampleExpiring:\n    type: vercel:UserToken\n    name: example_expiring\n    properties:\n      name: example-expiring-token\n      expiresAt: 1.7672256e+12\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the token ID.\n-\u003cspan pulumi-lang-nodejs=\" tokenId \" pulumi-lang-dotnet=\" TokenId \" pulumi-lang-go=\" tokenId \" pulumi-lang-python=\" token_id \" pulumi-lang-yaml=\" tokenId \" pulumi-lang-java=\" tokenId \"\u003e token_id \u003c/span\u003ecan be found in the Vercel UI under Account Settings, Tokens.\n\n```sh\n$ pulumi import vercel:index/userToken:UserToken example 5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391\n```\n\nAlternatively, you can import via the\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003eand token_id.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" tokenId \" pulumi-lang-dotnet=\" TokenId \" pulumi-lang-go=\" tokenId \" pulumi-lang-python=\" token_id \" pulumi-lang-yaml=\" tokenId \" pulumi-lang-java=\" tokenId \"\u003e token_id \u003c/span\u003ecan be found in the Vercel UI under Account Settings, Tokens.\n\n```sh\n$ pulumi import vercel:index/userToken:UserToken example team_xxxxxxxxxxxxxxxxxxxxxxxx/5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391\n```\n\n",
             "properties": {
@@ -7867,6 +8290,72 @@
                     "type": {
                         "type": "string",
                         "description": "The type of the token.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/vcrRepository:VcrRepository": {
+            "description": "Provides a Vercel Container Registry (VCR) Repository resource.\n\nA VCR Repository belongs to a Vercel Project and stores container images that can be\nused by Vercel Functions and Vercel Sandbox. Images are pushed to and pulled from\n`vcr.vercel.com/team-slug/project-slug/repository-name` using Docker-compatible tooling.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project-with-vcr-repository\"});\nconst exampleVcrRepository = new vercel.VcrRepository(\"example\", {\n    projectId: example.id,\n    name: \"my-repository\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project-with-vcr-repository\")\nexample_vcr_repository = vercel.VcrRepository(\"example\",\n    project_id=example.id,\n    name=\"my-repository\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project-with-vcr-repository\",\n    });\n\n    var exampleVcrRepository = new Vercel.VcrRepository(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Name = \"my-repository\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project-with-vcr-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewVcrRepository(ctx, \"example\", \u0026vercel.VcrRepositoryArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tName:      pulumi.String(\"my-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.VcrRepository;\nimport com.pulumiverse.vercel.VcrRepositoryArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project-with-vcr-repository\")\n            .build());\n\n        var exampleVcrRepository = new VcrRepository(\"exampleVcrRepository\", VcrRepositoryArgs.builder()\n            .projectId(example.id())\n            .name(\"my-repository\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project-with-vcr-repository\n  exampleVcrRepository:\n    type: vercel:VcrRepository\n    name: example\n    properties:\n      projectId: ${example.id}\n      name: my-repository\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand repository name.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/vcrRepository:VcrRepository example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository\n```\n\nAlternatively, you can import via the team_id,\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand repository name.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/vcrRepository:VcrRepository example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository\n```\n\n",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Project the repository belongs to.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.\n"
+                }
+            },
+            "required": [
+                "name",
+                "projectId",
+                "teamId",
+                "url"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the existing Vercel Project the repository belongs to.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering VcrRepository resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Project the repository belongs to.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.\n"
                     }
                 },
                 "type": "object"
@@ -9865,6 +10354,10 @@
                         "description": "If enabled, builds for the Production environment will be prioritized over Preview environments.\n",
                         "type": "boolean"
                     },
+                    "protectedSourcemaps": {
+                        "description": "Specifies whether sourcemaps are protected and require authentication to access.\n",
+                        "type": "boolean"
+                    },
                     "protectionBypassForAutomation": {
                         "deprecationMessage": "Use the \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectProtectionBypass`\" pulumi-lang-dotnet=\"`vercel.ProjectProtectionBypass`\" pulumi-lang-go=\"`ProjectProtectionBypass`\" pulumi-lang-python=\"`ProjectProtectionBypass`\" pulumi-lang-yaml=\"`vercel.ProjectProtectionBypass`\" pulumi-lang-java=\"`vercel.ProjectProtectionBypass`\"\u003e`vercel.ProjectProtectionBypass`\u003c/span\u003e resource instead. This deprecated attribute will be removed in a future major release.",
                         "description": "Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from \u003cspan pulumi-lang-nodejs=\"`protectionBypassForAutomationSecret`\" pulumi-lang-dotnet=\"`ProtectionBypassForAutomationSecret`\" pulumi-lang-go=\"`protectionBypassForAutomationSecret`\" pulumi-lang-python=\"`protection_bypass_for_automation_secret`\" pulumi-lang-yaml=\"`protectionBypassForAutomationSecret`\" pulumi-lang-java=\"`protectionBypassForAutomationSecret`\"\u003e`protection_bypass_for_automation_secret`\u003c/span\u003e. Deprecated: use the \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectProtectionBypass`\" pulumi-lang-dotnet=\"`vercel.ProjectProtectionBypass`\" pulumi-lang-go=\"`ProjectProtectionBypass`\" pulumi-lang-python=\"`ProjectProtectionBypass`\" pulumi-lang-yaml=\"`vercel.ProjectProtectionBypass`\" pulumi-lang-java=\"`vercel.ProjectProtectionBypass`\"\u003e`vercel.ProjectProtectionBypass`\u003c/span\u003e resource instead.\n",
@@ -9950,6 +10443,7 @@
                     "previewDeploymentSuffix",
                     "previewDeploymentsDisabled",
                     "prioritiseProductionBuilds",
+                    "protectedSourcemaps",
                     "protectionBypassForAutomation",
                     "protectionBypassForAutomationSecrets",
                     "publicSource",
@@ -10476,6 +10970,142 @@
                     "role",
                     "teamId",
                     "userId"
+                ],
+                "type": "object"
+            }
+        },
+        "vercel:index/getTraceDrain:getTraceDrain": {
+            "description": "Provides information about an existing Trace Drain.\n\nTrace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = vercel.getTraceDrain({\n    id: \"drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_trace_drain(id=\"drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetTraceDrain.Invoke(new()\n    {\n        Id = \"drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.LookupTraceDrain(ctx, \u0026vercel.LookupTraceDrainArgs{\n\t\t\tId: \"drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetTraceDrainArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getTraceDrain(GetTraceDrainArgs.builder()\n            .id(\"drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      function: vercel:getTraceDrain\n      arguments:\n        id: drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getTraceDrain.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the Trace Drain.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Trace Drain exists under. Required when reading a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTraceDrain.\n",
+                "properties": {
+                    "deliveryFormat": {
+                        "description": "The OTLP/HTTP format trace data is delivered in. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`proto`\" pulumi-lang-dotnet=\"`Proto`\" pulumi-lang-go=\"`proto`\" pulumi-lang-python=\"`proto`\" pulumi-lang-yaml=\"`proto`\" pulumi-lang-java=\"`proto`\"\u003e`proto`\u003c/span\u003e.\n",
+                        "type": "string"
+                    },
+                    "endpoint": {
+                        "description": "The OTLP/HTTP traces endpoint.\n",
+                        "type": "string"
+                    },
+                    "headers": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom headers included in requests to the trace drain endpoint.\n",
+                        "secret": true,
+                        "type": "object"
+                    },
+                    "id": {
+                        "description": "The ID of the Trace Drain.\n",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The human-readable name of the Trace Drain.\n",
+                        "type": "string"
+                    },
+                    "projectIds": {
+                        "description": "A list of project IDs that the trace drain is associated with. If omitted, traces are sent for all projects.\n",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "samplingRules": {
+                        "description": "Ordered sampling rules for traces sent to this drain.\n",
+                        "items": {
+                            "$ref": "#/types/vercel:index/getTraceDrainSamplingRule:getTraceDrainSamplingRule"
+                        },
+                        "type": "array"
+                    },
+                    "teamId": {
+                        "description": "The ID of the team the Trace Drain exists under. Required when reading a team resource if a default team has not been set in the provider.\n",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "deliveryFormat",
+                    "endpoint",
+                    "headers",
+                    "id",
+                    "name",
+                    "projectIds",
+                    "samplingRules",
+                    "teamId"
+                ],
+                "type": "object"
+            }
+        },
+        "vercel:index/getVcrRepository:getVcrRepository": {
+            "description": "Provides information about an existing Vercel Container Registry (VCR) Repository.\n\nA VCR Repository belongs to a Vercel Project and stores container images that can be\nused by Vercel Functions and Vercel Sandbox.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = vercel.getVcrRepository({\n    projectId: \"prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n    name: \"my-repository\",\n});\n```\n```python\nimport pulumi\nimport pulumi_vercel as vercel\n\nexample = vercel.get_vcr_repository(project_id=\"prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n    name=\"my-repository\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = Vercel.GetVcrRepository.Invoke(new()\n    {\n        ProjectId = \"prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n        Name = \"my-repository\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.LookupVcrRepository(ctx, \u0026vercel.LookupVcrRepositoryArgs{\n\t\t\tProjectId: \"prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n\t\t\tName:      \"my-repository\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.vercel.VercelFunctions;\nimport com.pulumi.vercel.inputs.GetVcrRepositoryArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var example = VercelFunctions.getVcrRepository(GetVcrRepositoryArgs.builder()\n            .projectId(\"prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\")\n            .name(\"my-repository\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  example:\n    fn::invoke:\n      function: vercel:getVcrRepository\n      arguments:\n        projectId: prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n        name: my-repository\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getVcrRepository.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the repository.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the existing Vercel Project the repository belongs to.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getVcrRepository.\n",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the VCR Repository.\n",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name of the repository.\n",
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "description": "The ID of the existing Vercel Project the repository belongs to.\n",
+                        "type": "string"
+                    },
+                    "teamId": {
+                        "description": "The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.\n",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.\n",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "projectId",
+                    "teamId",
+                    "url"
                 ],
                 "type": "object"
             }

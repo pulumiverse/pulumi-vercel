@@ -53,6 +53,7 @@ namespace Pulumiverse.Vercel
     ///     {
     ///         Name = "example-project",
     ///         Framework = "nextjs",
+    ///         ProtectedSourcemaps = true,
     ///     });
     /// 
     ///     var githubActionsTrustedSource = 
@@ -333,6 +334,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("prioritiseProductionBuilds")]
         public Output<bool> PrioritiseProductionBuilds { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies whether sourcemaps are protected and require authentication to access.
+        /// </summary>
+        [Output("protectedSourcemaps")]
+        public Output<bool> ProtectedSourcemaps { get; private set; } = null!;
 
         /// <summary>
         /// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
@@ -628,6 +635,12 @@ namespace Pulumiverse.Vercel
         public Input<bool>? PrioritiseProductionBuilds { get; set; }
 
         /// <summary>
+        /// Specifies whether sourcemaps are protected and require authentication to access.
+        /// </summary>
+        [Input("protectedSourcemaps")]
+        public Input<bool>? ProtectedSourcemaps { get; set; }
+
+        /// <summary>
         /// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
         /// </summary>
         [Input("publicSource")]
@@ -880,6 +893,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("prioritiseProductionBuilds")]
         public Input<bool>? PrioritiseProductionBuilds { get; set; }
+
+        /// <summary>
+        /// Specifies whether sourcemaps are protected and require authentication to access.
+        /// </summary>
+        [Input("protectedSourcemaps")]
+        public Input<bool>? ProtectedSourcemaps { get; set; }
 
         /// <summary>
         /// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.

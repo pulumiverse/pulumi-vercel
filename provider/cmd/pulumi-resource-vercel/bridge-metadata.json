@@ -5,6 +5,10 @@
                 "current": "vercel:index/accessGroup:AccessGroup",
                 "majorVersion": 5
             },
+            "vercel_access_group_member": {
+                "current": "vercel:index/accessGroupMember:AccessGroupMember",
+                "majorVersion": 5
+            },
             "vercel_access_group_project": {
                 "current": "vercel:index/accessGroupProject:AccessGroupProject",
                 "majorVersion": 5
@@ -59,6 +63,10 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_deployment_protection_exception": {
+                "current": "vercel:index/deploymentProtectionException:DeploymentProtectionException",
+                "majorVersion": 5
             },
             "vercel_dns_record": {
                 "current": "vercel:index/dnsRecord:DnsRecord",
@@ -326,7 +334,12 @@
             },
             "vercel_project_domain": {
                 "current": "vercel:index/projectDomain:ProjectDomain",
-                "majorVersion": 5
+                "majorVersion": 5,
+                "fields": {
+                    "verification": {
+                        "maxItemsOne": false
+                    }
+                }
             },
             "vercel_project_environment_variable": {
                 "current": "vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable",
@@ -439,8 +452,24 @@
                     }
                 }
             },
+            "vercel_trace_drain": {
+                "current": "vercel:index/traceDrain:TraceDrain",
+                "majorVersion": 5,
+                "fields": {
+                    "project_ids": {
+                        "maxItemsOne": false
+                    },
+                    "sampling_rules": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_user_token": {
                 "current": "vercel:index/userToken:UserToken",
+                "majorVersion": 5
+            },
+            "vercel_vcr_repository": {
+                "current": "vercel:index/vcrRepository:VcrRepository",
                 "majorVersion": 5
             },
             "vercel_webhook": {
@@ -839,6 +868,22 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_trace_drain": {
+                "current": "vercel:index/getTraceDrain:getTraceDrain",
+                "majorVersion": 5,
+                "fields": {
+                    "project_ids": {
+                        "maxItemsOne": false
+                    },
+                    "sampling_rules": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_vcr_repository": {
+                "current": "vercel:index/getVcrRepository:getVcrRepository",
+                "majorVersion": 5
             }
         }
     },

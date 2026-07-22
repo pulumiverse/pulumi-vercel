@@ -54,8 +54,9 @@ import (
 //			// Deployments will need to be created manually through
 //			// terraform, or via the vercel CLI.
 //			_, err = vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
-//				Name:      pulumi.String("example-project"),
-//				Framework: pulumi.String("nextjs"),
+//				Name:                pulumi.String("example-project"),
+//				Framework:           pulumi.String("nextjs"),
+//				ProtectedSourcemaps: pulumi.Bool(true),
 //			})
 //			if err != nil {
 //				return err
@@ -203,6 +204,8 @@ type Project struct {
 	PreviewDeploymentsDisabled pulumi.BoolOutput `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds pulumi.BoolOutput `pulumi:"prioritiseProductionBuilds"`
+	// Specifies whether sourcemaps are protected and require authentication to access.
+	ProtectedSourcemaps pulumi.BoolOutput `pulumi:"protectedSourcemaps"`
 	// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
 	//
 	// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
@@ -321,6 +324,8 @@ type projectState struct {
 	PreviewDeploymentsDisabled *bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds *bool `pulumi:"prioritiseProductionBuilds"`
+	// Specifies whether sourcemaps are protected and require authentication to access.
+	ProtectedSourcemaps *bool `pulumi:"protectedSourcemaps"`
 	// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
 	//
 	// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
@@ -410,6 +415,8 @@ type ProjectState struct {
 	PreviewDeploymentsDisabled pulumi.BoolPtrInput
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds pulumi.BoolPtrInput
+	// Specifies whether sourcemaps are protected and require authentication to access.
+	ProtectedSourcemaps pulumi.BoolPtrInput
 	// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
 	//
 	// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
@@ -503,6 +510,8 @@ type projectArgs struct {
 	PreviewDeploymentsDisabled *bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds *bool `pulumi:"prioritiseProductionBuilds"`
+	// Specifies whether sourcemaps are protected and require authentication to access.
+	ProtectedSourcemaps *bool `pulumi:"protectedSourcemaps"`
 	// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
 	//
 	// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
@@ -593,6 +602,8 @@ type ProjectArgs struct {
 	PreviewDeploymentsDisabled pulumi.BoolPtrInput
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds pulumi.BoolPtrInput
+	// Specifies whether sourcemaps are protected and require authentication to access.
+	ProtectedSourcemaps pulumi.BoolPtrInput
 	// Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
 	//
 	// Deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
@@ -859,6 +870,11 @@ func (o ProjectOutput) PreviewDeploymentsDisabled() pulumi.BoolOutput {
 // If enabled, builds for the Production environment will be prioritized over Preview environments.
 func (o ProjectOutput) PrioritiseProductionBuilds() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.PrioritiseProductionBuilds }).(pulumi.BoolOutput)
+}
+
+// Specifies whether sourcemaps are protected and require authentication to access.
+func (o ProjectOutput) ProtectedSourcemaps() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.ProtectedSourcemaps }).(pulumi.BoolOutput)
 }
 
 // Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.

@@ -41,6 +41,7 @@ import * as utilities from "./utilities";
  * const example = new vercel.Project("example", {
  *     name: "example-project",
  *     framework: "nextjs",
+ *     protectedSourcemaps: true,
  * });
  * const githubActionsTrustedSource = {
  *     issuer: "https://token.actions.githubusercontent.com",
@@ -253,6 +254,10 @@ export class Project extends pulumi.CustomResource {
      */
     declare public readonly prioritiseProductionBuilds: pulumi.Output<boolean>;
     /**
+     * Specifies whether sourcemaps are protected and require authentication to access.
+     */
+    declare public readonly protectedSourcemaps: pulumi.Output<boolean>;
+    /**
      * Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
      *
      * @deprecated This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.
@@ -337,6 +342,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["previewDeploymentSuffix"] = state?.previewDeploymentSuffix;
             resourceInputs["previewDeploymentsDisabled"] = state?.previewDeploymentsDisabled;
             resourceInputs["prioritiseProductionBuilds"] = state?.prioritiseProductionBuilds;
+            resourceInputs["protectedSourcemaps"] = state?.protectedSourcemaps;
             resourceInputs["publicSource"] = state?.publicSource;
             resourceInputs["resourceConfig"] = state?.resourceConfig;
             resourceInputs["rootDirectory"] = state?.rootDirectory;
@@ -379,6 +385,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["previewDeploymentSuffix"] = args?.previewDeploymentSuffix;
             resourceInputs["previewDeploymentsDisabled"] = args?.previewDeploymentsDisabled;
             resourceInputs["prioritiseProductionBuilds"] = args?.prioritiseProductionBuilds;
+            resourceInputs["protectedSourcemaps"] = args?.protectedSourcemaps;
             resourceInputs["publicSource"] = args?.publicSource;
             resourceInputs["resourceConfig"] = args?.resourceConfig;
             resourceInputs["rootDirectory"] = args?.rootDirectory;
@@ -524,6 +531,10 @@ export interface ProjectState {
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
+    /**
+     * Specifies whether sourcemaps are protected and require authentication to access.
+     */
+    protectedSourcemaps?: pulumi.Input<boolean>;
     /**
      * Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
      *
@@ -696,6 +707,10 @@ export interface ProjectArgs {
      * If enabled, builds for the Production environment will be prioritized over Preview environments.
      */
     prioritiseProductionBuilds?: pulumi.Input<boolean>;
+    /**
+     * Specifies whether sourcemaps are protected and require authentication to access.
+     */
+    protectedSourcemaps?: pulumi.Input<boolean>;
     /**
      * Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
      *

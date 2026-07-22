@@ -502,6 +502,21 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies whether sourcemaps are protected and require authentication to access.
+     * 
+     */
+    @Import(name="protectedSourcemaps")
+    private @Nullable Output<Boolean> protectedSourcemaps;
+
+    /**
+     * @return Specifies whether sourcemaps are protected and require authentication to access.
+     * 
+     */
+    public Optional<Output<Boolean>> protectedSourcemaps() {
+        return Optional.ofNullable(this.protectedSourcemaps);
+    }
+
+    /**
      * Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
      * 
      * @deprecated
@@ -686,6 +701,7 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         this.previewDeploymentSuffix = $.previewDeploymentSuffix;
         this.previewDeploymentsDisabled = $.previewDeploymentsDisabled;
         this.prioritiseProductionBuilds = $.prioritiseProductionBuilds;
+        this.protectedSourcemaps = $.protectedSourcemaps;
         this.publicSource = $.publicSource;
         this.resourceConfig = $.resourceConfig;
         this.rootDirectory = $.rootDirectory;
@@ -1382,6 +1398,27 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder prioritiseProductionBuilds(Boolean prioritiseProductionBuilds) {
             return prioritiseProductionBuilds(Output.of(prioritiseProductionBuilds));
+        }
+
+        /**
+         * @param protectedSourcemaps Specifies whether sourcemaps are protected and require authentication to access.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder protectedSourcemaps(@Nullable Output<Boolean> protectedSourcemaps) {
+            $.protectedSourcemaps = protectedSourcemaps;
+            return this;
+        }
+
+        /**
+         * @param protectedSourcemaps Specifies whether sourcemaps are protected and require authentication to access.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder protectedSourcemaps(Boolean protectedSourcemaps) {
+            return protectedSourcemaps(Output.of(protectedSourcemaps));
         }
 
         /**

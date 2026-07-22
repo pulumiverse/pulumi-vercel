@@ -83,6 +83,10 @@ import com.pulumiverse.vercel.inputs.GetTeamConfigArgs;
 import com.pulumiverse.vercel.inputs.GetTeamConfigPlainArgs;
 import com.pulumiverse.vercel.inputs.GetTeamMemberArgs;
 import com.pulumiverse.vercel.inputs.GetTeamMemberPlainArgs;
+import com.pulumiverse.vercel.inputs.GetTraceDrainArgs;
+import com.pulumiverse.vercel.inputs.GetTraceDrainPlainArgs;
+import com.pulumiverse.vercel.inputs.GetVcrRepositoryArgs;
+import com.pulumiverse.vercel.inputs.GetVcrRepositoryPlainArgs;
 import com.pulumiverse.vercel.outputs.GetAccessGroupProjectResult;
 import com.pulumiverse.vercel.outputs.GetAccessGroupResult;
 import com.pulumiverse.vercel.outputs.GetAliasResult;
@@ -120,6 +124,8 @@ import com.pulumiverse.vercel.outputs.GetProjectRoutesResult;
 import com.pulumiverse.vercel.outputs.GetSharedEnvironmentVariableResult;
 import com.pulumiverse.vercel.outputs.GetTeamConfigResult;
 import com.pulumiverse.vercel.outputs.GetTeamMemberResult;
+import com.pulumiverse.vercel.outputs.GetTraceDrainResult;
+import com.pulumiverse.vercel.outputs.GetVcrRepositoryResult;
 import java.util.concurrent.CompletableFuture;
 
 public final class VercelFunctions {
@@ -8515,5 +8521,435 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetTeamMemberResult> getTeamMemberPlain(GetTeamMemberPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getTeamMember:getTeamMember", TypeShape.of(GetTeamMemberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Trace Drain.
+     * 
+     * Trace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetTraceDrainArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getTraceDrain(GetTraceDrainArgs.builder()
+     *             .id("drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetTraceDrainResult> getTraceDrain(GetTraceDrainArgs args) {
+        return getTraceDrain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Trace Drain.
+     * 
+     * Trace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetTraceDrainArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getTraceDrain(GetTraceDrainArgs.builder()
+     *             .id("drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetTraceDrainResult> getTraceDrainPlain(GetTraceDrainPlainArgs args) {
+        return getTraceDrainPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Trace Drain.
+     * 
+     * Trace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetTraceDrainArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getTraceDrain(GetTraceDrainArgs.builder()
+     *             .id("drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetTraceDrainResult> getTraceDrain(GetTraceDrainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getTraceDrain:getTraceDrain", TypeShape.of(GetTraceDrainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Trace Drain.
+     * 
+     * Trace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetTraceDrainArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getTraceDrain(GetTraceDrainArgs.builder()
+     *             .id("drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetTraceDrainResult> getTraceDrain(GetTraceDrainArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getTraceDrain:getTraceDrain", TypeShape.of(GetTraceDrainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Trace Drain.
+     * 
+     * Trace Drains forward OpenTelemetry trace data from your deployments to an OTLP/HTTP compatible endpoint.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetTraceDrainArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getTraceDrain(GetTraceDrainArgs.builder()
+     *             .id("drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetTraceDrainResult> getTraceDrainPlain(GetTraceDrainPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getTraceDrain:getTraceDrain", TypeShape.of(GetTraceDrainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel Container Registry (VCR) Repository.
+     * 
+     * A VCR Repository belongs to a Vercel Project and stores container images that can be
+     * used by Vercel Functions and Vercel Sandbox.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetVcrRepositoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getVcrRepository(GetVcrRepositoryArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .name("my-repository")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetVcrRepositoryResult> getVcrRepository(GetVcrRepositoryArgs args) {
+        return getVcrRepository(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel Container Registry (VCR) Repository.
+     * 
+     * A VCR Repository belongs to a Vercel Project and stores container images that can be
+     * used by Vercel Functions and Vercel Sandbox.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetVcrRepositoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getVcrRepository(GetVcrRepositoryArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .name("my-repository")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetVcrRepositoryResult> getVcrRepositoryPlain(GetVcrRepositoryPlainArgs args) {
+        return getVcrRepositoryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel Container Registry (VCR) Repository.
+     * 
+     * A VCR Repository belongs to a Vercel Project and stores container images that can be
+     * used by Vercel Functions and Vercel Sandbox.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetVcrRepositoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getVcrRepository(GetVcrRepositoryArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .name("my-repository")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetVcrRepositoryResult> getVcrRepository(GetVcrRepositoryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getVcrRepository:getVcrRepository", TypeShape.of(GetVcrRepositoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel Container Registry (VCR) Repository.
+     * 
+     * A VCR Repository belongs to a Vercel Project and stores container images that can be
+     * used by Vercel Functions and Vercel Sandbox.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetVcrRepositoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getVcrRepository(GetVcrRepositoryArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .name("my-repository")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetVcrRepositoryResult> getVcrRepository(GetVcrRepositoryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getVcrRepository:getVcrRepository", TypeShape.of(GetVcrRepositoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel Container Registry (VCR) Repository.
+     * 
+     * A VCR Repository belongs to a Vercel Project and stores container images that can be
+     * used by Vercel Functions and Vercel Sandbox.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetVcrRepositoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getVcrRepository(GetVcrRepositoryArgs.builder()
+     *             .projectId("prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .name("my-repository")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetVcrRepositoryResult> getVcrRepositoryPlain(GetVcrRepositoryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getVcrRepository:getVcrRepository", TypeShape.of(GetVcrRepositoryResult.class), args, Utilities.withVersion(options));
     }
 }

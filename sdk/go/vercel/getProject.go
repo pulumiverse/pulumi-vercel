@@ -132,6 +132,8 @@ type LookupProjectResult struct {
 	PreviewDeploymentsDisabled bool `pulumi:"previewDeploymentsDisabled"`
 	// If enabled, builds for the Production environment will be prioritized over Preview environments.
 	PrioritiseProductionBuilds bool `pulumi:"prioritiseProductionBuilds"`
+	// Specifies whether sourcemaps are protected and require authentication to access.
+	ProtectedSourcemaps bool `pulumi:"protectedSourcemaps"`
 	// Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `ProjectProtectionBypass` resource instead.
 	//
 	// Deprecated: Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.
@@ -362,6 +364,11 @@ func (o LookupProjectResultOutput) PreviewDeploymentsDisabled() pulumi.BoolOutpu
 // If enabled, builds for the Production environment will be prioritized over Preview environments.
 func (o LookupProjectResultOutput) PrioritiseProductionBuilds() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupProjectResult) bool { return v.PrioritiseProductionBuilds }).(pulumi.BoolOutput)
+}
+
+// Specifies whether sourcemaps are protected and require authentication to access.
+func (o LookupProjectResultOutput) ProtectedSourcemaps() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupProjectResult) bool { return v.ProtectedSourcemaps }).(pulumi.BoolOutput)
 }
 
 // Allows automation services to bypass Deployment Protection on this project when using an HTTP header named `x-vercel-protection-bypass` with a value from `protectionBypassForAutomationSecret`. Deprecated: use the `ProjectProtectionBypass` resource instead.

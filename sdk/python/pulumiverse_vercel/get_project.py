@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secrets=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, trusted_sources=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protected_sourcemaps=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secrets=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, trusted_sources=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -124,6 +124,9 @@ class GetProjectResult:
         if prioritise_production_builds and not isinstance(prioritise_production_builds, bool):
             raise TypeError("Expected argument 'prioritise_production_builds' to be a bool")
         pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
+        if protected_sourcemaps and not isinstance(protected_sourcemaps, bool):
+            raise TypeError("Expected argument 'protected_sourcemaps' to be a bool")
+        pulumi.set(__self__, "protected_sourcemaps", protected_sourcemaps)
         if protection_bypass_for_automation and not isinstance(protection_bypass_for_automation, bool):
             raise TypeError("Expected argument 'protection_bypass_for_automation' to be a bool")
         pulumi.set(__self__, "protection_bypass_for_automation", protection_bypass_for_automation)
@@ -416,6 +419,14 @@ class GetProjectResult:
         return pulumi.get(self, "prioritise_production_builds")
 
     @_builtins.property
+    @pulumi.getter(name="protectedSourcemaps")
+    def protected_sourcemaps(self) -> _builtins.bool:
+        """
+        Specifies whether sourcemaps are protected and require authentication to access.
+        """
+        return pulumi.get(self, "protected_sourcemaps")
+
+    @_builtins.property
     @pulumi.getter(name="protectionBypassForAutomation")
     @_utilities.deprecated("""Use the `ProjectProtectionBypass` resource instead. This deprecated attribute will be removed in a future major release.""")
     def protection_bypass_for_automation(self) -> _builtins.bool:
@@ -545,6 +556,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             preview_deployment_suffix=self.preview_deployment_suffix,
             preview_deployments_disabled=self.preview_deployments_disabled,
             prioritise_production_builds=self.prioritise_production_builds,
+            protected_sourcemaps=self.protected_sourcemaps,
             protection_bypass_for_automation=self.protection_bypass_for_automation,
             protection_bypass_for_automation_secrets=self.protection_bypass_for_automation_secrets,
             public_source=self.public_source,
@@ -626,6 +638,7 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         preview_deployment_suffix=pulumi.get(__ret__, 'preview_deployment_suffix'),
         preview_deployments_disabled=pulumi.get(__ret__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__ret__, 'prioritise_production_builds'),
+        protected_sourcemaps=pulumi.get(__ret__, 'protected_sourcemaps'),
         protection_bypass_for_automation=pulumi.get(__ret__, 'protection_bypass_for_automation'),
         protection_bypass_for_automation_secrets=pulumi.get(__ret__, 'protection_bypass_for_automation_secrets'),
         public_source=pulumi.get(__ret__, 'public_source'),
@@ -704,6 +717,7 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
         preview_deployment_suffix=pulumi.get(__response__, 'preview_deployment_suffix'),
         preview_deployments_disabled=pulumi.get(__response__, 'preview_deployments_disabled'),
         prioritise_production_builds=pulumi.get(__response__, 'prioritise_production_builds'),
+        protected_sourcemaps=pulumi.get(__response__, 'protected_sourcemaps'),
         protection_bypass_for_automation=pulumi.get(__response__, 'protection_bypass_for_automation'),
         protection_bypass_for_automation_secrets=pulumi.get(__response__, 'protection_bypass_for_automation_secrets'),
         public_source=pulumi.get(__response__, 'public_source'),

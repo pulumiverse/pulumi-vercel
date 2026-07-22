@@ -52,6 +52,7 @@ class ProjectArgs:
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 protected_sourcemaps: Optional[pulumi.Input[_builtins.bool]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input['ProjectResourceConfigArgs']] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -95,6 +96,7 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
+        :param pulumi.Input[_builtins.bool] protected_sourcemaps: Specifies whether sourcemaps are protected and require authentication to access.
         :param pulumi.Input[_builtins.bool] public_source: Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
         :param pulumi.Input['ProjectResourceConfigArgs'] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -170,6 +172,8 @@ class ProjectArgs:
             pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
             pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
+        if protected_sourcemaps is not None:
+            pulumi.set(__self__, "protected_sourcemaps", protected_sourcemaps)
         if public_source is not None:
             warnings.warn("""This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.""", DeprecationWarning)
             pulumi.log.warn("""public_source is deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.""")
@@ -567,6 +571,18 @@ class ProjectArgs:
     @prioritise_production_builds.setter
     def prioritise_production_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "prioritise_production_builds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="protectedSourcemaps")
+    def protected_sourcemaps(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Specifies whether sourcemaps are protected and require authentication to access.
+        """
+        return pulumi.get(self, "protected_sourcemaps")
+
+    @protected_sourcemaps.setter
+    def protected_sourcemaps(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "protected_sourcemaps", value)
 
     @_builtins.property
     @pulumi.getter(name="publicSource")
@@ -713,6 +729,7 @@ class _ProjectState:
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 protected_sourcemaps: Optional[pulumi.Input[_builtins.bool]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input['ProjectResourceConfigArgs']] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -756,6 +773,7 @@ class _ProjectState:
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
+        :param pulumi.Input[_builtins.bool] protected_sourcemaps: Specifies whether sourcemaps are protected and require authentication to access.
         :param pulumi.Input[_builtins.bool] public_source: Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
         :param pulumi.Input['ProjectResourceConfigArgs'] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -831,6 +849,8 @@ class _ProjectState:
             pulumi.set(__self__, "preview_deployments_disabled", preview_deployments_disabled)
         if prioritise_production_builds is not None:
             pulumi.set(__self__, "prioritise_production_builds", prioritise_production_builds)
+        if protected_sourcemaps is not None:
+            pulumi.set(__self__, "protected_sourcemaps", protected_sourcemaps)
         if public_source is not None:
             warnings.warn("""This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.""", DeprecationWarning)
             pulumi.log.warn("""public_source is deprecated: This attribute is deprecated and no longer has any effect. The public source feature has been removed from Vercel, so this value is ignored and no longer sent to the API. It will be removed in a future major version of this provider.""")
@@ -1228,6 +1248,18 @@ class _ProjectState:
     @prioritise_production_builds.setter
     def prioritise_production_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "prioritise_production_builds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="protectedSourcemaps")
+    def protected_sourcemaps(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Specifies whether sourcemaps are protected and require authentication to access.
+        """
+        return pulumi.get(self, "protected_sourcemaps")
+
+    @protected_sourcemaps.setter
+    def protected_sourcemaps(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "protected_sourcemaps", value)
 
     @_builtins.property
     @pulumi.getter(name="publicSource")
@@ -1377,6 +1409,7 @@ class Project(pulumi.CustomResource):
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 protected_sourcemaps: Optional[pulumi.Input[_builtins.bool]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1420,7 +1453,8 @@ class Project(pulumi.CustomResource):
         # terraform, or via the vercel CLI.
         example = vercel.Project("example",
             name="example-project",
-            framework="nextjs")
+            framework="nextjs",
+            protected_sourcemaps=True)
         github_actions_trusted_source = {
             "issuer": "https://token.actions.githubusercontent.com",
             "label": "GitHub Actions",
@@ -1510,6 +1544,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
+        :param pulumi.Input[_builtins.bool] protected_sourcemaps: Specifies whether sourcemaps are protected and require authentication to access.
         :param pulumi.Input[_builtins.bool] public_source: Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
         :param pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -1559,7 +1594,8 @@ class Project(pulumi.CustomResource):
         # terraform, or via the vercel CLI.
         example = vercel.Project("example",
             name="example-project",
-            framework="nextjs")
+            framework="nextjs",
+            protected_sourcemaps=True)
         github_actions_trusted_source = {
             "issuer": "https://token.actions.githubusercontent.com",
             "label": "GitHub Actions",
@@ -1662,6 +1698,7 @@ class Project(pulumi.CustomResource):
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 protected_sourcemaps: Optional[pulumi.Input[_builtins.bool]] = None,
                  public_source: Optional[pulumi.Input[_builtins.bool]] = None,
                  resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
                  root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1711,6 +1748,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
             __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
             __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
+            __props__.__dict__["protected_sourcemaps"] = protected_sourcemaps
             __props__.__dict__["public_source"] = public_source
             __props__.__dict__["resource_config"] = resource_config
             __props__.__dict__["root_directory"] = root_directory
@@ -1761,6 +1799,7 @@ class Project(pulumi.CustomResource):
             preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
             preview_deployments_disabled: Optional[pulumi.Input[_builtins.bool]] = None,
             prioritise_production_builds: Optional[pulumi.Input[_builtins.bool]] = None,
+            protected_sourcemaps: Optional[pulumi.Input[_builtins.bool]] = None,
             public_source: Optional[pulumi.Input[_builtins.bool]] = None,
             resource_config: Optional[pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']]] = None,
             root_directory: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1808,6 +1847,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
         :param pulumi.Input[_builtins.bool] preview_deployments_disabled: Disable creation of Preview Deployments for this project.
         :param pulumi.Input[_builtins.bool] prioritise_production_builds: If enabled, builds for the Production environment will be prioritized over Preview environments.
+        :param pulumi.Input[_builtins.bool] protected_sourcemaps: Specifies whether sourcemaps are protected and require authentication to access.
         :param pulumi.Input[_builtins.bool] public_source: Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.
         :param pulumi.Input[Union['ProjectResourceConfigArgs', 'ProjectResourceConfigArgsDict']] resource_config: Resource Configuration for the project.
         :param pulumi.Input[_builtins.str] root_directory: The name of a directory or relative path to the source code of your project. If omitted, it will default to the project root.
@@ -1853,6 +1893,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
         __props__.__dict__["preview_deployments_disabled"] = preview_deployments_disabled
         __props__.__dict__["prioritise_production_builds"] = prioritise_production_builds
+        __props__.__dict__["protected_sourcemaps"] = protected_sourcemaps
         __props__.__dict__["public_source"] = public_source
         __props__.__dict__["resource_config"] = resource_config
         __props__.__dict__["root_directory"] = root_directory
@@ -2112,6 +2153,14 @@ class Project(pulumi.CustomResource):
         If enabled, builds for the Production environment will be prioritized over Preview environments.
         """
         return pulumi.get(self, "prioritise_production_builds")
+
+    @_builtins.property
+    @pulumi.getter(name="protectedSourcemaps")
+    def protected_sourcemaps(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Specifies whether sourcemaps are protected and require authentication to access.
+        """
+        return pulumi.get(self, "protected_sourcemaps")
 
     @_builtins.property
     @pulumi.getter(name="publicSource")

@@ -47,6 +47,15 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// Wait for the domain to be verified before resources that depend on it run.
+//			_, err = vercel.NewProjectDomain(ctx, "example_wait_for_ready", &vercel.ProjectDomainArgs{
+//				ProjectId:    example.ID(),
+//				Domain:       pulumi.String("i-wait.vercel.app"),
+//				WaitForReady: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			// A redirect of a domain name to a second domain name.
 //			// The status_code can optionally be controlled.
 //			_, err = vercel.NewProjectDomain(ctx, "example_redirect", &vercel.ProjectDomainArgs{
@@ -100,6 +109,12 @@ type ProjectDomain struct {
 	RedirectStatusCode pulumi.IntPtrOutput `pulumi:"redirectStatusCode"`
 	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
+	// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+	Verifications ProjectDomainVerificationArrayOutput `pulumi:"verifications"`
+	// Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+	Verified pulumi.BoolOutput `pulumi:"verified"`
+	// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+	WaitForReady pulumi.BoolPtrOutput `pulumi:"waitForReady"`
 }
 
 // NewProjectDomain registers a new resource with the given unique name, arguments, and options.
@@ -152,6 +167,12 @@ type projectDomainState struct {
 	RedirectStatusCode *int `pulumi:"redirectStatusCode"`
 	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
+	// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+	Verifications []ProjectDomainVerification `pulumi:"verifications"`
+	// Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+	Verified *bool `pulumi:"verified"`
+	// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+	WaitForReady *bool `pulumi:"waitForReady"`
 }
 
 type ProjectDomainState struct {
@@ -169,6 +190,12 @@ type ProjectDomainState struct {
 	RedirectStatusCode pulumi.IntPtrInput
 	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
+	// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+	Verifications ProjectDomainVerificationArrayInput
+	// Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+	Verified pulumi.BoolPtrInput
+	// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+	WaitForReady pulumi.BoolPtrInput
 }
 
 func (ProjectDomainState) ElementType() reflect.Type {
@@ -190,6 +217,8 @@ type projectDomainArgs struct {
 	RedirectStatusCode *int `pulumi:"redirectStatusCode"`
 	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
+	// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+	WaitForReady *bool `pulumi:"waitForReady"`
 }
 
 // The set of arguments for constructing a ProjectDomain resource.
@@ -208,6 +237,8 @@ type ProjectDomainArgs struct {
 	RedirectStatusCode pulumi.IntPtrInput
 	// The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
+	// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+	WaitForReady pulumi.BoolPtrInput
 }
 
 func (ProjectDomainArgs) ElementType() reflect.Type {
@@ -330,6 +361,21 @@ func (o ProjectDomainOutput) RedirectStatusCode() pulumi.IntPtrOutput {
 // The ID of the team the project exists under. Required when configuring a team resource if a default team has not been set in the provider.
 func (o ProjectDomainOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectDomain) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
+}
+
+// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+func (o ProjectDomainOutput) Verifications() ProjectDomainVerificationArrayOutput {
+	return o.ApplyT(func(v *ProjectDomain) ProjectDomainVerificationArrayOutput { return v.Verifications }).(ProjectDomainVerificationArrayOutput)
+}
+
+// Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+func (o ProjectDomainOutput) Verified() pulumi.BoolOutput {
+	return o.ApplyT(func(v *ProjectDomain) pulumi.BoolOutput { return v.Verified }).(pulumi.BoolOutput)
+}
+
+// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+func (o ProjectDomainOutput) WaitForReady() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectDomain) pulumi.BoolPtrOutput { return v.WaitForReady }).(pulumi.BoolPtrOutput)
 }
 
 type ProjectDomainArrayOutput struct{ *pulumi.OutputState }

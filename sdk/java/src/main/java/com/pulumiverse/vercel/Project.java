@@ -83,6 +83,7 @@ import javax.annotation.Nullable;
  *         var example = new Project("example", ProjectArgs.builder()
  *             .name("example-project")
  *             .framework("nextjs")
+ *             .protectedSourcemaps(true)
  *             .build());
  * 
  *         final var githubActionsTrustedSource = Map.ofEntries(
@@ -579,6 +580,20 @@ public class Project extends com.pulumi.resources.CustomResource {
      */
     public Output<Boolean> prioritiseProductionBuilds() {
         return this.prioritiseProductionBuilds;
+    }
+    /**
+     * Specifies whether sourcemaps are protected and require authentication to access.
+     * 
+     */
+    @Export(name="protectedSourcemaps", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> protectedSourcemaps;
+
+    /**
+     * @return Specifies whether sourcemaps are protected and require authentication to access.
+     * 
+     */
+    public Output<Boolean> protectedSourcemaps() {
+        return this.protectedSourcemaps;
     }
     /**
      * Deprecated. The public source feature has been removed from Vercel; this attribute no longer has any effect.

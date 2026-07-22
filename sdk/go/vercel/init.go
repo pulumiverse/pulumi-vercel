@@ -23,6 +23,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "vercel:index/accessGroup:AccessGroup":
 		r = &AccessGroup{}
+	case "vercel:index/accessGroupMember:AccessGroupMember":
+		r = &AccessGroupMember{}
 	case "vercel:index/accessGroupProject:AccessGroupProject":
 		r = &AccessGroupProject{}
 	case "vercel:index/alias:Alias":
@@ -43,6 +45,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CustomEnvironment{}
 	case "vercel:index/deployment:Deployment":
 		r = &Deployment{}
+	case "vercel:index/deploymentProtectionException:DeploymentProtectionException":
+		r = &DeploymentProtectionException{}
 	case "vercel:index/dnsRecord:DnsRecord":
 		r = &DnsRecord{}
 	case "vercel:index/edgeConfig:EdgeConfig":
@@ -103,8 +107,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TeamConfig{}
 	case "vercel:index/teamMember:TeamMember":
 		r = &TeamMember{}
+	case "vercel:index/traceDrain:TraceDrain":
+		r = &TraceDrain{}
 	case "vercel:index/userToken:UserToken":
 		r = &UserToken{}
+	case "vercel:index/vcrRepository:VcrRepository":
+		r = &VcrRepository{}
 	case "vercel:index/webhook:Webhook":
 		r = &Webhook{}
 	default:
@@ -141,6 +149,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/accessGroup",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/accessGroupMember",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -191,6 +204,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/deployment",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/deploymentProtectionException",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -345,7 +363,17 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/traceDrain",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/userToken",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/vcrRepository",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

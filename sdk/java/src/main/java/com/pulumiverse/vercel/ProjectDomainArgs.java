@@ -6,6 +6,7 @@ package com.pulumiverse.vercel;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -122,6 +123,21 @@ public final class ProjectDomainArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.teamId);
     }
 
+    /**
+     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * 
+     */
+    @Import(name="waitForReady")
+    private @Nullable Output<Boolean> waitForReady;
+
+    /**
+     * @return Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * 
+     */
+    public Optional<Output<Boolean>> waitForReady() {
+        return Optional.ofNullable(this.waitForReady);
+    }
+
     private ProjectDomainArgs() {}
 
     private ProjectDomainArgs(ProjectDomainArgs $) {
@@ -132,6 +148,7 @@ public final class ProjectDomainArgs extends com.pulumi.resources.ResourceArgs {
         this.redirect = $.redirect;
         this.redirectStatusCode = $.redirectStatusCode;
         this.teamId = $.teamId;
+        this.waitForReady = $.waitForReady;
     }
 
     public static Builder builder() {
@@ -297,6 +314,27 @@ public final class ProjectDomainArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder teamId(String teamId) {
             return teamId(Output.of(teamId));
+        }
+
+        /**
+         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder waitForReady(@Nullable Output<Boolean> waitForReady) {
+            $.waitForReady = waitForReady;
+            return this;
+        }
+
+        /**
+         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder waitForReady(Boolean waitForReady) {
+            return waitForReady(Output.of(waitForReady));
         }
 
         public ProjectDomainArgs build() {
