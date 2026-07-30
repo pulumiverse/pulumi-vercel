@@ -70,6 +70,97 @@
         }
     },
     "types": {
+        "vercel:index/AuditLogDrainHttp:AuditLogDrainHttp": {
+            "properties": {
+                "compression": {
+                    "type": "string",
+                    "description": "The compression applied to HTTP request bodies. Can be \u003cspan pulumi-lang-nodejs=\"`gzip`\" pulumi-lang-dotnet=\"`Gzip`\" pulumi-lang-go=\"`gzip`\" pulumi-lang-python=\"`gzip`\" pulumi-lang-yaml=\"`gzip`\" pulumi-lang-java=\"`gzip`\"\u003e`gzip`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`none`\" pulumi-lang-dotnet=\"`None`\" pulumi-lang-go=\"`none`\" pulumi-lang-python=\"`none`\" pulumi-lang-yaml=\"`none`\" pulumi-lang-java=\"`none`\"\u003e`none`\u003c/span\u003e.\n"
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "The format used to deliver Audit Log events. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`ndjson`\" pulumi-lang-dotnet=\"`Ndjson`\" pulumi-lang-go=\"`ndjson`\" pulumi-lang-python=\"`ndjson`\" pulumi-lang-yaml=\"`ndjson`\" pulumi-lang-java=\"`ndjson`\"\u003e`ndjson`\u003c/span\u003e.\n"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "The HTTPS endpoint that receives Audit Log events.\n"
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Custom headers included in requests to the HTTP endpoint.\n",
+                    "secret": true
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "A custom secret used to sign Audit Log events. If omitted, Vercel generates one.\n",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "encoding",
+                "endpoint"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "compression",
+                        "encoding",
+                        "endpoint",
+                        "secret"
+                    ]
+                }
+            }
+        },
+        "vercel:index/AuditLogDrainS3:AuditLogDrainS3": {
+            "properties": {
+                "encoding": {
+                    "type": "string",
+                    "description": "The format used to write Audit Log events. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`ndjson`\" pulumi-lang-dotnet=\"`Ndjson`\" pulumi-lang-go=\"`ndjson`\" pulumi-lang-python=\"`ndjson`\" pulumi-lang-yaml=\"`ndjson`\" pulumi-lang-java=\"`ndjson`\"\u003e`ndjson`\u003c/span\u003e.\n"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.\n"
+                },
+                "objectAcl": {
+                    "type": "string",
+                    "description": "The canned ACL sent when writing objects. Can be \u003cspan pulumi-lang-nodejs=\"`private`\" pulumi-lang-dotnet=\"`Private`\" pulumi-lang-go=\"`private`\" pulumi-lang-python=\"`private`\" pulumi-lang-yaml=\"`private`\" pulumi-lang-java=\"`private`\"\u003e`private`\u003c/span\u003e, `bucket-owner-read`, or `bucket-owner-full-control`.\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "The AWS region containing the S3 bucket.\n"
+                },
+                "roleArn": {
+                    "type": "string",
+                    "description": "The ARN of the AWS IAM role Vercel assumes to write objects.\n"
+                },
+                "serverSideEncryption": {
+                    "type": "string",
+                    "description": "The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "encoding",
+                "endpoint",
+                "region",
+                "roleArn"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "encoding",
+                        "endpoint",
+                        "objectAcl",
+                        "region",
+                        "roleArn",
+                        "serverSideEncryption"
+                    ]
+                }
+            }
+        },
         "vercel:index/BulkRedirectsRedirect:BulkRedirectsRedirect": {
             "properties": {
                 "caseSensitive": {
@@ -811,7 +902,7 @@
                 },
                 "neg": {
                     "type": "boolean",
-                    "description": "Negate the condition\n"
+                    "description": "Negate the condition. Defaults to false.\n"
                 },
                 "op": {
                     "type": "string",
@@ -837,7 +928,16 @@
             "required": [
                 "op",
                 "type"
-            ]
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "neg",
+                        "op",
+                        "type"
+                    ]
+                }
+            }
         },
         "vercel:index/MicrofrontendGroupDefaultApp:MicrofrontendGroupDefaultApp": {
             "properties": {
@@ -3499,6 +3599,71 @@
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/auditLogDrain:AuditLogDrain": {
+            "description": "Provides an Audit Log Drain resource.\n\nAudit Log Drains forward team activity events to an HTTP endpoint or Amazon S3. They apply to the whole team and do not support project selection, filtering, or sampling.\n\n\u003e Audit Log Drains are only available to Enterprise teams.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.AuditLogDrain(\"example\", {\n    name: \"security-audit-events\",\n    http: {\n        endpoint: \"https://siem.example.com/vercel\",\n        encoding: \"ndjson\",\n        compression: \"gzip\",\n        headers: {\n            Authorization: \"Bearer my-secret-token\",\n        },\n    },\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.AuditLogDrain(\"example\",\n    name=\"security-audit-events\",\n    http={\n        \"endpoint\": \"https://siem.example.com/vercel\",\n        \"encoding\": \"ndjson\",\n        \"compression\": \"gzip\",\n        \"headers\": {\n            \"Authorization\": \"Bearer my-secret-token\",\n        },\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.AuditLogDrain(\"example\", new()\n    {\n        Name = \"security-audit-events\",\n        Http = new Vercel.Inputs.AuditLogDrainHttpArgs\n        {\n            Endpoint = \"https://siem.example.com/vercel\",\n            Encoding = \"ndjson\",\n            Compression = \"gzip\",\n            Headers = \n            {\n                { \"Authorization\", \"Bearer my-secret-token\" },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.NewAuditLogDrain(ctx, \"example\", \u0026vercel.AuditLogDrainArgs{\n\t\t\tName: pulumi.String(\"security-audit-events\"),\n\t\t\tHttp: \u0026vercel.AuditLogDrainHttpArgs{\n\t\t\t\tEndpoint:    pulumi.String(\"https://siem.example.com/vercel\"),\n\t\t\t\tEncoding:    pulumi.String(\"ndjson\"),\n\t\t\t\tCompression: pulumi.String(\"gzip\"),\n\t\t\t\tHeaders: pulumi.StringMap{\n\t\t\t\t\t\"Authorization\": pulumi.String(\"Bearer my-secret-token\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.AuditLogDrain;\nimport com.pulumiverse.vercel.AuditLogDrainArgs;\nimport com.pulumi.vercel.inputs.AuditLogDrainHttpArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new AuditLogDrain(\"example\", AuditLogDrainArgs.builder()\n            .name(\"security-audit-events\")\n            .http(AuditLogDrainHttpArgs.builder()\n                .endpoint(\"https://siem.example.com/vercel\")\n                .encoding(\"ndjson\")\n                .compression(\"gzip\")\n                .headers(Map.of(\"Authorization\", \"Bearer my-secret-token\"))\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:AuditLogDrain\n    properties:\n      name: security-audit-events\n      http:\n        endpoint: https://siem.example.com/vercel\n        encoding: ndjson\n        compression: gzip\n        headers:\n          Authorization: Bearer my-secret-token\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing with a default team configured in the provider, simply use the\naudit_log_drain_id.\n\n```sh\n$ pulumi import vercel:index/auditLogDrain:AuditLogDrain example drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, import using team_id/audit_log_drain_id.\n\n```sh\n$ pulumi import vercel:index/auditLogDrain:AuditLogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "http": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainHttp:AuditLogDrainHttp",
+                    "description": "Configuration for delivery to a custom HTTP endpoint. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the Audit Log Drain.\n"
+                },
+                "s3": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainS3:AuditLogDrainS3",
+                    "description": "Configuration for delivery to an Amazon S3 bucket. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Audit Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "name",
+                "teamId"
+            ],
+            "inputProperties": {
+                "http": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainHttp:AuditLogDrainHttp",
+                    "description": "Configuration for delivery to a custom HTTP endpoint. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the Audit Log Drain.\n"
+                },
+                "s3": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainS3:AuditLogDrainS3",
+                    "description": "Configuration for delivery to an Amazon S3 bucket. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Audit Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AuditLogDrain resources.\n",
+                "properties": {
+                    "http": {
+                        "$ref": "#/types/vercel:index/AuditLogDrainHttp:AuditLogDrainHttp",
+                        "description": "Configuration for delivery to a custom HTTP endpoint. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A human-readable name for the Audit Log Drain.\n"
+                    },
+                    "s3": {
+                        "$ref": "#/types/vercel:index/AuditLogDrainS3:AuditLogDrainS3",
+                        "description": "Configuration for delivery to an Amazon S3 bucket. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Audit Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
                     }
                 },
                 "type": "object"
