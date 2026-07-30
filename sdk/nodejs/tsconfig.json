@@ -18,6 +18,7 @@
         "accessGroupProject.ts",
         "alias.ts",
         "attackChallengeMode.ts",
+        "auditLogDrain.ts",
         "blobObject.ts",
         "blobProjectConnection.ts",
         "blobStore.ts",

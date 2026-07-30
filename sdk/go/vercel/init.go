@@ -31,6 +31,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Alias{}
 	case "vercel:index/attackChallengeMode:AttackChallengeMode":
 		r = &AttackChallengeMode{}
+	case "vercel:index/auditLogDrain:AuditLogDrain":
+		r = &AuditLogDrain{}
 	case "vercel:index/blobObject:BlobObject":
 		r = &BlobObject{}
 	case "vercel:index/blobProjectConnection:BlobProjectConnection":
@@ -169,6 +171,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/attackChallengeMode",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/auditLogDrain",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

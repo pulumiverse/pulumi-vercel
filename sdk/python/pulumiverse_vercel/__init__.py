@@ -11,6 +11,7 @@ from .access_group_member import *
 from .access_group_project import *
 from .alias import *
 from .attack_challenge_mode import *
+from .audit_log_drain import *
 from .blob_object import *
 from .blob_project_connection import *
 from .blob_store import *
@@ -144,6 +145,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/attackChallengeMode:AttackChallengeMode": "AttackChallengeMode"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/auditLogDrain",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/auditLogDrain:AuditLogDrain": "AuditLogDrain"
   }
  },
  {
