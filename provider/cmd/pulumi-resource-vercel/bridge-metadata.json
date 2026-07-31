@@ -21,6 +21,10 @@
                 "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
                 "majorVersion": 5
             },
+            "vercel_audit_log_drain": {
+                "current": "vercel:index/auditLogDrain:AuditLogDrain",
+                "majorVersion": 5
+            },
             "vercel_blob_object": {
                 "current": "vercel:index/blobObject:BlobObject",
                 "majorVersion": 5
