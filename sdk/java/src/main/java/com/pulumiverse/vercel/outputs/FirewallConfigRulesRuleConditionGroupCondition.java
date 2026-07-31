@@ -20,7 +20,7 @@ public final class FirewallConfigRulesRuleConditionGroupCondition {
      */
     private @Nullable String key;
     /**
-     * @return Negate the condition
+     * @return Negate the condition. Defaults to false.
      * 
      */
     private @Nullable Boolean neg;
@@ -54,7 +54,7 @@ public final class FirewallConfigRulesRuleConditionGroupCondition {
         return Optional.ofNullable(this.key);
     }
     /**
-     * @return Negate the condition
+     * @return Negate the condition. Defaults to false.
      * 
      */
     public Optional<Boolean> neg() {

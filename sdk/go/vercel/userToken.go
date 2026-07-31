@@ -92,6 +92,8 @@ type UserToken struct {
 	Origin pulumi.StringOutput `pulumi:"origin"`
 	// The token prefix used for identification.
 	Prefix pulumi.StringOutput `pulumi:"prefix"`
+	// The ID of the project this token should be scoped to. Requires team scope.
+	ProjectId pulumi.StringPtrOutput `pulumi:"projectId"`
 	// The token suffix used for identification.
 	Suffix pulumi.StringOutput `pulumi:"suffix"`
 	// The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
@@ -152,6 +154,8 @@ type userTokenState struct {
 	Origin *string `pulumi:"origin"`
 	// The token prefix used for identification.
 	Prefix *string `pulumi:"prefix"`
+	// The ID of the project this token should be scoped to. Requires team scope.
+	ProjectId *string `pulumi:"projectId"`
 	// The token suffix used for identification.
 	Suffix *string `pulumi:"suffix"`
 	// The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
@@ -179,6 +183,8 @@ type UserTokenState struct {
 	Origin pulumi.StringPtrInput
 	// The token prefix used for identification.
 	Prefix pulumi.StringPtrInput
+	// The ID of the project this token should be scoped to. Requires team scope.
+	ProjectId pulumi.StringPtrInput
 	// The token suffix used for identification.
 	Suffix pulumi.StringPtrInput
 	// The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
@@ -196,6 +202,8 @@ type userTokenArgs struct {
 	ExpiresAt *int `pulumi:"expiresAt"`
 	// The human-readable name of the token.
 	Name *string `pulumi:"name"`
+	// The ID of the project this token should be scoped to. Requires team scope.
+	ProjectId *string `pulumi:"projectId"`
 	// The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
@@ -206,6 +214,8 @@ type UserTokenArgs struct {
 	ExpiresAt pulumi.IntPtrInput
 	// The human-readable name of the token.
 	Name pulumi.StringPtrInput
+	// The ID of the project this token should be scoped to. Requires team scope.
+	ProjectId pulumi.StringPtrInput
 	// The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
@@ -340,6 +350,11 @@ func (o UserTokenOutput) Origin() pulumi.StringOutput {
 // The token prefix used for identification.
 func (o UserTokenOutput) Prefix() pulumi.StringOutput {
 	return o.ApplyT(func(v *UserToken) pulumi.StringOutput { return v.Prefix }).(pulumi.StringOutput)
+}
+
+// The ID of the project this token should be scoped to. Requires team scope.
+func (o UserTokenOutput) ProjectId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UserToken) pulumi.StringPtrOutput { return v.ProjectId }).(pulumi.StringPtrOutput)
 }
 
 // The token suffix used for identification.

@@ -30,6 +30,11 @@ export type AttackChallengeMode = import("./attackChallengeMode").AttackChalleng
 export const AttackChallengeMode: typeof import("./attackChallengeMode").AttackChallengeMode = null as any;
 utilities.lazyLoad(exports, ["AttackChallengeMode"], () => require("./attackChallengeMode"));
 
+export { AuditLogDrainArgs, AuditLogDrainState } from "./auditLogDrain";
+export type AuditLogDrain = import("./auditLogDrain").AuditLogDrain;
+export const AuditLogDrain: typeof import("./auditLogDrain").AuditLogDrain = null as any;
+utilities.lazyLoad(exports, ["AuditLogDrain"], () => require("./auditLogDrain"));
+
 export { BlobObjectArgs, BlobObjectState } from "./blobObject";
 export type BlobObject = import("./blobObject").BlobObject;
 export const BlobObject: typeof import("./blobObject").BlobObject = null as any;
@@ -462,6 +467,8 @@ const _module = {
                 return new Alias(name, <any>undefined, { urn })
             case "vercel:index/attackChallengeMode:AttackChallengeMode":
                 return new AttackChallengeMode(name, <any>undefined, { urn })
+            case "vercel:index/auditLogDrain:AuditLogDrain":
+                return new AuditLogDrain(name, <any>undefined, { urn })
             case "vercel:index/blobObject:BlobObject":
                 return new BlobObject(name, <any>undefined, { urn })
             case "vercel:index/blobProjectConnection:BlobProjectConnection":
@@ -556,6 +563,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/accessGroupMember", _modu
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/auditLogDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobObject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobProjectConnection", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobStore", _module)
