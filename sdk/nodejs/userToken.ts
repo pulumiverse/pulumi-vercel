@@ -111,6 +111,10 @@ export class UserToken extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly prefix: pulumi.Output<string>;
     /**
+     * The ID of the project this token should be scoped to. Requires team scope.
+     */
+    declare public readonly projectId: pulumi.Output<string | undefined>;
+    /**
      * The token suffix used for identification.
      */
     declare public /*out*/ readonly suffix: pulumi.Output<string>;
@@ -145,6 +149,7 @@ export class UserToken extends pulumi.CustomResource {
             resourceInputs["name"] = state?.name;
             resourceInputs["origin"] = state?.origin;
             resourceInputs["prefix"] = state?.prefix;
+            resourceInputs["projectId"] = state?.projectId;
             resourceInputs["suffix"] = state?.suffix;
             resourceInputs["teamId"] = state?.teamId;
             resourceInputs["type"] = state?.type;
@@ -152,6 +157,7 @@ export class UserToken extends pulumi.CustomResource {
             const args = argsOrState as UserTokenArgs | undefined;
             resourceInputs["expiresAt"] = args?.expiresAt;
             resourceInputs["name"] = args?.name;
+            resourceInputs["projectId"] = args?.projectId;
             resourceInputs["teamId"] = args?.teamId;
             resourceInputs["activeAt"] = undefined /*out*/;
             resourceInputs["bearerToken"] = undefined /*out*/;
@@ -211,6 +217,10 @@ export interface UserTokenState {
      */
     prefix?: pulumi.Input<string>;
     /**
+     * The ID of the project this token should be scoped to. Requires team scope.
+     */
+    projectId?: pulumi.Input<string>;
+    /**
      * The token suffix used for identification.
      */
     suffix?: pulumi.Input<string>;
@@ -236,6 +246,10 @@ export interface UserTokenArgs {
      * The human-readable name of the token.
      */
     name?: pulumi.Input<string>;
+    /**
+     * The ID of the project this token should be scoped to. Requires team scope.
+     */
+    projectId?: pulumi.Input<string>;
     /**
      * The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
      */

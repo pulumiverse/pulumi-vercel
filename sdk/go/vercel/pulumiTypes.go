@@ -13,6 +13,451 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type AuditLogDrainHttp struct {
+	// The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+	Compression *string `pulumi:"compression"`
+	// The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+	Encoding string `pulumi:"encoding"`
+	// The HTTPS endpoint that receives Audit Log events.
+	Endpoint string `pulumi:"endpoint"`
+	// Custom headers included in requests to the HTTP endpoint.
+	Headers map[string]string `pulumi:"headers"`
+	// A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+	Secret *string `pulumi:"secret"`
+}
+
+// AuditLogDrainHttpInput is an input type that accepts AuditLogDrainHttpArgs and AuditLogDrainHttpOutput values.
+// You can construct a concrete instance of `AuditLogDrainHttpInput` via:
+//
+//	AuditLogDrainHttpArgs{...}
+type AuditLogDrainHttpInput interface {
+	pulumi.Input
+
+	ToAuditLogDrainHttpOutput() AuditLogDrainHttpOutput
+	ToAuditLogDrainHttpOutputWithContext(context.Context) AuditLogDrainHttpOutput
+}
+
+type AuditLogDrainHttpArgs struct {
+	// The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+	Compression pulumi.StringPtrInput `pulumi:"compression"`
+	// The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+	Encoding pulumi.StringInput `pulumi:"encoding"`
+	// The HTTPS endpoint that receives Audit Log events.
+	Endpoint pulumi.StringInput `pulumi:"endpoint"`
+	// Custom headers included in requests to the HTTP endpoint.
+	Headers pulumi.StringMapInput `pulumi:"headers"`
+	// A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+	Secret pulumi.StringPtrInput `pulumi:"secret"`
+}
+
+func (AuditLogDrainHttpArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditLogDrainHttp)(nil)).Elem()
+}
+
+func (i AuditLogDrainHttpArgs) ToAuditLogDrainHttpOutput() AuditLogDrainHttpOutput {
+	return i.ToAuditLogDrainHttpOutputWithContext(context.Background())
+}
+
+func (i AuditLogDrainHttpArgs) ToAuditLogDrainHttpOutputWithContext(ctx context.Context) AuditLogDrainHttpOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditLogDrainHttpOutput)
+}
+
+func (i AuditLogDrainHttpArgs) ToAuditLogDrainHttpPtrOutput() AuditLogDrainHttpPtrOutput {
+	return i.ToAuditLogDrainHttpPtrOutputWithContext(context.Background())
+}
+
+func (i AuditLogDrainHttpArgs) ToAuditLogDrainHttpPtrOutputWithContext(ctx context.Context) AuditLogDrainHttpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditLogDrainHttpOutput).ToAuditLogDrainHttpPtrOutputWithContext(ctx)
+}
+
+// AuditLogDrainHttpPtrInput is an input type that accepts AuditLogDrainHttpArgs, AuditLogDrainHttpPtr and AuditLogDrainHttpPtrOutput values.
+// You can construct a concrete instance of `AuditLogDrainHttpPtrInput` via:
+//
+//	        AuditLogDrainHttpArgs{...}
+//
+//	or:
+//
+//	        nil
+type AuditLogDrainHttpPtrInput interface {
+	pulumi.Input
+
+	ToAuditLogDrainHttpPtrOutput() AuditLogDrainHttpPtrOutput
+	ToAuditLogDrainHttpPtrOutputWithContext(context.Context) AuditLogDrainHttpPtrOutput
+}
+
+type auditLogDrainHttpPtrType AuditLogDrainHttpArgs
+
+func AuditLogDrainHttpPtr(v *AuditLogDrainHttpArgs) AuditLogDrainHttpPtrInput {
+	return (*auditLogDrainHttpPtrType)(v)
+}
+
+func (*auditLogDrainHttpPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AuditLogDrainHttp)(nil)).Elem()
+}
+
+func (i *auditLogDrainHttpPtrType) ToAuditLogDrainHttpPtrOutput() AuditLogDrainHttpPtrOutput {
+	return i.ToAuditLogDrainHttpPtrOutputWithContext(context.Background())
+}
+
+func (i *auditLogDrainHttpPtrType) ToAuditLogDrainHttpPtrOutputWithContext(ctx context.Context) AuditLogDrainHttpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditLogDrainHttpPtrOutput)
+}
+
+type AuditLogDrainHttpOutput struct{ *pulumi.OutputState }
+
+func (AuditLogDrainHttpOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditLogDrainHttp)(nil)).Elem()
+}
+
+func (o AuditLogDrainHttpOutput) ToAuditLogDrainHttpOutput() AuditLogDrainHttpOutput {
+	return o
+}
+
+func (o AuditLogDrainHttpOutput) ToAuditLogDrainHttpOutputWithContext(ctx context.Context) AuditLogDrainHttpOutput {
+	return o
+}
+
+func (o AuditLogDrainHttpOutput) ToAuditLogDrainHttpPtrOutput() AuditLogDrainHttpPtrOutput {
+	return o.ToAuditLogDrainHttpPtrOutputWithContext(context.Background())
+}
+
+func (o AuditLogDrainHttpOutput) ToAuditLogDrainHttpPtrOutputWithContext(ctx context.Context) AuditLogDrainHttpPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AuditLogDrainHttp) *AuditLogDrainHttp {
+		return &v
+	}).(AuditLogDrainHttpPtrOutput)
+}
+
+// The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+func (o AuditLogDrainHttpOutput) Compression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AuditLogDrainHttp) *string { return v.Compression }).(pulumi.StringPtrOutput)
+}
+
+// The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+func (o AuditLogDrainHttpOutput) Encoding() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditLogDrainHttp) string { return v.Encoding }).(pulumi.StringOutput)
+}
+
+// The HTTPS endpoint that receives Audit Log events.
+func (o AuditLogDrainHttpOutput) Endpoint() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditLogDrainHttp) string { return v.Endpoint }).(pulumi.StringOutput)
+}
+
+// Custom headers included in requests to the HTTP endpoint.
+func (o AuditLogDrainHttpOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v AuditLogDrainHttp) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
+}
+
+// A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+func (o AuditLogDrainHttpOutput) Secret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AuditLogDrainHttp) *string { return v.Secret }).(pulumi.StringPtrOutput)
+}
+
+type AuditLogDrainHttpPtrOutput struct{ *pulumi.OutputState }
+
+func (AuditLogDrainHttpPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AuditLogDrainHttp)(nil)).Elem()
+}
+
+func (o AuditLogDrainHttpPtrOutput) ToAuditLogDrainHttpPtrOutput() AuditLogDrainHttpPtrOutput {
+	return o
+}
+
+func (o AuditLogDrainHttpPtrOutput) ToAuditLogDrainHttpPtrOutputWithContext(ctx context.Context) AuditLogDrainHttpPtrOutput {
+	return o
+}
+
+func (o AuditLogDrainHttpPtrOutput) Elem() AuditLogDrainHttpOutput {
+	return o.ApplyT(func(v *AuditLogDrainHttp) AuditLogDrainHttp {
+		if v != nil {
+			return *v
+		}
+		var ret AuditLogDrainHttp
+		return ret
+	}).(AuditLogDrainHttpOutput)
+}
+
+// The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+func (o AuditLogDrainHttpPtrOutput) Compression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainHttp) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Compression
+	}).(pulumi.StringPtrOutput)
+}
+
+// The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+func (o AuditLogDrainHttpPtrOutput) Encoding() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainHttp) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Encoding
+	}).(pulumi.StringPtrOutput)
+}
+
+// The HTTPS endpoint that receives Audit Log events.
+func (o AuditLogDrainHttpPtrOutput) Endpoint() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainHttp) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Endpoint
+	}).(pulumi.StringPtrOutput)
+}
+
+// Custom headers included in requests to the HTTP endpoint.
+func (o AuditLogDrainHttpPtrOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *AuditLogDrainHttp) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.StringMapOutput)
+}
+
+// A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+func (o AuditLogDrainHttpPtrOutput) Secret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainHttp) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Secret
+	}).(pulumi.StringPtrOutput)
+}
+
+type AuditLogDrainS3 struct {
+	// The format used to write Audit Log events. Can be `json` or `ndjson`.
+	Encoding string `pulumi:"encoding"`
+	// The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+	Endpoint string `pulumi:"endpoint"`
+	// The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+	ObjectAcl *string `pulumi:"objectAcl"`
+	// The AWS region containing the S3 bucket.
+	Region string `pulumi:"region"`
+	// The ARN of the AWS IAM role Vercel assumes to write objects.
+	RoleArn string `pulumi:"roleArn"`
+	// The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+	ServerSideEncryption *string `pulumi:"serverSideEncryption"`
+}
+
+// AuditLogDrainS3Input is an input type that accepts AuditLogDrainS3Args and AuditLogDrainS3Output values.
+// You can construct a concrete instance of `AuditLogDrainS3Input` via:
+//
+//	AuditLogDrainS3Args{...}
+type AuditLogDrainS3Input interface {
+	pulumi.Input
+
+	ToAuditLogDrainS3Output() AuditLogDrainS3Output
+	ToAuditLogDrainS3OutputWithContext(context.Context) AuditLogDrainS3Output
+}
+
+type AuditLogDrainS3Args struct {
+	// The format used to write Audit Log events. Can be `json` or `ndjson`.
+	Encoding pulumi.StringInput `pulumi:"encoding"`
+	// The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+	Endpoint pulumi.StringInput `pulumi:"endpoint"`
+	// The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+	ObjectAcl pulumi.StringPtrInput `pulumi:"objectAcl"`
+	// The AWS region containing the S3 bucket.
+	Region pulumi.StringInput `pulumi:"region"`
+	// The ARN of the AWS IAM role Vercel assumes to write objects.
+	RoleArn pulumi.StringInput `pulumi:"roleArn"`
+	// The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+	ServerSideEncryption pulumi.StringPtrInput `pulumi:"serverSideEncryption"`
+}
+
+func (AuditLogDrainS3Args) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditLogDrainS3)(nil)).Elem()
+}
+
+func (i AuditLogDrainS3Args) ToAuditLogDrainS3Output() AuditLogDrainS3Output {
+	return i.ToAuditLogDrainS3OutputWithContext(context.Background())
+}
+
+func (i AuditLogDrainS3Args) ToAuditLogDrainS3OutputWithContext(ctx context.Context) AuditLogDrainS3Output {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditLogDrainS3Output)
+}
+
+func (i AuditLogDrainS3Args) ToAuditLogDrainS3PtrOutput() AuditLogDrainS3PtrOutput {
+	return i.ToAuditLogDrainS3PtrOutputWithContext(context.Background())
+}
+
+func (i AuditLogDrainS3Args) ToAuditLogDrainS3PtrOutputWithContext(ctx context.Context) AuditLogDrainS3PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditLogDrainS3Output).ToAuditLogDrainS3PtrOutputWithContext(ctx)
+}
+
+// AuditLogDrainS3PtrInput is an input type that accepts AuditLogDrainS3Args, AuditLogDrainS3Ptr and AuditLogDrainS3PtrOutput values.
+// You can construct a concrete instance of `AuditLogDrainS3PtrInput` via:
+//
+//	        AuditLogDrainS3Args{...}
+//
+//	or:
+//
+//	        nil
+type AuditLogDrainS3PtrInput interface {
+	pulumi.Input
+
+	ToAuditLogDrainS3PtrOutput() AuditLogDrainS3PtrOutput
+	ToAuditLogDrainS3PtrOutputWithContext(context.Context) AuditLogDrainS3PtrOutput
+}
+
+type auditLogDrainS3PtrType AuditLogDrainS3Args
+
+func AuditLogDrainS3Ptr(v *AuditLogDrainS3Args) AuditLogDrainS3PtrInput {
+	return (*auditLogDrainS3PtrType)(v)
+}
+
+func (*auditLogDrainS3PtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AuditLogDrainS3)(nil)).Elem()
+}
+
+func (i *auditLogDrainS3PtrType) ToAuditLogDrainS3PtrOutput() AuditLogDrainS3PtrOutput {
+	return i.ToAuditLogDrainS3PtrOutputWithContext(context.Background())
+}
+
+func (i *auditLogDrainS3PtrType) ToAuditLogDrainS3PtrOutputWithContext(ctx context.Context) AuditLogDrainS3PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditLogDrainS3PtrOutput)
+}
+
+type AuditLogDrainS3Output struct{ *pulumi.OutputState }
+
+func (AuditLogDrainS3Output) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditLogDrainS3)(nil)).Elem()
+}
+
+func (o AuditLogDrainS3Output) ToAuditLogDrainS3Output() AuditLogDrainS3Output {
+	return o
+}
+
+func (o AuditLogDrainS3Output) ToAuditLogDrainS3OutputWithContext(ctx context.Context) AuditLogDrainS3Output {
+	return o
+}
+
+func (o AuditLogDrainS3Output) ToAuditLogDrainS3PtrOutput() AuditLogDrainS3PtrOutput {
+	return o.ToAuditLogDrainS3PtrOutputWithContext(context.Background())
+}
+
+func (o AuditLogDrainS3Output) ToAuditLogDrainS3PtrOutputWithContext(ctx context.Context) AuditLogDrainS3PtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AuditLogDrainS3) *AuditLogDrainS3 {
+		return &v
+	}).(AuditLogDrainS3PtrOutput)
+}
+
+// The format used to write Audit Log events. Can be `json` or `ndjson`.
+func (o AuditLogDrainS3Output) Encoding() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditLogDrainS3) string { return v.Encoding }).(pulumi.StringOutput)
+}
+
+// The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+func (o AuditLogDrainS3Output) Endpoint() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditLogDrainS3) string { return v.Endpoint }).(pulumi.StringOutput)
+}
+
+// The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+func (o AuditLogDrainS3Output) ObjectAcl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AuditLogDrainS3) *string { return v.ObjectAcl }).(pulumi.StringPtrOutput)
+}
+
+// The AWS region containing the S3 bucket.
+func (o AuditLogDrainS3Output) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditLogDrainS3) string { return v.Region }).(pulumi.StringOutput)
+}
+
+// The ARN of the AWS IAM role Vercel assumes to write objects.
+func (o AuditLogDrainS3Output) RoleArn() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditLogDrainS3) string { return v.RoleArn }).(pulumi.StringOutput)
+}
+
+// The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+func (o AuditLogDrainS3Output) ServerSideEncryption() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AuditLogDrainS3) *string { return v.ServerSideEncryption }).(pulumi.StringPtrOutput)
+}
+
+type AuditLogDrainS3PtrOutput struct{ *pulumi.OutputState }
+
+func (AuditLogDrainS3PtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AuditLogDrainS3)(nil)).Elem()
+}
+
+func (o AuditLogDrainS3PtrOutput) ToAuditLogDrainS3PtrOutput() AuditLogDrainS3PtrOutput {
+	return o
+}
+
+func (o AuditLogDrainS3PtrOutput) ToAuditLogDrainS3PtrOutputWithContext(ctx context.Context) AuditLogDrainS3PtrOutput {
+	return o
+}
+
+func (o AuditLogDrainS3PtrOutput) Elem() AuditLogDrainS3Output {
+	return o.ApplyT(func(v *AuditLogDrainS3) AuditLogDrainS3 {
+		if v != nil {
+			return *v
+		}
+		var ret AuditLogDrainS3
+		return ret
+	}).(AuditLogDrainS3Output)
+}
+
+// The format used to write Audit Log events. Can be `json` or `ndjson`.
+func (o AuditLogDrainS3PtrOutput) Encoding() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Encoding
+	}).(pulumi.StringPtrOutput)
+}
+
+// The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+func (o AuditLogDrainS3PtrOutput) Endpoint() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Endpoint
+	}).(pulumi.StringPtrOutput)
+}
+
+// The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+func (o AuditLogDrainS3PtrOutput) ObjectAcl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainS3) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ObjectAcl
+	}).(pulumi.StringPtrOutput)
+}
+
+// The AWS region containing the S3 bucket.
+func (o AuditLogDrainS3PtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Region
+	}).(pulumi.StringPtrOutput)
+}
+
+// The ARN of the AWS IAM role Vercel assumes to write objects.
+func (o AuditLogDrainS3PtrOutput) RoleArn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RoleArn
+	}).(pulumi.StringPtrOutput)
+}
+
+// The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+func (o AuditLogDrainS3PtrOutput) ServerSideEncryption() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AuditLogDrainS3) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServerSideEncryption
+	}).(pulumi.StringPtrOutput)
+}
+
 type BulkRedirectsRedirect struct {
 	// Whether the source match is case-sensitive.
 	CaseSensitive *bool `pulumi:"caseSensitive"`
@@ -5277,7 +5722,7 @@ func (o FirewallConfigRulesRuleConditionGroupArrayOutput) Index(i pulumi.IntInpu
 type FirewallConfigRulesRuleConditionGroupCondition struct {
 	// Key within type to match against
 	Key *string `pulumi:"key"`
-	// Negate the condition
+	// Negate the condition. Defaults to false.
 	Neg *bool `pulumi:"neg"`
 	// Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
 	Op string `pulumi:"op"`
@@ -5303,7 +5748,7 @@ type FirewallConfigRulesRuleConditionGroupConditionInput interface {
 type FirewallConfigRulesRuleConditionGroupConditionArgs struct {
 	// Key within type to match against
 	Key pulumi.StringPtrInput `pulumi:"key"`
-	// Negate the condition
+	// Negate the condition. Defaults to false.
 	Neg pulumi.BoolPtrInput `pulumi:"neg"`
 	// Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
 	Op pulumi.StringInput `pulumi:"op"`
@@ -5371,7 +5816,7 @@ func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Key() pulumi.Strin
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *string { return v.Key }).(pulumi.StringPtrOutput)
 }
 
-// Negate the condition
+// Negate the condition. Defaults to false.
 func (o FirewallConfigRulesRuleConditionGroupConditionOutput) Neg() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v FirewallConfigRulesRuleConditionGroupCondition) *bool { return v.Neg }).(pulumi.BoolPtrOutput)
 }
@@ -14787,6 +15232,10 @@ func (o GetTraceDrainSamplingRuleArrayOutput) Index(i pulumi.IntInput) GetTraceD
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainHttpInput)(nil)).Elem(), AuditLogDrainHttpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainHttpPtrInput)(nil)).Elem(), AuditLogDrainHttpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainS3Input)(nil)).Elem(), AuditLogDrainS3Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainS3PtrInput)(nil)).Elem(), AuditLogDrainS3Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectInput)(nil)).Elem(), BulkRedirectsRedirectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectArrayInput)(nil)).Elem(), BulkRedirectsRedirectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
@@ -14995,6 +15444,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectArrayInput)(nil)).Elem(), GetTeamMemberProjectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTraceDrainSamplingRuleInput)(nil)).Elem(), GetTraceDrainSamplingRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTraceDrainSamplingRuleArrayInput)(nil)).Elem(), GetTraceDrainSamplingRuleArray{})
+	pulumi.RegisterOutputType(AuditLogDrainHttpOutput{})
+	pulumi.RegisterOutputType(AuditLogDrainHttpPtrOutput{})
+	pulumi.RegisterOutputType(AuditLogDrainS3Output{})
+	pulumi.RegisterOutputType(AuditLogDrainS3PtrOutput{})
 	pulumi.RegisterOutputType(BulkRedirectsRedirectOutput{})
 	pulumi.RegisterOutputType(BulkRedirectsRedirectArrayOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})

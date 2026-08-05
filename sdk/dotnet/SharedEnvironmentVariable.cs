@@ -220,7 +220,7 @@ namespace Pulumiverse.Vercel
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
-        [Input("projectIds", required: true)]
+        [Input("projectIds")]
         private InputList<string>? _projectIds;
 
         /// <summary>

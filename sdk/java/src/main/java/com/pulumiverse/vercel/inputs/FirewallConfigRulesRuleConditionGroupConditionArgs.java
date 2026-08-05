@@ -34,14 +34,14 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
     }
 
     /**
-     * Negate the condition
+     * Negate the condition. Defaults to false.
      * 
      */
     @Import(name="neg")
     private @Nullable Output<Boolean> neg;
 
     /**
-     * @return Negate the condition
+     * @return Negate the condition. Defaults to false.
      * 
      */
     public Optional<Output<Boolean>> neg() {
@@ -159,7 +159,7 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
         }
 
         /**
-         * @param neg Negate the condition
+         * @param neg Negate the condition. Defaults to false.
          * 
          * @return builder
          * 
@@ -170,7 +170,7 @@ public final class FirewallConfigRulesRuleConditionGroupConditionArgs extends co
         }
 
         /**
-         * @param neg Negate the condition
+         * @param neg Negate the condition. Defaults to false.
          * 
          * @return builder
          * 

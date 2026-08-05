@@ -121,6 +121,12 @@ namespace Pulumiverse.Vercel
         public Output<string> Prefix { get; private set; } = null!;
 
         /// <summary>
+        /// The ID of the project this token should be scoped to. Requires team scope.
+        /// </summary>
+        [Output("projectId")]
+        public Output<string?> ProjectId { get; private set; } = null!;
+
+        /// <summary>
         /// The token suffix used for identification.
         /// </summary>
         [Output("suffix")]
@@ -202,6 +208,12 @@ namespace Pulumiverse.Vercel
         public Input<string>? Name { get; set; }
 
         /// <summary>
+        /// The ID of the project this token should be scoped to. Requires team scope.
+        /// </summary>
+        [Input("projectId")]
+        public Input<string>? ProjectId { get; set; }
+
+        /// <summary>
         /// The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
@@ -278,6 +290,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("prefix")]
         public Input<string>? Prefix { get; set; }
+
+        /// <summary>
+        /// The ID of the project this token should be scoped to. Requires team scope.
+        /// </summary>
+        [Input("projectId")]
+        public Input<string>? ProjectId { get; set; }
 
         /// <summary>
         /// The token suffix used for identification.
