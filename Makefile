@@ -292,7 +292,7 @@ upstream: .make/upstream
 #
 ci-mgmt: .ci-mgmt.yaml
 	go run github.com/pulumi-labs/ci-mgmt/provider-ci@master generate
-w.PHONY: ci-mgmt
+.PHONY: ci-mgmt
 
 # Start debug server for tfgen
 debug_tfgen:
