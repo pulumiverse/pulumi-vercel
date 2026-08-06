@@ -131,9 +131,6 @@ func NewSharedEnvironmentVariable(ctx *pulumi.Context,
 	if args.Key == nil {
 		return nil, errors.New("invalid value for required argument 'Key'")
 	}
-	if args.ProjectIds == nil {
-		return nil, errors.New("invalid value for required argument 'ProjectIds'")
-	}
 	if args.Sensitive == nil {
 		return nil, errors.New("invalid value for required argument 'Sensitive'")
 	}

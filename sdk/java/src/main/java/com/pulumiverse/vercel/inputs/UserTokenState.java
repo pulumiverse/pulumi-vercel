@@ -152,6 +152,21 @@ public final class UserTokenState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The ID of the project this token should be scoped to. Requires team scope.
+     * 
+     */
+    @Import(name="projectId")
+    private @Nullable Output<String> projectId;
+
+    /**
+     * @return The ID of the project this token should be scoped to. Requires team scope.
+     * 
+     */
+    public Optional<Output<String>> projectId() {
+        return Optional.ofNullable(this.projectId);
+    }
+
+    /**
      * The token suffix used for identification.
      * 
      */
@@ -208,6 +223,7 @@ public final class UserTokenState extends com.pulumi.resources.ResourceArgs {
         this.name = $.name;
         this.origin = $.origin;
         this.prefix = $.prefix;
+        this.projectId = $.projectId;
         this.suffix = $.suffix;
         this.teamId = $.teamId;
         this.type = $.type;
@@ -418,6 +434,27 @@ public final class UserTokenState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder prefix(String prefix) {
             return prefix(Output.of(prefix));
+        }
+
+        /**
+         * @param projectId The ID of the project this token should be scoped to. Requires team scope.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder projectId(@Nullable Output<String> projectId) {
+            $.projectId = projectId;
+            return this;
+        }
+
+        /**
+         * @param projectId The ID of the project this token should be scoped to. Requires team scope.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder projectId(String projectId) {
+            return projectId(Output.of(projectId));
         }
 
         /**

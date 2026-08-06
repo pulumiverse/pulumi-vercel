@@ -6,6 +6,7 @@ package com.pulumiverse.vercel;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -47,6 +48,21 @@ public final class VcrRepositoryArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     * 
+     */
+    @Import(name="public")
+    private @Nullable Output<Boolean> public_;
+
+    /**
+     * @return Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     * 
+     */
+    public Optional<Output<Boolean>> public_() {
+        return Optional.ofNullable(this.public_);
+    }
+
+    /**
      * The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
      * 
      */
@@ -66,6 +82,7 @@ public final class VcrRepositoryArgs extends com.pulumi.resources.ResourceArgs {
     private VcrRepositoryArgs(VcrRepositoryArgs $) {
         this.name = $.name;
         this.projectId = $.projectId;
+        this.public_ = $.public_;
         this.teamId = $.teamId;
     }
 
@@ -127,6 +144,27 @@ public final class VcrRepositoryArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder projectId(String projectId) {
             return projectId(Output.of(projectId));
+        }
+
+        /**
+         * @param public_ Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder public_(@Nullable Output<Boolean> public_) {
+            $.public_ = public_;
+            return this;
+        }
+
+        /**
+         * @param public_ Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder public_(Boolean public_) {
+            return public_(Output.of(public_));
         }
 
         /**

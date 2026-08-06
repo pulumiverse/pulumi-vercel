@@ -26,7 +26,7 @@ class GetVcrRepositoryResult:
     """
     A collection of values returned by getVcrRepository.
     """
-    def __init__(__self__, id=None, name=None, project_id=None, team_id=None, url=None):
+    def __init__(__self__, id=None, name=None, project_id=None, public=None, team_id=None, url=None):
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -36,6 +36,9 @@ class GetVcrRepositoryResult:
         if project_id and not isinstance(project_id, str):
             raise TypeError("Expected argument 'project_id' to be a str")
         pulumi.set(__self__, "project_id", project_id)
+        if public and not isinstance(public, bool):
+            raise TypeError("Expected argument 'public' to be a bool")
+        pulumi.set(__self__, "public", public)
         if team_id and not isinstance(team_id, str):
             raise TypeError("Expected argument 'team_id' to be a str")
         pulumi.set(__self__, "team_id", team_id)
@@ -68,6 +71,14 @@ class GetVcrRepositoryResult:
         return pulumi.get(self, "project_id")
 
     @_builtins.property
+    @pulumi.getter
+    def public(self) -> _builtins.bool:
+        """
+        Whether the repository is pullable by any Vercel team.
+        """
+        return pulumi.get(self, "public")
+
+    @_builtins.property
     @pulumi.getter(name="teamId")
     def team_id(self) -> _builtins.str:
         """
@@ -93,6 +104,7 @@ class AwaitableGetVcrRepositoryResult(GetVcrRepositoryResult):
             id=self.id,
             name=self.name,
             project_id=self.project_id,
+            public=self.public,
             team_id=self.team_id,
             url=self.url)
 
@@ -133,6 +145,7 @@ def get_vcr_repository(name: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         project_id=pulumi.get(__ret__, 'project_id'),
+        public=pulumi.get(__ret__, 'public'),
         team_id=pulumi.get(__ret__, 'team_id'),
         url=pulumi.get(__ret__, 'url'))
 def get_vcr_repository_output(name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -170,5 +183,6 @@ def get_vcr_repository_output(name: Optional[pulumi.Input[_builtins.str]] = None
         id=pulumi.get(__response__, 'id'),
         name=pulumi.get(__response__, 'name'),
         project_id=pulumi.get(__response__, 'project_id'),
+        public=pulumi.get(__response__, 'public'),
         team_id=pulumi.get(__response__, 'team_id'),
         url=pulumi.get(__response__, 'url')))

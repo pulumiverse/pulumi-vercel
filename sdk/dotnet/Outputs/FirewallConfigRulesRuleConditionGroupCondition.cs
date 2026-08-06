@@ -19,7 +19,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? Key;
         /// <summary>
-        /// Negate the condition
+        /// Negate the condition. Defaults to false.
         /// </summary>
         public readonly bool? Neg;
         /// <summary>

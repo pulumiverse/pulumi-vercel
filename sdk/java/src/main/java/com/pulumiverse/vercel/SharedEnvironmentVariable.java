@@ -151,14 +151,14 @@ public class SharedEnvironmentVariable extends com.pulumi.resources.CustomResour
      * 
      */
     @Export(name="projectIds", refs={List.class,String.class}, tree="[0,1]")
-    private Output<List<String>> projectIds;
+    private Output</* @Nullable */ List<String>> projectIds;
 
     /**
      * @return The ID of the Vercel project.
      * 
      */
-    public Output<List<String>> projectIds() {
-        return this.projectIds;
+    public Output<Optional<List<String>>> projectIds() {
+        return Codegen.optional(this.projectIds);
     }
     /**
      * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
