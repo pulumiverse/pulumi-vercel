@@ -21,18 +21,22 @@ class UserTokenArgs:
     def __init__(__self__, *,
                  expires_at: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a UserToken resource.
 
         :param pulumi.Input[_builtins.int] expires_at: The Unix timestamp in milliseconds when the token should expire.
         :param pulumi.Input[_builtins.str] name: The human-readable name of the token.
+        :param pulumi.Input[_builtins.str] project_id: The ID of the project this token should be scoped to. Requires team scope.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
         """
         if expires_at is not None:
             pulumi.set(__self__, "expires_at", expires_at)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if project_id is not None:
+            pulumi.set(__self__, "project_id", project_id)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
 
@@ -61,6 +65,18 @@ class UserTokenArgs:
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The ID of the project this token should be scoped to. Requires team scope.
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "project_id", value)
+
+    @_builtins.property
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -85,6 +101,7 @@ class _UserTokenState:
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  origin: Optional[pulumi.Input[_builtins.str]] = None,
                  prefix: Optional[pulumi.Input[_builtins.str]] = None,
+                 project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  suffix: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  type: Optional[pulumi.Input[_builtins.str]] = None):
@@ -100,6 +117,7 @@ class _UserTokenState:
         :param pulumi.Input[_builtins.str] name: The human-readable name of the token.
         :param pulumi.Input[_builtins.str] origin: How the token was created.
         :param pulumi.Input[_builtins.str] prefix: The token prefix used for identification.
+        :param pulumi.Input[_builtins.str] project_id: The ID of the project this token should be scoped to. Requires team scope.
         :param pulumi.Input[_builtins.str] suffix: The token suffix used for identification.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] type: The type of the token.
@@ -122,6 +140,8 @@ class _UserTokenState:
             pulumi.set(__self__, "origin", origin)
         if prefix is not None:
             pulumi.set(__self__, "prefix", prefix)
+        if project_id is not None:
+            pulumi.set(__self__, "project_id", project_id)
         if suffix is not None:
             pulumi.set(__self__, "suffix", suffix)
         if team_id is not None:
@@ -238,6 +258,18 @@ class _UserTokenState:
         pulumi.set(self, "prefix", value)
 
     @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The ID of the project this token should be scoped to. Requires team scope.
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "project_id", value)
+
+    @_builtins.property
     @pulumi.getter
     def suffix(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -282,6 +314,7 @@ class UserToken(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  expires_at: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
@@ -330,6 +363,7 @@ class UserToken(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.int] expires_at: The Unix timestamp in milliseconds when the token should expire.
         :param pulumi.Input[_builtins.str] name: The human-readable name of the token.
+        :param pulumi.Input[_builtins.str] project_id: The ID of the project this token should be scoped to. Requires team scope.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
         """
         ...
@@ -397,6 +431,7 @@ class UserToken(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  expires_at: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 project_id: Optional[pulumi.Input[_builtins.str]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -409,6 +444,7 @@ class UserToken(pulumi.CustomResource):
 
             __props__.__dict__["expires_at"] = expires_at
             __props__.__dict__["name"] = name
+            __props__.__dict__["project_id"] = project_id
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["active_at"] = None
             __props__.__dict__["bearer_token"] = None
@@ -440,6 +476,7 @@ class UserToken(pulumi.CustomResource):
             name: Optional[pulumi.Input[_builtins.str]] = None,
             origin: Optional[pulumi.Input[_builtins.str]] = None,
             prefix: Optional[pulumi.Input[_builtins.str]] = None,
+            project_id: Optional[pulumi.Input[_builtins.str]] = None,
             suffix: Optional[pulumi.Input[_builtins.str]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None,
             type: Optional[pulumi.Input[_builtins.str]] = None) -> 'UserToken':
@@ -459,6 +496,7 @@ class UserToken(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: The human-readable name of the token.
         :param pulumi.Input[_builtins.str] origin: How the token was created.
         :param pulumi.Input[_builtins.str] prefix: The token prefix used for identification.
+        :param pulumi.Input[_builtins.str] project_id: The ID of the project this token should be scoped to. Requires team scope.
         :param pulumi.Input[_builtins.str] suffix: The token suffix used for identification.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] type: The type of the token.
@@ -476,6 +514,7 @@ class UserToken(pulumi.CustomResource):
         __props__.__dict__["name"] = name
         __props__.__dict__["origin"] = origin
         __props__.__dict__["prefix"] = prefix
+        __props__.__dict__["project_id"] = project_id
         __props__.__dict__["suffix"] = suffix
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["type"] = type
@@ -552,6 +591,14 @@ class UserToken(pulumi.CustomResource):
         The token prefix used for identification.
         """
         return pulumi.get(self, "prefix")
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The ID of the project this token should be scoped to. Requires team scope.
+        """
+        return pulumi.get(self, "project_id")
 
     @_builtins.property
     @pulumi.getter

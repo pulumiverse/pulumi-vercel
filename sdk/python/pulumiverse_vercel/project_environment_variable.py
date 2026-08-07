@@ -28,7 +28,8 @@ class ProjectEnvironmentVariableArgs:
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
-                 value_wo: Optional[pulumi.Input[_builtins.str]] = None):
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None):
         """
         The set of arguments for constructing a ProjectEnvironmentVariable resource.
 
@@ -43,6 +44,7 @@ class ProjectEnvironmentVariableArgs:
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "project_id", project_id)
@@ -61,6 +63,8 @@ class ProjectEnvironmentVariableArgs:
             pulumi.set(__self__, "value", value)
         if value_wo is not None:
             pulumi.set(__self__, "value_wo", value_wo)
+        if value_wo_version is not None:
+            pulumi.set(__self__, "value_wo_version", value_wo_version)
 
     @_builtins.property
     @pulumi.getter
@@ -183,6 +187,18 @@ class ProjectEnvironmentVariableArgs:
     def value_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "value_wo", value)
 
+    @_builtins.property
+    @pulumi.getter(name="valueWoVersion")
+    def value_wo_version(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        """
+        return pulumi.get(self, "value_wo_version")
+
+    @value_wo_version.setter
+    def value_wo_version(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "value_wo_version", value)
+
 
 @pulumi.input_type
 class _ProjectEnvironmentVariableState:
@@ -196,7 +212,8 @@ class _ProjectEnvironmentVariableState:
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
-                 value_wo: Optional[pulumi.Input[_builtins.str]] = None):
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None):
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
 
@@ -211,6 +228,7 @@ class _ProjectEnvironmentVariableState:
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -232,6 +250,8 @@ class _ProjectEnvironmentVariableState:
             pulumi.set(__self__, "value", value)
         if value_wo is not None:
             pulumi.set(__self__, "value_wo", value_wo)
+        if value_wo_version is not None:
+            pulumi.set(__self__, "value_wo_version", value_wo_version)
 
     @_builtins.property
     @pulumi.getter
@@ -354,6 +374,18 @@ class _ProjectEnvironmentVariableState:
     def value_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "value_wo", value)
 
+    @_builtins.property
+    @pulumi.getter(name="valueWoVersion")
+    def value_wo_version(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        """
+        return pulumi.get(self, "value_wo_version")
+
+    @value_wo_version.setter
+    def value_wo_version(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "value_wo_version", value)
+
 
 @pulumi.type_token("vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable")
 class ProjectEnvironmentVariable(pulumi.CustomResource):
@@ -371,6 +403,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         """
         Provides a Project Environment Variable resource.
@@ -429,6 +462,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
         """
         ...
     @overload
@@ -505,6 +539,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -530,6 +565,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["value"] = None if value is None else pulumi.Output.secret(value)
             __props__.__dict__["value_wo"] = None if value_wo is None else pulumi.Output.secret(value_wo)
+            __props__.__dict__["value_wo_version"] = value_wo_version
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value", "valueWo"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(ProjectEnvironmentVariable, __self__).__init__(
@@ -551,7 +587,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None,
             value: Optional[pulumi.Input[_builtins.str]] = None,
-            value_wo: Optional[pulumi.Input[_builtins.str]] = None) -> 'ProjectEnvironmentVariable':
+            value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+            value_wo_version: Optional[pulumi.Input[_builtins.int]] = None) -> 'ProjectEnvironmentVariable':
         """
         Get an existing ProjectEnvironmentVariable resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -570,6 +607,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
+        :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -585,6 +623,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["value"] = value
         __props__.__dict__["value_wo"] = value_wo
+        __props__.__dict__["value_wo_version"] = value_wo_version
         return ProjectEnvironmentVariable(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -667,4 +706,12 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         """
         return pulumi.get(self, "value_wo")
+
+    @_builtins.property
+    @pulumi.getter(name="valueWoVersion")
+    def value_wo_version(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        """
+        return pulumi.get(self, "value_wo_version")
 

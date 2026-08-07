@@ -5,6 +5,7 @@ package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 
@@ -25,6 +26,11 @@ public final class GetVcrRepositoryResult {
      * 
      */
     private String projectId;
+    /**
+     * @return Whether the repository is pullable by any Vercel team.
+     * 
+     */
+    private Boolean public_;
     /**
      * @return The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.
      * 
@@ -59,6 +65,13 @@ public final class GetVcrRepositoryResult {
         return this.projectId;
     }
     /**
+     * @return Whether the repository is pullable by any Vercel team.
+     * 
+     */
+    public Boolean public_() {
+        return this.public_;
+    }
+    /**
      * @return The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.
      * 
      */
@@ -85,6 +98,7 @@ public final class GetVcrRepositoryResult {
         private String id;
         private String name;
         private String projectId;
+        private Boolean public_;
         private String teamId;
         private String url;
         public Builder() {}
@@ -93,6 +107,7 @@ public final class GetVcrRepositoryResult {
     	      this.id = defaults.id;
     	      this.name = defaults.name;
     	      this.projectId = defaults.projectId;
+    	      this.public_ = defaults.public_;
     	      this.teamId = defaults.teamId;
     	      this.url = defaults.url;
         }
@@ -121,6 +136,14 @@ public final class GetVcrRepositoryResult {
             this.projectId = projectId;
             return this;
         }
+        @CustomType.Setter("public")
+        public Builder public_(Boolean public_) {
+            if (public_ == null) {
+              throw new MissingRequiredPropertyException("GetVcrRepositoryResult", "public_");
+            }
+            this.public_ = public_;
+            return this;
+        }
         @CustomType.Setter
         public Builder teamId(String teamId) {
             if (teamId == null) {
@@ -142,6 +165,7 @@ public final class GetVcrRepositoryResult {
             _resultValue.id = id;
             _resultValue.name = name;
             _resultValue.projectId = projectId;
+            _resultValue.public_ = public_;
             _resultValue.teamId = teamId;
             _resultValue.url = url;
             return _resultValue;

@@ -11,6 +11,7 @@ from .access_group_member import *
 from .access_group_project import *
 from .alias import *
 from .attack_challenge_mode import *
+from .audit_log_drain import *
 from .blob_object import *
 from .blob_project_connection import *
 from .blob_store import *
@@ -92,6 +93,7 @@ from .team_member import *
 from .trace_drain import *
 from .user_token import *
 from .vcr_repository import *
+from .vcr_repository_permission import *
 from .webhook import *
 from ._inputs import *
 from . import outputs
@@ -144,6 +146,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/attackChallengeMode:AttackChallengeMode": "AttackChallengeMode"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/auditLogDrain",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/auditLogDrain:AuditLogDrain": "AuditLogDrain"
   }
  },
  {
@@ -472,6 +482,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/vcrRepository:VcrRepository": "VcrRepository"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/vcrRepositoryPermission",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/vcrRepositoryPermission:VcrRepositoryPermission": "VcrRepositoryPermission"
   }
  },
  {

@@ -66,6 +66,10 @@ export interface GetVcrRepositoryResult {
      */
     readonly projectId: string;
     /**
+     * Whether the repository is pullable by any Vercel team.
+     */
+    readonly public: boolean;
+    /**
      * The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     readonly teamId: string;

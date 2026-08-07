@@ -21,17 +21,21 @@ class VcrRepositoryArgs:
     def __init__(__self__, *,
                  project_id: pulumi.Input[_builtins.str],
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 public: Optional[pulumi.Input[_builtins.bool]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a VcrRepository resource.
 
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project the repository belongs to.
         :param pulumi.Input[_builtins.str] name: The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.
+        :param pulumi.Input[_builtins.bool] public: Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "project_id", project_id)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if public is not None:
+            pulumi.set(__self__, "public", public)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
 
@@ -60,6 +64,18 @@ class VcrRepositoryArgs:
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter
+    def public(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+        """
+        return pulumi.get(self, "public")
+
+    @public.setter
+    def public(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "public", value)
+
+    @_builtins.property
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -77,6 +93,7 @@ class _VcrRepositoryState:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 public: Optional[pulumi.Input[_builtins.bool]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  url: Optional[pulumi.Input[_builtins.str]] = None):
         """
@@ -84,6 +101,7 @@ class _VcrRepositoryState:
 
         :param pulumi.Input[_builtins.str] name: The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project the repository belongs to.
+        :param pulumi.Input[_builtins.bool] public: Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] url: The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.
         """
@@ -91,6 +109,8 @@ class _VcrRepositoryState:
             pulumi.set(__self__, "name", name)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
+        if public is not None:
+            pulumi.set(__self__, "public", public)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
         if url is not None:
@@ -119,6 +139,18 @@ class _VcrRepositoryState:
     @project_id.setter
     def project_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "project_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def public(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+        """
+        return pulumi.get(self, "public")
+
+    @public.setter
+    def public(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "public", value)
 
     @_builtins.property
     @pulumi.getter(name="teamId")
@@ -153,6 +185,7 @@ class VcrRepository(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 public: Optional[pulumi.Input[_builtins.bool]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
@@ -171,7 +204,8 @@ class VcrRepository(pulumi.CustomResource):
         example = vercel.Project("example", name="example-project-with-vcr-repository")
         example_vcr_repository = vercel.VcrRepository("example",
             project_id=example.id,
-            name="my-repository")
+            name="my-repository",
+            public=True)
         ```
 
         ## Import
@@ -199,6 +233,7 @@ class VcrRepository(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project the repository belongs to.
+        :param pulumi.Input[_builtins.bool] public: Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         ...
@@ -223,7 +258,8 @@ class VcrRepository(pulumi.CustomResource):
         example = vercel.Project("example", name="example-project-with-vcr-repository")
         example_vcr_repository = vercel.VcrRepository("example",
             project_id=example.id,
-            name="my-repository")
+            name="my-repository",
+            public=True)
         ```
 
         ## Import
@@ -264,6 +300,7 @@ class VcrRepository(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 public: Optional[pulumi.Input[_builtins.bool]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -278,6 +315,7 @@ class VcrRepository(pulumi.CustomResource):
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
+            __props__.__dict__["public"] = public
             __props__.__dict__["team_id"] = team_id
             __props__.__dict__["url"] = None
         super(VcrRepository, __self__).__init__(
@@ -292,6 +330,7 @@ class VcrRepository(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
             project_id: Optional[pulumi.Input[_builtins.str]] = None,
+            public: Optional[pulumi.Input[_builtins.bool]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None,
             url: Optional[pulumi.Input[_builtins.str]] = None) -> 'VcrRepository':
         """
@@ -303,6 +342,7 @@ class VcrRepository(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: The name of the repository. Can contain lowercase letters, numbers, periods, underscores, and dashes, but cannot start or end with a period, underscore, or dash.
         :param pulumi.Input[_builtins.str] project_id: The ID of the existing Vercel Project the repository belongs to.
+        :param pulumi.Input[_builtins.bool] public: Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] url: The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.
         """
@@ -312,6 +352,7 @@ class VcrRepository(pulumi.CustomResource):
 
         __props__.__dict__["name"] = name
         __props__.__dict__["project_id"] = project_id
+        __props__.__dict__["public"] = public
         __props__.__dict__["team_id"] = team_id
         __props__.__dict__["url"] = url
         return VcrRepository(resource_name, opts=opts, __props__=__props__)
@@ -331,6 +372,14 @@ class VcrRepository(pulumi.CustomResource):
         The ID of the existing Vercel Project the repository belongs to.
         """
         return pulumi.get(self, "project_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def public(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+        """
+        return pulumi.get(self, "public")
 
     @_builtins.property
     @pulumi.getter(name="teamId")

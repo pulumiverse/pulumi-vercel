@@ -20,10 +20,10 @@ __all__ = ['SharedEnvironmentVariableArgs', 'SharedEnvironmentVariable']
 class SharedEnvironmentVariableArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[_builtins.str],
-                 project_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
                  sensitive: pulumi.Input[_builtins.bool],
                  apply_to_all_custom_environments: Optional[pulumi.Input[_builtins.bool]] = None,
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
+                 project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
@@ -32,10 +32,10 @@ class SharedEnvironmentVariableArgs:
         The set of arguments for constructing a SharedEnvironmentVariable resource.
 
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
         :param pulumi.Input[_builtins.bool] apply_to_all_custom_environments: Whether the shared environment variable should be applied to all custom environments in the linked projects.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: The ID of the Vercel project.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team. Shared environment variables require a team.
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
@@ -43,12 +43,13 @@ class SharedEnvironmentVariableArgs:
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         """
         pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "project_ids", project_ids)
         pulumi.set(__self__, "sensitive", sensitive)
         if apply_to_all_custom_environments is not None:
             pulumi.set(__self__, "apply_to_all_custom_environments", apply_to_all_custom_environments)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if project_ids is not None:
+            pulumi.set(__self__, "project_ids", project_ids)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
         if team_id is not None:
@@ -69,18 +70,6 @@ class SharedEnvironmentVariableArgs:
     @key.setter
     def key(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "key", value)
-
-    @_builtins.property
-    @pulumi.getter(name="projectIds")
-    def project_ids(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
-        """
-        The ID of the Vercel project.
-        """
-        return pulumi.get(self, "project_ids")
-
-    @project_ids.setter
-    def project_ids(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
-        pulumi.set(self, "project_ids", value)
 
     @_builtins.property
     @pulumi.getter
@@ -117,6 +106,18 @@ class SharedEnvironmentVariableArgs:
     @comment.setter
     def comment(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "comment", value)
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The ID of the Vercel project.
+        """
+        return pulumi.get(self, "project_ids")
+
+    @project_ids.setter
+    def project_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "project_ids", value)
 
     @_builtins.property
     @pulumi.getter
@@ -508,8 +509,6 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
             if key is None and not opts.urn:
                 raise TypeError("Missing required property 'key'")
             __props__.__dict__["key"] = key
-            if project_ids is None and not opts.urn:
-                raise TypeError("Missing required property 'project_ids'")
             __props__.__dict__["project_ids"] = project_ids
             if sensitive is None and not opts.urn:
                 raise TypeError("Missing required property 'sensitive'")
@@ -598,7 +597,7 @@ class SharedEnvironmentVariable(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="projectIds")
-    def project_ids(self) -> pulumi.Output[Sequence[_builtins.str]]:
+    def project_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
         The ID of the Vercel project.
         """

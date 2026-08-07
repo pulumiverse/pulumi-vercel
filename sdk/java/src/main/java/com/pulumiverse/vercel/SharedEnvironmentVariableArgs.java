@@ -67,15 +67,15 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
      * The ID of the Vercel project.
      * 
      */
-    @Import(name="projectIds", required=true)
-    private Output<List<String>> projectIds;
+    @Import(name="projectIds")
+    private @Nullable Output<List<String>> projectIds;
 
     /**
      * @return The ID of the Vercel project.
      * 
      */
-    public Output<List<String>> projectIds() {
-        return this.projectIds;
+    public Optional<Output<List<String>>> projectIds() {
+        return Optional.ofNullable(this.projectIds);
     }
 
     /**
@@ -256,7 +256,7 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
          * @return builder
          * 
          */
-        public Builder projectIds(Output<List<String>> projectIds) {
+        public Builder projectIds(@Nullable Output<List<String>> projectIds) {
             $.projectIds = projectIds;
             return this;
         }
@@ -401,9 +401,6 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
         public SharedEnvironmentVariableArgs build() {
             if ($.key == null) {
                 throw new MissingRequiredPropertyException("SharedEnvironmentVariableArgs", "key");
-            }
-            if ($.projectIds == null) {
-                throw new MissingRequiredPropertyException("SharedEnvironmentVariableArgs", "projectIds");
             }
             if ($.sensitive == null) {
                 throw new MissingRequiredPropertyException("SharedEnvironmentVariableArgs", "sensitive");
