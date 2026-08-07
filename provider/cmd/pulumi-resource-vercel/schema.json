@@ -70,6 +70,97 @@
         }
     },
     "types": {
+        "vercel:index/AuditLogDrainHttp:AuditLogDrainHttp": {
+            "properties": {
+                "compression": {
+                    "type": "string",
+                    "description": "The compression applied to HTTP request bodies. Can be \u003cspan pulumi-lang-nodejs=\"`gzip`\" pulumi-lang-dotnet=\"`Gzip`\" pulumi-lang-go=\"`gzip`\" pulumi-lang-python=\"`gzip`\" pulumi-lang-yaml=\"`gzip`\" pulumi-lang-java=\"`gzip`\"\u003e`gzip`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`none`\" pulumi-lang-dotnet=\"`None`\" pulumi-lang-go=\"`none`\" pulumi-lang-python=\"`none`\" pulumi-lang-yaml=\"`none`\" pulumi-lang-java=\"`none`\"\u003e`none`\u003c/span\u003e.\n"
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "The format used to deliver Audit Log events. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`ndjson`\" pulumi-lang-dotnet=\"`Ndjson`\" pulumi-lang-go=\"`ndjson`\" pulumi-lang-python=\"`ndjson`\" pulumi-lang-yaml=\"`ndjson`\" pulumi-lang-java=\"`ndjson`\"\u003e`ndjson`\u003c/span\u003e.\n"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "The HTTPS endpoint that receives Audit Log events.\n"
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Custom headers included in requests to the HTTP endpoint.\n",
+                    "secret": true
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "A custom secret used to sign Audit Log events. If omitted, Vercel generates one.\n",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "encoding",
+                "endpoint"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "compression",
+                        "encoding",
+                        "endpoint",
+                        "secret"
+                    ]
+                }
+            }
+        },
+        "vercel:index/AuditLogDrainS3:AuditLogDrainS3": {
+            "properties": {
+                "encoding": {
+                    "type": "string",
+                    "description": "The format used to write Audit Log events. Can be \u003cspan pulumi-lang-nodejs=\"`json`\" pulumi-lang-dotnet=\"`Json`\" pulumi-lang-go=\"`json`\" pulumi-lang-python=\"`json`\" pulumi-lang-yaml=\"`json`\" pulumi-lang-java=\"`json`\"\u003e`json`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`ndjson`\" pulumi-lang-dotnet=\"`Ndjson`\" pulumi-lang-go=\"`ndjson`\" pulumi-lang-python=\"`ndjson`\" pulumi-lang-yaml=\"`ndjson`\" pulumi-lang-java=\"`ndjson`\"\u003e`ndjson`\u003c/span\u003e.\n"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.\n"
+                },
+                "objectAcl": {
+                    "type": "string",
+                    "description": "The canned ACL sent when writing objects. Can be \u003cspan pulumi-lang-nodejs=\"`private`\" pulumi-lang-dotnet=\"`Private`\" pulumi-lang-go=\"`private`\" pulumi-lang-python=\"`private`\" pulumi-lang-yaml=\"`private`\" pulumi-lang-java=\"`private`\"\u003e`private`\u003c/span\u003e, `bucket-owner-read`, or `bucket-owner-full-control`.\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "The AWS region containing the S3 bucket.\n"
+                },
+                "roleArn": {
+                    "type": "string",
+                    "description": "The ARN of the AWS IAM role Vercel assumes to write objects.\n"
+                },
+                "serverSideEncryption": {
+                    "type": "string",
+                    "description": "The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "encoding",
+                "endpoint",
+                "region",
+                "roleArn"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "encoding",
+                        "endpoint",
+                        "objectAcl",
+                        "region",
+                        "roleArn",
+                        "serverSideEncryption"
+                    ]
+                }
+            }
+        },
         "vercel:index/BulkRedirectsRedirect:BulkRedirectsRedirect": {
             "properties": {
                 "caseSensitive": {
@@ -811,7 +902,7 @@
                 },
                 "neg": {
                     "type": "boolean",
-                    "description": "Negate the condition\n"
+                    "description": "Negate the condition. Defaults to false.\n"
                 },
                 "op": {
                     "type": "string",
@@ -837,7 +928,16 @@
             "required": [
                 "op",
                 "type"
-            ]
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "neg",
+                        "op",
+                        "type"
+                    ]
+                }
+            }
         },
         "vercel:index/MicrofrontendGroupDefaultApp:MicrofrontendGroupDefaultApp": {
             "properties": {
@@ -3499,6 +3599,71 @@
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the Project exists under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/auditLogDrain:AuditLogDrain": {
+            "description": "Provides an Audit Log Drain resource.\n\nAudit Log Drains forward team activity events to an HTTP endpoint or Amazon S3. They apply to the whole team and do not support project selection, filtering, or sampling.\n\n\u003e Audit Log Drains are only available to Enterprise teams.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.AuditLogDrain(\"example\", {\n    name: \"security-audit-events\",\n    http: {\n        endpoint: \"https://siem.example.com/vercel\",\n        encoding: \"ndjson\",\n        compression: \"gzip\",\n        headers: {\n            Authorization: \"Bearer my-secret-token\",\n        },\n    },\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.AuditLogDrain(\"example\",\n    name=\"security-audit-events\",\n    http={\n        \"endpoint\": \"https://siem.example.com/vercel\",\n        \"encoding\": \"ndjson\",\n        \"compression\": \"gzip\",\n        \"headers\": {\n            \"Authorization\": \"Bearer my-secret-token\",\n        },\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.AuditLogDrain(\"example\", new()\n    {\n        Name = \"security-audit-events\",\n        Http = new Vercel.Inputs.AuditLogDrainHttpArgs\n        {\n            Endpoint = \"https://siem.example.com/vercel\",\n            Encoding = \"ndjson\",\n            Compression = \"gzip\",\n            Headers = \n            {\n                { \"Authorization\", \"Bearer my-secret-token\" },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := vercel.NewAuditLogDrain(ctx, \"example\", \u0026vercel.AuditLogDrainArgs{\n\t\t\tName: pulumi.String(\"security-audit-events\"),\n\t\t\tHttp: \u0026vercel.AuditLogDrainHttpArgs{\n\t\t\t\tEndpoint:    pulumi.String(\"https://siem.example.com/vercel\"),\n\t\t\t\tEncoding:    pulumi.String(\"ndjson\"),\n\t\t\t\tCompression: pulumi.String(\"gzip\"),\n\t\t\t\tHeaders: pulumi.StringMap{\n\t\t\t\t\t\"Authorization\": pulumi.String(\"Bearer my-secret-token\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.AuditLogDrain;\nimport com.pulumiverse.vercel.AuditLogDrainArgs;\nimport com.pulumi.vercel.inputs.AuditLogDrainHttpArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new AuditLogDrain(\"example\", AuditLogDrainArgs.builder()\n            .name(\"security-audit-events\")\n            .http(AuditLogDrainHttpArgs.builder()\n                .endpoint(\"https://siem.example.com/vercel\")\n                .encoding(\"ndjson\")\n                .compression(\"gzip\")\n                .headers(Map.of(\"Authorization\", \"Bearer my-secret-token\"))\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:AuditLogDrain\n    properties:\n      name: security-audit-events\n      http:\n        endpoint: https://siem.example.com/vercel\n        encoding: ndjson\n        compression: gzip\n        headers:\n          Authorization: Bearer my-secret-token\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing with a default team configured in the provider, simply use the\naudit_log_drain_id.\n\n```sh\n$ pulumi import vercel:index/auditLogDrain:AuditLogDrain example drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, import using team_id/audit_log_drain_id.\n\n```sh\n$ pulumi import vercel:index/auditLogDrain:AuditLogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/drn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n```\n\n",
+            "properties": {
+                "http": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainHttp:AuditLogDrainHttp",
+                    "description": "Configuration for delivery to a custom HTTP endpoint. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the Audit Log Drain.\n"
+                },
+                "s3": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainS3:AuditLogDrainS3",
+                    "description": "Configuration for delivery to an Amazon S3 bucket. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Audit Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "name",
+                "teamId"
+            ],
+            "inputProperties": {
+                "http": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainHttp:AuditLogDrainHttp",
+                    "description": "Configuration for delivery to a custom HTTP endpoint. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the Audit Log Drain.\n"
+                },
+                "s3": {
+                    "$ref": "#/types/vercel:index/AuditLogDrainS3:AuditLogDrainS3",
+                    "description": "Configuration for delivery to an Amazon S3 bucket. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team the Audit Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AuditLogDrain resources.\n",
+                "properties": {
+                    "http": {
+                        "$ref": "#/types/vercel:index/AuditLogDrainHttp:AuditLogDrainHttp",
+                        "description": "Configuration for delivery to a custom HTTP endpoint. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A human-readable name for the Audit Log Drain.\n"
+                    },
+                    "s3": {
+                        "$ref": "#/types/vercel:index/AuditLogDrainS3:AuditLogDrainS3",
+                        "description": "Configuration for delivery to an Amazon S3 bucket. Exactly one of \u003cspan pulumi-lang-nodejs=\"`http`\" pulumi-lang-dotnet=\"`Http`\" pulumi-lang-go=\"`http`\" pulumi-lang-python=\"`http`\" pulumi-lang-yaml=\"`http`\" pulumi-lang-java=\"`http`\"\u003e`http`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`s3`\" pulumi-lang-dotnet=\"`S3`\" pulumi-lang-go=\"`s3`\" pulumi-lang-python=\"`s3`\" pulumi-lang-yaml=\"`s3`\" pulumi-lang-java=\"`s3`\"\u003e`s3`\u003c/span\u003e must be configured.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team the Audit Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.\n"
                     }
                 },
                 "type": "object"
@@ -6884,6 +7049,10 @@
                     "type": "string",
                     "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\n(Optional, Write-Only, exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`value_wo`\u003c/span\u003e is required) The value of the Environment Variable, from an \u003cspan pulumi-lang-nodejs=\"`ephemeral`\" pulumi-lang-dotnet=\"`Ephemeral`\" pulumi-lang-go=\"`ephemeral`\" pulumi-lang-python=\"`ephemeral`\" pulumi-lang-yaml=\"`ephemeral`\" pulumi-lang-java=\"`ephemeral`\"\u003e`ephemeral`\u003c/span\u003e resource.",
                     "secret": true
+                },
+                "valueWoVersion": {
+                    "type": "integer",
+                    "description": "An integer used to trigger an update to \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`value_wo`\u003c/span\u003e. Increment this value when an update to the write-only value is required."
                 }
             },
             "required": [
@@ -6943,6 +7112,10 @@
                     "type": "string",
                     "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\n(Optional, Write-Only, exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`value_wo`\u003c/span\u003e is required) The value of the Environment Variable, from an \u003cspan pulumi-lang-nodejs=\"`ephemeral`\" pulumi-lang-dotnet=\"`Ephemeral`\" pulumi-lang-go=\"`ephemeral`\" pulumi-lang-python=\"`ephemeral`\" pulumi-lang-yaml=\"`ephemeral`\" pulumi-lang-java=\"`ephemeral`\"\u003e`ephemeral`\u003c/span\u003e resource.",
                     "secret": true
+                },
+                "valueWoVersion": {
+                    "type": "integer",
+                    "description": "An integer used to trigger an update to \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`value_wo`\u003c/span\u003e. Increment this value when an update to the write-only value is required."
                 }
             },
             "requiredInputs": [
@@ -7000,13 +7173,17 @@
                         "type": "string",
                         "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\n(Optional, Write-Only, exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`value_wo`\u003c/span\u003e is required) The value of the Environment Variable, from an \u003cspan pulumi-lang-nodejs=\"`ephemeral`\" pulumi-lang-dotnet=\"`Ephemeral`\" pulumi-lang-go=\"`ephemeral`\" pulumi-lang-python=\"`ephemeral`\" pulumi-lang-yaml=\"`ephemeral`\" pulumi-lang-java=\"`ephemeral`\"\u003e`ephemeral`\u003c/span\u003e resource.",
                         "secret": true
+                    },
+                    "valueWoVersion": {
+                        "type": "integer",
+                        "description": "An integer used to trigger an update to \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`value_wo`\u003c/span\u003e. Increment this value when an update to the write-only value is required."
                     }
                 },
                 "type": "object"
             }
         },
         "vercel:index/projectEnvironmentVariables:ProjectEnvironmentVariables": {
-            "description": "Provides a resource for managing a number of Project Environment Variables.\n\nThis resource defines multiple Environment Variables on a Vercel Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).\n\n\u003e Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e field.\nAt this time you cannot use a Vercel Project resource with in-line \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e in conjunction with any \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-go=\"`ProjectEnvironmentVariables`\" pulumi-lang-python=\"`ProjectEnvironmentVariables`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariables`\"\u003e`vercel.ProjectEnvironmentVariables`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-go=\"`ProjectEnvironmentVariable`\" pulumi-lang-python=\"`ProjectEnvironmentVariable`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariable`\"\u003e`vercel.ProjectEnvironmentVariable`\u003c/span\u003e resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.\n\n\u003e **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit \u003cspan pulumi-lang-nodejs=\"`sensitive`\" pulumi-lang-dotnet=\"`Sensitive`\" pulumi-lang-go=\"`sensitive`\" pulumi-lang-python=\"`sensitive`\" pulumi-lang-yaml=\"`sensitive`\" pulumi-lang-java=\"`sensitive`\"\u003e`sensitive`\u003c/span\u003e value. Variables targeting only \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e together with \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {\n    name: \"example-project\",\n    gitRepository: {\n        type: \"github\",\n        repo: \"vercel/some-repo\",\n    },\n});\nconst exampleProjectEnvironmentVariables = new vercel.ProjectEnvironmentVariables(\"example\", {\n    projectId: example.id,\n    variables: [\n        {\n            key: \"SOME_VARIABLE\",\n            value: \"some_value\",\n            target: [\n                \"production\",\n                \"preview\",\n            ],\n            sensitive: true,\n        },\n        {\n            key: \"ANOTHER_VARIABLE\",\n            value: \"another_value\",\n            gitBranch: \"staging\",\n            target: [\"preview\"],\n            sensitive: true,\n        },\n        {\n            key: \"DEVELOPMENT_VARIABLE\",\n            value: \"development_value\",\n            target: [\"development\"],\n            sensitive: false,\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\",\n    name=\"example-project\",\n    git_repository={\n        \"type\": \"github\",\n        \"repo\": \"vercel/some-repo\",\n    })\nexample_project_environment_variables = vercel.ProjectEnvironmentVariables(\"example\",\n    project_id=example.id,\n    variables=[\n        {\n            \"key\": \"SOME_VARIABLE\",\n            \"value\": \"some_value\",\n            \"target\": [\n                \"production\",\n                \"preview\",\n            ],\n            \"sensitive\": True,\n        },\n        {\n            \"key\": \"ANOTHER_VARIABLE\",\n            \"value\": \"another_value\",\n            \"git_branch\": \"staging\",\n            \"target\": [\"preview\"],\n            \"sensitive\": True,\n        },\n        {\n            \"key\": \"DEVELOPMENT_VARIABLE\",\n            \"value\": \"development_value\",\n            \"target\": [\"development\"],\n            \"sensitive\": False,\n        },\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    var exampleProjectEnvironmentVariables = new Vercel.ProjectEnvironmentVariables(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Variables = new[]\n        {\n            new Vercel.Inputs.ProjectEnvironmentVariablesVariableArgs\n            {\n                Key = \"SOME_VARIABLE\",\n                Value = \"some_value\",\n                Target = new[]\n                {\n                    \"production\",\n                    \"preview\",\n                },\n                Sensitive = true,\n            },\n            new Vercel.Inputs.ProjectEnvironmentVariablesVariableArgs\n            {\n                Key = \"ANOTHER_VARIABLE\",\n                Value = \"another_value\",\n                GitBranch = \"staging\",\n                Target = new[]\n                {\n                    \"preview\",\n                },\n                Sensitive = true,\n            },\n            new Vercel.Inputs.ProjectEnvironmentVariablesVariableArgs\n            {\n                Key = \"DEVELOPMENT_VARIABLE\",\n                Value = \"development_value\",\n                Target = new[]\n                {\n                    \"development\",\n                },\n                Sensitive = false,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project\"),\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewProjectEnvironmentVariables(ctx, \"example\", \u0026vercel.ProjectEnvironmentVariablesArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tVariables: vercel.ProjectEnvironmentVariablesVariableArray{\n\t\t\t\t\u0026vercel.ProjectEnvironmentVariablesVariableArgs{\n\t\t\t\t\tKey:   pulumi.String(\"SOME_VARIABLE\"),\n\t\t\t\t\tValue: pulumi.String(\"some_value\"),\n\t\t\t\t\tTarget: []string{\n\t\t\t\t\t\t\"production\",\n\t\t\t\t\t\t\"preview\",\n\t\t\t\t\t},\n\t\t\t\t\tSensitive: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026vercel.ProjectEnvironmentVariablesVariableArgs{\n\t\t\t\t\tKey:       pulumi.String(\"ANOTHER_VARIABLE\"),\n\t\t\t\t\tValue:     pulumi.String(\"another_value\"),\n\t\t\t\t\tGitBranch: pulumi.String(\"staging\"),\n\t\t\t\t\tTarget: []string{\n\t\t\t\t\t\t\"preview\",\n\t\t\t\t\t},\n\t\t\t\t\tSensitive: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026vercel.ProjectEnvironmentVariablesVariableArgs{\n\t\t\t\t\tKey:   pulumi.String(\"DEVELOPMENT_VARIABLE\"),\n\t\t\t\t\tValue: pulumi.String(\"development_value\"),\n\t\t\t\t\tTarget: []string{\n\t\t\t\t\t\t\"development\",\n\t\t\t\t\t},\n\t\t\t\t\tSensitive: pulumi.Bool(false),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumiverse.vercel.ProjectEnvironmentVariables;\nimport com.pulumiverse.vercel.ProjectEnvironmentVariablesArgs;\nimport com.pulumi.vercel.inputs.ProjectEnvironmentVariablesVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        var exampleProjectEnvironmentVariables = new ProjectEnvironmentVariables(\"exampleProjectEnvironmentVariables\", ProjectEnvironmentVariablesArgs.builder()\n            .projectId(example.id())\n            .variables(            \n                ProjectEnvironmentVariablesVariableArgs.builder()\n                    .key(\"SOME_VARIABLE\")\n                    .value(\"some_value\")\n                    .target(List.of(                    \n                        \"production\",\n                        \"preview\"))\n                    .sensitive(true)\n                    .build(),\n                ProjectEnvironmentVariablesVariableArgs.builder()\n                    .key(\"ANOTHER_VARIABLE\")\n                    .value(\"another_value\")\n                    .gitBranch(\"staging\")\n                    .target(List.of(\"preview\"))\n                    .sensitive(true)\n                    .build(),\n                ProjectEnvironmentVariablesVariableArgs.builder()\n                    .key(\"DEVELOPMENT_VARIABLE\")\n                    .value(\"development_value\")\n                    .target(List.of(\"development\"))\n                    .sensitive(false)\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  exampleProjectEnvironmentVariables:\n    type: vercel:ProjectEnvironmentVariables\n    name: example\n    properties:\n      projectId: ${example.id}\n      variables:\n        - key: SOME_VARIABLE\n          value: some_value\n          target:\n            - production\n            - preview\n          sensitive: true\n        - key: ANOTHER_VARIABLE\n          value: another_value\n          gitBranch: staging\n          target:\n            - preview\n          sensitive: true\n        - key: DEVELOPMENT_VARIABLE\n          value: development_value\n          target:\n            - development\n          sensitive: false\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "Provides a resource for managing a number of Project Environment Variables.\n\n\u003e Removing entries from the \u003cspan pulumi-lang-nodejs=\"`variables`\" pulumi-lang-dotnet=\"`Variables`\" pulumi-lang-go=\"`variables`\" pulumi-lang-python=\"`variables`\" pulumi-lang-yaml=\"`variables`\" pulumi-lang-java=\"`variables`\"\u003e`variables`\u003c/span\u003e attribute deletes the corresponding Environment Variables from the Vercel Project. Destroying this resource deletes all Environment Variables it manages. Environment Variables not managed by this resource are left unchanged.\n\nThis resource defines multiple Environment Variables on a Vercel Project.\n\nFor more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).\n\n\u003e Terraform currently provides this Project Environment Variables resource (multiple Environment Variables), a single Project Environment Variable Resource, and a Project resource with Environment Variables defined in-line via the \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e field.\nAt this time you cannot use a Vercel Project resource with in-line \u003cspan pulumi-lang-nodejs=\"`environment`\" pulumi-lang-dotnet=\"`Environment`\" pulumi-lang-go=\"`environment`\" pulumi-lang-python=\"`environment`\" pulumi-lang-yaml=\"`environment`\" pulumi-lang-java=\"`environment`\"\u003e`environment`\u003c/span\u003e in conjunction with any \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-go=\"`ProjectEnvironmentVariables`\" pulumi-lang-python=\"`ProjectEnvironmentVariables`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariables`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariables`\"\u003e`vercel.ProjectEnvironmentVariables`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-dotnet=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-go=\"`ProjectEnvironmentVariable`\" pulumi-lang-python=\"`ProjectEnvironmentVariable`\" pulumi-lang-yaml=\"`vercel.ProjectEnvironmentVariable`\" pulumi-lang-java=\"`vercel.ProjectEnvironmentVariable`\"\u003e`vercel.ProjectEnvironmentVariable`\u003c/span\u003e resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.\n\n\u003e **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit \u003cspan pulumi-lang-nodejs=\"`sensitive`\" pulumi-lang-dotnet=\"`Sensitive`\" pulumi-lang-go=\"`sensitive`\" pulumi-lang-python=\"`sensitive`\" pulumi-lang-yaml=\"`sensitive`\" pulumi-lang-java=\"`sensitive`\"\u003e`sensitive`\u003c/span\u003e value. Variables targeting only \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target \u003cspan pulumi-lang-nodejs=\"`development`\" pulumi-lang-dotnet=\"`Development`\" pulumi-lang-go=\"`development`\" pulumi-lang-python=\"`development`\" pulumi-lang-yaml=\"`development`\" pulumi-lang-java=\"`development`\"\u003e`development`\u003c/span\u003e together with \u003cspan pulumi-lang-nodejs=\"`preview`\" pulumi-lang-dotnet=\"`Preview`\" pulumi-lang-go=\"`preview`\" pulumi-lang-python=\"`preview`\" pulumi-lang-yaml=\"`preview`\" pulumi-lang-java=\"`preview`\"\u003e`preview`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`production`\" pulumi-lang-dotnet=\"`Production`\" pulumi-lang-go=\"`production`\" pulumi-lang-python=\"`production`\" pulumi-lang-yaml=\"`production`\" pulumi-lang-java=\"`production`\"\u003e`production`\u003c/span\u003e, or custom environments.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {\n    name: \"example-project\",\n    gitRepository: {\n        type: \"github\",\n        repo: \"vercel/some-repo\",\n    },\n});\nconst exampleProjectEnvironmentVariables = new vercel.ProjectEnvironmentVariables(\"example\", {\n    projectId: example.id,\n    variables: [\n        {\n            key: \"SOME_VARIABLE\",\n            value: \"some_value\",\n            target: [\n                \"production\",\n                \"preview\",\n            ],\n            sensitive: true,\n        },\n        {\n            key: \"ANOTHER_VARIABLE\",\n            value: \"another_value\",\n            gitBranch: \"staging\",\n            target: [\"preview\"],\n            sensitive: true,\n        },\n        {\n            key: \"DEVELOPMENT_VARIABLE\",\n            value: \"development_value\",\n            target: [\"development\"],\n            sensitive: false,\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\",\n    name=\"example-project\",\n    git_repository={\n        \"type\": \"github\",\n        \"repo\": \"vercel/some-repo\",\n    })\nexample_project_environment_variables = vercel.ProjectEnvironmentVariables(\"example\",\n    project_id=example.id,\n    variables=[\n        {\n            \"key\": \"SOME_VARIABLE\",\n            \"value\": \"some_value\",\n            \"target\": [\n                \"production\",\n                \"preview\",\n            ],\n            \"sensitive\": True,\n        },\n        {\n            \"key\": \"ANOTHER_VARIABLE\",\n            \"value\": \"another_value\",\n            \"git_branch\": \"staging\",\n            \"target\": [\"preview\"],\n            \"sensitive\": True,\n        },\n        {\n            \"key\": \"DEVELOPMENT_VARIABLE\",\n            \"value\": \"development_value\",\n            \"target\": [\"development\"],\n            \"sensitive\": False,\n        },\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project\",\n        GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs\n        {\n            Type = \"github\",\n            Repo = \"vercel/some-repo\",\n        },\n    });\n\n    var exampleProjectEnvironmentVariables = new Vercel.ProjectEnvironmentVariables(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Variables = new[]\n        {\n            new Vercel.Inputs.ProjectEnvironmentVariablesVariableArgs\n            {\n                Key = \"SOME_VARIABLE\",\n                Value = \"some_value\",\n                Target = new[]\n                {\n                    \"production\",\n                    \"preview\",\n                },\n                Sensitive = true,\n            },\n            new Vercel.Inputs.ProjectEnvironmentVariablesVariableArgs\n            {\n                Key = \"ANOTHER_VARIABLE\",\n                Value = \"another_value\",\n                GitBranch = \"staging\",\n                Target = new[]\n                {\n                    \"preview\",\n                },\n                Sensitive = true,\n            },\n            new Vercel.Inputs.ProjectEnvironmentVariablesVariableArgs\n            {\n                Key = \"DEVELOPMENT_VARIABLE\",\n                Value = \"development_value\",\n                Target = new[]\n                {\n                    \"development\",\n                },\n                Sensitive = false,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project\"),\n\t\t\tGitRepository: \u0026vercel.ProjectGitRepositoryArgs{\n\t\t\t\tType: pulumi.String(\"github\"),\n\t\t\t\tRepo: pulumi.String(\"vercel/some-repo\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewProjectEnvironmentVariables(ctx, \"example\", \u0026vercel.ProjectEnvironmentVariablesArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tVariables: vercel.ProjectEnvironmentVariablesVariableArray{\n\t\t\t\t\u0026vercel.ProjectEnvironmentVariablesVariableArgs{\n\t\t\t\t\tKey:   pulumi.String(\"SOME_VARIABLE\"),\n\t\t\t\t\tValue: pulumi.String(\"some_value\"),\n\t\t\t\t\tTarget: []string{\n\t\t\t\t\t\t\"production\",\n\t\t\t\t\t\t\"preview\",\n\t\t\t\t\t},\n\t\t\t\t\tSensitive: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026vercel.ProjectEnvironmentVariablesVariableArgs{\n\t\t\t\t\tKey:       pulumi.String(\"ANOTHER_VARIABLE\"),\n\t\t\t\t\tValue:     pulumi.String(\"another_value\"),\n\t\t\t\t\tGitBranch: pulumi.String(\"staging\"),\n\t\t\t\t\tTarget: []string{\n\t\t\t\t\t\t\"preview\",\n\t\t\t\t\t},\n\t\t\t\t\tSensitive: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026vercel.ProjectEnvironmentVariablesVariableArgs{\n\t\t\t\t\tKey:   pulumi.String(\"DEVELOPMENT_VARIABLE\"),\n\t\t\t\t\tValue: pulumi.String(\"development_value\"),\n\t\t\t\t\tTarget: []string{\n\t\t\t\t\t\t\"development\",\n\t\t\t\t\t},\n\t\t\t\t\tSensitive: pulumi.Bool(false),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;\nimport com.pulumiverse.vercel.ProjectEnvironmentVariables;\nimport com.pulumiverse.vercel.ProjectEnvironmentVariablesArgs;\nimport com.pulumi.vercel.inputs.ProjectEnvironmentVariablesVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project\")\n            .gitRepository(ProjectGitRepositoryArgs.builder()\n                .type(\"github\")\n                .repo(\"vercel/some-repo\")\n                .build())\n            .build());\n\n        var exampleProjectEnvironmentVariables = new ProjectEnvironmentVariables(\"exampleProjectEnvironmentVariables\", ProjectEnvironmentVariablesArgs.builder()\n            .projectId(example.id())\n            .variables(            \n                ProjectEnvironmentVariablesVariableArgs.builder()\n                    .key(\"SOME_VARIABLE\")\n                    .value(\"some_value\")\n                    .target(List.of(                    \n                        \"production\",\n                        \"preview\"))\n                    .sensitive(true)\n                    .build(),\n                ProjectEnvironmentVariablesVariableArgs.builder()\n                    .key(\"ANOTHER_VARIABLE\")\n                    .value(\"another_value\")\n                    .gitBranch(\"staging\")\n                    .target(List.of(\"preview\"))\n                    .sensitive(true)\n                    .build(),\n                ProjectEnvironmentVariablesVariableArgs.builder()\n                    .key(\"DEVELOPMENT_VARIABLE\")\n                    .value(\"development_value\")\n                    .target(List.of(\"development\"))\n                    .sensitive(false)\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project\n      gitRepository:\n        type: github\n        repo: vercel/some-repo\n  exampleProjectEnvironmentVariables:\n    type: vercel:ProjectEnvironmentVariables\n    name: example\n    properties:\n      projectId: ${example.id}\n      variables:\n        - key: SOME_VARIABLE\n          value: some_value\n          target:\n            - production\n            - preview\n          sensitive: true\n        - key: ANOTHER_VARIABLE\n          value: another_value\n          gitBranch: staging\n          target:\n            - preview\n          sensitive: true\n        - key: DEVELOPMENT_VARIABLE\n          value: development_value\n          target:\n            - development\n          sensitive: false\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "projectId": {
                     "type": "string",
@@ -7483,7 +7660,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The ID of the Vercel project.\n"
+                    "description": "The ID of the Vercel project."
                 },
                 "sensitive": {
                     "type": "boolean",
@@ -7515,7 +7692,6 @@
                 "applyToAllCustomEnvironments",
                 "comment",
                 "key",
-                "projectIds",
                 "sensitive",
                 "targets",
                 "teamId"
@@ -7538,7 +7714,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The ID of the Vercel project.\n"
+                    "description": "The ID of the Vercel project."
                 },
                 "sensitive": {
                     "type": "boolean",
@@ -7568,7 +7744,6 @@
             },
             "requiredInputs": [
                 "key",
-                "projectIds",
                 "sensitive"
             ],
             "stateInputs": {
@@ -7591,7 +7766,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The ID of the Vercel project.\n"
+                        "description": "The ID of the Vercel project."
                     },
                     "sensitive": {
                         "type": "boolean",
@@ -8199,6 +8374,10 @@
                     "type": "string",
                     "description": "The token prefix used for identification.\n"
                 },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project this token should be scoped to. Requires team scope.\n"
+                },
                 "suffix": {
                     "type": "string",
                     "description": "The token suffix used for identification.\n"
@@ -8233,6 +8412,10 @@
                 "name": {
                     "type": "string",
                     "description": "The human-readable name of the token.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the project this token should be scoped to. Requires team scope.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -8279,6 +8462,10 @@
                         "type": "string",
                         "description": "The token prefix used for identification.\n"
                     },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the project this token should be scoped to. Requires team scope.\n"
+                    },
                     "suffix": {
                         "type": "string",
                         "description": "The token suffix used for identification.\n"
@@ -8296,7 +8483,7 @@
             }
         },
         "vercel:index/vcrRepository:VcrRepository": {
-            "description": "Provides a Vercel Container Registry (VCR) Repository resource.\n\nA VCR Repository belongs to a Vercel Project and stores container images that can be\nused by Vercel Functions and Vercel Sandbox. Images are pushed to and pulled from\n`vcr.vercel.com/team-slug/project-slug/repository-name` using Docker-compatible tooling.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project-with-vcr-repository\"});\nconst exampleVcrRepository = new vercel.VcrRepository(\"example\", {\n    projectId: example.id,\n    name: \"my-repository\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project-with-vcr-repository\")\nexample_vcr_repository = vercel.VcrRepository(\"example\",\n    project_id=example.id,\n    name=\"my-repository\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project-with-vcr-repository\",\n    });\n\n    var exampleVcrRepository = new Vercel.VcrRepository(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Name = \"my-repository\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project-with-vcr-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewVcrRepository(ctx, \"example\", \u0026vercel.VcrRepositoryArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tName:      pulumi.String(\"my-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.VcrRepository;\nimport com.pulumiverse.vercel.VcrRepositoryArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project-with-vcr-repository\")\n            .build());\n\n        var exampleVcrRepository = new VcrRepository(\"exampleVcrRepository\", VcrRepositoryArgs.builder()\n            .projectId(example.id())\n            .name(\"my-repository\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project-with-vcr-repository\n  exampleVcrRepository:\n    type: vercel:VcrRepository\n    name: example\n    properties:\n      projectId: ${example.id}\n      name: my-repository\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand repository name.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/vcrRepository:VcrRepository example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository\n```\n\nAlternatively, you can import via the team_id,\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand repository name.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/vcrRepository:VcrRepository example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository\n```\n\n",
+            "description": "Provides a Vercel Container Registry (VCR) Repository resource.\n\nA VCR Repository belongs to a Vercel Project and stores container images that can be\nused by Vercel Functions and Vercel Sandbox. Images are pushed to and pulled from\n`vcr.vercel.com/team-slug/project-slug/repository-name` using Docker-compatible tooling.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project-with-vcr-repository\"});\nconst exampleVcrRepository = new vercel.VcrRepository(\"example\", {\n    projectId: example.id,\n    name: \"my-repository\",\n    \"public\": true,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project-with-vcr-repository\")\nexample_vcr_repository = vercel.VcrRepository(\"example\",\n    project_id=example.id,\n    name=\"my-repository\",\n    public=True)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project-with-vcr-repository\",\n    });\n\n    var exampleVcrRepository = new Vercel.VcrRepository(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Name = \"my-repository\",\n        Public = true,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project-with-vcr-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = vercel.NewVcrRepository(ctx, \"example\", \u0026vercel.VcrRepositoryArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tName:      pulumi.String(\"my-repository\"),\n\t\t\tPublic:    pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.VcrRepository;\nimport com.pulumiverse.vercel.VcrRepositoryArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project-with-vcr-repository\")\n            .build());\n\n        var exampleVcrRepository = new VcrRepository(\"exampleVcrRepository\", VcrRepositoryArgs.builder()\n            .projectId(example.id())\n            .name(\"my-repository\")\n            .public_(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project-with-vcr-repository\n  exampleVcrRepository:\n    type: vercel:VcrRepository\n    name: example\n    properties:\n      projectId: ${example.id}\n      name: my-repository\n      public: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, simply use the\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand repository name.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/vcrRepository:VcrRepository example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository\n```\n\nAlternatively, you can import via the team_id,\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003eand repository name.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n\n```sh\n$ pulumi import vercel:index/vcrRepository:VcrRepository example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository\n```\n\n",
             "properties": {
                 "name": {
                     "type": "string",
@@ -8305,6 +8492,10 @@
                 "projectId": {
                     "type": "string",
                     "description": "The ID of the existing Vercel Project the repository belongs to.\n"
+                },
+                "public": {
+                    "type": "boolean",
+                    "description": "Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\"\u003e`false`\u003c/span\u003e.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -8318,6 +8509,7 @@
             "required": [
                 "name",
                 "projectId",
+                "public",
                 "teamId",
                 "url"
             ],
@@ -8329,6 +8521,10 @@
                 "projectId": {
                     "type": "string",
                     "description": "The ID of the existing Vercel Project the repository belongs to.\n"
+                },
+                "public": {
+                    "type": "boolean",
+                    "description": "Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\"\u003e`false`\u003c/span\u003e.\n"
                 },
                 "teamId": {
                     "type": "string",
@@ -8349,6 +8545,10 @@
                         "type": "string",
                         "description": "The ID of the existing Vercel Project the repository belongs to.\n"
                     },
+                    "public": {
+                        "type": "boolean",
+                        "description": "Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\"\u003e`false`\u003c/span\u003e.\n"
+                    },
                     "teamId": {
                         "type": "string",
                         "description": "The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.\n"
@@ -8356,6 +8556,99 @@
                     "url": {
                         "type": "string",
                         "description": "The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "vercel:index/vcrRepositoryPermission:VcrRepositoryPermission": {
+            "description": "Provides a Vercel Container Registry (VCR) Repository Permission resource.\n\nA VCR Repository Permission shares a VCR Repository with another Vercel Team, granting\nit read (pull) access to the repository's images. One resource manages a single grant,\nidentified by the repository and the team the permission is granted to.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as vercel from \"@pulumiverse/vercel\";\n\nconst example = new vercel.Project(\"example\", {name: \"example-project-with-vcr-repository\"});\nconst exampleVcrRepository = new vercel.VcrRepository(\"example\", {\n    projectId: example.id,\n    name: \"my-repository\",\n});\n// Share the repository with another team, granting it\n// read (pull) access to the repository's images.\nconst exampleVcrRepositoryPermission = new vercel.VcrRepositoryPermission(\"example\", {\n    projectId: example.id,\n    repository: exampleVcrRepository.name,\n    grantedTeamId: \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n});\n// The granted team can alternatively be referenced by its slug.\nconst exampleBySlug = new vercel.VcrRepositoryPermission(\"example_by_slug\", {\n    projectId: example.id,\n    repository: exampleVcrRepository.name,\n    grantedTeamSlug: \"my-other-team\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_vercel as vercel\n\nexample = vercel.Project(\"example\", name=\"example-project-with-vcr-repository\")\nexample_vcr_repository = vercel.VcrRepository(\"example\",\n    project_id=example.id,\n    name=\"my-repository\")\n# Share the repository with another team, granting it\n# read (pull) access to the repository's images.\nexample_vcr_repository_permission = vercel.VcrRepositoryPermission(\"example\",\n    project_id=example.id,\n    repository=example_vcr_repository.name,\n    granted_team_id=\"team_xxxxxxxxxxxxxxxxxxxxxxxx\")\n# The granted team can alternatively be referenced by its slug.\nexample_by_slug = vercel.VcrRepositoryPermission(\"example_by_slug\",\n    project_id=example.id,\n    repository=example_vcr_repository.name,\n    granted_team_slug=\"my-other-team\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Vercel = Pulumiverse.Vercel;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Vercel.Project(\"example\", new()\n    {\n        Name = \"example-project-with-vcr-repository\",\n    });\n\n    var exampleVcrRepository = new Vercel.VcrRepository(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Name = \"my-repository\",\n    });\n\n    // Share the repository with another team, granting it\n    // read (pull) access to the repository's images.\n    var exampleVcrRepositoryPermission = new Vercel.VcrRepositoryPermission(\"example\", new()\n    {\n        ProjectId = example.Id,\n        Repository = exampleVcrRepository.Name,\n        GrantedTeamId = \"team_xxxxxxxxxxxxxxxxxxxxxxxx\",\n    });\n\n    // The granted team can alternatively be referenced by its slug.\n    var exampleBySlug = new Vercel.VcrRepositoryPermission(\"example_by_slug\", new()\n    {\n        ProjectId = example.Id,\n        Repository = exampleVcrRepository.Name,\n        GrantedTeamSlug = \"my-other-team\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := vercel.NewProject(ctx, \"example\", \u0026vercel.ProjectArgs{\n\t\t\tName: pulumi.String(\"example-project-with-vcr-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\texampleVcrRepository, err := vercel.NewVcrRepository(ctx, \"example\", \u0026vercel.VcrRepositoryArgs{\n\t\t\tProjectId: example.ID(),\n\t\t\tName:      pulumi.String(\"my-repository\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Share the repository with another team, granting it\n\t\t// read (pull) access to the repository's images.\n\t\t_, err = vercel.NewVcrRepositoryPermission(ctx, \"example\", \u0026vercel.VcrRepositoryPermissionArgs{\n\t\t\tProjectId:     example.ID(),\n\t\t\tRepository:    exampleVcrRepository.Name,\n\t\t\tGrantedTeamId: pulumi.String(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// The granted team can alternatively be referenced by its slug.\n\t\t_, err = vercel.NewVcrRepositoryPermission(ctx, \"example_by_slug\", \u0026vercel.VcrRepositoryPermissionArgs{\n\t\t\tProjectId:       example.ID(),\n\t\t\tRepository:      exampleVcrRepository.Name,\n\t\t\tGrantedTeamSlug: pulumi.String(\"my-other-team\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumiverse.vercel.Project;\nimport com.pulumiverse.vercel.ProjectArgs;\nimport com.pulumiverse.vercel.VcrRepository;\nimport com.pulumiverse.vercel.VcrRepositoryArgs;\nimport com.pulumiverse.vercel.VcrRepositoryPermission;\nimport com.pulumiverse.vercel.VcrRepositoryPermissionArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new Project(\"example\", ProjectArgs.builder()\n            .name(\"example-project-with-vcr-repository\")\n            .build());\n\n        var exampleVcrRepository = new VcrRepository(\"exampleVcrRepository\", VcrRepositoryArgs.builder()\n            .projectId(example.id())\n            .name(\"my-repository\")\n            .build());\n\n        // Share the repository with another team, granting it\n        // read (pull) access to the repository's images.\n        var exampleVcrRepositoryPermission = new VcrRepositoryPermission(\"exampleVcrRepositoryPermission\", VcrRepositoryPermissionArgs.builder()\n            .projectId(example.id())\n            .repository(exampleVcrRepository.name())\n            .grantedTeamId(\"team_xxxxxxxxxxxxxxxxxxxxxxxx\")\n            .build());\n\n        // The granted team can alternatively be referenced by its slug.\n        var exampleBySlug = new VcrRepositoryPermission(\"exampleBySlug\", VcrRepositoryPermissionArgs.builder()\n            .projectId(example.id())\n            .repository(exampleVcrRepository.name())\n            .grantedTeamSlug(\"my-other-team\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: vercel:Project\n    properties:\n      name: example-project-with-vcr-repository\n  exampleVcrRepository:\n    type: vercel:VcrRepository\n    name: example\n    properties:\n      projectId: ${example.id}\n      name: my-repository\n  # Share the repository with another team, granting it\n  # read (pull) access to the repository's images.\n  exampleVcrRepositoryPermission:\n    type: vercel:VcrRepositoryPermission\n    name: example\n    properties:\n      projectId: ${example.id}\n      repository: ${exampleVcrRepository.name}\n      grantedTeamId: team_xxxxxxxxxxxxxxxxxxxxxxxx\n  # The granted team can alternatively be referenced by its slug.\n  exampleBySlug:\n    type: vercel:VcrRepositoryPermission\n    name: example_by_slug\n    properties:\n      projectId: ${example.id}\n      repository: ${exampleVcrRepository.name}\n      grantedTeamSlug: my-other-team\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nThe `pulumi import` command can be used, for example:\n\nIf importing into a personal account, or with a team configured on\nthe provider, use the project_id, repository name and granted team ID.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" grantedTeamId \" pulumi-lang-dotnet=\" GrantedTeamId \" pulumi-lang-go=\" grantedTeamId \" pulumi-lang-python=\" granted_team_id \" pulumi-lang-yaml=\" grantedTeamId \" pulumi-lang-java=\" grantedTeamId \"\u003e granted_team_id \u003c/span\u003eis the ID of the team the repository is shared with.\n\n```sh\n$ pulumi import vercel:index/vcrRepositoryPermission:VcrRepositoryPermission example prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/my-repository/team_xxxxxxxxxxxxxxxxxxxxxxxx\n```\n\nAlternatively, you can import via the owning team_id, project_id,\nrepository name and granted team ID.\n-\u003cspan pulumi-lang-nodejs=\" teamId \" pulumi-lang-dotnet=\" TeamId \" pulumi-lang-go=\" teamId \" pulumi-lang-python=\" team_id \" pulumi-lang-yaml=\" teamId \" pulumi-lang-java=\" teamId \"\u003e team_id \u003c/span\u003ecan be found in the team \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" projectId \" pulumi-lang-dotnet=\" ProjectId \" pulumi-lang-go=\" projectId \" pulumi-lang-python=\" project_id \" pulumi-lang-yaml=\" projectId \" pulumi-lang-java=\" projectId \"\u003e project_id \u003c/span\u003ecan be found in the project \u003cspan pulumi-lang-nodejs=\"`settings`\" pulumi-lang-dotnet=\"`Settings`\" pulumi-lang-go=\"`settings`\" pulumi-lang-python=\"`settings`\" pulumi-lang-yaml=\"`settings`\" pulumi-lang-java=\"`settings`\"\u003e`settings`\u003c/span\u003e tab in the Vercel UI.\n-\u003cspan pulumi-lang-nodejs=\" grantedTeamId \" pulumi-lang-dotnet=\" GrantedTeamId \" pulumi-lang-go=\" grantedTeamId \" pulumi-lang-python=\" granted_team_id \" pulumi-lang-yaml=\" grantedTeamId \" pulumi-lang-java=\" grantedTeamId \"\u003e granted_team_id \u003c/span\u003eis the ID of the team the repository is shared with.\n\n```sh\n$ pulumi import vercel:index/vcrRepositoryPermission:VcrRepositoryPermission example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxx/my-repository/team_yyyyyyyyyyyyyyyyyyyyyyyy\n```\n\n",
+            "properties": {
+                "grantedTeamId": {
+                    "type": "string",
+                    "description": "The ID of the team to grant pull access to. Must specify one of granted*team*id or granted*team*slug.\n"
+                },
+                "grantedTeamSlug": {
+                    "type": "string",
+                    "description": "The slug of the team to grant pull access to. Must specify one of granted*team*id or granted*team*slug.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Vercel Project the repository belongs to.\n"
+                },
+                "repository": {
+                    "type": "string",
+                    "description": "The ID or name of the VCR Repository to share.\n"
+                },
+                "repositoryId": {
+                    "type": "string",
+                    "description": "The ID of the VCR Repository the permission is granted on.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team that owns the repository. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "required": [
+                "grantedTeamId",
+                "grantedTeamSlug",
+                "projectId",
+                "repository",
+                "repositoryId",
+                "teamId"
+            ],
+            "inputProperties": {
+                "grantedTeamId": {
+                    "type": "string",
+                    "description": "The ID of the team to grant pull access to. Must specify one of granted*team*id or granted*team*slug.\n"
+                },
+                "grantedTeamSlug": {
+                    "type": "string",
+                    "description": "The slug of the team to grant pull access to. Must specify one of granted*team*id or granted*team*slug.\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "The ID of the Vercel Project the repository belongs to.\n"
+                },
+                "repository": {
+                    "type": "string",
+                    "description": "The ID or name of the VCR Repository to share.\n"
+                },
+                "teamId": {
+                    "type": "string",
+                    "description": "The ID of the team that owns the repository. Required when configuring a team resource if a default team has not been set in the provider.\n"
+                }
+            },
+            "requiredInputs": [
+                "projectId",
+                "repository"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering VcrRepositoryPermission resources.\n",
+                "properties": {
+                    "grantedTeamId": {
+                        "type": "string",
+                        "description": "The ID of the team to grant pull access to. Must specify one of granted*team*id or granted*team*slug.\n"
+                    },
+                    "grantedTeamSlug": {
+                        "type": "string",
+                        "description": "The slug of the team to grant pull access to. Must specify one of granted*team*id or granted*team*slug.\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "The ID of the Vercel Project the repository belongs to.\n"
+                    },
+                    "repository": {
+                        "type": "string",
+                        "description": "The ID or name of the VCR Repository to share.\n"
+                    },
+                    "repositoryId": {
+                        "type": "string",
+                        "description": "The ID of the VCR Repository the permission is granted on.\n"
+                    },
+                    "teamId": {
+                        "type": "string",
+                        "description": "The ID of the team that owns the repository. Required when configuring a team resource if a default team has not been set in the provider.\n"
                     }
                 },
                 "type": "object"
@@ -11091,6 +11384,10 @@
                         "description": "The ID of the existing Vercel Project the repository belongs to.\n",
                         "type": "string"
                     },
+                    "public": {
+                        "description": "Whether the repository is pullable by any Vercel team.\n",
+                        "type": "boolean"
+                    },
                     "teamId": {
                         "description": "The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.\n",
                         "type": "string"
@@ -11104,6 +11401,7 @@
                     "id",
                     "name",
                     "projectId",
+                    "public",
                     "teamId",
                     "url"
                 ],
