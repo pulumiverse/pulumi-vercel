@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.ProjectEnvironmentVariableArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.ProjectEnvironmentVariableState;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
@@ -203,6 +204,20 @@ public class ProjectEnvironmentVariable extends com.pulumi.resources.CustomResou
      */
     public Output<Optional<String>> valueWo() {
         return Codegen.optional(this.valueWo);
+    }
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    @Export(name="valueWoVersion", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> valueWoVersion;
+
+    /**
+     * @return An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    public Output<Optional<Integer>> valueWoVersion() {
+        return Codegen.optional(this.valueWoVersion);
     }
 
     /**

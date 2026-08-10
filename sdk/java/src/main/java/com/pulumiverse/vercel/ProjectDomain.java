@@ -149,6 +149,20 @@ public class ProjectDomain extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.gitBranch);
     }
     /**
+     * Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     * 
+     */
+    @Export(name="misconfigured", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> misconfigured;
+
+    /**
+     * @return Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     * 
+     */
+    public Output<Boolean> misconfigured() {
+        return this.misconfigured;
+    }
+    /**
      * The project ID to add the deployment to.
      * 
      */
@@ -205,42 +219,42 @@ public class ProjectDomain extends com.pulumi.resources.CustomResource {
         return this.teamId;
     }
     /**
-     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
      * 
      */
     @Export(name="verifications", refs={List.class,ProjectDomainVerification.class}, tree="[0,1]")
     private Output<List<ProjectDomainVerification>> verifications;
 
     /**
-     * @return A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * @return A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
      * 
      */
     public Output<List<ProjectDomainVerification>> verifications() {
         return this.verifications;
     }
     /**
-     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain&#39;s DNS records point to Vercel; use `misconfigured` for that status.
      * 
      */
     @Export(name="verified", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> verified;
 
     /**
-     * @return Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * @return Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain&#39;s DNS records point to Vercel; use `misconfigured` for that status.
      * 
      */
     public Output<Boolean> verified() {
         return this.verified;
     }
     /**
-     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      * 
      */
     @Export(name="waitForReady", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> waitForReady;
 
     /**
-     * @return Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * @return Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      * 
      */
     public Output<Optional<Boolean>> waitForReady() {

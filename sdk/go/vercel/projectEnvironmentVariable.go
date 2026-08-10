@@ -77,6 +77,8 @@ type ProjectEnvironmentVariable struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo pulumi.StringPtrOutput `pulumi:"valueWo"`
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion pulumi.IntPtrOutput `pulumi:"valueWoVersion"`
 }
 
 // NewProjectEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -150,6 +152,8 @@ type projectEnvironmentVariableState struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo *string `pulumi:"valueWo"`
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion *int `pulumi:"valueWoVersion"`
 }
 
 type ProjectEnvironmentVariableState struct {
@@ -174,6 +178,8 @@ type ProjectEnvironmentVariableState struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo pulumi.StringPtrInput
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion pulumi.IntPtrInput
 }
 
 func (ProjectEnvironmentVariableState) ElementType() reflect.Type {
@@ -202,6 +208,8 @@ type projectEnvironmentVariableArgs struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo *string `pulumi:"valueWo"`
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion *int `pulumi:"valueWoVersion"`
 }
 
 // The set of arguments for constructing a ProjectEnvironmentVariable resource.
@@ -227,6 +235,8 @@ type ProjectEnvironmentVariableArgs struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo pulumi.StringPtrInput
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion pulumi.IntPtrInput
 }
 
 func (ProjectEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -365,6 +375,11 @@ func (o ProjectEnvironmentVariableOutput) Value() pulumi.StringPtrOutput {
 // (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 func (o ProjectEnvironmentVariableOutput) ValueWo() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringPtrOutput { return v.ValueWo }).(pulumi.StringPtrOutput)
+}
+
+// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+func (o ProjectEnvironmentVariableOutput) ValueWoVersion() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.IntPtrOutput { return v.ValueWoVersion }).(pulumi.IntPtrOutput)
 }
 
 type ProjectEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }

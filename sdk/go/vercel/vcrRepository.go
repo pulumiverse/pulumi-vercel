@@ -41,6 +41,7 @@ import (
 //			_, err = vercel.NewVcrRepository(ctx, "example", &vercel.VcrRepositoryArgs{
 //				ProjectId: example.ID(),
 //				Name:      pulumi.String("my-repository"),
+//				Public:    pulumi.Bool(true),
 //			})
 //			if err != nil {
 //				return err
@@ -77,6 +78,8 @@ type VcrRepository struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The ID of the existing Vercel Project the repository belongs to.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
+	// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+	Public pulumi.BoolOutput `pulumi:"public"`
 	// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.
@@ -120,6 +123,8 @@ type vcrRepositoryState struct {
 	Name *string `pulumi:"name"`
 	// The ID of the existing Vercel Project the repository belongs to.
 	ProjectId *string `pulumi:"projectId"`
+	// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+	Public *bool `pulumi:"public"`
 	// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 	// The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.
@@ -131,6 +136,8 @@ type VcrRepositoryState struct {
 	Name pulumi.StringPtrInput
 	// The ID of the existing Vercel Project the repository belongs to.
 	ProjectId pulumi.StringPtrInput
+	// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+	Public pulumi.BoolPtrInput
 	// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 	// The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.
@@ -146,6 +153,8 @@ type vcrRepositoryArgs struct {
 	Name *string `pulumi:"name"`
 	// The ID of the existing Vercel Project the repository belongs to.
 	ProjectId string `pulumi:"projectId"`
+	// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+	Public *bool `pulumi:"public"`
 	// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId *string `pulumi:"teamId"`
 }
@@ -156,6 +165,8 @@ type VcrRepositoryArgs struct {
 	Name pulumi.StringPtrInput
 	// The ID of the existing Vercel Project the repository belongs to.
 	ProjectId pulumi.StringInput
+	// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+	Public pulumi.BoolPtrInput
 	// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId pulumi.StringPtrInput
 }
@@ -255,6 +266,11 @@ func (o VcrRepositoryOutput) Name() pulumi.StringOutput {
 // The ID of the existing Vercel Project the repository belongs to.
 func (o VcrRepositoryOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *VcrRepository) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+func (o VcrRepositoryOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v *VcrRepository) pulumi.BoolOutput { return v.Public }).(pulumi.BoolOutput)
 }
 
 // The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.

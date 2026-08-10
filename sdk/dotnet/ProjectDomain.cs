@@ -103,6 +103,12 @@ namespace Pulumiverse.Vercel
         public Output<string?> GitBranch { get; private set; } = null!;
 
         /// <summary>
+        /// Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+        /// </summary>
+        [Output("misconfigured")]
+        public Output<bool> Misconfigured { get; private set; } = null!;
+
+        /// <summary>
         /// The project ID to add the deployment to.
         /// </summary>
         [Output("projectId")]
@@ -127,19 +133,19 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        /// A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
         /// </summary>
         [Output("verifications")]
         public Output<ImmutableArray<Outputs.ProjectDomainVerification>> Verifications { get; private set; } = null!;
 
         /// <summary>
-        /// Whether the domain is verified for use with the project. If `False`, the challenges in `Verification` must be completed before the domain will serve traffic for the project.
+        /// Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain's DNS records point to Vercel; use `Misconfigured` for that status.
         /// </summary>
         [Output("verified")]
         public Output<bool> Verified { get; private set; } = null!;
 
         /// <summary>
-        /// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        /// Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
         /// </summary>
         [Output("waitForReady")]
         public Output<bool?> WaitForReady { get; private set; } = null!;
@@ -234,7 +240,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        /// Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
         /// </summary>
         [Input("waitForReady")]
         public Input<bool>? WaitForReady { get; set; }
@@ -266,6 +272,12 @@ namespace Pulumiverse.Vercel
         public Input<string>? GitBranch { get; set; }
 
         /// <summary>
+        /// Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+        /// </summary>
+        [Input("misconfigured")]
+        public Input<bool>? Misconfigured { get; set; }
+
+        /// <summary>
         /// The project ID to add the deployment to.
         /// </summary>
         [Input("projectId")]
@@ -293,7 +305,7 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.ProjectDomainVerificationGetArgs>? _verifications;
 
         /// <summary>
-        /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+        /// A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
         /// </summary>
         public InputList<Inputs.ProjectDomainVerificationGetArgs> Verifications
         {
@@ -302,13 +314,13 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the domain is verified for use with the project. If `False`, the challenges in `Verification` must be completed before the domain will serve traffic for the project.
+        /// Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain's DNS records point to Vercel; use `Misconfigured` for that status.
         /// </summary>
         [Input("verified")]
         public Input<bool>? Verified { get; set; }
 
         /// <summary>
-        /// Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+        /// Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
         /// </summary>
         [Input("waitForReady")]
         public Input<bool>? WaitForReady { get; set; }

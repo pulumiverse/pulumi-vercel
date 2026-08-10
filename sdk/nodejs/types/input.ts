@@ -5,6 +5,56 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface AuditLogDrainHttp {
+    /**
+     * The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+     */
+    compression?: pulumi.Input<string>;
+    /**
+     * The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+     */
+    encoding: pulumi.Input<string>;
+    /**
+     * The HTTPS endpoint that receives Audit Log events.
+     */
+    endpoint: pulumi.Input<string>;
+    /**
+     * Custom headers included in requests to the HTTP endpoint.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+     */
+    secret?: pulumi.Input<string>;
+}
+
+export interface AuditLogDrainS3 {
+    /**
+     * The format used to write Audit Log events. Can be `json` or `ndjson`.
+     */
+    encoding: pulumi.Input<string>;
+    /**
+     * The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+     */
+    endpoint: pulumi.Input<string>;
+    /**
+     * The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+     */
+    objectAcl?: pulumi.Input<string>;
+    /**
+     * The AWS region containing the S3 bucket.
+     */
+    region: pulumi.Input<string>;
+    /**
+     * The ARN of the AWS IAM role Vercel assumes to write objects.
+     */
+    roleArn: pulumi.Input<string>;
+    /**
+     * The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+     */
+    serverSideEncryption?: pulumi.Input<string>;
+}
+
 export interface BulkRedirectsRedirect {
     /**
      * Whether the source match is case-sensitive.
@@ -424,7 +474,7 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      */
     key?: pulumi.Input<string>;
     /**
-     * Negate the condition
+     * Negate the condition. Defaults to false.
      */
     neg?: pulumi.Input<boolean>;
     /**

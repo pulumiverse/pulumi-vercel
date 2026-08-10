@@ -5,6 +5,7 @@ package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +22,11 @@ public final class GetDomainConfigResult {
      * 
      */
     private String id;
+    /**
+     * @return Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     * 
+     */
+    private Boolean misconfigured;
     /**
      * @return The project ID or name associated with the domain.
      * 
@@ -56,6 +62,13 @@ public final class GetDomainConfigResult {
      */
     public String id() {
         return this.id;
+    }
+    /**
+     * @return Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     * 
+     */
+    public Boolean misconfigured() {
+        return this.misconfigured;
     }
     /**
      * @return The project ID or name associated with the domain.
@@ -97,6 +110,7 @@ public final class GetDomainConfigResult {
     public static final class Builder {
         private String domain;
         private String id;
+        private Boolean misconfigured;
         private String projectIdOrName;
         private String recommendedCname;
         private List<String> recommendedIpv4s;
@@ -106,6 +120,7 @@ public final class GetDomainConfigResult {
     	      Objects.requireNonNull(defaults);
     	      this.domain = defaults.domain;
     	      this.id = defaults.id;
+    	      this.misconfigured = defaults.misconfigured;
     	      this.projectIdOrName = defaults.projectIdOrName;
     	      this.recommendedCname = defaults.recommendedCname;
     	      this.recommendedIpv4s = defaults.recommendedIpv4s;
@@ -126,6 +141,14 @@ public final class GetDomainConfigResult {
               throw new MissingRequiredPropertyException("GetDomainConfigResult", "id");
             }
             this.id = id;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder misconfigured(Boolean misconfigured) {
+            if (misconfigured == null) {
+              throw new MissingRequiredPropertyException("GetDomainConfigResult", "misconfigured");
+            }
+            this.misconfigured = misconfigured;
             return this;
         }
         @CustomType.Setter
@@ -167,6 +190,7 @@ public final class GetDomainConfigResult {
             final var _resultValue = new GetDomainConfigResult();
             _resultValue.domain = domain;
             _resultValue.id = id;
+            _resultValue.misconfigured = misconfigured;
             _resultValue.projectIdOrName = projectIdOrName;
             _resultValue.recommendedCname = recommendedCname;
             _resultValue.recommendedIpv4s = recommendedIpv4s;
