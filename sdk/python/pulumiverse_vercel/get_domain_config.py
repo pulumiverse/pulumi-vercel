@@ -26,13 +26,16 @@ class GetDomainConfigResult:
     """
     A collection of values returned by getDomainConfig.
     """
-    def __init__(__self__, domain=None, id=None, project_id_or_name=None, recommended_cname=None, recommended_ipv4s=None, team_id=None):
+    def __init__(__self__, domain=None, id=None, misconfigured=None, project_id_or_name=None, recommended_cname=None, recommended_ipv4s=None, team_id=None):
         if domain and not isinstance(domain, str):
             raise TypeError("Expected argument 'domain' to be a str")
         pulumi.set(__self__, "domain", domain)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if misconfigured and not isinstance(misconfigured, bool):
+            raise TypeError("Expected argument 'misconfigured' to be a bool")
+        pulumi.set(__self__, "misconfigured", misconfigured)
         if project_id_or_name and not isinstance(project_id_or_name, str):
             raise TypeError("Expected argument 'project_id_or_name' to be a str")
         pulumi.set(__self__, "project_id_or_name", project_id_or_name)
@@ -61,6 +64,14 @@ class GetDomainConfigResult:
         The provider-assigned unique ID for this managed resource.
         """
         return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def misconfigured(self) -> _builtins.bool:
+        """
+        Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+        """
+        return pulumi.get(self, "misconfigured")
 
     @_builtins.property
     @pulumi.getter(name="projectIdOrName")
@@ -103,6 +114,7 @@ class AwaitableGetDomainConfigResult(GetDomainConfigResult):
         return GetDomainConfigResult(
             domain=self.domain,
             id=self.id,
+            misconfigured=self.misconfigured,
             project_id_or_name=self.project_id_or_name,
             recommended_cname=self.recommended_cname,
             recommended_ipv4s=self.recommended_ipv4s,
@@ -117,7 +129,7 @@ def get_domain_config(domain: Optional[_builtins.str] = None,
     Provides domain configuration information for a Vercel project.
 
     This data source returns configuration details for a domain associated with a specific project,
-    including recommended CNAME and IPv4 values.
+    including its DNS configuration status and recommended CNAME and IPv4 values.
 
     ## Example Usage
 
@@ -167,6 +179,7 @@ def get_domain_config(domain: Optional[_builtins.str] = None,
     return AwaitableGetDomainConfigResult(
         domain=pulumi.get(__ret__, 'domain'),
         id=pulumi.get(__ret__, 'id'),
+        misconfigured=pulumi.get(__ret__, 'misconfigured'),
         project_id_or_name=pulumi.get(__ret__, 'project_id_or_name'),
         recommended_cname=pulumi.get(__ret__, 'recommended_cname'),
         recommended_ipv4s=pulumi.get(__ret__, 'recommended_ipv4s'),
@@ -179,7 +192,7 @@ def get_domain_config_output(domain: Optional[pulumi.Input[_builtins.str]] = Non
     Provides domain configuration information for a Vercel project.
 
     This data source returns configuration details for a domain associated with a specific project,
-    including recommended CNAME and IPv4 values.
+    including its DNS configuration status and recommended CNAME and IPv4 values.
 
     ## Example Usage
 
@@ -228,6 +241,7 @@ def get_domain_config_output(domain: Optional[pulumi.Input[_builtins.str]] = Non
     return __ret__.apply(lambda __response__: GetDomainConfigResult(
         domain=pulumi.get(__response__, 'domain'),
         id=pulumi.get(__response__, 'id'),
+        misconfigured=pulumi.get(__response__, 'misconfigured'),
         project_id_or_name=pulumi.get(__response__, 'project_id_or_name'),
         recommended_cname=pulumi.get(__response__, 'recommended_cname'),
         recommended_ipv4s=pulumi.get(__response__, 'recommended_ipv4s'),

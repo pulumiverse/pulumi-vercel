@@ -124,14 +124,14 @@ public final class ProjectDomainArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      * 
      */
     @Import(name="waitForReady")
     private @Nullable Output<Boolean> waitForReady;
 
     /**
-     * @return Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * @return Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      * 
      */
     public Optional<Output<Boolean>> waitForReady() {
@@ -317,7 +317,7 @@ public final class ProjectDomainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * @param waitForReady Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
          * 
          * @return builder
          * 
@@ -328,7 +328,7 @@ public final class ProjectDomainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * @param waitForReady Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
          * 
          * @return builder
          * 

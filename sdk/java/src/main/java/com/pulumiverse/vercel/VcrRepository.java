@@ -10,6 +10,7 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.VcrRepositoryArgs;
 import com.pulumiverse.vercel.inputs.VcrRepositoryState;
+import java.lang.Boolean;
 import java.lang.String;
 import javax.annotation.Nullable;
 
@@ -53,6 +54,7 @@ import javax.annotation.Nullable;
  *         var exampleVcrRepository = new VcrRepository("exampleVcrRepository", VcrRepositoryArgs.builder()
  *             .projectId(example.id())
  *             .name("my-repository")
+ *             .public_(true)
  *             .build());
  * 
  *     }
@@ -110,6 +112,20 @@ public class VcrRepository extends com.pulumi.resources.CustomResource {
      */
     public Output<String> projectId() {
         return this.projectId;
+    }
+    /**
+     * Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     * 
+     */
+    @Export(name="public", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> public_;
+
+    /**
+     * @return Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     * 
+     */
+    public Output<Boolean> public_() {
+        return this.public_;
     }
     /**
      * The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.

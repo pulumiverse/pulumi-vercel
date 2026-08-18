@@ -21,6 +21,7 @@ import * as utilities from "./utilities";
  * const exampleVcrRepository = new vercel.VcrRepository("example", {
  *     projectId: example.id,
  *     name: "my-repository",
+ *     "public": true,
  * });
  * ```
  *
@@ -81,6 +82,10 @@ export class VcrRepository extends pulumi.CustomResource {
      */
     declare public readonly projectId: pulumi.Output<string>;
     /**
+     * Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     */
+    declare public readonly public: pulumi.Output<boolean>;
+    /**
      * The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
      */
     declare public readonly teamId: pulumi.Output<string>;
@@ -104,6 +109,7 @@ export class VcrRepository extends pulumi.CustomResource {
             const state = argsOrState as VcrRepositoryState | undefined;
             resourceInputs["name"] = state?.name;
             resourceInputs["projectId"] = state?.projectId;
+            resourceInputs["public"] = state?.public;
             resourceInputs["teamId"] = state?.teamId;
             resourceInputs["url"] = state?.url;
         } else {
@@ -113,6 +119,7 @@ export class VcrRepository extends pulumi.CustomResource {
             }
             resourceInputs["name"] = args?.name;
             resourceInputs["projectId"] = args?.projectId;
+            resourceInputs["public"] = args?.public;
             resourceInputs["teamId"] = args?.teamId;
             resourceInputs["url"] = undefined /*out*/;
         }
@@ -133,6 +140,10 @@ export interface VcrRepositoryState {
      * The ID of the existing Vercel Project the repository belongs to.
      */
     projectId?: pulumi.Input<string>;
+    /**
+     * Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     */
+    public?: pulumi.Input<boolean>;
     /**
      * The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
      */
@@ -155,6 +166,10 @@ export interface VcrRepositoryArgs {
      * The ID of the existing Vercel Project the repository belongs to.
      */
     projectId: pulumi.Input<string>;
+    /**
+     * Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `false`.
+     */
+    public?: pulumi.Input<boolean>;
     /**
      * The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
      */

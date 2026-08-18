@@ -21,63 +21,6 @@ namespace Pulumiverse.Vercel
     /// 
     /// &gt; **Note:** Write-Only argument `ValueWo` is available to use in place of `Value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
     /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Vercel = Pulumiverse.Vercel;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var example = new Vercel.Project("example", new()
-    ///     {
-    ///         Name = "example",
-    ///         GitRepository = new Vercel.Inputs.ProjectGitRepositoryArgs
-    ///         {
-    ///             Type = "github",
-    ///             Repo = "vercel/some-repo",
-    ///         },
-    ///     });
-    /// 
-    ///     // Shared environment variables must explicitly set `sensitive`.
-    ///     var exampleSharedEnvironmentVariable = new Vercel.SharedEnvironmentVariable("example", new()
-    ///     {
-    ///         Key = "EXAMPLE",
-    ///         Value = "some_value",
-    ///         Targets = new[]
-    ///         {
-    ///             "production",
-    ///         },
-    ///         Sensitive = true,
-    ///         Comment = "an example shared variable",
-    ///         ProjectIds = new[]
-    ///         {
-    ///             example.Id,
-    ///         },
-    ///     });
-    /// 
-    ///     // Shared environment variables targeting `development` must explicitly set `sensitive = false`.
-    ///     var exampleDevelopment = new Vercel.SharedEnvironmentVariable("example_development", new()
-    ///     {
-    ///         Key = "EXAMPLE_DEVELOPMENT",
-    ///         Value = "some_development_value",
-    ///         Targets = new[]
-    ///         {
-    ///             "development",
-    ///         },
-    ///         Sensitive = false,
-    ///         Comment = "available during local development",
-    ///         ProjectIds = new[]
-    ///         {
-    ///             example.Id,
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// The `pulumi import` command can be used, for example:
@@ -150,6 +93,12 @@ namespace Pulumiverse.Vercel
         [Output("valueWo")]
         public Output<string?> ValueWo { get; private set; } = null!;
 
+        /// <summary>
+        /// An integer used to trigger an update to `ValueWo`. Increment this value when an update to the write-only value is required.
+        /// </summary>
+        [Output("valueWoVersion")]
+        public Output<int?> ValueWoVersion { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a SharedEnvironmentVariable resource with the given unique name, arguments, and options.
@@ -220,7 +169,7 @@ namespace Pulumiverse.Vercel
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
-        [Input("projectIds", required: true)]
+        [Input("projectIds")]
         private InputList<string>? _projectIds;
 
         /// <summary>
@@ -288,6 +237,12 @@ namespace Pulumiverse.Vercel
                 _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        /// <summary>
+        /// An integer used to trigger an update to `ValueWo`. Increment this value when an update to the write-only value is required.
+        /// </summary>
+        [Input("valueWoVersion")]
+        public Input<int>? ValueWoVersion { get; set; }
 
         public SharedEnvironmentVariableArgs()
         {
@@ -383,6 +338,12 @@ namespace Pulumiverse.Vercel
                 _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        /// <summary>
+        /// An integer used to trigger an update to `ValueWo`. Increment this value when an update to the write-only value is required.
+        /// </summary>
+        [Input("valueWoVersion")]
+        public Input<int>? ValueWoVersion { get; set; }
 
         public SharedEnvironmentVariableState()
         {

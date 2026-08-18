@@ -20,7 +20,7 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string>? Key { get; set; }
 
         /// <summary>
-        /// Negate the condition
+        /// Negate the condition. Defaults to false.
         /// </summary>
         [Input("neg")]
         public Input<bool>? Neg { get; set; }

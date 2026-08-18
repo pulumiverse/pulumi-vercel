@@ -213,6 +213,20 @@ public class UserToken extends com.pulumi.resources.CustomResource {
         return this.prefix;
     }
     /**
+     * The ID of the project this token should be scoped to. Requires team scope.
+     * 
+     */
+    @Export(name="projectId", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> projectId;
+
+    /**
+     * @return The ID of the project this token should be scoped to. Requires team scope.
+     * 
+     */
+    public Output<Optional<String>> projectId() {
+        return Codegen.optional(this.projectId);
+    }
+    /**
      * The token suffix used for identification.
      * 
      */
