@@ -5,6 +5,56 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface AuditLogDrainHttp {
+    /**
+     * The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+     */
+    compression: string;
+    /**
+     * The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+     */
+    encoding: string;
+    /**
+     * The HTTPS endpoint that receives Audit Log events.
+     */
+    endpoint: string;
+    /**
+     * Custom headers included in requests to the HTTP endpoint.
+     */
+    headers?: {[key: string]: string};
+    /**
+     * A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+     */
+    secret: string;
+}
+
+export interface AuditLogDrainS3 {
+    /**
+     * The format used to write Audit Log events. Can be `json` or `ndjson`.
+     */
+    encoding: string;
+    /**
+     * The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+     */
+    endpoint: string;
+    /**
+     * The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+     */
+    objectAcl: string;
+    /**
+     * The AWS region containing the S3 bucket.
+     */
+    region: string;
+    /**
+     * The ARN of the AWS IAM role Vercel assumes to write objects.
+     */
+    roleArn: string;
+    /**
+     * The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+     */
+    serverSideEncryption: string;
+}
+
 export interface BulkRedirectsRedirect {
     /**
      * Whether the source match is case-sensitive.
@@ -424,9 +474,9 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
      */
     key?: string;
     /**
-     * Negate the condition
+     * Negate the condition. Defaults to false.
      */
-    neg?: boolean;
+    neg: boolean;
     /**
      * Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
      */

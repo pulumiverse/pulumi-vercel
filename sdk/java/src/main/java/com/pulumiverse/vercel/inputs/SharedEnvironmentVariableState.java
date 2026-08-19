@@ -6,6 +6,7 @@ package com.pulumiverse.vercel.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -154,6 +155,21 @@ public final class SharedEnvironmentVariableState extends com.pulumi.resources.R
         return Optional.ofNullable(this.valueWo);
     }
 
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    @Import(name="valueWoVersion")
+    private @Nullable Output<Integer> valueWoVersion;
+
+    /**
+     * @return An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    public Optional<Output<Integer>> valueWoVersion() {
+        return Optional.ofNullable(this.valueWoVersion);
+    }
+
     private SharedEnvironmentVariableState() {}
 
     private SharedEnvironmentVariableState(SharedEnvironmentVariableState $) {
@@ -166,6 +182,7 @@ public final class SharedEnvironmentVariableState extends com.pulumi.resources.R
         this.teamId = $.teamId;
         this.value = $.value;
         this.valueWo = $.valueWo;
+        this.valueWoVersion = $.valueWoVersion;
     }
 
     public static Builder builder() {
@@ -395,6 +412,27 @@ public final class SharedEnvironmentVariableState extends com.pulumi.resources.R
          */
         public Builder valueWo(String valueWo) {
             return valueWo(Output.of(valueWo));
+        }
+
+        /**
+         * @param valueWoVersion An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWoVersion(@Nullable Output<Integer> valueWoVersion) {
+            $.valueWoVersion = valueWoVersion;
+            return this;
+        }
+
+        /**
+         * @param valueWoVersion An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWoVersion(Integer valueWoVersion) {
+            return valueWoVersion(Output.of(valueWoVersion));
         }
 
         public SharedEnvironmentVariableState build() {

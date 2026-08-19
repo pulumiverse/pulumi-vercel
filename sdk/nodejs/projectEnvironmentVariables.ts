@@ -9,6 +9,8 @@ import * as utilities from "./utilities";
 /**
  * Provides a resource for managing a number of Project Environment Variables.
  *
+ * > Removing entries from the `variables` attribute deletes the corresponding Environment Variables from the Vercel Project. Destroying this resource deletes all Environment Variables it manages. Environment Variables not managed by this resource are left unchanged.
+ *
  * This resource defines multiple Environment Variables on a Vercel Project.
  *
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables).

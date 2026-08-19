@@ -47,6 +47,21 @@ public final class UserTokenArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The ID of the project this token should be scoped to. Requires team scope.
+     * 
+     */
+    @Import(name="projectId")
+    private @Nullable Output<String> projectId;
+
+    /**
+     * @return The ID of the project this token should be scoped to. Requires team scope.
+     * 
+     */
+    public Optional<Output<String>> projectId() {
+        return Optional.ofNullable(this.projectId);
+    }
+
+    /**
      * The ID of the Vercel team scope for this token. Required when creating a team-scoped token if a default team has not been set in the provider.
      * 
      */
@@ -66,6 +81,7 @@ public final class UserTokenArgs extends com.pulumi.resources.ResourceArgs {
     private UserTokenArgs(UserTokenArgs $) {
         this.expiresAt = $.expiresAt;
         this.name = $.name;
+        this.projectId = $.projectId;
         this.teamId = $.teamId;
     }
 
@@ -127,6 +143,27 @@ public final class UserTokenArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder name(String name) {
             return name(Output.of(name));
+        }
+
+        /**
+         * @param projectId The ID of the project this token should be scoped to. Requires team scope.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder projectId(@Nullable Output<String> projectId) {
+            $.projectId = projectId;
+            return this;
+        }
+
+        /**
+         * @param projectId The ID of the project this token should be scoped to. Requires team scope.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder projectId(String projectId) {
+            return projectId(Output.of(projectId));
         }
 
         /**

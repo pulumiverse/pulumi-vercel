@@ -15,6 +15,10 @@ else:
 from . import _utilities
 
 __all__ = [
+    'AuditLogDrainHttpArgs',
+    'AuditLogDrainHttpArgsDict',
+    'AuditLogDrainS3Args',
+    'AuditLogDrainS3ArgsDict',
     'BulkRedirectsRedirectArgs',
     'BulkRedirectsRedirectArgsDict',
     'CustomEnvironmentBranchTrackingArgs',
@@ -160,6 +164,238 @@ __all__ = [
     'TraceDrainSamplingRuleArgs',
     'TraceDrainSamplingRuleArgsDict',
 ]
+
+class AuditLogDrainHttpArgsDict(TypedDict):
+    encoding: pulumi.Input[_builtins.str]
+    """
+    The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+    """
+    endpoint: pulumi.Input[_builtins.str]
+    """
+    The HTTPS endpoint that receives Audit Log events.
+    """
+    compression: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+    """
+    headers: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    Custom headers included in requests to the HTTP endpoint.
+    """
+    secret: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+    """
+
+@pulumi.input_type
+class AuditLogDrainHttpArgs:
+    def __init__(__self__, *,
+                 encoding: pulumi.Input[_builtins.str],
+                 endpoint: pulumi.Input[_builtins.str],
+                 compression: Optional[pulumi.Input[_builtins.str]] = None,
+                 headers: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 secret: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] encoding: The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+        :param pulumi.Input[_builtins.str] endpoint: The HTTPS endpoint that receives Audit Log events.
+        :param pulumi.Input[_builtins.str] compression: The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers included in requests to the HTTP endpoint.
+        :param pulumi.Input[_builtins.str] secret: A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+        """
+        pulumi.set(__self__, "encoding", encoding)
+        pulumi.set(__self__, "endpoint", endpoint)
+        if compression is not None:
+            pulumi.set(__self__, "compression", compression)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if secret is not None:
+            pulumi.set(__self__, "secret", secret)
+
+    @_builtins.property
+    @pulumi.getter
+    def encoding(self) -> pulumi.Input[_builtins.str]:
+        """
+        The format used to deliver Audit Log events. Can be `json` or `ndjson`.
+        """
+        return pulumi.get(self, "encoding")
+
+    @encoding.setter
+    def encoding(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "encoding", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def endpoint(self) -> pulumi.Input[_builtins.str]:
+        """
+        The HTTPS endpoint that receives Audit Log events.
+        """
+        return pulumi.get(self, "endpoint")
+
+    @endpoint.setter
+    def endpoint(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "endpoint", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def compression(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The compression applied to HTTP request bodies. Can be `gzip` or `none`.
+        """
+        return pulumi.get(self, "compression")
+
+    @compression.setter
+    def compression(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "compression", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Custom headers included in requests to the HTTP endpoint.
+        """
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "headers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def secret(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A custom secret used to sign Audit Log events. If omitted, Vercel generates one.
+        """
+        return pulumi.get(self, "secret")
+
+    @secret.setter
+    def secret(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "secret", value)
+
+
+class AuditLogDrainS3ArgsDict(TypedDict):
+    encoding: pulumi.Input[_builtins.str]
+    """
+    The format used to write Audit Log events. Can be `json` or `ndjson`.
+    """
+    endpoint: pulumi.Input[_builtins.str]
+    """
+    The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+    """
+    region: pulumi.Input[_builtins.str]
+    """
+    The AWS region containing the S3 bucket.
+    """
+    role_arn: pulumi.Input[_builtins.str]
+    """
+    The ARN of the AWS IAM role Vercel assumes to write objects.
+    """
+    object_acl: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+    """
+    server_side_encryption: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+    """
+
+@pulumi.input_type
+class AuditLogDrainS3Args:
+    def __init__(__self__, *,
+                 encoding: pulumi.Input[_builtins.str],
+                 endpoint: pulumi.Input[_builtins.str],
+                 region: pulumi.Input[_builtins.str],
+                 role_arn: pulumi.Input[_builtins.str],
+                 object_acl: Optional[pulumi.Input[_builtins.str]] = None,
+                 server_side_encryption: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] encoding: The format used to write Audit Log events. Can be `json` or `ndjson`.
+        :param pulumi.Input[_builtins.str] endpoint: The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+        :param pulumi.Input[_builtins.str] region: The AWS region containing the S3 bucket.
+        :param pulumi.Input[_builtins.str] role_arn: The ARN of the AWS IAM role Vercel assumes to write objects.
+        :param pulumi.Input[_builtins.str] object_acl: The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+        :param pulumi.Input[_builtins.str] server_side_encryption: The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+        """
+        pulumi.set(__self__, "encoding", encoding)
+        pulumi.set(__self__, "endpoint", endpoint)
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "role_arn", role_arn)
+        if object_acl is not None:
+            pulumi.set(__self__, "object_acl", object_acl)
+        if server_side_encryption is not None:
+            pulumi.set(__self__, "server_side_encryption", server_side_encryption)
+
+    @_builtins.property
+    @pulumi.getter
+    def encoding(self) -> pulumi.Input[_builtins.str]:
+        """
+        The format used to write Audit Log events. Can be `json` or `ndjson`.
+        """
+        return pulumi.get(self, "encoding")
+
+    @encoding.setter
+    def encoding(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "encoding", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def endpoint(self) -> pulumi.Input[_builtins.str]:
+        """
+        The S3 bucket and optional prefix where Audit Log events are written, using the format `s3://bucket[/prefix]`.
+        """
+        return pulumi.get(self, "endpoint")
+
+    @endpoint.setter
+    def endpoint(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "endpoint", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def region(self) -> pulumi.Input[_builtins.str]:
+        """
+        The AWS region containing the S3 bucket.
+        """
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "region", value)
+
+    @_builtins.property
+    @pulumi.getter(name="roleArn")
+    def role_arn(self) -> pulumi.Input[_builtins.str]:
+        """
+        The ARN of the AWS IAM role Vercel assumes to write objects.
+        """
+        return pulumi.get(self, "role_arn")
+
+    @role_arn.setter
+    def role_arn(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "role_arn", value)
+
+    @_builtins.property
+    @pulumi.getter(name="objectAcl")
+    def object_acl(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The canned ACL sent when writing objects. Can be `private`, `bucket-owner-read`, or `bucket-owner-full-control`.
+        """
+        return pulumi.get(self, "object_acl")
+
+    @object_acl.setter
+    def object_acl(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "object_acl", value)
+
+    @_builtins.property
+    @pulumi.getter(name="serverSideEncryption")
+    def server_side_encryption(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The server-side encryption header sent when writing objects. Can be `AES256`, `aws:kms`, or `aws:kms:dsse`.
+        """
+        return pulumi.get(self, "server_side_encryption")
+
+    @server_side_encryption.setter
+    def server_side_encryption(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "server_side_encryption", value)
+
 
 class BulkRedirectsRedirectArgsDict(TypedDict):
     destination: pulumi.Input[_builtins.str]
@@ -2245,7 +2481,7 @@ class FirewallConfigRulesRuleConditionGroupConditionArgsDict(TypedDict):
     """
     neg: NotRequired[pulumi.Input[_builtins.bool]]
     """
-    Negate the condition
+    Negate the condition. Defaults to false.
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -2269,7 +2505,7 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
         :param pulumi.Input[_builtins.str] op: Operator to use for comparison. Options: `re` (regex), `eq` (equals), `neq` (not equals), `ex` (exists), `nex` (not exists), `inc` (includes), `ninc` (not includes), `pre` (prefix), `suf` (suffix), `sub` (substring), `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal). Note: `ex` and `nex` don't require a `value` field, only `key`.
         :param pulumi.Input[_builtins.str] type: Request key type to match against
         :param pulumi.Input[_builtins.str] key: Key within type to match against
-        :param pulumi.Input[_builtins.bool] neg: Negate the condition
+        :param pulumi.Input[_builtins.bool] neg: Negate the condition. Defaults to false.
         :param pulumi.Input[_builtins.str] value: Value to match against. Not required for existence operators (`ex`, `nex`). Use `values` instead for `inc` and `ninc` operators.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: Values to match against if op is inc, ninc
         """
@@ -2324,7 +2560,7 @@ class FirewallConfigRulesRuleConditionGroupConditionArgs:
     @pulumi.getter
     def neg(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Negate the condition
+        Negate the condition. Defaults to false.
         """
         return pulumi.get(self, "neg")
 

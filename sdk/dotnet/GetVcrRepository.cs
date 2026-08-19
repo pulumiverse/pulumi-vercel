@@ -167,6 +167,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string ProjectId;
         /// <summary>
+        /// Whether the repository is pullable by any Vercel team.
+        /// </summary>
+        public readonly bool Public;
+        /// <summary>
         /// The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         public readonly string TeamId;
@@ -183,6 +187,8 @@ namespace Pulumiverse.Vercel
 
             string projectId,
 
+            bool @public,
+
             string teamId,
 
             string url)
@@ -190,6 +196,7 @@ namespace Pulumiverse.Vercel
             Id = id;
             Name = name;
             ProjectId = projectId;
+            Public = @public;
             TeamId = teamId;
             Url = url;
         }

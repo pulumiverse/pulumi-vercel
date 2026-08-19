@@ -78,6 +78,25 @@ import javax.annotation.Nullable;
  * }
  * </pre>
  * 
+ * ## Import
+ * 
+ * The `pulumi import` command can be used, for example:
+ * 
+ * If a team is configured on the provider, use the webhook ID.
+ * 
+ * ```sh
+ * $ pulumi import vercel:index/webhook:Webhook example hook_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ * 
+ * Alternatively, import using the team ID and webhook ID.
+ * 
+ * ```sh
+ * $ pulumi import vercel:index/webhook:Webhook example team_xxxxxxxxxxxxxxxxxxxxxxxx/hook_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ * 
+ * Vercel does not return an existing webhook&#39;s signing secret, so the imported
+ * secret value will be null.
+ * 
  */
 @ResourceType(type="vercel:index/webhook:Webhook")
 public class Webhook extends com.pulumi.resources.CustomResource {

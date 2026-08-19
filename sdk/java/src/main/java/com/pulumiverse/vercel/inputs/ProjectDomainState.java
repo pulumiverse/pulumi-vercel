@@ -65,6 +65,21 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
+     * Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     * 
+     */
+    @Import(name="misconfigured")
+    private @Nullable Output<Boolean> misconfigured;
+
+    /**
+     * @return Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     * 
+     */
+    public Optional<Output<Boolean>> misconfigured() {
+        return Optional.ofNullable(this.misconfigured);
+    }
+
+    /**
      * The project ID to add the deployment to.
      * 
      */
@@ -125,14 +140,14 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
      * 
      */
     @Import(name="verifications")
     private @Nullable Output<List<ProjectDomainVerificationArgs>> verifications;
 
     /**
-     * @return A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * @return A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
      * 
      */
     public Optional<Output<List<ProjectDomainVerificationArgs>>> verifications() {
@@ -140,14 +155,14 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain&#39;s DNS records point to Vercel; use `misconfigured` for that status.
      * 
      */
     @Import(name="verified")
     private @Nullable Output<Boolean> verified;
 
     /**
-     * @return Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * @return Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain&#39;s DNS records point to Vercel; use `misconfigured` for that status.
      * 
      */
     public Optional<Output<Boolean>> verified() {
@@ -155,14 +170,14 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      * 
      */
     @Import(name="waitForReady")
     private @Nullable Output<Boolean> waitForReady;
 
     /**
-     * @return Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * @return Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      * 
      */
     public Optional<Output<Boolean>> waitForReady() {
@@ -175,6 +190,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         this.customEnvironmentId = $.customEnvironmentId;
         this.domain = $.domain;
         this.gitBranch = $.gitBranch;
+        this.misconfigured = $.misconfigured;
         this.projectId = $.projectId;
         this.redirect = $.redirect;
         this.redirectStatusCode = $.redirectStatusCode;
@@ -266,6 +282,27 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
+         * @param misconfigured Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder misconfigured(@Nullable Output<Boolean> misconfigured) {
+            $.misconfigured = misconfigured;
+            return this;
+        }
+
+        /**
+         * @param misconfigured Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder misconfigured(Boolean misconfigured) {
+            return misconfigured(Output.of(misconfigured));
+        }
+
+        /**
          * @param projectId The project ID to add the deployment to.
          * 
          * @return builder
@@ -350,7 +387,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param verifications A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+         * @param verifications A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
          * 
          * @return builder
          * 
@@ -361,7 +398,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param verifications A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+         * @param verifications A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
          * 
          * @return builder
          * 
@@ -371,7 +408,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param verifications A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+         * @param verifications A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
          * 
          * @return builder
          * 
@@ -381,7 +418,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param verified Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+         * @param verified Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain&#39;s DNS records point to Vercel; use `misconfigured` for that status.
          * 
          * @return builder
          * 
@@ -392,7 +429,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param verified Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+         * @param verified Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain&#39;s DNS records point to Vercel; use `misconfigured` for that status.
          * 
          * @return builder
          * 
@@ -402,7 +439,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * @param waitForReady Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
          * 
          * @return builder
          * 
@@ -413,7 +450,7 @@ public final class ProjectDomainState extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param waitForReady Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+         * @param waitForReady Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
          * 
          * @return builder
          * 
