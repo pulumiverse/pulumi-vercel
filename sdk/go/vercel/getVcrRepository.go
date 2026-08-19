@@ -70,6 +70,8 @@ type LookupVcrRepositoryResult struct {
 	Name string `pulumi:"name"`
 	// The ID of the existing Vercel Project the repository belongs to.
 	ProjectId string `pulumi:"projectId"`
+	// Whether the repository is pullable by any Vercel team.
+	Public bool `pulumi:"public"`
 	// The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.
 	TeamId string `pulumi:"teamId"`
 	// The URL of the repository, composed of the owner slug, the project slug and the repository name (e.g. `vcr.vercel.com/team-slug/project-slug/repository-name`). Use it to push and pull images with Docker-compatible tooling.
@@ -127,6 +129,11 @@ func (o LookupVcrRepositoryResultOutput) Name() pulumi.StringOutput {
 // The ID of the existing Vercel Project the repository belongs to.
 func (o LookupVcrRepositoryResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupVcrRepositoryResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Whether the repository is pullable by any Vercel team.
+func (o LookupVcrRepositoryResultOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupVcrRepositoryResult) bool { return v.Public }).(pulumi.BoolOutput)
 }
 
 // The ID of the team the repository exists under. Required when configuring a team resource if a default team has not been set in the provider.

@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -67,15 +68,15 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
      * The ID of the Vercel project.
      * 
      */
-    @Import(name="projectIds", required=true)
-    private Output<List<String>> projectIds;
+    @Import(name="projectIds")
+    private @Nullable Output<List<String>> projectIds;
 
     /**
      * @return The ID of the Vercel project.
      * 
      */
-    public Output<List<String>> projectIds() {
-        return this.projectIds;
+    public Optional<Output<List<String>>> projectIds() {
+        return Optional.ofNullable(this.projectIds);
     }
 
     /**
@@ -155,6 +156,21 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
         return Optional.ofNullable(this.valueWo);
     }
 
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    @Import(name="valueWoVersion")
+    private @Nullable Output<Integer> valueWoVersion;
+
+    /**
+     * @return An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    public Optional<Output<Integer>> valueWoVersion() {
+        return Optional.ofNullable(this.valueWoVersion);
+    }
+
     private SharedEnvironmentVariableArgs() {}
 
     private SharedEnvironmentVariableArgs(SharedEnvironmentVariableArgs $) {
@@ -167,6 +183,7 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
         this.teamId = $.teamId;
         this.value = $.value;
         this.valueWo = $.valueWo;
+        this.valueWoVersion = $.valueWoVersion;
     }
 
     public static Builder builder() {
@@ -256,7 +273,7 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
          * @return builder
          * 
          */
-        public Builder projectIds(Output<List<String>> projectIds) {
+        public Builder projectIds(@Nullable Output<List<String>> projectIds) {
             $.projectIds = projectIds;
             return this;
         }
@@ -398,12 +415,30 @@ public final class SharedEnvironmentVariableArgs extends com.pulumi.resources.Re
             return valueWo(Output.of(valueWo));
         }
 
+        /**
+         * @param valueWoVersion An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWoVersion(@Nullable Output<Integer> valueWoVersion) {
+            $.valueWoVersion = valueWoVersion;
+            return this;
+        }
+
+        /**
+         * @param valueWoVersion An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder valueWoVersion(Integer valueWoVersion) {
+            return valueWoVersion(Output.of(valueWoVersion));
+        }
+
         public SharedEnvironmentVariableArgs build() {
             if ($.key == null) {
                 throw new MissingRequiredPropertyException("SharedEnvironmentVariableArgs", "key");
-            }
-            if ($.projectIds == null) {
-                throw new MissingRequiredPropertyException("SharedEnvironmentVariableArgs", "projectIds");
             }
             if ($.sensitive == null) {
                 throw new MissingRequiredPropertyException("SharedEnvironmentVariableArgs", "sensitive");

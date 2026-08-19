@@ -15,39 +15,6 @@ import * as utilities from "./utilities";
  *
  * > **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
  *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * const example = new vercel.Project("example", {
- *     name: "example",
- *     gitRepository: {
- *         type: "github",
- *         repo: "vercel/some-repo",
- *     },
- * });
- * // Shared environment variables must explicitly set `sensitive`.
- * const exampleSharedEnvironmentVariable = new vercel.SharedEnvironmentVariable("example", {
- *     key: "EXAMPLE",
- *     value: "some_value",
- *     targets: ["production"],
- *     sensitive: true,
- *     comment: "an example shared variable",
- *     projectIds: [example.id],
- * });
- * // Shared environment variables targeting `development` must explicitly set `sensitive = false`.
- * const exampleDevelopment = new vercel.SharedEnvironmentVariable("example_development", {
- *     key: "EXAMPLE_DEVELOPMENT",
- *     value: "some_development_value",
- *     targets: ["development"],
- *     sensitive: false,
- *     comment: "available during local development",
- *     projectIds: [example.id],
- * });
- * ```
- *
  * ## Import
  *
  * The `pulumi import` command can be used, for example:
@@ -105,7 +72,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
     /**
      * The ID of the Vercel project.
      */
-    declare public readonly projectIds: pulumi.Output<string[]>;
+    declare public readonly projectIds: pulumi.Output<string[] | undefined>;
     /**
      * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      */
@@ -127,6 +94,10 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
      * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
      */
     declare public readonly valueWo: pulumi.Output<string | undefined>;
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     */
+    declare public readonly valueWoVersion: pulumi.Output<number | undefined>;
 
     /**
      * Create a SharedEnvironmentVariable resource with the given unique name, arguments, and options.
@@ -150,13 +121,11 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["teamId"] = state?.teamId;
             resourceInputs["value"] = state?.value;
             resourceInputs["valueWo"] = state?.valueWo;
+            resourceInputs["valueWoVersion"] = state?.valueWoVersion;
         } else {
             const args = argsOrState as SharedEnvironmentVariableArgs | undefined;
             if (args?.key === undefined && !opts.urn) {
                 throw new Error("Missing required property 'key'");
-            }
-            if (args?.projectIds === undefined && !opts.urn) {
-                throw new Error("Missing required property 'projectIds'");
             }
             if (args?.sensitive === undefined && !opts.urn) {
                 throw new Error("Missing required property 'sensitive'");
@@ -170,6 +139,7 @@ export class SharedEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["teamId"] = args?.teamId;
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
             resourceInputs["valueWo"] = args?.valueWo ? pulumi.secret(args.valueWo) : undefined;
+            resourceInputs["valueWoVersion"] = args?.valueWoVersion;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["value", "valueWo"] };
@@ -219,6 +189,10 @@ export interface SharedEnvironmentVariableState {
      * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
      */
     valueWo?: pulumi.Input<string>;
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     */
+    valueWoVersion?: pulumi.Input<number>;
 }
 
 /**
@@ -240,7 +214,7 @@ export interface SharedEnvironmentVariableArgs {
     /**
      * The ID of the Vercel project.
      */
-    projectIds: pulumi.Input<pulumi.Input<string>[]>;
+    projectIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
      */
@@ -262,4 +236,8 @@ export interface SharedEnvironmentVariableArgs {
      * (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
      */
     valueWo?: pulumi.Input<string>;
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     */
+    valueWoVersion?: pulumi.Input<number>;
 }

@@ -30,6 +30,11 @@ export type AttackChallengeMode = import("./attackChallengeMode").AttackChalleng
 export const AttackChallengeMode: typeof import("./attackChallengeMode").AttackChallengeMode = null as any;
 utilities.lazyLoad(exports, ["AttackChallengeMode"], () => require("./attackChallengeMode"));
 
+export { AuditLogDrainArgs, AuditLogDrainState } from "./auditLogDrain";
+export type AuditLogDrain = import("./auditLogDrain").AuditLogDrain;
+export const AuditLogDrain: typeof import("./auditLogDrain").AuditLogDrain = null as any;
+utilities.lazyLoad(exports, ["AuditLogDrain"], () => require("./auditLogDrain"));
+
 export { BlobObjectArgs, BlobObjectState } from "./blobObject";
 export type BlobObject = import("./blobObject").BlobObject;
 export const BlobObject: typeof import("./blobObject").BlobObject = null as any;
@@ -345,6 +350,16 @@ export type Network = import("./network").Network;
 export const Network: typeof import("./network").Network = null as any;
 utilities.lazyLoad(exports, ["Network"], () => require("./network"));
 
+export { OauthAppArgs, OauthAppState } from "./oauthApp";
+export type OauthApp = import("./oauthApp").OauthApp;
+export const OauthApp: typeof import("./oauthApp").OauthApp = null as any;
+utilities.lazyLoad(exports, ["OauthApp"], () => require("./oauthApp"));
+
+export { OauthAppClientSecretArgs, OauthAppClientSecretState } from "./oauthAppClientSecret";
+export type OauthAppClientSecret = import("./oauthAppClientSecret").OauthAppClientSecret;
+export const OauthAppClientSecret: typeof import("./oauthAppClientSecret").OauthAppClientSecret = null as any;
+utilities.lazyLoad(exports, ["OauthAppClientSecret"], () => require("./oauthAppClientSecret"));
+
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
@@ -433,6 +448,11 @@ export type VcrRepository = import("./vcrRepository").VcrRepository;
 export const VcrRepository: typeof import("./vcrRepository").VcrRepository = null as any;
 utilities.lazyLoad(exports, ["VcrRepository"], () => require("./vcrRepository"));
 
+export { VcrRepositoryPermissionArgs, VcrRepositoryPermissionState } from "./vcrRepositoryPermission";
+export type VcrRepositoryPermission = import("./vcrRepositoryPermission").VcrRepositoryPermission;
+export const VcrRepositoryPermission: typeof import("./vcrRepositoryPermission").VcrRepositoryPermission = null as any;
+utilities.lazyLoad(exports, ["VcrRepositoryPermission"], () => require("./vcrRepositoryPermission"));
+
 export { WebhookArgs, WebhookState } from "./webhook";
 export type Webhook = import("./webhook").Webhook;
 export const Webhook: typeof import("./webhook").Webhook = null as any;
@@ -462,6 +482,8 @@ const _module = {
                 return new Alias(name, <any>undefined, { urn })
             case "vercel:index/attackChallengeMode:AttackChallengeMode":
                 return new AttackChallengeMode(name, <any>undefined, { urn })
+            case "vercel:index/auditLogDrain:AuditLogDrain":
+                return new AuditLogDrain(name, <any>undefined, { urn })
             case "vercel:index/blobObject:BlobObject":
                 return new BlobObject(name, <any>undefined, { urn })
             case "vercel:index/blobProjectConnection:BlobProjectConnection":
@@ -510,6 +532,10 @@ const _module = {
                 return new MicrofrontendGroupMembership(name, <any>undefined, { urn })
             case "vercel:index/network:Network":
                 return new Network(name, <any>undefined, { urn })
+            case "vercel:index/oauthApp:OauthApp":
+                return new OauthApp(name, <any>undefined, { urn })
+            case "vercel:index/oauthAppClientSecret:OauthAppClientSecret":
+                return new OauthAppClientSecret(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectCrons:ProjectCrons":
@@ -544,6 +570,8 @@ const _module = {
                 return new UserToken(name, <any>undefined, { urn })
             case "vercel:index/vcrRepository:VcrRepository":
                 return new VcrRepository(name, <any>undefined, { urn })
+            case "vercel:index/vcrRepositoryPermission:VcrRepositoryPermission":
+                return new VcrRepositoryPermission(name, <any>undefined, { urn })
             case "vercel:index/webhook:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
@@ -556,6 +584,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/accessGroupMember", _modu
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/auditLogDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobObject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobProjectConnection", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobStore", _module)
@@ -580,6 +609,8 @@ pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembership", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/network", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/oauthApp", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/oauthAppClientSecret", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
@@ -597,6 +628,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/teamMember", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/traceDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/userToken", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/vcrRepository", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/vcrRepositoryPermission", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("vercel", {
     version: utilities.getVersion(),

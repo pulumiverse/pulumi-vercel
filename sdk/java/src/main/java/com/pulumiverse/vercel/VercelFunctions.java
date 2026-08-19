@@ -2591,7 +2591,7 @@ public final class VercelFunctions {
      * Provides domain configuration information for a Vercel project.
      * 
      * This data source returns configuration details for a domain associated with a specific project,
-     * including recommended CNAME and IPv4 values.
+     * including its DNS configuration status and recommended CNAME and IPv4 values.
      * 
      * ## Example Usage
      * 
@@ -2670,7 +2670,7 @@ public final class VercelFunctions {
      * Provides domain configuration information for a Vercel project.
      * 
      * This data source returns configuration details for a domain associated with a specific project,
-     * including recommended CNAME and IPv4 values.
+     * including its DNS configuration status and recommended CNAME and IPv4 values.
      * 
      * ## Example Usage
      * 
@@ -2749,7 +2749,7 @@ public final class VercelFunctions {
      * Provides domain configuration information for a Vercel project.
      * 
      * This data source returns configuration details for a domain associated with a specific project,
-     * including recommended CNAME and IPv4 values.
+     * including its DNS configuration status and recommended CNAME and IPv4 values.
      * 
      * ## Example Usage
      * 
@@ -2828,7 +2828,7 @@ public final class VercelFunctions {
      * Provides domain configuration information for a Vercel project.
      * 
      * This data source returns configuration details for a domain associated with a specific project,
-     * including recommended CNAME and IPv4 values.
+     * including its DNS configuration status and recommended CNAME and IPv4 values.
      * 
      * ## Example Usage
      * 
@@ -2907,7 +2907,7 @@ public final class VercelFunctions {
      * Provides domain configuration information for a Vercel project.
      * 
      * This data source returns configuration details for a domain associated with a specific project,
-     * including recommended CNAME and IPv4 values.
+     * including its DNS configuration status and recommended CNAME and IPv4 values.
      * 
      * ## Example Usage
      * 

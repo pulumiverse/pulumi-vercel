@@ -16,7 +16,7 @@ namespace Pulumiverse.Vercel
         /// Provides domain configuration information for a Vercel project.
         /// 
         /// This data source returns configuration details for a domain associated with a specific project,
-        /// including recommended CNAME and IPv4 values.
+        /// including its DNS configuration status and recommended CNAME and IPv4 values.
         /// 
         /// ## Example Usage
         /// 
@@ -83,7 +83,7 @@ namespace Pulumiverse.Vercel
         /// Provides domain configuration information for a Vercel project.
         /// 
         /// This data source returns configuration details for a domain associated with a specific project,
-        /// including recommended CNAME and IPv4 values.
+        /// including its DNS configuration status and recommended CNAME and IPv4 values.
         /// 
         /// ## Example Usage
         /// 
@@ -150,7 +150,7 @@ namespace Pulumiverse.Vercel
         /// Provides domain configuration information for a Vercel project.
         /// 
         /// This data source returns configuration details for a domain associated with a specific project,
-        /// including recommended CNAME and IPv4 values.
+        /// including its DNS configuration status and recommended CNAME and IPv4 values.
         /// 
         /// ## Example Usage
         /// 
@@ -280,6 +280,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string Id;
         /// <summary>
+        /// Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+        /// </summary>
+        public readonly bool Misconfigured;
+        /// <summary>
         /// The project ID or name associated with the domain.
         /// </summary>
         public readonly string ProjectIdOrName;
@@ -302,6 +306,8 @@ namespace Pulumiverse.Vercel
 
             string id,
 
+            bool misconfigured,
+
             string projectIdOrName,
 
             string recommendedCname,
@@ -312,6 +318,7 @@ namespace Pulumiverse.Vercel
         {
             Domain = domain;
             Id = id;
+            Misconfigured = misconfigured;
             ProjectIdOrName = projectIdOrName;
             RecommendedCname = recommendedCname;
             RecommendedIpv4s = recommendedIpv4s;

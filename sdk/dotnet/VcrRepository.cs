@@ -36,6 +36,7 @@ namespace Pulumiverse.Vercel
     ///     {
     ///         ProjectId = example.Id,
     ///         Name = "my-repository",
+    ///         Public = true,
     ///     });
     /// 
     /// });
@@ -75,6 +76,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("projectId")]
         public Output<string> ProjectId { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `False`.
+        /// </summary>
+        [Output("public")]
+        public Output<bool> Public { get; private set; } = null!;
 
         /// <summary>
         /// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -148,6 +155,12 @@ namespace Pulumiverse.Vercel
         public Input<string> ProjectId { get; set; } = null!;
 
         /// <summary>
+        /// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `False`.
+        /// </summary>
+        [Input("public")]
+        public Input<bool>? Public { get; set; }
+
+        /// <summary>
         /// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.
         /// </summary>
         [Input("teamId")]
@@ -172,6 +185,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("projectId")]
         public Input<string>? ProjectId { get; set; }
+
+        /// <summary>
+        /// Whether the repository is pullable by any Vercel team. Private repositories are only accessible within the same project. Defaults to `False`.
+        /// </summary>
+        [Input("public")]
+        public Input<bool>? Public { get; set; }
 
         /// <summary>
         /// The ID of the team the repository should be created under. Required when configuring a team resource if a default team has not been set in the provider.

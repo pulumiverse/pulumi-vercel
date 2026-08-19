@@ -103,6 +103,10 @@ export class ProjectDomain extends pulumi.CustomResource {
      */
     declare public readonly gitBranch: pulumi.Output<string | undefined>;
     /**
+     * Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     */
+    declare public /*out*/ readonly misconfigured: pulumi.Output<boolean>;
+    /**
      * The project ID to add the deployment to.
      */
     declare public readonly projectId: pulumi.Output<string>;
@@ -119,15 +123,15 @@ export class ProjectDomain extends pulumi.CustomResource {
      */
     declare public readonly teamId: pulumi.Output<string>;
     /**
-     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
      */
     declare public /*out*/ readonly verifications: pulumi.Output<outputs.ProjectDomainVerification[]>;
     /**
-     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain's DNS records point to Vercel; use `misconfigured` for that status.
      */
     declare public /*out*/ readonly verified: pulumi.Output<boolean>;
     /**
-     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      */
     declare public readonly waitForReady: pulumi.Output<boolean | undefined>;
 
@@ -147,6 +151,7 @@ export class ProjectDomain extends pulumi.CustomResource {
             resourceInputs["customEnvironmentId"] = state?.customEnvironmentId;
             resourceInputs["domain"] = state?.domain;
             resourceInputs["gitBranch"] = state?.gitBranch;
+            resourceInputs["misconfigured"] = state?.misconfigured;
             resourceInputs["projectId"] = state?.projectId;
             resourceInputs["redirect"] = state?.redirect;
             resourceInputs["redirectStatusCode"] = state?.redirectStatusCode;
@@ -170,6 +175,7 @@ export class ProjectDomain extends pulumi.CustomResource {
             resourceInputs["redirectStatusCode"] = args?.redirectStatusCode;
             resourceInputs["teamId"] = args?.teamId;
             resourceInputs["waitForReady"] = args?.waitForReady;
+            resourceInputs["misconfigured"] = undefined /*out*/;
             resourceInputs["verifications"] = undefined /*out*/;
             resourceInputs["verified"] = undefined /*out*/;
         }
@@ -195,6 +201,10 @@ export interface ProjectDomainState {
      */
     gitBranch?: pulumi.Input<string>;
     /**
+     * Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     */
+    misconfigured?: pulumi.Input<boolean>;
+    /**
      * The project ID to add the deployment to.
      */
     projectId?: pulumi.Input<string>;
@@ -211,15 +221,15 @@ export interface ProjectDomainState {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * A list of verification challenges, one of which must be completed to verify the domain for use on the project. Once the challenge is satisfied, the domain will be verified automatically on the next refresh. Typically used to configure DNS records (e.g. a `TXT` record) for domains hosted with an external DNS provider.
+     * A list of ownership verification challenges, one of which must be completed to verify the domain for use with the project. These are typically `TXT` records and do not describe the `A` or `CNAME` records needed to route traffic to Vercel.
      */
     verifications?: pulumi.Input<pulumi.Input<inputs.ProjectDomainVerification>[]>;
     /**
-     * Whether the domain is verified for use with the project. If `false`, the challenges in `verification` must be completed before the domain will serve traffic for the project.
+     * Whether ownership of the domain is verified for use with the project. This does not indicate whether the domain's DNS records point to Vercel; use `misconfigured` for that status.
      */
     verified?: pulumi.Input<boolean>;
     /**
-     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      */
     waitForReady?: pulumi.Input<boolean>;
 }
@@ -257,7 +267,7 @@ export interface ProjectDomainArgs {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * Wait until the project domain is verified before considering it created. This is useful when another resource, such as an alias, depends on the domain being ready immediately.
+     * Wait until the project domain is verified and has a valid DNS configuration before considering it created. DNS records must be configured independently before enabling this option because dependent resources are not created until the wait completes.
      */
     waitForReady?: pulumi.Input<boolean>;
 }

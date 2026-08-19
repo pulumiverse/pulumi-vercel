@@ -14,7 +14,7 @@ import (
 // Provides domain configuration information for a Vercel project.
 //
 // This data source returns configuration details for a domain associated with a specific project,
-// including recommended CNAME and IPv4 values.
+// including its DNS configuration status and recommended CNAME and IPv4 values.
 //
 // ## Example Usage
 //
@@ -100,6 +100,8 @@ type GetDomainConfigResult struct {
 	Domain string `pulumi:"domain"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
+	// Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+	Misconfigured bool `pulumi:"misconfigured"`
 	// The project ID or name associated with the domain.
 	ProjectIdOrName string `pulumi:"projectIdOrName"`
 	// The recommended CNAME value for the domain.
@@ -156,6 +158,11 @@ func (o GetDomainConfigResultOutput) Domain() pulumi.StringOutput {
 // The provider-assigned unique ID for this managed resource.
 func (o GetDomainConfigResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDomainConfigResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+func (o GetDomainConfigResultOutput) Misconfigured() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetDomainConfigResult) bool { return v.Misconfigured }).(pulumi.BoolOutput)
 }
 
 // The project ID or name associated with the domain.

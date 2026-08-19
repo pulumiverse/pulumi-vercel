@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.SharedEnvironmentVariableArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.SharedEnvironmentVariableState;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
@@ -26,66 +27,6 @@ import javax.annotation.Nullable;
  * &gt; **Note:** Starting in provider version `4.8.0`, Shared Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
  * 
  * &gt; **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
- * 
- * ## Example Usage
- * 
- * <pre>
- * {@code
- * package generated_program;
- * 
- * import com.pulumi.Context;
- * import com.pulumi.Pulumi;
- * import com.pulumi.core.Output;
- * import com.pulumiverse.vercel.Project;
- * import com.pulumiverse.vercel.ProjectArgs;
- * import com.pulumi.vercel.inputs.ProjectGitRepositoryArgs;
- * import com.pulumiverse.vercel.SharedEnvironmentVariable;
- * import com.pulumiverse.vercel.SharedEnvironmentVariableArgs;
- * import java.util.List;
- * import java.util.ArrayList;
- * import java.util.Map;
- * import java.io.File;
- * import java.nio.file.Files;
- * import java.nio.file.Paths;
- * 
- * public class App {
- *     public static void main(String[] args) {
- *         Pulumi.run(App::stack);
- *     }
- * 
- *     public static void stack(Context ctx) {
- *         var example = new Project("example", ProjectArgs.builder()
- *             .name("example")
- *             .gitRepository(ProjectGitRepositoryArgs.builder()
- *                 .type("github")
- *                 .repo("vercel/some-repo")
- *                 .build())
- *             .build());
- * 
- *         // Shared environment variables must explicitly set `sensitive`.
- *         var exampleSharedEnvironmentVariable = new SharedEnvironmentVariable("exampleSharedEnvironmentVariable", SharedEnvironmentVariableArgs.builder()
- *             .key("EXAMPLE")
- *             .value("some_value")
- *             .targets("production")
- *             .sensitive(true)
- *             .comment("an example shared variable")
- *             .projectIds(example.id())
- *             .build());
- * 
- *         // Shared environment variables targeting `development` must explicitly set `sensitive = false`.
- *         var exampleDevelopment = new SharedEnvironmentVariable("exampleDevelopment", SharedEnvironmentVariableArgs.builder()
- *             .key("EXAMPLE_DEVELOPMENT")
- *             .value("some_development_value")
- *             .targets("development")
- *             .sensitive(false)
- *             .comment("available during local development")
- *             .projectIds(example.id())
- *             .build());
- * 
- *     }
- * }
- * }
- * </pre>
  * 
  * ## Import
  * 
@@ -151,14 +92,14 @@ public class SharedEnvironmentVariable extends com.pulumi.resources.CustomResour
      * 
      */
     @Export(name="projectIds", refs={List.class,String.class}, tree="[0,1]")
-    private Output<List<String>> projectIds;
+    private Output</* @Nullable */ List<String>> projectIds;
 
     /**
      * @return The ID of the Vercel project.
      * 
      */
-    public Output<List<String>> projectIds() {
-        return this.projectIds;
+    public Output<Optional<List<String>>> projectIds() {
+        return Codegen.optional(this.projectIds);
     }
     /**
      * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
@@ -231,6 +172,20 @@ public class SharedEnvironmentVariable extends com.pulumi.resources.CustomResour
      */
     public Output<Optional<String>> valueWo() {
         return Codegen.optional(this.valueWo);
+    }
+    /**
+     * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    @Export(name="valueWoVersion", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> valueWoVersion;
+
+    /**
+     * @return An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+     * 
+     */
+    public Output<Optional<Integer>> valueWoVersion() {
+        return Codegen.optional(this.valueWoVersion);
     }
 
     /**

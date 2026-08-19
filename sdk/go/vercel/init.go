@@ -31,6 +31,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Alias{}
 	case "vercel:index/attackChallengeMode:AttackChallengeMode":
 		r = &AttackChallengeMode{}
+	case "vercel:index/auditLogDrain:AuditLogDrain":
+		r = &AuditLogDrain{}
 	case "vercel:index/blobObject:BlobObject":
 		r = &BlobObject{}
 	case "vercel:index/blobProjectConnection:BlobProjectConnection":
@@ -79,6 +81,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MicrofrontendGroupMembership{}
 	case "vercel:index/network:Network":
 		r = &Network{}
+	case "vercel:index/oauthApp:OauthApp":
+		r = &OauthApp{}
+	case "vercel:index/oauthAppClientSecret:OauthAppClientSecret":
+		r = &OauthAppClientSecret{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectCrons:ProjectCrons":
@@ -113,6 +119,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &UserToken{}
 	case "vercel:index/vcrRepository:VcrRepository":
 		r = &VcrRepository{}
+	case "vercel:index/vcrRepositoryPermission:VcrRepositoryPermission":
+		r = &VcrRepositoryPermission{}
 	case "vercel:index/webhook:Webhook":
 		r = &Webhook{}
 	default:
@@ -169,6 +177,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/attackChallengeMode",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/auditLogDrain",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -293,6 +306,16 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/oauthApp",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/oauthAppClientSecret",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/project",
 		&module{version},
 	)
@@ -374,6 +397,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/vcrRepository",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/vcrRepositoryPermission",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

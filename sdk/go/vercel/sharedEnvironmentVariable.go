@@ -22,68 +22,6 @@ import (
 //
 // > **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 //
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			example, err := vercel.NewProject(ctx, "example", &vercel.ProjectArgs{
-//				Name: pulumi.String("example"),
-//				GitRepository: &vercel.ProjectGitRepositoryArgs{
-//					Type: pulumi.String("github"),
-//					Repo: pulumi.String("vercel/some-repo"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			// Shared environment variables must explicitly set `sensitive`.
-//			_, err = vercel.NewSharedEnvironmentVariable(ctx, "example", &vercel.SharedEnvironmentVariableArgs{
-//				Key:   pulumi.String("EXAMPLE"),
-//				Value: pulumi.String("some_value"),
-//				Targets: pulumi.StringArray{
-//					pulumi.String("production"),
-//				},
-//				Sensitive: pulumi.Bool(true),
-//				Comment:   pulumi.String("an example shared variable"),
-//				ProjectIds: pulumi.StringArray{
-//					example.ID(),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			// Shared environment variables targeting `development` must explicitly set `sensitive = false`.
-//			_, err = vercel.NewSharedEnvironmentVariable(ctx, "example_development", &vercel.SharedEnvironmentVariableArgs{
-//				Key:   pulumi.String("EXAMPLE_DEVELOPMENT"),
-//				Value: pulumi.String("some_development_value"),
-//				Targets: pulumi.StringArray{
-//					pulumi.String("development"),
-//				},
-//				Sensitive: pulumi.Bool(false),
-//				Comment:   pulumi.String("available during local development"),
-//				ProjectIds: pulumi.StringArray{
-//					example.ID(),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
@@ -119,6 +57,8 @@ type SharedEnvironmentVariable struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo pulumi.StringPtrOutput `pulumi:"valueWo"`
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion pulumi.IntPtrOutput `pulumi:"valueWoVersion"`
 }
 
 // NewSharedEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -130,9 +70,6 @@ func NewSharedEnvironmentVariable(ctx *pulumi.Context,
 
 	if args.Key == nil {
 		return nil, errors.New("invalid value for required argument 'Key'")
-	}
-	if args.ProjectIds == nil {
-		return nil, errors.New("invalid value for required argument 'ProjectIds'")
 	}
 	if args.Sensitive == nil {
 		return nil, errors.New("invalid value for required argument 'Sensitive'")
@@ -190,6 +127,8 @@ type sharedEnvironmentVariableState struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo *string `pulumi:"valueWo"`
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion *int `pulumi:"valueWoVersion"`
 }
 
 type SharedEnvironmentVariableState struct {
@@ -212,6 +151,8 @@ type SharedEnvironmentVariableState struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo pulumi.StringPtrInput
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion pulumi.IntPtrInput
 }
 
 func (SharedEnvironmentVariableState) ElementType() reflect.Type {
@@ -238,6 +179,8 @@ type sharedEnvironmentVariableArgs struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo *string `pulumi:"valueWo"`
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion *int `pulumi:"valueWoVersion"`
 }
 
 // The set of arguments for constructing a SharedEnvironmentVariable resource.
@@ -261,6 +204,8 @@ type SharedEnvironmentVariableArgs struct {
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
 	// (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 	ValueWo pulumi.StringPtrInput
+	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+	ValueWoVersion pulumi.IntPtrInput
 }
 
 func (SharedEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -394,6 +339,11 @@ func (o SharedEnvironmentVariableOutput) Value() pulumi.StringPtrOutput {
 // (Optional, Write-Only, exactly one of `value` or `valueWo` is required) The value of the Environment Variable, from an `ephemeral` resource.
 func (o SharedEnvironmentVariableOutput) ValueWo() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.StringPtrOutput { return v.ValueWo }).(pulumi.StringPtrOutput)
+}
+
+// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
+func (o SharedEnvironmentVariableOutput) ValueWoVersion() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SharedEnvironmentVariable) pulumi.IntPtrOutput { return v.ValueWoVersion }).(pulumi.IntPtrOutput)
 }
 
 type SharedEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }

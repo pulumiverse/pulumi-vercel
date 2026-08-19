@@ -8,7 +8,7 @@ import * as utilities from "./utilities";
  * Provides domain configuration information for a Vercel project.
  *
  * This data source returns configuration details for a domain associated with a specific project,
- * including recommended CNAME and IPv4 values.
+ * including its DNS configuration status and recommended CNAME and IPv4 values.
  *
  * ## Example Usage
  *
@@ -88,6 +88,10 @@ export interface GetDomainConfigResult {
      */
     readonly id: string;
     /**
+     * Whether the domain has an invalid DNS configuration or Vercel cannot automatically generate a TLS certificate for it.
+     */
+    readonly misconfigured: boolean;
+    /**
      * The project ID or name associated with the domain.
      */
     readonly projectIdOrName: string;
@@ -108,7 +112,7 @@ export interface GetDomainConfigResult {
  * Provides domain configuration information for a Vercel project.
  *
  * This data source returns configuration details for a domain associated with a specific project,
- * including recommended CNAME and IPv4 values.
+ * including its DNS configuration status and recommended CNAME and IPv4 values.
  *
  * ## Example Usage
  *

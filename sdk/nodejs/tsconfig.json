@@ -18,6 +18,7 @@
         "accessGroupProject.ts",
         "alias.ts",
         "attackChallengeMode.ts",
+        "auditLogDrain.ts",
         "blobObject.ts",
         "blobProjectConnection.ts",
         "blobStore.ts",
@@ -84,6 +85,8 @@
         "microfrontendGroup.ts",
         "microfrontendGroupMembership.ts",
         "network.ts",
+        "oauthApp.ts",
+        "oauthAppClientSecret.ts",
         "project.ts",
         "projectCrons.ts",
         "projectDeploymentRetention.ts",
@@ -106,6 +109,7 @@
         "userToken.ts",
         "utilities.ts",
         "vcrRepository.ts",
+        "vcrRepositoryPermission.ts",
         "webhook.ts"
     ]
 }

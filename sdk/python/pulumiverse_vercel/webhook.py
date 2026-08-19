@@ -220,6 +220,25 @@ class Webhook(pulumi.CustomResource):
             endpoint="https://example.com/endpoint")
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        If a team is configured on the provider, use the webhook ID.
+
+        ```sh
+        $ pulumi import vercel:index/webhook:Webhook example hook_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Alternatively, import using the team ID and webhook ID.
+
+        ```sh
+        $ pulumi import vercel:index/webhook:Webhook example team_xxxxxxxxxxxxxxxxxxxxxxxx/hook_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Vercel does not return an existing webhook's signing secret, so the imported
+        secret value will be null.
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -266,6 +285,25 @@ class Webhook(pulumi.CustomResource):
             ],
             endpoint="https://example.com/endpoint")
         ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        If a team is configured on the provider, use the webhook ID.
+
+        ```sh
+        $ pulumi import vercel:index/webhook:Webhook example hook_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Alternatively, import using the team ID and webhook ID.
+
+        ```sh
+        $ pulumi import vercel:index/webhook:Webhook example team_xxxxxxxxxxxxxxxxxxxxxxxx/hook_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Vercel does not return an existing webhook's signing secret, so the imported
+        secret value will be null.
 
 
         :param str resource_name: The name of the resource.

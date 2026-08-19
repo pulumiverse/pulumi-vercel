@@ -117,6 +117,12 @@ namespace Pulumiverse.Vercel
         [Output("valueWo")]
         public Output<string?> ValueWo { get; private set; } = null!;
 
+        /// <summary>
+        /// An integer used to trigger an update to `ValueWo`. Increment this value when an update to the write-only value is required.
+        /// </summary>
+        [Output("valueWoVersion")]
+        public Output<int?> ValueWoVersion { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a ProjectEnvironmentVariable resource with the given unique name, arguments, and options.
@@ -262,6 +268,12 @@ namespace Pulumiverse.Vercel
             }
         }
 
+        /// <summary>
+        /// An integer used to trigger an update to `ValueWo`. Increment this value when an update to the write-only value is required.
+        /// </summary>
+        [Input("valueWoVersion")]
+        public Input<int>? ValueWoVersion { get; set; }
+
         public ProjectEnvironmentVariableArgs()
         {
         }
@@ -362,6 +374,12 @@ namespace Pulumiverse.Vercel
                 _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        /// <summary>
+        /// An integer used to trigger an update to `ValueWo`. Increment this value when an update to the write-only value is required.
+        /// </summary>
+        [Input("valueWoVersion")]
+        public Input<int>? ValueWoVersion { get; set; }
 
         public ProjectEnvironmentVariableState()
         {
