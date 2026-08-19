@@ -21,6 +21,10 @@
                 "current": "vercel:index/attackChallengeMode:AttackChallengeMode",
                 "majorVersion": 5
             },
+            "vercel_audit_log_drain": {
+                "current": "vercel:index/auditLogDrain:AuditLogDrain",
+                "majorVersion": 5
+            },
             "vercel_blob_object": {
                 "current": "vercel:index/blobObject:BlobObject",
                 "majorVersion": 5
@@ -225,6 +229,22 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_oauth_app": {
+                "current": "vercel:index/oauthApp:OauthApp",
+                "majorVersion": 5,
+                "fields": {
+                    "redirect_uris": {
+                        "maxItemsOne": false
+                    },
+                    "scopes": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_oauth_app_client_secret": {
+                "current": "vercel:index/oauthAppClientSecret:OauthAppClientSecret",
+                "majorVersion": 5
             },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
@@ -470,6 +490,10 @@
             },
             "vercel_vcr_repository": {
                 "current": "vercel:index/vcrRepository:VcrRepository",
+                "majorVersion": 5
+            },
+            "vercel_vcr_repository_permission": {
+                "current": "vercel:index/vcrRepositoryPermission:VcrRepositoryPermission",
                 "majorVersion": 5
             },
             "vercel_webhook": {
