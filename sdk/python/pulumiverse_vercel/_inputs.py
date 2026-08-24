@@ -93,6 +93,12 @@ __all__ = [
     'MicrofrontendGroupDefaultAppArgsDict',
     'NetworkTimeoutsArgs',
     'NetworkTimeoutsArgsDict',
+    'OidcFederationPolicyClaimArgs',
+    'OidcFederationPolicyClaimArgsDict',
+    'OidcFederationPolicyClaimValueArgs',
+    'OidcFederationPolicyClaimValueArgsDict',
+    'OidcFederationPolicyResourcesArgs',
+    'OidcFederationPolicyResourcesArgsDict',
     'ProjectDomainVerificationArgs',
     'ProjectDomainVerificationArgsDict',
     'ProjectEnvironmentArgs',
@@ -2688,6 +2694,129 @@ class NetworkTimeoutsArgs:
     @create.setter
     def create(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "create", value)
+
+
+class OidcFederationPolicyClaimArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    The OIDC claim name.
+    """
+    values: pulumi.Input[Sequence[pulumi.Input['OidcFederationPolicyClaimValueArgsDict']]]
+    """
+    Values accepted for this claim. A claim matches when any configured value matches.
+    """
+
+@pulumi.input_type
+class OidcFederationPolicyClaimArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Sequence[pulumi.Input['OidcFederationPolicyClaimValueArgs']]]):
+        """
+        :param pulumi.Input[_builtins.str] name: The OIDC claim name.
+        :param pulumi.Input[Sequence[pulumi.Input['OidcFederationPolicyClaimValueArgs']]] values: Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The OIDC claim name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input['OidcFederationPolicyClaimValueArgs']]]:
+        """
+        Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input['OidcFederationPolicyClaimValueArgs']]]):
+        pulumi.set(self, "values", value)
+
+
+class OidcFederationPolicyClaimValueArgsDict(TypedDict):
+    value: pulumi.Input[_builtins.str]
+    """
+    The accepted claim value or wildcard pattern.
+    """
+    wildcards: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether `*` characters in the value should be interpreted as wildcards.
+    """
+
+@pulumi.input_type
+class OidcFederationPolicyClaimValueArgs:
+    def __init__(__self__, *,
+                 value: pulumi.Input[_builtins.str],
+                 wildcards: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] value: The accepted claim value or wildcard pattern.
+        :param pulumi.Input[_builtins.bool] wildcards: Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        pulumi.set(__self__, "value", value)
+        if wildcards is not None:
+            pulumi.set(__self__, "wildcards", wildcards)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        The accepted claim value or wildcard pattern.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def wildcards(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        return pulumi.get(self, "wildcards")
+
+    @wildcards.setter
+    def wildcards(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "wildcards", value)
+
+
+class OidcFederationPolicyResourcesArgsDict(TypedDict):
+    project_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+    """
+
+@pulumi.input_type
+class OidcFederationPolicyResourcesArgs:
+    def __init__(__self__, *,
+                 project_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        pulumi.set(__self__, "project_ids", project_ids)
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        return pulumi.get(self, "project_ids")
+
+    @project_ids.setter
+    def project_ids(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "project_ids", value)
 
 
 class ProjectDomainVerificationArgsDict(TypedDict):

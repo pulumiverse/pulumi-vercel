@@ -77,6 +77,7 @@ from .microfrontend_group_membership import *
 from .network import *
 from .oauth_app import *
 from .oauth_app_client_secret import *
+from .oidc_federation_policy import *
 from .project import *
 from .project_crons import *
 from .project_deployment_retention import *
@@ -364,6 +365,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/oauthAppClientSecret:OauthAppClientSecret": "OauthAppClientSecret"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/oidcFederationPolicy",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/oidcFederationPolicy:OidcFederationPolicy": "OidcFederationPolicy"
   }
  },
  {

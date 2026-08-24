@@ -6173,6 +6173,355 @@ func (o NetworkTimeoutsPtrOutput) Create() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type OidcFederationPolicyClaim struct {
+	// The OIDC claim name.
+	Name string `pulumi:"name"`
+	// Values accepted for this claim. A claim matches when any configured value matches.
+	Values []OidcFederationPolicyClaimValue `pulumi:"values"`
+}
+
+// OidcFederationPolicyClaimInput is an input type that accepts OidcFederationPolicyClaimArgs and OidcFederationPolicyClaimOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimInput` via:
+//
+//	OidcFederationPolicyClaimArgs{...}
+type OidcFederationPolicyClaimInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimOutput() OidcFederationPolicyClaimOutput
+	ToOidcFederationPolicyClaimOutputWithContext(context.Context) OidcFederationPolicyClaimOutput
+}
+
+type OidcFederationPolicyClaimArgs struct {
+	// The OIDC claim name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Values accepted for this claim. A claim matches when any configured value matches.
+	Values OidcFederationPolicyClaimValueArrayInput `pulumi:"values"`
+}
+
+func (OidcFederationPolicyClaimArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimArgs) ToOidcFederationPolicyClaimOutput() OidcFederationPolicyClaimOutput {
+	return i.ToOidcFederationPolicyClaimOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimArgs) ToOidcFederationPolicyClaimOutputWithContext(ctx context.Context) OidcFederationPolicyClaimOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimOutput)
+}
+
+// OidcFederationPolicyClaimArrayInput is an input type that accepts OidcFederationPolicyClaimArray and OidcFederationPolicyClaimArrayOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimArrayInput` via:
+//
+//	OidcFederationPolicyClaimArray{ OidcFederationPolicyClaimArgs{...} }
+type OidcFederationPolicyClaimArrayInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimArrayOutput() OidcFederationPolicyClaimArrayOutput
+	ToOidcFederationPolicyClaimArrayOutputWithContext(context.Context) OidcFederationPolicyClaimArrayOutput
+}
+
+type OidcFederationPolicyClaimArray []OidcFederationPolicyClaimInput
+
+func (OidcFederationPolicyClaimArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimArray) ToOidcFederationPolicyClaimArrayOutput() OidcFederationPolicyClaimArrayOutput {
+	return i.ToOidcFederationPolicyClaimArrayOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimArray) ToOidcFederationPolicyClaimArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimArrayOutput)
+}
+
+type OidcFederationPolicyClaimOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimOutput) ToOidcFederationPolicyClaimOutput() OidcFederationPolicyClaimOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimOutput) ToOidcFederationPolicyClaimOutputWithContext(ctx context.Context) OidcFederationPolicyClaimOutput {
+	return o
+}
+
+// The OIDC claim name.
+func (o OidcFederationPolicyClaimOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaim) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Values accepted for this claim. A claim matches when any configured value matches.
+func (o OidcFederationPolicyClaimOutput) Values() OidcFederationPolicyClaimValueArrayOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaim) []OidcFederationPolicyClaimValue { return v.Values }).(OidcFederationPolicyClaimValueArrayOutput)
+}
+
+type OidcFederationPolicyClaimArrayOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimArrayOutput) ToOidcFederationPolicyClaimArrayOutput() OidcFederationPolicyClaimArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimArrayOutput) ToOidcFederationPolicyClaimArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimArrayOutput) Index(i pulumi.IntInput) OidcFederationPolicyClaimOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OidcFederationPolicyClaim {
+		return vs[0].([]OidcFederationPolicyClaim)[vs[1].(int)]
+	}).(OidcFederationPolicyClaimOutput)
+}
+
+type OidcFederationPolicyClaimValue struct {
+	// The accepted claim value or wildcard pattern.
+	Value string `pulumi:"value"`
+	// Whether `*` characters in the value should be interpreted as wildcards.
+	Wildcards *bool `pulumi:"wildcards"`
+}
+
+// OidcFederationPolicyClaimValueInput is an input type that accepts OidcFederationPolicyClaimValueArgs and OidcFederationPolicyClaimValueOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimValueInput` via:
+//
+//	OidcFederationPolicyClaimValueArgs{...}
+type OidcFederationPolicyClaimValueInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimValueOutput() OidcFederationPolicyClaimValueOutput
+	ToOidcFederationPolicyClaimValueOutputWithContext(context.Context) OidcFederationPolicyClaimValueOutput
+}
+
+type OidcFederationPolicyClaimValueArgs struct {
+	// The accepted claim value or wildcard pattern.
+	Value pulumi.StringInput `pulumi:"value"`
+	// Whether `*` characters in the value should be interpreted as wildcards.
+	Wildcards pulumi.BoolPtrInput `pulumi:"wildcards"`
+}
+
+func (OidcFederationPolicyClaimValueArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimValueArgs) ToOidcFederationPolicyClaimValueOutput() OidcFederationPolicyClaimValueOutput {
+	return i.ToOidcFederationPolicyClaimValueOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimValueArgs) ToOidcFederationPolicyClaimValueOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimValueOutput)
+}
+
+// OidcFederationPolicyClaimValueArrayInput is an input type that accepts OidcFederationPolicyClaimValueArray and OidcFederationPolicyClaimValueArrayOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimValueArrayInput` via:
+//
+//	OidcFederationPolicyClaimValueArray{ OidcFederationPolicyClaimValueArgs{...} }
+type OidcFederationPolicyClaimValueArrayInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimValueArrayOutput() OidcFederationPolicyClaimValueArrayOutput
+	ToOidcFederationPolicyClaimValueArrayOutputWithContext(context.Context) OidcFederationPolicyClaimValueArrayOutput
+}
+
+type OidcFederationPolicyClaimValueArray []OidcFederationPolicyClaimValueInput
+
+func (OidcFederationPolicyClaimValueArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimValueArray) ToOidcFederationPolicyClaimValueArrayOutput() OidcFederationPolicyClaimValueArrayOutput {
+	return i.ToOidcFederationPolicyClaimValueArrayOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimValueArray) ToOidcFederationPolicyClaimValueArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimValueArrayOutput)
+}
+
+type OidcFederationPolicyClaimValueOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimValueOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimValueOutput) ToOidcFederationPolicyClaimValueOutput() OidcFederationPolicyClaimValueOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimValueOutput) ToOidcFederationPolicyClaimValueOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueOutput {
+	return o
+}
+
+// The accepted claim value or wildcard pattern.
+func (o OidcFederationPolicyClaimValueOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaimValue) string { return v.Value }).(pulumi.StringOutput)
+}
+
+// Whether `*` characters in the value should be interpreted as wildcards.
+func (o OidcFederationPolicyClaimValueOutput) Wildcards() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaimValue) *bool { return v.Wildcards }).(pulumi.BoolPtrOutput)
+}
+
+type OidcFederationPolicyClaimValueArrayOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimValueArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimValueArrayOutput) ToOidcFederationPolicyClaimValueArrayOutput() OidcFederationPolicyClaimValueArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimValueArrayOutput) ToOidcFederationPolicyClaimValueArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimValueArrayOutput) Index(i pulumi.IntInput) OidcFederationPolicyClaimValueOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OidcFederationPolicyClaimValue {
+		return vs[0].([]OidcFederationPolicyClaimValue)[vs[1].(int)]
+	}).(OidcFederationPolicyClaimValueOutput)
+}
+
+type OidcFederationPolicyResources struct {
+	// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+	ProjectIds []string `pulumi:"projectIds"`
+}
+
+// OidcFederationPolicyResourcesInput is an input type that accepts OidcFederationPolicyResourcesArgs and OidcFederationPolicyResourcesOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyResourcesInput` via:
+//
+//	OidcFederationPolicyResourcesArgs{...}
+type OidcFederationPolicyResourcesInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyResourcesOutput() OidcFederationPolicyResourcesOutput
+	ToOidcFederationPolicyResourcesOutputWithContext(context.Context) OidcFederationPolicyResourcesOutput
+}
+
+type OidcFederationPolicyResourcesArgs struct {
+	// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+	ProjectIds pulumi.StringArrayInput `pulumi:"projectIds"`
+}
+
+func (OidcFederationPolicyResourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesOutput() OidcFederationPolicyResourcesOutput {
+	return i.ToOidcFederationPolicyResourcesOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyResourcesOutput)
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return i.ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyResourcesOutput).ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx)
+}
+
+// OidcFederationPolicyResourcesPtrInput is an input type that accepts OidcFederationPolicyResourcesArgs, OidcFederationPolicyResourcesPtr and OidcFederationPolicyResourcesPtrOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyResourcesPtrInput` via:
+//
+//	        OidcFederationPolicyResourcesArgs{...}
+//
+//	or:
+//
+//	        nil
+type OidcFederationPolicyResourcesPtrInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput
+	ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Context) OidcFederationPolicyResourcesPtrOutput
+}
+
+type oidcFederationPolicyResourcesPtrType OidcFederationPolicyResourcesArgs
+
+func OidcFederationPolicyResourcesPtr(v *OidcFederationPolicyResourcesArgs) OidcFederationPolicyResourcesPtrInput {
+	return (*oidcFederationPolicyResourcesPtrType)(v)
+}
+
+func (*oidcFederationPolicyResourcesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (i *oidcFederationPolicyResourcesPtrType) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return i.ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i *oidcFederationPolicyResourcesPtrType) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyResourcesPtrOutput)
+}
+
+type OidcFederationPolicyResourcesOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyResourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesOutput() OidcFederationPolicyResourcesOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return o.ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Background())
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v OidcFederationPolicyResources) *OidcFederationPolicyResources {
+		return &v
+	}).(OidcFederationPolicyResourcesPtrOutput)
+}
+
+// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+func (o OidcFederationPolicyResourcesOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v OidcFederationPolicyResources) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
+}
+
+type OidcFederationPolicyResourcesPtrOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyResourcesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyResourcesPtrOutput) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesPtrOutput) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesPtrOutput) Elem() OidcFederationPolicyResourcesOutput {
+	return o.ApplyT(func(v *OidcFederationPolicyResources) OidcFederationPolicyResources {
+		if v != nil {
+			return *v
+		}
+		var ret OidcFederationPolicyResources
+		return ret
+	}).(OidcFederationPolicyResourcesOutput)
+}
+
+// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+func (o OidcFederationPolicyResourcesPtrOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *OidcFederationPolicyResources) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ProjectIds
+	}).(pulumi.StringArrayOutput)
+}
+
 type ProjectDomainVerification struct {
 	// The domain name on which the DNS record must be created.
 	Domain *string `pulumi:"domain"`
@@ -15309,6 +15658,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsInput)(nil)).Elem(), NetworkTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsPtrInput)(nil)).Elem(), NetworkTimeoutsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimInput)(nil)).Elem(), OidcFederationPolicyClaimArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimArrayInput)(nil)).Elem(), OidcFederationPolicyClaimArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimValueInput)(nil)).Elem(), OidcFederationPolicyClaimValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimValueArrayInput)(nil)).Elem(), OidcFederationPolicyClaimValueArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyResourcesInput)(nil)).Elem(), OidcFederationPolicyResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyResourcesPtrInput)(nil)).Elem(), OidcFederationPolicyResourcesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationInput)(nil)).Elem(), ProjectDomainVerificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationArrayInput)(nil)).Elem(), ProjectDomainVerificationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
@@ -15521,6 +15876,12 @@ func init() {
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsPtrOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimArrayOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimValueOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimValueArrayOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyResourcesOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyResourcesPtrOutput{})
 	pulumi.RegisterOutputType(ProjectDomainVerificationOutput{})
 	pulumi.RegisterOutputType(ProjectDomainVerificationArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})

@@ -85,6 +85,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &OauthApp{}
 	case "vercel:index/oauthAppClientSecret:OauthAppClientSecret":
 		r = &OauthAppClientSecret{}
+	case "vercel:index/oidcFederationPolicy:OidcFederationPolicy":
+		r = &OidcFederationPolicy{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectCrons:ProjectCrons":
@@ -312,6 +314,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/oauthAppClientSecret",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/oidcFederationPolicy",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
