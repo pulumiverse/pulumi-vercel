@@ -246,6 +246,35 @@
                 "current": "vercel:index/oauthAppClientSecret:OauthAppClientSecret",
                 "majorVersion": 5
             },
+            "vercel_oidc_federation_policy": {
+                "current": "vercel:index/oidcFederationPolicy:OidcFederationPolicy",
+                "majorVersion": 5,
+                "fields": {
+                    "claims": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "values": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "commands": {
+                        "maxItemsOne": false
+                    },
+                    "permissions": {
+                        "maxItemsOne": false
+                    },
+                    "resources": {
+                        "fields": {
+                            "project_ids": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
+            },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
                 "majorVersion": 5,
