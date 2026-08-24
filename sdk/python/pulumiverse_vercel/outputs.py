@@ -55,6 +55,9 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroupCondition',
     'MicrofrontendGroupDefaultApp',
     'NetworkTimeouts',
+    'OidcFederationPolicyClaim',
+    'OidcFederationPolicyClaimValue',
+    'OidcFederationPolicyResources',
     'ProjectDomainVerification',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
@@ -1899,6 +1902,100 @@ class NetworkTimeouts(dict):
         A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class OidcFederationPolicyClaim(dict):
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 values: Sequence['outputs.OidcFederationPolicyClaimValue']):
+        """
+        :param _builtins.str name: The OIDC claim name.
+        :param Sequence['OidcFederationPolicyClaimValueArgs'] values: Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The OIDC claim name.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence['outputs.OidcFederationPolicyClaimValue']:
+        """
+        Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class OidcFederationPolicyClaimValue(dict):
+    def __init__(__self__, *,
+                 value: _builtins.str,
+                 wildcards: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str value: The accepted claim value or wildcard pattern.
+        :param _builtins.bool wildcards: Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        pulumi.set(__self__, "value", value)
+        if wildcards is not None:
+            pulumi.set(__self__, "wildcards", wildcards)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        The accepted claim value or wildcard pattern.
+        """
+        return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter
+    def wildcards(self) -> Optional[_builtins.bool]:
+        """
+        Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        return pulumi.get(self, "wildcards")
+
+
+@pulumi.output_type
+class OidcFederationPolicyResources(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectIds":
+            suggest = "project_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OidcFederationPolicyResources. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OidcFederationPolicyResources.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OidcFederationPolicyResources.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 project_ids: Sequence[_builtins.str]):
+        """
+        :param Sequence[_builtins.str] project_ids: Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        pulumi.set(__self__, "project_ids", project_ids)
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> Sequence[_builtins.str]:
+        """
+        Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        return pulumi.get(self, "project_ids")
 
 
 @pulumi.output_type

@@ -87,6 +87,7 @@
         "network.ts",
         "oauthApp.ts",
         "oauthAppClientSecret.ts",
+        "oidcFederationPolicy.ts",
         "project.ts",
         "projectCrons.ts",
         "projectDeploymentRetention.ts",

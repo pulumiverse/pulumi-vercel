@@ -1210,6 +1210,35 @@ export interface NetworkTimeouts {
     create?: string;
 }
 
+export interface OidcFederationPolicyClaim {
+    /**
+     * The OIDC claim name.
+     */
+    name: string;
+    /**
+     * Values accepted for this claim. A claim matches when any configured value matches.
+     */
+    values: outputs.OidcFederationPolicyClaimValue[];
+}
+
+export interface OidcFederationPolicyClaimValue {
+    /**
+     * The accepted claim value or wildcard pattern.
+     */
+    value: string;
+    /**
+     * Whether `*` characters in the value should be interpreted as wildcards.
+     */
+    wildcards: boolean;
+}
+
+export interface OidcFederationPolicyResources {
+    /**
+     * Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+     */
+    projectIds: string[];
+}
+
 export interface ProjectDomainVerification {
     /**
      * The domain name on which the DNS record must be created.

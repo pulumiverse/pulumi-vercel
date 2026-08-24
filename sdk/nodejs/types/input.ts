@@ -517,6 +517,35 @@ export interface NetworkTimeouts {
     create?: pulumi.Input<string>;
 }
 
+export interface OidcFederationPolicyClaim {
+    /**
+     * The OIDC claim name.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Values accepted for this claim. A claim matches when any configured value matches.
+     */
+    values: pulumi.Input<pulumi.Input<inputs.OidcFederationPolicyClaimValue>[]>;
+}
+
+export interface OidcFederationPolicyClaimValue {
+    /**
+     * The accepted claim value or wildcard pattern.
+     */
+    value: pulumi.Input<string>;
+    /**
+     * Whether `*` characters in the value should be interpreted as wildcards.
+     */
+    wildcards?: pulumi.Input<boolean>;
+}
+
+export interface OidcFederationPolicyResources {
+    /**
+     * Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+     */
+    projectIds: pulumi.Input<pulumi.Input<string>[]>;
+}
+
 export interface ProjectDomainVerification {
     /**
      * The domain name on which the DNS record must be created.

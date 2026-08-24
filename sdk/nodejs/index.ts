@@ -360,6 +360,11 @@ export type OauthAppClientSecret = import("./oauthAppClientSecret").OauthAppClie
 export const OauthAppClientSecret: typeof import("./oauthAppClientSecret").OauthAppClientSecret = null as any;
 utilities.lazyLoad(exports, ["OauthAppClientSecret"], () => require("./oauthAppClientSecret"));
 
+export { OidcFederationPolicyArgs, OidcFederationPolicyState } from "./oidcFederationPolicy";
+export type OidcFederationPolicy = import("./oidcFederationPolicy").OidcFederationPolicy;
+export const OidcFederationPolicy: typeof import("./oidcFederationPolicy").OidcFederationPolicy = null as any;
+utilities.lazyLoad(exports, ["OidcFederationPolicy"], () => require("./oidcFederationPolicy"));
+
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
@@ -536,6 +541,8 @@ const _module = {
                 return new OauthApp(name, <any>undefined, { urn })
             case "vercel:index/oauthAppClientSecret:OauthAppClientSecret":
                 return new OauthAppClientSecret(name, <any>undefined, { urn })
+            case "vercel:index/oidcFederationPolicy:OidcFederationPolicy":
+                return new OidcFederationPolicy(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectCrons:ProjectCrons":
@@ -611,6 +618,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembers
 pulumi.runtime.registerResourceModule("vercel", "index/network", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthApp", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthAppClientSecret", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/oidcFederationPolicy", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
