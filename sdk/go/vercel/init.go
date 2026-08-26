@@ -73,6 +73,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &FirewallConfig{}
 	case "vercel:index/integrationProjectAccess:IntegrationProjectAccess":
 		r = &IntegrationProjectAccess{}
+	case "vercel:index/kmsIssuer:KmsIssuer":
+		r = &KmsIssuer{}
+	case "vercel:index/kmsProjectGrant:KmsProjectGrant":
+		r = &KmsProjectGrant{}
+	case "vercel:index/kmsSigningKey:KmsSigningKey":
+		r = &KmsSigningKey{}
 	case "vercel:index/logDrain:LogDrain":
 		r = &LogDrain{}
 	case "vercel:index/microfrontendGroup:MicrofrontendGroup":
@@ -85,6 +91,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &OauthApp{}
 	case "vercel:index/oauthAppClientSecret:OauthAppClientSecret":
 		r = &OauthAppClientSecret{}
+	case "vercel:index/oidcFederationPolicy:OidcFederationPolicy":
+		r = &OidcFederationPolicy{}
 	case "vercel:index/project:Project":
 		r = &Project{}
 	case "vercel:index/projectCrons:ProjectCrons":
@@ -105,6 +113,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectRollingRelease{}
 	case "vercel:index/projectRoute:ProjectRoute":
 		r = &ProjectRoute{}
+	case "vercel:index/projectTracing:ProjectTracing":
+		r = &ProjectTracing{}
 	case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
 		r = &SharedEnvironmentVariable{}
 	case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
@@ -286,6 +296,21 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/kmsIssuer",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/kmsProjectGrant",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/kmsSigningKey",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/logDrain",
 		&module{version},
 	)
@@ -312,6 +337,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/oauthAppClientSecret",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/oidcFederationPolicy",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -362,6 +392,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/projectRoute",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/projectTracing",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
