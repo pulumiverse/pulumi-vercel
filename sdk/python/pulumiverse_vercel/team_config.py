@@ -22,6 +22,7 @@ __all__ = ['TeamConfigArgs', 'TeamConfig']
 class TeamConfigArgs:
     def __init__(__self__, *,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -38,6 +39,7 @@ class TeamConfigArgs:
         The set of arguments for constructing a TeamConfig resource.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -53,6 +55,8 @@ class TeamConfigArgs:
         """
         if avatar is not None:
             pulumi.set(__self__, "avatar", avatar)
+        if default_build_machine_type is not None:
+            pulumi.set(__self__, "default_build_machine_type", default_build_machine_type)
         if description is not None:
             pulumi.set(__self__, "description", description)
         if email_domain is not None:
@@ -89,6 +93,18 @@ class TeamConfigArgs:
     @avatar.setter
     def avatar(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "avatar", value)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        """
+        return pulumi.get(self, "default_build_machine_type")
+
+    @default_build_machine_type.setter
+    def default_build_machine_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "default_build_machine_type", value)
 
     @_builtins.property
     @pulumi.getter
@@ -239,6 +255,7 @@ class TeamConfigArgs:
 class _TeamConfigState:
     def __init__(__self__, *,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -256,6 +273,7 @@ class _TeamConfigState:
         Input properties used for looking up and filtering TeamConfig resources.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -272,6 +290,8 @@ class _TeamConfigState:
         """
         if avatar is not None:
             pulumi.set(__self__, "avatar", avatar)
+        if default_build_machine_type is not None:
+            pulumi.set(__self__, "default_build_machine_type", default_build_machine_type)
         if description is not None:
             pulumi.set(__self__, "description", description)
         if email_domain is not None:
@@ -310,6 +330,18 @@ class _TeamConfigState:
     @avatar.setter
     def avatar(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "avatar", value)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        """
+        return pulumi.get(self, "default_build_machine_type")
+
+    @default_build_machine_type.setter
+    def default_build_machine_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "default_build_machine_type", value)
 
     @_builtins.property
     @pulumi.getter
@@ -475,6 +507,7 @@ class TeamConfig(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -505,6 +538,7 @@ class TeamConfig(pulumi.CustomResource):
             name="Vercel terraform example",
             slug="vercel-terraform-example",
             description="Vercel Terraform Example",
+            default_build_machine_type="basic",
             sensitive_environment_variable_policy="off",
             remote_caching={
                 "enabled": True,
@@ -530,6 +564,7 @@ class TeamConfig(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -566,6 +601,7 @@ class TeamConfig(pulumi.CustomResource):
             name="Vercel terraform example",
             slug="vercel-terraform-example",
             description="Vercel Terraform Example",
+            default_build_machine_type="basic",
             sensitive_environment_variable_policy="off",
             remote_caching={
                 "enabled": True,
@@ -604,6 +640,7 @@ class TeamConfig(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -626,6 +663,7 @@ class TeamConfig(pulumi.CustomResource):
             __props__ = TeamConfigArgs.__new__(TeamConfigArgs)
 
             __props__.__dict__["avatar"] = avatar
+            __props__.__dict__["default_build_machine_type"] = default_build_machine_type
             __props__.__dict__["description"] = description
             __props__.__dict__["email_domain"] = email_domain
             __props__.__dict__["enable_preview_feedback"] = enable_preview_feedback
@@ -650,6 +688,7 @@ class TeamConfig(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+            default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
             description: Optional[pulumi.Input[_builtins.str]] = None,
             email_domain: Optional[pulumi.Input[_builtins.str]] = None,
             enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -671,6 +710,7 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -690,6 +730,7 @@ class TeamConfig(pulumi.CustomResource):
         __props__ = _TeamConfigState.__new__(_TeamConfigState)
 
         __props__.__dict__["avatar"] = avatar
+        __props__.__dict__["default_build_machine_type"] = default_build_machine_type
         __props__.__dict__["description"] = description
         __props__.__dict__["email_domain"] = email_domain
         __props__.__dict__["enable_preview_feedback"] = enable_preview_feedback
@@ -712,6 +753,14 @@ class TeamConfig(pulumi.CustomResource):
         The `avatar` should be a the 'file' attribute from a get_file data source.
         """
         return pulumi.get(self, "avatar")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> pulumi.Output[_builtins.str]:
+        """
+        The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        """
+        return pulumi.get(self, "default_build_machine_type")
 
     @_builtins.property
     @pulumi.getter

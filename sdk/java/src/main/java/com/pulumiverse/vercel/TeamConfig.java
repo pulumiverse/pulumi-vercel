@@ -58,6 +58,7 @@ import javax.annotation.Nullable;
  *             .name("Vercel terraform example")
  *             .slug("vercel-terraform-example")
  *             .description("Vercel Terraform Example")
+ *             .defaultBuildMachineType("basic")
  *             .sensitiveEnvironmentVariablePolicy("off")
  *             .remoteCaching(TeamConfigRemoteCachingArgs.builder()
  *                 .enabled(true)
@@ -100,6 +101,20 @@ public class TeamConfig extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<Map<String,String>>> avatar() {
         return Codegen.optional(this.avatar);
+    }
+    /**
+     * The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    @Export(name="defaultBuildMachineType", refs={String.class}, tree="[0]")
+    private Output<String> defaultBuildMachineType;
+
+    /**
+     * @return The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    public Output<String> defaultBuildMachineType() {
+        return this.defaultBuildMachineType;
     }
     /**
      * A description of the team.

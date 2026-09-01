@@ -57,6 +57,7 @@ import (
 //				Name:                pulumi.String("example-project"),
 //				Framework:           pulumi.String("nextjs"),
 //				ProtectedSourcemaps: pulumi.Bool(true),
+//				BuildMachineType:    pulumi.String("basic"),
 //			})
 //			if err != nil {
 //				return err
@@ -146,7 +147,7 @@ type Project struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolOutput `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrOutput `pulumi:"buildCommand"`
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType pulumi.StringOutput `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolOutput `pulumi:"customerSuccessCodeVisibility"`
@@ -266,7 +267,7 @@ type projectState struct {
 	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType *string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility *bool `pulumi:"customerSuccessCodeVisibility"`
@@ -357,7 +358,7 @@ type ProjectState struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType pulumi.StringPtrInput
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolPtrInput
@@ -452,7 +453,7 @@ type projectArgs struct {
 	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType *string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility *bool `pulumi:"customerSuccessCodeVisibility"`
@@ -544,7 +545,7 @@ type ProjectArgs struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType pulumi.StringPtrInput
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolPtrInput
@@ -730,7 +731,7 @@ func (o ProjectOutput) BuildCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringPtrOutput { return v.BuildCommand }).(pulumi.StringPtrOutput)
 }
 
-// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 func (o ProjectOutput) BuildMachineType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.BuildMachineType }).(pulumi.StringOutput)
 }

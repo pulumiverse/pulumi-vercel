@@ -39,6 +39,7 @@ import (
 //				Name:                               pulumi.String("Vercel terraform example"),
 //				Slug:                               pulumi.String("vercel-terraform-example"),
 //				Description:                        pulumi.String("Vercel Terraform Example"),
+//				DefaultBuildMachineType:            pulumi.String("basic"),
 //				SensitiveEnvironmentVariablePolicy: pulumi.String("off"),
 //				RemoteCaching: &vercel.TeamConfigRemoteCachingArgs{
 //					Enabled: pulumi.Bool(true),
@@ -72,6 +73,8 @@ type TeamConfig struct {
 
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar pulumi.StringMapOutput `pulumi:"avatar"`
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType pulumi.StringOutput `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description pulumi.StringOutput `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -132,6 +135,8 @@ func GetTeamConfig(ctx *pulumi.Context,
 type teamConfigState struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar map[string]string `pulumi:"avatar"`
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType *string `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description *string `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -163,6 +168,8 @@ type teamConfigState struct {
 type TeamConfigState struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar pulumi.StringMapInput
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType pulumi.StringPtrInput
 	// A description of the team.
 	Description pulumi.StringPtrInput
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -198,6 +205,8 @@ func (TeamConfigState) ElementType() reflect.Type {
 type teamConfigArgs struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar map[string]string `pulumi:"avatar"`
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType *string `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description *string `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -228,6 +237,8 @@ type teamConfigArgs struct {
 type TeamConfigArgs struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar pulumi.StringMapInput
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType pulumi.StringPtrInput
 	// A description of the team.
 	Description pulumi.StringPtrInput
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -344,6 +355,11 @@ func (o TeamConfigOutput) ToTeamConfigOutputWithContext(ctx context.Context) Tea
 // The `avatar` should be a the 'file' attribute from a getFile data source.
 func (o TeamConfigOutput) Avatar() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringMapOutput { return v.Avatar }).(pulumi.StringMapOutput)
+}
+
+// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+func (o TeamConfigOutput) DefaultBuildMachineType() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.DefaultBuildMachineType }).(pulumi.StringOutput)
 }
 
 // A description of the team.

@@ -84,6 +84,7 @@ import javax.annotation.Nullable;
  *             .name("example-project")
  *             .framework("nextjs")
  *             .protectedSourcemaps(true)
+ *             .buildMachineType("basic")
  *             .build());
  * 
  *         final var githubActionsTrustedSource = Map.ofEntries(
@@ -186,14 +187,14 @@ public class Project extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.buildCommand);
     }
     /**
-     * The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     @Export(name="buildMachineType", refs={String.class}, tree="[0]")
     private Output<String> buildMachineType;
 
     /**
-     * @return The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * @return The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     public Output<String> buildMachineType() {

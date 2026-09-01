@@ -14,6 +14,11 @@ import java.util.Objects;
 @CustomType
 public final class GetTeamConfigResult {
     /**
+     * @return The default build machine type for new projects.
+     * 
+     */
+    private String defaultBuildMachineType;
+    /**
      * @return A description of the team.
      * 
      */
@@ -85,6 +90,13 @@ public final class GetTeamConfigResult {
     private String slug;
 
     private GetTeamConfigResult() {}
+    /**
+     * @return The default build machine type for new projects.
+     * 
+     */
+    public String defaultBuildMachineType() {
+        return this.defaultBuildMachineType;
+    }
     /**
      * @return A description of the team.
      * 
@@ -193,6 +205,7 @@ public final class GetTeamConfigResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private String defaultBuildMachineType;
         private String description;
         private String emailDomain;
         private String enablePreviewFeedback;
@@ -210,6 +223,7 @@ public final class GetTeamConfigResult {
         public Builder() {}
         public Builder(GetTeamConfigResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.defaultBuildMachineType = defaults.defaultBuildMachineType;
     	      this.description = defaults.description;
     	      this.emailDomain = defaults.emailDomain;
     	      this.enablePreviewFeedback = defaults.enablePreviewFeedback;
@@ -226,6 +240,14 @@ public final class GetTeamConfigResult {
     	      this.slug = defaults.slug;
         }
 
+        @CustomType.Setter
+        public Builder defaultBuildMachineType(String defaultBuildMachineType) {
+            if (defaultBuildMachineType == null) {
+              throw new MissingRequiredPropertyException("GetTeamConfigResult", "defaultBuildMachineType");
+            }
+            this.defaultBuildMachineType = defaultBuildMachineType;
+            return this;
+        }
         @CustomType.Setter
         public Builder description(String description) {
             if (description == null) {
@@ -340,6 +362,7 @@ public final class GetTeamConfigResult {
         }
         public GetTeamConfigResult build() {
             final var _resultValue = new GetTeamConfigResult();
+            _resultValue.defaultBuildMachineType = defaultBuildMachineType;
             _resultValue.description = description;
             _resultValue.emailDomain = emailDomain;
             _resultValue.enablePreviewFeedback = enablePreviewFeedback;

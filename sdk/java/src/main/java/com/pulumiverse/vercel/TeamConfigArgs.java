@@ -35,6 +35,21 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    @Import(name="defaultBuildMachineType")
+    private @Nullable Output<String> defaultBuildMachineType;
+
+    /**
+     * @return The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    public Optional<Output<String>> defaultBuildMachineType() {
+        return Optional.ofNullable(this.defaultBuildMachineType);
+    }
+
+    /**
      * A description of the team.
      * 
      */
@@ -218,6 +233,7 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
 
     private TeamConfigArgs(TeamConfigArgs $) {
         this.avatar = $.avatar;
+        this.defaultBuildMachineType = $.defaultBuildMachineType;
         this.description = $.description;
         this.emailDomain = $.emailDomain;
         this.enablePreviewFeedback = $.enablePreviewFeedback;
@@ -269,6 +285,27 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder avatar(Map<String,String> avatar) {
             return avatar(Output.of(avatar));
+        }
+
+        /**
+         * @param defaultBuildMachineType The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultBuildMachineType(@Nullable Output<String> defaultBuildMachineType) {
+            $.defaultBuildMachineType = defaultBuildMachineType;
+            return this;
+        }
+
+        /**
+         * @param defaultBuildMachineType The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultBuildMachineType(String defaultBuildMachineType) {
+            return defaultBuildMachineType(Output.of(defaultBuildMachineType));
         }
 
         /**

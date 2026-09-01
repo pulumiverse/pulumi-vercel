@@ -16,6 +16,7 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'AiGatewayApiKeyAiGatewayQuota',
     'AuditLogDrainHttp',
     'AuditLogDrainS3',
     'BulkRedirectsRedirect',
@@ -53,8 +54,12 @@ __all__ = [
     'FirewallConfigRulesRuleActionRedirect',
     'FirewallConfigRulesRuleConditionGroup',
     'FirewallConfigRulesRuleConditionGroupCondition',
+    'KmsIssuerSigningKey',
     'MicrofrontendGroupDefaultApp',
     'NetworkTimeouts',
+    'OidcFederationPolicyClaim',
+    'OidcFederationPolicyClaimValue',
+    'OidcFederationPolicyResources',
     'ProjectDomainVerification',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
@@ -75,6 +80,7 @@ __all__ = [
     'ProjectRouteRouteHa',
     'ProjectRouteRouteMissing',
     'ProjectRouteRouteTransform',
+    'ProjectTracingSamplingRule',
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
     'ProjectTrustedSources',
@@ -101,6 +107,8 @@ __all__ = [
     'GetFeatureFlagSegmentExcludeResult',
     'GetFeatureFlagSegmentIncludeResult',
     'GetFeatureFlagVariantResult',
+    'GetKmsIssuerPolicyResult',
+    'GetKmsIssuerSigningKeyResult',
     'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
@@ -136,6 +144,69 @@ __all__ = [
     'GetTeamMemberProjectResult',
     'GetTraceDrainSamplingRuleResult',
 ]
+
+@pulumi.output_type
+class AiGatewayApiKeyAiGatewayQuota(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "limitAmount":
+            suggest = "limit_amount"
+        elif key == "alertThresholds":
+            suggest = "alert_thresholds"
+        elif key == "refreshPeriod":
+            suggest = "refresh_period"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiGatewayApiKeyAiGatewayQuota. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiGatewayApiKeyAiGatewayQuota.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiGatewayApiKeyAiGatewayQuota.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 limit_amount: _builtins.float,
+                 alert_thresholds: Optional[Sequence[_builtins.int]] = None,
+                 refresh_period: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float limit_amount: The quota limit amount in US dollars.
+        :param Sequence[_builtins.int] alert_thresholds: Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+        :param _builtins.str refresh_period: How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+        """
+        pulumi.set(__self__, "limit_amount", limit_amount)
+        if alert_thresholds is not None:
+            pulumi.set(__self__, "alert_thresholds", alert_thresholds)
+        if refresh_period is not None:
+            pulumi.set(__self__, "refresh_period", refresh_period)
+
+    @_builtins.property
+    @pulumi.getter(name="limitAmount")
+    def limit_amount(self) -> _builtins.float:
+        """
+        The quota limit amount in US dollars.
+        """
+        return pulumi.get(self, "limit_amount")
+
+    @_builtins.property
+    @pulumi.getter(name="alertThresholds")
+    def alert_thresholds(self) -> Optional[Sequence[_builtins.int]]:
+        """
+        Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+        """
+        return pulumi.get(self, "alert_thresholds")
+
+    @_builtins.property
+    @pulumi.getter(name="refreshPeriod")
+    def refresh_period(self) -> Optional[_builtins.str]:
+        """
+        How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+        """
+        return pulumi.get(self, "refresh_period")
+
 
 @pulumi.output_type
 class AuditLogDrainHttp(dict):
@@ -1822,6 +1893,192 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
 
 
 @pulumi.output_type
+class KmsIssuerSigningKey(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "certificatePem":
+            suggest = "certificate_pem"
+        elif key == "createdAt":
+            suggest = "created_at"
+        elif key == "importKeyId":
+            suggest = "import_key_id"
+        elif key == "issuerId":
+            suggest = "issuer_id"
+        elif key == "keyId":
+            suggest = "key_id"
+        elif key == "publicKeyFingerprint":
+            suggest = "public_key_fingerprint"
+        elif key == "publicKeyJwk":
+            suggest = "public_key_jwk"
+        elif key == "publicKeyPem":
+            suggest = "public_key_pem"
+        elif key == "revokeAt":
+            suggest = "revoke_at"
+        elif key == "updatedAt":
+            suggest = "updated_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in KmsIssuerSigningKey. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        KmsIssuerSigningKey.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        KmsIssuerSigningKey.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 algorithm: Optional[_builtins.str] = None,
+                 certificate_pem: Optional[_builtins.str] = None,
+                 created_at: Optional[_builtins.str] = None,
+                 import_key_id: Optional[_builtins.str] = None,
+                 issuer_id: Optional[_builtins.str] = None,
+                 key_id: Optional[_builtins.str] = None,
+                 public_key_fingerprint: Optional[_builtins.str] = None,
+                 public_key_jwk: Optional[_builtins.str] = None,
+                 public_key_pem: Optional[_builtins.str] = None,
+                 revoke_at: Optional[_builtins.str] = None,
+                 status: Optional[_builtins.str] = None,
+                 updated_at: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str algorithm: The signing algorithm of the key.
+        :param _builtins.str certificate_pem: The key's self-signed X.509 certificate in PEM form.
+        :param _builtins.str created_at: The time the key was created.
+        :param _builtins.str import_key_id: The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        :param _builtins.str issuer_id: The ID of the issuer the key belongs to.
+        :param _builtins.str key_id: The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        :param _builtins.str public_key_fingerprint: The fingerprint of the public key.
+        :param _builtins.str public_key_jwk: The public key as a JSON-encoded JWK.
+        :param _builtins.str public_key_pem: The public key in SPKI PEM form.
+        :param _builtins.str revoke_at: The time at which the key is scheduled to be revoked, if any.
+        :param _builtins.str status: The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        :param _builtins.str updated_at: The time the key was last updated.
+        """
+        if algorithm is not None:
+            pulumi.set(__self__, "algorithm", algorithm)
+        if certificate_pem is not None:
+            pulumi.set(__self__, "certificate_pem", certificate_pem)
+        if created_at is not None:
+            pulumi.set(__self__, "created_at", created_at)
+        if import_key_id is not None:
+            pulumi.set(__self__, "import_key_id", import_key_id)
+        if issuer_id is not None:
+            pulumi.set(__self__, "issuer_id", issuer_id)
+        if key_id is not None:
+            pulumi.set(__self__, "key_id", key_id)
+        if public_key_fingerprint is not None:
+            pulumi.set(__self__, "public_key_fingerprint", public_key_fingerprint)
+        if public_key_jwk is not None:
+            pulumi.set(__self__, "public_key_jwk", public_key_jwk)
+        if public_key_pem is not None:
+            pulumi.set(__self__, "public_key_pem", public_key_pem)
+        if revoke_at is not None:
+            pulumi.set(__self__, "revoke_at", revoke_at)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if updated_at is not None:
+            pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter
+    def algorithm(self) -> Optional[_builtins.str]:
+        """
+        The signing algorithm of the key.
+        """
+        return pulumi.get(self, "algorithm")
+
+    @_builtins.property
+    @pulumi.getter(name="certificatePem")
+    def certificate_pem(self) -> Optional[_builtins.str]:
+        """
+        The key's self-signed X.509 certificate in PEM form.
+        """
+        return pulumi.get(self, "certificate_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> Optional[_builtins.str]:
+        """
+        The time the key was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter(name="importKeyId")
+    def import_key_id(self) -> Optional[_builtins.str]:
+        """
+        The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        """
+        return pulumi.get(self, "import_key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="issuerId")
+    def issuer_id(self) -> Optional[_builtins.str]:
+        """
+        The ID of the issuer the key belongs to.
+        """
+        return pulumi.get(self, "issuer_id")
+
+    @_builtins.property
+    @pulumi.getter(name="keyId")
+    def key_id(self) -> Optional[_builtins.str]:
+        """
+        The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        """
+        return pulumi.get(self, "key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyFingerprint")
+    def public_key_fingerprint(self) -> Optional[_builtins.str]:
+        """
+        The fingerprint of the public key.
+        """
+        return pulumi.get(self, "public_key_fingerprint")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyJwk")
+    def public_key_jwk(self) -> Optional[_builtins.str]:
+        """
+        The public key as a JSON-encoded JWK.
+        """
+        return pulumi.get(self, "public_key_jwk")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyPem")
+    def public_key_pem(self) -> Optional[_builtins.str]:
+        """
+        The public key in SPKI PEM form.
+        """
+        return pulumi.get(self, "public_key_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="revokeAt")
+    def revoke_at(self) -> Optional[_builtins.str]:
+        """
+        The time at which the key is scheduled to be revoked, if any.
+        """
+        return pulumi.get(self, "revoke_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[_builtins.str]:
+        """
+        The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> Optional[_builtins.str]:
+        """
+        The time the key was last updated.
+        """
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
 class MicrofrontendGroupDefaultApp(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1899,6 +2156,100 @@ class NetworkTimeouts(dict):
         A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class OidcFederationPolicyClaim(dict):
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 values: Sequence['outputs.OidcFederationPolicyClaimValue']):
+        """
+        :param _builtins.str name: The OIDC claim name.
+        :param Sequence['OidcFederationPolicyClaimValueArgs'] values: Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The OIDC claim name.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence['outputs.OidcFederationPolicyClaimValue']:
+        """
+        Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class OidcFederationPolicyClaimValue(dict):
+    def __init__(__self__, *,
+                 value: _builtins.str,
+                 wildcards: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str value: The accepted claim value or wildcard pattern.
+        :param _builtins.bool wildcards: Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        pulumi.set(__self__, "value", value)
+        if wildcards is not None:
+            pulumi.set(__self__, "wildcards", wildcards)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        The accepted claim value or wildcard pattern.
+        """
+        return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter
+    def wildcards(self) -> Optional[_builtins.bool]:
+        """
+        Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        return pulumi.get(self, "wildcards")
+
+
+@pulumi.output_type
+class OidcFederationPolicyResources(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectIds":
+            suggest = "project_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OidcFederationPolicyResources. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OidcFederationPolicyResources.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OidcFederationPolicyResources.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 project_ids: Sequence[_builtins.str]):
+        """
+        :param Sequence[_builtins.str] project_ids: Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        pulumi.set(__self__, "project_ids", project_ids)
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> Sequence[_builtins.str]:
+        """
+        Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        return pulumi.get(self, "project_ids")
 
 
 @pulumi.output_type
@@ -3147,6 +3498,65 @@ class ProjectRouteRouteTransform(dict):
 
 
 @pulumi.output_type
+class ProjectTracingSamplingRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestPath":
+            suggest = "request_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectTracingSamplingRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectTracingSamplingRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectTracingSamplingRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rate: _builtins.float,
+                 environment: Optional[_builtins.str] = None,
+                 request_path: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float rate: Sampling rate from 0 to 1.
+        :param _builtins.str environment: Environment to apply this sampling rule to. Can be `production` or `preview`.
+        :param _builtins.str request_path: Request path prefix to apply this sampling rule to.
+        """
+        pulumi.set(__self__, "rate", rate)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
+        if request_path is not None:
+            pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> _builtins.float:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> Optional[_builtins.str]:
+        """
+        Environment to apply this sampling rule to. Can be `production` or `preview`.
+        """
+        return pulumi.get(self, "environment")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> Optional[_builtins.str]:
+        """
+        Request path prefix to apply this sampling rule to.
+        """
+        return pulumi.get(self, "request_path")
+
+
+@pulumi.output_type
 class ProjectTrustedIps(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -4378,6 +4788,240 @@ class GetFeatureFlagVariantResult(dict):
         The string value for this variant when `kind = "string"`.
         """
         return pulumi.get(self, "value_string")
+
+
+@pulumi.output_type
+class GetKmsIssuerPolicyResult(dict):
+    def __init__(__self__, *,
+                 client_id: _builtins.str,
+                 created_at: _builtins.str,
+                 environments: Sequence[_builtins.str],
+                 kind: _builtins.str,
+                 project_id: _builtins.str,
+                 team_id: _builtins.str,
+                 token_claims: _builtins.str,
+                 updated_at: _builtins.str):
+        """
+        :param _builtins.str client_id: The client ID associated with the policy, for connex grants.
+        :param _builtins.str created_at: The time the policy was created.
+        :param Sequence[_builtins.str] environments: The environments the policy applies to, for project grants.
+        :param _builtins.str kind: The policy kind, either `project-grant` or `connex-grant`.
+        :param _builtins.str project_id: The project ID associated with the policy, for project grants.
+        :param _builtins.str team_id: The team ID associated with the policy, for project grants.
+        :param _builtins.str token_claims: The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+        :param _builtins.str updated_at: The time the policy was last updated.
+        """
+        pulumi.set(__self__, "client_id", client_id)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "environments", environments)
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "team_id", team_id)
+        pulumi.set(__self__, "token_claims", token_claims)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter(name="clientId")
+    def client_id(self) -> _builtins.str:
+        """
+        The client ID associated with the policy, for connex grants.
+        """
+        return pulumi.get(self, "client_id")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> _builtins.str:
+        """
+        The time the policy was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def environments(self) -> Sequence[_builtins.str]:
+        """
+        The environments the policy applies to, for project grants.
+        """
+        return pulumi.get(self, "environments")
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> _builtins.str:
+        """
+        The policy kind, either `project-grant` or `connex-grant`.
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> _builtins.str:
+        """
+        The project ID associated with the policy, for project grants.
+        """
+        return pulumi.get(self, "project_id")
+
+    @_builtins.property
+    @pulumi.getter(name="teamId")
+    def team_id(self) -> _builtins.str:
+        """
+        The team ID associated with the policy, for project grants.
+        """
+        return pulumi.get(self, "team_id")
+
+    @_builtins.property
+    @pulumi.getter(name="tokenClaims")
+    def token_claims(self) -> _builtins.str:
+        """
+        The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+        """
+        return pulumi.get(self, "token_claims")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> _builtins.str:
+        """
+        The time the policy was last updated.
+        """
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
+class GetKmsIssuerSigningKeyResult(dict):
+    def __init__(__self__, *,
+                 algorithm: _builtins.str,
+                 certificate_pem: _builtins.str,
+                 created_at: _builtins.str,
+                 import_key_id: _builtins.str,
+                 issuer_id: _builtins.str,
+                 key_id: _builtins.str,
+                 public_key_fingerprint: _builtins.str,
+                 public_key_jwk: _builtins.str,
+                 public_key_pem: _builtins.str,
+                 revoke_at: _builtins.str,
+                 status: _builtins.str,
+                 updated_at: _builtins.str):
+        """
+        :param _builtins.str algorithm: The signing algorithm of the key.
+        :param _builtins.str certificate_pem: The key's self-signed X.509 certificate in PEM form.
+        :param _builtins.str created_at: The time the key was created.
+        :param _builtins.str import_key_id: The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        :param _builtins.str issuer_id: The ID of the issuer the key belongs to.
+        :param _builtins.str key_id: The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        :param _builtins.str public_key_fingerprint: The fingerprint of the public key.
+        :param _builtins.str public_key_jwk: The public key as a JSON-encoded JWK.
+        :param _builtins.str public_key_pem: The public key in SPKI PEM form.
+        :param _builtins.str revoke_at: The time at which the key is scheduled to be revoked, if any.
+        :param _builtins.str status: The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        :param _builtins.str updated_at: The time the key was last updated.
+        """
+        pulumi.set(__self__, "algorithm", algorithm)
+        pulumi.set(__self__, "certificate_pem", certificate_pem)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "import_key_id", import_key_id)
+        pulumi.set(__self__, "issuer_id", issuer_id)
+        pulumi.set(__self__, "key_id", key_id)
+        pulumi.set(__self__, "public_key_fingerprint", public_key_fingerprint)
+        pulumi.set(__self__, "public_key_jwk", public_key_jwk)
+        pulumi.set(__self__, "public_key_pem", public_key_pem)
+        pulumi.set(__self__, "revoke_at", revoke_at)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter
+    def algorithm(self) -> _builtins.str:
+        """
+        The signing algorithm of the key.
+        """
+        return pulumi.get(self, "algorithm")
+
+    @_builtins.property
+    @pulumi.getter(name="certificatePem")
+    def certificate_pem(self) -> _builtins.str:
+        """
+        The key's self-signed X.509 certificate in PEM form.
+        """
+        return pulumi.get(self, "certificate_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> _builtins.str:
+        """
+        The time the key was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter(name="importKeyId")
+    def import_key_id(self) -> _builtins.str:
+        """
+        The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        """
+        return pulumi.get(self, "import_key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="issuerId")
+    def issuer_id(self) -> _builtins.str:
+        """
+        The ID of the issuer the key belongs to.
+        """
+        return pulumi.get(self, "issuer_id")
+
+    @_builtins.property
+    @pulumi.getter(name="keyId")
+    def key_id(self) -> _builtins.str:
+        """
+        The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        """
+        return pulumi.get(self, "key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyFingerprint")
+    def public_key_fingerprint(self) -> _builtins.str:
+        """
+        The fingerprint of the public key.
+        """
+        return pulumi.get(self, "public_key_fingerprint")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyJwk")
+    def public_key_jwk(self) -> _builtins.str:
+        """
+        The public key as a JSON-encoded JWK.
+        """
+        return pulumi.get(self, "public_key_jwk")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyPem")
+    def public_key_pem(self) -> _builtins.str:
+        """
+        The public key in SPKI PEM form.
+        """
+        return pulumi.get(self, "public_key_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="revokeAt")
+    def revoke_at(self) -> _builtins.str:
+        """
+        The time at which the key is scheduled to be revoked, if any.
+        """
+        return pulumi.get(self, "revoke_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> _builtins.str:
+        """
+        The time the key was last updated.
+        """
+        return pulumi.get(self, "updated_at")
 
 
 @pulumi.output_type

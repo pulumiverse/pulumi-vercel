@@ -24,6 +24,7 @@ import * as utilities from "./utilities";
  *     name: "Vercel terraform example",
  *     slug: "vercel-terraform-example",
  *     description: "Vercel Terraform Example",
+ *     defaultBuildMachineType: "basic",
  *     sensitiveEnvironmentVariablePolicy: "off",
  *     remoteCaching: {
  *         enabled: true,
@@ -78,6 +79,10 @@ export class TeamConfig extends pulumi.CustomResource {
      * The `avatar` should be a the 'file' attribute from a vercel.getFile data source.
      */
     declare public readonly avatar: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+     */
+    declare public readonly defaultBuildMachineType: pulumi.Output<string>;
     /**
      * A description of the team.
      */
@@ -145,6 +150,7 @@ export class TeamConfig extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as TeamConfigState | undefined;
             resourceInputs["avatar"] = state?.avatar;
+            resourceInputs["defaultBuildMachineType"] = state?.defaultBuildMachineType;
             resourceInputs["description"] = state?.description;
             resourceInputs["emailDomain"] = state?.emailDomain;
             resourceInputs["enablePreviewFeedback"] = state?.enablePreviewFeedback;
@@ -161,6 +167,7 @@ export class TeamConfig extends pulumi.CustomResource {
         } else {
             const args = argsOrState as TeamConfigArgs | undefined;
             resourceInputs["avatar"] = args?.avatar;
+            resourceInputs["defaultBuildMachineType"] = args?.defaultBuildMachineType;
             resourceInputs["description"] = args?.description;
             resourceInputs["emailDomain"] = args?.emailDomain;
             resourceInputs["enablePreviewFeedback"] = args?.enablePreviewFeedback;
@@ -188,6 +195,10 @@ export interface TeamConfigState {
      * The `avatar` should be a the 'file' attribute from a vercel.getFile data source.
      */
     avatar?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+     */
+    defaultBuildMachineType?: pulumi.Input<string>;
     /**
      * A description of the team.
      */
@@ -250,6 +261,10 @@ export interface TeamConfigArgs {
      * The `avatar` should be a the 'file' attribute from a vercel.getFile data source.
      */
     avatar?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+     */
+    defaultBuildMachineType?: pulumi.Input<string>;
     /**
      * A description of the team.
      */
