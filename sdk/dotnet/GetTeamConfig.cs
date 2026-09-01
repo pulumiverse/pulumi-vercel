@@ -119,6 +119,10 @@ namespace Pulumiverse.Vercel
     public sealed class GetTeamConfigResult
     {
         /// <summary>
+        /// The default build machine type for new projects.
+        /// </summary>
+        public readonly string DefaultBuildMachineType;
+        /// <summary>
         /// A description of the team.
         /// </summary>
         public readonly string Description;
@@ -177,6 +181,8 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetTeamConfigResult(
+            string defaultBuildMachineType,
+
             string description,
 
             string emailDomain,
@@ -205,6 +211,7 @@ namespace Pulumiverse.Vercel
 
             string slug)
         {
+            DefaultBuildMachineType = defaultBuildMachineType;
             Description = description;
             EmailDomain = emailDomain;
             EnablePreviewFeedback = enablePreviewFeedback;

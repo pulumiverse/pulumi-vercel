@@ -54,6 +54,7 @@ namespace Pulumiverse.Vercel
     ///         Name = "example-project",
     ///         Framework = "nextjs",
     ///         ProtectedSourcemaps = true,
+    ///         BuildMachineType = "basic",
     ///     });
     /// 
     ///     var githubActionsTrustedSource = 
@@ -168,7 +169,7 @@ namespace Pulumiverse.Vercel
         public Output<string?> BuildCommand { get; private set; } = null!;
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Output("buildMachineType")]
         public Output<string> BuildMachineType { get; private set; } = null!;
@@ -461,7 +462,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
@@ -721,7 +722,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }

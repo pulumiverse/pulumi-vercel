@@ -42,6 +42,7 @@ import * as utilities from "./utilities";
  *     name: "example-project",
  *     framework: "nextjs",
  *     protectedSourcemaps: true,
+ *     buildMachineType: "basic",
  * });
  * const githubActionsTrustedSource = {
  *     issuer: "https://token.actions.githubusercontent.com",
@@ -140,7 +141,7 @@ export class Project extends pulumi.CustomResource {
      */
     declare public readonly buildCommand: pulumi.Output<string | undefined>;
     /**
-     * The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
      */
     declare public readonly buildMachineType: pulumi.Output<string>;
     /**
@@ -418,7 +419,7 @@ export interface ProjectState {
      */
     buildCommand?: pulumi.Input<string>;
     /**
-     * The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
      */
     buildMachineType?: pulumi.Input<string>;
     /**
@@ -594,7 +595,7 @@ export interface ProjectArgs {
      */
     buildCommand?: pulumi.Input<string>;
     /**
-     * The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
      */
     buildMachineType?: pulumi.Input<string>;
     /**

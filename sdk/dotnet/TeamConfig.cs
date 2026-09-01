@@ -35,6 +35,7 @@ namespace Pulumiverse.Vercel
     ///         Name = "Vercel terraform example",
     ///         Slug = "vercel-terraform-example",
     ///         Description = "Vercel Terraform Example",
+    ///         DefaultBuildMachineType = "basic",
     ///         SensitiveEnvironmentVariablePolicy = "off",
     ///         RemoteCaching = new Vercel.Inputs.TeamConfigRemoteCachingArgs
     ///         {
@@ -68,6 +69,12 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("avatar")]
         public Output<ImmutableDictionary<string, string>?> Avatar { get; private set; } = null!;
+
+        /// <summary>
+        /// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        /// </summary>
+        [Output("defaultBuildMachineType")]
+        public Output<string> DefaultBuildMachineType { get; private set; } = null!;
 
         /// <summary>
         /// A description of the team.
@@ -207,6 +214,12 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
+        /// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        /// </summary>
+        [Input("defaultBuildMachineType")]
+        public Input<string>? DefaultBuildMachineType { get; set; }
+
+        /// <summary>
         /// A description of the team.
         /// </summary>
         [Input("description")]
@@ -297,6 +310,12 @@ namespace Pulumiverse.Vercel
             get => _avatar ?? (_avatar = new InputMap<string>());
             set => _avatar = value;
         }
+
+        /// <summary>
+        /// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        /// </summary>
+        [Input("defaultBuildMachineType")]
+        public Input<string>? DefaultBuildMachineType { get; set; }
 
         /// <summary>
         /// A description of the team.

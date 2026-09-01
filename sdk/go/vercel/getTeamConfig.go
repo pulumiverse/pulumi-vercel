@@ -56,6 +56,8 @@ type LookupTeamConfigArgs struct {
 
 // A collection of values returned by getTeamConfig.
 type LookupTeamConfigResult struct {
+	// The default build machine type for new projects.
+	DefaultBuildMachineType string `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description string `pulumi:"description"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -118,6 +120,11 @@ func (o LookupTeamConfigResultOutput) ToLookupTeamConfigResultOutput() LookupTea
 
 func (o LookupTeamConfigResultOutput) ToLookupTeamConfigResultOutputWithContext(ctx context.Context) LookupTeamConfigResultOutput {
 	return o
+}
+
+// The default build machine type for new projects.
+func (o LookupTeamConfigResultOutput) DefaultBuildMachineType() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTeamConfigResult) string { return v.DefaultBuildMachineType }).(pulumi.StringOutput)
 }
 
 // A description of the team.

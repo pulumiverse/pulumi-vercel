@@ -42,6 +42,10 @@ export interface GetTeamConfigArgs {
  */
 export interface GetTeamConfigResult {
     /**
+     * The default build machine type for new projects.
+     */
+    readonly defaultBuildMachineType: string;
+    /**
      * A description of the team.
      */
     readonly description: string;

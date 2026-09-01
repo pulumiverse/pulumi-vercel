@@ -13,6 +13,19 @@
                 "current": "vercel:index/accessGroupProject:AccessGroupProject",
                 "majorVersion": 5
             },
+            "vercel_ai_gateway_api_key": {
+                "current": "vercel:index/aiGatewayApiKey:AiGatewayApiKey",
+                "majorVersion": 5,
+                "fields": {
+                    "ai_gateway_quota": {
+                        "fields": {
+                            "alert_thresholds": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
+            },
             "vercel_alias": {
                 "current": "vercel:index/alias:Alias",
                 "majorVersion": 5
@@ -195,6 +208,28 @@
                 "current": "vercel:index/integrationProjectAccess:IntegrationProjectAccess",
                 "majorVersion": 5
             },
+            "vercel_kms_issuer": {
+                "current": "vercel:index/kmsIssuer:KmsIssuer",
+                "majorVersion": 5,
+                "fields": {
+                    "signing_keys": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_kms_project_grant": {
+                "current": "vercel:index/kmsProjectGrant:KmsProjectGrant",
+                "majorVersion": 5,
+                "fields": {
+                    "environments": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_kms_signing_key": {
+                "current": "vercel:index/kmsSigningKey:KmsSigningKey",
+                "majorVersion": 5
+            },
             "vercel_log_drain": {
                 "current": "vercel:index/logDrain:LogDrain",
                 "majorVersion": 5,
@@ -245,6 +280,35 @@
             "vercel_oauth_app_client_secret": {
                 "current": "vercel:index/oauthAppClientSecret:OauthAppClientSecret",
                 "majorVersion": 5
+            },
+            "vercel_oidc_federation_policy": {
+                "current": "vercel:index/oidcFederationPolicy:OidcFederationPolicy",
+                "majorVersion": 5,
+                "fields": {
+                    "claims": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "values": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "commands": {
+                        "maxItemsOne": false
+                    },
+                    "permissions": {
+                        "maxItemsOne": false
+                    },
+                    "resources": {
+                        "fields": {
+                            "project_ids": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
             },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
@@ -437,6 +501,15 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "vercel_project_tracing": {
+                "current": "vercel:index/projectTracing:ProjectTracing",
+                "majorVersion": 5,
+                "fields": {
+                    "sampling_rules": {
+                        "maxItemsOne": false
                     }
                 }
             },
@@ -665,6 +738,25 @@
             "vercel_file": {
                 "current": "vercel:index/getFile:getFile",
                 "majorVersion": 5
+            },
+            "vercel_kms_issuer": {
+                "current": "vercel:index/getKmsIssuer:getKmsIssuer",
+                "majorVersion": 5,
+                "fields": {
+                    "policies": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "environments": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "signing_keys": {
+                        "maxItemsOne": false
+                    }
+                }
             },
             "vercel_log_drain": {
                 "current": "vercel:index/getLogDrain:getLogDrain",
