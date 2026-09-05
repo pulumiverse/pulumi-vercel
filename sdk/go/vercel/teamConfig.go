@@ -39,6 +39,7 @@ import (
 //				Name:                               pulumi.String("Vercel terraform example"),
 //				Slug:                               pulumi.String("vercel-terraform-example"),
 //				Description:                        pulumi.String("Vercel Terraform Example"),
+//				DefaultBuildMachineType:            pulumi.String("basic"),
 //				SensitiveEnvironmentVariablePolicy: pulumi.String("off"),
 //				RemoteCaching: &vercel.TeamConfigRemoteCachingArgs{
 //					Enabled: pulumi.Bool(true),
@@ -72,8 +73,12 @@ type TeamConfig struct {
 
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar pulumi.StringMapOutput `pulumi:"avatar"`
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType pulumi.StringOutput `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description pulumi.StringOutput `pulumi:"description"`
+	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+	DisjunctiveProductionSecretPolicy pulumi.StringOutput `pulumi:"disjunctiveProductionSecretPolicy"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	EmailDomain pulumi.StringOutput `pulumi:"emailDomain"`
 	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -94,7 +99,9 @@ type TeamConfig struct {
 	RemoteCaching TeamConfigRemoteCachingOutput `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml TeamConfigSamlOutput `pulumi:"saml"`
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 	SensitiveEnvironmentVariablePolicy pulumi.StringOutput `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringOutput `pulumi:"slug"`
@@ -132,8 +139,12 @@ func GetTeamConfig(ctx *pulumi.Context,
 type teamConfigState struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar map[string]string `pulumi:"avatar"`
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType *string `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description *string `pulumi:"description"`
+	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+	DisjunctiveProductionSecretPolicy *string `pulumi:"disjunctiveProductionSecretPolicy"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	EmailDomain *string `pulumi:"emailDomain"`
 	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -154,7 +165,9 @@ type teamConfigState struct {
 	RemoteCaching *TeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml *TeamConfigSaml `pulumi:"saml"`
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 	SensitiveEnvironmentVariablePolicy *string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug *string `pulumi:"slug"`
@@ -163,8 +176,12 @@ type teamConfigState struct {
 type TeamConfigState struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar pulumi.StringMapInput
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType pulumi.StringPtrInput
 	// A description of the team.
 	Description pulumi.StringPtrInput
+	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+	DisjunctiveProductionSecretPolicy pulumi.StringPtrInput
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	EmailDomain pulumi.StringPtrInput
 	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -185,7 +202,9 @@ type TeamConfigState struct {
 	RemoteCaching TeamConfigRemoteCachingPtrInput
 	// Configuration for SAML authentication.
 	Saml TeamConfigSamlPtrInput
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 	SensitiveEnvironmentVariablePolicy pulumi.StringPtrInput
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringPtrInput
@@ -198,8 +217,12 @@ func (TeamConfigState) ElementType() reflect.Type {
 type teamConfigArgs struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar map[string]string `pulumi:"avatar"`
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType *string `pulumi:"defaultBuildMachineType"`
 	// A description of the team.
 	Description *string `pulumi:"description"`
+	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+	DisjunctiveProductionSecretPolicy *string `pulumi:"disjunctiveProductionSecretPolicy"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	EmailDomain *string `pulumi:"emailDomain"`
 	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -218,7 +241,9 @@ type teamConfigArgs struct {
 	RemoteCaching *TeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml *TeamConfigSaml `pulumi:"saml"`
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 	SensitiveEnvironmentVariablePolicy *string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug *string `pulumi:"slug"`
@@ -228,8 +253,12 @@ type teamConfigArgs struct {
 type TeamConfigArgs struct {
 	// The `avatar` should be a the 'file' attribute from a getFile data source.
 	Avatar pulumi.StringMapInput
+	// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+	DefaultBuildMachineType pulumi.StringPtrInput
 	// A description of the team.
 	Description pulumi.StringPtrInput
+	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+	DisjunctiveProductionSecretPolicy pulumi.StringPtrInput
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	EmailDomain pulumi.StringPtrInput
 	// Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -248,7 +277,9 @@ type TeamConfigArgs struct {
 	RemoteCaching TeamConfigRemoteCachingPtrInput
 	// Configuration for SAML authentication.
 	Saml TeamConfigSamlPtrInput
-	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+	// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 	SensitiveEnvironmentVariablePolicy pulumi.StringPtrInput
 	// The slug of the team. Will be used in the URL of the team's dashboard.
 	Slug pulumi.StringPtrInput
@@ -346,9 +377,19 @@ func (o TeamConfigOutput) Avatar() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringMapOutput { return v.Avatar }).(pulumi.StringMapOutput)
 }
 
+// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+func (o TeamConfigOutput) DefaultBuildMachineType() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.DefaultBuildMachineType }).(pulumi.StringOutput)
+}
+
 // A description of the team.
 func (o TeamConfigOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
+}
+
+// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+func (o TeamConfigOutput) DisjunctiveProductionSecretPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.DisjunctiveProductionSecretPolicy }).(pulumi.StringOutput)
 }
 
 // Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -401,7 +442,9 @@ func (o TeamConfigOutput) Saml() TeamConfigSamlOutput {
 	return o.ApplyT(func(v *TeamConfig) TeamConfigSamlOutput { return v.Saml }).(TeamConfigSamlOutput)
 }
 
-// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+//
+// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 func (o TeamConfigOutput) SensitiveEnvironmentVariablePolicy() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.SensitiveEnvironmentVariablePolicy }).(pulumi.StringOutput)
 }
