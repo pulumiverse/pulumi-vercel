@@ -29,13 +29,14 @@ class ProjectEnvironmentVariableArgs:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
-                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None):
+                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ProjectEnvironmentVariable resource.
 
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the environment variable is for.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
@@ -45,6 +46,7 @@ class ProjectEnvironmentVariableArgs:
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        :param pulumi.Input[_builtins.str] visibility: Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "project_id", project_id)
@@ -65,6 +67,8 @@ class ProjectEnvironmentVariableArgs:
             pulumi.set(__self__, "value_wo", value_wo)
         if value_wo_version is not None:
             pulumi.set(__self__, "value_wo_version", value_wo_version)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -94,7 +98,7 @@ class ProjectEnvironmentVariableArgs:
     @pulumi.getter
     def sensitive(self) -> pulumi.Input[_builtins.bool]:
         """
-        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         """
         return pulumi.get(self, "sensitive")
 
@@ -199,6 +203,18 @@ class ProjectEnvironmentVariableArgs:
     def value_wo_version(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "value_wo_version", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+        """
+        return pulumi.get(self, "visibility")
+
+    @visibility.setter
+    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "visibility", value)
+
 
 @pulumi.input_type
 class _ProjectEnvironmentVariableState:
@@ -213,7 +229,8 @@ class _ProjectEnvironmentVariableState:
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
-                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None):
+                 value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ProjectEnvironmentVariable resources.
 
@@ -222,13 +239,14 @@ class _ProjectEnvironmentVariableState:
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        :param pulumi.Input[_builtins.str] visibility: Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -252,6 +270,8 @@ class _ProjectEnvironmentVariableState:
             pulumi.set(__self__, "value_wo", value_wo)
         if value_wo_version is not None:
             pulumi.set(__self__, "value_wo_version", value_wo_version)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -317,7 +337,7 @@ class _ProjectEnvironmentVariableState:
     @pulumi.getter
     def sensitive(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         """
         return pulumi.get(self, "sensitive")
 
@@ -386,6 +406,18 @@ class _ProjectEnvironmentVariableState:
     def value_wo_version(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "value_wo_version", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+        """
+        return pulumi.get(self, "visibility")
+
+    @visibility.setter
+    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "visibility", value)
+
 
 @pulumi.type_token("vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable")
 class ProjectEnvironmentVariable(pulumi.CustomResource):
@@ -404,6 +436,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
         Provides a Project Environment Variable resource.
@@ -415,7 +448,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         > Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 
-        > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+        > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Variables targeting `development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
 
         > **Note:** Write-Only argument `value_wo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 
@@ -456,13 +489,14 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        :param pulumi.Input[_builtins.str] visibility: Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
         """
         ...
     @overload
@@ -480,7 +514,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         > Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 
-        > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+        > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Variables targeting `development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
 
         > **Note:** Write-Only argument `value_wo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 
@@ -540,6 +574,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -566,6 +601,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             __props__.__dict__["value"] = None if value is None else pulumi.Output.secret(value)
             __props__.__dict__["value_wo"] = None if value_wo is None else pulumi.Output.secret(value_wo)
             __props__.__dict__["value_wo_version"] = value_wo_version
+            __props__.__dict__["visibility"] = visibility
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value", "valueWo"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(ProjectEnvironmentVariable, __self__).__init__(
@@ -588,7 +624,8 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
             team_id: Optional[pulumi.Input[_builtins.str]] = None,
             value: Optional[pulumi.Input[_builtins.str]] = None,
             value_wo: Optional[pulumi.Input[_builtins.str]] = None,
-            value_wo_version: Optional[pulumi.Input[_builtins.int]] = None) -> 'ProjectEnvironmentVariable':
+            value_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
+            visibility: Optional[pulumi.Input[_builtins.str]] = None) -> 'ProjectEnvironmentVariable':
         """
         Get an existing ProjectEnvironmentVariable resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -601,13 +638,14 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] git_branch: The git branch of the Environment Variable.
         :param pulumi.Input[_builtins.str] key: The name of the Environment Variable.
         :param pulumi.Input[_builtins.str] project_id: The ID of the Vercel project.
-        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        :param pulumi.Input[_builtins.bool] sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.str] value: (Optional, exactly one of `value` or `value_wo` is required) The value of the Environment Variable.
         :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                (Optional, Write-Only, exactly one of `value` or `value_wo` is required) The value of the Environment Variable, from an `ephemeral` resource.
         :param pulumi.Input[_builtins.int] value_wo_version: An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
+        :param pulumi.Input[_builtins.str] visibility: Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -624,6 +662,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         __props__.__dict__["value"] = value
         __props__.__dict__["value_wo"] = value_wo
         __props__.__dict__["value_wo_version"] = value_wo_version
+        __props__.__dict__["visibility"] = visibility
         return ProjectEnvironmentVariable(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -670,7 +709,7 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
     @pulumi.getter
     def sensitive(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
         """
         return pulumi.get(self, "sensitive")
 
@@ -714,4 +753,12 @@ class ProjectEnvironmentVariable(pulumi.CustomResource):
         An integer used to trigger an update to `value_wo`. Increment this value when an update to the write-only value is required.
         """
         return pulumi.get(self, "value_wo_version")
+
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> pulumi.Output[_builtins.str]:
+        """
+        Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+        """
+        return pulumi.get(self, "visibility")
 

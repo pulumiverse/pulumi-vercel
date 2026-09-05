@@ -22,7 +22,9 @@ __all__ = ['TeamConfigArgs', 'TeamConfig']
 class TeamConfigArgs:
     def __init__(__self__, *,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
+                 disjunctive_production_secret_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_production_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -38,7 +40,9 @@ class TeamConfigArgs:
         The set of arguments for constructing a TeamConfig resource.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
         :param pulumi.Input[_builtins.str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
@@ -48,13 +52,17 @@ class TeamConfigArgs:
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input['TeamConfigRemoteCachingArgs'] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input['TeamConfigSamlArgs'] saml: Configuration for SAML authentication.
-        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         if avatar is not None:
             pulumi.set(__self__, "avatar", avatar)
+        if default_build_machine_type is not None:
+            pulumi.set(__self__, "default_build_machine_type", default_build_machine_type)
         if description is not None:
             pulumi.set(__self__, "description", description)
+        if disjunctive_production_secret_policy is not None:
+            pulumi.set(__self__, "disjunctive_production_secret_policy", disjunctive_production_secret_policy)
         if email_domain is not None:
             pulumi.set(__self__, "email_domain", email_domain)
         if enable_preview_feedback is not None:
@@ -74,6 +82,9 @@ class TeamConfigArgs:
         if saml is not None:
             pulumi.set(__self__, "saml", saml)
         if sensitive_environment_variable_policy is not None:
+            warnings.warn("""This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""", DeprecationWarning)
+            pulumi.log.warn("""sensitive_environment_variable_policy is deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""")
+        if sensitive_environment_variable_policy is not None:
             pulumi.set(__self__, "sensitive_environment_variable_policy", sensitive_environment_variable_policy)
         if slug is not None:
             pulumi.set(__self__, "slug", slug)
@@ -91,6 +102,18 @@ class TeamConfigArgs:
         pulumi.set(self, "avatar", value)
 
     @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        """
+        return pulumi.get(self, "default_build_machine_type")
+
+    @default_build_machine_type.setter
+    def default_build_machine_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "default_build_machine_type", value)
+
+    @_builtins.property
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -101,6 +124,18 @@ class TeamConfigArgs:
     @description.setter
     def description(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disjunctiveProductionSecretPolicy")
+    def disjunctive_production_secret_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+        """
+        return pulumi.get(self, "disjunctive_production_secret_policy")
+
+    @disjunctive_production_secret_policy.setter
+    def disjunctive_production_secret_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "disjunctive_production_secret_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="emailDomain")
@@ -212,9 +247,10 @@ class TeamConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""")
     def sensitive_environment_variable_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
@@ -239,7 +275,9 @@ class TeamConfigArgs:
 class _TeamConfigState:
     def __init__(__self__, *,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
+                 disjunctive_production_secret_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_production_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -256,7 +294,9 @@ class _TeamConfigState:
         Input properties used for looking up and filtering TeamConfig resources.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
         :param pulumi.Input[_builtins.str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
@@ -267,13 +307,17 @@ class _TeamConfigState:
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input['TeamConfigRemoteCachingArgs'] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input['TeamConfigSamlArgs'] saml: Configuration for SAML authentication.
-        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         if avatar is not None:
             pulumi.set(__self__, "avatar", avatar)
+        if default_build_machine_type is not None:
+            pulumi.set(__self__, "default_build_machine_type", default_build_machine_type)
         if description is not None:
             pulumi.set(__self__, "description", description)
+        if disjunctive_production_secret_policy is not None:
+            pulumi.set(__self__, "disjunctive_production_secret_policy", disjunctive_production_secret_policy)
         if email_domain is not None:
             pulumi.set(__self__, "email_domain", email_domain)
         if enable_preview_feedback is not None:
@@ -295,6 +339,9 @@ class _TeamConfigState:
         if saml is not None:
             pulumi.set(__self__, "saml", saml)
         if sensitive_environment_variable_policy is not None:
+            warnings.warn("""This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""", DeprecationWarning)
+            pulumi.log.warn("""sensitive_environment_variable_policy is deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""")
+        if sensitive_environment_variable_policy is not None:
             pulumi.set(__self__, "sensitive_environment_variable_policy", sensitive_environment_variable_policy)
         if slug is not None:
             pulumi.set(__self__, "slug", slug)
@@ -312,6 +359,18 @@ class _TeamConfigState:
         pulumi.set(self, "avatar", value)
 
     @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        """
+        return pulumi.get(self, "default_build_machine_type")
+
+    @default_build_machine_type.setter
+    def default_build_machine_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "default_build_machine_type", value)
+
+    @_builtins.property
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -322,6 +381,18 @@ class _TeamConfigState:
     @description.setter
     def description(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disjunctiveProductionSecretPolicy")
+    def disjunctive_production_secret_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+        """
+        return pulumi.get(self, "disjunctive_production_secret_policy")
+
+    @disjunctive_production_secret_policy.setter
+    def disjunctive_production_secret_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "disjunctive_production_secret_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="emailDomain")
@@ -445,9 +516,10 @@ class _TeamConfigState:
 
     @_builtins.property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""")
     def sensitive_environment_variable_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
@@ -475,7 +547,9 @@ class TeamConfig(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
+                 disjunctive_production_secret_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_production_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -505,6 +579,7 @@ class TeamConfig(pulumi.CustomResource):
             name="Vercel terraform example",
             slug="vercel-terraform-example",
             description="Vercel Terraform Example",
+            default_build_machine_type="basic",
             sensitive_environment_variable_policy="off",
             remote_caching={
                 "enabled": True,
@@ -530,7 +605,9 @@ class TeamConfig(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
         :param pulumi.Input[_builtins.str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
@@ -540,7 +617,7 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input[Union['TeamConfigRemoteCachingArgs', 'TeamConfigRemoteCachingArgsDict']] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input[Union['TeamConfigSamlArgs', 'TeamConfigSamlArgsDict']] saml: Configuration for SAML authentication.
-        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         ...
@@ -566,6 +643,7 @@ class TeamConfig(pulumi.CustomResource):
             name="Vercel terraform example",
             slug="vercel-terraform-example",
             description="Vercel Terraform Example",
+            default_build_machine_type="basic",
             sensitive_environment_variable_policy="off",
             remote_caching={
                 "enabled": True,
@@ -604,7 +682,9 @@ class TeamConfig(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
+                 disjunctive_production_secret_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  email_domain: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
                  enable_production_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -626,7 +706,9 @@ class TeamConfig(pulumi.CustomResource):
             __props__ = TeamConfigArgs.__new__(TeamConfigArgs)
 
             __props__.__dict__["avatar"] = avatar
+            __props__.__dict__["default_build_machine_type"] = default_build_machine_type
             __props__.__dict__["description"] = description
+            __props__.__dict__["disjunctive_production_secret_policy"] = disjunctive_production_secret_policy
             __props__.__dict__["email_domain"] = email_domain
             __props__.__dict__["enable_preview_feedback"] = enable_preview_feedback
             __props__.__dict__["enable_production_feedback"] = enable_production_feedback
@@ -650,7 +732,9 @@ class TeamConfig(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             avatar: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+            default_build_machine_type: Optional[pulumi.Input[_builtins.str]] = None,
             description: Optional[pulumi.Input[_builtins.str]] = None,
+            disjunctive_production_secret_policy: Optional[pulumi.Input[_builtins.str]] = None,
             email_domain: Optional[pulumi.Input[_builtins.str]] = None,
             enable_preview_feedback: Optional[pulumi.Input[_builtins.str]] = None,
             enable_production_feedback: Optional[pulumi.Input[_builtins.str]] = None,
@@ -671,7 +755,9 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] avatar: The `avatar` should be a the 'file' attribute from a get_file data source.
+        :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
         :param pulumi.Input[_builtins.str] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
@@ -682,7 +768,7 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The hostname that is used as the preview deployment suffix.
         :param pulumi.Input[Union['TeamConfigRemoteCachingArgs', 'TeamConfigRemoteCachingArgsDict']] remote_caching: Configuration for Remote Caching.
         :param pulumi.Input[Union['TeamConfigSamlArgs', 'TeamConfigSamlArgsDict']] saml: Configuration for SAML authentication.
-        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        :param pulumi.Input[_builtins.str] sensitive_environment_variable_policy: Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] slug: The slug of the team. Will be used in the URL of the team's dashboard.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -690,7 +776,9 @@ class TeamConfig(pulumi.CustomResource):
         __props__ = _TeamConfigState.__new__(_TeamConfigState)
 
         __props__.__dict__["avatar"] = avatar
+        __props__.__dict__["default_build_machine_type"] = default_build_machine_type
         __props__.__dict__["description"] = description
+        __props__.__dict__["disjunctive_production_secret_policy"] = disjunctive_production_secret_policy
         __props__.__dict__["email_domain"] = email_domain
         __props__.__dict__["enable_preview_feedback"] = enable_preview_feedback
         __props__.__dict__["enable_production_feedback"] = enable_production_feedback
@@ -714,12 +802,28 @@ class TeamConfig(pulumi.CustomResource):
         return pulumi.get(self, "avatar")
 
     @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> pulumi.Output[_builtins.str]:
+        """
+        The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        """
+        return pulumi.get(self, "default_build_machine_type")
+
+    @_builtins.property
     @pulumi.getter
     def description(self) -> pulumi.Output[_builtins.str]:
         """
         A description of the team.
         """
         return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="disjunctiveProductionSecretPolicy")
+    def disjunctive_production_secret_policy(self) -> pulumi.Output[_builtins.str]:
+        """
+        When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+        """
+        return pulumi.get(self, "disjunctive_production_secret_policy")
 
     @_builtins.property
     @pulumi.getter(name="emailDomain")
@@ -803,9 +907,10 @@ class TeamConfig(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""")
     def sensitive_environment_variable_policy(self) -> pulumi.Output[_builtins.str]:
         """
-        Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
         """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 

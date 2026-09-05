@@ -58,6 +58,7 @@ import javax.annotation.Nullable;
  *             .name("Vercel terraform example")
  *             .slug("vercel-terraform-example")
  *             .description("Vercel Terraform Example")
+ *             .defaultBuildMachineType("basic")
  *             .sensitiveEnvironmentVariablePolicy("off")
  *             .remoteCaching(TeamConfigRemoteCachingArgs.builder()
  *                 .enabled(true)
@@ -102,6 +103,20 @@ public class TeamConfig extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.avatar);
     }
     /**
+     * The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    @Export(name="defaultBuildMachineType", refs={String.class}, tree="[0]")
+    private Output<String> defaultBuildMachineType;
+
+    /**
+     * @return The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    public Output<String> defaultBuildMachineType() {
+        return this.defaultBuildMachineType;
+    }
+    /**
      * A description of the team.
      * 
      */
@@ -114,6 +129,20 @@ public class TeamConfig extends com.pulumi.resources.CustomResource {
      */
     public Output<String> description() {
         return this.description;
+    }
+    /**
+     * When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     * 
+     */
+    @Export(name="disjunctiveProductionSecretPolicy", refs={String.class}, tree="[0]")
+    private Output<String> disjunctiveProductionSecretPolicy;
+
+    /**
+     * @return When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     * 
+     */
+    public Output<String> disjunctiveProductionSecretPolicy() {
+        return this.disjunctiveProductionSecretPolicy;
     }
     /**
      * Hostname that&#39;ll be matched with emails on sign-up to automatically join the Team.
@@ -256,14 +285,18 @@ public class TeamConfig extends com.pulumi.resources.CustomResource {
         return this.saml;
     }
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system. One of `on`, `off`, or `default`.
+     * 
+     * @deprecated
+     * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      * 
      */
+    @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
     @Export(name="sensitiveEnvironmentVariablePolicy", refs={String.class}, tree="[0]")
     private Output<String> sensitiveEnvironmentVariablePolicy;
 
     /**
-     * @return Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system.: one of on, off or default.
+     * @return Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system. One of `on`, `off`, or `default`.
      * 
      */
     public Output<String> sensitiveEnvironmentVariablePolicy() {

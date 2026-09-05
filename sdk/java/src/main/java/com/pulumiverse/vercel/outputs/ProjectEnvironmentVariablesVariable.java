@@ -40,7 +40,7 @@ public final class ProjectEnvironmentVariablesVariable {
      */
     private String key;
     /**
-     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      * 
      */
     private Boolean sensitive;
@@ -54,6 +54,11 @@ public final class ProjectEnvironmentVariablesVariable {
      * 
      */
     private String value;
+    /**
+     * @return Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     * 
+     */
+    private @Nullable String visibility;
 
     private ProjectEnvironmentVariablesVariable() {}
     /**
@@ -92,7 +97,7 @@ public final class ProjectEnvironmentVariablesVariable {
         return this.key;
     }
     /**
-     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      * 
      */
     public Boolean sensitive() {
@@ -112,6 +117,13 @@ public final class ProjectEnvironmentVariablesVariable {
     public String value() {
         return this.value;
     }
+    /**
+     * @return Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     * 
+     */
+    public Optional<String> visibility() {
+        return Optional.ofNullable(this.visibility);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -130,6 +142,7 @@ public final class ProjectEnvironmentVariablesVariable {
         private Boolean sensitive;
         private @Nullable List<String> targets;
         private String value;
+        private @Nullable String visibility;
         public Builder() {}
         public Builder(ProjectEnvironmentVariablesVariable defaults) {
     	      Objects.requireNonNull(defaults);
@@ -141,6 +154,7 @@ public final class ProjectEnvironmentVariablesVariable {
     	      this.sensitive = defaults.sensitive;
     	      this.targets = defaults.targets;
     	      this.value = defaults.value;
+    	      this.visibility = defaults.visibility;
         }
 
         @CustomType.Setter
@@ -203,6 +217,12 @@ public final class ProjectEnvironmentVariablesVariable {
             this.value = value;
             return this;
         }
+        @CustomType.Setter
+        public Builder visibility(@Nullable String visibility) {
+
+            this.visibility = visibility;
+            return this;
+        }
         public ProjectEnvironmentVariablesVariable build() {
             final var _resultValue = new ProjectEnvironmentVariablesVariable();
             _resultValue.comment = comment;
@@ -213,6 +233,7 @@ public final class ProjectEnvironmentVariablesVariable {
             _resultValue.sensitive = sensitive;
             _resultValue.targets = targets;
             _resultValue.value = value;
+            _resultValue.visibility = visibility;
             return _resultValue;
         }
     }
