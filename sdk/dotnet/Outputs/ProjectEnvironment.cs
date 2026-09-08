@@ -35,7 +35,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string Key;
         /// <summary>
-        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `Development` must set this to `False`. Variables targeting `Preview`, `Production`, or custom environments may have to set this to `True`. A variable cannot target `Development` together with `Preview`, `Production`, or custom environments while that team policy is enabled.
+        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `Development` must set this to `False`.
         /// </summary>
         public readonly bool Sensitive;
         /// <summary>
@@ -46,6 +46,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// The value of the Environment Variable.
         /// </summary>
         public readonly string Value;
+        /// <summary>
+        /// Controls how the environment variable is categorized: `Config` (configuration values) or `Secret` (secret values). When omitted, visibility is inferred from `Sensitive` for backwards compatibility and is not sent to the API.
+        /// </summary>
+        public readonly string? Visibility;
 
         [OutputConstructor]
         private ProjectEnvironment(
@@ -63,7 +67,9 @@ namespace Pulumiverse.Vercel.Outputs
 
             ImmutableArray<string> targets,
 
-            string value)
+            string value,
+
+            string? visibility)
         {
             Comment = comment;
             CustomEnvironmentIds = customEnvironmentIds;
@@ -73,6 +79,7 @@ namespace Pulumiverse.Vercel.Outputs
             Sensitive = sensitive;
             Targets = targets;
             Value = value;
+            Visibility = visibility;
         }
     }
 }

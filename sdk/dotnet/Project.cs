@@ -20,7 +20,7 @@ namespace Pulumiverse.Vercel
     /// &gt; Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `Environment` field.
     /// At this time you cannot use a Vercel Project resource with in-line `Environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
     /// 
-    /// &gt; **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `Sensitive` value. Variables targeting only `Development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `Preview`, `Production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `Development` together with `Preview`, `Production`, or custom environments.
+    /// &gt; **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `Sensitive` value. Variables targeting `Development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
     /// 
     /// ## Example Usage
     /// 
@@ -54,6 +54,7 @@ namespace Pulumiverse.Vercel
     ///         Name = "example-project",
     ///         Framework = "nextjs",
     ///         ProtectedSourcemaps = true,
+    ///         BuildMachineType = "basic",
     ///     });
     /// 
     ///     var githubActionsTrustedSource = 
@@ -168,7 +169,7 @@ namespace Pulumiverse.Vercel
         public Output<string?> BuildCommand { get; private set; } = null!;
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Output("buildMachineType")]
         public Output<string> BuildMachineType { get; private set; } = null!;
@@ -461,7 +462,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
@@ -721,7 +722,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
