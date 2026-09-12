@@ -14,10 +14,20 @@ import java.util.Objects;
 @CustomType
 public final class GetTeamConfigResult {
     /**
+     * @return The default build machine type for new projects.
+     * 
+     */
+    private String defaultBuildMachineType;
+    /**
      * @return A description of the team.
      * 
      */
     private String description;
+    /**
+     * @return When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+     * 
+     */
+    private String disjunctiveProductionSecretPolicy;
     /**
      * @return Hostname that&#39;ll be matched with emails on sign-up to automatically join the Team.
      * 
@@ -74,9 +84,13 @@ public final class GetTeamConfigResult {
      */
     private GetTeamConfigSaml saml;
     /**
-     * @return The policy for sensitive environment variables.
+     * @return The legacy policy for sensitive environment variables.
+     * 
+     * @deprecated
+     * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      * 
      */
+    @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
     private String sensitiveEnvironmentVariablePolicy;
     /**
      * @return The slug of the team. Used in the URL of the team&#39;s dashboard.
@@ -86,11 +100,25 @@ public final class GetTeamConfigResult {
 
     private GetTeamConfigResult() {}
     /**
+     * @return The default build machine type for new projects.
+     * 
+     */
+    public String defaultBuildMachineType() {
+        return this.defaultBuildMachineType;
+    }
+    /**
      * @return A description of the team.
      * 
      */
     public String description() {
         return this.description;
+    }
+    /**
+     * @return When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+     * 
+     */
+    public String disjunctiveProductionSecretPolicy() {
+        return this.disjunctiveProductionSecretPolicy;
     }
     /**
      * @return Hostname that&#39;ll be matched with emails on sign-up to automatically join the Team.
@@ -170,9 +198,13 @@ public final class GetTeamConfigResult {
         return this.saml;
     }
     /**
-     * @return The policy for sensitive environment variables.
+     * @return The legacy policy for sensitive environment variables.
+     * 
+     * @deprecated
+     * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      * 
      */
+    @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
     public String sensitiveEnvironmentVariablePolicy() {
         return this.sensitiveEnvironmentVariablePolicy;
     }
@@ -193,7 +225,9 @@ public final class GetTeamConfigResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private String defaultBuildMachineType;
         private String description;
+        private String disjunctiveProductionSecretPolicy;
         private String emailDomain;
         private String enablePreviewFeedback;
         private String enableProductionFeedback;
@@ -210,7 +244,9 @@ public final class GetTeamConfigResult {
         public Builder() {}
         public Builder(GetTeamConfigResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.defaultBuildMachineType = defaults.defaultBuildMachineType;
     	      this.description = defaults.description;
+    	      this.disjunctiveProductionSecretPolicy = defaults.disjunctiveProductionSecretPolicy;
     	      this.emailDomain = defaults.emailDomain;
     	      this.enablePreviewFeedback = defaults.enablePreviewFeedback;
     	      this.enableProductionFeedback = defaults.enableProductionFeedback;
@@ -227,11 +263,27 @@ public final class GetTeamConfigResult {
         }
 
         @CustomType.Setter
+        public Builder defaultBuildMachineType(String defaultBuildMachineType) {
+            if (defaultBuildMachineType == null) {
+              throw new MissingRequiredPropertyException("GetTeamConfigResult", "defaultBuildMachineType");
+            }
+            this.defaultBuildMachineType = defaultBuildMachineType;
+            return this;
+        }
+        @CustomType.Setter
         public Builder description(String description) {
             if (description == null) {
               throw new MissingRequiredPropertyException("GetTeamConfigResult", "description");
             }
             this.description = description;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder disjunctiveProductionSecretPolicy(String disjunctiveProductionSecretPolicy) {
+            if (disjunctiveProductionSecretPolicy == null) {
+              throw new MissingRequiredPropertyException("GetTeamConfigResult", "disjunctiveProductionSecretPolicy");
+            }
+            this.disjunctiveProductionSecretPolicy = disjunctiveProductionSecretPolicy;
             return this;
         }
         @CustomType.Setter
@@ -340,7 +392,9 @@ public final class GetTeamConfigResult {
         }
         public GetTeamConfigResult build() {
             final var _resultValue = new GetTeamConfigResult();
+            _resultValue.defaultBuildMachineType = defaultBuildMachineType;
             _resultValue.description = description;
+            _resultValue.disjunctiveProductionSecretPolicy = disjunctiveProductionSecretPolicy;
             _resultValue.emailDomain = emailDomain;
             _resultValue.enablePreviewFeedback = enablePreviewFeedback;
             _resultValue.enableProductionFeedback = enableProductionFeedback;
