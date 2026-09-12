@@ -46,6 +46,10 @@ namespace Pulumiverse.Vercel.Outputs
         /// The value of the environment variable.
         /// </summary>
         public readonly string Value;
+        /// <summary>
+        /// Controls how the environment variable is categorized: `Config` or `Secret`.
+        /// </summary>
+        public readonly string Visibility;
 
         [OutputConstructor]
         private GetProjectEnvironmentResult(
@@ -63,7 +67,9 @@ namespace Pulumiverse.Vercel.Outputs
 
             ImmutableArray<string> targets,
 
-            string value)
+            string value,
+
+            string visibility)
         {
             Comment = comment;
             CustomEnvironmentIds = customEnvironmentIds;
@@ -73,6 +79,7 @@ namespace Pulumiverse.Vercel.Outputs
             Sensitive = sensitive;
             Targets = targets;
             Value = value;
+            Visibility = visibility;
         }
     }
 }
