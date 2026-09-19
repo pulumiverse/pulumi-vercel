@@ -17,7 +17,7 @@ namespace Pulumiverse.Vercel
     /// 
     /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/environment-variables/shared-environment-variables).
     /// 
-    /// &gt; **Note:** Starting in provider version `4.8.0`, Shared Environment Variables require an explicit `Sensitive` value. Variables targeting only `Development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `Preview`, `Production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `Development` together with `Preview`, `Production`, or custom environments.
+    /// &gt; **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `Sensitive` value. Variables targeting `Development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
     /// 
     /// &gt; **Note:** Write-Only argument `ValueWo` is available to use in place of `Value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
     /// 
@@ -63,7 +63,7 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `Development` must set this to `False`. Variables targeting `Preview`, `Production`, or custom environments may have to set this to `True`. A variable cannot target `Development` together with `Preview`, `Production`, or custom environments while that team policy is enabled.
+        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `Development` must set this to `False`.
         /// </summary>
         [Output("sensitive")]
         public Output<bool> Sensitive { get; private set; } = null!;
@@ -182,7 +182,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `Development` must set this to `False`. Variables targeting `Preview`, `Production`, or custom environments may have to set this to `True`. A variable cannot target `Development` together with `Preview`, `Production`, or custom environments while that team policy is enabled.
+        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `Development` must set this to `False`.
         /// </summary>
         [Input("sensitive", required: true)]
         public Input<bool> Sensitive { get; set; } = null!;
@@ -283,7 +283,7 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `Development` must set this to `False`. Variables targeting `Preview`, `Production`, or custom environments may have to set this to `True`. A variable cannot target `Development` together with `Preview`, `Production`, or custom environments while that team policy is enabled.
+        /// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `Development` must set this to `False`.
         /// </summary>
         [Input("sensitive")]
         public Input<bool>? Sensitive { get; set; }

@@ -74,14 +74,14 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     @Import(name="buildMachineType")
     private @Nullable Output<String> buildMachineType;
 
     /**
-     * @return The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * @return The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     public Optional<Output<String>> buildMachineType() {
@@ -179,16 +179,24 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * A set of Environment Variables that should be configured for the project.
+     * A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     * 
+     * @deprecated
+     * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      * 
      */
+    @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
     @Import(name="environments")
     private @Nullable Output<List<ProjectEnvironmentArgs>> environments;
 
     /**
-     * @return A set of Environment Variables that should be configured for the project.
+     * @return A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     * 
+     * @deprecated
+     * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      * 
      */
+    @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
     public Optional<Output<List<ProjectEnvironmentArgs>>> environments() {
         return Optional.ofNullable(this.environments);
     }
@@ -795,7 +803,7 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
          * 
          * @return builder
          * 
@@ -806,7 +814,7 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
          * 
          * @return builder
          * 
@@ -942,32 +950,44 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param environments A set of Environment Variables that should be configured for the project.
+         * @param environments A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
          * 
          * @return builder
          * 
+         * @deprecated
+         * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
+         * 
          */
+        @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
         public Builder environments(@Nullable Output<List<ProjectEnvironmentArgs>> environments) {
             $.environments = environments;
             return this;
         }
 
         /**
-         * @param environments A set of Environment Variables that should be configured for the project.
+         * @param environments A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
          * 
          * @return builder
          * 
+         * @deprecated
+         * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
+         * 
          */
+        @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
         public Builder environments(List<ProjectEnvironmentArgs> environments) {
             return environments(Output.of(environments));
         }
 
         /**
-         * @param environments A set of Environment Variables that should be configured for the project.
+         * @param environments A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
          * 
          * @return builder
          * 
+         * @deprecated
+         * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
+         * 
          */
+        @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
         public Builder environments(ProjectEnvironmentArgs... environments) {
             return environments(List.of(environments));
         }
