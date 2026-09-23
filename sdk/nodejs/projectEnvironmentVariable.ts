@@ -14,7 +14,7 @@ import * as utilities from "./utilities";
  * > Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
  * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
  *
- * > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Variables targeting `development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
  *
  * > **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
  *
@@ -96,7 +96,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      */
     declare public readonly projectId: pulumi.Output<string>;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      */
     declare public readonly sensitive: pulumi.Output<boolean>;
     /**
@@ -120,6 +120,10 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
      * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
      */
     declare public readonly valueWoVersion: pulumi.Output<number | undefined>;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    declare public readonly visibility: pulumi.Output<string>;
 
     /**
      * Create a ProjectEnvironmentVariable resource with the given unique name, arguments, and options.
@@ -145,6 +149,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["value"] = state?.value;
             resourceInputs["valueWo"] = state?.valueWo;
             resourceInputs["valueWoVersion"] = state?.valueWoVersion;
+            resourceInputs["visibility"] = state?.visibility;
         } else {
             const args = argsOrState as ProjectEnvironmentVariableArgs | undefined;
             if (args?.key === undefined && !opts.urn) {
@@ -167,6 +172,7 @@ export class ProjectEnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
             resourceInputs["valueWo"] = args?.valueWo ? pulumi.secret(args.valueWo) : undefined;
             resourceInputs["valueWoVersion"] = args?.valueWoVersion;
+            resourceInputs["visibility"] = args?.visibility;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["value", "valueWo"] };
@@ -200,7 +206,7 @@ export interface ProjectEnvironmentVariableState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      */
     sensitive?: pulumi.Input<boolean>;
     /**
@@ -224,6 +230,10 @@ export interface ProjectEnvironmentVariableState {
      * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
      */
     valueWoVersion?: pulumi.Input<number>;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    visibility?: pulumi.Input<string>;
 }
 
 /**
@@ -251,7 +261,7 @@ export interface ProjectEnvironmentVariableArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      */
     sensitive: pulumi.Input<boolean>;
     /**
@@ -275,4 +285,8 @@ export interface ProjectEnvironmentVariableArgs {
      * An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
      */
     valueWoVersion?: pulumi.Input<number>;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    visibility?: pulumi.Input<string>;
 }
