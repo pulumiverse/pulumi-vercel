@@ -27,10 +27,16 @@ class GetTeamConfigResult:
     """
     A collection of values returned by getTeamConfig.
     """
-    def __init__(__self__, description=None, email_domain=None, enable_preview_feedback=None, enable_production_feedback=None, hide_ip_addresses=None, hide_ip_addresses_in_log_drains=None, id=None, invite_code=None, name=None, preview_deployment_suffix=None, remote_caching=None, saml=None, sensitive_environment_variable_policy=None, slug=None):
+    def __init__(__self__, default_build_machine_type=None, description=None, disjunctive_production_secret_policy=None, email_domain=None, enable_preview_feedback=None, enable_production_feedback=None, hide_ip_addresses=None, hide_ip_addresses_in_log_drains=None, id=None, invite_code=None, name=None, preview_deployment_suffix=None, remote_caching=None, saml=None, sensitive_environment_variable_policy=None, slug=None):
+        if default_build_machine_type and not isinstance(default_build_machine_type, str):
+            raise TypeError("Expected argument 'default_build_machine_type' to be a str")
+        pulumi.set(__self__, "default_build_machine_type", default_build_machine_type)
         if description and not isinstance(description, str):
             raise TypeError("Expected argument 'description' to be a str")
         pulumi.set(__self__, "description", description)
+        if disjunctive_production_secret_policy and not isinstance(disjunctive_production_secret_policy, str):
+            raise TypeError("Expected argument 'disjunctive_production_secret_policy' to be a str")
+        pulumi.set(__self__, "disjunctive_production_secret_policy", disjunctive_production_secret_policy)
         if email_domain and not isinstance(email_domain, str):
             raise TypeError("Expected argument 'email_domain' to be a str")
         pulumi.set(__self__, "email_domain", email_domain)
@@ -72,12 +78,28 @@ class GetTeamConfigResult:
         pulumi.set(__self__, "slug", slug)
 
     @_builtins.property
+    @pulumi.getter(name="defaultBuildMachineType")
+    def default_build_machine_type(self) -> _builtins.str:
+        """
+        The default build machine type for new projects.
+        """
+        return pulumi.get(self, "default_build_machine_type")
+
+    @_builtins.property
     @pulumi.getter
     def description(self) -> _builtins.str:
         """
         A description of the team.
         """
         return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="disjunctiveProductionSecretPolicy")
+    def disjunctive_production_secret_policy(self) -> _builtins.str:
+        """
+        When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+        """
+        return pulumi.get(self, "disjunctive_production_secret_policy")
 
     @_builtins.property
     @pulumi.getter(name="emailDomain")
@@ -169,9 +191,10 @@ class GetTeamConfigResult:
 
     @_builtins.property
     @pulumi.getter(name="sensitiveEnvironmentVariablePolicy")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctive_production_secret_policy`, which enforces a different rule.""")
     def sensitive_environment_variable_policy(self) -> _builtins.str:
         """
-        The policy for sensitive environment variables.
+        The legacy policy for sensitive environment variables.
         """
         return pulumi.get(self, "sensitive_environment_variable_policy")
 
@@ -190,7 +213,9 @@ class AwaitableGetTeamConfigResult(GetTeamConfigResult):
         if False:
             yield self
         return GetTeamConfigResult(
+            default_build_machine_type=self.default_build_machine_type,
             description=self.description,
+            disjunctive_production_secret_policy=self.disjunctive_production_secret_policy,
             email_domain=self.email_domain,
             enable_preview_feedback=self.enable_preview_feedback,
             enable_production_feedback=self.enable_production_feedback,
@@ -229,7 +254,9 @@ def get_team_config(id: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('vercel:index/getTeamConfig:getTeamConfig', __args__, opts=opts, typ=GetTeamConfigResult).value
 
     return AwaitableGetTeamConfigResult(
+        default_build_machine_type=pulumi.get(__ret__, 'default_build_machine_type'),
         description=pulumi.get(__ret__, 'description'),
+        disjunctive_production_secret_policy=pulumi.get(__ret__, 'disjunctive_production_secret_policy'),
         email_domain=pulumi.get(__ret__, 'email_domain'),
         enable_preview_feedback=pulumi.get(__ret__, 'enable_preview_feedback'),
         enable_production_feedback=pulumi.get(__ret__, 'enable_production_feedback'),
@@ -265,7 +292,9 @@ def get_team_config_output(id: Optional[pulumi.Input[_builtins.str]] = None,
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('vercel:index/getTeamConfig:getTeamConfig', __args__, opts=opts, typ=GetTeamConfigResult)
     return __ret__.apply(lambda __response__: GetTeamConfigResult(
+        default_build_machine_type=pulumi.get(__response__, 'default_build_machine_type'),
         description=pulumi.get(__response__, 'description'),
+        disjunctive_production_secret_policy=pulumi.get(__response__, 'disjunctive_production_secret_policy'),
         email_domain=pulumi.get(__response__, 'email_domain'),
         enable_preview_feedback=pulumi.get(__response__, 'enable_preview_feedback'),
         enable_production_feedback=pulumi.get(__response__, 'enable_production_feedback'),

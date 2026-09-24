@@ -18,6 +18,10 @@ import javax.annotation.Nullable;
 /**
  * Resource for a Vercel project rolling release configuration.
  * 
+ * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+ * 
+ * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+ * 
  * ## Example Usage
  * 
  * <pre>
@@ -58,7 +62,7 @@ import javax.annotation.Nullable;
  *                     .targetPercentage(20)
  *                     .build(),
  *                 ProjectRollingReleaseStageArgs.builder()
- *                     .targetPercentage(50)
+ *                     .targetPercentage(100)
  *                     .build())
  *             .build());
  * 
@@ -99,14 +103,14 @@ public class ProjectRollingRelease extends com.pulumi.resources.CustomResource {
         return this.projectId;
     }
     /**
-     * The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      * 
      */
     @Export(name="stages", refs={List.class,ProjectRollingReleaseStage.class}, tree="[0,1]")
     private Output<List<ProjectRollingReleaseStage>> stages;
 
     /**
-     * @return The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * @return Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      * 
      */
     public Output<List<ProjectRollingReleaseStage>> stages() {

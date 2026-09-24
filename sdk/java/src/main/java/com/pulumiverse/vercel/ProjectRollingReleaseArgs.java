@@ -49,14 +49,14 @@ public final class ProjectRollingReleaseArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      * 
      */
     @Import(name="stages", required=true)
     private Output<List<ProjectRollingReleaseStageArgs>> stages;
 
     /**
-     * @return The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * @return Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      * 
      */
     public Output<List<ProjectRollingReleaseStageArgs>> stages() {
@@ -148,7 +148,7 @@ public final class ProjectRollingReleaseArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param stages The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+         * @param stages Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
          * 
          * @return builder
          * 
@@ -159,7 +159,7 @@ public final class ProjectRollingReleaseArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param stages The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+         * @param stages Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
          * 
          * @return builder
          * 
@@ -169,7 +169,7 @@ public final class ProjectRollingReleaseArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param stages The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+         * @param stages Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
          * 
          * @return builder
          * 

@@ -9,6 +9,8 @@ import typing
 from .access_group import *
 from .access_group_member import *
 from .access_group_project import *
+from .ai_gateway_api_key import *
+from .alert_rule import *
 from .alias import *
 from .attack_challenge_mode import *
 from .audit_log_drain import *
@@ -54,6 +56,7 @@ from .get_feature_flag import *
 from .get_feature_flag_sdk_key import *
 from .get_feature_flag_segment import *
 from .get_file import *
+from .get_kms_issuer import *
 from .get_log_drain import *
 from .get_microfrontend_group import *
 from .get_microfrontend_group_membership import *
@@ -71,14 +74,19 @@ from .get_team_member import *
 from .get_trace_drain import *
 from .get_vcr_repository import *
 from .integration_project_access import *
+from .kms_issuer import *
+from .kms_project_grant import *
+from .kms_signing_key import *
 from .log_drain import *
 from .microfrontend_group import *
 from .microfrontend_group_membership import *
 from .network import *
 from .oauth_app import *
 from .oauth_app_client_secret import *
+from .oidc_federation_policy import *
 from .project import *
 from .project_crons import *
+from .project_deployment_check import *
 from .project_deployment_retention import *
 from .project_domain import *
 from .project_environment_variable import *
@@ -87,6 +95,7 @@ from .project_members import *
 from .project_protection_bypass import *
 from .project_rolling_release import *
 from .project_route import *
+from .project_tracing import *
 from .provider import *
 from .shared_environment_variable import *
 from .shared_environment_variable_project_link import *
@@ -132,6 +141,22 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/accessGroupProject:AccessGroupProject": "AccessGroupProject"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/aiGatewayApiKey",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/aiGatewayApiKey:AiGatewayApiKey": "AiGatewayApiKey"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/alertRule",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/alertRule:AlertRule": "AlertRule"
   }
  },
  {
@@ -320,6 +345,30 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/kmsIssuer",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/kmsIssuer:KmsIssuer": "KmsIssuer"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/kmsProjectGrant",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/kmsProjectGrant:KmsProjectGrant": "KmsProjectGrant"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/kmsSigningKey",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/kmsSigningKey:KmsSigningKey": "KmsSigningKey"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/logDrain",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -368,6 +417,14 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/oidcFederationPolicy",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/oidcFederationPolicy:OidcFederationPolicy": "OidcFederationPolicy"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/project",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -380,6 +437,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectCrons:ProjectCrons": "ProjectCrons"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectDeploymentCheck",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectDeploymentCheck:ProjectDeploymentCheck": "ProjectDeploymentCheck"
   }
  },
  {
@@ -444,6 +509,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectRoute:ProjectRoute": "ProjectRoute"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectTracing",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectTracing:ProjectTracing": "ProjectTracing"
   }
  },
  {
