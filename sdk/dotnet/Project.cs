@@ -17,10 +17,10 @@ namespace Pulumiverse.Vercel
     /// 
     /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
     /// 
-    /// &gt; Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `Environment` field.
+    /// &gt; The inline `Environment` field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables to manage multiple Environment Variables or vercel.ProjectEnvironmentVariable to manage a single Environment Variable instead.
     /// At this time you cannot use a Vercel Project resource with in-line `Environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
     /// 
-    /// &gt; **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `Sensitive` value. Variables targeting only `Development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `Preview`, `Production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `Development` together with `Preview`, `Production`, or custom environments.
+    /// &gt; **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `Sensitive` value. Variables targeting `Development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
     /// 
     /// ## Example Usage
     /// 
@@ -54,6 +54,7 @@ namespace Pulumiverse.Vercel
     ///         Name = "example-project",
     ///         Framework = "nextjs",
     ///         ProtectedSourcemaps = true,
+    ///         BuildMachineType = "basic",
     ///     });
     /// 
     ///     var githubActionsTrustedSource = 
@@ -168,7 +169,7 @@ namespace Pulumiverse.Vercel
         public Output<string?> BuildCommand { get; private set; } = null!;
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Output("buildMachineType")]
         public Output<string> BuildMachineType { get; private set; } = null!;
@@ -210,7 +211,7 @@ namespace Pulumiverse.Vercel
         public Output<bool> EnableProductionFeedback { get; private set; } = null!;
 
         /// <summary>
-        /// A set of Environment Variables that should be configured for the project.
+        /// A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         /// </summary>
         [Output("environments")]
         public Output<ImmutableArray<Outputs.ProjectEnvironment>> Environments { get; private set; } = null!;
@@ -461,7 +462,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
@@ -506,8 +507,9 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.ProjectEnvironmentArgs>? _environments;
 
         /// <summary>
-        /// A set of Environment Variables that should be configured for the project.
+        /// A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         /// </summary>
+        [Obsolete(@"The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.")]
         public InputList<Inputs.ProjectEnvironmentArgs> Environments
         {
             get => _environments ?? (_environments = new InputList<Inputs.ProjectEnvironmentArgs>());
@@ -721,7 +723,7 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildCommand { get; set; }
 
         /// <summary>
-        /// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        /// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         /// </summary>
         [Input("buildMachineType")]
         public Input<string>? BuildMachineType { get; set; }
@@ -766,8 +768,9 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.ProjectEnvironmentGetArgs>? _environments;
 
         /// <summary>
-        /// A set of Environment Variables that should be configured for the project.
+        /// A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         /// </summary>
+        [Obsolete(@"The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.")]
         public InputList<Inputs.ProjectEnvironmentGetArgs> Environments
         {
             get => _environments ?? (_environments = new InputList<Inputs.ProjectEnvironmentGetArgs>());

@@ -94,14 +94,14 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      * 
      */
     @Import(name="sensitive", required=true)
     private Output<Boolean> sensitive;
 
     /**
-     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
      * 
      */
     public Output<Boolean> sensitive() {
@@ -138,6 +138,21 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
         return this.value;
     }
 
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     * 
+     */
+    @Import(name="visibility")
+    private @Nullable Output<String> visibility;
+
+    /**
+     * @return Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     * 
+     */
+    public Optional<Output<String>> visibility() {
+        return Optional.ofNullable(this.visibility);
+    }
+
     private ProjectEnvironmentArgs() {}
 
     private ProjectEnvironmentArgs(ProjectEnvironmentArgs $) {
@@ -149,6 +164,7 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
         this.sensitive = $.sensitive;
         this.targets = $.targets;
         this.value = $.value;
+        this.visibility = $.visibility;
     }
 
     public static Builder builder() {
@@ -285,7 +301,7 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
          * 
          * @return builder
          * 
@@ -296,7 +312,7 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+         * @param sensitive Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Variables targeting `development` must set this to `false`.
          * 
          * @return builder
          * 
@@ -355,6 +371,27 @@ public final class ProjectEnvironmentArgs extends com.pulumi.resources.ResourceA
          */
         public Builder value(String value) {
             return value(Output.of(value));
+        }
+
+        /**
+         * @param visibility Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder visibility(@Nullable Output<String> visibility) {
+            $.visibility = visibility;
+            return this;
+        }
+
+        /**
+         * @param visibility Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder visibility(String visibility) {
+            return visibility(Output.of(visibility));
         }
 
         public ProjectEnvironmentArgs build() {
