@@ -55,6 +55,8 @@ import com.pulumiverse.vercel.inputs.GetFeatureFlagSegmentArgs;
 import com.pulumiverse.vercel.inputs.GetFeatureFlagSegmentPlainArgs;
 import com.pulumiverse.vercel.inputs.GetFileArgs;
 import com.pulumiverse.vercel.inputs.GetFilePlainArgs;
+import com.pulumiverse.vercel.inputs.GetKmsIssuerArgs;
+import com.pulumiverse.vercel.inputs.GetKmsIssuerPlainArgs;
 import com.pulumiverse.vercel.inputs.GetLogDrainArgs;
 import com.pulumiverse.vercel.inputs.GetLogDrainPlainArgs;
 import com.pulumiverse.vercel.inputs.GetMicrofrontendGroupArgs;
@@ -110,6 +112,7 @@ import com.pulumiverse.vercel.outputs.GetFeatureFlagResult;
 import com.pulumiverse.vercel.outputs.GetFeatureFlagSdkKeyResult;
 import com.pulumiverse.vercel.outputs.GetFeatureFlagSegmentResult;
 import com.pulumiverse.vercel.outputs.GetFileResult;
+import com.pulumiverse.vercel.outputs.GetKmsIssuerResult;
 import com.pulumiverse.vercel.outputs.GetLogDrainResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupMembershipResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupResult;
@@ -5633,6 +5636,231 @@ public final class VercelFunctions {
         return Deployment.getInstance().invokeAsync("vercel:index/getFile:getFile", TypeShape.of(GetFileResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetKmsIssuerResult> getKmsIssuer(GetKmsIssuerArgs args) {
+        return getKmsIssuer(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetKmsIssuerResult> getKmsIssuerPlain(GetKmsIssuerPlainArgs args) {
+        return getKmsIssuerPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetKmsIssuerResult> getKmsIssuer(GetKmsIssuerArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getKmsIssuer:getKmsIssuer", TypeShape.of(GetKmsIssuerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetKmsIssuerResult> getKmsIssuer(GetKmsIssuerArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getKmsIssuer:getKmsIssuer", TypeShape.of(GetKmsIssuerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetKmsIssuerResult> getKmsIssuerPlain(GetKmsIssuerPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getKmsIssuer:getKmsIssuer", TypeShape.of(GetKmsIssuerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Provides information about an existing Log Drain.
      * 
      * Log Drains collect all of your logs using a service specializing in storing app logs.
@@ -7275,6 +7503,10 @@ public final class VercelFunctions {
     /**
      * Data source for a Vercel project rolling release configuration.
      * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+     * 
      * ## Example Usage
      * 
      * <pre>
@@ -7319,6 +7551,10 @@ public final class VercelFunctions {
     }
     /**
      * Data source for a Vercel project rolling release configuration.
+     * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
      * 
      * ## Example Usage
      * 
@@ -7365,6 +7601,10 @@ public final class VercelFunctions {
     /**
      * Data source for a Vercel project rolling release configuration.
      * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+     * 
      * ## Example Usage
      * 
      * <pre>
@@ -7410,6 +7650,10 @@ public final class VercelFunctions {
     /**
      * Data source for a Vercel project rolling release configuration.
      * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+     * 
      * ## Example Usage
      * 
      * <pre>
@@ -7454,6 +7698,10 @@ public final class VercelFunctions {
     }
     /**
      * Data source for a Vercel project rolling release configuration.
+     * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
      * 
      * ## Example Usage
      * 
