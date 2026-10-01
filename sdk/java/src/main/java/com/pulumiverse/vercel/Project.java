@@ -34,10 +34,10 @@ import javax.annotation.Nullable;
  * 
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
  * 
- * &gt; Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
+ * &gt; The inline `environment` field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables to manage multiple Environment Variables or vercel.ProjectEnvironmentVariable to manage a single Environment Variable instead.
  * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
  * 
- * &gt; **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * &gt; **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Variables targeting `development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
  * 
  * ## Example Usage
  * 
@@ -84,6 +84,7 @@ import javax.annotation.Nullable;
  *             .name("example-project")
  *             .framework("nextjs")
  *             .protectedSourcemaps(true)
+ *             .buildMachineType("basic")
  *             .build());
  * 
  *         final var githubActionsTrustedSource = Map.ofEntries(
@@ -186,14 +187,14 @@ public class Project extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.buildCommand);
     }
     /**
-     * The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     @Export(name="buildMachineType", refs={String.class}, tree="[0]")
     private Output<String> buildMachineType;
 
     /**
-     * @return The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * @return The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     public Output<String> buildMachineType() {
@@ -284,14 +285,18 @@ public class Project extends com.pulumi.resources.CustomResource {
         return this.enableProductionFeedback;
     }
     /**
-     * A set of Environment Variables that should be configured for the project.
+     * A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     * 
+     * @deprecated
+     * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      * 
      */
+    @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
     @Export(name="environments", refs={List.class,ProjectEnvironment.class}, tree="[0,1]")
     private Output</* @Nullable */ List<ProjectEnvironment>> environments;
 
     /**
-     * @return A set of Environment Variables that should be configured for the project.
+     * @return A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
      * 
      */
     public Output<Optional<List<ProjectEnvironment>>> environments() {
