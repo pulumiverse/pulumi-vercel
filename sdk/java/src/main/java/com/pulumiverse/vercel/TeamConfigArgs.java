@@ -5,6 +5,8 @@ package com.pulumiverse.vercel;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumiverse.vercel.inputs.TeamConfigDefaultDeploymentProtectionArgs;
+import com.pulumiverse.vercel.inputs.TeamConfigDefaultPassportArgs;
 import com.pulumiverse.vercel.inputs.TeamConfigRemoteCachingArgs;
 import com.pulumiverse.vercel.inputs.TeamConfigSamlArgs;
 import java.lang.Boolean;
@@ -35,6 +37,51 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    @Import(name="defaultBuildMachineType")
+    private @Nullable Output<String> defaultBuildMachineType;
+
+    /**
+     * @return The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+     * 
+     */
+    public Optional<Output<String>> defaultBuildMachineType() {
+        return Optional.ofNullable(this.defaultBuildMachineType);
+    }
+
+    /**
+     * Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+     * 
+     */
+    @Import(name="defaultDeploymentProtection")
+    private @Nullable Output<TeamConfigDefaultDeploymentProtectionArgs> defaultDeploymentProtection;
+
+    /**
+     * @return Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+     * 
+     */
+    public Optional<Output<TeamConfigDefaultDeploymentProtectionArgs>> defaultDeploymentProtection() {
+        return Optional.ofNullable(this.defaultDeploymentProtection);
+    }
+
+    /**
+     * Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     * 
+     */
+    @Import(name="defaultPassport")
+    private @Nullable Output<TeamConfigDefaultPassportArgs> defaultPassport;
+
+    /**
+     * @return Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     * 
+     */
+    public Optional<Output<TeamConfigDefaultPassportArgs>> defaultPassport() {
+        return Optional.ofNullable(this.defaultPassport);
+    }
+
+    /**
      * A description of the team.
      * 
      */
@@ -47,6 +94,21 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> description() {
         return Optional.ofNullable(this.description);
+    }
+
+    /**
+     * When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     * 
+     */
+    @Import(name="disjunctiveProductionSecretPolicy")
+    private @Nullable Output<String> disjunctiveProductionSecretPolicy;
+
+    /**
+     * @return When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     * 
+     */
+    public Optional<Output<String>> disjunctiveProductionSecretPolicy() {
+        return Optional.ofNullable(this.disjunctiveProductionSecretPolicy);
     }
 
     /**
@@ -185,16 +247,24 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system. One of `on`, `off`, or `default`.
+     * 
+     * @deprecated
+     * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      * 
      */
+    @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
     @Import(name="sensitiveEnvironmentVariablePolicy")
     private @Nullable Output<String> sensitiveEnvironmentVariablePolicy;
 
     /**
-     * @return Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system.: one of on, off or default.
+     * @return Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system. One of `on`, `off`, or `default`.
+     * 
+     * @deprecated
+     * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      * 
      */
+    @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
     public Optional<Output<String>> sensitiveEnvironmentVariablePolicy() {
         return Optional.ofNullable(this.sensitiveEnvironmentVariablePolicy);
     }
@@ -218,7 +288,11 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
 
     private TeamConfigArgs(TeamConfigArgs $) {
         this.avatar = $.avatar;
+        this.defaultBuildMachineType = $.defaultBuildMachineType;
+        this.defaultDeploymentProtection = $.defaultDeploymentProtection;
+        this.defaultPassport = $.defaultPassport;
         this.description = $.description;
+        this.disjunctiveProductionSecretPolicy = $.disjunctiveProductionSecretPolicy;
         this.emailDomain = $.emailDomain;
         this.enablePreviewFeedback = $.enablePreviewFeedback;
         this.enableProductionFeedback = $.enableProductionFeedback;
@@ -272,6 +346,69 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param defaultBuildMachineType The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultBuildMachineType(@Nullable Output<String> defaultBuildMachineType) {
+            $.defaultBuildMachineType = defaultBuildMachineType;
+            return this;
+        }
+
+        /**
+         * @param defaultBuildMachineType The default build machine type for new projects. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultBuildMachineType(String defaultBuildMachineType) {
+            return defaultBuildMachineType(Output.of(defaultBuildMachineType));
+        }
+
+        /**
+         * @param defaultDeploymentProtection Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultDeploymentProtection(@Nullable Output<TeamConfigDefaultDeploymentProtectionArgs> defaultDeploymentProtection) {
+            $.defaultDeploymentProtection = defaultDeploymentProtection;
+            return this;
+        }
+
+        /**
+         * @param defaultDeploymentProtection Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultDeploymentProtection(TeamConfigDefaultDeploymentProtectionArgs defaultDeploymentProtection) {
+            return defaultDeploymentProtection(Output.of(defaultDeploymentProtection));
+        }
+
+        /**
+         * @param defaultPassport Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultPassport(@Nullable Output<TeamConfigDefaultPassportArgs> defaultPassport) {
+            $.defaultPassport = defaultPassport;
+            return this;
+        }
+
+        /**
+         * @param defaultPassport Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultPassport(TeamConfigDefaultPassportArgs defaultPassport) {
+            return defaultPassport(Output.of(defaultPassport));
+        }
+
+        /**
          * @param description A description of the team.
          * 
          * @return builder
@@ -290,6 +427,27 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder description(String description) {
             return description(Output.of(description));
+        }
+
+        /**
+         * @param disjunctiveProductionSecretPolicy When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder disjunctiveProductionSecretPolicy(@Nullable Output<String> disjunctiveProductionSecretPolicy) {
+            $.disjunctiveProductionSecretPolicy = disjunctiveProductionSecretPolicy;
+            return this;
+        }
+
+        /**
+         * @param disjunctiveProductionSecretPolicy When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder disjunctiveProductionSecretPolicy(String disjunctiveProductionSecretPolicy) {
+            return disjunctiveProductionSecretPolicy(Output.of(disjunctiveProductionSecretPolicy));
         }
 
         /**
@@ -482,22 +640,30 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param sensitiveEnvironmentVariablePolicy Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system.: one of on, off or default.
+         * @param sensitiveEnvironmentVariablePolicy Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system. One of `on`, `off`, or `default`.
          * 
          * @return builder
          * 
+         * @deprecated
+         * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
+         * 
          */
+        @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
         public Builder sensitiveEnvironmentVariablePolicy(@Nullable Output<String> sensitiveEnvironmentVariablePolicy) {
             $.sensitiveEnvironmentVariablePolicy = sensitiveEnvironmentVariablePolicy;
             return this;
         }
 
         /**
-         * @param sensitiveEnvironmentVariablePolicy Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system.: one of on, off or default.
+         * @param sensitiveEnvironmentVariablePolicy Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel&#39;s deployment system. One of `on`, `off`, or `default`.
          * 
          * @return builder
          * 
+         * @deprecated
+         * This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
+         * 
          */
+        @Deprecated /* This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule. */
         public Builder sensitiveEnvironmentVariablePolicy(String sensitiveEnvironmentVariablePolicy) {
             return sensitiveEnvironmentVariablePolicy(Output.of(sensitiveEnvironmentVariablePolicy));
         }

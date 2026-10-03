@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.inputs.ProjectGitProviderOptionsArgs;
 import com.pulumiverse.vercel.inputs.ProjectGitRepositoryArgs;
 import com.pulumiverse.vercel.inputs.ProjectOidcTokenConfigArgs;
 import com.pulumiverse.vercel.inputs.ProjectOptionsAllowlistArgs;
+import com.pulumiverse.vercel.inputs.ProjectPassportArgs;
 import com.pulumiverse.vercel.inputs.ProjectPasswordProtectionArgs;
 import com.pulumiverse.vercel.inputs.ProjectResourceConfigArgs;
 import com.pulumiverse.vercel.inputs.ProjectTrustedIpsArgs;
@@ -74,14 +75,14 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     @Import(name="buildMachineType")
     private @Nullable Output<String> buildMachineType;
 
     /**
-     * @return The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+     * @return The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
      * 
      */
     public Optional<Output<String>> buildMachineType() {
@@ -179,16 +180,24 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * A set of Environment Variables that should be configured for the project.
+     * A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     * 
+     * @deprecated
+     * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      * 
      */
+    @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
     @Import(name="environments")
     private @Nullable Output<List<ProjectEnvironmentArgs>> environments;
 
     /**
-     * @return A set of Environment Variables that should be configured for the project.
+     * @return A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     * 
+     * @deprecated
+     * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      * 
      */
+    @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
     public Optional<Output<List<ProjectEnvironmentArgs>>> environments() {
         return Optional.ofNullable(this.environments);
     }
@@ -416,6 +425,21 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> outputDirectory() {
         return Optional.ofNullable(this.outputDirectory);
+    }
+
+    /**
+     * Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     * 
+     */
+    @Import(name="passport")
+    private @Nullable Output<ProjectPassportArgs> passport;
+
+    /**
+     * @return Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     * 
+     */
+    public Optional<Output<ProjectPassportArgs>> passport() {
+        return Optional.ofNullable(this.passport);
     }
 
     /**
@@ -696,6 +720,7 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         this.onDemandConcurrentBuilds = $.onDemandConcurrentBuilds;
         this.optionsAllowlist = $.optionsAllowlist;
         this.outputDirectory = $.outputDirectory;
+        this.passport = $.passport;
         this.passwordProtection = $.passwordProtection;
         this.previewComments = $.previewComments;
         this.previewDeploymentSuffix = $.previewDeploymentSuffix;
@@ -795,7 +820,7 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
          * 
          * @return builder
          * 
@@ -806,7 +831,7 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
+         * @param buildMachineType The build machine type to use for this project. Must be one of &#34;basic&#34;, &#34;standard&#34;, &#34;enhanced&#34;, &#34;turbo&#34;, or &#34;elastic&#34;. When set to &#34;elastic&#34;, Vercel automatically adjusts the underlying machine type based on build duration.
          * 
          * @return builder
          * 
@@ -942,32 +967,44 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param environments A set of Environment Variables that should be configured for the project.
+         * @param environments A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
          * 
          * @return builder
          * 
+         * @deprecated
+         * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
+         * 
          */
+        @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
         public Builder environments(@Nullable Output<List<ProjectEnvironmentArgs>> environments) {
             $.environments = environments;
             return this;
         }
 
         /**
-         * @param environments A set of Environment Variables that should be configured for the project.
+         * @param environments A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
          * 
          * @return builder
          * 
+         * @deprecated
+         * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
+         * 
          */
+        @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
         public Builder environments(List<ProjectEnvironmentArgs> environments) {
             return environments(Output.of(environments));
         }
 
         /**
-         * @param environments A set of Environment Variables that should be configured for the project.
+         * @param environments A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
          * 
          * @return builder
          * 
+         * @deprecated
+         * The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
+         * 
          */
+        @Deprecated /* The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources. */
         public Builder environments(ProjectEnvironmentArgs... environments) {
             return environments(List.of(environments));
         }
@@ -1285,6 +1322,27 @@ public final class ProjectArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder outputDirectory(String outputDirectory) {
             return outputDirectory(Output.of(outputDirectory));
+        }
+
+        /**
+         * @param passport Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passport(@Nullable Output<ProjectPassportArgs> passport) {
+            $.passport = passport;
+            return this;
+        }
+
+        /**
+         * @param passport Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passport(ProjectPassportArgs passport) {
+            return passport(Output.of(passport));
         }
 
         /**

@@ -56,8 +56,16 @@ type LookupTeamConfigArgs struct {
 
 // A collection of values returned by getTeamConfig.
 type LookupTeamConfigResult struct {
+	// The default build machine type for new projects.
+	DefaultBuildMachineType string `pulumi:"defaultBuildMachineType"`
+	// Deployment Protection defaults copied to new projects. Existing projects are unaffected.
+	DefaultDeploymentProtection GetTeamConfigDefaultDeploymentProtection `pulumi:"defaultDeploymentProtection"`
+	// Default Passport configuration for new projects.
+	DefaultPassport GetTeamConfigDefaultPassport `pulumi:"defaultPassport"`
 	// A description of the team.
 	Description string `pulumi:"description"`
+	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+	DisjunctiveProductionSecretPolicy string `pulumi:"disjunctiveProductionSecretPolicy"`
 	// Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	EmailDomain string `pulumi:"emailDomain"`
 	// Preview feedback configuration.
@@ -80,7 +88,9 @@ type LookupTeamConfigResult struct {
 	RemoteCaching GetTeamConfigRemoteCaching `pulumi:"remoteCaching"`
 	// Configuration for SAML authentication.
 	Saml GetTeamConfigSaml `pulumi:"saml"`
-	// The policy for sensitive environment variables.
+	// The legacy policy for sensitive environment variables.
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 	SensitiveEnvironmentVariablePolicy string `pulumi:"sensitiveEnvironmentVariablePolicy"`
 	// The slug of the team. Used in the URL of the team's dashboard.
 	Slug string `pulumi:"slug"`
@@ -120,9 +130,31 @@ func (o LookupTeamConfigResultOutput) ToLookupTeamConfigResultOutputWithContext(
 	return o
 }
 
+// The default build machine type for new projects.
+func (o LookupTeamConfigResultOutput) DefaultBuildMachineType() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTeamConfigResult) string { return v.DefaultBuildMachineType }).(pulumi.StringOutput)
+}
+
+// Deployment Protection defaults copied to new projects. Existing projects are unaffected.
+func (o LookupTeamConfigResultOutput) DefaultDeploymentProtection() GetTeamConfigDefaultDeploymentProtectionOutput {
+	return o.ApplyT(func(v LookupTeamConfigResult) GetTeamConfigDefaultDeploymentProtection {
+		return v.DefaultDeploymentProtection
+	}).(GetTeamConfigDefaultDeploymentProtectionOutput)
+}
+
+// Default Passport configuration for new projects.
+func (o LookupTeamConfigResultOutput) DefaultPassport() GetTeamConfigDefaultPassportOutput {
+	return o.ApplyT(func(v LookupTeamConfigResult) GetTeamConfigDefaultPassport { return v.DefaultPassport }).(GetTeamConfigDefaultPassportOutput)
+}
+
 // A description of the team.
 func (o LookupTeamConfigResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamConfigResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+func (o LookupTeamConfigResultOutput) DisjunctiveProductionSecretPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTeamConfigResult) string { return v.DisjunctiveProductionSecretPolicy }).(pulumi.StringOutput)
 }
 
 // Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -180,7 +212,9 @@ func (o LookupTeamConfigResultOutput) Saml() GetTeamConfigSamlOutput {
 	return o.ApplyT(func(v LookupTeamConfigResult) GetTeamConfigSaml { return v.Saml }).(GetTeamConfigSamlOutput)
 }
 
-// The policy for sensitive environment variables.
+// The legacy policy for sensitive environment variables.
+//
+// Deprecated: This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
 func (o LookupTeamConfigResultOutput) SensitiveEnvironmentVariablePolicy() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamConfigResult) string { return v.SensitiveEnvironmentVariablePolicy }).(pulumi.StringOutput)
 }

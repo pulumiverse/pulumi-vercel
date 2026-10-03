@@ -29,6 +29,8 @@ import com.pulumiverse.vercel.inputs.GetBlobStoresArgs;
 import com.pulumiverse.vercel.inputs.GetBlobStoresPlainArgs;
 import com.pulumiverse.vercel.inputs.GetBulkRedirectsArgs;
 import com.pulumiverse.vercel.inputs.GetBulkRedirectsPlainArgs;
+import com.pulumiverse.vercel.inputs.GetConnectApplicationArgs;
+import com.pulumiverse.vercel.inputs.GetConnectApplicationPlainArgs;
 import com.pulumiverse.vercel.inputs.GetCustomEnvironmentArgs;
 import com.pulumiverse.vercel.inputs.GetCustomEnvironmentPlainArgs;
 import com.pulumiverse.vercel.inputs.GetDeploymentArgs;
@@ -55,6 +57,8 @@ import com.pulumiverse.vercel.inputs.GetFeatureFlagSegmentArgs;
 import com.pulumiverse.vercel.inputs.GetFeatureFlagSegmentPlainArgs;
 import com.pulumiverse.vercel.inputs.GetFileArgs;
 import com.pulumiverse.vercel.inputs.GetFilePlainArgs;
+import com.pulumiverse.vercel.inputs.GetKmsIssuerArgs;
+import com.pulumiverse.vercel.inputs.GetKmsIssuerPlainArgs;
 import com.pulumiverse.vercel.inputs.GetLogDrainArgs;
 import com.pulumiverse.vercel.inputs.GetLogDrainPlainArgs;
 import com.pulumiverse.vercel.inputs.GetMicrofrontendGroupArgs;
@@ -77,6 +81,8 @@ import com.pulumiverse.vercel.inputs.GetProjectRollingReleaseArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRollingReleasePlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRoutesArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRoutesPlainArgs;
+import com.pulumiverse.vercel.inputs.GetShareableLinkArgs;
+import com.pulumiverse.vercel.inputs.GetShareableLinkPlainArgs;
 import com.pulumiverse.vercel.inputs.GetSharedEnvironmentVariableArgs;
 import com.pulumiverse.vercel.inputs.GetSharedEnvironmentVariablePlainArgs;
 import com.pulumiverse.vercel.inputs.GetTeamConfigArgs;
@@ -97,6 +103,7 @@ import com.pulumiverse.vercel.outputs.GetBlobStoreResult;
 import com.pulumiverse.vercel.outputs.GetBlobStoreSecretsResult;
 import com.pulumiverse.vercel.outputs.GetBlobStoresResult;
 import com.pulumiverse.vercel.outputs.GetBulkRedirectsResult;
+import com.pulumiverse.vercel.outputs.GetConnectApplicationResult;
 import com.pulumiverse.vercel.outputs.GetCustomEnvironmentResult;
 import com.pulumiverse.vercel.outputs.GetDeploymentResult;
 import com.pulumiverse.vercel.outputs.GetDomainConfigResult;
@@ -110,6 +117,7 @@ import com.pulumiverse.vercel.outputs.GetFeatureFlagResult;
 import com.pulumiverse.vercel.outputs.GetFeatureFlagSdkKeyResult;
 import com.pulumiverse.vercel.outputs.GetFeatureFlagSegmentResult;
 import com.pulumiverse.vercel.outputs.GetFileResult;
+import com.pulumiverse.vercel.outputs.GetKmsIssuerResult;
 import com.pulumiverse.vercel.outputs.GetLogDrainResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupMembershipResult;
 import com.pulumiverse.vercel.outputs.GetMicrofrontendGroupResult;
@@ -121,6 +129,7 @@ import com.pulumiverse.vercel.outputs.GetProjectMembersResult;
 import com.pulumiverse.vercel.outputs.GetProjectResult;
 import com.pulumiverse.vercel.outputs.GetProjectRollingReleaseResult;
 import com.pulumiverse.vercel.outputs.GetProjectRoutesResult;
+import com.pulumiverse.vercel.outputs.GetShareableLinkResult;
 import com.pulumiverse.vercel.outputs.GetSharedEnvironmentVariableResult;
 import com.pulumiverse.vercel.outputs.GetTeamConfigResult;
 import com.pulumiverse.vercel.outputs.GetTeamMemberResult;
@@ -2136,6 +2145,370 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetBulkRedirectsResult> getBulkRedirectsPlain(GetBulkRedirectsPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getBulkRedirects:getBulkRedirects", TypeShape.of(GetBulkRedirectsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetConnectApplicationResult> getConnectApplication() {
+        return getConnectApplication(GetConnectApplicationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetConnectApplicationResult> getConnectApplicationPlain() {
+        return getConnectApplicationPlain(GetConnectApplicationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetConnectApplicationResult> getConnectApplication(GetConnectApplicationArgs args) {
+        return getConnectApplication(args, InvokeOptions.Empty);
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetConnectApplicationResult> getConnectApplicationPlain(GetConnectApplicationPlainArgs args) {
+        return getConnectApplicationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetConnectApplicationResult> getConnectApplication(GetConnectApplicationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getConnectApplication:getConnectApplication", TypeShape.of(GetConnectApplicationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetConnectApplicationResult> getConnectApplication(GetConnectApplicationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getConnectApplication:getConnectApplication", TypeShape.of(GetConnectApplicationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Looks up an existing Vercel Connect application by its stable ID or team-scoped UID. Use the returned id as a Passport connector_id. This data source exposes application identity only; it does not expose OAuth credentials or runtime tokens.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetConnectApplicationArgs;
+     * import com.pulumiverse.vercel.Project;
+     * import com.pulumiverse.vercel.ProjectArgs;
+     * import com.pulumi.vercel.inputs.ProjectPassportArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var passport = VercelFunctions.getConnectApplication(GetConnectApplicationArgs.builder()
+     *             .teamId("team_...")
+     *             .uid("oauth/company-sso")
+     *             .build());
+     * 
+     *         var internalApp = new Project("internalApp", ProjectArgs.builder()
+     *             .teamId(passport.teamId())
+     *             .name("internal-app")
+     *             .passport(ProjectPassportArgs.builder()
+     *                 .connectorId(passport.id())
+     *                 .build())
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetConnectApplicationResult> getConnectApplicationPlain(GetConnectApplicationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getConnectApplication:getConnectApplication", TypeShape.of(GetConnectApplicationResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Provides information about an existing CustomEnvironment resource.
@@ -5633,6 +6006,231 @@ public final class VercelFunctions {
         return Deployment.getInstance().invokeAsync("vercel:index/getFile:getFile", TypeShape.of(GetFileResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetKmsIssuerResult> getKmsIssuer(GetKmsIssuerArgs args) {
+        return getKmsIssuer(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetKmsIssuerResult> getKmsIssuerPlain(GetKmsIssuerPlainArgs args) {
+        return getKmsIssuerPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetKmsIssuerResult> getKmsIssuer(GetKmsIssuerArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getKmsIssuer:getKmsIssuer", TypeShape.of(GetKmsIssuerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetKmsIssuerResult> getKmsIssuer(GetKmsIssuerArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getKmsIssuer:getKmsIssuer", TypeShape.of(GetKmsIssuerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Provides information about an existing Vercel KMS Issuer.
+     * 
+     * &gt; **Note:** Vercel KMS is currently in beta. Its resources, data sources, and the underlying API may change in backwards-incompatible ways in future releases of the provider.
+     * 
+     * A KMS Issuer signs JSON Web Tokens (JWTs) and exposes a JWKS endpoint at
+     * `https://kms.vercel.com/{id}/jwks.json`.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetKmsIssuerArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getKmsIssuer(GetKmsIssuerArgs.builder()
+     *             .id("iss_xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetKmsIssuerResult> getKmsIssuerPlain(GetKmsIssuerPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getKmsIssuer:getKmsIssuer", TypeShape.of(GetKmsIssuerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Provides information about an existing Log Drain.
      * 
      * Log Drains collect all of your logs using a service specializing in storing app logs.
@@ -7275,6 +7873,10 @@ public final class VercelFunctions {
     /**
      * Data source for a Vercel project rolling release configuration.
      * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+     * 
      * ## Example Usage
      * 
      * <pre>
@@ -7319,6 +7921,10 @@ public final class VercelFunctions {
     }
     /**
      * Data source for a Vercel project rolling release configuration.
+     * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
      * 
      * ## Example Usage
      * 
@@ -7365,6 +7971,10 @@ public final class VercelFunctions {
     /**
      * Data source for a Vercel project rolling release configuration.
      * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+     * 
      * ## Example Usage
      * 
      * <pre>
@@ -7410,6 +8020,10 @@ public final class VercelFunctions {
     /**
      * Data source for a Vercel project rolling release configuration.
      * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+     * 
      * ## Example Usage
      * 
      * <pre>
@@ -7454,6 +8068,10 @@ public final class VercelFunctions {
     }
     /**
      * Data source for a Vercel project rolling release configuration.
+     * 
+     * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+     * 
+     * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
      * 
      * ## Example Usage
      * 
@@ -7731,6 +8349,211 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetProjectRoutesResult> getProjectRoutesPlain(GetProjectRoutesPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getProjectRoutes:getProjectRoutes", TypeShape.of(GetProjectRoutesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Reads an existing shareable link for a Vercel alias without creating or revoking it. Ordinary deployment URLs without an alias record are not supported. The secret and URL are sensitive but are stored in Terraform state.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetShareableLinkArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var preview = VercelFunctions.getShareableLink(GetShareableLinkArgs.builder()
+     *             .alias("my-project-git-staging.vercel.app")
+     *             .build());
+     * 
+     *         ctx.export("previewShareUrl", preview.url());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetShareableLinkResult> getShareableLink(GetShareableLinkArgs args) {
+        return getShareableLink(args, InvokeOptions.Empty);
+    }
+    /**
+     * Reads an existing shareable link for a Vercel alias without creating or revoking it. Ordinary deployment URLs without an alias record are not supported. The secret and URL are sensitive but are stored in Terraform state.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetShareableLinkArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var preview = VercelFunctions.getShareableLink(GetShareableLinkArgs.builder()
+     *             .alias("my-project-git-staging.vercel.app")
+     *             .build());
+     * 
+     *         ctx.export("previewShareUrl", preview.url());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetShareableLinkResult> getShareableLinkPlain(GetShareableLinkPlainArgs args) {
+        return getShareableLinkPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Reads an existing shareable link for a Vercel alias without creating or revoking it. Ordinary deployment URLs without an alias record are not supported. The secret and URL are sensitive but are stored in Terraform state.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetShareableLinkArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var preview = VercelFunctions.getShareableLink(GetShareableLinkArgs.builder()
+     *             .alias("my-project-git-staging.vercel.app")
+     *             .build());
+     * 
+     *         ctx.export("previewShareUrl", preview.url());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetShareableLinkResult> getShareableLink(GetShareableLinkArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getShareableLink:getShareableLink", TypeShape.of(GetShareableLinkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Reads an existing shareable link for a Vercel alias without creating or revoking it. Ordinary deployment URLs without an alias record are not supported. The secret and URL are sensitive but are stored in Terraform state.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetShareableLinkArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var preview = VercelFunctions.getShareableLink(GetShareableLinkArgs.builder()
+     *             .alias("my-project-git-staging.vercel.app")
+     *             .build());
+     * 
+     *         ctx.export("previewShareUrl", preview.url());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetShareableLinkResult> getShareableLink(GetShareableLinkArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getShareableLink:getShareableLink", TypeShape.of(GetShareableLinkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Reads an existing shareable link for a Vercel alias without creating or revoking it. Ordinary deployment URLs without an alias record are not supported. The secret and URL are sensitive but are stored in Terraform state.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetShareableLinkArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var preview = VercelFunctions.getShareableLink(GetShareableLinkArgs.builder()
+     *             .alias("my-project-git-staging.vercel.app")
+     *             .build());
+     * 
+     *         ctx.export("previewShareUrl", preview.url());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetShareableLinkResult> getShareableLinkPlain(GetShareableLinkPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getShareableLink:getShareableLink", TypeShape.of(GetShareableLinkResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Provides information about an existing Shared Environment Variable within Vercel.
