@@ -5,6 +5,7 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumiverse.vercel.inputs.DnsRecordHttpsArgs;
 import com.pulumiverse.vercel.inputs.DnsRecordSrvArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -45,6 +46,21 @@ public final class DnsRecordState extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> domain() {
         return Optional.ofNullable(this.domain);
+    }
+
+    /**
+     * Settings for an HTTPS record.
+     * 
+     */
+    @Import(name="https")
+    private @Nullable Output<DnsRecordHttpsArgs> https;
+
+    /**
+     * @return Settings for an HTTPS record.
+     * 
+     */
+    public Optional<Output<DnsRecordHttpsArgs>> https() {
+        return Optional.ofNullable(this.https);
     }
 
     /**
@@ -123,14 +139,14 @@ public final class DnsRecordState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      * 
      */
     @Import(name="type")
     private @Nullable Output<String> type;
 
     /**
-     * @return The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * @return The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      * 
      */
     public Optional<Output<String>> type() {
@@ -171,6 +187,7 @@ public final class DnsRecordState extends com.pulumi.resources.ResourceArgs {
     private DnsRecordState(DnsRecordState $) {
         this.comment = $.comment;
         this.domain = $.domain;
+        this.https = $.https;
         this.mxPriority = $.mxPriority;
         this.name = $.name;
         this.srv = $.srv;
@@ -238,6 +255,27 @@ public final class DnsRecordState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder domain(String domain) {
             return domain(Output.of(domain));
+        }
+
+        /**
+         * @param https Settings for an HTTPS record.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder https(@Nullable Output<DnsRecordHttpsArgs> https) {
+            $.https = https;
+            return this;
+        }
+
+        /**
+         * @param https Settings for an HTTPS record.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder https(DnsRecordHttpsArgs https) {
+            return https(Output.of(https));
         }
 
         /**
@@ -346,7 +384,7 @@ public final class DnsRecordState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+         * @param type The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
          * 
          * @return builder
          * 
@@ -357,7 +395,7 @@ public final class DnsRecordState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+         * @param type The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
          * 
          * @return builder
          * 
