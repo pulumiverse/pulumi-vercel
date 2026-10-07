@@ -24,6 +24,7 @@ class DnsRecordArgs:
                  domain: pulumi.Input[_builtins.str],
                  type: pulumi.Input[_builtins.str],
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
+                 https: Optional[pulumi.Input['DnsRecordHttpsArgs']] = None,
                  mx_priority: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  srv: Optional[pulumi.Input['DnsRecordSrvArgs']] = None,
@@ -34,8 +35,9 @@ class DnsRecordArgs:
         The set of arguments for constructing a DnsRecord resource.
 
         :param pulumi.Input[_builtins.str] domain: The domain name, or zone, that the DNS record should be created beneath.
-        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the DNS record is for.
+        :param pulumi.Input['DnsRecordHttpsArgs'] https: Settings for an HTTPS record.
         :param pulumi.Input[_builtins.int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[_builtins.str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
         :param pulumi.Input['DnsRecordSrvArgs'] srv: Settings for an SRV record.
@@ -54,6 +56,8 @@ class DnsRecordArgs:
         pulumi.set(__self__, "type", type)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
+        if https is not None:
+            pulumi.set(__self__, "https", https)
         if mx_priority is not None:
             pulumi.set(__self__, "mx_priority", mx_priority)
         if name is not None:
@@ -83,7 +87,7 @@ class DnsRecordArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[_builtins.str]:
         """
-        The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         """
         return pulumi.get(self, "type")
 
@@ -102,6 +106,18 @@ class DnsRecordArgs:
     @comment.setter
     def comment(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "comment", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def https(self) -> Optional[pulumi.Input['DnsRecordHttpsArgs']]:
+        """
+        Settings for an HTTPS record.
+        """
+        return pulumi.get(self, "https")
+
+    @https.setter
+    def https(self, value: Optional[pulumi.Input['DnsRecordHttpsArgs']]):
+        pulumi.set(self, "https", value)
 
     @_builtins.property
     @pulumi.getter(name="mxPriority")
@@ -188,6 +204,7 @@ class _DnsRecordState:
     def __init__(__self__, *,
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  domain: Optional[pulumi.Input[_builtins.str]] = None,
+                 https: Optional[pulumi.Input['DnsRecordHttpsArgs']] = None,
                  mx_priority: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  srv: Optional[pulumi.Input['DnsRecordSrvArgs']] = None,
@@ -200,12 +217,13 @@ class _DnsRecordState:
 
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[_builtins.str] domain: The domain name, or zone, that the DNS record should be created beneath.
+        :param pulumi.Input['DnsRecordHttpsArgs'] https: Settings for an HTTPS record.
         :param pulumi.Input[_builtins.int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[_builtins.str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
         :param pulumi.Input['DnsRecordSrvArgs'] srv: Settings for an SRV record.
         :param pulumi.Input[_builtins.str] team_id: The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.int] ttl: The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
-        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         :param pulumi.Input[_builtins.str] value: The value of the DNS record. The format depends on the 'type' property.
                For an 'A' record, this should be a valid IPv4 address.
                For an 'AAAA' record, this should be an IPv6 address.
@@ -219,6 +237,8 @@ class _DnsRecordState:
             pulumi.set(__self__, "comment", comment)
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
+        if https is not None:
+            pulumi.set(__self__, "https", https)
         if mx_priority is not None:
             pulumi.set(__self__, "mx_priority", mx_priority)
         if name is not None:
@@ -257,6 +277,18 @@ class _DnsRecordState:
     @domain.setter
     def domain(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "domain", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def https(self) -> Optional[pulumi.Input['DnsRecordHttpsArgs']]:
+        """
+        Settings for an HTTPS record.
+        """
+        return pulumi.get(self, "https")
+
+    @https.setter
+    def https(self, value: Optional[pulumi.Input['DnsRecordHttpsArgs']]):
+        pulumi.set(self, "https", value)
 
     @_builtins.property
     @pulumi.getter(name="mxPriority")
@@ -322,7 +354,7 @@ class _DnsRecordState:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         """
         return pulumi.get(self, "type")
 
@@ -358,6 +390,7 @@ class DnsRecord(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  domain: Optional[pulumi.Input[_builtins.str]] = None,
+                 https: Optional[pulumi.Input[Union['DnsRecordHttpsArgs', 'DnsRecordHttpsArgsDict']]] = None,
                  mx_priority: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  srv: Optional[pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']]] = None,
@@ -371,7 +404,7 @@ class DnsRecord(pulumi.CustomResource):
 
         DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
 
-        > The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+        > The `value` field must be specified on all DNS record types except `SRV` and `HTTPS`. When using `SRV` DNS records, the `srv` field must be specified. When using `HTTPS` DNS records, the `https` field must be specified.
 
         For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
 
@@ -429,6 +462,16 @@ class DnsRecord(pulumi.CustomResource):
                 "priority": 127,
                 "target": "example2.com.",
             })
+        https = vercel.DnsRecord("https",
+            domain="example.com",
+            name="subdomain",
+            type="HTTPS",
+            ttl=60,
+            https={
+                "priority": 1,
+                "target": "example2.com.",
+                "params": "alpn=h2,h3",
+            })
         txt = vercel.DnsRecord("txt",
             domain="example.com",
             name="subdomain",
@@ -464,12 +507,13 @@ class DnsRecord(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[_builtins.str] domain: The domain name, or zone, that the DNS record should be created beneath.
+        :param pulumi.Input[Union['DnsRecordHttpsArgs', 'DnsRecordHttpsArgsDict']] https: Settings for an HTTPS record.
         :param pulumi.Input[_builtins.int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[_builtins.str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
         :param pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']] srv: Settings for an SRV record.
         :param pulumi.Input[_builtins.str] team_id: The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.int] ttl: The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
-        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         :param pulumi.Input[_builtins.str] value: The value of the DNS record. The format depends on the 'type' property.
                For an 'A' record, this should be a valid IPv4 address.
                For an 'AAAA' record, this should be an IPv6 address.
@@ -490,7 +534,7 @@ class DnsRecord(pulumi.CustomResource):
 
         DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
 
-        > The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+        > The `value` field must be specified on all DNS record types except `SRV` and `HTTPS`. When using `SRV` DNS records, the `srv` field must be specified. When using `HTTPS` DNS records, the `https` field must be specified.
 
         For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
 
@@ -547,6 +591,16 @@ class DnsRecord(pulumi.CustomResource):
                 "weight": 60,
                 "priority": 127,
                 "target": "example2.com.",
+            })
+        https = vercel.DnsRecord("https",
+            domain="example.com",
+            name="subdomain",
+            type="HTTPS",
+            ttl=60,
+            https={
+                "priority": 1,
+                "target": "example2.com.",
+                "params": "alpn=h2,h3",
             })
         txt = vercel.DnsRecord("txt",
             domain="example.com",
@@ -596,6 +650,7 @@ class DnsRecord(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  domain: Optional[pulumi.Input[_builtins.str]] = None,
+                 https: Optional[pulumi.Input[Union['DnsRecordHttpsArgs', 'DnsRecordHttpsArgsDict']]] = None,
                  mx_priority: Optional[pulumi.Input[_builtins.int]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  srv: Optional[pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']]] = None,
@@ -616,6 +671,7 @@ class DnsRecord(pulumi.CustomResource):
             if domain is None and not opts.urn:
                 raise TypeError("Missing required property 'domain'")
             __props__.__dict__["domain"] = domain
+            __props__.__dict__["https"] = https
             __props__.__dict__["mx_priority"] = mx_priority
             __props__.__dict__["name"] = name
             __props__.__dict__["srv"] = srv
@@ -637,6 +693,7 @@ class DnsRecord(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             comment: Optional[pulumi.Input[_builtins.str]] = None,
             domain: Optional[pulumi.Input[_builtins.str]] = None,
+            https: Optional[pulumi.Input[Union['DnsRecordHttpsArgs', 'DnsRecordHttpsArgsDict']]] = None,
             mx_priority: Optional[pulumi.Input[_builtins.int]] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
             srv: Optional[pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']]] = None,
@@ -653,12 +710,13 @@ class DnsRecord(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] comment: A comment explaining what the DNS record is for.
         :param pulumi.Input[_builtins.str] domain: The domain name, or zone, that the DNS record should be created beneath.
+        :param pulumi.Input[Union['DnsRecordHttpsArgs', 'DnsRecordHttpsArgsDict']] https: Settings for an HTTPS record.
         :param pulumi.Input[_builtins.int] mx_priority: The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         :param pulumi.Input[_builtins.str] name: The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
         :param pulumi.Input[Union['DnsRecordSrvArgs', 'DnsRecordSrvArgsDict']] srv: Settings for an SRV record.
         :param pulumi.Input[_builtins.str] team_id: The team ID that the domain and DNS records belong to. Required when configuring a team resource if a default team has not been set in the provider.
         :param pulumi.Input[_builtins.int] ttl: The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
-        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        :param pulumi.Input[_builtins.str] type: The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         :param pulumi.Input[_builtins.str] value: The value of the DNS record. The format depends on the 'type' property.
                For an 'A' record, this should be a valid IPv4 address.
                For an 'AAAA' record, this should be an IPv6 address.
@@ -674,6 +732,7 @@ class DnsRecord(pulumi.CustomResource):
 
         __props__.__dict__["comment"] = comment
         __props__.__dict__["domain"] = domain
+        __props__.__dict__["https"] = https
         __props__.__dict__["mx_priority"] = mx_priority
         __props__.__dict__["name"] = name
         __props__.__dict__["srv"] = srv
@@ -698,6 +757,14 @@ class DnsRecord(pulumi.CustomResource):
         The domain name, or zone, that the DNS record should be created beneath.
         """
         return pulumi.get(self, "domain")
+
+    @_builtins.property
+    @pulumi.getter
+    def https(self) -> pulumi.Output[Optional['outputs.DnsRecordHttps']]:
+        """
+        Settings for an HTTPS record.
+        """
+        return pulumi.get(self, "https")
 
     @_builtins.property
     @pulumi.getter(name="mxPriority")
@@ -743,7 +810,7 @@ class DnsRecord(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[_builtins.str]:
         """
-        The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         """
         return pulumi.get(self, "type")
 

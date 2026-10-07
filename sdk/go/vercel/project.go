@@ -17,10 +17,10 @@ import (
 //
 // For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
 //
-// > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
+// > The inline `environment` field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables to manage multiple Environment Variables or ProjectEnvironmentVariable to manage a single Environment Variable instead.
 // At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 //
-// > **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+// > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Variables targeting `development` must set `sensitive = false`. Team sensitive-environment-variable policy is enforced by the Vercel API at apply time.
 //
 // ## Example Usage
 //
@@ -57,6 +57,7 @@ import (
 //				Name:                pulumi.String("example-project"),
 //				Framework:           pulumi.String("nextjs"),
 //				ProtectedSourcemaps: pulumi.Bool(true),
+//				BuildMachineType:    pulumi.String("basic"),
 //			})
 //			if err != nil {
 //				return err
@@ -146,7 +147,7 @@ type Project struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolOutput `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrOutput `pulumi:"buildCommand"`
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType pulumi.StringOutput `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolOutput `pulumi:"customerSuccessCodeVisibility"`
@@ -160,7 +161,9 @@ type Project struct {
 	EnablePreviewFeedback pulumi.BoolOutput `pulumi:"enablePreviewFeedback"`
 	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback pulumi.BoolOutput `pulumi:"enableProductionFeedback"`
-	// A set of Environment Variables that should be configured for the project.
+	// A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+	//
+	// Deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
 	Environments ProjectEnvironmentArrayOutput `pulumi:"environments"`
 	// The framework that is being used for this project. If omitted, no framework is selected.
 	Framework pulumi.StringPtrOutput `pulumi:"framework"`
@@ -192,6 +195,8 @@ type Project struct {
 	OptionsAllowlist ProjectOptionsAllowlistPtrOutput `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrOutput `pulumi:"outputDirectory"`
+	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+	Passport ProjectPassportOutput `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection ProjectPasswordProtectionPtrOutput `pulumi:"passwordProtection"`
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -266,7 +271,7 @@ type projectState struct {
 	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType *string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility *bool `pulumi:"customerSuccessCodeVisibility"`
@@ -280,7 +285,9 @@ type projectState struct {
 	EnablePreviewFeedback *bool `pulumi:"enablePreviewFeedback"`
 	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback *bool `pulumi:"enableProductionFeedback"`
-	// A set of Environment Variables that should be configured for the project.
+	// A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+	//
+	// Deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
 	Environments []ProjectEnvironment `pulumi:"environments"`
 	// The framework that is being used for this project. If omitted, no framework is selected.
 	Framework *string `pulumi:"framework"`
@@ -312,6 +319,8 @@ type projectState struct {
 	OptionsAllowlist *ProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
+	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+	Passport *ProjectPassport `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection *ProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -357,7 +366,7 @@ type ProjectState struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType pulumi.StringPtrInput
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolPtrInput
@@ -371,7 +380,9 @@ type ProjectState struct {
 	EnablePreviewFeedback pulumi.BoolPtrInput
 	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback pulumi.BoolPtrInput
-	// A set of Environment Variables that should be configured for the project.
+	// A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+	//
+	// Deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
 	Environments ProjectEnvironmentArrayInput
 	// The framework that is being used for this project. If omitted, no framework is selected.
 	Framework pulumi.StringPtrInput
@@ -403,6 +414,8 @@ type ProjectState struct {
 	OptionsAllowlist ProjectOptionsAllowlistPtrInput
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrInput
+	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+	Passport ProjectPassportPtrInput
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection ProjectPasswordProtectionPtrInput
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -452,7 +465,7 @@ type projectArgs struct {
 	AutomaticallyExposeSystemEnvironmentVariables *bool `pulumi:"automaticallyExposeSystemEnvironmentVariables"`
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType *string `pulumi:"buildMachineType"`
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility *bool `pulumi:"customerSuccessCodeVisibility"`
@@ -466,7 +479,9 @@ type projectArgs struct {
 	EnablePreviewFeedback *bool `pulumi:"enablePreviewFeedback"`
 	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback *bool `pulumi:"enableProductionFeedback"`
-	// A set of Environment Variables that should be configured for the project.
+	// A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+	//
+	// Deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
 	Environments []ProjectEnvironment `pulumi:"environments"`
 	// The framework that is being used for this project. If omitted, no framework is selected.
 	Framework *string `pulumi:"framework"`
@@ -498,6 +513,8 @@ type projectArgs struct {
 	OptionsAllowlist *ProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
+	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+	Passport *ProjectPassport `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection *ProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -544,7 +561,7 @@ type ProjectArgs struct {
 	AutomaticallyExposeSystemEnvironmentVariables pulumi.BoolPtrInput
 	// The build command for this project. If omitted, this value will be automatically detected.
 	BuildCommand pulumi.StringPtrInput
-	// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+	// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 	BuildMachineType pulumi.StringPtrInput
 	// Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
 	CustomerSuccessCodeVisibility pulumi.BoolPtrInput
@@ -558,7 +575,9 @@ type ProjectArgs struct {
 	EnablePreviewFeedback pulumi.BoolPtrInput
 	// Enables the Vercel Toolbar on your production deployments: one of on, off or default.
 	EnableProductionFeedback pulumi.BoolPtrInput
-	// A set of Environment Variables that should be configured for the project.
+	// A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+	//
+	// Deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
 	Environments ProjectEnvironmentArrayInput
 	// The framework that is being used for this project. If omitted, no framework is selected.
 	Framework pulumi.StringPtrInput
@@ -590,6 +609,8 @@ type ProjectArgs struct {
 	OptionsAllowlist ProjectOptionsAllowlistPtrInput
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrInput
+	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+	Passport ProjectPassportPtrInput
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection ProjectPasswordProtectionPtrInput
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -730,7 +751,7 @@ func (o ProjectOutput) BuildCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringPtrOutput { return v.BuildCommand }).(pulumi.StringPtrOutput)
 }
 
-// The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+// The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
 func (o ProjectOutput) BuildMachineType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.BuildMachineType }).(pulumi.StringOutput)
 }
@@ -765,7 +786,9 @@ func (o ProjectOutput) EnableProductionFeedback() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.EnableProductionFeedback }).(pulumi.BoolOutput)
 }
 
-// A set of Environment Variables that should be configured for the project.
+// A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+//
+// Deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
 func (o ProjectOutput) Environments() ProjectEnvironmentArrayOutput {
 	return o.ApplyT(func(v *Project) ProjectEnvironmentArrayOutput { return v.Environments }).(ProjectEnvironmentArrayOutput)
 }
@@ -843,6 +866,11 @@ func (o ProjectOutput) OptionsAllowlist() ProjectOptionsAllowlistPtrOutput {
 // The output directory of the project. If omitted, this value will be automatically detected.
 func (o ProjectOutput) OutputDirectory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringPtrOutput { return v.OutputDirectory }).(pulumi.StringPtrOutput)
+}
+
+// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+func (o ProjectOutput) Passport() ProjectPassportOutput {
+	return o.ApplyT(func(v *Project) ProjectPassportOutput { return v.Passport }).(ProjectPassportOutput)
 }
 
 // Ensures visitors of your Preview Deployments must enter a password in order to gain access.
