@@ -16,11 +16,22 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'AiGatewayApiKeyAiGatewayQuota',
+    'AlertRuleNotificationSettings',
+    'AlertRuleRuleScope',
+    'AlertRuleTrigger',
     'AuditLogDrainHttp',
     'AuditLogDrainS3',
     'BulkRedirectsRedirect',
+    'CustomAlertRuleEvaluation',
+    'CustomAlertRuleEvaluationQuery',
+    'CustomAlertRuleEvaluationQueryMetrics',
+    'CustomAlertRuleNotificationSettings',
+    'CustomAlertRuleTrigger',
+    'CustomAlertRuleTriggerMinimum',
     'CustomEnvironmentBranchTracking',
     'DeploymentProjectSettings',
+    'DnsRecordHttps',
     'DnsRecordSrv',
     'FeatureFlagConfigDevelopment',
     'FeatureFlagConfigPreview',
@@ -53,8 +64,13 @@ __all__ = [
     'FirewallConfigRulesRuleActionRedirect',
     'FirewallConfigRulesRuleConditionGroup',
     'FirewallConfigRulesRuleConditionGroupCondition',
+    'KmsIssuerSigningKey',
     'MicrofrontendGroupDefaultApp',
     'NetworkTimeouts',
+    'OidcFederationPolicyClaim',
+    'OidcFederationPolicyClaimValue',
+    'OidcFederationPolicyResources',
+    'ProjectDeploymentCheckSource',
     'ProjectDomainVerification',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
@@ -67,6 +83,7 @@ __all__ = [
     'ProjectOidcTokenConfig',
     'ProjectOptionsAllowlist',
     'ProjectOptionsAllowlistPath',
+    'ProjectPassport',
     'ProjectPasswordProtection',
     'ProjectResourceConfig',
     'ProjectRollingReleaseStage',
@@ -75,6 +92,7 @@ __all__ = [
     'ProjectRouteRouteHa',
     'ProjectRouteRouteMissing',
     'ProjectRouteRouteTransform',
+    'ProjectTracingSamplingRule',
     'ProjectTrustedIps',
     'ProjectTrustedIpsAddress',
     'ProjectTrustedSources',
@@ -85,6 +103,9 @@ __all__ = [
     'ProjectTrustedSourcesProjectCustomAllowFrom',
     'ProjectTrustedSourcesProjectCustomAllowTo',
     'ProjectVercelAuthentication',
+    'TeamConfigDefaultDeploymentProtection',
+    'TeamConfigDefaultDeploymentProtectionVercelAuthentication',
+    'TeamConfigDefaultPassport',
     'TeamConfigRemoteCaching',
     'TeamConfigSaml',
     'TeamConfigSamlRoles',
@@ -101,6 +122,8 @@ __all__ = [
     'GetFeatureFlagSegmentExcludeResult',
     'GetFeatureFlagSegmentIncludeResult',
     'GetFeatureFlagVariantResult',
+    'GetKmsIssuerPolicyResult',
+    'GetKmsIssuerSigningKeyResult',
     'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
@@ -112,6 +135,7 @@ __all__ = [
     'GetProjectOidcTokenConfigResult',
     'GetProjectOptionsAllowlistResult',
     'GetProjectOptionsAllowlistPathResult',
+    'GetProjectPassportResult',
     'GetProjectPasswordProtectionResult',
     'GetProjectResourceConfigResult',
     'GetProjectRollingReleaseStageResult',
@@ -130,12 +154,207 @@ __all__ = [
     'GetProjectTrustedSourcesProjectCustomAllowFromResult',
     'GetProjectTrustedSourcesProjectCustomAllowToResult',
     'GetProjectVercelAuthenticationResult',
+    'GetTeamConfigDefaultDeploymentProtectionResult',
+    'GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationResult',
+    'GetTeamConfigDefaultPassportResult',
     'GetTeamConfigRemoteCachingResult',
     'GetTeamConfigSamlResult',
     'GetTeamConfigSamlRolesResult',
     'GetTeamMemberProjectResult',
     'GetTraceDrainSamplingRuleResult',
 ]
+
+@pulumi.output_type
+class AiGatewayApiKeyAiGatewayQuota(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "limitAmount":
+            suggest = "limit_amount"
+        elif key == "alertThresholds":
+            suggest = "alert_thresholds"
+        elif key == "refreshPeriod":
+            suggest = "refresh_period"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiGatewayApiKeyAiGatewayQuota. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiGatewayApiKeyAiGatewayQuota.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiGatewayApiKeyAiGatewayQuota.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 limit_amount: _builtins.float,
+                 alert_thresholds: Optional[Sequence[_builtins.int]] = None,
+                 refresh_period: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float limit_amount: The quota limit amount in US dollars.
+        :param Sequence[_builtins.int] alert_thresholds: Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+        :param _builtins.str refresh_period: How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+        """
+        pulumi.set(__self__, "limit_amount", limit_amount)
+        if alert_thresholds is not None:
+            pulumi.set(__self__, "alert_thresholds", alert_thresholds)
+        if refresh_period is not None:
+            pulumi.set(__self__, "refresh_period", refresh_period)
+
+    @_builtins.property
+    @pulumi.getter(name="limitAmount")
+    def limit_amount(self) -> _builtins.float:
+        """
+        The quota limit amount in US dollars.
+        """
+        return pulumi.get(self, "limit_amount")
+
+    @_builtins.property
+    @pulumi.getter(name="alertThresholds")
+    def alert_thresholds(self) -> Optional[Sequence[_builtins.int]]:
+        """
+        Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+        """
+        return pulumi.get(self, "alert_thresholds")
+
+    @_builtins.property
+    @pulumi.getter(name="refreshPeriod")
+    def refresh_period(self) -> Optional[_builtins.str]:
+        """
+        How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+        """
+        return pulumi.get(self, "refresh_period")
+
+
+@pulumi.output_type
+class AlertRuleNotificationSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "enableTeamOwnerNotifications":
+            suggest = "enable_team_owner_notifications"
+        elif key == "incidentIoRoutingKey":
+            suggest = "incident_io_routing_key"
+        elif key == "vercelNotificationsMinimumSeverityLevel":
+            suggest = "vercel_notifications_minimum_severity_level"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlertRuleNotificationSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlertRuleNotificationSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlertRuleNotificationSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enable_team_owner_notifications: Optional[_builtins.bool] = None,
+                 incident_io_routing_key: Optional[_builtins.str] = None,
+                 vercel_notifications_minimum_severity_level: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str vercel_notifications_minimum_severity_level: Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        if enable_team_owner_notifications is not None:
+            pulumi.set(__self__, "enable_team_owner_notifications", enable_team_owner_notifications)
+        if incident_io_routing_key is not None:
+            pulumi.set(__self__, "incident_io_routing_key", incident_io_routing_key)
+        if vercel_notifications_minimum_severity_level is not None:
+            pulumi.set(__self__, "vercel_notifications_minimum_severity_level", vercel_notifications_minimum_severity_level)
+
+    @_builtins.property
+    @pulumi.getter(name="enableTeamOwnerNotifications")
+    def enable_team_owner_notifications(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enable_team_owner_notifications")
+
+    @_builtins.property
+    @pulumi.getter(name="incidentIoRoutingKey")
+    def incident_io_routing_key(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "incident_io_routing_key")
+
+    @_builtins.property
+    @pulumi.getter(name="vercelNotificationsMinimumSeverityLevel")
+    def vercel_notifications_minimum_severity_level(self) -> Optional[_builtins.str]:
+        """
+        Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        return pulumi.get(self, "vercel_notifications_minimum_severity_level")
+
+
+@pulumi.output_type
+class AlertRuleRuleScope(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectIds":
+            suggest = "project_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlertRuleRuleScope. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlertRuleRuleScope.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlertRuleRuleScope.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 project_ids: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param Sequence[_builtins.str] project_ids: The project IDs included in or excluded from a built-in rule.
+        """
+        pulumi.set(__self__, "type", type)
+        if project_ids is not None:
+            pulumi.set(__self__, "project_ids", project_ids)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        The project IDs included in or excluded from a built-in rule.
+        """
+        return pulumi.get(self, "project_ids")
+
+
+@pulumi.output_type
+class AlertRuleTrigger(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 filter: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The built-in anomaly trigger type.
+        :param _builtins.str filter: A KQL filter for `error_anomaly` or `usage_anomaly`. See the trigger filter documentation above for supported fields and values.
+        """
+        pulumi.set(__self__, "type", type)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The built-in anomaly trigger type.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        A KQL filter for `error_anomaly` or `usage_anomaly`. See the trigger filter documentation above for supported fields and values.
+        """
+        return pulumi.get(self, "filter")
+
 
 @pulumi.output_type
 class AuditLogDrainHttp(dict):
@@ -382,6 +601,373 @@ class BulkRedirectsRedirect(dict):
 
 
 @pulumi.output_type
+class CustomAlertRuleEvaluation(dict):
+    def __init__(__self__, *,
+                 query: 'outputs.CustomAlertRuleEvaluationQuery',
+                 window: _builtins.str):
+        """
+        :param 'CustomAlertRuleEvaluationQueryArgs' query: The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+        :param _builtins.str window: Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+        """
+        pulumi.set(__self__, "query", query)
+        pulumi.set(__self__, "window", window)
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> 'outputs.CustomAlertRuleEvaluationQuery':
+        """
+        The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+        """
+        return pulumi.get(self, "query")
+
+    @_builtins.property
+    @pulumi.getter
+    def window(self) -> _builtins.str:
+        """
+        Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+        """
+        return pulumi.get(self, "window")
+
+
+@pulumi.output_type
+class CustomAlertRuleEvaluationQuery(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "groupBies":
+            suggest = "group_bies"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomAlertRuleEvaluationQuery. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomAlertRuleEvaluationQuery.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomAlertRuleEvaluationQuery.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 metrics: Mapping[str, 'outputs.CustomAlertRuleEvaluationQueryMetrics'],
+                 outputs: Sequence[_builtins.str],
+                 filter: Optional[_builtins.str] = None,
+                 formulas: Optional[Mapping[str, _builtins.str]] = None,
+                 group_bies: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param Mapping[str, 'CustomAlertRuleEvaluationQueryMetricsArgs'] metrics: One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+        :param Sequence[_builtins.str] outputs: Exactly one output: the sole metric alias, or `formula` for a ratio.
+        :param _builtins.str filter: KQL filter. Syntax and metric dimensions are validated by the API.
+        :param Mapping[str, _builtins.str] formulas: Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+        :param Sequence[_builtins.str] group_bies: Optional grouping dimension. Exactly one dimension is supported.
+        """
+        pulumi.set(__self__, "metrics", metrics)
+        pulumi.set(__self__, "outputs", outputs)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+        if formulas is not None:
+            pulumi.set(__self__, "formulas", formulas)
+        if group_bies is not None:
+            pulumi.set(__self__, "group_bies", group_bies)
+
+    @_builtins.property
+    @pulumi.getter
+    def metrics(self) -> Mapping[str, 'outputs.CustomAlertRuleEvaluationQueryMetrics']:
+        """
+        One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+        """
+        return pulumi.get(self, "metrics")
+
+    @_builtins.property
+    @pulumi.getter
+    def outputs(self) -> Sequence[_builtins.str]:
+        """
+        Exactly one output: the sole metric alias, or `formula` for a ratio.
+        """
+        return pulumi.get(self, "outputs")
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        KQL filter. Syntax and metric dimensions are validated by the API.
+        """
+        return pulumi.get(self, "filter")
+
+    @_builtins.property
+    @pulumi.getter
+    def formulas(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+        """
+        return pulumi.get(self, "formulas")
+
+    @_builtins.property
+    @pulumi.getter(name="groupBies")
+    def group_bies(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Optional grouping dimension. Exactly one dimension is supported.
+        """
+        return pulumi.get(self, "group_bies")
+
+
+@pulumi.output_type
+class CustomAlertRuleEvaluationQueryMetrics(dict):
+    def __init__(__self__, *,
+                 aggregation: _builtins.str,
+                 metric: _builtins.str,
+                 dimensions: Optional[Sequence[_builtins.str]] = None,
+                 filter: Optional[_builtins.str] = None,
+                 normalize: Optional[_builtins.str] = None,
+                 per: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str aggregation: Metric aggregation. Supported combinations depend on the metric.
+        :param _builtins.str metric: Semantic metric ID or custom metric name. Availability is validated by the API.
+        :param Sequence[_builtins.str] dimensions: Dimensions required by the unique aggregation.
+        :param _builtins.str filter: KQL filter. Syntax and metric dimensions are validated by the API.
+        :param _builtins.str normalize: Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+        :param _builtins.str per: Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+        """
+        pulumi.set(__self__, "aggregation", aggregation)
+        pulumi.set(__self__, "metric", metric)
+        if dimensions is not None:
+            pulumi.set(__self__, "dimensions", dimensions)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+        if normalize is not None:
+            pulumi.set(__self__, "normalize", normalize)
+        if per is not None:
+            pulumi.set(__self__, "per", per)
+
+    @_builtins.property
+    @pulumi.getter
+    def aggregation(self) -> _builtins.str:
+        """
+        Metric aggregation. Supported combinations depend on the metric.
+        """
+        return pulumi.get(self, "aggregation")
+
+    @_builtins.property
+    @pulumi.getter
+    def metric(self) -> _builtins.str:
+        """
+        Semantic metric ID or custom metric name. Availability is validated by the API.
+        """
+        return pulumi.get(self, "metric")
+
+    @_builtins.property
+    @pulumi.getter
+    def dimensions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Dimensions required by the unique aggregation.
+        """
+        return pulumi.get(self, "dimensions")
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        KQL filter. Syntax and metric dimensions are validated by the API.
+        """
+        return pulumi.get(self, "filter")
+
+    @_builtins.property
+    @pulumi.getter
+    def normalize(self) -> Optional[_builtins.str]:
+        """
+        Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+        """
+        return pulumi.get(self, "normalize")
+
+    @_builtins.property
+    @pulumi.getter
+    def per(self) -> Optional[_builtins.str]:
+        """
+        Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+        """
+        return pulumi.get(self, "per")
+
+
+@pulumi.output_type
+class CustomAlertRuleNotificationSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "enableTeamOwnerNotifications":
+            suggest = "enable_team_owner_notifications"
+        elif key == "incidentIoRoutingKey":
+            suggest = "incident_io_routing_key"
+        elif key == "vercelNotificationsMinimumSeverityLevel":
+            suggest = "vercel_notifications_minimum_severity_level"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomAlertRuleNotificationSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomAlertRuleNotificationSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomAlertRuleNotificationSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enable_team_owner_notifications: Optional[_builtins.bool] = None,
+                 incident_io_routing_key: Optional[_builtins.str] = None,
+                 vercel_notifications_minimum_severity_level: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str vercel_notifications_minimum_severity_level: Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        if enable_team_owner_notifications is not None:
+            pulumi.set(__self__, "enable_team_owner_notifications", enable_team_owner_notifications)
+        if incident_io_routing_key is not None:
+            pulumi.set(__self__, "incident_io_routing_key", incident_io_routing_key)
+        if vercel_notifications_minimum_severity_level is not None:
+            pulumi.set(__self__, "vercel_notifications_minimum_severity_level", vercel_notifications_minimum_severity_level)
+
+    @_builtins.property
+    @pulumi.getter(name="enableTeamOwnerNotifications")
+    def enable_team_owner_notifications(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enable_team_owner_notifications")
+
+    @_builtins.property
+    @pulumi.getter(name="incidentIoRoutingKey")
+    def incident_io_routing_key(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "incident_io_routing_key")
+
+    @_builtins.property
+    @pulumi.getter(name="vercelNotificationsMinimumSeverityLevel")
+    def vercel_notifications_minimum_severity_level(self) -> Optional[_builtins.str]:
+        """
+        Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        return pulumi.get(self, "vercel_notifications_minimum_severity_level")
+
+
+@pulumi.output_type
+class CustomAlertRuleTrigger(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "standardDeviations":
+            suggest = "standard_deviations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomAlertRuleTrigger. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomAlertRuleTrigger.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomAlertRuleTrigger.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 output: _builtins.str,
+                 type: _builtins.str,
+                 minimum: Optional['outputs.CustomAlertRuleTriggerMinimum'] = None,
+                 operator: Optional[_builtins.str] = None,
+                 standard_deviations: Optional[_builtins.float] = None,
+                 threshold: Optional[_builtins.float] = None):
+        """
+        :param _builtins.str output: The query's single output alias.
+        :param _builtins.str type: The condition type: `threshold` or `anomaly`.
+        :param 'CustomAlertRuleTriggerMinimumArgs' minimum: Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+        :param _builtins.str operator: Required for threshold triggers; omitted for anomaly triggers.
+        :param _builtins.float standard_deviations: Required anomaly threshold in standard deviations, at least 0.1.
+        :param _builtins.float threshold: Required numeric threshold for threshold triggers. Zero is supported.
+        """
+        pulumi.set(__self__, "output", output)
+        pulumi.set(__self__, "type", type)
+        if minimum is not None:
+            pulumi.set(__self__, "minimum", minimum)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if standard_deviations is not None:
+            pulumi.set(__self__, "standard_deviations", standard_deviations)
+        if threshold is not None:
+            pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def output(self) -> _builtins.str:
+        """
+        The query's single output alias.
+        """
+        return pulumi.get(self, "output")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The condition type: `threshold` or `anomaly`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def minimum(self) -> Optional['outputs.CustomAlertRuleTriggerMinimum']:
+        """
+        Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+        """
+        return pulumi.get(self, "minimum")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> Optional[_builtins.str]:
+        """
+        Required for threshold triggers; omitted for anomaly triggers.
+        """
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter(name="standardDeviations")
+    def standard_deviations(self) -> Optional[_builtins.float]:
+        """
+        Required anomaly threshold in standard deviations, at least 0.1.
+        """
+        return pulumi.get(self, "standard_deviations")
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> Optional[_builtins.float]:
+        """
+        Required numeric threshold for threshold triggers. Zero is supported.
+        """
+        return pulumi.get(self, "threshold")
+
+
+@pulumi.output_type
+class CustomAlertRuleTriggerMinimum(dict):
+    def __init__(__self__, *,
+                 output: _builtins.str,
+                 threshold: _builtins.float):
+        """
+        :param _builtins.str output: The primitive metric alias, or ratio numerator alias.
+        :param _builtins.float threshold: Non-negative floor below which the rule is not evaluated.
+        """
+        pulumi.set(__self__, "output", output)
+        pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def output(self) -> _builtins.str:
+        """
+        The primitive metric alias, or ratio numerator alias.
+        """
+        return pulumi.get(self, "output")
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> _builtins.float:
+        """
+        Non-negative floor below which the rule is not evaluated.
+        """
+        return pulumi.get(self, "threshold")
+
+
+@pulumi.output_type
 class CustomEnvironmentBranchTracking(dict):
     def __init__(__self__, *,
                  pattern: _builtins.str,
@@ -498,6 +1084,47 @@ class DeploymentProjectSettings(dict):
         The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
         """
         return pulumi.get(self, "root_directory")
+
+
+@pulumi.output_type
+class DnsRecordHttps(dict):
+    def __init__(__self__, *,
+                 priority: _builtins.int,
+                 target: _builtins.str,
+                 params: Optional[_builtins.str] = None):
+        """
+        :param _builtins.int priority: The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+        :param _builtins.str target: The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+        :param _builtins.str params: The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+        """
+        pulumi.set(__self__, "priority", priority)
+        pulumi.set(__self__, "target", target)
+        if params is not None:
+            pulumi.set(__self__, "params", params)
+
+    @_builtins.property
+    @pulumi.getter
+    def priority(self) -> _builtins.int:
+        """
+        The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+        """
+        return pulumi.get(self, "priority")
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> _builtins.str:
+        """
+        The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+        """
+        return pulumi.get(self, "target")
+
+    @_builtins.property
+    @pulumi.getter
+    def params(self) -> Optional[_builtins.str]:
+        """
+        The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+        """
+        return pulumi.get(self, "params")
 
 
 @pulumi.output_type
@@ -1822,6 +2449,192 @@ class FirewallConfigRulesRuleConditionGroupCondition(dict):
 
 
 @pulumi.output_type
+class KmsIssuerSigningKey(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "certificatePem":
+            suggest = "certificate_pem"
+        elif key == "createdAt":
+            suggest = "created_at"
+        elif key == "importKeyId":
+            suggest = "import_key_id"
+        elif key == "issuerId":
+            suggest = "issuer_id"
+        elif key == "keyId":
+            suggest = "key_id"
+        elif key == "publicKeyFingerprint":
+            suggest = "public_key_fingerprint"
+        elif key == "publicKeyJwk":
+            suggest = "public_key_jwk"
+        elif key == "publicKeyPem":
+            suggest = "public_key_pem"
+        elif key == "revokeAt":
+            suggest = "revoke_at"
+        elif key == "updatedAt":
+            suggest = "updated_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in KmsIssuerSigningKey. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        KmsIssuerSigningKey.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        KmsIssuerSigningKey.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 algorithm: Optional[_builtins.str] = None,
+                 certificate_pem: Optional[_builtins.str] = None,
+                 created_at: Optional[_builtins.str] = None,
+                 import_key_id: Optional[_builtins.str] = None,
+                 issuer_id: Optional[_builtins.str] = None,
+                 key_id: Optional[_builtins.str] = None,
+                 public_key_fingerprint: Optional[_builtins.str] = None,
+                 public_key_jwk: Optional[_builtins.str] = None,
+                 public_key_pem: Optional[_builtins.str] = None,
+                 revoke_at: Optional[_builtins.str] = None,
+                 status: Optional[_builtins.str] = None,
+                 updated_at: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str algorithm: The signing algorithm of the key.
+        :param _builtins.str certificate_pem: The key's self-signed X.509 certificate in PEM form.
+        :param _builtins.str created_at: The time the key was created.
+        :param _builtins.str import_key_id: The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        :param _builtins.str issuer_id: The ID of the issuer the key belongs to.
+        :param _builtins.str key_id: The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        :param _builtins.str public_key_fingerprint: The fingerprint of the public key.
+        :param _builtins.str public_key_jwk: The public key as a JSON-encoded JWK.
+        :param _builtins.str public_key_pem: The public key in SPKI PEM form.
+        :param _builtins.str revoke_at: The time at which the key is scheduled to be revoked, if any.
+        :param _builtins.str status: The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        :param _builtins.str updated_at: The time the key was last updated.
+        """
+        if algorithm is not None:
+            pulumi.set(__self__, "algorithm", algorithm)
+        if certificate_pem is not None:
+            pulumi.set(__self__, "certificate_pem", certificate_pem)
+        if created_at is not None:
+            pulumi.set(__self__, "created_at", created_at)
+        if import_key_id is not None:
+            pulumi.set(__self__, "import_key_id", import_key_id)
+        if issuer_id is not None:
+            pulumi.set(__self__, "issuer_id", issuer_id)
+        if key_id is not None:
+            pulumi.set(__self__, "key_id", key_id)
+        if public_key_fingerprint is not None:
+            pulumi.set(__self__, "public_key_fingerprint", public_key_fingerprint)
+        if public_key_jwk is not None:
+            pulumi.set(__self__, "public_key_jwk", public_key_jwk)
+        if public_key_pem is not None:
+            pulumi.set(__self__, "public_key_pem", public_key_pem)
+        if revoke_at is not None:
+            pulumi.set(__self__, "revoke_at", revoke_at)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if updated_at is not None:
+            pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter
+    def algorithm(self) -> Optional[_builtins.str]:
+        """
+        The signing algorithm of the key.
+        """
+        return pulumi.get(self, "algorithm")
+
+    @_builtins.property
+    @pulumi.getter(name="certificatePem")
+    def certificate_pem(self) -> Optional[_builtins.str]:
+        """
+        The key's self-signed X.509 certificate in PEM form.
+        """
+        return pulumi.get(self, "certificate_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> Optional[_builtins.str]:
+        """
+        The time the key was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter(name="importKeyId")
+    def import_key_id(self) -> Optional[_builtins.str]:
+        """
+        The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        """
+        return pulumi.get(self, "import_key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="issuerId")
+    def issuer_id(self) -> Optional[_builtins.str]:
+        """
+        The ID of the issuer the key belongs to.
+        """
+        return pulumi.get(self, "issuer_id")
+
+    @_builtins.property
+    @pulumi.getter(name="keyId")
+    def key_id(self) -> Optional[_builtins.str]:
+        """
+        The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        """
+        return pulumi.get(self, "key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyFingerprint")
+    def public_key_fingerprint(self) -> Optional[_builtins.str]:
+        """
+        The fingerprint of the public key.
+        """
+        return pulumi.get(self, "public_key_fingerprint")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyJwk")
+    def public_key_jwk(self) -> Optional[_builtins.str]:
+        """
+        The public key as a JSON-encoded JWK.
+        """
+        return pulumi.get(self, "public_key_jwk")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyPem")
+    def public_key_pem(self) -> Optional[_builtins.str]:
+        """
+        The public key in SPKI PEM form.
+        """
+        return pulumi.get(self, "public_key_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="revokeAt")
+    def revoke_at(self) -> Optional[_builtins.str]:
+        """
+        The time at which the key is scheduled to be revoked, if any.
+        """
+        return pulumi.get(self, "revoke_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[_builtins.str]:
+        """
+        The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> Optional[_builtins.str]:
+        """
+        The time the key was last updated.
+        """
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
 class MicrofrontendGroupDefaultApp(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1899,6 +2712,187 @@ class NetworkTimeouts(dict):
         A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class OidcFederationPolicyClaim(dict):
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 values: Sequence['outputs.OidcFederationPolicyClaimValue']):
+        """
+        :param _builtins.str name: The OIDC claim name.
+        :param Sequence['OidcFederationPolicyClaimValueArgs'] values: Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The OIDC claim name.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence['outputs.OidcFederationPolicyClaimValue']:
+        """
+        Values accepted for this claim. A claim matches when any configured value matches.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class OidcFederationPolicyClaimValue(dict):
+    def __init__(__self__, *,
+                 value: _builtins.str,
+                 wildcards: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str value: The accepted claim value or wildcard pattern.
+        :param _builtins.bool wildcards: Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        pulumi.set(__self__, "value", value)
+        if wildcards is not None:
+            pulumi.set(__self__, "wildcards", wildcards)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        The accepted claim value or wildcard pattern.
+        """
+        return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter
+    def wildcards(self) -> Optional[_builtins.bool]:
+        """
+        Whether `*` characters in the value should be interpreted as wildcards.
+        """
+        return pulumi.get(self, "wildcards")
+
+
+@pulumi.output_type
+class OidcFederationPolicyResources(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectIds":
+            suggest = "project_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OidcFederationPolicyResources. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OidcFederationPolicyResources.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OidcFederationPolicyResources.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 project_ids: Sequence[_builtins.str]):
+        """
+        :param Sequence[_builtins.str] project_ids: Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        pulumi.set(__self__, "project_ids", project_ids)
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> Sequence[_builtins.str]:
+        """
+        Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+        """
+        return pulumi.get(self, "project_ids")
+
+
+@pulumi.output_type
+class ProjectDeploymentCheckSource(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "externalCheckName":
+            suggest = "external_check_name"
+        elif key == "externalResourceId":
+            suggest = "external_resource_id"
+        elif key == "webhookId":
+            suggest = "webhook_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectDeploymentCheckSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectDeploymentCheckSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectDeploymentCheckSource.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 kind: _builtins.str,
+                 external_check_name: Optional[_builtins.str] = None,
+                 external_resource_id: Optional[_builtins.str] = None,
+                 provider: Optional[_builtins.str] = None,
+                 webhook_id: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str kind: The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+        :param _builtins.str external_check_name: The external check name. Required for a `git-provider` source.
+        :param _builtins.str external_resource_id: An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+        :param _builtins.str provider: The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+        :param _builtins.str webhook_id: The webhook ID for a `webhook` source.
+        """
+        pulumi.set(__self__, "kind", kind)
+        if external_check_name is not None:
+            pulumi.set(__self__, "external_check_name", external_check_name)
+        if external_resource_id is not None:
+            pulumi.set(__self__, "external_resource_id", external_resource_id)
+        if provider is not None:
+            pulumi.set(__self__, "provider", provider)
+        if webhook_id is not None:
+            pulumi.set(__self__, "webhook_id", webhook_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> _builtins.str:
+        """
+        The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter(name="externalCheckName")
+    def external_check_name(self) -> Optional[_builtins.str]:
+        """
+        The external check name. Required for a `git-provider` source.
+        """
+        return pulumi.get(self, "external_check_name")
+
+    @_builtins.property
+    @pulumi.getter(name="externalResourceId")
+    def external_resource_id(self) -> Optional[_builtins.str]:
+        """
+        An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+        """
+        return pulumi.get(self, "external_resource_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def provider(self) -> Optional[_builtins.str]:
+        """
+        The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+        """
+        return pulumi.get(self, "provider")
+
+    @_builtins.property
+    @pulumi.getter(name="webhookId")
+    def webhook_id(self) -> Optional[_builtins.str]:
+        """
+        The webhook ID for a `webhook` source.
+        """
+        return pulumi.get(self, "webhook_id")
 
 
 @pulumi.output_type
@@ -1985,16 +2979,18 @@ class ProjectEnvironment(dict):
                  custom_environment_ids: Optional[Sequence[_builtins.str]] = None,
                  git_branch: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
-                 targets: Optional[Sequence[_builtins.str]] = None):
+                 targets: Optional[Sequence[_builtins.str]] = None,
+                 visibility: Optional[_builtins.str] = None):
         """
         :param _builtins.str key: The name of the Environment Variable.
-        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
         :param _builtins.str value: The value of the Environment Variable.
         :param _builtins.str comment: A comment explaining what the environment variable is for.
         :param Sequence[_builtins.str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param _builtins.str git_branch: The git branch of the Environment Variable.
         :param _builtins.str id: The ID of the Environment Variable.
         :param Sequence[_builtins.str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        :param _builtins.str visibility: Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "sensitive", sensitive)
@@ -2009,6 +3005,8 @@ class ProjectEnvironment(dict):
             pulumi.set(__self__, "id", id)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -2022,7 +3020,7 @@ class ProjectEnvironment(dict):
     @pulumi.getter
     def sensitive(self) -> _builtins.bool:
         """
-        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
         """
         return pulumi.get(self, "sensitive")
 
@@ -2073,6 +3071,14 @@ class ProjectEnvironment(dict):
         The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
+
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[_builtins.str]:
+        """
+        Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+        """
+        return pulumi.get(self, "visibility")
 
 
 @pulumi.output_type
@@ -2104,16 +3110,18 @@ class ProjectEnvironmentVariablesVariable(dict):
                  custom_environment_ids: Optional[Sequence[_builtins.str]] = None,
                  git_branch: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
-                 targets: Optional[Sequence[_builtins.str]] = None):
+                 targets: Optional[Sequence[_builtins.str]] = None,
+                 visibility: Optional[_builtins.str] = None):
         """
         :param _builtins.str key: The name of the Environment Variable.
-        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        :param _builtins.bool sensitive: Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
         :param _builtins.str value: The value of the Environment Variable.
         :param _builtins.str comment: A comment explaining what the environment variable is for.
         :param Sequence[_builtins.str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on. At least one of `target` or `custom_environment_ids` must be set.
         :param _builtins.str git_branch: The git branch of the Environment Variable.
         :param _builtins.str id: The ID of the Environment Variable.
         :param Sequence[_builtins.str] targets: The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
+        :param _builtins.str visibility: Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "sensitive", sensitive)
@@ -2128,6 +3136,8 @@ class ProjectEnvironmentVariablesVariable(dict):
             pulumi.set(__self__, "id", id)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -2141,7 +3151,7 @@ class ProjectEnvironmentVariablesVariable(dict):
     @pulumi.getter
     def sensitive(self) -> _builtins.bool:
         """
-        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+        Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
         """
         return pulumi.get(self, "sensitive")
 
@@ -2192,6 +3202,14 @@ class ProjectEnvironmentVariablesVariable(dict):
         The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `custom_environment_ids` must be set.
         """
         return pulumi.get(self, "targets")
+
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[_builtins.str]:
+        """
+        Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+        """
+        return pulumi.get(self, "visibility")
 
 
 @pulumi.output_type
@@ -2646,6 +3664,68 @@ class ProjectOptionsAllowlistPath(dict):
         The path prefix to compare with the incoming request path.
         """
         return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class ProjectPassport(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "connectorId":
+            suggest = "connector_id"
+        elif key == "deploymentType":
+            suggest = "deployment_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectPassport. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectPassport.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectPassport.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 connector_id: Optional[_builtins.str] = None,
+                 deployment_type: Optional[_builtins.str] = None,
+                 enabled: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str connector_id: The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+        :param _builtins.str deployment_type: Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        :param _builtins.bool enabled: Whether Passport is enabled. Defaults to true.
+        """
+        if connector_id is not None:
+            pulumi.set(__self__, "connector_id", connector_id)
+        if deployment_type is not None:
+            pulumi.set(__self__, "deployment_type", deployment_type)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="connectorId")
+    def connector_id(self) -> Optional[_builtins.str]:
+        """
+        The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+        """
+        return pulumi.get(self, "connector_id")
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> Optional[_builtins.str]:
+        """
+        Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether Passport is enabled. Defaults to true.
+        """
+        return pulumi.get(self, "enabled")
 
 
 @pulumi.output_type
@@ -3147,6 +4227,65 @@ class ProjectRouteRouteTransform(dict):
 
 
 @pulumi.output_type
+class ProjectTracingSamplingRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestPath":
+            suggest = "request_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectTracingSamplingRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectTracingSamplingRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectTracingSamplingRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rate: _builtins.float,
+                 environment: Optional[_builtins.str] = None,
+                 request_path: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float rate: Sampling rate from 0 to 1.
+        :param _builtins.str environment: Environment to apply this sampling rule to. Can be `production` or `preview`.
+        :param _builtins.str request_path: Request path prefix to apply this sampling rule to.
+        """
+        pulumi.set(__self__, "rate", rate)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
+        if request_path is not None:
+            pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> _builtins.float:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> Optional[_builtins.str]:
+        """
+        Environment to apply this sampling rule to. Can be `production` or `preview`.
+        """
+        return pulumi.get(self, "environment")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> Optional[_builtins.str]:
+        """
+        Request path prefix to apply this sampling rule to.
+        """
+        return pulumi.get(self, "request_path")
+
+
+@pulumi.output_type
 class ProjectTrustedIps(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -3558,7 +4697,7 @@ class ProjectVercelAuthentication(dict):
     def __init__(__self__, *,
                  deployment_type: Optional[_builtins.str] = None):
         """
-        :param _builtins.str deployment_type: The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
+        :param _builtins.str deployment_type: The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
         if deployment_type is not None:
             pulumi.set(__self__, "deployment_type", deployment_type)
@@ -3567,9 +4706,141 @@ class ProjectVercelAuthentication(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> Optional[_builtins.str]:
         """
-        The deployment environment to protect. The default value is `standard_protection_new` (Standard Protection). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
+        The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standard_protection_new` (Standard Protection), `standard_protection` (Legacy Standard Protection), `all_deployments`, `only_preview_deployments`, or `none`.
         """
         return pulumi.get(self, "deployment_type")
+
+
+@pulumi.output_type
+class TeamConfigDefaultDeploymentProtection(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "vercelAuthentication":
+            suggest = "vercel_authentication"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TeamConfigDefaultDeploymentProtection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TeamConfigDefaultDeploymentProtection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TeamConfigDefaultDeploymentProtection.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 vercel_authentication: 'outputs.TeamConfigDefaultDeploymentProtectionVercelAuthentication'):
+        """
+        :param 'TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs' vercel_authentication: Default Vercel Authentication for new projects.
+        """
+        pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @_builtins.property
+    @pulumi.getter(name="vercelAuthentication")
+    def vercel_authentication(self) -> 'outputs.TeamConfigDefaultDeploymentProtectionVercelAuthentication':
+        """
+        Default Vercel Authentication for new projects.
+        """
+        return pulumi.get(self, "vercel_authentication")
+
+
+@pulumi.output_type
+class TeamConfigDefaultDeploymentProtectionVercelAuthentication(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "deploymentType":
+            suggest = "deployment_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TeamConfigDefaultDeploymentProtectionVercelAuthentication. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TeamConfigDefaultDeploymentProtectionVercelAuthentication.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TeamConfigDefaultDeploymentProtectionVercelAuthentication.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str):
+        """
+        :param _builtins.str deployment_type: One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+        """
+        return pulumi.get(self, "deployment_type")
+
+
+@pulumi.output_type
+class TeamConfigDefaultPassport(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "connectorId":
+            suggest = "connector_id"
+        elif key == "deploymentType":
+            suggest = "deployment_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TeamConfigDefaultPassport. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TeamConfigDefaultPassport.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TeamConfigDefaultPassport.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 connector_id: Optional[_builtins.str] = None,
+                 deployment_type: Optional[_builtins.str] = None,
+                 enabled: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str connector_id: The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+        :param _builtins.str deployment_type: Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        :param _builtins.bool enabled: Whether Passport is enabled. Defaults to true.
+        """
+        if connector_id is not None:
+            pulumi.set(__self__, "connector_id", connector_id)
+        if deployment_type is not None:
+            pulumi.set(__self__, "deployment_type", deployment_type)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="connectorId")
+    def connector_id(self) -> Optional[_builtins.str]:
+        """
+        The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+        """
+        return pulumi.get(self, "connector_id")
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> Optional[_builtins.str]:
+        """
+        Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether Passport is enabled. Defaults to true.
+        """
+        return pulumi.get(self, "enabled")
 
 
 @pulumi.output_type
@@ -4381,6 +5652,240 @@ class GetFeatureFlagVariantResult(dict):
 
 
 @pulumi.output_type
+class GetKmsIssuerPolicyResult(dict):
+    def __init__(__self__, *,
+                 client_id: _builtins.str,
+                 created_at: _builtins.str,
+                 environments: Sequence[_builtins.str],
+                 kind: _builtins.str,
+                 project_id: _builtins.str,
+                 team_id: _builtins.str,
+                 token_claims: _builtins.str,
+                 updated_at: _builtins.str):
+        """
+        :param _builtins.str client_id: The client ID associated with the policy, for connex grants.
+        :param _builtins.str created_at: The time the policy was created.
+        :param Sequence[_builtins.str] environments: The environments the policy applies to, for project grants.
+        :param _builtins.str kind: The policy kind, either `project-grant` or `connex-grant`.
+        :param _builtins.str project_id: The project ID associated with the policy, for project grants.
+        :param _builtins.str team_id: The team ID associated with the policy, for project grants.
+        :param _builtins.str token_claims: The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+        :param _builtins.str updated_at: The time the policy was last updated.
+        """
+        pulumi.set(__self__, "client_id", client_id)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "environments", environments)
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "team_id", team_id)
+        pulumi.set(__self__, "token_claims", token_claims)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter(name="clientId")
+    def client_id(self) -> _builtins.str:
+        """
+        The client ID associated with the policy, for connex grants.
+        """
+        return pulumi.get(self, "client_id")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> _builtins.str:
+        """
+        The time the policy was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def environments(self) -> Sequence[_builtins.str]:
+        """
+        The environments the policy applies to, for project grants.
+        """
+        return pulumi.get(self, "environments")
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> _builtins.str:
+        """
+        The policy kind, either `project-grant` or `connex-grant`.
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> _builtins.str:
+        """
+        The project ID associated with the policy, for project grants.
+        """
+        return pulumi.get(self, "project_id")
+
+    @_builtins.property
+    @pulumi.getter(name="teamId")
+    def team_id(self) -> _builtins.str:
+        """
+        The team ID associated with the policy, for project grants.
+        """
+        return pulumi.get(self, "team_id")
+
+    @_builtins.property
+    @pulumi.getter(name="tokenClaims")
+    def token_claims(self) -> _builtins.str:
+        """
+        The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+        """
+        return pulumi.get(self, "token_claims")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> _builtins.str:
+        """
+        The time the policy was last updated.
+        """
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
+class GetKmsIssuerSigningKeyResult(dict):
+    def __init__(__self__, *,
+                 algorithm: _builtins.str,
+                 certificate_pem: _builtins.str,
+                 created_at: _builtins.str,
+                 import_key_id: _builtins.str,
+                 issuer_id: _builtins.str,
+                 key_id: _builtins.str,
+                 public_key_fingerprint: _builtins.str,
+                 public_key_jwk: _builtins.str,
+                 public_key_pem: _builtins.str,
+                 revoke_at: _builtins.str,
+                 status: _builtins.str,
+                 updated_at: _builtins.str):
+        """
+        :param _builtins.str algorithm: The signing algorithm of the key.
+        :param _builtins.str certificate_pem: The key's self-signed X.509 certificate in PEM form.
+        :param _builtins.str created_at: The time the key was created.
+        :param _builtins.str import_key_id: The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        :param _builtins.str issuer_id: The ID of the issuer the key belongs to.
+        :param _builtins.str key_id: The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        :param _builtins.str public_key_fingerprint: The fingerprint of the public key.
+        :param _builtins.str public_key_jwk: The public key as a JSON-encoded JWK.
+        :param _builtins.str public_key_pem: The public key in SPKI PEM form.
+        :param _builtins.str revoke_at: The time at which the key is scheduled to be revoked, if any.
+        :param _builtins.str status: The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        :param _builtins.str updated_at: The time the key was last updated.
+        """
+        pulumi.set(__self__, "algorithm", algorithm)
+        pulumi.set(__self__, "certificate_pem", certificate_pem)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "import_key_id", import_key_id)
+        pulumi.set(__self__, "issuer_id", issuer_id)
+        pulumi.set(__self__, "key_id", key_id)
+        pulumi.set(__self__, "public_key_fingerprint", public_key_fingerprint)
+        pulumi.set(__self__, "public_key_jwk", public_key_jwk)
+        pulumi.set(__self__, "public_key_pem", public_key_pem)
+        pulumi.set(__self__, "revoke_at", revoke_at)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "updated_at", updated_at)
+
+    @_builtins.property
+    @pulumi.getter
+    def algorithm(self) -> _builtins.str:
+        """
+        The signing algorithm of the key.
+        """
+        return pulumi.get(self, "algorithm")
+
+    @_builtins.property
+    @pulumi.getter(name="certificatePem")
+    def certificate_pem(self) -> _builtins.str:
+        """
+        The key's self-signed X.509 certificate in PEM form.
+        """
+        return pulumi.get(self, "certificate_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> _builtins.str:
+        """
+        The time the key was created.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter(name="importKeyId")
+    def import_key_id(self) -> _builtins.str:
+        """
+        The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+        """
+        return pulumi.get(self, "import_key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="issuerId")
+    def issuer_id(self) -> _builtins.str:
+        """
+        The ID of the issuer the key belongs to.
+        """
+        return pulumi.get(self, "issuer_id")
+
+    @_builtins.property
+    @pulumi.getter(name="keyId")
+    def key_id(self) -> _builtins.str:
+        """
+        The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+        """
+        return pulumi.get(self, "key_id")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyFingerprint")
+    def public_key_fingerprint(self) -> _builtins.str:
+        """
+        The fingerprint of the public key.
+        """
+        return pulumi.get(self, "public_key_fingerprint")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyJwk")
+    def public_key_jwk(self) -> _builtins.str:
+        """
+        The public key as a JSON-encoded JWK.
+        """
+        return pulumi.get(self, "public_key_jwk")
+
+    @_builtins.property
+    @pulumi.getter(name="publicKeyPem")
+    def public_key_pem(self) -> _builtins.str:
+        """
+        The public key in SPKI PEM form.
+        """
+        return pulumi.get(self, "public_key_pem")
+
+    @_builtins.property
+    @pulumi.getter(name="revokeAt")
+    def revoke_at(self) -> _builtins.str:
+        """
+        The time at which the key is scheduled to be revoked, if any.
+        """
+        return pulumi.get(self, "revoke_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> _builtins.str:
+        """
+        The time the key was last updated.
+        """
+        return pulumi.get(self, "updated_at")
+
+
+@pulumi.output_type
 class GetMicrofrontendGroupDefaultAppResult(dict):
     def __init__(__self__, *,
                  default_route: _builtins.str,
@@ -4430,7 +5935,8 @@ class GetProjectEnvironmentResult(dict):
                  key: _builtins.str,
                  sensitive: _builtins.bool,
                  targets: Sequence[_builtins.str],
-                 value: _builtins.str):
+                 value: _builtins.str,
+                 visibility: _builtins.str):
         """
         :param _builtins.str comment: A comment explaining what the environment variable is for.
         :param Sequence[_builtins.str] custom_environment_ids: The IDs of Custom Environments that the Environment Variable should be present on.
@@ -4440,6 +5946,7 @@ class GetProjectEnvironmentResult(dict):
         :param _builtins.bool sensitive: Whether the Environment Variable is sensitive or not. Note that the value will be `null` for sensitive environment variables.
         :param Sequence[_builtins.str] targets: The environments that the environment variable should be present on. Valid targets are either `production`, `preview`, or `development`.
         :param _builtins.str value: The value of the environment variable.
+        :param _builtins.str visibility: Controls how the environment variable is categorized: `config` or `secret`.
         """
         pulumi.set(__self__, "comment", comment)
         pulumi.set(__self__, "custom_environment_ids", custom_environment_ids)
@@ -4449,6 +5956,7 @@ class GetProjectEnvironmentResult(dict):
         pulumi.set(__self__, "sensitive", sensitive)
         pulumi.set(__self__, "targets", targets)
         pulumi.set(__self__, "value", value)
+        pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -4513,6 +6021,14 @@ class GetProjectEnvironmentResult(dict):
         The value of the environment variable.
         """
         return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> _builtins.str:
+        """
+        Controls how the environment variable is categorized: `config` or `secret`.
+        """
+        return pulumi.get(self, "visibility")
 
 
 @pulumi.output_type
@@ -4834,6 +6350,46 @@ class GetProjectOptionsAllowlistPathResult(dict):
     @pulumi.getter
     def value(self) -> _builtins.str:
         return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetProjectPassportResult(dict):
+    def __init__(__self__, *,
+                 connector_id: _builtins.str,
+                 deployment_type: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str connector_id: The stable ID of the Vercel Connect OAuth application. Null when disabled.
+        :param _builtins.str deployment_type: The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        :param _builtins.bool enabled: Whether Passport is enabled.
+        """
+        pulumi.set(__self__, "connector_id", connector_id)
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="connectorId")
+    def connector_id(self) -> _builtins.str:
+        """
+        The stable ID of the Vercel Connect OAuth application. Null when disabled.
+        """
+        return pulumi.get(self, "connector_id")
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether Passport is enabled.
+        """
+        return pulumi.get(self, "enabled")
 
 
 @pulumi.output_type
@@ -5527,6 +7083,82 @@ class GetProjectVercelAuthenticationResult(dict):
         The deployment environment that will be protected.
         """
         return pulumi.get(self, "deployment_type")
+
+
+@pulumi.output_type
+class GetTeamConfigDefaultDeploymentProtectionResult(dict):
+    def __init__(__self__, *,
+                 vercel_authentication: 'outputs.GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationResult'):
+        """
+        :param 'GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs' vercel_authentication: Default Vercel Authentication for new projects.
+        """
+        pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @_builtins.property
+    @pulumi.getter(name="vercelAuthentication")
+    def vercel_authentication(self) -> 'outputs.GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationResult':
+        """
+        Default Vercel Authentication for new projects.
+        """
+        return pulumi.get(self, "vercel_authentication")
+
+
+@pulumi.output_type
+class GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationResult(dict):
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str):
+        """
+        :param _builtins.str deployment_type: The default protection level, or none when disabled.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The default protection level, or none when disabled.
+        """
+        return pulumi.get(self, "deployment_type")
+
+
+@pulumi.output_type
+class GetTeamConfigDefaultPassportResult(dict):
+    def __init__(__self__, *,
+                 connector_id: _builtins.str,
+                 deployment_type: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str connector_id: The stable ID of the Vercel Connect OAuth application. Null when disabled.
+        :param _builtins.str deployment_type: The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        :param _builtins.bool enabled: Whether Passport is enabled.
+        """
+        pulumi.set(__self__, "connector_id", connector_id)
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="connectorId")
+    def connector_id(self) -> _builtins.str:
+        """
+        The stable ID of the Vercel Connect OAuth application. Null when disabled.
+        """
+        return pulumi.get(self, "connector_id")
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether Passport is enabled.
+        """
+        return pulumi.get(self, "enabled")
 
 
 @pulumi.output_type

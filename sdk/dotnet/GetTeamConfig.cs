@@ -119,9 +119,25 @@ namespace Pulumiverse.Vercel
     public sealed class GetTeamConfigResult
     {
         /// <summary>
+        /// The default build machine type for new projects.
+        /// </summary>
+        public readonly string DefaultBuildMachineType;
+        /// <summary>
+        /// Deployment Protection defaults copied to new projects. Existing projects are unaffected.
+        /// </summary>
+        public readonly Outputs.GetTeamConfigDefaultDeploymentProtectionResult DefaultDeploymentProtection;
+        /// <summary>
+        /// Default Passport configuration for new projects.
+        /// </summary>
+        public readonly Outputs.GetTeamConfigDefaultPassportResult DefaultPassport;
+        /// <summary>
         /// A description of the team.
         /// </summary>
         public readonly string Description;
+        /// <summary>
+        /// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+        /// </summary>
+        public readonly string DisjunctiveProductionSecretPolicy;
         /// <summary>
         /// Hostname that'll be matched with emails on sign-up to automatically join the Team.
         /// </summary>
@@ -167,7 +183,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly Outputs.GetTeamConfigSamlResult Saml;
         /// <summary>
-        /// The policy for sensitive environment variables.
+        /// The legacy policy for sensitive environment variables.
         /// </summary>
         public readonly string SensitiveEnvironmentVariablePolicy;
         /// <summary>
@@ -177,7 +193,15 @@ namespace Pulumiverse.Vercel
 
         [OutputConstructor]
         private GetTeamConfigResult(
+            string defaultBuildMachineType,
+
+            Outputs.GetTeamConfigDefaultDeploymentProtectionResult defaultDeploymentProtection,
+
+            Outputs.GetTeamConfigDefaultPassportResult defaultPassport,
+
             string description,
+
+            string disjunctiveProductionSecretPolicy,
 
             string emailDomain,
 
@@ -205,7 +229,11 @@ namespace Pulumiverse.Vercel
 
             string slug)
         {
+            DefaultBuildMachineType = defaultBuildMachineType;
+            DefaultDeploymentProtection = defaultDeploymentProtection;
+            DefaultPassport = defaultPassport;
             Description = description;
+            DisjunctiveProductionSecretPolicy = disjunctiveProductionSecretPolicy;
             EmailDomain = emailDomain;
             EnablePreviewFeedback = enablePreviewFeedback;
             EnableProductionFeedback = enableProductionFeedback;

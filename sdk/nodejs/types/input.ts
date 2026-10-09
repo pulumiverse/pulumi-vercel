@@ -5,6 +5,49 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface AiGatewayApiKeyAiGatewayQuota {
+    /**
+     * Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+     */
+    alertThresholds?: pulumi.Input<pulumi.Input<number>[]>;
+    /**
+     * The quota limit amount in US dollars.
+     */
+    limitAmount: pulumi.Input<number>;
+    /**
+     * How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+     */
+    refreshPeriod?: pulumi.Input<string>;
+}
+
+export interface AlertRuleNotificationSettings {
+    enableTeamOwnerNotifications?: pulumi.Input<boolean>;
+    incidentIoRoutingKey?: pulumi.Input<string>;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: pulumi.Input<string>;
+}
+
+export interface AlertRuleRuleScope {
+    /**
+     * The project IDs included in or excluded from a built-in rule.
+     */
+    projectIds?: pulumi.Input<pulumi.Input<string>[]>;
+    type: pulumi.Input<string>;
+}
+
+export interface AlertRuleTrigger {
+    /**
+     * A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+     */
+    filter?: pulumi.Input<string>;
+    /**
+     * The built-in anomaly trigger type.
+     */
+    type: pulumi.Input<string>;
+}
+
 export interface AuditLogDrainHttp {
     /**
      * The compression applied to HTTP request bodies. Can be `gzip` or `none`.
@@ -78,6 +121,114 @@ export interface BulkRedirectsRedirect {
     statusCode: pulumi.Input<number>;
 }
 
+export interface CustomAlertRuleEvaluation {
+    /**
+     * The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+     */
+    query: pulumi.Input<inputs.CustomAlertRuleEvaluationQuery>;
+    /**
+     * Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+     */
+    window: pulumi.Input<string>;
+}
+
+export interface CustomAlertRuleEvaluationQuery {
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: pulumi.Input<string>;
+    /**
+     * Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+     */
+    formulas?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Optional grouping dimension. Exactly one dimension is supported.
+     */
+    groupBies?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+     */
+    metrics: pulumi.Input<{[key: string]: pulumi.Input<inputs.CustomAlertRuleEvaluationQueryMetrics>}>;
+    /**
+     * Exactly one output: the sole metric alias, or `formula` for a ratio.
+     */
+    outputs: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface CustomAlertRuleEvaluationQueryMetrics {
+    /**
+     * Metric aggregation. Supported combinations depend on the metric.
+     */
+    aggregation: pulumi.Input<string>;
+    /**
+     * Dimensions required by the unique aggregation.
+     */
+    dimensions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: pulumi.Input<string>;
+    /**
+     * Semantic metric ID or custom metric name. Availability is validated by the API.
+     */
+    metric: pulumi.Input<string>;
+    /**
+     * Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+     */
+    normalize?: pulumi.Input<string>;
+    /**
+     * Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+     */
+    per?: pulumi.Input<string>;
+}
+
+export interface CustomAlertRuleNotificationSettings {
+    enableTeamOwnerNotifications?: pulumi.Input<boolean>;
+    incidentIoRoutingKey?: pulumi.Input<string>;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: pulumi.Input<string>;
+}
+
+export interface CustomAlertRuleTrigger {
+    /**
+     * Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+     */
+    minimum?: pulumi.Input<inputs.CustomAlertRuleTriggerMinimum>;
+    /**
+     * Required for threshold triggers; omitted for anomaly triggers.
+     */
+    operator?: pulumi.Input<string>;
+    /**
+     * The query's single output alias.
+     */
+    output: pulumi.Input<string>;
+    /**
+     * Required anomaly threshold in standard deviations, at least 0.1.
+     */
+    standardDeviations?: pulumi.Input<number>;
+    /**
+     * Required numeric threshold for threshold triggers. Zero is supported.
+     */
+    threshold?: pulumi.Input<number>;
+    /**
+     * The condition type: `threshold` or `anomaly`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface CustomAlertRuleTriggerMinimum {
+    /**
+     * The primitive metric alias, or ratio numerator alias.
+     */
+    output: pulumi.Input<string>;
+    /**
+     * Non-negative floor below which the rule is not evaluated.
+     */
+    threshold: pulumi.Input<number>;
+}
+
 export interface CustomEnvironmentBranchTracking {
     /**
      * The pattern of the branch name to track.
@@ -110,6 +261,21 @@ export interface DeploymentProjectSettings {
      * The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
      */
     rootDirectory?: pulumi.Input<string>;
+}
+
+export interface DnsRecordHttps {
+    /**
+     * The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+     */
+    params?: pulumi.Input<string>;
+    /**
+     * The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+     */
+    priority: pulumi.Input<number>;
+    /**
+     * The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+     */
+    target: pulumi.Input<string>;
 }
 
 export interface DnsRecordSrv {
@@ -495,6 +661,57 @@ export interface FirewallConfigRulesRuleConditionGroupCondition {
     values?: pulumi.Input<pulumi.Input<string>[]>;
 }
 
+export interface KmsIssuerSigningKey {
+    /**
+     * The signing algorithm of the key.
+     */
+    algorithm?: pulumi.Input<string>;
+    /**
+     * The key's self-signed X.509 certificate in PEM form.
+     */
+    certificatePem?: pulumi.Input<string>;
+    /**
+     * The time the key was created.
+     */
+    createdAt?: pulumi.Input<string>;
+    /**
+     * The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+     */
+    importKeyId?: pulumi.Input<string>;
+    /**
+     * The ID of the issuer the key belongs to.
+     */
+    issuerId?: pulumi.Input<string>;
+    /**
+     * The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+     */
+    keyId?: pulumi.Input<string>;
+    /**
+     * The fingerprint of the public key.
+     */
+    publicKeyFingerprint?: pulumi.Input<string>;
+    /**
+     * The public key as a JSON-encoded JWK.
+     */
+    publicKeyJwk?: pulumi.Input<string>;
+    /**
+     * The public key in SPKI PEM form.
+     */
+    publicKeyPem?: pulumi.Input<string>;
+    /**
+     * The time at which the key is scheduled to be revoked, if any.
+     */
+    revokeAt?: pulumi.Input<string>;
+    /**
+     * The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+     */
+    status?: pulumi.Input<string>;
+    /**
+     * The time the key was last updated.
+     */
+    updatedAt?: pulumi.Input<string>;
+}
+
 export interface MicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -515,6 +732,58 @@ export interface NetworkTimeouts {
      * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
      */
     create?: pulumi.Input<string>;
+}
+
+export interface OidcFederationPolicyClaim {
+    /**
+     * The OIDC claim name.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Values accepted for this claim. A claim matches when any configured value matches.
+     */
+    values: pulumi.Input<pulumi.Input<inputs.OidcFederationPolicyClaimValue>[]>;
+}
+
+export interface OidcFederationPolicyClaimValue {
+    /**
+     * The accepted claim value or wildcard pattern.
+     */
+    value: pulumi.Input<string>;
+    /**
+     * Whether `*` characters in the value should be interpreted as wildcards.
+     */
+    wildcards?: pulumi.Input<boolean>;
+}
+
+export interface OidcFederationPolicyResources {
+    /**
+     * Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+     */
+    projectIds: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface ProjectDeploymentCheckSource {
+    /**
+     * The external check name. Required for a `git-provider` source.
+     */
+    externalCheckName?: pulumi.Input<string>;
+    /**
+     * An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+     */
+    externalResourceId?: pulumi.Input<string>;
+    /**
+     * The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     */
+    kind: pulumi.Input<string>;
+    /**
+     * The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+     */
+    provider?: pulumi.Input<string>;
+    /**
+     * The webhook ID for a `webhook` source.
+     */
+    webhookId?: pulumi.Input<string>;
 }
 
 export interface ProjectDomainVerification {
@@ -558,7 +827,7 @@ export interface ProjectEnvironment {
      */
     key: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
      */
     sensitive: pulumi.Input<boolean>;
     /**
@@ -569,6 +838,10 @@ export interface ProjectEnvironment {
      * The value of the Environment Variable.
      */
     value: pulumi.Input<string>;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    visibility?: pulumi.Input<string>;
 }
 
 export interface ProjectEnvironmentVariablesVariable {
@@ -593,7 +866,7 @@ export interface ProjectEnvironmentVariablesVariable {
      */
     key: pulumi.Input<string>;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
      */
     sensitive: pulumi.Input<boolean>;
     /**
@@ -604,6 +877,10 @@ export interface ProjectEnvironmentVariablesVariable {
      * The value of the Environment Variable.
      */
     value: pulumi.Input<string>;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    visibility?: pulumi.Input<string>;
 }
 
 export interface ProjectGitComments {
@@ -727,6 +1004,21 @@ export interface ProjectOptionsAllowlistPath {
      * The path prefix to compare with the incoming request path.
      */
     value: pulumi.Input<string>;
+}
+
+export interface ProjectPassport {
+    /**
+     * The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+     */
+    connectorId?: pulumi.Input<string>;
+    /**
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     */
+    deploymentType?: pulumi.Input<string>;
+    /**
+     * Whether Passport is enabled. Defaults to true.
+     */
+    enabled?: pulumi.Input<boolean>;
 }
 
 export interface ProjectPasswordProtection {
@@ -873,6 +1165,21 @@ export interface ProjectRouteRouteTransform {
     type: pulumi.Input<string>;
 }
 
+export interface ProjectTracingSamplingRule {
+    /**
+     * Environment to apply this sampling rule to. Can be `production` or `preview`.
+     */
+    environment?: pulumi.Input<string>;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: pulumi.Input<number>;
+    /**
+     * Request path prefix to apply this sampling rule to.
+     */
+    requestPath?: pulumi.Input<string>;
+}
+
 export interface ProjectTrustedIps {
     /**
      * The allowed IP addressses and CIDR ranges with optional descriptions.
@@ -990,9 +1297,38 @@ export interface ProjectTrustedSourcesProjectCustomAllowTo {
 
 export interface ProjectVercelAuthentication {
     /**
-     * The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType?: pulumi.Input<string>;
+}
+
+export interface TeamConfigDefaultDeploymentProtection {
+    /**
+     * Default Vercel Authentication for new projects.
+     */
+    vercelAuthentication: pulumi.Input<inputs.TeamConfigDefaultDeploymentProtectionVercelAuthentication>;
+}
+
+export interface TeamConfigDefaultDeploymentProtectionVercelAuthentication {
+    /**
+     * One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+     */
+    deploymentType: pulumi.Input<string>;
+}
+
+export interface TeamConfigDefaultPassport {
+    /**
+     * The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+     */
+    connectorId?: pulumi.Input<string>;
+    /**
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     */
+    deploymentType?: pulumi.Input<string>;
+    /**
+     * Whether Passport is enabled. Defaults to true.
+     */
+    enabled?: pulumi.Input<boolean>;
 }
 
 export interface TeamConfigRemoteCaching {

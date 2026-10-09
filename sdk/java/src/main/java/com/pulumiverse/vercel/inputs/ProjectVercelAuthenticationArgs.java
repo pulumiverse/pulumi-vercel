@@ -16,14 +16,14 @@ public final class ProjectVercelAuthenticationArgs extends com.pulumi.resources.
     public static final ProjectVercelAuthenticationArgs Empty = new ProjectVercelAuthenticationArgs();
 
     /**
-     * The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      * 
      */
     @Import(name="deploymentType")
     private @Nullable Output<String> deploymentType;
 
     /**
-     * @return The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * @return The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      * 
      */
     public Optional<Output<String>> deploymentType() {
@@ -55,7 +55,7 @@ public final class ProjectVercelAuthenticationArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param deploymentType The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+         * @param deploymentType The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
          * 
          * @return builder
          * 
@@ -66,7 +66,7 @@ public final class ProjectVercelAuthenticationArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param deploymentType The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+         * @param deploymentType The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
          * 
          * @return builder
          * 
