@@ -14,6 +14,10 @@ import (
 
 // Resource for a Vercel project rolling release configuration.
 //
+// This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+//
+// Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+//
 // ## Example Usage
 //
 // ```go
@@ -43,7 +47,7 @@ import (
 //						TargetPercentage: pulumi.Int(20),
 //					},
 //					&vercel.ProjectRollingReleaseStageArgs{
-//						TargetPercentage: pulumi.Int(50),
+//						TargetPercentage: pulumi.Int(100),
 //					},
 //				},
 //			})
@@ -62,7 +66,7 @@ type ProjectRollingRelease struct {
 	AdvancementType pulumi.StringOutput `pulumi:"advancementType"`
 	// The ID of the project.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+	// Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
 	Stages ProjectRollingReleaseStageArrayOutput `pulumi:"stages"`
 	// The ID of the Vercel team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -111,7 +115,7 @@ type projectRollingReleaseState struct {
 	AdvancementType *string `pulumi:"advancementType"`
 	// The ID of the project.
 	ProjectId *string `pulumi:"projectId"`
-	// The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+	// Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
 	Stages []ProjectRollingReleaseStage `pulumi:"stages"`
 	// The ID of the Vercel team.
 	TeamId *string `pulumi:"teamId"`
@@ -122,7 +126,7 @@ type ProjectRollingReleaseState struct {
 	AdvancementType pulumi.StringPtrInput
 	// The ID of the project.
 	ProjectId pulumi.StringPtrInput
-	// The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+	// Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
 	Stages ProjectRollingReleaseStageArrayInput
 	// The ID of the Vercel team.
 	TeamId pulumi.StringPtrInput
@@ -137,7 +141,7 @@ type projectRollingReleaseArgs struct {
 	AdvancementType string `pulumi:"advancementType"`
 	// The ID of the project.
 	ProjectId string `pulumi:"projectId"`
-	// The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+	// Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
 	Stages []ProjectRollingReleaseStage `pulumi:"stages"`
 	// The ID of the Vercel team.
 	TeamId *string `pulumi:"teamId"`
@@ -149,7 +153,7 @@ type ProjectRollingReleaseArgs struct {
 	AdvancementType pulumi.StringInput
 	// The ID of the project.
 	ProjectId pulumi.StringInput
-	// The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+	// Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
 	Stages ProjectRollingReleaseStageArrayInput
 	// The ID of the Vercel team.
 	TeamId pulumi.StringPtrInput
@@ -252,7 +256,7 @@ func (o ProjectRollingReleaseOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectRollingRelease) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+// Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
 func (o ProjectRollingReleaseOutput) Stages() ProjectRollingReleaseStageArrayOutput {
 	return o.ApplyT(func(v *ProjectRollingRelease) ProjectRollingReleaseStageArrayOutput { return v.Stages }).(ProjectRollingReleaseStageArrayOutput)
 }

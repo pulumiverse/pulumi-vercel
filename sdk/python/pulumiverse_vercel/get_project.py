@@ -27,7 +27,7 @@ class GetProjectResult:
     """
     A collection of values returned by getProject.
     """
-    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protected_sourcemaps=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secrets=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, trusted_sources=None, vercel_authentication=None):
+    def __init__(__self__, auto_assign_custom_domains=None, automatically_expose_system_environment_variables=None, build_command=None, build_machine_type=None, customer_success_code_visibility=None, dev_command=None, directory_listing=None, enable_affected_projects_deployments=None, enable_preview_feedback=None, enable_production_feedback=None, environments=None, framework=None, function_failover=None, git_comments=None, git_fork_protection=None, git_lfs=None, git_provider_options=None, git_repository=None, id=None, ignore_command=None, install_command=None, name=None, node_version=None, oidc_token_config=None, on_demand_concurrent_builds=None, options_allowlist=None, output_directory=None, passport=None, password_protection=None, preview_comments=None, preview_deployment_suffix=None, preview_deployments_disabled=None, prioritise_production_builds=None, protected_sourcemaps=None, protection_bypass_for_automation=None, protection_bypass_for_automation_secrets=None, public_source=None, resource_config=None, root_directory=None, serverless_function_region=None, skew_protection=None, team_id=None, trusted_ips=None, trusted_sources=None, vercel_authentication=None):
         if auto_assign_custom_domains and not isinstance(auto_assign_custom_domains, bool):
             raise TypeError("Expected argument 'auto_assign_custom_domains' to be a bool")
         pulumi.set(__self__, "auto_assign_custom_domains", auto_assign_custom_domains)
@@ -109,6 +109,9 @@ class GetProjectResult:
         if output_directory and not isinstance(output_directory, str):
             raise TypeError("Expected argument 'output_directory' to be a str")
         pulumi.set(__self__, "output_directory", output_directory)
+        if passport and not isinstance(passport, dict):
+            raise TypeError("Expected argument 'passport' to be a dict")
+        pulumi.set(__self__, "passport", passport)
         if password_protection and not isinstance(password_protection, dict):
             raise TypeError("Expected argument 'password_protection' to be a dict")
         pulumi.set(__self__, "password_protection", password_protection)
@@ -378,6 +381,14 @@ class GetProjectResult:
         return pulumi.get(self, "output_directory")
 
     @_builtins.property
+    @pulumi.getter
+    def passport(self) -> 'outputs.GetProjectPassportResult':
+        """
+        Passport configuration for the project.
+        """
+        return pulumi.get(self, "passport")
+
+    @_builtins.property
     @pulumi.getter(name="passwordProtection")
     def password_protection(self) -> 'outputs.GetProjectPasswordProtectionResult':
         """
@@ -551,6 +562,7 @@ class AwaitableGetProjectResult(GetProjectResult):
             on_demand_concurrent_builds=self.on_demand_concurrent_builds,
             options_allowlist=self.options_allowlist,
             output_directory=self.output_directory,
+            passport=self.passport,
             password_protection=self.password_protection,
             preview_comments=self.preview_comments,
             preview_deployment_suffix=self.preview_deployment_suffix,
@@ -633,6 +645,7 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         on_demand_concurrent_builds=pulumi.get(__ret__, 'on_demand_concurrent_builds'),
         options_allowlist=pulumi.get(__ret__, 'options_allowlist'),
         output_directory=pulumi.get(__ret__, 'output_directory'),
+        passport=pulumi.get(__ret__, 'passport'),
         password_protection=pulumi.get(__ret__, 'password_protection'),
         preview_comments=pulumi.get(__ret__, 'preview_comments'),
         preview_deployment_suffix=pulumi.get(__ret__, 'preview_deployment_suffix'),
@@ -712,6 +725,7 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
         on_demand_concurrent_builds=pulumi.get(__response__, 'on_demand_concurrent_builds'),
         options_allowlist=pulumi.get(__response__, 'options_allowlist'),
         output_directory=pulumi.get(__response__, 'output_directory'),
+        passport=pulumi.get(__response__, 'passport'),
         password_protection=pulumi.get(__response__, 'password_protection'),
         preview_comments=pulumi.get(__response__, 'preview_comments'),
         preview_deployment_suffix=pulumi.get(__response__, 'preview_deployment_suffix'),

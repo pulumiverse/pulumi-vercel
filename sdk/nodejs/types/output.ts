@@ -5,6 +5,49 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface AiGatewayApiKeyAiGatewayQuota {
+    /**
+     * Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+     */
+    alertThresholds?: number[];
+    /**
+     * The quota limit amount in US dollars.
+     */
+    limitAmount: number;
+    /**
+     * How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+     */
+    refreshPeriod: string;
+}
+
+export interface AlertRuleNotificationSettings {
+    enableTeamOwnerNotifications: boolean;
+    incidentIoRoutingKey?: string;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: string;
+}
+
+export interface AlertRuleRuleScope {
+    /**
+     * The project IDs included in or excluded from a built-in rule.
+     */
+    projectIds?: string[];
+    type: string;
+}
+
+export interface AlertRuleTrigger {
+    /**
+     * A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+     */
+    filter?: string;
+    /**
+     * The built-in anomaly trigger type.
+     */
+    type: string;
+}
+
 export interface AuditLogDrainHttp {
     /**
      * The compression applied to HTTP request bodies. Can be `gzip` or `none`.
@@ -78,6 +121,114 @@ export interface BulkRedirectsRedirect {
     statusCode: number;
 }
 
+export interface CustomAlertRuleEvaluation {
+    /**
+     * The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+     */
+    query: outputs.CustomAlertRuleEvaluationQuery;
+    /**
+     * Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+     */
+    window: string;
+}
+
+export interface CustomAlertRuleEvaluationQuery {
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: string;
+    /**
+     * Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+     */
+    formulas?: {[key: string]: string};
+    /**
+     * Optional grouping dimension. Exactly one dimension is supported.
+     */
+    groupBies?: string[];
+    /**
+     * One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+     */
+    metrics: {[key: string]: outputs.CustomAlertRuleEvaluationQueryMetrics};
+    /**
+     * Exactly one output: the sole metric alias, or `formula` for a ratio.
+     */
+    outputs: string[];
+}
+
+export interface CustomAlertRuleEvaluationQueryMetrics {
+    /**
+     * Metric aggregation. Supported combinations depend on the metric.
+     */
+    aggregation: string;
+    /**
+     * Dimensions required by the unique aggregation.
+     */
+    dimensions?: string[];
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: string;
+    /**
+     * Semantic metric ID or custom metric name. Availability is validated by the API.
+     */
+    metric: string;
+    /**
+     * Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+     */
+    normalize?: string;
+    /**
+     * Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+     */
+    per?: string;
+}
+
+export interface CustomAlertRuleNotificationSettings {
+    enableTeamOwnerNotifications: boolean;
+    incidentIoRoutingKey?: string;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: string;
+}
+
+export interface CustomAlertRuleTrigger {
+    /**
+     * Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+     */
+    minimum?: outputs.CustomAlertRuleTriggerMinimum;
+    /**
+     * Required for threshold triggers; omitted for anomaly triggers.
+     */
+    operator?: string;
+    /**
+     * The query's single output alias.
+     */
+    output: string;
+    /**
+     * Required anomaly threshold in standard deviations, at least 0.1.
+     */
+    standardDeviations?: number;
+    /**
+     * Required numeric threshold for threshold triggers. Zero is supported.
+     */
+    threshold?: number;
+    /**
+     * The condition type: `threshold` or `anomaly`.
+     */
+    type: string;
+}
+
+export interface CustomAlertRuleTriggerMinimum {
+    /**
+     * The primitive metric alias, or ratio numerator alias.
+     */
+    output: string;
+    /**
+     * Non-negative floor below which the rule is not evaluated.
+     */
+    threshold: number;
+}
+
 export interface CustomEnvironmentBranchTracking {
     /**
      * The pattern of the branch name to track.
@@ -110,6 +261,21 @@ export interface DeploymentProjectSettings {
      * The name of a directory or relative path to the source code of your project. When null is used it will default to the project root.
      */
     rootDirectory?: string;
+}
+
+export interface DnsRecordHttps {
+    /**
+     * The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+     */
+    params?: string;
+    /**
+     * The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+     */
+    priority: number;
+    /**
+     * The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+     */
+    target: string;
 }
 
 export interface DnsRecordSrv {
@@ -720,6 +886,92 @@ export interface GetFeatureFlagVariant {
     valueString: string;
 }
 
+export interface GetKmsIssuerPolicy {
+    /**
+     * The client ID associated with the policy, for connex grants.
+     */
+    clientId: string;
+    /**
+     * The time the policy was created.
+     */
+    createdAt: string;
+    /**
+     * The environments the policy applies to, for project grants.
+     */
+    environments: string[];
+    /**
+     * The policy kind, either `project-grant` or `connex-grant`.
+     */
+    kind: string;
+    /**
+     * The project ID associated with the policy, for project grants.
+     */
+    projectId: string;
+    /**
+     * The team ID associated with the policy, for project grants.
+     */
+    teamId: string;
+    /**
+     * The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+     */
+    tokenClaims: string;
+    /**
+     * The time the policy was last updated.
+     */
+    updatedAt: string;
+}
+
+export interface GetKmsIssuerSigningKey {
+    /**
+     * The signing algorithm of the key.
+     */
+    algorithm: string;
+    /**
+     * The key's self-signed X.509 certificate in PEM form.
+     */
+    certificatePem: string;
+    /**
+     * The time the key was created.
+     */
+    createdAt: string;
+    /**
+     * The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+     */
+    importKeyId: string;
+    /**
+     * The ID of the issuer the key belongs to.
+     */
+    issuerId: string;
+    /**
+     * The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+     */
+    keyId: string;
+    /**
+     * The fingerprint of the public key.
+     */
+    publicKeyFingerprint: string;
+    /**
+     * The public key as a JSON-encoded JWK.
+     */
+    publicKeyJwk: string;
+    /**
+     * The public key in SPKI PEM form.
+     */
+    publicKeyPem: string;
+    /**
+     * The time at which the key is scheduled to be revoked, if any.
+     */
+    revokeAt: string;
+    /**
+     * The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+     */
+    status: string;
+    /**
+     * The time the key was last updated.
+     */
+    updatedAt: string;
+}
+
 export interface GetMicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -768,6 +1020,10 @@ export interface GetProjectEnvironment {
      * The value of the environment variable.
      */
     value: string;
+    /**
+     * Controls how the environment variable is categorized: `config` or `secret`.
+     */
+    visibility: string;
 }
 
 export interface GetProjectGitComments {
@@ -888,6 +1144,21 @@ export interface GetProjectOptionsAllowlist {
 
 export interface GetProjectOptionsAllowlistPath {
     value: string;
+}
+
+export interface GetProjectPassport {
+    /**
+     * The stable ID of the Vercel Connect OAuth application. Null when disabled.
+     */
+    connectorId: string;
+    /**
+     * The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+     */
+    deploymentType: string;
+    /**
+     * Whether Passport is enabled.
+     */
+    enabled: boolean;
 }
 
 export interface GetProjectPasswordProtection {
@@ -1133,6 +1404,35 @@ export interface GetProjectVercelAuthentication {
     deploymentType: string;
 }
 
+export interface GetTeamConfigDefaultDeploymentProtection {
+    /**
+     * Default Vercel Authentication for new projects.
+     */
+    vercelAuthentication: outputs.GetTeamConfigDefaultDeploymentProtectionVercelAuthentication;
+}
+
+export interface GetTeamConfigDefaultDeploymentProtectionVercelAuthentication {
+    /**
+     * The default protection level, or none when disabled.
+     */
+    deploymentType: string;
+}
+
+export interface GetTeamConfigDefaultPassport {
+    /**
+     * The stable ID of the Vercel Connect OAuth application. Null when disabled.
+     */
+    connectorId: string;
+    /**
+     * The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+     */
+    deploymentType: string;
+    /**
+     * Whether Passport is enabled.
+     */
+    enabled: boolean;
+}
+
 export interface GetTeamConfigRemoteCaching {
     /**
      * Indicates if Remote Caching is enabled.
@@ -1188,6 +1488,57 @@ export interface GetTraceDrainSamplingRule {
     requestPath: string;
 }
 
+export interface KmsIssuerSigningKey {
+    /**
+     * The signing algorithm of the key.
+     */
+    algorithm: string;
+    /**
+     * The key's self-signed X.509 certificate in PEM form.
+     */
+    certificatePem: string;
+    /**
+     * The time the key was created.
+     */
+    createdAt: string;
+    /**
+     * The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+     */
+    importKeyId: string;
+    /**
+     * The ID of the issuer the key belongs to.
+     */
+    issuerId: string;
+    /**
+     * The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+     */
+    keyId: string;
+    /**
+     * The fingerprint of the public key.
+     */
+    publicKeyFingerprint: string;
+    /**
+     * The public key as a JSON-encoded JWK.
+     */
+    publicKeyJwk: string;
+    /**
+     * The public key in SPKI PEM form.
+     */
+    publicKeyPem: string;
+    /**
+     * The time at which the key is scheduled to be revoked, if any.
+     */
+    revokeAt: string;
+    /**
+     * The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+     */
+    status: string;
+    /**
+     * The time the key was last updated.
+     */
+    updatedAt: string;
+}
+
 export interface MicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -1208,6 +1559,58 @@ export interface NetworkTimeouts {
      * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
      */
     create?: string;
+}
+
+export interface OidcFederationPolicyClaim {
+    /**
+     * The OIDC claim name.
+     */
+    name: string;
+    /**
+     * Values accepted for this claim. A claim matches when any configured value matches.
+     */
+    values: outputs.OidcFederationPolicyClaimValue[];
+}
+
+export interface OidcFederationPolicyClaimValue {
+    /**
+     * The accepted claim value or wildcard pattern.
+     */
+    value: string;
+    /**
+     * Whether `*` characters in the value should be interpreted as wildcards.
+     */
+    wildcards: boolean;
+}
+
+export interface OidcFederationPolicyResources {
+    /**
+     * Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+     */
+    projectIds: string[];
+}
+
+export interface ProjectDeploymentCheckSource {
+    /**
+     * The external check name. Required for a `git-provider` source.
+     */
+    externalCheckName: string;
+    /**
+     * An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+     */
+    externalResourceId: string;
+    /**
+     * The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     */
+    kind: string;
+    /**
+     * The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+     */
+    provider: string;
+    /**
+     * The webhook ID for a `webhook` source.
+     */
+    webhookId: string;
 }
 
 export interface ProjectDomainVerification {
@@ -1251,7 +1654,7 @@ export interface ProjectEnvironment {
      */
     key: string;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
      */
     sensitive: boolean;
     /**
@@ -1262,6 +1665,10 @@ export interface ProjectEnvironment {
      * The value of the Environment Variable.
      */
     value: string;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    visibility: string;
 }
 
 export interface ProjectEnvironmentVariablesVariable {
@@ -1286,7 +1693,7 @@ export interface ProjectEnvironmentVariablesVariable {
      */
     key: string;
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
      */
     sensitive: boolean;
     /**
@@ -1297,6 +1704,10 @@ export interface ProjectEnvironmentVariablesVariable {
      * The value of the Environment Variable.
      */
     value: string;
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     */
+    visibility: string;
 }
 
 export interface ProjectGitComments {
@@ -1420,6 +1831,21 @@ export interface ProjectOptionsAllowlistPath {
      * The path prefix to compare with the incoming request path.
      */
     value: string;
+}
+
+export interface ProjectPassport {
+    /**
+     * The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+     */
+    connectorId: string;
+    /**
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     */
+    deploymentType: string;
+    /**
+     * Whether Passport is enabled. Defaults to true.
+     */
+    enabled: boolean;
 }
 
 export interface ProjectPasswordProtection {
@@ -1566,6 +1992,21 @@ export interface ProjectRouteRouteTransform {
     type: string;
 }
 
+export interface ProjectTracingSamplingRule {
+    /**
+     * Environment to apply this sampling rule to. Can be `production` or `preview`.
+     */
+    environment?: string;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: number;
+    /**
+     * Request path prefix to apply this sampling rule to.
+     */
+    requestPath?: string;
+}
+
 export interface ProjectTrustedIps {
     /**
      * The allowed IP addressses and CIDR ranges with optional descriptions.
@@ -1683,9 +2124,38 @@ export interface ProjectTrustedSourcesProjectCustomAllowTo {
 
 export interface ProjectVercelAuthentication {
     /**
-     * The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      */
     deploymentType: string;
+}
+
+export interface TeamConfigDefaultDeploymentProtection {
+    /**
+     * Default Vercel Authentication for new projects.
+     */
+    vercelAuthentication: outputs.TeamConfigDefaultDeploymentProtectionVercelAuthentication;
+}
+
+export interface TeamConfigDefaultDeploymentProtectionVercelAuthentication {
+    /**
+     * One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+     */
+    deploymentType: string;
+}
+
+export interface TeamConfigDefaultPassport {
+    /**
+     * The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+     */
+    connectorId: string;
+    /**
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     */
+    deploymentType: string;
+    /**
+     * Whether Passport is enabled. Defaults to true.
+     */
+    enabled: boolean;
 }
 
 export interface TeamConfigRemoteCaching {

@@ -13,10 +13,10 @@ import * as utilities from "./utilities";
  *
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
  *
- * > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
+ * > The inline `environment` field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables to manage multiple Environment Variables or vercel.ProjectEnvironmentVariable to manage a single Environment Variable instead.
  * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
  *
- * > **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Secrets (`sensitive = true`) are supported in all target environments, including Development. Team environment variable policies are enforced by the Vercel API at apply time.
  *
  * ## Example Usage
  *
@@ -42,6 +42,7 @@ import * as utilities from "./utilities";
  *     name: "example-project",
  *     framework: "nextjs",
  *     protectedSourcemaps: true,
+ *     buildMachineType: "basic",
  * });
  * const githubActionsTrustedSource = {
  *     issuer: "https://token.actions.githubusercontent.com",
@@ -140,7 +141,7 @@ export class Project extends pulumi.CustomResource {
      */
     declare public readonly buildCommand: pulumi.Output<string | undefined>;
     /**
-     * The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
      */
     declare public readonly buildMachineType: pulumi.Output<string>;
     /**
@@ -168,7 +169,9 @@ export class Project extends pulumi.CustomResource {
      */
     declare public readonly enableProductionFeedback: pulumi.Output<boolean>;
     /**
-     * A set of Environment Variables that should be configured for the project.
+     * A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     *
+     * @deprecated The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      */
     declare public readonly environments: pulumi.Output<outputs.ProjectEnvironment[] | undefined>;
     /**
@@ -231,6 +234,10 @@ export class Project extends pulumi.CustomResource {
      * The output directory of the project. If omitted, this value will be automatically detected.
      */
     declare public readonly outputDirectory: pulumi.Output<string | undefined>;
+    /**
+     * Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     */
+    declare public readonly passport: pulumi.Output<outputs.ProjectPassport>;
     /**
      * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      */
@@ -337,6 +344,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["onDemandConcurrentBuilds"] = state?.onDemandConcurrentBuilds;
             resourceInputs["optionsAllowlist"] = state?.optionsAllowlist;
             resourceInputs["outputDirectory"] = state?.outputDirectory;
+            resourceInputs["passport"] = state?.passport;
             resourceInputs["passwordProtection"] = state?.passwordProtection;
             resourceInputs["previewComments"] = state?.previewComments;
             resourceInputs["previewDeploymentSuffix"] = state?.previewDeploymentSuffix;
@@ -380,6 +388,7 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["onDemandConcurrentBuilds"] = args?.onDemandConcurrentBuilds;
             resourceInputs["optionsAllowlist"] = args?.optionsAllowlist;
             resourceInputs["outputDirectory"] = args?.outputDirectory;
+            resourceInputs["passport"] = args?.passport;
             resourceInputs["passwordProtection"] = args?.passwordProtection;
             resourceInputs["previewComments"] = args?.previewComments;
             resourceInputs["previewDeploymentSuffix"] = args?.previewDeploymentSuffix;
@@ -418,7 +427,7 @@ export interface ProjectState {
      */
     buildCommand?: pulumi.Input<string>;
     /**
-     * The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
      */
     buildMachineType?: pulumi.Input<string>;
     /**
@@ -446,7 +455,9 @@ export interface ProjectState {
      */
     enableProductionFeedback?: pulumi.Input<boolean>;
     /**
-     * A set of Environment Variables that should be configured for the project.
+     * A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     *
+     * @deprecated The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      */
     environments?: pulumi.Input<pulumi.Input<inputs.ProjectEnvironment>[]>;
     /**
@@ -509,6 +520,10 @@ export interface ProjectState {
      * The output directory of the project. If omitted, this value will be automatically detected.
      */
     outputDirectory?: pulumi.Input<string>;
+    /**
+     * Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     */
+    passport?: pulumi.Input<inputs.ProjectPassport>;
     /**
      * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      */
@@ -594,7 +609,7 @@ export interface ProjectArgs {
      */
     buildCommand?: pulumi.Input<string>;
     /**
-     * The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+     * The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
      */
     buildMachineType?: pulumi.Input<string>;
     /**
@@ -622,7 +637,9 @@ export interface ProjectArgs {
      */
     enableProductionFeedback?: pulumi.Input<boolean>;
     /**
-     * A set of Environment Variables that should be configured for the project.
+     * A set of Environment Variables that should be configured for the project. Deprecated: use `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
+     *
+     * @deprecated The inline environment field is deprecated and retained for backwards compatibility. Use vercel.ProjectEnvironmentVariables or vercel.ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.
      */
     environments?: pulumi.Input<pulumi.Input<inputs.ProjectEnvironment>[]>;
     /**
@@ -685,6 +702,10 @@ export interface ProjectArgs {
      * The output directory of the project. If omitted, this value will be automatically detected.
      */
     outputDirectory?: pulumi.Input<string>;
+    /**
+     * Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     */
+    passport?: pulumi.Input<inputs.ProjectPassport>;
     /**
      * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      */
