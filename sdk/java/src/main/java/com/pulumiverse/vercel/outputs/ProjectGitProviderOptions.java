@@ -18,7 +18,7 @@ public final class ProjectGitProviderOptions {
      */
     private @Nullable ProjectGitProviderOptionsConsolidatedGitCommitStatus consolidatedGitCommitStatus;
     /**
-     * @return Whether to create deployments
+     * @return Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project&#39;s Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
      * 
      */
     private @Nullable Boolean createDeployments;
@@ -47,7 +47,7 @@ public final class ProjectGitProviderOptions {
         return Optional.ofNullable(this.consolidatedGitCommitStatus);
     }
     /**
-     * @return Whether to create deployments
+     * @return Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project&#39;s Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
      * 
      */
     public Optional<Boolean> createDeployments() {
