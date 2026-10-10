@@ -32,14 +32,14 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Whether to create deployments
+     * Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project&#39;s Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
      * 
      */
     @Import(name="createDeployments")
     private @Nullable Output<Boolean> createDeployments;
 
     /**
-     * @return Whether to create deployments
+     * @return Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project&#39;s Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
      * 
      */
     public Optional<Output<Boolean>> createDeployments() {
@@ -141,7 +141,7 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param createDeployments Whether to create deployments
+         * @param createDeployments Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project&#39;s Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
          * 
          * @return builder
          * 
@@ -152,7 +152,7 @@ public final class ProjectGitProviderOptionsArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param createDeployments Whether to create deployments
+         * @param createDeployments Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project&#39;s Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
          * 
          * @return builder
          * 

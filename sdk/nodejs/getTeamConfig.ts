@@ -42,9 +42,25 @@ export interface GetTeamConfigArgs {
  */
 export interface GetTeamConfigResult {
     /**
+     * The default build machine type for new projects.
+     */
+    readonly defaultBuildMachineType: string;
+    /**
+     * Deployment Protection defaults copied to new projects. Existing projects are unaffected.
+     */
+    readonly defaultDeploymentProtection: outputs.GetTeamConfigDefaultDeploymentProtection;
+    /**
+     * Default Passport configuration for new projects.
+     */
+    readonly defaultPassport: outputs.GetTeamConfigDefaultPassport;
+    /**
      * A description of the team.
      */
     readonly description: string;
+    /**
+     * When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable.
+     */
+    readonly disjunctiveProductionSecretPolicy: string;
     /**
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
@@ -90,7 +106,9 @@ export interface GetTeamConfigResult {
      */
     readonly saml: outputs.GetTeamConfigSaml;
     /**
-     * The policy for sensitive environment variables.
+     * The legacy policy for sensitive environment variables.
+     *
+     * @deprecated This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      */
     readonly sensitiveEnvironmentVariablePolicy: string;
     /**

@@ -17,7 +17,7 @@ public final class GetProjectGitProviderOptions {
      */
     private GetProjectGitProviderOptionsConsolidatedGitCommitStatus consolidatedGitCommitStatus;
     /**
-     * @return Whether to create deployments.
+     * @return Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This does not control whether Git pushes trigger Vercel deployments.
      * 
      */
     private Boolean createDeployments;
@@ -46,7 +46,7 @@ public final class GetProjectGitProviderOptions {
         return this.consolidatedGitCommitStatus;
     }
     /**
-     * @return Whether to create deployments.
+     * @return Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This does not control whether Git pushes trigger Vercel deployments.
      * 
      */
     public Boolean createDeployments() {
