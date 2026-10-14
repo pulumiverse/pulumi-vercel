@@ -5,11 +5,10 @@
   "configMigration": true,
   "packageRules": [
     {
+      "description": "Provider and bridge upgrades must go through `make tfgen` + `make generate_sdks` (upgrade-provider workflow), never a bare go.mod bump. Suffix glob is required because the module paths carry major-version suffixes (/v5, /v3).",
       "matchPackageNames": [
-        "github.com/vercel/terraform-provider-vercel",
-        "github.com/vercel/terraform-provider-vercel/v2",
-        "github.com/pulumi/pulumi-terraform-bridge",
-        "github.com/pulumi/pulumi-terraform-bridge/pf"
+        "github.com/vercel/terraform-provider-vercel{/,}**",
+        "github.com/pulumi/pulumi-terraform-bridge{/,}**"
       ],
       "enabled": false
     },
