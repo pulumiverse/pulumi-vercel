@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ProjectVercelAuthentication {
     /**
-     * @return The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * @return The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      * 
      */
     private @Nullable String deploymentType;
 
     private ProjectVercelAuthentication() {}
     /**
-     * @return The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+     * @return The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
      * 
      */
     public Optional<String> deploymentType() {

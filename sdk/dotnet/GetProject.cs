@@ -275,6 +275,10 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string OutputDirectory;
         /// <summary>
+        /// Passport configuration for the project.
+        /// </summary>
+        public readonly Outputs.GetProjectPassportResult Passport;
+        /// <summary>
         /// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         /// </summary>
         public readonly Outputs.GetProjectPasswordProtectionResult PasswordProtection;
@@ -399,6 +403,8 @@ namespace Pulumiverse.Vercel
 
             string outputDirectory,
 
+            Outputs.GetProjectPassportResult passport,
+
             Outputs.GetProjectPasswordProtectionResult passwordProtection,
 
             bool previewComments,
@@ -460,6 +466,7 @@ namespace Pulumiverse.Vercel
             OnDemandConcurrentBuilds = onDemandConcurrentBuilds;
             OptionsAllowlist = optionsAllowlist;
             OutputDirectory = outputDirectory;
+            Passport = passport;
             PasswordProtection = passwordProtection;
             PreviewComments = previewComments;
             PreviewDeploymentSuffix = previewDeploymentSuffix;

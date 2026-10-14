@@ -30,7 +30,7 @@ class ProjectRollingReleaseArgs:
 
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
-        :param pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]] stages: The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]] stages: Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.
         """
         pulumi.set(__self__, "advancement_type", advancement_type)
@@ -67,7 +67,7 @@ class ProjectRollingReleaseArgs:
     @pulumi.getter
     def stages(self) -> pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]]:
         """
-        The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         """
         return pulumi.get(self, "stages")
 
@@ -100,7 +100,7 @@ class _ProjectRollingReleaseState:
 
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
-        :param pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]] stages: The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]] stages: Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.
         """
         if advancement_type is not None:
@@ -140,7 +140,7 @@ class _ProjectRollingReleaseState:
     @pulumi.getter
     def stages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectRollingReleaseStageArgs']]]]:
         """
-        The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         """
         return pulumi.get(self, "stages")
 
@@ -175,6 +175,10 @@ class ProjectRollingRelease(pulumi.CustomResource):
         """
         Resource for a Vercel project rolling release configuration.
 
+        This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+
+        Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+
         ## Example Usage
 
         ```python
@@ -192,7 +196,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
                     "target_percentage": 20,
                 },
                 {
-                    "target_percentage": 50,
+                    "target_percentage": 100,
                 },
             ])
         ```
@@ -202,7 +206,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectRollingReleaseStageArgs', 'ProjectRollingReleaseStageArgsDict']]]] stages: The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectRollingReleaseStageArgs', 'ProjectRollingReleaseStageArgsDict']]]] stages: Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.
         """
         ...
@@ -214,6 +218,10 @@ class ProjectRollingRelease(pulumi.CustomResource):
         """
         Resource for a Vercel project rolling release configuration.
 
+        This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+
+        Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+
         ## Example Usage
 
         ```python
@@ -231,7 +239,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
                     "target_percentage": 20,
                 },
                 {
-                    "target_percentage": 50,
+                    "target_percentage": 100,
                 },
             ])
         ```
@@ -298,7 +306,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] advancement_type: The type of advancement for the rolling release. Must be either 'automatic' or 'manual-approval'.
         :param pulumi.Input[_builtins.str] project_id: The ID of the project.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectRollingReleaseStageArgs', 'ProjectRollingReleaseStageArgsDict']]]] stages: The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectRollingReleaseStageArgs', 'ProjectRollingReleaseStageArgsDict']]]] stages: Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         :param pulumi.Input[_builtins.str] team_id: The ID of the Vercel team.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -331,7 +339,7 @@ class ProjectRollingRelease(pulumi.CustomResource):
     @pulumi.getter
     def stages(self) -> pulumi.Output[Sequence['outputs.ProjectRollingReleaseStage']]:
         """
-        The stages for the rolling release configuration. The last stage must have target_percentage = 100.
+        Two to ten stages supported by this provider. Include at least one non-final stage and end with target_percentage = 100.
         """
         return pulumi.get(self, "stages")
 

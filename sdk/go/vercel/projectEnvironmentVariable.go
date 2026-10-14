@@ -21,7 +21,7 @@ import (
 // > Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
 // At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 //
-// > **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+// > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Secrets (`sensitive = true`) are supported in all target environments, including Development. Team environment variable policies are enforced by the Vercel API at apply time.
 //
 // > **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
 //
@@ -53,6 +53,12 @@ import (
 // ```sh
 // $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
 // ```
+//
+// When using value_wo, prefix either import ID format with write-only: to keep the value out of Terraform state. Set valueWoVersion to control subsequent updates.
+//
+// ```sh
+// $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example 'write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt'
+// ```
 type ProjectEnvironmentVariable struct {
 	pulumi.CustomResourceState
 
@@ -66,7 +72,7 @@ type ProjectEnvironmentVariable struct {
 	Key pulumi.StringOutput `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive pulumi.BoolOutput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayOutput `pulumi:"targets"`
@@ -79,6 +85,8 @@ type ProjectEnvironmentVariable struct {
 	ValueWo pulumi.StringPtrOutput `pulumi:"valueWo"`
 	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
 	ValueWoVersion pulumi.IntPtrOutput `pulumi:"valueWoVersion"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility pulumi.StringOutput `pulumi:"visibility"`
 }
 
 // NewProjectEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -141,7 +149,7 @@ type projectEnvironmentVariableState struct {
 	Key *string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId *string `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive *bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
@@ -154,6 +162,8 @@ type projectEnvironmentVariableState struct {
 	ValueWo *string `pulumi:"valueWo"`
 	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
 	ValueWoVersion *int `pulumi:"valueWoVersion"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility *string `pulumi:"visibility"`
 }
 
 type ProjectEnvironmentVariableState struct {
@@ -167,7 +177,7 @@ type ProjectEnvironmentVariableState struct {
 	Key pulumi.StringPtrInput
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringPtrInput
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive pulumi.BoolPtrInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput
@@ -180,6 +190,8 @@ type ProjectEnvironmentVariableState struct {
 	ValueWo pulumi.StringPtrInput
 	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
 	ValueWoVersion pulumi.IntPtrInput
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility pulumi.StringPtrInput
 }
 
 func (ProjectEnvironmentVariableState) ElementType() reflect.Type {
@@ -197,7 +209,7 @@ type projectEnvironmentVariableArgs struct {
 	Key string `pulumi:"key"`
 	// The ID of the Vercel project.
 	ProjectId string `pulumi:"projectId"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
@@ -210,6 +222,8 @@ type projectEnvironmentVariableArgs struct {
 	ValueWo *string `pulumi:"valueWo"`
 	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
 	ValueWoVersion *int `pulumi:"valueWoVersion"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility *string `pulumi:"visibility"`
 }
 
 // The set of arguments for constructing a ProjectEnvironmentVariable resource.
@@ -224,7 +238,7 @@ type ProjectEnvironmentVariableArgs struct {
 	Key pulumi.StringInput
 	// The ID of the Vercel project.
 	ProjectId pulumi.StringInput
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive pulumi.BoolInput
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput
@@ -237,6 +251,8 @@ type ProjectEnvironmentVariableArgs struct {
 	ValueWo pulumi.StringPtrInput
 	// An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
 	ValueWoVersion pulumi.IntPtrInput
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility pulumi.StringPtrInput
 }
 
 func (ProjectEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -351,7 +367,7 @@ func (o ProjectEnvironmentVariableOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 func (o ProjectEnvironmentVariableOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.BoolOutput { return v.Sensitive }).(pulumi.BoolOutput)
 }
@@ -380,6 +396,11 @@ func (o ProjectEnvironmentVariableOutput) ValueWo() pulumi.StringPtrOutput {
 // An integer used to trigger an update to `valueWo`. Increment this value when an update to the write-only value is required.
 func (o ProjectEnvironmentVariableOutput) ValueWoVersion() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.IntPtrOutput { return v.ValueWoVersion }).(pulumi.IntPtrOutput)
+}
+
+// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+func (o ProjectEnvironmentVariableOutput) Visibility() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectEnvironmentVariable) pulumi.StringOutput { return v.Visibility }).(pulumi.StringOutput)
 }
 
 type ProjectEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }

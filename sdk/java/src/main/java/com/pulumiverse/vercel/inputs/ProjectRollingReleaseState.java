@@ -48,14 +48,14 @@ public final class ProjectRollingReleaseState extends com.pulumi.resources.Resou
     }
 
     /**
-     * The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      * 
      */
     @Import(name="stages")
     private @Nullable Output<List<ProjectRollingReleaseStageArgs>> stages;
 
     /**
-     * @return The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * @return Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      * 
      */
     public Optional<Output<List<ProjectRollingReleaseStageArgs>>> stages() {
@@ -147,7 +147,7 @@ public final class ProjectRollingReleaseState extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param stages The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+         * @param stages Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
          * 
          * @return builder
          * 
@@ -158,7 +158,7 @@ public final class ProjectRollingReleaseState extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param stages The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+         * @param stages Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
          * 
          * @return builder
          * 
@@ -168,7 +168,7 @@ public final class ProjectRollingReleaseState extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param stages The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+         * @param stages Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
          * 
          * @return builder
          * 

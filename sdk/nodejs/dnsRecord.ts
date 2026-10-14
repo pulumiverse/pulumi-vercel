@@ -11,7 +11,7 @@ import * as utilities from "./utilities";
  *
  * DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
  *
- * > The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+ * > The `value` field must be specified on all DNS record types except `SRV` and `HTTPS`. When using `SRV` DNS records, the `srv` field must be specified. When using `HTTPS` DNS records, the `https` field must be specified.
  *
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
  *
@@ -74,6 +74,17 @@ import * as utilities from "./utilities";
  *         weight: 60,
  *         priority: 127,
  *         target: "example2.com.",
+ *     },
+ * });
+ * const https = new vercel.DnsRecord("https", {
+ *     domain: "example.com",
+ *     name: "subdomain",
+ *     type: "HTTPS",
+ *     ttl: 60,
+ *     https: {
+ *         priority: 1,
+ *         target: "example2.com.",
+ *         params: "alpn=h2,h3",
  *     },
  * });
  * const txt = new vercel.DnsRecord("txt", {
@@ -144,6 +155,10 @@ export class DnsRecord extends pulumi.CustomResource {
      */
     declare public readonly domain: pulumi.Output<string>;
     /**
+     * Settings for an HTTPS record.
+     */
+    declare public readonly https: pulumi.Output<outputs.DnsRecordHttps | undefined>;
+    /**
      * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
      */
     declare public readonly mxPriority: pulumi.Output<number | undefined>;
@@ -164,7 +179,7 @@ export class DnsRecord extends pulumi.CustomResource {
      */
     declare public readonly ttl: pulumi.Output<number>;
     /**
-     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      */
     declare public readonly type: pulumi.Output<string>;
     /**
@@ -194,6 +209,7 @@ export class DnsRecord extends pulumi.CustomResource {
             const state = argsOrState as DnsRecordState | undefined;
             resourceInputs["comment"] = state?.comment;
             resourceInputs["domain"] = state?.domain;
+            resourceInputs["https"] = state?.https;
             resourceInputs["mxPriority"] = state?.mxPriority;
             resourceInputs["name"] = state?.name;
             resourceInputs["srv"] = state?.srv;
@@ -211,6 +227,7 @@ export class DnsRecord extends pulumi.CustomResource {
             }
             resourceInputs["comment"] = args?.comment;
             resourceInputs["domain"] = args?.domain;
+            resourceInputs["https"] = args?.https;
             resourceInputs["mxPriority"] = args?.mxPriority;
             resourceInputs["name"] = args?.name;
             resourceInputs["srv"] = args?.srv;
@@ -237,6 +254,10 @@ export interface DnsRecordState {
      */
     domain?: pulumi.Input<string>;
     /**
+     * Settings for an HTTPS record.
+     */
+    https?: pulumi.Input<inputs.DnsRecordHttps>;
+    /**
      * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
      */
     mxPriority?: pulumi.Input<number>;
@@ -257,7 +278,7 @@ export interface DnsRecordState {
      */
     ttl?: pulumi.Input<number>;
     /**
-     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      */
     type?: pulumi.Input<string>;
     /**
@@ -286,6 +307,10 @@ export interface DnsRecordArgs {
      */
     domain: pulumi.Input<string>;
     /**
+     * Settings for an HTTPS record.
+     */
+    https?: pulumi.Input<inputs.DnsRecordHttps>;
+    /**
      * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
      */
     mxPriority?: pulumi.Input<number>;
@@ -306,7 +331,7 @@ export interface DnsRecordArgs {
      */
     ttl?: pulumi.Input<number>;
     /**
-     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      */
     type: pulumi.Input<string>;
     /**

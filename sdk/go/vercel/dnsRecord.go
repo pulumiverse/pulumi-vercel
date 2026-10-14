@@ -16,7 +16,7 @@ import (
 //
 // DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
 //
-// > The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+// > The `value` field must be specified on all DNS record types except `SRV` and `HTTPS`. When using `SRV` DNS records, the `srv` field must be specified. When using `HTTPS` DNS records, the `https` field must be specified.
 //
 // For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
 //
@@ -110,6 +110,20 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			_, err = vercel.NewDnsRecord(ctx, "https", &vercel.DnsRecordArgs{
+//				Domain: pulumi.String("example.com"),
+//				Name:   pulumi.String("subdomain"),
+//				Type:   pulumi.String("HTTPS"),
+//				Ttl:    pulumi.Int(60),
+//				Https: &vercel.DnsRecordHttpsArgs{
+//					Priority: pulumi.Int(1),
+//					Target:   pulumi.String("example2.com."),
+//					Params:   pulumi.String("alpn=h2,h3"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			_, err = vercel.NewDnsRecord(ctx, "txt", &vercel.DnsRecordArgs{
 //				Domain: pulumi.String("example.com"),
 //				Name:   pulumi.String("subdomain"),
@@ -154,6 +168,8 @@ type DnsRecord struct {
 	Comment pulumi.StringOutput `pulumi:"comment"`
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringOutput `pulumi:"domain"`
+	// Settings for an HTTPS record.
+	Https DnsRecordHttpsPtrOutput `pulumi:"https"`
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority pulumi.IntPtrOutput `pulumi:"mxPriority"`
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -164,7 +180,7 @@ type DnsRecord struct {
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl pulumi.IntOutput `pulumi:"ttl"`
-	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
 	Type pulumi.StringOutput `pulumi:"type"`
 	// The value of the DNS record. The format depends on the 'type' property.
 	// For an 'A' record, this should be a valid IPv4 address.
@@ -217,6 +233,8 @@ type dnsRecordState struct {
 	Comment *string `pulumi:"comment"`
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain *string `pulumi:"domain"`
+	// Settings for an HTTPS record.
+	Https *DnsRecordHttps `pulumi:"https"`
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority *int `pulumi:"mxPriority"`
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -227,7 +245,7 @@ type dnsRecordState struct {
 	TeamId *string `pulumi:"teamId"`
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl *int `pulumi:"ttl"`
-	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
 	Type *string `pulumi:"type"`
 	// The value of the DNS record. The format depends on the 'type' property.
 	// For an 'A' record, this should be a valid IPv4 address.
@@ -245,6 +263,8 @@ type DnsRecordState struct {
 	Comment pulumi.StringPtrInput
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringPtrInput
+	// Settings for an HTTPS record.
+	Https DnsRecordHttpsPtrInput
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority pulumi.IntPtrInput
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -255,7 +275,7 @@ type DnsRecordState struct {
 	TeamId pulumi.StringPtrInput
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl pulumi.IntPtrInput
-	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
 	Type pulumi.StringPtrInput
 	// The value of the DNS record. The format depends on the 'type' property.
 	// For an 'A' record, this should be a valid IPv4 address.
@@ -277,6 +297,8 @@ type dnsRecordArgs struct {
 	Comment *string `pulumi:"comment"`
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain string `pulumi:"domain"`
+	// Settings for an HTTPS record.
+	Https *DnsRecordHttps `pulumi:"https"`
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority *int `pulumi:"mxPriority"`
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -287,7 +309,7 @@ type dnsRecordArgs struct {
 	TeamId *string `pulumi:"teamId"`
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl *int `pulumi:"ttl"`
-	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
 	Type string `pulumi:"type"`
 	// The value of the DNS record. The format depends on the 'type' property.
 	// For an 'A' record, this should be a valid IPv4 address.
@@ -306,6 +328,8 @@ type DnsRecordArgs struct {
 	Comment pulumi.StringPtrInput
 	// The domain name, or zone, that the DNS record should be created beneath.
 	Domain pulumi.StringInput
+	// Settings for an HTTPS record.
+	Https DnsRecordHttpsPtrInput
 	// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 	MxPriority pulumi.IntPtrInput
 	// The subdomain name of the record. This should be an empty string if the rercord is for the root domain.
@@ -316,7 +340,7 @@ type DnsRecordArgs struct {
 	TeamId pulumi.StringPtrInput
 	// The TTL value in seconds. Must be a number between 60 and 2147483647. If unspecified, it will default to 60 seconds.
 	Ttl pulumi.IntPtrInput
-	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+	// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
 	Type pulumi.StringInput
 	// The value of the DNS record. The format depends on the 'type' property.
 	// For an 'A' record, this should be a valid IPv4 address.
@@ -426,6 +450,11 @@ func (o DnsRecordOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
 }
 
+// Settings for an HTTPS record.
+func (o DnsRecordOutput) Https() DnsRecordHttpsPtrOutput {
+	return o.ApplyT(func(v *DnsRecord) DnsRecordHttpsPtrOutput { return v.Https }).(DnsRecordHttpsPtrOutput)
+}
+
 // The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
 func (o DnsRecordOutput) MxPriority() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.IntPtrOutput { return v.MxPriority }).(pulumi.IntPtrOutput)
@@ -451,7 +480,7 @@ func (o DnsRecordOutput) Ttl() pulumi.IntOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.IntOutput { return v.Ttl }).(pulumi.IntOutput)
 }
 
-// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
 func (o DnsRecordOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *DnsRecord) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }

@@ -9,6 +9,10 @@ import * as utilities from "./utilities";
 /**
  * Resource for a Vercel project rolling release configuration.
  *
+ * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+ *
+ * Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -27,7 +31,7 @@ import * as utilities from "./utilities";
  *             targetPercentage: 20,
  *         },
  *         {
- *             targetPercentage: 50,
+ *             targetPercentage: 100,
  *         },
  *     ],
  * });
@@ -70,7 +74,7 @@ export class ProjectRollingRelease extends pulumi.CustomResource {
      */
     declare public readonly projectId: pulumi.Output<string>;
     /**
-     * The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      */
     declare public readonly stages: pulumi.Output<outputs.ProjectRollingReleaseStage[]>;
     /**
@@ -129,7 +133,7 @@ export interface ProjectRollingReleaseState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      */
     stages?: pulumi.Input<pulumi.Input<inputs.ProjectRollingReleaseStage>[]>;
     /**
@@ -151,7 +155,7 @@ export interface ProjectRollingReleaseArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * The stages for the rolling release configuration. The last stage must have targetPercentage = 100.
+     * Two to ten stages supported by this provider. Include at least one non-final stage and end with targetPercentage = 100.
      */
     stages: pulumi.Input<pulumi.Input<inputs.ProjectRollingReleaseStage>[]>;
     /**

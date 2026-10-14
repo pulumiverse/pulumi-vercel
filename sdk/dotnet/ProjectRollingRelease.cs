@@ -13,6 +13,10 @@ namespace Pulumiverse.Vercel
     /// <summary>
     /// Resource for a Vercel project rolling release configuration.
     /// 
+    /// This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
+    /// 
+    /// Earlier provider versions accepted one stage. Policies containing only the final 100% stage now fail validation, refresh and import. Keep the prior provider pin until you have reviewed their conversion to supported stages. This provider does not infer missing advancement rules from old state.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -41,7 +45,7 @@ namespace Pulumiverse.Vercel
     ///             },
     ///             new Vercel.Inputs.ProjectRollingReleaseStageArgs
     ///             {
-    ///                 TargetPercentage = 50,
+    ///                 TargetPercentage = 100,
     ///             },
     ///         },
     ///     });
@@ -65,7 +69,7 @@ namespace Pulumiverse.Vercel
         public Output<string> ProjectId { get; private set; } = null!;
 
         /// <summary>
-        /// The stages for the rolling release configuration. The last stage must have TargetPercentage = 100.
+        /// Two to ten stages supported by this provider. Include at least one non-final stage and end with TargetPercentage = 100.
         /// </summary>
         [Output("stages")]
         public Output<ImmutableArray<Outputs.ProjectRollingReleaseStage>> Stages { get; private set; } = null!;
@@ -139,7 +143,7 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.ProjectRollingReleaseStageArgs>? _stages;
 
         /// <summary>
-        /// The stages for the rolling release configuration. The last stage must have TargetPercentage = 100.
+        /// Two to ten stages supported by this provider. Include at least one non-final stage and end with TargetPercentage = 100.
         /// </summary>
         public InputList<Inputs.ProjectRollingReleaseStageArgs> Stages
         {
@@ -177,7 +181,7 @@ namespace Pulumiverse.Vercel
         private InputList<Inputs.ProjectRollingReleaseStageGetArgs>? _stages;
 
         /// <summary>
-        /// The stages for the rolling release configuration. The last stage must have TargetPercentage = 100.
+        /// Two to ten stages supported by this provider. Include at least one non-final stage and end with TargetPercentage = 100.
         /// </summary>
         public InputList<Inputs.ProjectRollingReleaseStageGetArgs> Stages
         {

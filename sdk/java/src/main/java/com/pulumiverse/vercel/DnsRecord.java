@@ -10,6 +10,7 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumiverse.vercel.DnsRecordArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.DnsRecordState;
+import com.pulumiverse.vercel.outputs.DnsRecordHttps;
 import com.pulumiverse.vercel.outputs.DnsRecordSrv;
 import java.lang.Integer;
 import java.lang.String;
@@ -21,7 +22,7 @@ import javax.annotation.Nullable;
  * 
  * DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
  * 
- * &gt; The `value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `srv` field must be specified.
+ * &gt; The `value` field must be specified on all DNS record types except `SRV` and `HTTPS`. When using `SRV` DNS records, the `srv` field must be specified. When using `HTTPS` DNS records, the `https` field must be specified.
  * 
  * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
  * 
@@ -37,6 +38,7 @@ import javax.annotation.Nullable;
  * import com.pulumiverse.vercel.DnsRecord;
  * import com.pulumiverse.vercel.DnsRecordArgs;
  * import com.pulumi.vercel.inputs.DnsRecordSrvArgs;
+ * import com.pulumi.vercel.inputs.DnsRecordHttpsArgs;
  * import java.util.List;
  * import java.util.ArrayList;
  * import java.util.Map;
@@ -112,6 +114,18 @@ import javax.annotation.Nullable;
  *                 .build())
  *             .build());
  * 
+ *         var https = new DnsRecord("https", DnsRecordArgs.builder()
+ *             .domain("example.com")
+ *             .name("subdomain")
+ *             .type("HTTPS")
+ *             .ttl(60)
+ *             .https(DnsRecordHttpsArgs.builder()
+ *                 .priority(1)
+ *                 .target("example2.com.")
+ *                 .params("alpn=h2,h3")
+ *                 .build())
+ *             .build());
+ * 
  *         var txt = new DnsRecord("txt", DnsRecordArgs.builder()
  *             .domain("example.com")
  *             .name("subdomain")
@@ -177,6 +191,20 @@ public class DnsRecord extends com.pulumi.resources.CustomResource {
      */
     public Output<String> domain() {
         return this.domain;
+    }
+    /**
+     * Settings for an HTTPS record.
+     * 
+     */
+    @Export(name="https", refs={DnsRecordHttps.class}, tree="[0]")
+    private Output</* @Nullable */ DnsRecordHttps> https;
+
+    /**
+     * @return Settings for an HTTPS record.
+     * 
+     */
+    public Output<Optional<DnsRecordHttps>> https() {
+        return Codegen.optional(this.https);
     }
     /**
      * The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
@@ -249,14 +277,14 @@ public class DnsRecord extends com.pulumi.resources.CustomResource {
         return this.ttl;
     }
     /**
-     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      * 
      */
     @Export(name="type", refs={String.class}, tree="[0]")
     private Output<String> type;
 
     /**
-     * @return The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+     * @return The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
      * 
      */
     public Output<String> type() {

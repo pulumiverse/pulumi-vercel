@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.outputs.GetProjectGitProviderOptions;
 import com.pulumiverse.vercel.outputs.GetProjectGitRepository;
 import com.pulumiverse.vercel.outputs.GetProjectOidcTokenConfig;
 import com.pulumiverse.vercel.outputs.GetProjectOptionsAllowlist;
+import com.pulumiverse.vercel.outputs.GetProjectPassport;
 import com.pulumiverse.vercel.outputs.GetProjectPasswordProtection;
 import com.pulumiverse.vercel.outputs.GetProjectResourceConfig;
 import com.pulumiverse.vercel.outputs.GetProjectTrustedIps;
@@ -158,6 +159,11 @@ public final class GetProjectResult {
      * 
      */
     private String outputDirectory;
+    /**
+     * @return Passport configuration for the project.
+     * 
+     */
+    private GetProjectPassport passport;
     /**
      * @return Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      * 
@@ -451,6 +457,13 @@ public final class GetProjectResult {
         return this.outputDirectory;
     }
     /**
+     * @return Passport configuration for the project.
+     * 
+     */
+    public GetProjectPassport passport() {
+        return this.passport;
+    }
+    /**
      * @return Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      * 
      */
@@ -622,6 +635,7 @@ public final class GetProjectResult {
         private Boolean onDemandConcurrentBuilds;
         private GetProjectOptionsAllowlist optionsAllowlist;
         private String outputDirectory;
+        private GetProjectPassport passport;
         private GetProjectPasswordProtection passwordProtection;
         private Boolean previewComments;
         private String previewDeploymentSuffix;
@@ -669,6 +683,7 @@ public final class GetProjectResult {
     	      this.onDemandConcurrentBuilds = defaults.onDemandConcurrentBuilds;
     	      this.optionsAllowlist = defaults.optionsAllowlist;
     	      this.outputDirectory = defaults.outputDirectory;
+    	      this.passport = defaults.passport;
     	      this.passwordProtection = defaults.passwordProtection;
     	      this.previewComments = defaults.previewComments;
     	      this.previewDeploymentSuffix = defaults.previewDeploymentSuffix;
@@ -908,6 +923,14 @@ public final class GetProjectResult {
             return this;
         }
         @CustomType.Setter
+        public Builder passport(GetProjectPassport passport) {
+            if (passport == null) {
+              throw new MissingRequiredPropertyException("GetProjectResult", "passport");
+            }
+            this.passport = passport;
+            return this;
+        }
+        @CustomType.Setter
         public Builder passwordProtection(GetProjectPasswordProtection passwordProtection) {
             if (passwordProtection == null) {
               throw new MissingRequiredPropertyException("GetProjectResult", "passwordProtection");
@@ -1075,6 +1098,7 @@ public final class GetProjectResult {
             _resultValue.onDemandConcurrentBuilds = onDemandConcurrentBuilds;
             _resultValue.optionsAllowlist = optionsAllowlist;
             _resultValue.outputDirectory = outputDirectory;
+            _resultValue.passport = passport;
             _resultValue.passwordProtection = passwordProtection;
             _resultValue.previewComments = previewComments;
             _resultValue.previewDeploymentSuffix = previewDeploymentSuffix;
