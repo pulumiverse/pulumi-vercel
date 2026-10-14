@@ -24,7 +24,13 @@ import * as utilities from "./utilities";
  *     name: "Vercel terraform example",
  *     slug: "vercel-terraform-example",
  *     description: "Vercel Terraform Example",
+ *     defaultBuildMachineType: "basic",
  *     sensitiveEnvironmentVariablePolicy: "off",
+ *     defaultDeploymentProtection: {
+ *         vercelAuthentication: {
+ *             deploymentType: "all_deployments",
+ *         },
+ *     },
  *     remoteCaching: {
  *         enabled: true,
  *     },
@@ -79,9 +85,25 @@ export class TeamConfig extends pulumi.CustomResource {
      */
     declare public readonly avatar: pulumi.Output<{[key: string]: string} | undefined>;
     /**
+     * The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+     */
+    declare public readonly defaultBuildMachineType: pulumi.Output<string>;
+    /**
+     * Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+     */
+    declare public readonly defaultDeploymentProtection: pulumi.Output<outputs.TeamConfigDefaultDeploymentProtection>;
+    /**
+     * Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     */
+    declare public readonly defaultPassport: pulumi.Output<outputs.TeamConfigDefaultPassport>;
+    /**
      * A description of the team.
      */
     declare public readonly description: pulumi.Output<string>;
+    /**
+     * When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     */
+    declare public readonly disjunctiveProductionSecretPolicy: pulumi.Output<string>;
     /**
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
@@ -123,7 +145,9 @@ export class TeamConfig extends pulumi.CustomResource {
      */
     declare public readonly saml: pulumi.Output<outputs.TeamConfigSaml>;
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+     *
+     * @deprecated This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      */
     declare public readonly sensitiveEnvironmentVariablePolicy: pulumi.Output<string>;
     /**
@@ -145,7 +169,11 @@ export class TeamConfig extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as TeamConfigState | undefined;
             resourceInputs["avatar"] = state?.avatar;
+            resourceInputs["defaultBuildMachineType"] = state?.defaultBuildMachineType;
+            resourceInputs["defaultDeploymentProtection"] = state?.defaultDeploymentProtection;
+            resourceInputs["defaultPassport"] = state?.defaultPassport;
             resourceInputs["description"] = state?.description;
+            resourceInputs["disjunctiveProductionSecretPolicy"] = state?.disjunctiveProductionSecretPolicy;
             resourceInputs["emailDomain"] = state?.emailDomain;
             resourceInputs["enablePreviewFeedback"] = state?.enablePreviewFeedback;
             resourceInputs["enableProductionFeedback"] = state?.enableProductionFeedback;
@@ -161,7 +189,11 @@ export class TeamConfig extends pulumi.CustomResource {
         } else {
             const args = argsOrState as TeamConfigArgs | undefined;
             resourceInputs["avatar"] = args?.avatar;
+            resourceInputs["defaultBuildMachineType"] = args?.defaultBuildMachineType;
+            resourceInputs["defaultDeploymentProtection"] = args?.defaultDeploymentProtection;
+            resourceInputs["defaultPassport"] = args?.defaultPassport;
             resourceInputs["description"] = args?.description;
+            resourceInputs["disjunctiveProductionSecretPolicy"] = args?.disjunctiveProductionSecretPolicy;
             resourceInputs["emailDomain"] = args?.emailDomain;
             resourceInputs["enablePreviewFeedback"] = args?.enablePreviewFeedback;
             resourceInputs["enableProductionFeedback"] = args?.enableProductionFeedback;
@@ -176,6 +208,8 @@ export class TeamConfig extends pulumi.CustomResource {
             resourceInputs["inviteCode"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["inviteCode"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(TeamConfig.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -189,9 +223,25 @@ export interface TeamConfigState {
      */
     avatar?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
+     * The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+     */
+    defaultBuildMachineType?: pulumi.Input<string>;
+    /**
+     * Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+     */
+    defaultDeploymentProtection?: pulumi.Input<inputs.TeamConfigDefaultDeploymentProtection>;
+    /**
+     * Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     */
+    defaultPassport?: pulumi.Input<inputs.TeamConfigDefaultPassport>;
+    /**
      * A description of the team.
      */
     description?: pulumi.Input<string>;
+    /**
+     * When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     */
+    disjunctiveProductionSecretPolicy?: pulumi.Input<string>;
     /**
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
@@ -233,7 +283,9 @@ export interface TeamConfigState {
      */
     saml?: pulumi.Input<inputs.TeamConfigSaml>;
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+     *
+     * @deprecated This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      */
     sensitiveEnvironmentVariablePolicy?: pulumi.Input<string>;
     /**
@@ -251,9 +303,25 @@ export interface TeamConfigArgs {
      */
     avatar?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
+     * The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+     */
+    defaultBuildMachineType?: pulumi.Input<string>;
+    /**
+     * Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+     */
+    defaultDeploymentProtection?: pulumi.Input<inputs.TeamConfigDefaultDeploymentProtection>;
+    /**
+     * Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+     */
+    defaultPassport?: pulumi.Input<inputs.TeamConfigDefaultPassport>;
+    /**
      * A description of the team.
      */
     description?: pulumi.Input<string>;
+    /**
+     * When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
+     */
+    disjunctiveProductionSecretPolicy?: pulumi.Input<string>;
     /**
      * Hostname that'll be matched with emails on sign-up to automatically join the Team.
      */
@@ -291,7 +359,9 @@ export interface TeamConfigArgs {
      */
     saml?: pulumi.Input<inputs.TeamConfigSaml>;
     /**
-     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+     * Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `on`, `off`, or `default`.
+     *
+     * @deprecated This attribute is deprecated and will be removed in a future major version. It is not replaced by `disjunctiveProductionSecretPolicy`, which enforces a different rule.
      */
     sensitiveEnvironmentVariablePolicy?: pulumi.Input<string>;
     /**

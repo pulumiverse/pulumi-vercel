@@ -169,6 +169,10 @@ export interface GetProjectResult {
      */
     readonly outputDirectory: string;
     /**
+     * Passport configuration for the project.
+     */
+    readonly passport: outputs.GetProjectPassport;
+    /**
      * Ensures visitors of your Preview Deployments must enter a password in order to gain access.
      */
     readonly passwordProtection: outputs.GetProjectPasswordProtection;

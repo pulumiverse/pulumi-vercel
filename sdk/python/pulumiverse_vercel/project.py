@@ -47,6 +47,7 @@ class ProjectArgs:
                  on_demand_concurrent_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
+                 passport: Optional[pulumi.Input['ProjectPassportArgs']] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
@@ -68,14 +69,14 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
         :param pulumi.Input[_builtins.bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
         :param pulumi.Input[_builtins.bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
-        :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
         :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments.
@@ -91,6 +92,7 @@ class ProjectArgs:
         :param pulumi.Input[_builtins.bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
+        :param pulumi.Input['ProjectPassportArgs'] passport: Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
@@ -128,6 +130,9 @@ class ProjectArgs:
         if enable_production_feedback is not None:
             pulumi.set(__self__, "enable_production_feedback", enable_production_feedback)
         if environments is not None:
+            warnings.warn("""The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""", DeprecationWarning)
+            pulumi.log.warn("""environments is deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""")
+        if environments is not None:
             pulumi.set(__self__, "environments", environments)
         if framework is not None:
             pulumi.set(__self__, "framework", framework)
@@ -159,6 +164,8 @@ class ProjectArgs:
             pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
             pulumi.set(__self__, "output_directory", output_directory)
+        if passport is not None:
+            pulumi.set(__self__, "passport", passport)
         if password_protection is not None:
             pulumi.set(__self__, "password_protection", password_protection)
         if preview_comments is not None:
@@ -239,7 +246,7 @@ class ProjectArgs:
     @pulumi.getter(name="buildMachineType")
     def build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         """
         return pulumi.get(self, "build_machine_type")
 
@@ -321,9 +328,10 @@ class ProjectArgs:
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""")
     def environments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]]:
         """
-        A set of Environment Variables that should be configured for the project.
+        A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         """
         return pulumi.get(self, "environments")
 
@@ -510,6 +518,18 @@ class ProjectArgs:
     @output_directory.setter
     def output_directory(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "output_directory", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def passport(self) -> Optional[pulumi.Input['ProjectPassportArgs']]:
+        """
+        Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+        """
+        return pulumi.get(self, "passport")
+
+    @passport.setter
+    def passport(self, value: Optional[pulumi.Input['ProjectPassportArgs']]):
+        pulumi.set(self, "passport", value)
 
     @_builtins.property
     @pulumi.getter(name="passwordProtection")
@@ -724,6 +744,7 @@ class _ProjectState:
                  on_demand_concurrent_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  options_allowlist: Optional[pulumi.Input['ProjectOptionsAllowlistArgs']] = None,
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
+                 passport: Optional[pulumi.Input['ProjectPassportArgs']] = None,
                  password_protection: Optional[pulumi.Input['ProjectPasswordProtectionArgs']] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
@@ -745,14 +766,14 @@ class _ProjectState:
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
         :param pulumi.Input[_builtins.bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
         :param pulumi.Input[_builtins.bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
-        :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project.
+        :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
         :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments.
@@ -768,6 +789,7 @@ class _ProjectState:
         :param pulumi.Input[_builtins.bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input['ProjectOptionsAllowlistArgs'] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
+        :param pulumi.Input['ProjectPassportArgs'] passport: Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
         :param pulumi.Input['ProjectPasswordProtectionArgs'] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
@@ -805,6 +827,9 @@ class _ProjectState:
         if enable_production_feedback is not None:
             pulumi.set(__self__, "enable_production_feedback", enable_production_feedback)
         if environments is not None:
+            warnings.warn("""The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""", DeprecationWarning)
+            pulumi.log.warn("""environments is deprecated: The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""")
+        if environments is not None:
             pulumi.set(__self__, "environments", environments)
         if framework is not None:
             pulumi.set(__self__, "framework", framework)
@@ -836,6 +861,8 @@ class _ProjectState:
             pulumi.set(__self__, "options_allowlist", options_allowlist)
         if output_directory is not None:
             pulumi.set(__self__, "output_directory", output_directory)
+        if passport is not None:
+            pulumi.set(__self__, "passport", passport)
         if password_protection is not None:
             pulumi.set(__self__, "password_protection", password_protection)
         if preview_comments is not None:
@@ -916,7 +943,7 @@ class _ProjectState:
     @pulumi.getter(name="buildMachineType")
     def build_machine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         """
         return pulumi.get(self, "build_machine_type")
 
@@ -998,9 +1025,10 @@ class _ProjectState:
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""")
     def environments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]]]:
         """
-        A set of Environment Variables that should be configured for the project.
+        A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         """
         return pulumi.get(self, "environments")
 
@@ -1187,6 +1215,18 @@ class _ProjectState:
     @output_directory.setter
     def output_directory(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "output_directory", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def passport(self) -> Optional[pulumi.Input['ProjectPassportArgs']]:
+        """
+        Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+        """
+        return pulumi.get(self, "passport")
+
+    @passport.setter
+    def passport(self, value: Optional[pulumi.Input['ProjectPassportArgs']]):
+        pulumi.set(self, "passport", value)
 
     @_builtins.property
     @pulumi.getter(name="passwordProtection")
@@ -1404,6 +1444,7 @@ class Project(pulumi.CustomResource):
                  on_demand_concurrent_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
+                 passport: Optional[pulumi.Input[Union['ProjectPassportArgs', 'ProjectPassportArgsDict']]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1427,10 +1468,10 @@ class Project(pulumi.CustomResource):
 
         For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
 
-        > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
+        > The inline `environment` field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables to manage multiple Environment Variables or ProjectEnvironmentVariable to manage a single Environment Variable instead.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 
-        > **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+        > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Secrets (`sensitive = true`) are supported in all target environments, including Development. Team environment variable policies are enforced by the Vercel API at apply time.
 
         ## Example Usage
 
@@ -1454,7 +1495,8 @@ class Project(pulumi.CustomResource):
         example = vercel.Project("example",
             name="example-project",
             framework="nextjs",
-            protected_sourcemaps=True)
+            protected_sourcemaps=True,
+            build_machine_type="basic")
         github_actions_trusted_source = {
             "issuer": "https://token.actions.githubusercontent.com",
             "label": "GitHub Actions",
@@ -1516,14 +1558,14 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
         :param pulumi.Input[_builtins.bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
         :param pulumi.Input[_builtins.bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
         :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
@@ -1539,6 +1581,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[Union['ProjectPassportArgs', 'ProjectPassportArgsDict']] passport: Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
@@ -1568,10 +1611,10 @@ class Project(pulumi.CustomResource):
 
         For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
 
-        > Terraform currently provides a standalone Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and this Project resource with Environment Variables defined in-line via the `environment` field.
+        > The inline `environment` field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables to manage multiple Environment Variables or ProjectEnvironmentVariable to manage a single Environment Variable instead.
         At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
 
-        > **Note:** Starting in provider version `4.8.0`, in-line Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+        > **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Secrets (`sensitive = true`) are supported in all target environments, including Development. Team environment variable policies are enforced by the Vercel API at apply time.
 
         ## Example Usage
 
@@ -1595,7 +1638,8 @@ class Project(pulumi.CustomResource):
         example = vercel.Project("example",
             name="example-project",
             framework="nextjs",
-            protected_sourcemaps=True)
+            protected_sourcemaps=True,
+            build_machine_type="basic")
         github_actions_trusted_source = {
             "issuer": "https://token.actions.githubusercontent.com",
             "label": "GitHub Actions",
@@ -1693,6 +1737,7 @@ class Project(pulumi.CustomResource):
                  on_demand_concurrent_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
                  output_directory: Optional[pulumi.Input[_builtins.str]] = None,
+                 passport: Optional[pulumi.Input[Union['ProjectPassportArgs', 'ProjectPassportArgsDict']]] = None,
                  password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
                  preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
                  preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1743,6 +1788,7 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["on_demand_concurrent_builds"] = on_demand_concurrent_builds
             __props__.__dict__["options_allowlist"] = options_allowlist
             __props__.__dict__["output_directory"] = output_directory
+            __props__.__dict__["passport"] = passport
             __props__.__dict__["password_protection"] = password_protection
             __props__.__dict__["preview_comments"] = preview_comments
             __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
@@ -1794,6 +1840,7 @@ class Project(pulumi.CustomResource):
             on_demand_concurrent_builds: Optional[pulumi.Input[_builtins.bool]] = None,
             options_allowlist: Optional[pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']]] = None,
             output_directory: Optional[pulumi.Input[_builtins.str]] = None,
+            passport: Optional[pulumi.Input[Union['ProjectPassportArgs', 'ProjectPassportArgsDict']]] = None,
             password_protection: Optional[pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']]] = None,
             preview_comments: Optional[pulumi.Input[_builtins.bool]] = None,
             preview_deployment_suffix: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1819,14 +1866,14 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] auto_assign_custom_domains: Automatically assign custom production domains after each Production deployment via merge to the production branch or Vercel CLI deploy with --prod. Defaults to `true`
         :param pulumi.Input[_builtins.bool] automatically_expose_system_environment_variables: Vercel provides a set of Environment Variables that are automatically populated by the System, such as the URL of the Deployment or the name of the Git branch deployed. To expose them to your Deployments, enable this field
         :param pulumi.Input[_builtins.str] build_command: The build command for this project. If omitted, this value will be automatically detected.
-        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        :param pulumi.Input[_builtins.str] build_machine_type: The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         :param pulumi.Input[_builtins.bool] customer_success_code_visibility: Allows Vercel Customer Support to inspect all Deployments' source code in this project to assist with debugging.
         :param pulumi.Input[_builtins.str] dev_command: The dev command for this project. If omitted, this value will be automatically detected.
         :param pulumi.Input[_builtins.bool] directory_listing: If no index file is present within a directory, the directory contents will be displayed.
         :param pulumi.Input[_builtins.bool] enable_affected_projects_deployments: When enabled, Vercel will automatically deploy all projects that are affected by a change to this project.
         :param pulumi.Input[_builtins.bool] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.bool] enable_production_feedback: Enables the Vercel Toolbar on your production deployments: one of on, off or default.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
         :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
@@ -1842,6 +1889,7 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
         :param pulumi.Input[Union['ProjectOptionsAllowlistArgs', 'ProjectOptionsAllowlistArgsDict']] options_allowlist: Disable Deployment Protection for CORS preflight `OPTIONS` requests for a list of paths.
         :param pulumi.Input[_builtins.str] output_directory: The output directory of the project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[Union['ProjectPassportArgs', 'ProjectPassportArgsDict']] passport: Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
         :param pulumi.Input[Union['ProjectPasswordProtectionArgs', 'ProjectPasswordProtectionArgsDict']] password_protection: Ensures visitors of your Preview Deployments must enter a password in order to gain access.
         :param pulumi.Input[_builtins.bool] preview_comments: Enables the Vercel Toolbar on your preview deployments.
         :param pulumi.Input[_builtins.str] preview_deployment_suffix: The preview deployment suffix to apply to preview deployment URLs for this project. If not set, Vercel's default suffix will be used.
@@ -1888,6 +1936,7 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["on_demand_concurrent_builds"] = on_demand_concurrent_builds
         __props__.__dict__["options_allowlist"] = options_allowlist
         __props__.__dict__["output_directory"] = output_directory
+        __props__.__dict__["passport"] = passport
         __props__.__dict__["password_protection"] = password_protection
         __props__.__dict__["preview_comments"] = preview_comments
         __props__.__dict__["preview_deployment_suffix"] = preview_deployment_suffix
@@ -1933,7 +1982,7 @@ class Project(pulumi.CustomResource):
     @pulumi.getter(name="buildMachineType")
     def build_machine_type(self) -> pulumi.Output[_builtins.str]:
         """
-        The build machine type to use for this project. Must be one of "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
+        The build machine type to use for this project. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic". When set to "elastic", Vercel automatically adjusts the underlying machine type based on build duration.
         """
         return pulumi.get(self, "build_machine_type")
 
@@ -1987,9 +2036,10 @@ class Project(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""The inline environment field is deprecated and retained for backwards compatibility. Use ProjectEnvironmentVariables or ProjectEnvironmentVariable instead. Do not manage the same project with both inline environment and separate environment variable resources.""")
     def environments(self) -> pulumi.Output[Optional[Sequence['outputs.ProjectEnvironment']]]:
         """
-        A set of Environment Variables that should be configured for the project.
+        A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         """
         return pulumi.get(self, "environments")
 
@@ -2112,6 +2162,14 @@ class Project(pulumi.CustomResource):
         The output directory of the project. If omitted, this value will be automatically detected.
         """
         return pulumi.get(self, "output_directory")
+
+    @_builtins.property
+    @pulumi.getter
+    def passport(self) -> pulumi.Output['outputs.ProjectPassport']:
+        """
+        Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+        """
+        return pulumi.get(self, "passport")
 
     @_builtins.property
     @pulumi.getter(name="passwordProtection")

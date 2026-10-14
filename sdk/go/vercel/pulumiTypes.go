@@ -13,6 +13,606 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type AiGatewayApiKeyAiGatewayQuota struct {
+	// Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+	AlertThresholds []int `pulumi:"alertThresholds"`
+	// The quota limit amount in US dollars.
+	LimitAmount float64 `pulumi:"limitAmount"`
+	// How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+	RefreshPeriod *string `pulumi:"refreshPeriod"`
+}
+
+// AiGatewayApiKeyAiGatewayQuotaInput is an input type that accepts AiGatewayApiKeyAiGatewayQuotaArgs and AiGatewayApiKeyAiGatewayQuotaOutput values.
+// You can construct a concrete instance of `AiGatewayApiKeyAiGatewayQuotaInput` via:
+//
+//	AiGatewayApiKeyAiGatewayQuotaArgs{...}
+type AiGatewayApiKeyAiGatewayQuotaInput interface {
+	pulumi.Input
+
+	ToAiGatewayApiKeyAiGatewayQuotaOutput() AiGatewayApiKeyAiGatewayQuotaOutput
+	ToAiGatewayApiKeyAiGatewayQuotaOutputWithContext(context.Context) AiGatewayApiKeyAiGatewayQuotaOutput
+}
+
+type AiGatewayApiKeyAiGatewayQuotaArgs struct {
+	// Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+	AlertThresholds pulumi.IntArrayInput `pulumi:"alertThresholds"`
+	// The quota limit amount in US dollars.
+	LimitAmount pulumi.Float64Input `pulumi:"limitAmount"`
+	// How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+	RefreshPeriod pulumi.StringPtrInput `pulumi:"refreshPeriod"`
+}
+
+func (AiGatewayApiKeyAiGatewayQuotaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiGatewayApiKeyAiGatewayQuota)(nil)).Elem()
+}
+
+func (i AiGatewayApiKeyAiGatewayQuotaArgs) ToAiGatewayApiKeyAiGatewayQuotaOutput() AiGatewayApiKeyAiGatewayQuotaOutput {
+	return i.ToAiGatewayApiKeyAiGatewayQuotaOutputWithContext(context.Background())
+}
+
+func (i AiGatewayApiKeyAiGatewayQuotaArgs) ToAiGatewayApiKeyAiGatewayQuotaOutputWithContext(ctx context.Context) AiGatewayApiKeyAiGatewayQuotaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiGatewayApiKeyAiGatewayQuotaOutput)
+}
+
+func (i AiGatewayApiKeyAiGatewayQuotaArgs) ToAiGatewayApiKeyAiGatewayQuotaPtrOutput() AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return i.ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(context.Background())
+}
+
+func (i AiGatewayApiKeyAiGatewayQuotaArgs) ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(ctx context.Context) AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiGatewayApiKeyAiGatewayQuotaOutput).ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(ctx)
+}
+
+// AiGatewayApiKeyAiGatewayQuotaPtrInput is an input type that accepts AiGatewayApiKeyAiGatewayQuotaArgs, AiGatewayApiKeyAiGatewayQuotaPtr and AiGatewayApiKeyAiGatewayQuotaPtrOutput values.
+// You can construct a concrete instance of `AiGatewayApiKeyAiGatewayQuotaPtrInput` via:
+//
+//	        AiGatewayApiKeyAiGatewayQuotaArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiGatewayApiKeyAiGatewayQuotaPtrInput interface {
+	pulumi.Input
+
+	ToAiGatewayApiKeyAiGatewayQuotaPtrOutput() AiGatewayApiKeyAiGatewayQuotaPtrOutput
+	ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(context.Context) AiGatewayApiKeyAiGatewayQuotaPtrOutput
+}
+
+type aiGatewayApiKeyAiGatewayQuotaPtrType AiGatewayApiKeyAiGatewayQuotaArgs
+
+func AiGatewayApiKeyAiGatewayQuotaPtr(v *AiGatewayApiKeyAiGatewayQuotaArgs) AiGatewayApiKeyAiGatewayQuotaPtrInput {
+	return (*aiGatewayApiKeyAiGatewayQuotaPtrType)(v)
+}
+
+func (*aiGatewayApiKeyAiGatewayQuotaPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiGatewayApiKeyAiGatewayQuota)(nil)).Elem()
+}
+
+func (i *aiGatewayApiKeyAiGatewayQuotaPtrType) ToAiGatewayApiKeyAiGatewayQuotaPtrOutput() AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return i.ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(context.Background())
+}
+
+func (i *aiGatewayApiKeyAiGatewayQuotaPtrType) ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(ctx context.Context) AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiGatewayApiKeyAiGatewayQuotaPtrOutput)
+}
+
+type AiGatewayApiKeyAiGatewayQuotaOutput struct{ *pulumi.OutputState }
+
+func (AiGatewayApiKeyAiGatewayQuotaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiGatewayApiKeyAiGatewayQuota)(nil)).Elem()
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) ToAiGatewayApiKeyAiGatewayQuotaOutput() AiGatewayApiKeyAiGatewayQuotaOutput {
+	return o
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) ToAiGatewayApiKeyAiGatewayQuotaOutputWithContext(ctx context.Context) AiGatewayApiKeyAiGatewayQuotaOutput {
+	return o
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) ToAiGatewayApiKeyAiGatewayQuotaPtrOutput() AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return o.ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(context.Background())
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(ctx context.Context) AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiGatewayApiKeyAiGatewayQuota) *AiGatewayApiKeyAiGatewayQuota {
+		return &v
+	}).(AiGatewayApiKeyAiGatewayQuotaPtrOutput)
+}
+
+// Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) AlertThresholds() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v AiGatewayApiKeyAiGatewayQuota) []int { return v.AlertThresholds }).(pulumi.IntArrayOutput)
+}
+
+// The quota limit amount in US dollars.
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) LimitAmount() pulumi.Float64Output {
+	return o.ApplyT(func(v AiGatewayApiKeyAiGatewayQuota) float64 { return v.LimitAmount }).(pulumi.Float64Output)
+}
+
+// How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+func (o AiGatewayApiKeyAiGatewayQuotaOutput) RefreshPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiGatewayApiKeyAiGatewayQuota) *string { return v.RefreshPeriod }).(pulumi.StringPtrOutput)
+}
+
+type AiGatewayApiKeyAiGatewayQuotaPtrOutput struct{ *pulumi.OutputState }
+
+func (AiGatewayApiKeyAiGatewayQuotaPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiGatewayApiKeyAiGatewayQuota)(nil)).Elem()
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaPtrOutput) ToAiGatewayApiKeyAiGatewayQuotaPtrOutput() AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return o
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaPtrOutput) ToAiGatewayApiKeyAiGatewayQuotaPtrOutputWithContext(ctx context.Context) AiGatewayApiKeyAiGatewayQuotaPtrOutput {
+	return o
+}
+
+func (o AiGatewayApiKeyAiGatewayQuotaPtrOutput) Elem() AiGatewayApiKeyAiGatewayQuotaOutput {
+	return o.ApplyT(func(v *AiGatewayApiKeyAiGatewayQuota) AiGatewayApiKeyAiGatewayQuota {
+		if v != nil {
+			return *v
+		}
+		var ret AiGatewayApiKeyAiGatewayQuota
+		return ret
+	}).(AiGatewayApiKeyAiGatewayQuotaOutput)
+}
+
+// Spend percentages (a subset of `[50, 75, 100]`) at which to send a spend alert.
+func (o AiGatewayApiKeyAiGatewayQuotaPtrOutput) AlertThresholds() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *AiGatewayApiKeyAiGatewayQuota) []int {
+		if v == nil {
+			return nil
+		}
+		return v.AlertThresholds
+	}).(pulumi.IntArrayOutput)
+}
+
+// The quota limit amount in US dollars.
+func (o AiGatewayApiKeyAiGatewayQuotaPtrOutput) LimitAmount() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *AiGatewayApiKeyAiGatewayQuota) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.LimitAmount
+	}).(pulumi.Float64PtrOutput)
+}
+
+// How often the quota refreshes. Must be one of `daily`, `weekly`, `monthly` or `none`. Defaults to `none`.
+func (o AiGatewayApiKeyAiGatewayQuotaPtrOutput) RefreshPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiGatewayApiKeyAiGatewayQuota) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RefreshPeriod
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertRuleNotificationSettings struct {
+	EnableTeamOwnerNotifications *bool   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         *string `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel *string `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+// AlertRuleNotificationSettingsInput is an input type that accepts AlertRuleNotificationSettingsArgs and AlertRuleNotificationSettingsOutput values.
+// You can construct a concrete instance of `AlertRuleNotificationSettingsInput` via:
+//
+//	AlertRuleNotificationSettingsArgs{...}
+type AlertRuleNotificationSettingsInput interface {
+	pulumi.Input
+
+	ToAlertRuleNotificationSettingsOutput() AlertRuleNotificationSettingsOutput
+	ToAlertRuleNotificationSettingsOutputWithContext(context.Context) AlertRuleNotificationSettingsOutput
+}
+
+type AlertRuleNotificationSettingsArgs struct {
+	EnableTeamOwnerNotifications pulumi.BoolPtrInput   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         pulumi.StringPtrInput `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel pulumi.StringPtrInput `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+func (AlertRuleNotificationSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (i AlertRuleNotificationSettingsArgs) ToAlertRuleNotificationSettingsOutput() AlertRuleNotificationSettingsOutput {
+	return i.ToAlertRuleNotificationSettingsOutputWithContext(context.Background())
+}
+
+func (i AlertRuleNotificationSettingsArgs) ToAlertRuleNotificationSettingsOutputWithContext(ctx context.Context) AlertRuleNotificationSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleNotificationSettingsOutput)
+}
+
+func (i AlertRuleNotificationSettingsArgs) ToAlertRuleNotificationSettingsPtrOutput() AlertRuleNotificationSettingsPtrOutput {
+	return i.ToAlertRuleNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i AlertRuleNotificationSettingsArgs) ToAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) AlertRuleNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleNotificationSettingsOutput).ToAlertRuleNotificationSettingsPtrOutputWithContext(ctx)
+}
+
+// AlertRuleNotificationSettingsPtrInput is an input type that accepts AlertRuleNotificationSettingsArgs, AlertRuleNotificationSettingsPtr and AlertRuleNotificationSettingsPtrOutput values.
+// You can construct a concrete instance of `AlertRuleNotificationSettingsPtrInput` via:
+//
+//	        AlertRuleNotificationSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type AlertRuleNotificationSettingsPtrInput interface {
+	pulumi.Input
+
+	ToAlertRuleNotificationSettingsPtrOutput() AlertRuleNotificationSettingsPtrOutput
+	ToAlertRuleNotificationSettingsPtrOutputWithContext(context.Context) AlertRuleNotificationSettingsPtrOutput
+}
+
+type alertRuleNotificationSettingsPtrType AlertRuleNotificationSettingsArgs
+
+func AlertRuleNotificationSettingsPtr(v *AlertRuleNotificationSettingsArgs) AlertRuleNotificationSettingsPtrInput {
+	return (*alertRuleNotificationSettingsPtrType)(v)
+}
+
+func (*alertRuleNotificationSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (i *alertRuleNotificationSettingsPtrType) ToAlertRuleNotificationSettingsPtrOutput() AlertRuleNotificationSettingsPtrOutput {
+	return i.ToAlertRuleNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *alertRuleNotificationSettingsPtrType) ToAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) AlertRuleNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleNotificationSettingsPtrOutput)
+}
+
+type AlertRuleNotificationSettingsOutput struct{ *pulumi.OutputState }
+
+func (AlertRuleNotificationSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (o AlertRuleNotificationSettingsOutput) ToAlertRuleNotificationSettingsOutput() AlertRuleNotificationSettingsOutput {
+	return o
+}
+
+func (o AlertRuleNotificationSettingsOutput) ToAlertRuleNotificationSettingsOutputWithContext(ctx context.Context) AlertRuleNotificationSettingsOutput {
+	return o
+}
+
+func (o AlertRuleNotificationSettingsOutput) ToAlertRuleNotificationSettingsPtrOutput() AlertRuleNotificationSettingsPtrOutput {
+	return o.ToAlertRuleNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o AlertRuleNotificationSettingsOutput) ToAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) AlertRuleNotificationSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertRuleNotificationSettings) *AlertRuleNotificationSettings {
+		return &v
+	}).(AlertRuleNotificationSettingsPtrOutput)
+}
+
+func (o AlertRuleNotificationSettingsOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v AlertRuleNotificationSettings) *bool { return v.EnableTeamOwnerNotifications }).(pulumi.BoolPtrOutput)
+}
+
+func (o AlertRuleNotificationSettingsOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertRuleNotificationSettings) *string { return v.IncidentIoRoutingKey }).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o AlertRuleNotificationSettingsOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertRuleNotificationSettings) *string { return v.VercelNotificationsMinimumSeverityLevel }).(pulumi.StringPtrOutput)
+}
+
+type AlertRuleNotificationSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertRuleNotificationSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (o AlertRuleNotificationSettingsPtrOutput) ToAlertRuleNotificationSettingsPtrOutput() AlertRuleNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o AlertRuleNotificationSettingsPtrOutput) ToAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) AlertRuleNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o AlertRuleNotificationSettingsPtrOutput) Elem() AlertRuleNotificationSettingsOutput {
+	return o.ApplyT(func(v *AlertRuleNotificationSettings) AlertRuleNotificationSettings {
+		if v != nil {
+			return *v
+		}
+		var ret AlertRuleNotificationSettings
+		return ret
+	}).(AlertRuleNotificationSettingsOutput)
+}
+
+func (o AlertRuleNotificationSettingsPtrOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *AlertRuleNotificationSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableTeamOwnerNotifications
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o AlertRuleNotificationSettingsPtrOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertRuleNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IncidentIoRoutingKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o AlertRuleNotificationSettingsPtrOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertRuleNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VercelNotificationsMinimumSeverityLevel
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertRuleRuleScope struct {
+	// The project IDs included in or excluded from a built-in rule.
+	ProjectIds []string `pulumi:"projectIds"`
+	Type       string   `pulumi:"type"`
+}
+
+// AlertRuleRuleScopeInput is an input type that accepts AlertRuleRuleScopeArgs and AlertRuleRuleScopeOutput values.
+// You can construct a concrete instance of `AlertRuleRuleScopeInput` via:
+//
+//	AlertRuleRuleScopeArgs{...}
+type AlertRuleRuleScopeInput interface {
+	pulumi.Input
+
+	ToAlertRuleRuleScopeOutput() AlertRuleRuleScopeOutput
+	ToAlertRuleRuleScopeOutputWithContext(context.Context) AlertRuleRuleScopeOutput
+}
+
+type AlertRuleRuleScopeArgs struct {
+	// The project IDs included in or excluded from a built-in rule.
+	ProjectIds pulumi.StringArrayInput `pulumi:"projectIds"`
+	Type       pulumi.StringInput      `pulumi:"type"`
+}
+
+func (AlertRuleRuleScopeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertRuleRuleScope)(nil)).Elem()
+}
+
+func (i AlertRuleRuleScopeArgs) ToAlertRuleRuleScopeOutput() AlertRuleRuleScopeOutput {
+	return i.ToAlertRuleRuleScopeOutputWithContext(context.Background())
+}
+
+func (i AlertRuleRuleScopeArgs) ToAlertRuleRuleScopeOutputWithContext(ctx context.Context) AlertRuleRuleScopeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleRuleScopeOutput)
+}
+
+func (i AlertRuleRuleScopeArgs) ToAlertRuleRuleScopePtrOutput() AlertRuleRuleScopePtrOutput {
+	return i.ToAlertRuleRuleScopePtrOutputWithContext(context.Background())
+}
+
+func (i AlertRuleRuleScopeArgs) ToAlertRuleRuleScopePtrOutputWithContext(ctx context.Context) AlertRuleRuleScopePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleRuleScopeOutput).ToAlertRuleRuleScopePtrOutputWithContext(ctx)
+}
+
+// AlertRuleRuleScopePtrInput is an input type that accepts AlertRuleRuleScopeArgs, AlertRuleRuleScopePtr and AlertRuleRuleScopePtrOutput values.
+// You can construct a concrete instance of `AlertRuleRuleScopePtrInput` via:
+//
+//	        AlertRuleRuleScopeArgs{...}
+//
+//	or:
+//
+//	        nil
+type AlertRuleRuleScopePtrInput interface {
+	pulumi.Input
+
+	ToAlertRuleRuleScopePtrOutput() AlertRuleRuleScopePtrOutput
+	ToAlertRuleRuleScopePtrOutputWithContext(context.Context) AlertRuleRuleScopePtrOutput
+}
+
+type alertRuleRuleScopePtrType AlertRuleRuleScopeArgs
+
+func AlertRuleRuleScopePtr(v *AlertRuleRuleScopeArgs) AlertRuleRuleScopePtrInput {
+	return (*alertRuleRuleScopePtrType)(v)
+}
+
+func (*alertRuleRuleScopePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertRuleRuleScope)(nil)).Elem()
+}
+
+func (i *alertRuleRuleScopePtrType) ToAlertRuleRuleScopePtrOutput() AlertRuleRuleScopePtrOutput {
+	return i.ToAlertRuleRuleScopePtrOutputWithContext(context.Background())
+}
+
+func (i *alertRuleRuleScopePtrType) ToAlertRuleRuleScopePtrOutputWithContext(ctx context.Context) AlertRuleRuleScopePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleRuleScopePtrOutput)
+}
+
+type AlertRuleRuleScopeOutput struct{ *pulumi.OutputState }
+
+func (AlertRuleRuleScopeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertRuleRuleScope)(nil)).Elem()
+}
+
+func (o AlertRuleRuleScopeOutput) ToAlertRuleRuleScopeOutput() AlertRuleRuleScopeOutput {
+	return o
+}
+
+func (o AlertRuleRuleScopeOutput) ToAlertRuleRuleScopeOutputWithContext(ctx context.Context) AlertRuleRuleScopeOutput {
+	return o
+}
+
+func (o AlertRuleRuleScopeOutput) ToAlertRuleRuleScopePtrOutput() AlertRuleRuleScopePtrOutput {
+	return o.ToAlertRuleRuleScopePtrOutputWithContext(context.Background())
+}
+
+func (o AlertRuleRuleScopeOutput) ToAlertRuleRuleScopePtrOutputWithContext(ctx context.Context) AlertRuleRuleScopePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertRuleRuleScope) *AlertRuleRuleScope {
+		return &v
+	}).(AlertRuleRuleScopePtrOutput)
+}
+
+// The project IDs included in or excluded from a built-in rule.
+func (o AlertRuleRuleScopeOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v AlertRuleRuleScope) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
+}
+
+func (o AlertRuleRuleScopeOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertRuleRuleScope) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type AlertRuleRuleScopePtrOutput struct{ *pulumi.OutputState }
+
+func (AlertRuleRuleScopePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertRuleRuleScope)(nil)).Elem()
+}
+
+func (o AlertRuleRuleScopePtrOutput) ToAlertRuleRuleScopePtrOutput() AlertRuleRuleScopePtrOutput {
+	return o
+}
+
+func (o AlertRuleRuleScopePtrOutput) ToAlertRuleRuleScopePtrOutputWithContext(ctx context.Context) AlertRuleRuleScopePtrOutput {
+	return o
+}
+
+func (o AlertRuleRuleScopePtrOutput) Elem() AlertRuleRuleScopeOutput {
+	return o.ApplyT(func(v *AlertRuleRuleScope) AlertRuleRuleScope {
+		if v != nil {
+			return *v
+		}
+		var ret AlertRuleRuleScope
+		return ret
+	}).(AlertRuleRuleScopeOutput)
+}
+
+// The project IDs included in or excluded from a built-in rule.
+func (o AlertRuleRuleScopePtrOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *AlertRuleRuleScope) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ProjectIds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o AlertRuleRuleScopePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertRuleRuleScope) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertRuleTrigger struct {
+	// A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+	Filter *string `pulumi:"filter"`
+	// The built-in anomaly trigger type.
+	Type string `pulumi:"type"`
+}
+
+// AlertRuleTriggerInput is an input type that accepts AlertRuleTriggerArgs and AlertRuleTriggerOutput values.
+// You can construct a concrete instance of `AlertRuleTriggerInput` via:
+//
+//	AlertRuleTriggerArgs{...}
+type AlertRuleTriggerInput interface {
+	pulumi.Input
+
+	ToAlertRuleTriggerOutput() AlertRuleTriggerOutput
+	ToAlertRuleTriggerOutputWithContext(context.Context) AlertRuleTriggerOutput
+}
+
+type AlertRuleTriggerArgs struct {
+	// A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+	Filter pulumi.StringPtrInput `pulumi:"filter"`
+	// The built-in anomaly trigger type.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (AlertRuleTriggerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertRuleTrigger)(nil)).Elem()
+}
+
+func (i AlertRuleTriggerArgs) ToAlertRuleTriggerOutput() AlertRuleTriggerOutput {
+	return i.ToAlertRuleTriggerOutputWithContext(context.Background())
+}
+
+func (i AlertRuleTriggerArgs) ToAlertRuleTriggerOutputWithContext(ctx context.Context) AlertRuleTriggerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleTriggerOutput)
+}
+
+// AlertRuleTriggerArrayInput is an input type that accepts AlertRuleTriggerArray and AlertRuleTriggerArrayOutput values.
+// You can construct a concrete instance of `AlertRuleTriggerArrayInput` via:
+//
+//	AlertRuleTriggerArray{ AlertRuleTriggerArgs{...} }
+type AlertRuleTriggerArrayInput interface {
+	pulumi.Input
+
+	ToAlertRuleTriggerArrayOutput() AlertRuleTriggerArrayOutput
+	ToAlertRuleTriggerArrayOutputWithContext(context.Context) AlertRuleTriggerArrayOutput
+}
+
+type AlertRuleTriggerArray []AlertRuleTriggerInput
+
+func (AlertRuleTriggerArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AlertRuleTrigger)(nil)).Elem()
+}
+
+func (i AlertRuleTriggerArray) ToAlertRuleTriggerArrayOutput() AlertRuleTriggerArrayOutput {
+	return i.ToAlertRuleTriggerArrayOutputWithContext(context.Background())
+}
+
+func (i AlertRuleTriggerArray) ToAlertRuleTriggerArrayOutputWithContext(ctx context.Context) AlertRuleTriggerArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertRuleTriggerArrayOutput)
+}
+
+type AlertRuleTriggerOutput struct{ *pulumi.OutputState }
+
+func (AlertRuleTriggerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertRuleTrigger)(nil)).Elem()
+}
+
+func (o AlertRuleTriggerOutput) ToAlertRuleTriggerOutput() AlertRuleTriggerOutput {
+	return o
+}
+
+func (o AlertRuleTriggerOutput) ToAlertRuleTriggerOutputWithContext(ctx context.Context) AlertRuleTriggerOutput {
+	return o
+}
+
+// A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+func (o AlertRuleTriggerOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertRuleTrigger) *string { return v.Filter }).(pulumi.StringPtrOutput)
+}
+
+// The built-in anomaly trigger type.
+func (o AlertRuleTriggerOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertRuleTrigger) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type AlertRuleTriggerArrayOutput struct{ *pulumi.OutputState }
+
+func (AlertRuleTriggerArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AlertRuleTrigger)(nil)).Elem()
+}
+
+func (o AlertRuleTriggerArrayOutput) ToAlertRuleTriggerArrayOutput() AlertRuleTriggerArrayOutput {
+	return o
+}
+
+func (o AlertRuleTriggerArrayOutput) ToAlertRuleTriggerArrayOutputWithContext(ctx context.Context) AlertRuleTriggerArrayOutput {
+	return o
+}
+
+func (o AlertRuleTriggerArrayOutput) Index(i pulumi.IntInput) AlertRuleTriggerOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AlertRuleTrigger {
+		return vs[0].([]AlertRuleTrigger)[vs[1].(int)]
+	}).(AlertRuleTriggerOutput)
+}
+
 type AuditLogDrainHttp struct {
 	// The compression applied to HTTP request bodies. Can be `gzip` or `none`.
 	Compression *string `pulumi:"compression"`
@@ -591,6 +1191,1074 @@ func (o BulkRedirectsRedirectArrayOutput) Index(i pulumi.IntInput) BulkRedirects
 	}).(BulkRedirectsRedirectOutput)
 }
 
+type CustomAlertRuleEvaluation struct {
+	// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+	Query CustomAlertRuleEvaluationQuery `pulumi:"query"`
+	// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+	Window string `pulumi:"window"`
+}
+
+// CustomAlertRuleEvaluationInput is an input type that accepts CustomAlertRuleEvaluationArgs and CustomAlertRuleEvaluationOutput values.
+// You can construct a concrete instance of `CustomAlertRuleEvaluationInput` via:
+//
+//	CustomAlertRuleEvaluationArgs{...}
+type CustomAlertRuleEvaluationInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleEvaluationOutput() CustomAlertRuleEvaluationOutput
+	ToCustomAlertRuleEvaluationOutputWithContext(context.Context) CustomAlertRuleEvaluationOutput
+}
+
+type CustomAlertRuleEvaluationArgs struct {
+	// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+	Query CustomAlertRuleEvaluationQueryInput `pulumi:"query"`
+	// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+	Window pulumi.StringInput `pulumi:"window"`
+}
+
+func (CustomAlertRuleEvaluationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleEvaluation)(nil)).Elem()
+}
+
+func (i CustomAlertRuleEvaluationArgs) ToCustomAlertRuleEvaluationOutput() CustomAlertRuleEvaluationOutput {
+	return i.ToCustomAlertRuleEvaluationOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleEvaluationArgs) ToCustomAlertRuleEvaluationOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationOutput)
+}
+
+func (i CustomAlertRuleEvaluationArgs) ToCustomAlertRuleEvaluationPtrOutput() CustomAlertRuleEvaluationPtrOutput {
+	return i.ToCustomAlertRuleEvaluationPtrOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleEvaluationArgs) ToCustomAlertRuleEvaluationPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationOutput).ToCustomAlertRuleEvaluationPtrOutputWithContext(ctx)
+}
+
+// CustomAlertRuleEvaluationPtrInput is an input type that accepts CustomAlertRuleEvaluationArgs, CustomAlertRuleEvaluationPtr and CustomAlertRuleEvaluationPtrOutput values.
+// You can construct a concrete instance of `CustomAlertRuleEvaluationPtrInput` via:
+//
+//	        CustomAlertRuleEvaluationArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomAlertRuleEvaluationPtrInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleEvaluationPtrOutput() CustomAlertRuleEvaluationPtrOutput
+	ToCustomAlertRuleEvaluationPtrOutputWithContext(context.Context) CustomAlertRuleEvaluationPtrOutput
+}
+
+type customAlertRuleEvaluationPtrType CustomAlertRuleEvaluationArgs
+
+func CustomAlertRuleEvaluationPtr(v *CustomAlertRuleEvaluationArgs) CustomAlertRuleEvaluationPtrInput {
+	return (*customAlertRuleEvaluationPtrType)(v)
+}
+
+func (*customAlertRuleEvaluationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleEvaluation)(nil)).Elem()
+}
+
+func (i *customAlertRuleEvaluationPtrType) ToCustomAlertRuleEvaluationPtrOutput() CustomAlertRuleEvaluationPtrOutput {
+	return i.ToCustomAlertRuleEvaluationPtrOutputWithContext(context.Background())
+}
+
+func (i *customAlertRuleEvaluationPtrType) ToCustomAlertRuleEvaluationPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationPtrOutput)
+}
+
+type CustomAlertRuleEvaluationOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleEvaluationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleEvaluation)(nil)).Elem()
+}
+
+func (o CustomAlertRuleEvaluationOutput) ToCustomAlertRuleEvaluationOutput() CustomAlertRuleEvaluationOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationOutput) ToCustomAlertRuleEvaluationOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationOutput) ToCustomAlertRuleEvaluationPtrOutput() CustomAlertRuleEvaluationPtrOutput {
+	return o.ToCustomAlertRuleEvaluationPtrOutputWithContext(context.Background())
+}
+
+func (o CustomAlertRuleEvaluationOutput) ToCustomAlertRuleEvaluationPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomAlertRuleEvaluation) *CustomAlertRuleEvaluation {
+		return &v
+	}).(CustomAlertRuleEvaluationPtrOutput)
+}
+
+// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+func (o CustomAlertRuleEvaluationOutput) Query() CustomAlertRuleEvaluationQueryOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluation) CustomAlertRuleEvaluationQuery { return v.Query }).(CustomAlertRuleEvaluationQueryOutput)
+}
+
+// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+func (o CustomAlertRuleEvaluationOutput) Window() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluation) string { return v.Window }).(pulumi.StringOutput)
+}
+
+type CustomAlertRuleEvaluationPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleEvaluationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleEvaluation)(nil)).Elem()
+}
+
+func (o CustomAlertRuleEvaluationPtrOutput) ToCustomAlertRuleEvaluationPtrOutput() CustomAlertRuleEvaluationPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationPtrOutput) ToCustomAlertRuleEvaluationPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationPtrOutput) Elem() CustomAlertRuleEvaluationOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluation) CustomAlertRuleEvaluation {
+		if v != nil {
+			return *v
+		}
+		var ret CustomAlertRuleEvaluation
+		return ret
+	}).(CustomAlertRuleEvaluationOutput)
+}
+
+// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+func (o CustomAlertRuleEvaluationPtrOutput) Query() CustomAlertRuleEvaluationQueryPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluation) *CustomAlertRuleEvaluationQuery {
+		if v == nil {
+			return nil
+		}
+		return &v.Query
+	}).(CustomAlertRuleEvaluationQueryPtrOutput)
+}
+
+// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+func (o CustomAlertRuleEvaluationPtrOutput) Window() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluation) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Window
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomAlertRuleEvaluationQuery struct {
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter *string `pulumi:"filter"`
+	// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+	Formulas map[string]string `pulumi:"formulas"`
+	// Optional grouping dimension. Exactly one dimension is supported.
+	GroupBies []string `pulumi:"groupBies"`
+	// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+	Metrics map[string]CustomAlertRuleEvaluationQueryMetrics `pulumi:"metrics"`
+	// Exactly one output: the sole metric alias, or `formula` for a ratio.
+	Outputs []string `pulumi:"outputs"`
+}
+
+// CustomAlertRuleEvaluationQueryInput is an input type that accepts CustomAlertRuleEvaluationQueryArgs and CustomAlertRuleEvaluationQueryOutput values.
+// You can construct a concrete instance of `CustomAlertRuleEvaluationQueryInput` via:
+//
+//	CustomAlertRuleEvaluationQueryArgs{...}
+type CustomAlertRuleEvaluationQueryInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleEvaluationQueryOutput() CustomAlertRuleEvaluationQueryOutput
+	ToCustomAlertRuleEvaluationQueryOutputWithContext(context.Context) CustomAlertRuleEvaluationQueryOutput
+}
+
+type CustomAlertRuleEvaluationQueryArgs struct {
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter pulumi.StringPtrInput `pulumi:"filter"`
+	// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+	Formulas pulumi.StringMapInput `pulumi:"formulas"`
+	// Optional grouping dimension. Exactly one dimension is supported.
+	GroupBies pulumi.StringArrayInput `pulumi:"groupBies"`
+	// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+	Metrics CustomAlertRuleEvaluationQueryMetricsMapInput `pulumi:"metrics"`
+	// Exactly one output: the sole metric alias, or `formula` for a ratio.
+	Outputs pulumi.StringArrayInput `pulumi:"outputs"`
+}
+
+func (CustomAlertRuleEvaluationQueryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleEvaluationQuery)(nil)).Elem()
+}
+
+func (i CustomAlertRuleEvaluationQueryArgs) ToCustomAlertRuleEvaluationQueryOutput() CustomAlertRuleEvaluationQueryOutput {
+	return i.ToCustomAlertRuleEvaluationQueryOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleEvaluationQueryArgs) ToCustomAlertRuleEvaluationQueryOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationQueryOutput)
+}
+
+func (i CustomAlertRuleEvaluationQueryArgs) ToCustomAlertRuleEvaluationQueryPtrOutput() CustomAlertRuleEvaluationQueryPtrOutput {
+	return i.ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleEvaluationQueryArgs) ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationQueryOutput).ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(ctx)
+}
+
+// CustomAlertRuleEvaluationQueryPtrInput is an input type that accepts CustomAlertRuleEvaluationQueryArgs, CustomAlertRuleEvaluationQueryPtr and CustomAlertRuleEvaluationQueryPtrOutput values.
+// You can construct a concrete instance of `CustomAlertRuleEvaluationQueryPtrInput` via:
+//
+//	        CustomAlertRuleEvaluationQueryArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomAlertRuleEvaluationQueryPtrInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleEvaluationQueryPtrOutput() CustomAlertRuleEvaluationQueryPtrOutput
+	ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(context.Context) CustomAlertRuleEvaluationQueryPtrOutput
+}
+
+type customAlertRuleEvaluationQueryPtrType CustomAlertRuleEvaluationQueryArgs
+
+func CustomAlertRuleEvaluationQueryPtr(v *CustomAlertRuleEvaluationQueryArgs) CustomAlertRuleEvaluationQueryPtrInput {
+	return (*customAlertRuleEvaluationQueryPtrType)(v)
+}
+
+func (*customAlertRuleEvaluationQueryPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleEvaluationQuery)(nil)).Elem()
+}
+
+func (i *customAlertRuleEvaluationQueryPtrType) ToCustomAlertRuleEvaluationQueryPtrOutput() CustomAlertRuleEvaluationQueryPtrOutput {
+	return i.ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(context.Background())
+}
+
+func (i *customAlertRuleEvaluationQueryPtrType) ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationQueryPtrOutput)
+}
+
+type CustomAlertRuleEvaluationQueryOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleEvaluationQueryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleEvaluationQuery)(nil)).Elem()
+}
+
+func (o CustomAlertRuleEvaluationQueryOutput) ToCustomAlertRuleEvaluationQueryOutput() CustomAlertRuleEvaluationQueryOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryOutput) ToCustomAlertRuleEvaluationQueryOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryOutput) ToCustomAlertRuleEvaluationQueryPtrOutput() CustomAlertRuleEvaluationQueryPtrOutput {
+	return o.ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(context.Background())
+}
+
+func (o CustomAlertRuleEvaluationQueryOutput) ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomAlertRuleEvaluationQuery) *CustomAlertRuleEvaluationQuery {
+		return &v
+	}).(CustomAlertRuleEvaluationQueryPtrOutput)
+}
+
+// KQL filter. Syntax and metric dimensions are validated by the API.
+func (o CustomAlertRuleEvaluationQueryOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQuery) *string { return v.Filter }).(pulumi.StringPtrOutput)
+}
+
+// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+func (o CustomAlertRuleEvaluationQueryOutput) Formulas() pulumi.StringMapOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQuery) map[string]string { return v.Formulas }).(pulumi.StringMapOutput)
+}
+
+// Optional grouping dimension. Exactly one dimension is supported.
+func (o CustomAlertRuleEvaluationQueryOutput) GroupBies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQuery) []string { return v.GroupBies }).(pulumi.StringArrayOutput)
+}
+
+// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+func (o CustomAlertRuleEvaluationQueryOutput) Metrics() CustomAlertRuleEvaluationQueryMetricsMapOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQuery) map[string]CustomAlertRuleEvaluationQueryMetrics {
+		return v.Metrics
+	}).(CustomAlertRuleEvaluationQueryMetricsMapOutput)
+}
+
+// Exactly one output: the sole metric alias, or `formula` for a ratio.
+func (o CustomAlertRuleEvaluationQueryOutput) Outputs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQuery) []string { return v.Outputs }).(pulumi.StringArrayOutput)
+}
+
+type CustomAlertRuleEvaluationQueryPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleEvaluationQueryPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleEvaluationQuery)(nil)).Elem()
+}
+
+func (o CustomAlertRuleEvaluationQueryPtrOutput) ToCustomAlertRuleEvaluationQueryPtrOutput() CustomAlertRuleEvaluationQueryPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryPtrOutput) ToCustomAlertRuleEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryPtrOutput) Elem() CustomAlertRuleEvaluationQueryOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluationQuery) CustomAlertRuleEvaluationQuery {
+		if v != nil {
+			return *v
+		}
+		var ret CustomAlertRuleEvaluationQuery
+		return ret
+	}).(CustomAlertRuleEvaluationQueryOutput)
+}
+
+// KQL filter. Syntax and metric dimensions are validated by the API.
+func (o CustomAlertRuleEvaluationQueryPtrOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluationQuery) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Filter
+	}).(pulumi.StringPtrOutput)
+}
+
+// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+func (o CustomAlertRuleEvaluationQueryPtrOutput) Formulas() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluationQuery) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Formulas
+	}).(pulumi.StringMapOutput)
+}
+
+// Optional grouping dimension. Exactly one dimension is supported.
+func (o CustomAlertRuleEvaluationQueryPtrOutput) GroupBies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluationQuery) []string {
+		if v == nil {
+			return nil
+		}
+		return v.GroupBies
+	}).(pulumi.StringArrayOutput)
+}
+
+// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+func (o CustomAlertRuleEvaluationQueryPtrOutput) Metrics() CustomAlertRuleEvaluationQueryMetricsMapOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluationQuery) map[string]CustomAlertRuleEvaluationQueryMetrics {
+		if v == nil {
+			return nil
+		}
+		return v.Metrics
+	}).(CustomAlertRuleEvaluationQueryMetricsMapOutput)
+}
+
+// Exactly one output: the sole metric alias, or `formula` for a ratio.
+func (o CustomAlertRuleEvaluationQueryPtrOutput) Outputs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CustomAlertRuleEvaluationQuery) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Outputs
+	}).(pulumi.StringArrayOutput)
+}
+
+type CustomAlertRuleEvaluationQueryMetrics struct {
+	// Metric aggregation. Supported combinations depend on the metric.
+	Aggregation string `pulumi:"aggregation"`
+	// Dimensions required by the unique aggregation.
+	Dimensions []string `pulumi:"dimensions"`
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter *string `pulumi:"filter"`
+	// Semantic metric ID or custom metric name. Availability is validated by the API.
+	Metric string `pulumi:"metric"`
+	// Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+	Normalize *string `pulumi:"normalize"`
+	// Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+	Per *string `pulumi:"per"`
+}
+
+// CustomAlertRuleEvaluationQueryMetricsInput is an input type that accepts CustomAlertRuleEvaluationQueryMetricsArgs and CustomAlertRuleEvaluationQueryMetricsOutput values.
+// You can construct a concrete instance of `CustomAlertRuleEvaluationQueryMetricsInput` via:
+//
+//	CustomAlertRuleEvaluationQueryMetricsArgs{...}
+type CustomAlertRuleEvaluationQueryMetricsInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleEvaluationQueryMetricsOutput() CustomAlertRuleEvaluationQueryMetricsOutput
+	ToCustomAlertRuleEvaluationQueryMetricsOutputWithContext(context.Context) CustomAlertRuleEvaluationQueryMetricsOutput
+}
+
+type CustomAlertRuleEvaluationQueryMetricsArgs struct {
+	// Metric aggregation. Supported combinations depend on the metric.
+	Aggregation pulumi.StringInput `pulumi:"aggregation"`
+	// Dimensions required by the unique aggregation.
+	Dimensions pulumi.StringArrayInput `pulumi:"dimensions"`
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter pulumi.StringPtrInput `pulumi:"filter"`
+	// Semantic metric ID or custom metric name. Availability is validated by the API.
+	Metric pulumi.StringInput `pulumi:"metric"`
+	// Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+	Normalize pulumi.StringPtrInput `pulumi:"normalize"`
+	// Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+	Per pulumi.StringPtrInput `pulumi:"per"`
+}
+
+func (CustomAlertRuleEvaluationQueryMetricsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (i CustomAlertRuleEvaluationQueryMetricsArgs) ToCustomAlertRuleEvaluationQueryMetricsOutput() CustomAlertRuleEvaluationQueryMetricsOutput {
+	return i.ToCustomAlertRuleEvaluationQueryMetricsOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleEvaluationQueryMetricsArgs) ToCustomAlertRuleEvaluationQueryMetricsOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryMetricsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationQueryMetricsOutput)
+}
+
+// CustomAlertRuleEvaluationQueryMetricsMapInput is an input type that accepts CustomAlertRuleEvaluationQueryMetricsMap and CustomAlertRuleEvaluationQueryMetricsMapOutput values.
+// You can construct a concrete instance of `CustomAlertRuleEvaluationQueryMetricsMapInput` via:
+//
+//	CustomAlertRuleEvaluationQueryMetricsMap{ "key": CustomAlertRuleEvaluationQueryMetricsArgs{...} }
+type CustomAlertRuleEvaluationQueryMetricsMapInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleEvaluationQueryMetricsMapOutput() CustomAlertRuleEvaluationQueryMetricsMapOutput
+	ToCustomAlertRuleEvaluationQueryMetricsMapOutputWithContext(context.Context) CustomAlertRuleEvaluationQueryMetricsMapOutput
+}
+
+type CustomAlertRuleEvaluationQueryMetricsMap map[string]CustomAlertRuleEvaluationQueryMetricsInput
+
+func (CustomAlertRuleEvaluationQueryMetricsMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]CustomAlertRuleEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (i CustomAlertRuleEvaluationQueryMetricsMap) ToCustomAlertRuleEvaluationQueryMetricsMapOutput() CustomAlertRuleEvaluationQueryMetricsMapOutput {
+	return i.ToCustomAlertRuleEvaluationQueryMetricsMapOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleEvaluationQueryMetricsMap) ToCustomAlertRuleEvaluationQueryMetricsMapOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryMetricsMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleEvaluationQueryMetricsMapOutput)
+}
+
+type CustomAlertRuleEvaluationQueryMetricsOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleEvaluationQueryMetricsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) ToCustomAlertRuleEvaluationQueryMetricsOutput() CustomAlertRuleEvaluationQueryMetricsOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) ToCustomAlertRuleEvaluationQueryMetricsOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryMetricsOutput {
+	return o
+}
+
+// Metric aggregation. Supported combinations depend on the metric.
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) Aggregation() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQueryMetrics) string { return v.Aggregation }).(pulumi.StringOutput)
+}
+
+// Dimensions required by the unique aggregation.
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) Dimensions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQueryMetrics) []string { return v.Dimensions }).(pulumi.StringArrayOutput)
+}
+
+// KQL filter. Syntax and metric dimensions are validated by the API.
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQueryMetrics) *string { return v.Filter }).(pulumi.StringPtrOutput)
+}
+
+// Semantic metric ID or custom metric name. Availability is validated by the API.
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) Metric() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQueryMetrics) string { return v.Metric }).(pulumi.StringOutput)
+}
+
+// Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) Normalize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQueryMetrics) *string { return v.Normalize }).(pulumi.StringPtrOutput)
+}
+
+// Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+func (o CustomAlertRuleEvaluationQueryMetricsOutput) Per() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleEvaluationQueryMetrics) *string { return v.Per }).(pulumi.StringPtrOutput)
+}
+
+type CustomAlertRuleEvaluationQueryMetricsMapOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleEvaluationQueryMetricsMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]CustomAlertRuleEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (o CustomAlertRuleEvaluationQueryMetricsMapOutput) ToCustomAlertRuleEvaluationQueryMetricsMapOutput() CustomAlertRuleEvaluationQueryMetricsMapOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryMetricsMapOutput) ToCustomAlertRuleEvaluationQueryMetricsMapOutputWithContext(ctx context.Context) CustomAlertRuleEvaluationQueryMetricsMapOutput {
+	return o
+}
+
+func (o CustomAlertRuleEvaluationQueryMetricsMapOutput) MapIndex(k pulumi.StringInput) CustomAlertRuleEvaluationQueryMetricsOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CustomAlertRuleEvaluationQueryMetrics {
+		return vs[0].(map[string]CustomAlertRuleEvaluationQueryMetrics)[vs[1].(string)]
+	}).(CustomAlertRuleEvaluationQueryMetricsOutput)
+}
+
+type CustomAlertRuleNotificationSettings struct {
+	EnableTeamOwnerNotifications *bool   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         *string `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel *string `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+// CustomAlertRuleNotificationSettingsInput is an input type that accepts CustomAlertRuleNotificationSettingsArgs and CustomAlertRuleNotificationSettingsOutput values.
+// You can construct a concrete instance of `CustomAlertRuleNotificationSettingsInput` via:
+//
+//	CustomAlertRuleNotificationSettingsArgs{...}
+type CustomAlertRuleNotificationSettingsInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleNotificationSettingsOutput() CustomAlertRuleNotificationSettingsOutput
+	ToCustomAlertRuleNotificationSettingsOutputWithContext(context.Context) CustomAlertRuleNotificationSettingsOutput
+}
+
+type CustomAlertRuleNotificationSettingsArgs struct {
+	EnableTeamOwnerNotifications pulumi.BoolPtrInput   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         pulumi.StringPtrInput `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel pulumi.StringPtrInput `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+func (CustomAlertRuleNotificationSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (i CustomAlertRuleNotificationSettingsArgs) ToCustomAlertRuleNotificationSettingsOutput() CustomAlertRuleNotificationSettingsOutput {
+	return i.ToCustomAlertRuleNotificationSettingsOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleNotificationSettingsArgs) ToCustomAlertRuleNotificationSettingsOutputWithContext(ctx context.Context) CustomAlertRuleNotificationSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleNotificationSettingsOutput)
+}
+
+func (i CustomAlertRuleNotificationSettingsArgs) ToCustomAlertRuleNotificationSettingsPtrOutput() CustomAlertRuleNotificationSettingsPtrOutput {
+	return i.ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleNotificationSettingsArgs) ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomAlertRuleNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleNotificationSettingsOutput).ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(ctx)
+}
+
+// CustomAlertRuleNotificationSettingsPtrInput is an input type that accepts CustomAlertRuleNotificationSettingsArgs, CustomAlertRuleNotificationSettingsPtr and CustomAlertRuleNotificationSettingsPtrOutput values.
+// You can construct a concrete instance of `CustomAlertRuleNotificationSettingsPtrInput` via:
+//
+//	        CustomAlertRuleNotificationSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomAlertRuleNotificationSettingsPtrInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleNotificationSettingsPtrOutput() CustomAlertRuleNotificationSettingsPtrOutput
+	ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(context.Context) CustomAlertRuleNotificationSettingsPtrOutput
+}
+
+type customAlertRuleNotificationSettingsPtrType CustomAlertRuleNotificationSettingsArgs
+
+func CustomAlertRuleNotificationSettingsPtr(v *CustomAlertRuleNotificationSettingsArgs) CustomAlertRuleNotificationSettingsPtrInput {
+	return (*customAlertRuleNotificationSettingsPtrType)(v)
+}
+
+func (*customAlertRuleNotificationSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (i *customAlertRuleNotificationSettingsPtrType) ToCustomAlertRuleNotificationSettingsPtrOutput() CustomAlertRuleNotificationSettingsPtrOutput {
+	return i.ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *customAlertRuleNotificationSettingsPtrType) ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomAlertRuleNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleNotificationSettingsPtrOutput)
+}
+
+type CustomAlertRuleNotificationSettingsOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleNotificationSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (o CustomAlertRuleNotificationSettingsOutput) ToCustomAlertRuleNotificationSettingsOutput() CustomAlertRuleNotificationSettingsOutput {
+	return o
+}
+
+func (o CustomAlertRuleNotificationSettingsOutput) ToCustomAlertRuleNotificationSettingsOutputWithContext(ctx context.Context) CustomAlertRuleNotificationSettingsOutput {
+	return o
+}
+
+func (o CustomAlertRuleNotificationSettingsOutput) ToCustomAlertRuleNotificationSettingsPtrOutput() CustomAlertRuleNotificationSettingsPtrOutput {
+	return o.ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o CustomAlertRuleNotificationSettingsOutput) ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomAlertRuleNotificationSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomAlertRuleNotificationSettings) *CustomAlertRuleNotificationSettings {
+		return &v
+	}).(CustomAlertRuleNotificationSettingsPtrOutput)
+}
+
+func (o CustomAlertRuleNotificationSettingsOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleNotificationSettings) *bool { return v.EnableTeamOwnerNotifications }).(pulumi.BoolPtrOutput)
+}
+
+func (o CustomAlertRuleNotificationSettingsOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleNotificationSettings) *string { return v.IncidentIoRoutingKey }).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o CustomAlertRuleNotificationSettingsOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleNotificationSettings) *string { return v.VercelNotificationsMinimumSeverityLevel }).(pulumi.StringPtrOutput)
+}
+
+type CustomAlertRuleNotificationSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleNotificationSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleNotificationSettings)(nil)).Elem()
+}
+
+func (o CustomAlertRuleNotificationSettingsPtrOutput) ToCustomAlertRuleNotificationSettingsPtrOutput() CustomAlertRuleNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleNotificationSettingsPtrOutput) ToCustomAlertRuleNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomAlertRuleNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleNotificationSettingsPtrOutput) Elem() CustomAlertRuleNotificationSettingsOutput {
+	return o.ApplyT(func(v *CustomAlertRuleNotificationSettings) CustomAlertRuleNotificationSettings {
+		if v != nil {
+			return *v
+		}
+		var ret CustomAlertRuleNotificationSettings
+		return ret
+	}).(CustomAlertRuleNotificationSettingsOutput)
+}
+
+func (o CustomAlertRuleNotificationSettingsPtrOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleNotificationSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableTeamOwnerNotifications
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o CustomAlertRuleNotificationSettingsPtrOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IncidentIoRoutingKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o CustomAlertRuleNotificationSettingsPtrOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VercelNotificationsMinimumSeverityLevel
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomAlertRuleTrigger struct {
+	// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+	Minimum *CustomAlertRuleTriggerMinimum `pulumi:"minimum"`
+	// Required for threshold triggers; omitted for anomaly triggers.
+	Operator *string `pulumi:"operator"`
+	// The query's single output alias.
+	Output string `pulumi:"output"`
+	// Required anomaly threshold in standard deviations, at least 0.1.
+	StandardDeviations *float64 `pulumi:"standardDeviations"`
+	// Required numeric threshold for threshold triggers. Zero is supported.
+	Threshold *float64 `pulumi:"threshold"`
+	// The condition type: `threshold` or `anomaly`.
+	Type string `pulumi:"type"`
+}
+
+// CustomAlertRuleTriggerInput is an input type that accepts CustomAlertRuleTriggerArgs and CustomAlertRuleTriggerOutput values.
+// You can construct a concrete instance of `CustomAlertRuleTriggerInput` via:
+//
+//	CustomAlertRuleTriggerArgs{...}
+type CustomAlertRuleTriggerInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleTriggerOutput() CustomAlertRuleTriggerOutput
+	ToCustomAlertRuleTriggerOutputWithContext(context.Context) CustomAlertRuleTriggerOutput
+}
+
+type CustomAlertRuleTriggerArgs struct {
+	// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+	Minimum CustomAlertRuleTriggerMinimumPtrInput `pulumi:"minimum"`
+	// Required for threshold triggers; omitted for anomaly triggers.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// The query's single output alias.
+	Output pulumi.StringInput `pulumi:"output"`
+	// Required anomaly threshold in standard deviations, at least 0.1.
+	StandardDeviations pulumi.Float64PtrInput `pulumi:"standardDeviations"`
+	// Required numeric threshold for threshold triggers. Zero is supported.
+	Threshold pulumi.Float64PtrInput `pulumi:"threshold"`
+	// The condition type: `threshold` or `anomaly`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (CustomAlertRuleTriggerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleTrigger)(nil)).Elem()
+}
+
+func (i CustomAlertRuleTriggerArgs) ToCustomAlertRuleTriggerOutput() CustomAlertRuleTriggerOutput {
+	return i.ToCustomAlertRuleTriggerOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleTriggerArgs) ToCustomAlertRuleTriggerOutputWithContext(ctx context.Context) CustomAlertRuleTriggerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleTriggerOutput)
+}
+
+func (i CustomAlertRuleTriggerArgs) ToCustomAlertRuleTriggerPtrOutput() CustomAlertRuleTriggerPtrOutput {
+	return i.ToCustomAlertRuleTriggerPtrOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleTriggerArgs) ToCustomAlertRuleTriggerPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleTriggerOutput).ToCustomAlertRuleTriggerPtrOutputWithContext(ctx)
+}
+
+// CustomAlertRuleTriggerPtrInput is an input type that accepts CustomAlertRuleTriggerArgs, CustomAlertRuleTriggerPtr and CustomAlertRuleTriggerPtrOutput values.
+// You can construct a concrete instance of `CustomAlertRuleTriggerPtrInput` via:
+//
+//	        CustomAlertRuleTriggerArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomAlertRuleTriggerPtrInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleTriggerPtrOutput() CustomAlertRuleTriggerPtrOutput
+	ToCustomAlertRuleTriggerPtrOutputWithContext(context.Context) CustomAlertRuleTriggerPtrOutput
+}
+
+type customAlertRuleTriggerPtrType CustomAlertRuleTriggerArgs
+
+func CustomAlertRuleTriggerPtr(v *CustomAlertRuleTriggerArgs) CustomAlertRuleTriggerPtrInput {
+	return (*customAlertRuleTriggerPtrType)(v)
+}
+
+func (*customAlertRuleTriggerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleTrigger)(nil)).Elem()
+}
+
+func (i *customAlertRuleTriggerPtrType) ToCustomAlertRuleTriggerPtrOutput() CustomAlertRuleTriggerPtrOutput {
+	return i.ToCustomAlertRuleTriggerPtrOutputWithContext(context.Background())
+}
+
+func (i *customAlertRuleTriggerPtrType) ToCustomAlertRuleTriggerPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleTriggerPtrOutput)
+}
+
+type CustomAlertRuleTriggerOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleTriggerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleTrigger)(nil)).Elem()
+}
+
+func (o CustomAlertRuleTriggerOutput) ToCustomAlertRuleTriggerOutput() CustomAlertRuleTriggerOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerOutput) ToCustomAlertRuleTriggerOutputWithContext(ctx context.Context) CustomAlertRuleTriggerOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerOutput) ToCustomAlertRuleTriggerPtrOutput() CustomAlertRuleTriggerPtrOutput {
+	return o.ToCustomAlertRuleTriggerPtrOutputWithContext(context.Background())
+}
+
+func (o CustomAlertRuleTriggerOutput) ToCustomAlertRuleTriggerPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomAlertRuleTrigger) *CustomAlertRuleTrigger {
+		return &v
+	}).(CustomAlertRuleTriggerPtrOutput)
+}
+
+// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+func (o CustomAlertRuleTriggerOutput) Minimum() CustomAlertRuleTriggerMinimumPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleTrigger) *CustomAlertRuleTriggerMinimum { return v.Minimum }).(CustomAlertRuleTriggerMinimumPtrOutput)
+}
+
+// Required for threshold triggers; omitted for anomaly triggers.
+func (o CustomAlertRuleTriggerOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleTrigger) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// The query's single output alias.
+func (o CustomAlertRuleTriggerOutput) Output() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomAlertRuleTrigger) string { return v.Output }).(pulumi.StringOutput)
+}
+
+// Required anomaly threshold in standard deviations, at least 0.1.
+func (o CustomAlertRuleTriggerOutput) StandardDeviations() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleTrigger) *float64 { return v.StandardDeviations }).(pulumi.Float64PtrOutput)
+}
+
+// Required numeric threshold for threshold triggers. Zero is supported.
+func (o CustomAlertRuleTriggerOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v CustomAlertRuleTrigger) *float64 { return v.Threshold }).(pulumi.Float64PtrOutput)
+}
+
+// The condition type: `threshold` or `anomaly`.
+func (o CustomAlertRuleTriggerOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomAlertRuleTrigger) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type CustomAlertRuleTriggerPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleTriggerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleTrigger)(nil)).Elem()
+}
+
+func (o CustomAlertRuleTriggerPtrOutput) ToCustomAlertRuleTriggerPtrOutput() CustomAlertRuleTriggerPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerPtrOutput) ToCustomAlertRuleTriggerPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerPtrOutput) Elem() CustomAlertRuleTriggerOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) CustomAlertRuleTrigger {
+		if v != nil {
+			return *v
+		}
+		var ret CustomAlertRuleTrigger
+		return ret
+	}).(CustomAlertRuleTriggerOutput)
+}
+
+// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+func (o CustomAlertRuleTriggerPtrOutput) Minimum() CustomAlertRuleTriggerMinimumPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) *CustomAlertRuleTriggerMinimum {
+		if v == nil {
+			return nil
+		}
+		return v.Minimum
+	}).(CustomAlertRuleTriggerMinimumPtrOutput)
+}
+
+// Required for threshold triggers; omitted for anomaly triggers.
+func (o CustomAlertRuleTriggerPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+// The query's single output alias.
+func (o CustomAlertRuleTriggerPtrOutput) Output() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Output
+	}).(pulumi.StringPtrOutput)
+}
+
+// Required anomaly threshold in standard deviations, at least 0.1.
+func (o CustomAlertRuleTriggerPtrOutput) StandardDeviations() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.StandardDeviations
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Required numeric threshold for threshold triggers. Zero is supported.
+func (o CustomAlertRuleTriggerPtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+// The condition type: `threshold` or `anomaly`.
+func (o CustomAlertRuleTriggerPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTrigger) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomAlertRuleTriggerMinimum struct {
+	// The primitive metric alias, or ratio numerator alias.
+	Output string `pulumi:"output"`
+	// Non-negative floor below which the rule is not evaluated.
+	Threshold float64 `pulumi:"threshold"`
+}
+
+// CustomAlertRuleTriggerMinimumInput is an input type that accepts CustomAlertRuleTriggerMinimumArgs and CustomAlertRuleTriggerMinimumOutput values.
+// You can construct a concrete instance of `CustomAlertRuleTriggerMinimumInput` via:
+//
+//	CustomAlertRuleTriggerMinimumArgs{...}
+type CustomAlertRuleTriggerMinimumInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleTriggerMinimumOutput() CustomAlertRuleTriggerMinimumOutput
+	ToCustomAlertRuleTriggerMinimumOutputWithContext(context.Context) CustomAlertRuleTriggerMinimumOutput
+}
+
+type CustomAlertRuleTriggerMinimumArgs struct {
+	// The primitive metric alias, or ratio numerator alias.
+	Output pulumi.StringInput `pulumi:"output"`
+	// Non-negative floor below which the rule is not evaluated.
+	Threshold pulumi.Float64Input `pulumi:"threshold"`
+}
+
+func (CustomAlertRuleTriggerMinimumArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleTriggerMinimum)(nil)).Elem()
+}
+
+func (i CustomAlertRuleTriggerMinimumArgs) ToCustomAlertRuleTriggerMinimumOutput() CustomAlertRuleTriggerMinimumOutput {
+	return i.ToCustomAlertRuleTriggerMinimumOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleTriggerMinimumArgs) ToCustomAlertRuleTriggerMinimumOutputWithContext(ctx context.Context) CustomAlertRuleTriggerMinimumOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleTriggerMinimumOutput)
+}
+
+func (i CustomAlertRuleTriggerMinimumArgs) ToCustomAlertRuleTriggerMinimumPtrOutput() CustomAlertRuleTriggerMinimumPtrOutput {
+	return i.ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(context.Background())
+}
+
+func (i CustomAlertRuleTriggerMinimumArgs) ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerMinimumPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleTriggerMinimumOutput).ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(ctx)
+}
+
+// CustomAlertRuleTriggerMinimumPtrInput is an input type that accepts CustomAlertRuleTriggerMinimumArgs, CustomAlertRuleTriggerMinimumPtr and CustomAlertRuleTriggerMinimumPtrOutput values.
+// You can construct a concrete instance of `CustomAlertRuleTriggerMinimumPtrInput` via:
+//
+//	        CustomAlertRuleTriggerMinimumArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomAlertRuleTriggerMinimumPtrInput interface {
+	pulumi.Input
+
+	ToCustomAlertRuleTriggerMinimumPtrOutput() CustomAlertRuleTriggerMinimumPtrOutput
+	ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(context.Context) CustomAlertRuleTriggerMinimumPtrOutput
+}
+
+type customAlertRuleTriggerMinimumPtrType CustomAlertRuleTriggerMinimumArgs
+
+func CustomAlertRuleTriggerMinimumPtr(v *CustomAlertRuleTriggerMinimumArgs) CustomAlertRuleTriggerMinimumPtrInput {
+	return (*customAlertRuleTriggerMinimumPtrType)(v)
+}
+
+func (*customAlertRuleTriggerMinimumPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleTriggerMinimum)(nil)).Elem()
+}
+
+func (i *customAlertRuleTriggerMinimumPtrType) ToCustomAlertRuleTriggerMinimumPtrOutput() CustomAlertRuleTriggerMinimumPtrOutput {
+	return i.ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(context.Background())
+}
+
+func (i *customAlertRuleTriggerMinimumPtrType) ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerMinimumPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomAlertRuleTriggerMinimumPtrOutput)
+}
+
+type CustomAlertRuleTriggerMinimumOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleTriggerMinimumOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomAlertRuleTriggerMinimum)(nil)).Elem()
+}
+
+func (o CustomAlertRuleTriggerMinimumOutput) ToCustomAlertRuleTriggerMinimumOutput() CustomAlertRuleTriggerMinimumOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerMinimumOutput) ToCustomAlertRuleTriggerMinimumOutputWithContext(ctx context.Context) CustomAlertRuleTriggerMinimumOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerMinimumOutput) ToCustomAlertRuleTriggerMinimumPtrOutput() CustomAlertRuleTriggerMinimumPtrOutput {
+	return o.ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(context.Background())
+}
+
+func (o CustomAlertRuleTriggerMinimumOutput) ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerMinimumPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomAlertRuleTriggerMinimum) *CustomAlertRuleTriggerMinimum {
+		return &v
+	}).(CustomAlertRuleTriggerMinimumPtrOutput)
+}
+
+// The primitive metric alias, or ratio numerator alias.
+func (o CustomAlertRuleTriggerMinimumOutput) Output() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomAlertRuleTriggerMinimum) string { return v.Output }).(pulumi.StringOutput)
+}
+
+// Non-negative floor below which the rule is not evaluated.
+func (o CustomAlertRuleTriggerMinimumOutput) Threshold() pulumi.Float64Output {
+	return o.ApplyT(func(v CustomAlertRuleTriggerMinimum) float64 { return v.Threshold }).(pulumi.Float64Output)
+}
+
+type CustomAlertRuleTriggerMinimumPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomAlertRuleTriggerMinimumPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomAlertRuleTriggerMinimum)(nil)).Elem()
+}
+
+func (o CustomAlertRuleTriggerMinimumPtrOutput) ToCustomAlertRuleTriggerMinimumPtrOutput() CustomAlertRuleTriggerMinimumPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerMinimumPtrOutput) ToCustomAlertRuleTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomAlertRuleTriggerMinimumPtrOutput {
+	return o
+}
+
+func (o CustomAlertRuleTriggerMinimumPtrOutput) Elem() CustomAlertRuleTriggerMinimumOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTriggerMinimum) CustomAlertRuleTriggerMinimum {
+		if v != nil {
+			return *v
+		}
+		var ret CustomAlertRuleTriggerMinimum
+		return ret
+	}).(CustomAlertRuleTriggerMinimumOutput)
+}
+
+// The primitive metric alias, or ratio numerator alias.
+func (o CustomAlertRuleTriggerMinimumPtrOutput) Output() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTriggerMinimum) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Output
+	}).(pulumi.StringPtrOutput)
+}
+
+// Non-negative floor below which the rule is not evaluated.
+func (o CustomAlertRuleTriggerMinimumPtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *CustomAlertRuleTriggerMinimum) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
 type CustomEnvironmentBranchTracking struct {
 	// The pattern of the branch name to track.
 	Pattern string `pulumi:"pattern"`
@@ -957,6 +2625,181 @@ func (o DeploymentProjectSettingsPtrOutput) RootDirectory() pulumi.StringPtrOutp
 			return nil
 		}
 		return v.RootDirectory
+	}).(pulumi.StringPtrOutput)
+}
+
+type DnsRecordHttps struct {
+	// The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+	Params *string `pulumi:"params"`
+	// The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+	Priority int `pulumi:"priority"`
+	// The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+	Target string `pulumi:"target"`
+}
+
+// DnsRecordHttpsInput is an input type that accepts DnsRecordHttpsArgs and DnsRecordHttpsOutput values.
+// You can construct a concrete instance of `DnsRecordHttpsInput` via:
+//
+//	DnsRecordHttpsArgs{...}
+type DnsRecordHttpsInput interface {
+	pulumi.Input
+
+	ToDnsRecordHttpsOutput() DnsRecordHttpsOutput
+	ToDnsRecordHttpsOutputWithContext(context.Context) DnsRecordHttpsOutput
+}
+
+type DnsRecordHttpsArgs struct {
+	// The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+	Params pulumi.StringPtrInput `pulumi:"params"`
+	// The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+	Priority pulumi.IntInput `pulumi:"priority"`
+	// The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+	Target pulumi.StringInput `pulumi:"target"`
+}
+
+func (DnsRecordHttpsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DnsRecordHttps)(nil)).Elem()
+}
+
+func (i DnsRecordHttpsArgs) ToDnsRecordHttpsOutput() DnsRecordHttpsOutput {
+	return i.ToDnsRecordHttpsOutputWithContext(context.Background())
+}
+
+func (i DnsRecordHttpsArgs) ToDnsRecordHttpsOutputWithContext(ctx context.Context) DnsRecordHttpsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DnsRecordHttpsOutput)
+}
+
+func (i DnsRecordHttpsArgs) ToDnsRecordHttpsPtrOutput() DnsRecordHttpsPtrOutput {
+	return i.ToDnsRecordHttpsPtrOutputWithContext(context.Background())
+}
+
+func (i DnsRecordHttpsArgs) ToDnsRecordHttpsPtrOutputWithContext(ctx context.Context) DnsRecordHttpsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DnsRecordHttpsOutput).ToDnsRecordHttpsPtrOutputWithContext(ctx)
+}
+
+// DnsRecordHttpsPtrInput is an input type that accepts DnsRecordHttpsArgs, DnsRecordHttpsPtr and DnsRecordHttpsPtrOutput values.
+// You can construct a concrete instance of `DnsRecordHttpsPtrInput` via:
+//
+//	        DnsRecordHttpsArgs{...}
+//
+//	or:
+//
+//	        nil
+type DnsRecordHttpsPtrInput interface {
+	pulumi.Input
+
+	ToDnsRecordHttpsPtrOutput() DnsRecordHttpsPtrOutput
+	ToDnsRecordHttpsPtrOutputWithContext(context.Context) DnsRecordHttpsPtrOutput
+}
+
+type dnsRecordHttpsPtrType DnsRecordHttpsArgs
+
+func DnsRecordHttpsPtr(v *DnsRecordHttpsArgs) DnsRecordHttpsPtrInput {
+	return (*dnsRecordHttpsPtrType)(v)
+}
+
+func (*dnsRecordHttpsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DnsRecordHttps)(nil)).Elem()
+}
+
+func (i *dnsRecordHttpsPtrType) ToDnsRecordHttpsPtrOutput() DnsRecordHttpsPtrOutput {
+	return i.ToDnsRecordHttpsPtrOutputWithContext(context.Background())
+}
+
+func (i *dnsRecordHttpsPtrType) ToDnsRecordHttpsPtrOutputWithContext(ctx context.Context) DnsRecordHttpsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DnsRecordHttpsPtrOutput)
+}
+
+type DnsRecordHttpsOutput struct{ *pulumi.OutputState }
+
+func (DnsRecordHttpsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DnsRecordHttps)(nil)).Elem()
+}
+
+func (o DnsRecordHttpsOutput) ToDnsRecordHttpsOutput() DnsRecordHttpsOutput {
+	return o
+}
+
+func (o DnsRecordHttpsOutput) ToDnsRecordHttpsOutputWithContext(ctx context.Context) DnsRecordHttpsOutput {
+	return o
+}
+
+func (o DnsRecordHttpsOutput) ToDnsRecordHttpsPtrOutput() DnsRecordHttpsPtrOutput {
+	return o.ToDnsRecordHttpsPtrOutputWithContext(context.Background())
+}
+
+func (o DnsRecordHttpsOutput) ToDnsRecordHttpsPtrOutputWithContext(ctx context.Context) DnsRecordHttpsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DnsRecordHttps) *DnsRecordHttps {
+		return &v
+	}).(DnsRecordHttpsPtrOutput)
+}
+
+// The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+func (o DnsRecordHttpsOutput) Params() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DnsRecordHttps) *string { return v.Params }).(pulumi.StringPtrOutput)
+}
+
+// The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+func (o DnsRecordHttpsOutput) Priority() pulumi.IntOutput {
+	return o.ApplyT(func(v DnsRecordHttps) int { return v.Priority }).(pulumi.IntOutput)
+}
+
+// The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+func (o DnsRecordHttpsOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v DnsRecordHttps) string { return v.Target }).(pulumi.StringOutput)
+}
+
+type DnsRecordHttpsPtrOutput struct{ *pulumi.OutputState }
+
+func (DnsRecordHttpsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DnsRecordHttps)(nil)).Elem()
+}
+
+func (o DnsRecordHttpsPtrOutput) ToDnsRecordHttpsPtrOutput() DnsRecordHttpsPtrOutput {
+	return o
+}
+
+func (o DnsRecordHttpsPtrOutput) ToDnsRecordHttpsPtrOutputWithContext(ctx context.Context) DnsRecordHttpsPtrOutput {
+	return o
+}
+
+func (o DnsRecordHttpsPtrOutput) Elem() DnsRecordHttpsOutput {
+	return o.ApplyT(func(v *DnsRecordHttps) DnsRecordHttps {
+		if v != nil {
+			return *v
+		}
+		var ret DnsRecordHttps
+		return ret
+	}).(DnsRecordHttpsOutput)
+}
+
+// The SvcParams of the record, as a space-separated list of `key=value` pairs, for example `alpn=h2,h3`.
+func (o DnsRecordHttpsPtrOutput) Params() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DnsRecordHttps) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Params
+	}).(pulumi.StringPtrOutput)
+}
+
+// The priority of the record. A value of 0 indicates AliasMode, while a value greater than 0 indicates ServiceMode where lower values are preferred.
+func (o DnsRecordHttpsPtrOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DnsRecordHttps) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Priority
+	}).(pulumi.IntPtrOutput)
+}
+
+// The target hostname of the record. Use `.` to indicate the owner name of the record itself.
+func (o DnsRecordHttpsPtrOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DnsRecordHttps) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Target
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -5861,6 +7704,202 @@ func (o FirewallConfigRulesRuleConditionGroupConditionArrayOutput) Index(i pulum
 	}).(FirewallConfigRulesRuleConditionGroupConditionOutput)
 }
 
+type KmsIssuerSigningKey struct {
+	// The signing algorithm of the key.
+	Algorithm *string `pulumi:"algorithm"`
+	// The key's self-signed X.509 certificate in PEM form.
+	CertificatePem *string `pulumi:"certificatePem"`
+	// The time the key was created.
+	CreatedAt *string `pulumi:"createdAt"`
+	// The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+	ImportKeyId *string `pulumi:"importKeyId"`
+	// The ID of the issuer the key belongs to.
+	IssuerId *string `pulumi:"issuerId"`
+	// The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+	KeyId *string `pulumi:"keyId"`
+	// The fingerprint of the public key.
+	PublicKeyFingerprint *string `pulumi:"publicKeyFingerprint"`
+	// The public key as a JSON-encoded JWK.
+	PublicKeyJwk *string `pulumi:"publicKeyJwk"`
+	// The public key in SPKI PEM form.
+	PublicKeyPem *string `pulumi:"publicKeyPem"`
+	// The time at which the key is scheduled to be revoked, if any.
+	RevokeAt *string `pulumi:"revokeAt"`
+	// The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+	Status *string `pulumi:"status"`
+	// The time the key was last updated.
+	UpdatedAt *string `pulumi:"updatedAt"`
+}
+
+// KmsIssuerSigningKeyInput is an input type that accepts KmsIssuerSigningKeyArgs and KmsIssuerSigningKeyOutput values.
+// You can construct a concrete instance of `KmsIssuerSigningKeyInput` via:
+//
+//	KmsIssuerSigningKeyArgs{...}
+type KmsIssuerSigningKeyInput interface {
+	pulumi.Input
+
+	ToKmsIssuerSigningKeyOutput() KmsIssuerSigningKeyOutput
+	ToKmsIssuerSigningKeyOutputWithContext(context.Context) KmsIssuerSigningKeyOutput
+}
+
+type KmsIssuerSigningKeyArgs struct {
+	// The signing algorithm of the key.
+	Algorithm pulumi.StringPtrInput `pulumi:"algorithm"`
+	// The key's self-signed X.509 certificate in PEM form.
+	CertificatePem pulumi.StringPtrInput `pulumi:"certificatePem"`
+	// The time the key was created.
+	CreatedAt pulumi.StringPtrInput `pulumi:"createdAt"`
+	// The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+	ImportKeyId pulumi.StringPtrInput `pulumi:"importKeyId"`
+	// The ID of the issuer the key belongs to.
+	IssuerId pulumi.StringPtrInput `pulumi:"issuerId"`
+	// The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+	KeyId pulumi.StringPtrInput `pulumi:"keyId"`
+	// The fingerprint of the public key.
+	PublicKeyFingerprint pulumi.StringPtrInput `pulumi:"publicKeyFingerprint"`
+	// The public key as a JSON-encoded JWK.
+	PublicKeyJwk pulumi.StringPtrInput `pulumi:"publicKeyJwk"`
+	// The public key in SPKI PEM form.
+	PublicKeyPem pulumi.StringPtrInput `pulumi:"publicKeyPem"`
+	// The time at which the key is scheduled to be revoked, if any.
+	RevokeAt pulumi.StringPtrInput `pulumi:"revokeAt"`
+	// The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+	Status pulumi.StringPtrInput `pulumi:"status"`
+	// The time the key was last updated.
+	UpdatedAt pulumi.StringPtrInput `pulumi:"updatedAt"`
+}
+
+func (KmsIssuerSigningKeyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*KmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (i KmsIssuerSigningKeyArgs) ToKmsIssuerSigningKeyOutput() KmsIssuerSigningKeyOutput {
+	return i.ToKmsIssuerSigningKeyOutputWithContext(context.Background())
+}
+
+func (i KmsIssuerSigningKeyArgs) ToKmsIssuerSigningKeyOutputWithContext(ctx context.Context) KmsIssuerSigningKeyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KmsIssuerSigningKeyOutput)
+}
+
+// KmsIssuerSigningKeyArrayInput is an input type that accepts KmsIssuerSigningKeyArray and KmsIssuerSigningKeyArrayOutput values.
+// You can construct a concrete instance of `KmsIssuerSigningKeyArrayInput` via:
+//
+//	KmsIssuerSigningKeyArray{ KmsIssuerSigningKeyArgs{...} }
+type KmsIssuerSigningKeyArrayInput interface {
+	pulumi.Input
+
+	ToKmsIssuerSigningKeyArrayOutput() KmsIssuerSigningKeyArrayOutput
+	ToKmsIssuerSigningKeyArrayOutputWithContext(context.Context) KmsIssuerSigningKeyArrayOutput
+}
+
+type KmsIssuerSigningKeyArray []KmsIssuerSigningKeyInput
+
+func (KmsIssuerSigningKeyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]KmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (i KmsIssuerSigningKeyArray) ToKmsIssuerSigningKeyArrayOutput() KmsIssuerSigningKeyArrayOutput {
+	return i.ToKmsIssuerSigningKeyArrayOutputWithContext(context.Background())
+}
+
+func (i KmsIssuerSigningKeyArray) ToKmsIssuerSigningKeyArrayOutputWithContext(ctx context.Context) KmsIssuerSigningKeyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KmsIssuerSigningKeyArrayOutput)
+}
+
+type KmsIssuerSigningKeyOutput struct{ *pulumi.OutputState }
+
+func (KmsIssuerSigningKeyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*KmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (o KmsIssuerSigningKeyOutput) ToKmsIssuerSigningKeyOutput() KmsIssuerSigningKeyOutput {
+	return o
+}
+
+func (o KmsIssuerSigningKeyOutput) ToKmsIssuerSigningKeyOutputWithContext(ctx context.Context) KmsIssuerSigningKeyOutput {
+	return o
+}
+
+// The signing algorithm of the key.
+func (o KmsIssuerSigningKeyOutput) Algorithm() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.Algorithm }).(pulumi.StringPtrOutput)
+}
+
+// The key's self-signed X.509 certificate in PEM form.
+func (o KmsIssuerSigningKeyOutput) CertificatePem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.CertificatePem }).(pulumi.StringPtrOutput)
+}
+
+// The time the key was created.
+func (o KmsIssuerSigningKeyOutput) CreatedAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.CreatedAt }).(pulumi.StringPtrOutput)
+}
+
+// The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+func (o KmsIssuerSigningKeyOutput) ImportKeyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.ImportKeyId }).(pulumi.StringPtrOutput)
+}
+
+// The ID of the issuer the key belongs to.
+func (o KmsIssuerSigningKeyOutput) IssuerId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.IssuerId }).(pulumi.StringPtrOutput)
+}
+
+// The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+func (o KmsIssuerSigningKeyOutput) KeyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.KeyId }).(pulumi.StringPtrOutput)
+}
+
+// The fingerprint of the public key.
+func (o KmsIssuerSigningKeyOutput) PublicKeyFingerprint() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.PublicKeyFingerprint }).(pulumi.StringPtrOutput)
+}
+
+// The public key as a JSON-encoded JWK.
+func (o KmsIssuerSigningKeyOutput) PublicKeyJwk() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.PublicKeyJwk }).(pulumi.StringPtrOutput)
+}
+
+// The public key in SPKI PEM form.
+func (o KmsIssuerSigningKeyOutput) PublicKeyPem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.PublicKeyPem }).(pulumi.StringPtrOutput)
+}
+
+// The time at which the key is scheduled to be revoked, if any.
+func (o KmsIssuerSigningKeyOutput) RevokeAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.RevokeAt }).(pulumi.StringPtrOutput)
+}
+
+// The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+func (o KmsIssuerSigningKeyOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+// The time the key was last updated.
+func (o KmsIssuerSigningKeyOutput) UpdatedAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v KmsIssuerSigningKey) *string { return v.UpdatedAt }).(pulumi.StringPtrOutput)
+}
+
+type KmsIssuerSigningKeyArrayOutput struct{ *pulumi.OutputState }
+
+func (KmsIssuerSigningKeyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]KmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (o KmsIssuerSigningKeyArrayOutput) ToKmsIssuerSigningKeyArrayOutput() KmsIssuerSigningKeyArrayOutput {
+	return o
+}
+
+func (o KmsIssuerSigningKeyArrayOutput) ToKmsIssuerSigningKeyArrayOutputWithContext(ctx context.Context) KmsIssuerSigningKeyArrayOutput {
+	return o
+}
+
+func (o KmsIssuerSigningKeyArrayOutput) Index(i pulumi.IntInput) KmsIssuerSigningKeyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) KmsIssuerSigningKey {
+		return vs[0].([]KmsIssuerSigningKey)[vs[1].(int)]
+	}).(KmsIssuerSigningKeyOutput)
+}
+
 type MicrofrontendGroupDefaultApp struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute *string `pulumi:"defaultRoute"`
@@ -6173,6 +8212,568 @@ func (o NetworkTimeoutsPtrOutput) Create() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type OidcFederationPolicyClaim struct {
+	// The OIDC claim name.
+	Name string `pulumi:"name"`
+	// Values accepted for this claim. A claim matches when any configured value matches.
+	Values []OidcFederationPolicyClaimValue `pulumi:"values"`
+}
+
+// OidcFederationPolicyClaimInput is an input type that accepts OidcFederationPolicyClaimArgs and OidcFederationPolicyClaimOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimInput` via:
+//
+//	OidcFederationPolicyClaimArgs{...}
+type OidcFederationPolicyClaimInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimOutput() OidcFederationPolicyClaimOutput
+	ToOidcFederationPolicyClaimOutputWithContext(context.Context) OidcFederationPolicyClaimOutput
+}
+
+type OidcFederationPolicyClaimArgs struct {
+	// The OIDC claim name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Values accepted for this claim. A claim matches when any configured value matches.
+	Values OidcFederationPolicyClaimValueArrayInput `pulumi:"values"`
+}
+
+func (OidcFederationPolicyClaimArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimArgs) ToOidcFederationPolicyClaimOutput() OidcFederationPolicyClaimOutput {
+	return i.ToOidcFederationPolicyClaimOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimArgs) ToOidcFederationPolicyClaimOutputWithContext(ctx context.Context) OidcFederationPolicyClaimOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimOutput)
+}
+
+// OidcFederationPolicyClaimArrayInput is an input type that accepts OidcFederationPolicyClaimArray and OidcFederationPolicyClaimArrayOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimArrayInput` via:
+//
+//	OidcFederationPolicyClaimArray{ OidcFederationPolicyClaimArgs{...} }
+type OidcFederationPolicyClaimArrayInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimArrayOutput() OidcFederationPolicyClaimArrayOutput
+	ToOidcFederationPolicyClaimArrayOutputWithContext(context.Context) OidcFederationPolicyClaimArrayOutput
+}
+
+type OidcFederationPolicyClaimArray []OidcFederationPolicyClaimInput
+
+func (OidcFederationPolicyClaimArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimArray) ToOidcFederationPolicyClaimArrayOutput() OidcFederationPolicyClaimArrayOutput {
+	return i.ToOidcFederationPolicyClaimArrayOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimArray) ToOidcFederationPolicyClaimArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimArrayOutput)
+}
+
+type OidcFederationPolicyClaimOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimOutput) ToOidcFederationPolicyClaimOutput() OidcFederationPolicyClaimOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimOutput) ToOidcFederationPolicyClaimOutputWithContext(ctx context.Context) OidcFederationPolicyClaimOutput {
+	return o
+}
+
+// The OIDC claim name.
+func (o OidcFederationPolicyClaimOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaim) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Values accepted for this claim. A claim matches when any configured value matches.
+func (o OidcFederationPolicyClaimOutput) Values() OidcFederationPolicyClaimValueArrayOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaim) []OidcFederationPolicyClaimValue { return v.Values }).(OidcFederationPolicyClaimValueArrayOutput)
+}
+
+type OidcFederationPolicyClaimArrayOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaim)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimArrayOutput) ToOidcFederationPolicyClaimArrayOutput() OidcFederationPolicyClaimArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimArrayOutput) ToOidcFederationPolicyClaimArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimArrayOutput) Index(i pulumi.IntInput) OidcFederationPolicyClaimOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OidcFederationPolicyClaim {
+		return vs[0].([]OidcFederationPolicyClaim)[vs[1].(int)]
+	}).(OidcFederationPolicyClaimOutput)
+}
+
+type OidcFederationPolicyClaimValue struct {
+	// The accepted claim value or wildcard pattern.
+	Value string `pulumi:"value"`
+	// Whether `*` characters in the value should be interpreted as wildcards.
+	Wildcards *bool `pulumi:"wildcards"`
+}
+
+// OidcFederationPolicyClaimValueInput is an input type that accepts OidcFederationPolicyClaimValueArgs and OidcFederationPolicyClaimValueOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimValueInput` via:
+//
+//	OidcFederationPolicyClaimValueArgs{...}
+type OidcFederationPolicyClaimValueInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimValueOutput() OidcFederationPolicyClaimValueOutput
+	ToOidcFederationPolicyClaimValueOutputWithContext(context.Context) OidcFederationPolicyClaimValueOutput
+}
+
+type OidcFederationPolicyClaimValueArgs struct {
+	// The accepted claim value or wildcard pattern.
+	Value pulumi.StringInput `pulumi:"value"`
+	// Whether `*` characters in the value should be interpreted as wildcards.
+	Wildcards pulumi.BoolPtrInput `pulumi:"wildcards"`
+}
+
+func (OidcFederationPolicyClaimValueArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimValueArgs) ToOidcFederationPolicyClaimValueOutput() OidcFederationPolicyClaimValueOutput {
+	return i.ToOidcFederationPolicyClaimValueOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimValueArgs) ToOidcFederationPolicyClaimValueOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimValueOutput)
+}
+
+// OidcFederationPolicyClaimValueArrayInput is an input type that accepts OidcFederationPolicyClaimValueArray and OidcFederationPolicyClaimValueArrayOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyClaimValueArrayInput` via:
+//
+//	OidcFederationPolicyClaimValueArray{ OidcFederationPolicyClaimValueArgs{...} }
+type OidcFederationPolicyClaimValueArrayInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyClaimValueArrayOutput() OidcFederationPolicyClaimValueArrayOutput
+	ToOidcFederationPolicyClaimValueArrayOutputWithContext(context.Context) OidcFederationPolicyClaimValueArrayOutput
+}
+
+type OidcFederationPolicyClaimValueArray []OidcFederationPolicyClaimValueInput
+
+func (OidcFederationPolicyClaimValueArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyClaimValueArray) ToOidcFederationPolicyClaimValueArrayOutput() OidcFederationPolicyClaimValueArrayOutput {
+	return i.ToOidcFederationPolicyClaimValueArrayOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyClaimValueArray) ToOidcFederationPolicyClaimValueArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyClaimValueArrayOutput)
+}
+
+type OidcFederationPolicyClaimValueOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimValueOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimValueOutput) ToOidcFederationPolicyClaimValueOutput() OidcFederationPolicyClaimValueOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimValueOutput) ToOidcFederationPolicyClaimValueOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueOutput {
+	return o
+}
+
+// The accepted claim value or wildcard pattern.
+func (o OidcFederationPolicyClaimValueOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaimValue) string { return v.Value }).(pulumi.StringOutput)
+}
+
+// Whether `*` characters in the value should be interpreted as wildcards.
+func (o OidcFederationPolicyClaimValueOutput) Wildcards() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v OidcFederationPolicyClaimValue) *bool { return v.Wildcards }).(pulumi.BoolPtrOutput)
+}
+
+type OidcFederationPolicyClaimValueArrayOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyClaimValueArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OidcFederationPolicyClaimValue)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyClaimValueArrayOutput) ToOidcFederationPolicyClaimValueArrayOutput() OidcFederationPolicyClaimValueArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimValueArrayOutput) ToOidcFederationPolicyClaimValueArrayOutputWithContext(ctx context.Context) OidcFederationPolicyClaimValueArrayOutput {
+	return o
+}
+
+func (o OidcFederationPolicyClaimValueArrayOutput) Index(i pulumi.IntInput) OidcFederationPolicyClaimValueOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OidcFederationPolicyClaimValue {
+		return vs[0].([]OidcFederationPolicyClaimValue)[vs[1].(int)]
+	}).(OidcFederationPolicyClaimValueOutput)
+}
+
+type OidcFederationPolicyResources struct {
+	// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+	ProjectIds []string `pulumi:"projectIds"`
+}
+
+// OidcFederationPolicyResourcesInput is an input type that accepts OidcFederationPolicyResourcesArgs and OidcFederationPolicyResourcesOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyResourcesInput` via:
+//
+//	OidcFederationPolicyResourcesArgs{...}
+type OidcFederationPolicyResourcesInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyResourcesOutput() OidcFederationPolicyResourcesOutput
+	ToOidcFederationPolicyResourcesOutputWithContext(context.Context) OidcFederationPolicyResourcesOutput
+}
+
+type OidcFederationPolicyResourcesArgs struct {
+	// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+	ProjectIds pulumi.StringArrayInput `pulumi:"projectIds"`
+}
+
+func (OidcFederationPolicyResourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesOutput() OidcFederationPolicyResourcesOutput {
+	return i.ToOidcFederationPolicyResourcesOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyResourcesOutput)
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return i.ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i OidcFederationPolicyResourcesArgs) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyResourcesOutput).ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx)
+}
+
+// OidcFederationPolicyResourcesPtrInput is an input type that accepts OidcFederationPolicyResourcesArgs, OidcFederationPolicyResourcesPtr and OidcFederationPolicyResourcesPtrOutput values.
+// You can construct a concrete instance of `OidcFederationPolicyResourcesPtrInput` via:
+//
+//	        OidcFederationPolicyResourcesArgs{...}
+//
+//	or:
+//
+//	        nil
+type OidcFederationPolicyResourcesPtrInput interface {
+	pulumi.Input
+
+	ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput
+	ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Context) OidcFederationPolicyResourcesPtrOutput
+}
+
+type oidcFederationPolicyResourcesPtrType OidcFederationPolicyResourcesArgs
+
+func OidcFederationPolicyResourcesPtr(v *OidcFederationPolicyResourcesArgs) OidcFederationPolicyResourcesPtrInput {
+	return (*oidcFederationPolicyResourcesPtrType)(v)
+}
+
+func (*oidcFederationPolicyResourcesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (i *oidcFederationPolicyResourcesPtrType) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return i.ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i *oidcFederationPolicyResourcesPtrType) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OidcFederationPolicyResourcesPtrOutput)
+}
+
+type OidcFederationPolicyResourcesOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyResourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesOutput() OidcFederationPolicyResourcesOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return o.ToOidcFederationPolicyResourcesPtrOutputWithContext(context.Background())
+}
+
+func (o OidcFederationPolicyResourcesOutput) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v OidcFederationPolicyResources) *OidcFederationPolicyResources {
+		return &v
+	}).(OidcFederationPolicyResourcesPtrOutput)
+}
+
+// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+func (o OidcFederationPolicyResourcesOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v OidcFederationPolicyResources) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
+}
+
+type OidcFederationPolicyResourcesPtrOutput struct{ *pulumi.OutputState }
+
+func (OidcFederationPolicyResourcesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**OidcFederationPolicyResources)(nil)).Elem()
+}
+
+func (o OidcFederationPolicyResourcesPtrOutput) ToOidcFederationPolicyResourcesPtrOutput() OidcFederationPolicyResourcesPtrOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesPtrOutput) ToOidcFederationPolicyResourcesPtrOutputWithContext(ctx context.Context) OidcFederationPolicyResourcesPtrOutput {
+	return o
+}
+
+func (o OidcFederationPolicyResourcesPtrOutput) Elem() OidcFederationPolicyResourcesOutput {
+	return o.ApplyT(func(v *OidcFederationPolicyResources) OidcFederationPolicyResources {
+		if v != nil {
+			return *v
+		}
+		var ret OidcFederationPolicyResources
+		return ret
+	}).(OidcFederationPolicyResourcesOutput)
+}
+
+// Project IDs in the resource boundary. Use `["*"]` for all current and future team projects, or an empty set for no projects.
+func (o OidcFederationPolicyResourcesPtrOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *OidcFederationPolicyResources) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ProjectIds
+	}).(pulumi.StringArrayOutput)
+}
+
+type ProjectDeploymentCheckSource struct {
+	// The external check name. Required for a `git-provider` source.
+	ExternalCheckName *string `pulumi:"externalCheckName"`
+	// An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+	ExternalResourceId *string `pulumi:"externalResourceId"`
+	// The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+	Kind string `pulumi:"kind"`
+	// The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+	Provider *string `pulumi:"provider"`
+	// The webhook ID for a `webhook` source.
+	WebhookId *string `pulumi:"webhookId"`
+}
+
+// ProjectDeploymentCheckSourceInput is an input type that accepts ProjectDeploymentCheckSourceArgs and ProjectDeploymentCheckSourceOutput values.
+// You can construct a concrete instance of `ProjectDeploymentCheckSourceInput` via:
+//
+//	ProjectDeploymentCheckSourceArgs{...}
+type ProjectDeploymentCheckSourceInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentCheckSourceOutput() ProjectDeploymentCheckSourceOutput
+	ToProjectDeploymentCheckSourceOutputWithContext(context.Context) ProjectDeploymentCheckSourceOutput
+}
+
+type ProjectDeploymentCheckSourceArgs struct {
+	// The external check name. Required for a `git-provider` source.
+	ExternalCheckName pulumi.StringPtrInput `pulumi:"externalCheckName"`
+	// An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+	ExternalResourceId pulumi.StringPtrInput `pulumi:"externalResourceId"`
+	// The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+	Provider pulumi.StringPtrInput `pulumi:"provider"`
+	// The webhook ID for a `webhook` source.
+	WebhookId pulumi.StringPtrInput `pulumi:"webhookId"`
+}
+
+func (ProjectDeploymentCheckSourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentCheckSource)(nil)).Elem()
+}
+
+func (i ProjectDeploymentCheckSourceArgs) ToProjectDeploymentCheckSourceOutput() ProjectDeploymentCheckSourceOutput {
+	return i.ToProjectDeploymentCheckSourceOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentCheckSourceArgs) ToProjectDeploymentCheckSourceOutputWithContext(ctx context.Context) ProjectDeploymentCheckSourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentCheckSourceOutput)
+}
+
+func (i ProjectDeploymentCheckSourceArgs) ToProjectDeploymentCheckSourcePtrOutput() ProjectDeploymentCheckSourcePtrOutput {
+	return i.ToProjectDeploymentCheckSourcePtrOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentCheckSourceArgs) ToProjectDeploymentCheckSourcePtrOutputWithContext(ctx context.Context) ProjectDeploymentCheckSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentCheckSourceOutput).ToProjectDeploymentCheckSourcePtrOutputWithContext(ctx)
+}
+
+// ProjectDeploymentCheckSourcePtrInput is an input type that accepts ProjectDeploymentCheckSourceArgs, ProjectDeploymentCheckSourcePtr and ProjectDeploymentCheckSourcePtrOutput values.
+// You can construct a concrete instance of `ProjectDeploymentCheckSourcePtrInput` via:
+//
+//	        ProjectDeploymentCheckSourceArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectDeploymentCheckSourcePtrInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentCheckSourcePtrOutput() ProjectDeploymentCheckSourcePtrOutput
+	ToProjectDeploymentCheckSourcePtrOutputWithContext(context.Context) ProjectDeploymentCheckSourcePtrOutput
+}
+
+type projectDeploymentCheckSourcePtrType ProjectDeploymentCheckSourceArgs
+
+func ProjectDeploymentCheckSourcePtr(v *ProjectDeploymentCheckSourceArgs) ProjectDeploymentCheckSourcePtrInput {
+	return (*projectDeploymentCheckSourcePtrType)(v)
+}
+
+func (*projectDeploymentCheckSourcePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentCheckSource)(nil)).Elem()
+}
+
+func (i *projectDeploymentCheckSourcePtrType) ToProjectDeploymentCheckSourcePtrOutput() ProjectDeploymentCheckSourcePtrOutput {
+	return i.ToProjectDeploymentCheckSourcePtrOutputWithContext(context.Background())
+}
+
+func (i *projectDeploymentCheckSourcePtrType) ToProjectDeploymentCheckSourcePtrOutputWithContext(ctx context.Context) ProjectDeploymentCheckSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentCheckSourcePtrOutput)
+}
+
+type ProjectDeploymentCheckSourceOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentCheckSourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentCheckSource)(nil)).Elem()
+}
+
+func (o ProjectDeploymentCheckSourceOutput) ToProjectDeploymentCheckSourceOutput() ProjectDeploymentCheckSourceOutput {
+	return o
+}
+
+func (o ProjectDeploymentCheckSourceOutput) ToProjectDeploymentCheckSourceOutputWithContext(ctx context.Context) ProjectDeploymentCheckSourceOutput {
+	return o
+}
+
+func (o ProjectDeploymentCheckSourceOutput) ToProjectDeploymentCheckSourcePtrOutput() ProjectDeploymentCheckSourcePtrOutput {
+	return o.ToProjectDeploymentCheckSourcePtrOutputWithContext(context.Background())
+}
+
+func (o ProjectDeploymentCheckSourceOutput) ToProjectDeploymentCheckSourcePtrOutputWithContext(ctx context.Context) ProjectDeploymentCheckSourcePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectDeploymentCheckSource) *ProjectDeploymentCheckSource {
+		return &v
+	}).(ProjectDeploymentCheckSourcePtrOutput)
+}
+
+// The external check name. Required for a `git-provider` source.
+func (o ProjectDeploymentCheckSourceOutput) ExternalCheckName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.ExternalCheckName }).(pulumi.StringPtrOutput)
+}
+
+// An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+func (o ProjectDeploymentCheckSourceOutput) ExternalResourceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.ExternalResourceId }).(pulumi.StringPtrOutput)
+}
+
+// The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+func (o ProjectDeploymentCheckSourceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectDeploymentCheckSource) string { return v.Kind }).(pulumi.StringOutput)
+}
+
+// The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+func (o ProjectDeploymentCheckSourceOutput) Provider() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.Provider }).(pulumi.StringPtrOutput)
+}
+
+// The webhook ID for a `webhook` source.
+func (o ProjectDeploymentCheckSourceOutput) WebhookId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.WebhookId }).(pulumi.StringPtrOutput)
+}
+
+type ProjectDeploymentCheckSourcePtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentCheckSourcePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentCheckSource)(nil)).Elem()
+}
+
+func (o ProjectDeploymentCheckSourcePtrOutput) ToProjectDeploymentCheckSourcePtrOutput() ProjectDeploymentCheckSourcePtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentCheckSourcePtrOutput) ToProjectDeploymentCheckSourcePtrOutputWithContext(ctx context.Context) ProjectDeploymentCheckSourcePtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentCheckSourcePtrOutput) Elem() ProjectDeploymentCheckSourceOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) ProjectDeploymentCheckSource {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectDeploymentCheckSource
+		return ret
+	}).(ProjectDeploymentCheckSourceOutput)
+}
+
+// The external check name. Required for a `git-provider` source.
+func (o ProjectDeploymentCheckSourcePtrOutput) ExternalCheckName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalCheckName
+	}).(pulumi.StringPtrOutput)
+}
+
+// An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+func (o ProjectDeploymentCheckSourcePtrOutput) ExternalResourceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalResourceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+func (o ProjectDeploymentCheckSourcePtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+func (o ProjectDeploymentCheckSourcePtrOutput) Provider() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Provider
+	}).(pulumi.StringPtrOutput)
+}
+
+// The webhook ID for a `webhook` source.
+func (o ProjectDeploymentCheckSourcePtrOutput) WebhookId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WebhookId
+	}).(pulumi.StringPtrOutput)
+}
+
 type ProjectDomainVerification struct {
 	// The domain name on which the DNS record must be created.
 	Domain *string `pulumi:"domain"`
@@ -6308,12 +8909,14 @@ type ProjectEnvironment struct {
 	Id *string `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key string `pulumi:"key"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value string `pulumi:"value"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility *string `pulumi:"visibility"`
 }
 
 // ProjectEnvironmentInput is an input type that accepts ProjectEnvironmentArgs and ProjectEnvironmentOutput values.
@@ -6338,12 +8941,14 @@ type ProjectEnvironmentArgs struct {
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive pulumi.BoolInput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value pulumi.StringInput `pulumi:"value"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility pulumi.StringPtrInput `pulumi:"visibility"`
 }
 
 func (ProjectEnvironmentArgs) ElementType() reflect.Type {
@@ -6422,7 +9027,7 @@ func (o ProjectEnvironmentOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 func (o ProjectEnvironmentOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v ProjectEnvironment) bool { return v.Sensitive }).(pulumi.BoolOutput)
 }
@@ -6435,6 +9040,11 @@ func (o ProjectEnvironmentOutput) Targets() pulumi.StringArrayOutput {
 // The value of the Environment Variable.
 func (o ProjectEnvironmentOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironment) string { return v.Value }).(pulumi.StringOutput)
+}
+
+// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+func (o ProjectEnvironmentOutput) Visibility() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironment) *string { return v.Visibility }).(pulumi.StringPtrOutput)
 }
 
 type ProjectEnvironmentArrayOutput struct{ *pulumi.OutputState }
@@ -6468,12 +9078,14 @@ type ProjectEnvironmentVariablesVariable struct {
 	Id *string `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key string `pulumi:"key"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive bool `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets []string `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value string `pulumi:"value"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility *string `pulumi:"visibility"`
 }
 
 // ProjectEnvironmentVariablesVariableInput is an input type that accepts ProjectEnvironmentVariablesVariableArgs and ProjectEnvironmentVariablesVariableOutput values.
@@ -6498,12 +9110,14 @@ type ProjectEnvironmentVariablesVariableArgs struct {
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The name of the Environment Variable.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+	// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 	Sensitive pulumi.BoolInput `pulumi:"sensitive"`
 	// The environments that the Environment Variable should be present on. Valid targets are either `production`, `preview`, or `development`. At least one of `target` or `customEnvironmentIds` must be set.
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the Environment Variable.
 	Value pulumi.StringInput `pulumi:"value"`
+	// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+	Visibility pulumi.StringPtrInput `pulumi:"visibility"`
 }
 
 func (ProjectEnvironmentVariablesVariableArgs) ElementType() reflect.Type {
@@ -6582,7 +9196,7 @@ func (o ProjectEnvironmentVariablesVariableOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a team-wide environment variable policy is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+// Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
 func (o ProjectEnvironmentVariablesVariableOutput) Sensitive() pulumi.BoolOutput {
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) bool { return v.Sensitive }).(pulumi.BoolOutput)
 }
@@ -6595,6 +9209,11 @@ func (o ProjectEnvironmentVariablesVariableOutput) Targets() pulumi.StringArrayO
 // The value of the Environment Variable.
 func (o ProjectEnvironmentVariablesVariableOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
+// Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+func (o ProjectEnvironmentVariablesVariableOutput) Visibility() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectEnvironmentVariablesVariable) *string { return v.Visibility }).(pulumi.StringPtrOutput)
 }
 
 type ProjectEnvironmentVariablesVariableArrayOutput struct{ *pulumi.OutputState }
@@ -6776,7 +9395,7 @@ func (o ProjectGitCommentsPtrOutput) OnPullRequest() pulumi.BoolPtrOutput {
 type ProjectGitProviderOptions struct {
 	// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
 	ConsolidatedGitCommitStatus *ProjectGitProviderOptionsConsolidatedGitCommitStatus `pulumi:"consolidatedGitCommitStatus"`
-	// Whether to create deployments
+	// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project's Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
 	CreateDeployments *bool `pulumi:"createDeployments"`
 	// Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
 	GitCommitStatus *bool `pulumi:"gitCommitStatus"`
@@ -6800,7 +9419,7 @@ type ProjectGitProviderOptionsInput interface {
 type ProjectGitProviderOptionsArgs struct {
 	// **Beta:** Configuration for consolidated git commit status reporting. When enabled, Vercel posts a single consolidated commit status instead of one per deployment. This feature is in beta and may change in backwards-incompatible ways.
 	ConsolidatedGitCommitStatus ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrInput `pulumi:"consolidatedGitCommitStatus"`
-	// Whether to create deployments
+	// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project's Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
 	CreateDeployments pulumi.BoolPtrInput `pulumi:"createDeployments"`
 	// Whether Vercel should post git commit statuses for this project. Defaults to `true` when unset.
 	GitCommitStatus pulumi.BoolPtrInput `pulumi:"gitCommitStatus"`
@@ -6894,7 +9513,7 @@ func (o ProjectGitProviderOptionsOutput) ConsolidatedGitCommitStatus() ProjectGi
 	}).(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput)
 }
 
-// Whether to create deployments
+// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project's Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
 func (o ProjectGitProviderOptionsOutput) CreateDeployments() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ProjectGitProviderOptions) *bool { return v.CreateDeployments }).(pulumi.BoolPtrOutput)
 }
@@ -6948,7 +9567,7 @@ func (o ProjectGitProviderOptionsPtrOutput) ConsolidatedGitCommitStatus() Projec
 	}).(ProjectGitProviderOptionsConsolidatedGitCommitStatusPtrOutput)
 }
 
-// Whether to create deployments
+// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This matches the `deploymentStatus` Events toggle in the project's Git settings. Setting this to `false` does not stop Git pushes from triggering Vercel deployments.
 func (o ProjectGitProviderOptionsPtrOutput) CreateDeployments() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectGitProviderOptions) *bool {
 		if v == nil {
@@ -7955,6 +10574,181 @@ func (o ProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) Project
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectOptionsAllowlistPath {
 		return vs[0].([]ProjectOptionsAllowlistPath)[vs[1].(int)]
 	}).(ProjectOptionsAllowlistPathOutput)
+}
+
+type ProjectPassport struct {
+	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+	ConnectorId *string `pulumi:"connectorId"`
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	DeploymentType *string `pulumi:"deploymentType"`
+	// Whether Passport is enabled. Defaults to true.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// ProjectPassportInput is an input type that accepts ProjectPassportArgs and ProjectPassportOutput values.
+// You can construct a concrete instance of `ProjectPassportInput` via:
+//
+//	ProjectPassportArgs{...}
+type ProjectPassportInput interface {
+	pulumi.Input
+
+	ToProjectPassportOutput() ProjectPassportOutput
+	ToProjectPassportOutputWithContext(context.Context) ProjectPassportOutput
+}
+
+type ProjectPassportArgs struct {
+	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+	ConnectorId pulumi.StringPtrInput `pulumi:"connectorId"`
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	DeploymentType pulumi.StringPtrInput `pulumi:"deploymentType"`
+	// Whether Passport is enabled. Defaults to true.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (ProjectPassportArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectPassport)(nil)).Elem()
+}
+
+func (i ProjectPassportArgs) ToProjectPassportOutput() ProjectPassportOutput {
+	return i.ToProjectPassportOutputWithContext(context.Background())
+}
+
+func (i ProjectPassportArgs) ToProjectPassportOutputWithContext(ctx context.Context) ProjectPassportOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportOutput)
+}
+
+func (i ProjectPassportArgs) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
+	return i.ToProjectPassportPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectPassportArgs) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportOutput).ToProjectPassportPtrOutputWithContext(ctx)
+}
+
+// ProjectPassportPtrInput is an input type that accepts ProjectPassportArgs, ProjectPassportPtr and ProjectPassportPtrOutput values.
+// You can construct a concrete instance of `ProjectPassportPtrInput` via:
+//
+//	        ProjectPassportArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectPassportPtrInput interface {
+	pulumi.Input
+
+	ToProjectPassportPtrOutput() ProjectPassportPtrOutput
+	ToProjectPassportPtrOutputWithContext(context.Context) ProjectPassportPtrOutput
+}
+
+type projectPassportPtrType ProjectPassportArgs
+
+func ProjectPassportPtr(v *ProjectPassportArgs) ProjectPassportPtrInput {
+	return (*projectPassportPtrType)(v)
+}
+
+func (*projectPassportPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectPassport)(nil)).Elem()
+}
+
+func (i *projectPassportPtrType) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
+	return i.ToProjectPassportPtrOutputWithContext(context.Background())
+}
+
+func (i *projectPassportPtrType) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportPtrOutput)
+}
+
+type ProjectPassportOutput struct{ *pulumi.OutputState }
+
+func (ProjectPassportOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectPassport)(nil)).Elem()
+}
+
+func (o ProjectPassportOutput) ToProjectPassportOutput() ProjectPassportOutput {
+	return o
+}
+
+func (o ProjectPassportOutput) ToProjectPassportOutputWithContext(ctx context.Context) ProjectPassportOutput {
+	return o
+}
+
+func (o ProjectPassportOutput) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
+	return o.ToProjectPassportPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectPassportOutput) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectPassport) *ProjectPassport {
+		return &v
+	}).(ProjectPassportPtrOutput)
+}
+
+// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+func (o ProjectPassportOutput) ConnectorId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectPassport) *string { return v.ConnectorId }).(pulumi.StringPtrOutput)
+}
+
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+func (o ProjectPassportOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectPassport) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
+}
+
+// Whether Passport is enabled. Defaults to true.
+func (o ProjectPassportOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectPassport) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type ProjectPassportPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectPassportPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectPassport)(nil)).Elem()
+}
+
+func (o ProjectPassportPtrOutput) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
+	return o
+}
+
+func (o ProjectPassportPtrOutput) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
+	return o
+}
+
+func (o ProjectPassportPtrOutput) Elem() ProjectPassportOutput {
+	return o.ApplyT(func(v *ProjectPassport) ProjectPassport {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectPassport
+		return ret
+	}).(ProjectPassportOutput)
+}
+
+// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+func (o ProjectPassportPtrOutput) ConnectorId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectPassport) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ConnectorId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+func (o ProjectPassportPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectPassport) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether Passport is enabled. Defaults to true.
+func (o ProjectPassportPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectPassport) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
 }
 
 type ProjectPasswordProtection struct {
@@ -9221,6 +12015,121 @@ func (o ProjectRouteRouteTransformArrayOutput) Index(i pulumi.IntInput) ProjectR
 	}).(ProjectRouteRouteTransformOutput)
 }
 
+type ProjectTracingSamplingRule struct {
+	// Environment to apply this sampling rule to. Can be `production` or `preview`.
+	Environment *string `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate float64 `pulumi:"rate"`
+	// Request path prefix to apply this sampling rule to.
+	RequestPath *string `pulumi:"requestPath"`
+}
+
+// ProjectTracingSamplingRuleInput is an input type that accepts ProjectTracingSamplingRuleArgs and ProjectTracingSamplingRuleOutput values.
+// You can construct a concrete instance of `ProjectTracingSamplingRuleInput` via:
+//
+//	ProjectTracingSamplingRuleArgs{...}
+type ProjectTracingSamplingRuleInput interface {
+	pulumi.Input
+
+	ToProjectTracingSamplingRuleOutput() ProjectTracingSamplingRuleOutput
+	ToProjectTracingSamplingRuleOutputWithContext(context.Context) ProjectTracingSamplingRuleOutput
+}
+
+type ProjectTracingSamplingRuleArgs struct {
+	// Environment to apply this sampling rule to. Can be `production` or `preview`.
+	Environment pulumi.StringPtrInput `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate pulumi.Float64Input `pulumi:"rate"`
+	// Request path prefix to apply this sampling rule to.
+	RequestPath pulumi.StringPtrInput `pulumi:"requestPath"`
+}
+
+func (ProjectTracingSamplingRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTracingSamplingRule)(nil)).Elem()
+}
+
+func (i ProjectTracingSamplingRuleArgs) ToProjectTracingSamplingRuleOutput() ProjectTracingSamplingRuleOutput {
+	return i.ToProjectTracingSamplingRuleOutputWithContext(context.Background())
+}
+
+func (i ProjectTracingSamplingRuleArgs) ToProjectTracingSamplingRuleOutputWithContext(ctx context.Context) ProjectTracingSamplingRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTracingSamplingRuleOutput)
+}
+
+// ProjectTracingSamplingRuleArrayInput is an input type that accepts ProjectTracingSamplingRuleArray and ProjectTracingSamplingRuleArrayOutput values.
+// You can construct a concrete instance of `ProjectTracingSamplingRuleArrayInput` via:
+//
+//	ProjectTracingSamplingRuleArray{ ProjectTracingSamplingRuleArgs{...} }
+type ProjectTracingSamplingRuleArrayInput interface {
+	pulumi.Input
+
+	ToProjectTracingSamplingRuleArrayOutput() ProjectTracingSamplingRuleArrayOutput
+	ToProjectTracingSamplingRuleArrayOutputWithContext(context.Context) ProjectTracingSamplingRuleArrayOutput
+}
+
+type ProjectTracingSamplingRuleArray []ProjectTracingSamplingRuleInput
+
+func (ProjectTracingSamplingRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTracingSamplingRule)(nil)).Elem()
+}
+
+func (i ProjectTracingSamplingRuleArray) ToProjectTracingSamplingRuleArrayOutput() ProjectTracingSamplingRuleArrayOutput {
+	return i.ToProjectTracingSamplingRuleArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectTracingSamplingRuleArray) ToProjectTracingSamplingRuleArrayOutputWithContext(ctx context.Context) ProjectTracingSamplingRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectTracingSamplingRuleArrayOutput)
+}
+
+type ProjectTracingSamplingRuleOutput struct{ *pulumi.OutputState }
+
+func (ProjectTracingSamplingRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectTracingSamplingRule)(nil)).Elem()
+}
+
+func (o ProjectTracingSamplingRuleOutput) ToProjectTracingSamplingRuleOutput() ProjectTracingSamplingRuleOutput {
+	return o
+}
+
+func (o ProjectTracingSamplingRuleOutput) ToProjectTracingSamplingRuleOutputWithContext(ctx context.Context) ProjectTracingSamplingRuleOutput {
+	return o
+}
+
+// Environment to apply this sampling rule to. Can be `production` or `preview`.
+func (o ProjectTracingSamplingRuleOutput) Environment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTracingSamplingRule) *string { return v.Environment }).(pulumi.StringPtrOutput)
+}
+
+// Sampling rate from 0 to 1.
+func (o ProjectTracingSamplingRuleOutput) Rate() pulumi.Float64Output {
+	return o.ApplyT(func(v ProjectTracingSamplingRule) float64 { return v.Rate }).(pulumi.Float64Output)
+}
+
+// Request path prefix to apply this sampling rule to.
+func (o ProjectTracingSamplingRuleOutput) RequestPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectTracingSamplingRule) *string { return v.RequestPath }).(pulumi.StringPtrOutput)
+}
+
+type ProjectTracingSamplingRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectTracingSamplingRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectTracingSamplingRule)(nil)).Elem()
+}
+
+func (o ProjectTracingSamplingRuleArrayOutput) ToProjectTracingSamplingRuleArrayOutput() ProjectTracingSamplingRuleArrayOutput {
+	return o
+}
+
+func (o ProjectTracingSamplingRuleArrayOutput) ToProjectTracingSamplingRuleArrayOutputWithContext(ctx context.Context) ProjectTracingSamplingRuleArrayOutput {
+	return o
+}
+
+func (o ProjectTracingSamplingRuleArrayOutput) Index(i pulumi.IntInput) ProjectTracingSamplingRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectTracingSamplingRule {
+		return vs[0].([]ProjectTracingSamplingRule)[vs[1].(int)]
+	}).(ProjectTracingSamplingRuleOutput)
+}
+
 type ProjectTrustedIps struct {
 	// The allowed IP addressses and CIDR ranges with optional descriptions.
 	Addresses []ProjectTrustedIpsAddress `pulumi:"addresses"`
@@ -10189,7 +13098,7 @@ func (o ProjectTrustedSourcesProjectCustomAllowToOutput) Slugs() pulumi.StringAr
 }
 
 type ProjectVercelAuthentication struct {
-	// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+	// The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
 	DeploymentType *string `pulumi:"deploymentType"`
 }
 
@@ -10205,7 +13114,7 @@ type ProjectVercelAuthenticationInput interface {
 }
 
 type ProjectVercelAuthenticationArgs struct {
-	// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+	// The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
 	DeploymentType pulumi.StringPtrInput `pulumi:"deploymentType"`
 }
 
@@ -10286,7 +13195,7 @@ func (o ProjectVercelAuthenticationOutput) ToProjectVercelAuthenticationPtrOutpu
 	}).(ProjectVercelAuthenticationPtrOutput)
 }
 
-// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+// The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
 func (o ProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectVercelAuthentication) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
 }
@@ -10315,7 +13224,7 @@ func (o ProjectVercelAuthenticationPtrOutput) Elem() ProjectVercelAuthentication
 	}).(ProjectVercelAuthenticationOutput)
 }
 
-// The deployment environment to protect. The default value is `standardProtectionNew` (Standard Protection). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
+// The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `standardProtectionNew` (Standard Protection), `standardProtection` (Legacy Standard Protection), `allDeployments`, `onlyPreviewDeployments`, or `none`.
 func (o ProjectVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectVercelAuthentication) *string {
 		if v == nil {
@@ -10323,6 +13232,457 @@ func (o ProjectVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrO
 		}
 		return v.DeploymentType
 	}).(pulumi.StringPtrOutput)
+}
+
+type TeamConfigDefaultDeploymentProtection struct {
+	// Default Vercel Authentication for new projects.
+	VercelAuthentication TeamConfigDefaultDeploymentProtectionVercelAuthentication `pulumi:"vercelAuthentication"`
+}
+
+// TeamConfigDefaultDeploymentProtectionInput is an input type that accepts TeamConfigDefaultDeploymentProtectionArgs and TeamConfigDefaultDeploymentProtectionOutput values.
+// You can construct a concrete instance of `TeamConfigDefaultDeploymentProtectionInput` via:
+//
+//	TeamConfigDefaultDeploymentProtectionArgs{...}
+type TeamConfigDefaultDeploymentProtectionInput interface {
+	pulumi.Input
+
+	ToTeamConfigDefaultDeploymentProtectionOutput() TeamConfigDefaultDeploymentProtectionOutput
+	ToTeamConfigDefaultDeploymentProtectionOutputWithContext(context.Context) TeamConfigDefaultDeploymentProtectionOutput
+}
+
+type TeamConfigDefaultDeploymentProtectionArgs struct {
+	// Default Vercel Authentication for new projects.
+	VercelAuthentication TeamConfigDefaultDeploymentProtectionVercelAuthenticationInput `pulumi:"vercelAuthentication"`
+}
+
+func (TeamConfigDefaultDeploymentProtectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigDefaultDeploymentProtection)(nil)).Elem()
+}
+
+func (i TeamConfigDefaultDeploymentProtectionArgs) ToTeamConfigDefaultDeploymentProtectionOutput() TeamConfigDefaultDeploymentProtectionOutput {
+	return i.ToTeamConfigDefaultDeploymentProtectionOutputWithContext(context.Background())
+}
+
+func (i TeamConfigDefaultDeploymentProtectionArgs) ToTeamConfigDefaultDeploymentProtectionOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultDeploymentProtectionOutput)
+}
+
+func (i TeamConfigDefaultDeploymentProtectionArgs) ToTeamConfigDefaultDeploymentProtectionPtrOutput() TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return i.ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(context.Background())
+}
+
+func (i TeamConfigDefaultDeploymentProtectionArgs) ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultDeploymentProtectionOutput).ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(ctx)
+}
+
+// TeamConfigDefaultDeploymentProtectionPtrInput is an input type that accepts TeamConfigDefaultDeploymentProtectionArgs, TeamConfigDefaultDeploymentProtectionPtr and TeamConfigDefaultDeploymentProtectionPtrOutput values.
+// You can construct a concrete instance of `TeamConfigDefaultDeploymentProtectionPtrInput` via:
+//
+//	        TeamConfigDefaultDeploymentProtectionArgs{...}
+//
+//	or:
+//
+//	        nil
+type TeamConfigDefaultDeploymentProtectionPtrInput interface {
+	pulumi.Input
+
+	ToTeamConfigDefaultDeploymentProtectionPtrOutput() TeamConfigDefaultDeploymentProtectionPtrOutput
+	ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(context.Context) TeamConfigDefaultDeploymentProtectionPtrOutput
+}
+
+type teamConfigDefaultDeploymentProtectionPtrType TeamConfigDefaultDeploymentProtectionArgs
+
+func TeamConfigDefaultDeploymentProtectionPtr(v *TeamConfigDefaultDeploymentProtectionArgs) TeamConfigDefaultDeploymentProtectionPtrInput {
+	return (*teamConfigDefaultDeploymentProtectionPtrType)(v)
+}
+
+func (*teamConfigDefaultDeploymentProtectionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigDefaultDeploymentProtection)(nil)).Elem()
+}
+
+func (i *teamConfigDefaultDeploymentProtectionPtrType) ToTeamConfigDefaultDeploymentProtectionPtrOutput() TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return i.ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(context.Background())
+}
+
+func (i *teamConfigDefaultDeploymentProtectionPtrType) ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultDeploymentProtectionPtrOutput)
+}
+
+type TeamConfigDefaultDeploymentProtectionOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigDefaultDeploymentProtectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigDefaultDeploymentProtection)(nil)).Elem()
+}
+
+func (o TeamConfigDefaultDeploymentProtectionOutput) ToTeamConfigDefaultDeploymentProtectionOutput() TeamConfigDefaultDeploymentProtectionOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionOutput) ToTeamConfigDefaultDeploymentProtectionOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionOutput) ToTeamConfigDefaultDeploymentProtectionPtrOutput() TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return o.ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(context.Background())
+}
+
+func (o TeamConfigDefaultDeploymentProtectionOutput) ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TeamConfigDefaultDeploymentProtection) *TeamConfigDefaultDeploymentProtection {
+		return &v
+	}).(TeamConfigDefaultDeploymentProtectionPtrOutput)
+}
+
+// Default Vercel Authentication for new projects.
+func (o TeamConfigDefaultDeploymentProtectionOutput) VercelAuthentication() TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o.ApplyT(func(v TeamConfigDefaultDeploymentProtection) TeamConfigDefaultDeploymentProtectionVercelAuthentication {
+		return v.VercelAuthentication
+	}).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput)
+}
+
+type TeamConfigDefaultDeploymentProtectionPtrOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigDefaultDeploymentProtectionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigDefaultDeploymentProtection)(nil)).Elem()
+}
+
+func (o TeamConfigDefaultDeploymentProtectionPtrOutput) ToTeamConfigDefaultDeploymentProtectionPtrOutput() TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionPtrOutput) ToTeamConfigDefaultDeploymentProtectionPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionPtrOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionPtrOutput) Elem() TeamConfigDefaultDeploymentProtectionOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultDeploymentProtection) TeamConfigDefaultDeploymentProtection {
+		if v != nil {
+			return *v
+		}
+		var ret TeamConfigDefaultDeploymentProtection
+		return ret
+	}).(TeamConfigDefaultDeploymentProtectionOutput)
+}
+
+// Default Vercel Authentication for new projects.
+func (o TeamConfigDefaultDeploymentProtectionPtrOutput) VercelAuthentication() TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultDeploymentProtection) *TeamConfigDefaultDeploymentProtectionVercelAuthentication {
+		if v == nil {
+			return nil
+		}
+		return &v.VercelAuthentication
+	}).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput)
+}
+
+type TeamConfigDefaultDeploymentProtectionVercelAuthentication struct {
+	// One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+	DeploymentType string `pulumi:"deploymentType"`
+}
+
+// TeamConfigDefaultDeploymentProtectionVercelAuthenticationInput is an input type that accepts TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs and TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput values.
+// You can construct a concrete instance of `TeamConfigDefaultDeploymentProtectionVercelAuthenticationInput` via:
+//
+//	TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{...}
+type TeamConfigDefaultDeploymentProtectionVercelAuthenticationInput interface {
+	pulumi.Input
+
+	ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput
+	ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput
+}
+
+type TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs struct {
+	// One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+}
+
+func (TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigDefaultDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (i TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return i.ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(context.Background())
+}
+
+func (i TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput)
+}
+
+func (i TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return i.ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (i TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput).ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx)
+}
+
+// TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrInput is an input type that accepts TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs, TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtr and TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput values.
+// You can construct a concrete instance of `TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrInput` via:
+//
+//	        TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{...}
+//
+//	or:
+//
+//	        nil
+type TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrInput interface {
+	pulumi.Input
+
+	ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput
+	ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput
+}
+
+type teamConfigDefaultDeploymentProtectionVercelAuthenticationPtrType TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs
+
+func TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtr(v *TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrInput {
+	return (*teamConfigDefaultDeploymentProtectionVercelAuthenticationPtrType)(v)
+}
+
+func (*teamConfigDefaultDeploymentProtectionVercelAuthenticationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigDefaultDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (i *teamConfigDefaultDeploymentProtectionVercelAuthenticationPtrType) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return i.ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (i *teamConfigDefaultDeploymentProtectionVercelAuthenticationPtrType) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput)
+}
+
+type TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigDefaultDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o.ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TeamConfigDefaultDeploymentProtectionVercelAuthentication) *TeamConfigDefaultDeploymentProtectionVercelAuthentication {
+		return &v
+	}).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput)
+}
+
+// One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v TeamConfigDefaultDeploymentProtectionVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+type TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigDefaultDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput() TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput) ToTeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o
+}
+
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput) Elem() TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultDeploymentProtectionVercelAuthentication) TeamConfigDefaultDeploymentProtectionVercelAuthentication {
+		if v != nil {
+			return *v
+		}
+		var ret TeamConfigDefaultDeploymentProtectionVercelAuthentication
+		return ret
+	}).(TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput)
+}
+
+// One of standard*protection*new, standard*protection, all*deployments, only*preview*deployments, or none. none disables authentication for new projects.
+func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultDeploymentProtectionVercelAuthentication) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
+type TeamConfigDefaultPassport struct {
+	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+	ConnectorId *string `pulumi:"connectorId"`
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	DeploymentType *string `pulumi:"deploymentType"`
+	// Whether Passport is enabled. Defaults to true.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// TeamConfigDefaultPassportInput is an input type that accepts TeamConfigDefaultPassportArgs and TeamConfigDefaultPassportOutput values.
+// You can construct a concrete instance of `TeamConfigDefaultPassportInput` via:
+//
+//	TeamConfigDefaultPassportArgs{...}
+type TeamConfigDefaultPassportInput interface {
+	pulumi.Input
+
+	ToTeamConfigDefaultPassportOutput() TeamConfigDefaultPassportOutput
+	ToTeamConfigDefaultPassportOutputWithContext(context.Context) TeamConfigDefaultPassportOutput
+}
+
+type TeamConfigDefaultPassportArgs struct {
+	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+	ConnectorId pulumi.StringPtrInput `pulumi:"connectorId"`
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	DeploymentType pulumi.StringPtrInput `pulumi:"deploymentType"`
+	// Whether Passport is enabled. Defaults to true.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (TeamConfigDefaultPassportArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigDefaultPassport)(nil)).Elem()
+}
+
+func (i TeamConfigDefaultPassportArgs) ToTeamConfigDefaultPassportOutput() TeamConfigDefaultPassportOutput {
+	return i.ToTeamConfigDefaultPassportOutputWithContext(context.Background())
+}
+
+func (i TeamConfigDefaultPassportArgs) ToTeamConfigDefaultPassportOutputWithContext(ctx context.Context) TeamConfigDefaultPassportOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultPassportOutput)
+}
+
+func (i TeamConfigDefaultPassportArgs) ToTeamConfigDefaultPassportPtrOutput() TeamConfigDefaultPassportPtrOutput {
+	return i.ToTeamConfigDefaultPassportPtrOutputWithContext(context.Background())
+}
+
+func (i TeamConfigDefaultPassportArgs) ToTeamConfigDefaultPassportPtrOutputWithContext(ctx context.Context) TeamConfigDefaultPassportPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultPassportOutput).ToTeamConfigDefaultPassportPtrOutputWithContext(ctx)
+}
+
+// TeamConfigDefaultPassportPtrInput is an input type that accepts TeamConfigDefaultPassportArgs, TeamConfigDefaultPassportPtr and TeamConfigDefaultPassportPtrOutput values.
+// You can construct a concrete instance of `TeamConfigDefaultPassportPtrInput` via:
+//
+//	        TeamConfigDefaultPassportArgs{...}
+//
+//	or:
+//
+//	        nil
+type TeamConfigDefaultPassportPtrInput interface {
+	pulumi.Input
+
+	ToTeamConfigDefaultPassportPtrOutput() TeamConfigDefaultPassportPtrOutput
+	ToTeamConfigDefaultPassportPtrOutputWithContext(context.Context) TeamConfigDefaultPassportPtrOutput
+}
+
+type teamConfigDefaultPassportPtrType TeamConfigDefaultPassportArgs
+
+func TeamConfigDefaultPassportPtr(v *TeamConfigDefaultPassportArgs) TeamConfigDefaultPassportPtrInput {
+	return (*teamConfigDefaultPassportPtrType)(v)
+}
+
+func (*teamConfigDefaultPassportPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigDefaultPassport)(nil)).Elem()
+}
+
+func (i *teamConfigDefaultPassportPtrType) ToTeamConfigDefaultPassportPtrOutput() TeamConfigDefaultPassportPtrOutput {
+	return i.ToTeamConfigDefaultPassportPtrOutputWithContext(context.Background())
+}
+
+func (i *teamConfigDefaultPassportPtrType) ToTeamConfigDefaultPassportPtrOutputWithContext(ctx context.Context) TeamConfigDefaultPassportPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TeamConfigDefaultPassportPtrOutput)
+}
+
+type TeamConfigDefaultPassportOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigDefaultPassportOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TeamConfigDefaultPassport)(nil)).Elem()
+}
+
+func (o TeamConfigDefaultPassportOutput) ToTeamConfigDefaultPassportOutput() TeamConfigDefaultPassportOutput {
+	return o
+}
+
+func (o TeamConfigDefaultPassportOutput) ToTeamConfigDefaultPassportOutputWithContext(ctx context.Context) TeamConfigDefaultPassportOutput {
+	return o
+}
+
+func (o TeamConfigDefaultPassportOutput) ToTeamConfigDefaultPassportPtrOutput() TeamConfigDefaultPassportPtrOutput {
+	return o.ToTeamConfigDefaultPassportPtrOutputWithContext(context.Background())
+}
+
+func (o TeamConfigDefaultPassportOutput) ToTeamConfigDefaultPassportPtrOutputWithContext(ctx context.Context) TeamConfigDefaultPassportPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TeamConfigDefaultPassport) *TeamConfigDefaultPassport {
+		return &v
+	}).(TeamConfigDefaultPassportPtrOutput)
+}
+
+// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+func (o TeamConfigDefaultPassportOutput) ConnectorId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TeamConfigDefaultPassport) *string { return v.ConnectorId }).(pulumi.StringPtrOutput)
+}
+
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+func (o TeamConfigDefaultPassportOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TeamConfigDefaultPassport) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
+}
+
+// Whether Passport is enabled. Defaults to true.
+func (o TeamConfigDefaultPassportOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TeamConfigDefaultPassport) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type TeamConfigDefaultPassportPtrOutput struct{ *pulumi.OutputState }
+
+func (TeamConfigDefaultPassportPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TeamConfigDefaultPassport)(nil)).Elem()
+}
+
+func (o TeamConfigDefaultPassportPtrOutput) ToTeamConfigDefaultPassportPtrOutput() TeamConfigDefaultPassportPtrOutput {
+	return o
+}
+
+func (o TeamConfigDefaultPassportPtrOutput) ToTeamConfigDefaultPassportPtrOutputWithContext(ctx context.Context) TeamConfigDefaultPassportPtrOutput {
+	return o
+}
+
+func (o TeamConfigDefaultPassportPtrOutput) Elem() TeamConfigDefaultPassportOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultPassport) TeamConfigDefaultPassport {
+		if v != nil {
+			return *v
+		}
+		var ret TeamConfigDefaultPassport
+		return ret
+	}).(TeamConfigDefaultPassportOutput)
+}
+
+// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
+func (o TeamConfigDefaultPassportPtrOutput) ConnectorId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultPassport) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ConnectorId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+func (o TeamConfigDefaultPassportPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultPassport) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether Passport is enabled. Defaults to true.
+func (o TeamConfigDefaultPassportPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TeamConfigDefaultPassport) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
 }
 
 type TeamConfigRemoteCaching struct {
@@ -12165,6 +15525,362 @@ func (o GetFeatureFlagVariantArrayOutput) Index(i pulumi.IntInput) GetFeatureFla
 	}).(GetFeatureFlagVariantOutput)
 }
 
+type GetKmsIssuerPolicy struct {
+	// The client ID associated with the policy, for connex grants.
+	ClientId string `pulumi:"clientId"`
+	// The time the policy was created.
+	CreatedAt string `pulumi:"createdAt"`
+	// The environments the policy applies to, for project grants.
+	Environments []string `pulumi:"environments"`
+	// The policy kind, either `project-grant` or `connex-grant`.
+	Kind string `pulumi:"kind"`
+	// The project ID associated with the policy, for project grants.
+	ProjectId string `pulumi:"projectId"`
+	// The team ID associated with the policy, for project grants.
+	TeamId string `pulumi:"teamId"`
+	// The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+	TokenClaims string `pulumi:"tokenClaims"`
+	// The time the policy was last updated.
+	UpdatedAt string `pulumi:"updatedAt"`
+}
+
+// GetKmsIssuerPolicyInput is an input type that accepts GetKmsIssuerPolicyArgs and GetKmsIssuerPolicyOutput values.
+// You can construct a concrete instance of `GetKmsIssuerPolicyInput` via:
+//
+//	GetKmsIssuerPolicyArgs{...}
+type GetKmsIssuerPolicyInput interface {
+	pulumi.Input
+
+	ToGetKmsIssuerPolicyOutput() GetKmsIssuerPolicyOutput
+	ToGetKmsIssuerPolicyOutputWithContext(context.Context) GetKmsIssuerPolicyOutput
+}
+
+type GetKmsIssuerPolicyArgs struct {
+	// The client ID associated with the policy, for connex grants.
+	ClientId pulumi.StringInput `pulumi:"clientId"`
+	// The time the policy was created.
+	CreatedAt pulumi.StringInput `pulumi:"createdAt"`
+	// The environments the policy applies to, for project grants.
+	Environments pulumi.StringArrayInput `pulumi:"environments"`
+	// The policy kind, either `project-grant` or `connex-grant`.
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// The project ID associated with the policy, for project grants.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// The team ID associated with the policy, for project grants.
+	TeamId pulumi.StringInput `pulumi:"teamId"`
+	// The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+	TokenClaims pulumi.StringInput `pulumi:"tokenClaims"`
+	// The time the policy was last updated.
+	UpdatedAt pulumi.StringInput `pulumi:"updatedAt"`
+}
+
+func (GetKmsIssuerPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetKmsIssuerPolicy)(nil)).Elem()
+}
+
+func (i GetKmsIssuerPolicyArgs) ToGetKmsIssuerPolicyOutput() GetKmsIssuerPolicyOutput {
+	return i.ToGetKmsIssuerPolicyOutputWithContext(context.Background())
+}
+
+func (i GetKmsIssuerPolicyArgs) ToGetKmsIssuerPolicyOutputWithContext(ctx context.Context) GetKmsIssuerPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetKmsIssuerPolicyOutput)
+}
+
+// GetKmsIssuerPolicyArrayInput is an input type that accepts GetKmsIssuerPolicyArray and GetKmsIssuerPolicyArrayOutput values.
+// You can construct a concrete instance of `GetKmsIssuerPolicyArrayInput` via:
+//
+//	GetKmsIssuerPolicyArray{ GetKmsIssuerPolicyArgs{...} }
+type GetKmsIssuerPolicyArrayInput interface {
+	pulumi.Input
+
+	ToGetKmsIssuerPolicyArrayOutput() GetKmsIssuerPolicyArrayOutput
+	ToGetKmsIssuerPolicyArrayOutputWithContext(context.Context) GetKmsIssuerPolicyArrayOutput
+}
+
+type GetKmsIssuerPolicyArray []GetKmsIssuerPolicyInput
+
+func (GetKmsIssuerPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetKmsIssuerPolicy)(nil)).Elem()
+}
+
+func (i GetKmsIssuerPolicyArray) ToGetKmsIssuerPolicyArrayOutput() GetKmsIssuerPolicyArrayOutput {
+	return i.ToGetKmsIssuerPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i GetKmsIssuerPolicyArray) ToGetKmsIssuerPolicyArrayOutputWithContext(ctx context.Context) GetKmsIssuerPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetKmsIssuerPolicyArrayOutput)
+}
+
+type GetKmsIssuerPolicyOutput struct{ *pulumi.OutputState }
+
+func (GetKmsIssuerPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetKmsIssuerPolicy)(nil)).Elem()
+}
+
+func (o GetKmsIssuerPolicyOutput) ToGetKmsIssuerPolicyOutput() GetKmsIssuerPolicyOutput {
+	return o
+}
+
+func (o GetKmsIssuerPolicyOutput) ToGetKmsIssuerPolicyOutputWithContext(ctx context.Context) GetKmsIssuerPolicyOutput {
+	return o
+}
+
+// The client ID associated with the policy, for connex grants.
+func (o GetKmsIssuerPolicyOutput) ClientId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.ClientId }).(pulumi.StringOutput)
+}
+
+// The time the policy was created.
+func (o GetKmsIssuerPolicyOutput) CreatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+// The environments the policy applies to, for project grants.
+func (o GetKmsIssuerPolicyOutput) Environments() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) []string { return v.Environments }).(pulumi.StringArrayOutput)
+}
+
+// The policy kind, either `project-grant` or `connex-grant`.
+func (o GetKmsIssuerPolicyOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.Kind }).(pulumi.StringOutput)
+}
+
+// The project ID associated with the policy, for project grants.
+func (o GetKmsIssuerPolicyOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// The team ID associated with the policy, for project grants.
+func (o GetKmsIssuerPolicyOutput) TeamId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.TeamId }).(pulumi.StringOutput)
+}
+
+// The claims KMS includes in signed JWTs for this policy, as a JSON-encoded object.
+func (o GetKmsIssuerPolicyOutput) TokenClaims() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.TokenClaims }).(pulumi.StringOutput)
+}
+
+// The time the policy was last updated.
+func (o GetKmsIssuerPolicyOutput) UpdatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerPolicy) string { return v.UpdatedAt }).(pulumi.StringOutput)
+}
+
+type GetKmsIssuerPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (GetKmsIssuerPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetKmsIssuerPolicy)(nil)).Elem()
+}
+
+func (o GetKmsIssuerPolicyArrayOutput) ToGetKmsIssuerPolicyArrayOutput() GetKmsIssuerPolicyArrayOutput {
+	return o
+}
+
+func (o GetKmsIssuerPolicyArrayOutput) ToGetKmsIssuerPolicyArrayOutputWithContext(ctx context.Context) GetKmsIssuerPolicyArrayOutput {
+	return o
+}
+
+func (o GetKmsIssuerPolicyArrayOutput) Index(i pulumi.IntInput) GetKmsIssuerPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetKmsIssuerPolicy {
+		return vs[0].([]GetKmsIssuerPolicy)[vs[1].(int)]
+	}).(GetKmsIssuerPolicyOutput)
+}
+
+type GetKmsIssuerSigningKey struct {
+	// The signing algorithm of the key.
+	Algorithm string `pulumi:"algorithm"`
+	// The key's self-signed X.509 certificate in PEM form.
+	CertificatePem string `pulumi:"certificatePem"`
+	// The time the key was created.
+	CreatedAt string `pulumi:"createdAt"`
+	// The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+	ImportKeyId string `pulumi:"importKeyId"`
+	// The ID of the issuer the key belongs to.
+	IssuerId string `pulumi:"issuerId"`
+	// The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+	KeyId string `pulumi:"keyId"`
+	// The fingerprint of the public key.
+	PublicKeyFingerprint string `pulumi:"publicKeyFingerprint"`
+	// The public key as a JSON-encoded JWK.
+	PublicKeyJwk string `pulumi:"publicKeyJwk"`
+	// The public key in SPKI PEM form.
+	PublicKeyPem string `pulumi:"publicKeyPem"`
+	// The time at which the key is scheduled to be revoked, if any.
+	RevokeAt string `pulumi:"revokeAt"`
+	// The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+	Status string `pulumi:"status"`
+	// The time the key was last updated.
+	UpdatedAt string `pulumi:"updatedAt"`
+}
+
+// GetKmsIssuerSigningKeyInput is an input type that accepts GetKmsIssuerSigningKeyArgs and GetKmsIssuerSigningKeyOutput values.
+// You can construct a concrete instance of `GetKmsIssuerSigningKeyInput` via:
+//
+//	GetKmsIssuerSigningKeyArgs{...}
+type GetKmsIssuerSigningKeyInput interface {
+	pulumi.Input
+
+	ToGetKmsIssuerSigningKeyOutput() GetKmsIssuerSigningKeyOutput
+	ToGetKmsIssuerSigningKeyOutputWithContext(context.Context) GetKmsIssuerSigningKeyOutput
+}
+
+type GetKmsIssuerSigningKeyArgs struct {
+	// The signing algorithm of the key.
+	Algorithm pulumi.StringInput `pulumi:"algorithm"`
+	// The key's self-signed X.509 certificate in PEM form.
+	CertificatePem pulumi.StringInput `pulumi:"certificatePem"`
+	// The time the key was created.
+	CreatedAt pulumi.StringInput `pulumi:"createdAt"`
+	// The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+	ImportKeyId pulumi.StringInput `pulumi:"importKeyId"`
+	// The ID of the issuer the key belongs to.
+	IssuerId pulumi.StringInput `pulumi:"issuerId"`
+	// The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+	KeyId pulumi.StringInput `pulumi:"keyId"`
+	// The fingerprint of the public key.
+	PublicKeyFingerprint pulumi.StringInput `pulumi:"publicKeyFingerprint"`
+	// The public key as a JSON-encoded JWK.
+	PublicKeyJwk pulumi.StringInput `pulumi:"publicKeyJwk"`
+	// The public key in SPKI PEM form.
+	PublicKeyPem pulumi.StringInput `pulumi:"publicKeyPem"`
+	// The time at which the key is scheduled to be revoked, if any.
+	RevokeAt pulumi.StringInput `pulumi:"revokeAt"`
+	// The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+	Status pulumi.StringInput `pulumi:"status"`
+	// The time the key was last updated.
+	UpdatedAt pulumi.StringInput `pulumi:"updatedAt"`
+}
+
+func (GetKmsIssuerSigningKeyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetKmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (i GetKmsIssuerSigningKeyArgs) ToGetKmsIssuerSigningKeyOutput() GetKmsIssuerSigningKeyOutput {
+	return i.ToGetKmsIssuerSigningKeyOutputWithContext(context.Background())
+}
+
+func (i GetKmsIssuerSigningKeyArgs) ToGetKmsIssuerSigningKeyOutputWithContext(ctx context.Context) GetKmsIssuerSigningKeyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetKmsIssuerSigningKeyOutput)
+}
+
+// GetKmsIssuerSigningKeyArrayInput is an input type that accepts GetKmsIssuerSigningKeyArray and GetKmsIssuerSigningKeyArrayOutput values.
+// You can construct a concrete instance of `GetKmsIssuerSigningKeyArrayInput` via:
+//
+//	GetKmsIssuerSigningKeyArray{ GetKmsIssuerSigningKeyArgs{...} }
+type GetKmsIssuerSigningKeyArrayInput interface {
+	pulumi.Input
+
+	ToGetKmsIssuerSigningKeyArrayOutput() GetKmsIssuerSigningKeyArrayOutput
+	ToGetKmsIssuerSigningKeyArrayOutputWithContext(context.Context) GetKmsIssuerSigningKeyArrayOutput
+}
+
+type GetKmsIssuerSigningKeyArray []GetKmsIssuerSigningKeyInput
+
+func (GetKmsIssuerSigningKeyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetKmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (i GetKmsIssuerSigningKeyArray) ToGetKmsIssuerSigningKeyArrayOutput() GetKmsIssuerSigningKeyArrayOutput {
+	return i.ToGetKmsIssuerSigningKeyArrayOutputWithContext(context.Background())
+}
+
+func (i GetKmsIssuerSigningKeyArray) ToGetKmsIssuerSigningKeyArrayOutputWithContext(ctx context.Context) GetKmsIssuerSigningKeyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetKmsIssuerSigningKeyArrayOutput)
+}
+
+type GetKmsIssuerSigningKeyOutput struct{ *pulumi.OutputState }
+
+func (GetKmsIssuerSigningKeyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetKmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (o GetKmsIssuerSigningKeyOutput) ToGetKmsIssuerSigningKeyOutput() GetKmsIssuerSigningKeyOutput {
+	return o
+}
+
+func (o GetKmsIssuerSigningKeyOutput) ToGetKmsIssuerSigningKeyOutputWithContext(ctx context.Context) GetKmsIssuerSigningKeyOutput {
+	return o
+}
+
+// The signing algorithm of the key.
+func (o GetKmsIssuerSigningKeyOutput) Algorithm() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.Algorithm }).(pulumi.StringOutput)
+}
+
+// The key's self-signed X.509 certificate in PEM form.
+func (o GetKmsIssuerSigningKeyOutput) CertificatePem() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.CertificatePem }).(pulumi.StringOutput)
+}
+
+// The time the key was created.
+func (o GetKmsIssuerSigningKeyOutput) CreatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+// The caller-supplied key ID (`kid`) for an imported key, or `null` for keys generated by Vercel. This is the value that appears in the JWKS and signed-token headers for imported keys.
+func (o GetKmsIssuerSigningKeyOutput) ImportKeyId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.ImportKeyId }).(pulumi.StringOutput)
+}
+
+// The ID of the issuer the key belongs to.
+func (o GetKmsIssuerSigningKeyOutput) IssuerId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.IssuerId }).(pulumi.StringOutput)
+}
+
+// The server-minted addressable ID of the signing key. For keys generated by Vercel this is also the JWT/JWKS `kid`; for an imported key the `kid` may differ from this addressable ID.
+func (o GetKmsIssuerSigningKeyOutput) KeyId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.KeyId }).(pulumi.StringOutput)
+}
+
+// The fingerprint of the public key.
+func (o GetKmsIssuerSigningKeyOutput) PublicKeyFingerprint() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.PublicKeyFingerprint }).(pulumi.StringOutput)
+}
+
+// The public key as a JSON-encoded JWK.
+func (o GetKmsIssuerSigningKeyOutput) PublicKeyJwk() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.PublicKeyJwk }).(pulumi.StringOutput)
+}
+
+// The public key in SPKI PEM form.
+func (o GetKmsIssuerSigningKeyOutput) PublicKeyPem() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.PublicKeyPem }).(pulumi.StringOutput)
+}
+
+// The time at which the key is scheduled to be revoked, if any.
+func (o GetKmsIssuerSigningKeyOutput) RevokeAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.RevokeAt }).(pulumi.StringOutput)
+}
+
+// The status of the key, one of `pending`, `active`, or `revoking`. A newly rotated key is `pending` until its public key propagates, then becomes `active`.
+func (o GetKmsIssuerSigningKeyOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The time the key was last updated.
+func (o GetKmsIssuerSigningKeyOutput) UpdatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetKmsIssuerSigningKey) string { return v.UpdatedAt }).(pulumi.StringOutput)
+}
+
+type GetKmsIssuerSigningKeyArrayOutput struct{ *pulumi.OutputState }
+
+func (GetKmsIssuerSigningKeyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetKmsIssuerSigningKey)(nil)).Elem()
+}
+
+func (o GetKmsIssuerSigningKeyArrayOutput) ToGetKmsIssuerSigningKeyArrayOutput() GetKmsIssuerSigningKeyArrayOutput {
+	return o
+}
+
+func (o GetKmsIssuerSigningKeyArrayOutput) ToGetKmsIssuerSigningKeyArrayOutputWithContext(ctx context.Context) GetKmsIssuerSigningKeyArrayOutput {
+	return o
+}
+
+func (o GetKmsIssuerSigningKeyArrayOutput) Index(i pulumi.IntInput) GetKmsIssuerSigningKeyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetKmsIssuerSigningKey {
+		return vs[0].([]GetKmsIssuerSigningKey)[vs[1].(int)]
+	}).(GetKmsIssuerSigningKeyOutput)
+}
+
 type GetMicrofrontendGroupDefaultApp struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute string `pulumi:"defaultRoute"`
@@ -12252,6 +15968,8 @@ type GetProjectEnvironment struct {
 	Targets []string `pulumi:"targets"`
 	// The value of the environment variable.
 	Value string `pulumi:"value"`
+	// Controls how the environment variable is categorized: `config` or `secret`.
+	Visibility string `pulumi:"visibility"`
 }
 
 // GetProjectEnvironmentInput is an input type that accepts GetProjectEnvironmentArgs and GetProjectEnvironmentOutput values.
@@ -12282,6 +16000,8 @@ type GetProjectEnvironmentArgs struct {
 	Targets pulumi.StringArrayInput `pulumi:"targets"`
 	// The value of the environment variable.
 	Value pulumi.StringInput `pulumi:"value"`
+	// Controls how the environment variable is categorized: `config` or `secret`.
+	Visibility pulumi.StringInput `pulumi:"visibility"`
 }
 
 func (GetProjectEnvironmentArgs) ElementType() reflect.Type {
@@ -12375,6 +16095,11 @@ func (o GetProjectEnvironmentOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Value }).(pulumi.StringOutput)
 }
 
+// Controls how the environment variable is categorized: `config` or `secret`.
+func (o GetProjectEnvironmentOutput) Visibility() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectEnvironment) string { return v.Visibility }).(pulumi.StringOutput)
+}
+
 type GetProjectEnvironmentArrayOutput struct{ *pulumi.OutputState }
 
 func (GetProjectEnvironmentArrayOutput) ElementType() reflect.Type {
@@ -12459,7 +16184,7 @@ func (o GetProjectGitCommentsOutput) OnPullRequest() pulumi.BoolOutput {
 type GetProjectGitProviderOptions struct {
 	// **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
 	ConsolidatedGitCommitStatus GetProjectGitProviderOptionsConsolidatedGitCommitStatus `pulumi:"consolidatedGitCommitStatus"`
-	// Whether to create deployments.
+	// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This does not control whether Git pushes trigger Vercel deployments.
 	CreateDeployments bool `pulumi:"createDeployments"`
 	// Whether Vercel posts git commit statuses for this project.
 	GitCommitStatus bool `pulumi:"gitCommitStatus"`
@@ -12483,7 +16208,7 @@ type GetProjectGitProviderOptionsInput interface {
 type GetProjectGitProviderOptionsArgs struct {
 	// **Beta:** Configuration for consolidated git commit status reporting. This feature is in beta and may change in backwards-incompatible ways.
 	ConsolidatedGitCommitStatus GetProjectGitProviderOptionsConsolidatedGitCommitStatusInput `pulumi:"consolidatedGitCommitStatus"`
-	// Whether to create deployments.
+	// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This does not control whether Git pushes trigger Vercel deployments.
 	CreateDeployments pulumi.BoolInput `pulumi:"createDeployments"`
 	// Whether Vercel posts git commit statuses for this project.
 	GitCommitStatus pulumi.BoolInput `pulumi:"gitCommitStatus"`
@@ -12526,7 +16251,7 @@ func (o GetProjectGitProviderOptionsOutput) ConsolidatedGitCommitStatus() GetPro
 	}).(GetProjectGitProviderOptionsConsolidatedGitCommitStatusOutput)
 }
 
-// Whether to create deployments.
+// Whether Vercel creates GitHub Deployments for this project, which send `deploymentStatus` events to GitHub. This does not control whether Git pushes trigger Vercel deployments.
 func (o GetProjectGitProviderOptionsOutput) CreateDeployments() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetProjectGitProviderOptions) bool { return v.CreateDeployments }).(pulumi.BoolOutput)
 }
@@ -13130,6 +16855,76 @@ func (o GetProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) GetP
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectOptionsAllowlistPath {
 		return vs[0].([]GetProjectOptionsAllowlistPath)[vs[1].(int)]
 	}).(GetProjectOptionsAllowlistPathOutput)
+}
+
+type GetProjectPassport struct {
+	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
+	ConnectorId string `pulumi:"connectorId"`
+	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether Passport is enabled.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetProjectPassportInput is an input type that accepts GetProjectPassportArgs and GetProjectPassportOutput values.
+// You can construct a concrete instance of `GetProjectPassportInput` via:
+//
+//	GetProjectPassportArgs{...}
+type GetProjectPassportInput interface {
+	pulumi.Input
+
+	ToGetProjectPassportOutput() GetProjectPassportOutput
+	ToGetProjectPassportOutputWithContext(context.Context) GetProjectPassportOutput
+}
+
+type GetProjectPassportArgs struct {
+	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
+	ConnectorId pulumi.StringInput `pulumi:"connectorId"`
+	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether Passport is enabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetProjectPassportArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectPassport)(nil)).Elem()
+}
+
+func (i GetProjectPassportArgs) ToGetProjectPassportOutput() GetProjectPassportOutput {
+	return i.ToGetProjectPassportOutputWithContext(context.Background())
+}
+
+func (i GetProjectPassportArgs) ToGetProjectPassportOutputWithContext(ctx context.Context) GetProjectPassportOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPassportOutput)
+}
+
+type GetProjectPassportOutput struct{ *pulumi.OutputState }
+
+func (GetProjectPassportOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectPassport)(nil)).Elem()
+}
+
+func (o GetProjectPassportOutput) ToGetProjectPassportOutput() GetProjectPassportOutput {
+	return o
+}
+
+func (o GetProjectPassportOutput) ToGetProjectPassportOutputWithContext(ctx context.Context) GetProjectPassportOutput {
+	return o
+}
+
+// The stable ID of the Vercel Connect OAuth application. Null when disabled.
+func (o GetProjectPassportOutput) ConnectorId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectPassport) string { return v.ConnectorId }).(pulumi.StringOutput)
+}
+
+// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+func (o GetProjectPassportOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectPassport) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether Passport is enabled.
+func (o GetProjectPassportOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectPassport) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
 type GetProjectPasswordProtection struct {
@@ -14791,6 +18586,182 @@ func (o GetProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringOutp
 	return o.ApplyT(func(v GetProjectVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
+type GetTeamConfigDefaultDeploymentProtection struct {
+	// Default Vercel Authentication for new projects.
+	VercelAuthentication GetTeamConfigDefaultDeploymentProtectionVercelAuthentication `pulumi:"vercelAuthentication"`
+}
+
+// GetTeamConfigDefaultDeploymentProtectionInput is an input type that accepts GetTeamConfigDefaultDeploymentProtectionArgs and GetTeamConfigDefaultDeploymentProtectionOutput values.
+// You can construct a concrete instance of `GetTeamConfigDefaultDeploymentProtectionInput` via:
+//
+//	GetTeamConfigDefaultDeploymentProtectionArgs{...}
+type GetTeamConfigDefaultDeploymentProtectionInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigDefaultDeploymentProtectionOutput() GetTeamConfigDefaultDeploymentProtectionOutput
+	ToGetTeamConfigDefaultDeploymentProtectionOutputWithContext(context.Context) GetTeamConfigDefaultDeploymentProtectionOutput
+}
+
+type GetTeamConfigDefaultDeploymentProtectionArgs struct {
+	// Default Vercel Authentication for new projects.
+	VercelAuthentication GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationInput `pulumi:"vercelAuthentication"`
+}
+
+func (GetTeamConfigDefaultDeploymentProtectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtection)(nil)).Elem()
+}
+
+func (i GetTeamConfigDefaultDeploymentProtectionArgs) ToGetTeamConfigDefaultDeploymentProtectionOutput() GetTeamConfigDefaultDeploymentProtectionOutput {
+	return i.ToGetTeamConfigDefaultDeploymentProtectionOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigDefaultDeploymentProtectionArgs) ToGetTeamConfigDefaultDeploymentProtectionOutputWithContext(ctx context.Context) GetTeamConfigDefaultDeploymentProtectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigDefaultDeploymentProtectionOutput)
+}
+
+type GetTeamConfigDefaultDeploymentProtectionOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigDefaultDeploymentProtectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtection)(nil)).Elem()
+}
+
+func (o GetTeamConfigDefaultDeploymentProtectionOutput) ToGetTeamConfigDefaultDeploymentProtectionOutput() GetTeamConfigDefaultDeploymentProtectionOutput {
+	return o
+}
+
+func (o GetTeamConfigDefaultDeploymentProtectionOutput) ToGetTeamConfigDefaultDeploymentProtectionOutputWithContext(ctx context.Context) GetTeamConfigDefaultDeploymentProtectionOutput {
+	return o
+}
+
+// Default Vercel Authentication for new projects.
+func (o GetTeamConfigDefaultDeploymentProtectionOutput) VercelAuthentication() GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o.ApplyT(func(v GetTeamConfigDefaultDeploymentProtection) GetTeamConfigDefaultDeploymentProtectionVercelAuthentication {
+		return v.VercelAuthentication
+	}).(GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput)
+}
+
+type GetTeamConfigDefaultDeploymentProtectionVercelAuthentication struct {
+	// The default protection level, or none when disabled.
+	DeploymentType string `pulumi:"deploymentType"`
+}
+
+// GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationInput is an input type that accepts GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs and GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput values.
+// You can construct a concrete instance of `GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationInput` via:
+//
+//	GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{...}
+type GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput() GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput
+	ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(context.Context) GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput
+}
+
+type GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs struct {
+	// The default protection level, or none when disabled.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+}
+
+func (GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (i GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput() GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return i.ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs) ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(ctx context.Context) GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput)
+}
+
+type GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (o GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput() GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o
+}
+
+func (o GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) ToGetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutputWithContext(ctx context.Context) GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput {
+	return o
+}
+
+// The default protection level, or none when disabled.
+func (o GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamConfigDefaultDeploymentProtectionVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+type GetTeamConfigDefaultPassport struct {
+	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
+	ConnectorId string `pulumi:"connectorId"`
+	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether Passport is enabled.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetTeamConfigDefaultPassportInput is an input type that accepts GetTeamConfigDefaultPassportArgs and GetTeamConfigDefaultPassportOutput values.
+// You can construct a concrete instance of `GetTeamConfigDefaultPassportInput` via:
+//
+//	GetTeamConfigDefaultPassportArgs{...}
+type GetTeamConfigDefaultPassportInput interface {
+	pulumi.Input
+
+	ToGetTeamConfigDefaultPassportOutput() GetTeamConfigDefaultPassportOutput
+	ToGetTeamConfigDefaultPassportOutputWithContext(context.Context) GetTeamConfigDefaultPassportOutput
+}
+
+type GetTeamConfigDefaultPassportArgs struct {
+	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
+	ConnectorId pulumi.StringInput `pulumi:"connectorId"`
+	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether Passport is enabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetTeamConfigDefaultPassportArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigDefaultPassport)(nil)).Elem()
+}
+
+func (i GetTeamConfigDefaultPassportArgs) ToGetTeamConfigDefaultPassportOutput() GetTeamConfigDefaultPassportOutput {
+	return i.ToGetTeamConfigDefaultPassportOutputWithContext(context.Background())
+}
+
+func (i GetTeamConfigDefaultPassportArgs) ToGetTeamConfigDefaultPassportOutputWithContext(ctx context.Context) GetTeamConfigDefaultPassportOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTeamConfigDefaultPassportOutput)
+}
+
+type GetTeamConfigDefaultPassportOutput struct{ *pulumi.OutputState }
+
+func (GetTeamConfigDefaultPassportOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTeamConfigDefaultPassport)(nil)).Elem()
+}
+
+func (o GetTeamConfigDefaultPassportOutput) ToGetTeamConfigDefaultPassportOutput() GetTeamConfigDefaultPassportOutput {
+	return o
+}
+
+func (o GetTeamConfigDefaultPassportOutput) ToGetTeamConfigDefaultPassportOutputWithContext(ctx context.Context) GetTeamConfigDefaultPassportOutput {
+	return o
+}
+
+// The stable ID of the Vercel Connect OAuth application. Null when disabled.
+func (o GetTeamConfigDefaultPassportOutput) ConnectorId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamConfigDefaultPassport) string { return v.ConnectorId }).(pulumi.StringOutput)
+}
+
+// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+func (o GetTeamConfigDefaultPassportOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTeamConfigDefaultPassport) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether Passport is enabled.
+func (o GetTeamConfigDefaultPassportOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetTeamConfigDefaultPassport) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
 type GetTeamConfigRemoteCaching struct {
 	// Indicates if Remote Caching is enabled.
 	Enabled bool `pulumi:"enabled"`
@@ -15232,16 +19203,38 @@ func (o GetTraceDrainSamplingRuleArrayOutput) Index(i pulumi.IntInput) GetTraceD
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AiGatewayApiKeyAiGatewayQuotaInput)(nil)).Elem(), AiGatewayApiKeyAiGatewayQuotaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiGatewayApiKeyAiGatewayQuotaPtrInput)(nil)).Elem(), AiGatewayApiKeyAiGatewayQuotaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertRuleNotificationSettingsInput)(nil)).Elem(), AlertRuleNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertRuleNotificationSettingsPtrInput)(nil)).Elem(), AlertRuleNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertRuleRuleScopeInput)(nil)).Elem(), AlertRuleRuleScopeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertRuleRuleScopePtrInput)(nil)).Elem(), AlertRuleRuleScopeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertRuleTriggerInput)(nil)).Elem(), AlertRuleTriggerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertRuleTriggerArrayInput)(nil)).Elem(), AlertRuleTriggerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainHttpInput)(nil)).Elem(), AuditLogDrainHttpArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainHttpPtrInput)(nil)).Elem(), AuditLogDrainHttpArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainS3Input)(nil)).Elem(), AuditLogDrainS3Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogDrainS3PtrInput)(nil)).Elem(), AuditLogDrainS3Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectInput)(nil)).Elem(), BulkRedirectsRedirectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BulkRedirectsRedirectArrayInput)(nil)).Elem(), BulkRedirectsRedirectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleEvaluationInput)(nil)).Elem(), CustomAlertRuleEvaluationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleEvaluationPtrInput)(nil)).Elem(), CustomAlertRuleEvaluationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleEvaluationQueryInput)(nil)).Elem(), CustomAlertRuleEvaluationQueryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleEvaluationQueryPtrInput)(nil)).Elem(), CustomAlertRuleEvaluationQueryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleEvaluationQueryMetricsInput)(nil)).Elem(), CustomAlertRuleEvaluationQueryMetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleEvaluationQueryMetricsMapInput)(nil)).Elem(), CustomAlertRuleEvaluationQueryMetricsMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleNotificationSettingsInput)(nil)).Elem(), CustomAlertRuleNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleNotificationSettingsPtrInput)(nil)).Elem(), CustomAlertRuleNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleTriggerInput)(nil)).Elem(), CustomAlertRuleTriggerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleTriggerPtrInput)(nil)).Elem(), CustomAlertRuleTriggerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleTriggerMinimumInput)(nil)).Elem(), CustomAlertRuleTriggerMinimumArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleTriggerMinimumPtrInput)(nil)).Elem(), CustomAlertRuleTriggerMinimumArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingPtrInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsPtrInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordHttpsInput)(nil)).Elem(), DnsRecordHttpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordHttpsPtrInput)(nil)).Elem(), DnsRecordHttpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvInput)(nil)).Elem(), DnsRecordSrvArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordSrvPtrInput)(nil)).Elem(), DnsRecordSrvArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FeatureFlagConfigDevelopmentInput)(nil)).Elem(), FeatureFlagConfigDevelopmentArgs{})
@@ -15305,10 +19298,20 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KmsIssuerSigningKeyInput)(nil)).Elem(), KmsIssuerSigningKeyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KmsIssuerSigningKeyArrayInput)(nil)).Elem(), KmsIssuerSigningKeyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsInput)(nil)).Elem(), NetworkTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsPtrInput)(nil)).Elem(), NetworkTimeoutsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimInput)(nil)).Elem(), OidcFederationPolicyClaimArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimArrayInput)(nil)).Elem(), OidcFederationPolicyClaimArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimValueInput)(nil)).Elem(), OidcFederationPolicyClaimValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimValueArrayInput)(nil)).Elem(), OidcFederationPolicyClaimValueArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyResourcesInput)(nil)).Elem(), OidcFederationPolicyResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyResourcesPtrInput)(nil)).Elem(), OidcFederationPolicyResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentCheckSourceInput)(nil)).Elem(), ProjectDeploymentCheckSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentCheckSourcePtrInput)(nil)).Elem(), ProjectDeploymentCheckSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationInput)(nil)).Elem(), ProjectDomainVerificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationArrayInput)(nil)).Elem(), ProjectDomainVerificationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
@@ -15333,6 +19336,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPtrInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathInput)(nil)).Elem(), ProjectOptionsAllowlistPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), ProjectOptionsAllowlistPathArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPassportInput)(nil)).Elem(), ProjectPassportArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPassportPtrInput)(nil)).Elem(), ProjectPassportArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigInput)(nil)).Elem(), ProjectResourceConfigArgs{})
@@ -15349,6 +19354,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteMissingArrayInput)(nil)).Elem(), ProjectRouteRouteMissingArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteTransformInput)(nil)).Elem(), ProjectRouteRouteTransformArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectRouteRouteTransformArrayInput)(nil)).Elem(), ProjectRouteRouteTransformArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTracingSamplingRuleInput)(nil)).Elem(), ProjectTracingSamplingRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTracingSamplingRuleArrayInput)(nil)).Elem(), ProjectTracingSamplingRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsPtrInput)(nil)).Elem(), ProjectTrustedIpsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedIpsAddressInput)(nil)).Elem(), ProjectTrustedIpsAddressArgs{})
@@ -15366,6 +19373,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectTrustedSourcesProjectCustomAllowToInput)(nil)).Elem(), ProjectTrustedSourcesProjectCustomAllowToArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectVercelAuthenticationPtrInput)(nil)).Elem(), ProjectVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigDefaultDeploymentProtectionInput)(nil)).Elem(), TeamConfigDefaultDeploymentProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigDefaultDeploymentProtectionPtrInput)(nil)).Elem(), TeamConfigDefaultDeploymentProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigDefaultDeploymentProtectionVercelAuthenticationInput)(nil)).Elem(), TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrInput)(nil)).Elem(), TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigDefaultPassportInput)(nil)).Elem(), TeamConfigDefaultPassportArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigDefaultPassportPtrInput)(nil)).Elem(), TeamConfigDefaultPassportArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigRemoteCachingPtrInput)(nil)).Elem(), TeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TeamConfigSamlInput)(nil)).Elem(), TeamConfigSamlArgs{})
@@ -15394,6 +19407,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagSegmentIncludeArrayInput)(nil)).Elem(), GetFeatureFlagSegmentIncludeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagVariantInput)(nil)).Elem(), GetFeatureFlagVariantArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetFeatureFlagVariantArrayInput)(nil)).Elem(), GetFeatureFlagVariantArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerPolicyInput)(nil)).Elem(), GetKmsIssuerPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerPolicyArrayInput)(nil)).Elem(), GetKmsIssuerPolicyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerSigningKeyInput)(nil)).Elem(), GetKmsIssuerSigningKeyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerSigningKeyArrayInput)(nil)).Elem(), GetKmsIssuerSigningKeyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMicrofrontendGroupDefaultAppInput)(nil)).Elem(), GetMicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
@@ -15409,6 +19426,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistInput)(nil)).Elem(), GetProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPassportInput)(nil)).Elem(), GetProjectPassportArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectResourceConfigInput)(nil)).Elem(), GetProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageInput)(nil)).Elem(), GetProjectRollingReleaseStageArgs{})
@@ -15436,6 +19454,9 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowFromInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowFromArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowToInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowToArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtectionInput)(nil)).Elem(), GetTeamConfigDefaultDeploymentProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationInput)(nil)).Elem(), GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigDefaultPassportInput)(nil)).Elem(), GetTeamConfigDefaultPassportArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigRemoteCachingInput)(nil)).Elem(), GetTeamConfigRemoteCachingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlInput)(nil)).Elem(), GetTeamConfigSamlArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigSamlRolesInput)(nil)).Elem(), GetTeamConfigSamlRolesArgs{})
@@ -15444,16 +19465,38 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamMemberProjectArrayInput)(nil)).Elem(), GetTeamMemberProjectArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTraceDrainSamplingRuleInput)(nil)).Elem(), GetTraceDrainSamplingRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTraceDrainSamplingRuleArrayInput)(nil)).Elem(), GetTraceDrainSamplingRuleArray{})
+	pulumi.RegisterOutputType(AiGatewayApiKeyAiGatewayQuotaOutput{})
+	pulumi.RegisterOutputType(AiGatewayApiKeyAiGatewayQuotaPtrOutput{})
+	pulumi.RegisterOutputType(AlertRuleNotificationSettingsOutput{})
+	pulumi.RegisterOutputType(AlertRuleNotificationSettingsPtrOutput{})
+	pulumi.RegisterOutputType(AlertRuleRuleScopeOutput{})
+	pulumi.RegisterOutputType(AlertRuleRuleScopePtrOutput{})
+	pulumi.RegisterOutputType(AlertRuleTriggerOutput{})
+	pulumi.RegisterOutputType(AlertRuleTriggerArrayOutput{})
 	pulumi.RegisterOutputType(AuditLogDrainHttpOutput{})
 	pulumi.RegisterOutputType(AuditLogDrainHttpPtrOutput{})
 	pulumi.RegisterOutputType(AuditLogDrainS3Output{})
 	pulumi.RegisterOutputType(AuditLogDrainS3PtrOutput{})
 	pulumi.RegisterOutputType(BulkRedirectsRedirectOutput{})
 	pulumi.RegisterOutputType(BulkRedirectsRedirectArrayOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleEvaluationOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleEvaluationPtrOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleEvaluationQueryOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleEvaluationQueryPtrOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleEvaluationQueryMetricsOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleEvaluationQueryMetricsMapOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleNotificationSettingsOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleNotificationSettingsPtrOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleTriggerOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleTriggerPtrOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleTriggerMinimumOutput{})
+	pulumi.RegisterOutputType(CustomAlertRuleTriggerMinimumPtrOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingPtrOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
+	pulumi.RegisterOutputType(DnsRecordHttpsOutput{})
+	pulumi.RegisterOutputType(DnsRecordHttpsPtrOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvOutput{})
 	pulumi.RegisterOutputType(DnsRecordSrvPtrOutput{})
 	pulumi.RegisterOutputType(FeatureFlagConfigDevelopmentOutput{})
@@ -15517,10 +19560,20 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupArrayOutput{})
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionOutput{})
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionArrayOutput{})
+	pulumi.RegisterOutputType(KmsIssuerSigningKeyOutput{})
+	pulumi.RegisterOutputType(KmsIssuerSigningKeyArrayOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsPtrOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimArrayOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimValueOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyClaimValueArrayOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyResourcesOutput{})
+	pulumi.RegisterOutputType(OidcFederationPolicyResourcesPtrOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentCheckSourceOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentCheckSourcePtrOutput{})
 	pulumi.RegisterOutputType(ProjectDomainVerificationOutput{})
 	pulumi.RegisterOutputType(ProjectDomainVerificationArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
@@ -15545,6 +19598,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPtrOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathArrayOutput{})
+	pulumi.RegisterOutputType(ProjectPassportOutput{})
+	pulumi.RegisterOutputType(ProjectPassportPtrOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
 	pulumi.RegisterOutputType(ProjectResourceConfigOutput{})
@@ -15561,6 +19616,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectRouteRouteMissingArrayOutput{})
 	pulumi.RegisterOutputType(ProjectRouteRouteTransformOutput{})
 	pulumi.RegisterOutputType(ProjectRouteRouteTransformArrayOutput{})
+	pulumi.RegisterOutputType(ProjectTracingSamplingRuleOutput{})
+	pulumi.RegisterOutputType(ProjectTracingSamplingRuleArrayOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsPtrOutput{})
 	pulumi.RegisterOutputType(ProjectTrustedIpsAddressOutput{})
@@ -15578,6 +19635,12 @@ func init() {
 	pulumi.RegisterOutputType(ProjectTrustedSourcesProjectCustomAllowToOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(ProjectVercelAuthenticationPtrOutput{})
+	pulumi.RegisterOutputType(TeamConfigDefaultDeploymentProtectionOutput{})
+	pulumi.RegisterOutputType(TeamConfigDefaultDeploymentProtectionPtrOutput{})
+	pulumi.RegisterOutputType(TeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput{})
+	pulumi.RegisterOutputType(TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput{})
+	pulumi.RegisterOutputType(TeamConfigDefaultPassportOutput{})
+	pulumi.RegisterOutputType(TeamConfigDefaultPassportPtrOutput{})
 	pulumi.RegisterOutputType(TeamConfigRemoteCachingOutput{})
 	pulumi.RegisterOutputType(TeamConfigRemoteCachingPtrOutput{})
 	pulumi.RegisterOutputType(TeamConfigSamlOutput{})
@@ -15606,6 +19669,10 @@ func init() {
 	pulumi.RegisterOutputType(GetFeatureFlagSegmentIncludeArrayOutput{})
 	pulumi.RegisterOutputType(GetFeatureFlagVariantOutput{})
 	pulumi.RegisterOutputType(GetFeatureFlagVariantArrayOutput{})
+	pulumi.RegisterOutputType(GetKmsIssuerPolicyOutput{})
+	pulumi.RegisterOutputType(GetKmsIssuerPolicyArrayOutput{})
+	pulumi.RegisterOutputType(GetKmsIssuerSigningKeyOutput{})
+	pulumi.RegisterOutputType(GetKmsIssuerSigningKeyArrayOutput{})
 	pulumi.RegisterOutputType(GetMicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
@@ -15621,6 +19688,7 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectPassportOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(GetProjectResourceConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectRollingReleaseStageOutput{})
@@ -15648,6 +19716,9 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowFromOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowToOutput{})
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigDefaultDeploymentProtectionOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput{})
+	pulumi.RegisterOutputType(GetTeamConfigDefaultPassportOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigRemoteCachingOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigSamlOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigSamlRolesOutput{})

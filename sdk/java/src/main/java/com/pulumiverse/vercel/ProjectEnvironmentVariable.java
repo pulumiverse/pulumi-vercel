@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  * &gt; Terraform currently provides this Project Environment Variable resource (a single Environment Variable), a Project Environment Variables resource (multiple Environment Variables), and a Project resource with Environment Variables defined in-line via the `environment` field.
  * At this time you cannot use a Vercel Project resource with in-line `environment` in conjunction with any `vercel.ProjectEnvironmentVariables` or `vercel.ProjectEnvironmentVariable` resources. Doing so will cause a conflict of settings and will overwrite Environment Variables.
  * 
- * &gt; **Note:** Starting in provider version `4.8.0`, Project Environment Variables require an explicit `sensitive` value. Variables targeting only `development` must set `sensitive = false`. If your team enforces sensitive environment variables, variables targeting `preview`, `production`, or custom environments must set `sensitive = true`. When that team policy is enabled, a variable cannot target `development` together with `preview`, `production`, or custom environments.
+ * &gt; **Note:** Starting in provider version `4.8.0`, environment variables require an explicit `sensitive` value. Secrets (`sensitive = true`) are supported in all target environments, including Development. Team environment variable policies are enforced by the Vercel API at apply time.
  * 
  * &gt; **Note:** Write-Only argument `valueWo` is available to use in place of `value`. Write-Only arguments are supported in HashiCorp Terraform 1.11.0 and later. Learn more.
  * 
@@ -58,6 +58,12 @@ import javax.annotation.Nullable;
  * 
  * ```sh
  * $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt
+ * ```
+ * 
+ * When using value_wo, prefix either import ID format with write-only: to keep the value out of Terraform state. Set valueWoVersion to control subsequent updates.
+ * 
+ * ```sh
+ * $ pulumi import vercel:index/projectEnvironmentVariable:ProjectEnvironmentVariable example &#39;write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/prj_xxxxxxxxxxxxxxxxxxxxxxxxxxxx/FdT2e1E5Of6Cihmt&#39;
  * ```
  * 
  */
@@ -134,14 +140,14 @@ public class ProjectEnvironmentVariable extends com.pulumi.resources.CustomResou
         return this.projectId;
     }
     /**
-     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
      * 
      */
     @Export(name="sensitive", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> sensitive;
 
     /**
-     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. If a [team-wide environment variable policy](https://vercel.com/docs/projects/environment-variables/sensitive-environment-variables#environment-variables-policy) is active, environment variables may have to be sensitive. Variables targeting only `development` must set this to `false`. Variables targeting `preview`, `production`, or custom environments may have to set this to `true`. A variable cannot target `development` together with `preview`, `production`, or custom environments while that team policy is enabled.
+     * @return Whether the Environment Variable is sensitive (meaning it cannot be read via the API or Vercel Dashboard once set). This must be explicitly set. Secrets are supported in all target environments, including Development.
      * 
      */
     public Output<Boolean> sensitive() {
@@ -218,6 +224,20 @@ public class ProjectEnvironmentVariable extends com.pulumi.resources.CustomResou
      */
     public Output<Optional<Integer>> valueWoVersion() {
         return Codegen.optional(this.valueWoVersion);
+    }
+    /**
+     * Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     * 
+     */
+    @Export(name="visibility", refs={String.class}, tree="[0]")
+    private Output<String> visibility;
+
+    /**
+     * @return Controls how the environment variable is categorized: `config` (configuration values) or `secret` (secret values). When omitted, visibility is inferred from `sensitive` for backwards compatibility and is not sent to the API.
+     * 
+     */
+    public Output<String> visibility() {
+        return this.visibility;
     }
 
     /**

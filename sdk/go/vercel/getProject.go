@@ -120,6 +120,8 @@ type LookupProjectResult struct {
 	OptionsAllowlist GetProjectOptionsAllowlist `pulumi:"optionsAllowlist"`
 	// The output directory of the project. When null is used this value will be automatically detected.
 	OutputDirectory string `pulumi:"outputDirectory"`
+	// Passport configuration for the project.
+	Passport GetProjectPassport `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection GetProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Whether comments are enabled on your Preview Deployments.
@@ -337,6 +339,11 @@ func (o LookupProjectResultOutput) OptionsAllowlist() GetProjectOptionsAllowlist
 // The output directory of the project. When null is used this value will be automatically detected.
 func (o LookupProjectResultOutput) OutputDirectory() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.OutputDirectory }).(pulumi.StringOutput)
+}
+
+// Passport configuration for the project.
+func (o LookupProjectResultOutput) Passport() GetProjectPassportOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectPassport { return v.Passport }).(GetProjectPassportOutput)
 }
 
 // Ensures visitors of your Preview Deployments must enter a password in order to gain access.

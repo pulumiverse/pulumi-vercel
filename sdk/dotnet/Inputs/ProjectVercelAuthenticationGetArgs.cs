@@ -14,7 +14,7 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectVercelAuthenticationGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The deployment environment to protect. The default value is `StandardProtectionNew` (Standard Protection). Must be one of `StandardProtectionNew` (Standard Protection), `StandardProtection` (Legacy Standard Protection), `AllDeployments`, `OnlyPreviewDeployments`, or `None`.
+        /// The deployment environment to protect. When omitted on creation, inherits the team default (Standard Protection when the team has no default). Must be one of `StandardProtectionNew` (Standard Protection), `StandardProtection` (Legacy Standard Protection), `AllDeployments`, `OnlyPreviewDeployments`, or `None`.
         /// </summary>
         [Input("deploymentType")]
         public Input<string>? DeploymentType { get; set; }

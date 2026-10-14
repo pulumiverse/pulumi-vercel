@@ -52,6 +52,11 @@ public final class GetProjectEnvironment {
      * 
      */
     private String value;
+    /**
+     * @return Controls how the environment variable is categorized: `config` or `secret`.
+     * 
+     */
+    private String visibility;
 
     private GetProjectEnvironment() {}
     /**
@@ -110,6 +115,13 @@ public final class GetProjectEnvironment {
     public String value() {
         return this.value;
     }
+    /**
+     * @return Controls how the environment variable is categorized: `config` or `secret`.
+     * 
+     */
+    public String visibility() {
+        return this.visibility;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -128,6 +140,7 @@ public final class GetProjectEnvironment {
         private Boolean sensitive;
         private List<String> targets;
         private String value;
+        private String visibility;
         public Builder() {}
         public Builder(GetProjectEnvironment defaults) {
     	      Objects.requireNonNull(defaults);
@@ -139,6 +152,7 @@ public final class GetProjectEnvironment {
     	      this.sensitive = defaults.sensitive;
     	      this.targets = defaults.targets;
     	      this.value = defaults.value;
+    	      this.visibility = defaults.visibility;
         }
 
         @CustomType.Setter
@@ -211,6 +225,14 @@ public final class GetProjectEnvironment {
             this.value = value;
             return this;
         }
+        @CustomType.Setter
+        public Builder visibility(String visibility) {
+            if (visibility == null) {
+              throw new MissingRequiredPropertyException("GetProjectEnvironment", "visibility");
+            }
+            this.visibility = visibility;
+            return this;
+        }
         public GetProjectEnvironment build() {
             final var _resultValue = new GetProjectEnvironment();
             _resultValue.comment = comment;
@@ -221,6 +243,7 @@ public final class GetProjectEnvironment {
             _resultValue.sensitive = sensitive;
             _resultValue.targets = targets;
             _resultValue.value = value;
+            _resultValue.visibility = visibility;
             return _resultValue;
         }
     }

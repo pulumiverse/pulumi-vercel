@@ -19,7 +19,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly Outputs.ProjectGitProviderOptionsConsolidatedGitCommitStatus? ConsolidatedGitCommitStatus;
         /// <summary>
-        /// Whether to create deployments
+        /// Whether Vercel creates GitHub Deployments for this project, which send `DeploymentStatus` events to GitHub. This matches the `DeploymentStatus` Events toggle in the project's Git settings. Setting this to `False` does not stop Git pushes from triggering Vercel deployments.
         /// </summary>
         public readonly bool? CreateDeployments;
         /// <summary>

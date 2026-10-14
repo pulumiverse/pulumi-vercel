@@ -35,7 +35,15 @@ namespace Pulumiverse.Vercel
     ///         Name = "Vercel terraform example",
     ///         Slug = "vercel-terraform-example",
     ///         Description = "Vercel Terraform Example",
+    ///         DefaultBuildMachineType = "basic",
     ///         SensitiveEnvironmentVariablePolicy = "off",
+    ///         DefaultDeploymentProtection = new Vercel.Inputs.TeamConfigDefaultDeploymentProtectionArgs
+    ///         {
+    ///             VercelAuthentication = new Vercel.Inputs.TeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs
+    ///             {
+    ///                 DeploymentType = "all_deployments",
+    ///             },
+    ///         },
     ///         RemoteCaching = new Vercel.Inputs.TeamConfigRemoteCachingArgs
     ///         {
     ///             Enabled = true,
@@ -70,10 +78,34 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableDictionary<string, string>?> Avatar { get; private set; } = null!;
 
         /// <summary>
+        /// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        /// </summary>
+        [Output("defaultBuildMachineType")]
+        public Output<string> DefaultBuildMachineType { get; private set; } = null!;
+
+        /// <summary>
+        /// Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+        /// </summary>
+        [Output("defaultDeploymentProtection")]
+        public Output<Outputs.TeamConfigDefaultDeploymentProtection> DefaultDeploymentProtection { get; private set; } = null!;
+
+        /// <summary>
+        /// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+        /// </summary>
+        [Output("defaultPassport")]
+        public Output<Outputs.TeamConfigDefaultPassport> DefaultPassport { get; private set; } = null!;
+
+        /// <summary>
         /// A description of the team.
         /// </summary>
         [Output("description")]
         public Output<string> Description { get; private set; } = null!;
+
+        /// <summary>
+        /// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `On`, `Off`, or `Default`.
+        /// </summary>
+        [Output("disjunctiveProductionSecretPolicy")]
+        public Output<string> DisjunctiveProductionSecretPolicy { get; private set; } = null!;
 
         /// <summary>
         /// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -136,7 +168,7 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.TeamConfigSaml> Saml { get; private set; } = null!;
 
         /// <summary>
-        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `On`, `Off`, or `Default`.
         /// </summary>
         [Output("sensitiveEnvironmentVariablePolicy")]
         public Output<string> SensitiveEnvironmentVariablePolicy { get; private set; } = null!;
@@ -171,6 +203,10 @@ namespace Pulumiverse.Vercel
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "inviteCode",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -207,10 +243,34 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
+        /// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        /// </summary>
+        [Input("defaultBuildMachineType")]
+        public Input<string>? DefaultBuildMachineType { get; set; }
+
+        /// <summary>
+        /// Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+        /// </summary>
+        [Input("defaultDeploymentProtection")]
+        public Input<Inputs.TeamConfigDefaultDeploymentProtectionArgs>? DefaultDeploymentProtection { get; set; }
+
+        /// <summary>
+        /// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+        /// </summary>
+        [Input("defaultPassport")]
+        public Input<Inputs.TeamConfigDefaultPassportArgs>? DefaultPassport { get; set; }
+
+        /// <summary>
         /// A description of the team.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
+
+        /// <summary>
+        /// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `On`, `Off`, or `Default`.
+        /// </summary>
+        [Input("disjunctiveProductionSecretPolicy")]
+        public Input<string>? DisjunctiveProductionSecretPolicy { get; set; }
 
         /// <summary>
         /// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -267,7 +327,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.TeamConfigSamlArgs>? Saml { get; set; }
 
         /// <summary>
-        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `On`, `Off`, or `Default`.
         /// </summary>
         [Input("sensitiveEnvironmentVariablePolicy")]
         public Input<string>? SensitiveEnvironmentVariablePolicy { get; set; }
@@ -299,10 +359,34 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
+        /// The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
+        /// </summary>
+        [Input("defaultBuildMachineType")]
+        public Input<string>? DefaultBuildMachineType { get; set; }
+
+        /// <summary>
+        /// Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
+        /// </summary>
+        [Input("defaultDeploymentProtection")]
+        public Input<Inputs.TeamConfigDefaultDeploymentProtectionGetArgs>? DefaultDeploymentProtection { get; set; }
+
+        /// <summary>
+        /// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
+        /// </summary>
+        [Input("defaultPassport")]
+        public Input<Inputs.TeamConfigDefaultPassportGetArgs>? DefaultPassport { get; set; }
+
+        /// <summary>
         /// A description of the team.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
+
+        /// <summary>
+        /// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `On`, `Off`, or `Default`.
+        /// </summary>
+        [Input("disjunctiveProductionSecretPolicy")]
+        public Input<string>? DisjunctiveProductionSecretPolicy { get; set; }
 
         /// <summary>
         /// Hostname that'll be matched with emails on sign-up to automatically join the Team.
@@ -334,11 +418,21 @@ namespace Pulumiverse.Vercel
         [Input("hideIpAddressesInLogDrains")]
         public Input<bool>? HideIpAddressesInLogDrains { get; set; }
 
+        [Input("inviteCode")]
+        private Input<string>? _inviteCode;
+
         /// <summary>
         /// A code that can be used to join this team. Only visible to Team owners.
         /// </summary>
-        [Input("inviteCode")]
-        public Input<string>? InviteCode { get; set; }
+        public Input<string>? InviteCode
+        {
+            get => _inviteCode;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _inviteCode = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The name of the team.
@@ -365,7 +459,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.TeamConfigSamlGetArgs>? Saml { get; set; }
 
         /// <summary>
-        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system.: one of on, off or default.
+        /// Ensures that all environment variables created by members of this team will be created as Sensitive Environment Variables which can only be decrypted by Vercel's deployment system. One of `On`, `Off`, or `Default`.
         /// </summary>
         [Input("sensitiveEnvironmentVariablePolicy")]
         public Input<string>? SensitiveEnvironmentVariablePolicy { get; set; }

@@ -20,6 +20,26 @@ export type AccessGroupProject = import("./accessGroupProject").AccessGroupProje
 export const AccessGroupProject: typeof import("./accessGroupProject").AccessGroupProject = null as any;
 utilities.lazyLoad(exports, ["AccessGroupProject"], () => require("./accessGroupProject"));
 
+export { AiGatewayApiKeyArgs, AiGatewayApiKeyState } from "./aiGatewayApiKey";
+export type AiGatewayApiKey = import("./aiGatewayApiKey").AiGatewayApiKey;
+export const AiGatewayApiKey: typeof import("./aiGatewayApiKey").AiGatewayApiKey = null as any;
+utilities.lazyLoad(exports, ["AiGatewayApiKey"], () => require("./aiGatewayApiKey"));
+
+export { AlertRuleArgs, AlertRuleState } from "./alertRule";
+export type AlertRule = import("./alertRule").AlertRule;
+export const AlertRule: typeof import("./alertRule").AlertRule = null as any;
+utilities.lazyLoad(exports, ["AlertRule"], () => require("./alertRule"));
+
+export { AlertRuleSlackNotificationArgs, AlertRuleSlackNotificationState } from "./alertRuleSlackNotification";
+export type AlertRuleSlackNotification = import("./alertRuleSlackNotification").AlertRuleSlackNotification;
+export const AlertRuleSlackNotification: typeof import("./alertRuleSlackNotification").AlertRuleSlackNotification = null as any;
+utilities.lazyLoad(exports, ["AlertRuleSlackNotification"], () => require("./alertRuleSlackNotification"));
+
+export { AlertRuleWebhookNotificationArgs, AlertRuleWebhookNotificationState } from "./alertRuleWebhookNotification";
+export type AlertRuleWebhookNotification = import("./alertRuleWebhookNotification").AlertRuleWebhookNotification;
+export const AlertRuleWebhookNotification: typeof import("./alertRuleWebhookNotification").AlertRuleWebhookNotification = null as any;
+utilities.lazyLoad(exports, ["AlertRuleWebhookNotification"], () => require("./alertRuleWebhookNotification"));
+
 export { AliasArgs, AliasState } from "./alias";
 export type Alias = import("./alias").Alias;
 export const Alias: typeof import("./alias").Alias = null as any;
@@ -54,6 +74,11 @@ export { BulkRedirectsArgs, BulkRedirectsState } from "./bulkRedirects";
 export type BulkRedirects = import("./bulkRedirects").BulkRedirects;
 export const BulkRedirects: typeof import("./bulkRedirects").BulkRedirects = null as any;
 utilities.lazyLoad(exports, ["BulkRedirects"], () => require("./bulkRedirects"));
+
+export { CustomAlertRuleArgs, CustomAlertRuleState } from "./customAlertRule";
+export type CustomAlertRule = import("./customAlertRule").CustomAlertRule;
+export const CustomAlertRule: typeof import("./customAlertRule").CustomAlertRule = null as any;
+utilities.lazyLoad(exports, ["CustomAlertRule"], () => require("./customAlertRule"));
 
 export { CustomCertificateArgs, CustomCertificateState } from "./customCertificate";
 export type CustomCertificate = import("./customCertificate").CustomCertificate;
@@ -180,6 +205,11 @@ export const getBulkRedirects: typeof import("./getBulkRedirects").getBulkRedire
 export const getBulkRedirectsOutput: typeof import("./getBulkRedirects").getBulkRedirectsOutput = null as any;
 utilities.lazyLoad(exports, ["getBulkRedirects","getBulkRedirectsOutput"], () => require("./getBulkRedirects"));
 
+export { GetConnectApplicationArgs, GetConnectApplicationResult, GetConnectApplicationOutputArgs } from "./getConnectApplication";
+export const getConnectApplication: typeof import("./getConnectApplication").getConnectApplication = null as any;
+export const getConnectApplicationOutput: typeof import("./getConnectApplication").getConnectApplicationOutput = null as any;
+utilities.lazyLoad(exports, ["getConnectApplication","getConnectApplicationOutput"], () => require("./getConnectApplication"));
+
 export { GetCustomEnvironmentArgs, GetCustomEnvironmentResult, GetCustomEnvironmentOutputArgs } from "./getCustomEnvironment";
 export const getCustomEnvironment: typeof import("./getCustomEnvironment").getCustomEnvironment = null as any;
 export const getCustomEnvironmentOutput: typeof import("./getCustomEnvironment").getCustomEnvironmentOutput = null as any;
@@ -245,6 +275,11 @@ export const getFile: typeof import("./getFile").getFile = null as any;
 export const getFileOutput: typeof import("./getFile").getFileOutput = null as any;
 utilities.lazyLoad(exports, ["getFile","getFileOutput"], () => require("./getFile"));
 
+export { GetKmsIssuerArgs, GetKmsIssuerResult, GetKmsIssuerOutputArgs } from "./getKmsIssuer";
+export const getKmsIssuer: typeof import("./getKmsIssuer").getKmsIssuer = null as any;
+export const getKmsIssuerOutput: typeof import("./getKmsIssuer").getKmsIssuerOutput = null as any;
+utilities.lazyLoad(exports, ["getKmsIssuer","getKmsIssuerOutput"], () => require("./getKmsIssuer"));
+
 export { GetLogDrainArgs, GetLogDrainResult, GetLogDrainOutputArgs } from "./getLogDrain";
 export const getLogDrain: typeof import("./getLogDrain").getLogDrain = null as any;
 export const getLogDrainOutput: typeof import("./getLogDrain").getLogDrainOutput = null as any;
@@ -300,6 +335,11 @@ export const getProjectRoutes: typeof import("./getProjectRoutes").getProjectRou
 export const getProjectRoutesOutput: typeof import("./getProjectRoutes").getProjectRoutesOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectRoutes","getProjectRoutesOutput"], () => require("./getProjectRoutes"));
 
+export { GetShareableLinkArgs, GetShareableLinkResult, GetShareableLinkOutputArgs } from "./getShareableLink";
+export const getShareableLink: typeof import("./getShareableLink").getShareableLink = null as any;
+export const getShareableLinkOutput: typeof import("./getShareableLink").getShareableLinkOutput = null as any;
+utilities.lazyLoad(exports, ["getShareableLink","getShareableLinkOutput"], () => require("./getShareableLink"));
+
 export { GetSharedEnvironmentVariableArgs, GetSharedEnvironmentVariableResult, GetSharedEnvironmentVariableOutputArgs } from "./getSharedEnvironmentVariable";
 export const getSharedEnvironmentVariable: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariable = null as any;
 export const getSharedEnvironmentVariableOutput: typeof import("./getSharedEnvironmentVariable").getSharedEnvironmentVariableOutput = null as any;
@@ -329,6 +369,21 @@ export { IntegrationProjectAccessArgs, IntegrationProjectAccessState } from "./i
 export type IntegrationProjectAccess = import("./integrationProjectAccess").IntegrationProjectAccess;
 export const IntegrationProjectAccess: typeof import("./integrationProjectAccess").IntegrationProjectAccess = null as any;
 utilities.lazyLoad(exports, ["IntegrationProjectAccess"], () => require("./integrationProjectAccess"));
+
+export { KmsIssuerArgs, KmsIssuerState } from "./kmsIssuer";
+export type KmsIssuer = import("./kmsIssuer").KmsIssuer;
+export const KmsIssuer: typeof import("./kmsIssuer").KmsIssuer = null as any;
+utilities.lazyLoad(exports, ["KmsIssuer"], () => require("./kmsIssuer"));
+
+export { KmsProjectGrantArgs, KmsProjectGrantState } from "./kmsProjectGrant";
+export type KmsProjectGrant = import("./kmsProjectGrant").KmsProjectGrant;
+export const KmsProjectGrant: typeof import("./kmsProjectGrant").KmsProjectGrant = null as any;
+utilities.lazyLoad(exports, ["KmsProjectGrant"], () => require("./kmsProjectGrant"));
+
+export { KmsSigningKeyArgs, KmsSigningKeyState } from "./kmsSigningKey";
+export type KmsSigningKey = import("./kmsSigningKey").KmsSigningKey;
+export const KmsSigningKey: typeof import("./kmsSigningKey").KmsSigningKey = null as any;
+utilities.lazyLoad(exports, ["KmsSigningKey"], () => require("./kmsSigningKey"));
 
 export { LogDrainArgs, LogDrainState } from "./logDrain";
 export type LogDrain = import("./logDrain").LogDrain;
@@ -360,6 +415,11 @@ export type OauthAppClientSecret = import("./oauthAppClientSecret").OauthAppClie
 export const OauthAppClientSecret: typeof import("./oauthAppClientSecret").OauthAppClientSecret = null as any;
 utilities.lazyLoad(exports, ["OauthAppClientSecret"], () => require("./oauthAppClientSecret"));
 
+export { OidcFederationPolicyArgs, OidcFederationPolicyState } from "./oidcFederationPolicy";
+export type OidcFederationPolicy = import("./oidcFederationPolicy").OidcFederationPolicy;
+export const OidcFederationPolicy: typeof import("./oidcFederationPolicy").OidcFederationPolicy = null as any;
+utilities.lazyLoad(exports, ["OidcFederationPolicy"], () => require("./oidcFederationPolicy"));
+
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
@@ -369,6 +429,11 @@ export { ProjectCronsArgs, ProjectCronsState } from "./projectCrons";
 export type ProjectCrons = import("./projectCrons").ProjectCrons;
 export const ProjectCrons: typeof import("./projectCrons").ProjectCrons = null as any;
 utilities.lazyLoad(exports, ["ProjectCrons"], () => require("./projectCrons"));
+
+export { ProjectDeploymentCheckArgs, ProjectDeploymentCheckState } from "./projectDeploymentCheck";
+export type ProjectDeploymentCheck = import("./projectDeploymentCheck").ProjectDeploymentCheck;
+export const ProjectDeploymentCheck: typeof import("./projectDeploymentCheck").ProjectDeploymentCheck = null as any;
+utilities.lazyLoad(exports, ["ProjectDeploymentCheck"], () => require("./projectDeploymentCheck"));
 
 export { ProjectDeploymentRetentionArgs, ProjectDeploymentRetentionState } from "./projectDeploymentRetention";
 export type ProjectDeploymentRetention = import("./projectDeploymentRetention").ProjectDeploymentRetention;
@@ -410,8 +475,18 @@ export type ProjectRoute = import("./projectRoute").ProjectRoute;
 export const ProjectRoute: typeof import("./projectRoute").ProjectRoute = null as any;
 utilities.lazyLoad(exports, ["ProjectRoute"], () => require("./projectRoute"));
 
+export { ProjectTracingArgs, ProjectTracingState } from "./projectTracing";
+export type ProjectTracing = import("./projectTracing").ProjectTracing;
+export const ProjectTracing: typeof import("./projectTracing").ProjectTracing = null as any;
+utilities.lazyLoad(exports, ["ProjectTracing"], () => require("./projectTracing"));
+
 export * from "./provider";
 import { Provider } from "./provider";
+
+export { ShareableLinkArgs, ShareableLinkState } from "./shareableLink";
+export type ShareableLink = import("./shareableLink").ShareableLink;
+export const ShareableLink: typeof import("./shareableLink").ShareableLink = null as any;
+utilities.lazyLoad(exports, ["ShareableLink"], () => require("./shareableLink"));
 
 export { SharedEnvironmentVariableArgs, SharedEnvironmentVariableState } from "./sharedEnvironmentVariable";
 export type SharedEnvironmentVariable = import("./sharedEnvironmentVariable").SharedEnvironmentVariable;
@@ -478,6 +553,14 @@ const _module = {
                 return new AccessGroupMember(name, <any>undefined, { urn })
             case "vercel:index/accessGroupProject:AccessGroupProject":
                 return new AccessGroupProject(name, <any>undefined, { urn })
+            case "vercel:index/aiGatewayApiKey:AiGatewayApiKey":
+                return new AiGatewayApiKey(name, <any>undefined, { urn })
+            case "vercel:index/alertRule:AlertRule":
+                return new AlertRule(name, <any>undefined, { urn })
+            case "vercel:index/alertRuleSlackNotification:AlertRuleSlackNotification":
+                return new AlertRuleSlackNotification(name, <any>undefined, { urn })
+            case "vercel:index/alertRuleWebhookNotification:AlertRuleWebhookNotification":
+                return new AlertRuleWebhookNotification(name, <any>undefined, { urn })
             case "vercel:index/alias:Alias":
                 return new Alias(name, <any>undefined, { urn })
             case "vercel:index/attackChallengeMode:AttackChallengeMode":
@@ -492,6 +575,8 @@ const _module = {
                 return new BlobStore(name, <any>undefined, { urn })
             case "vercel:index/bulkRedirects:BulkRedirects":
                 return new BulkRedirects(name, <any>undefined, { urn })
+            case "vercel:index/customAlertRule:CustomAlertRule":
+                return new CustomAlertRule(name, <any>undefined, { urn })
             case "vercel:index/customCertificate:CustomCertificate":
                 return new CustomCertificate(name, <any>undefined, { urn })
             case "vercel:index/customEnvironment:CustomEnvironment":
@@ -524,6 +609,12 @@ const _module = {
                 return new FirewallConfig(name, <any>undefined, { urn })
             case "vercel:index/integrationProjectAccess:IntegrationProjectAccess":
                 return new IntegrationProjectAccess(name, <any>undefined, { urn })
+            case "vercel:index/kmsIssuer:KmsIssuer":
+                return new KmsIssuer(name, <any>undefined, { urn })
+            case "vercel:index/kmsProjectGrant:KmsProjectGrant":
+                return new KmsProjectGrant(name, <any>undefined, { urn })
+            case "vercel:index/kmsSigningKey:KmsSigningKey":
+                return new KmsSigningKey(name, <any>undefined, { urn })
             case "vercel:index/logDrain:LogDrain":
                 return new LogDrain(name, <any>undefined, { urn })
             case "vercel:index/microfrontendGroup:MicrofrontendGroup":
@@ -536,10 +627,14 @@ const _module = {
                 return new OauthApp(name, <any>undefined, { urn })
             case "vercel:index/oauthAppClientSecret:OauthAppClientSecret":
                 return new OauthAppClientSecret(name, <any>undefined, { urn })
+            case "vercel:index/oidcFederationPolicy:OidcFederationPolicy":
+                return new OidcFederationPolicy(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectCrons:ProjectCrons":
                 return new ProjectCrons(name, <any>undefined, { urn })
+            case "vercel:index/projectDeploymentCheck:ProjectDeploymentCheck":
+                return new ProjectDeploymentCheck(name, <any>undefined, { urn })
             case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
                 return new ProjectDeploymentRetention(name, <any>undefined, { urn })
             case "vercel:index/projectDomain:ProjectDomain":
@@ -556,6 +651,10 @@ const _module = {
                 return new ProjectRollingRelease(name, <any>undefined, { urn })
             case "vercel:index/projectRoute:ProjectRoute":
                 return new ProjectRoute(name, <any>undefined, { urn })
+            case "vercel:index/projectTracing:ProjectTracing":
+                return new ProjectTracing(name, <any>undefined, { urn })
+            case "vercel:index/shareableLink:ShareableLink":
+                return new ShareableLink(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariable:SharedEnvironmentVariable":
                 return new SharedEnvironmentVariable(name, <any>undefined, { urn })
             case "vercel:index/sharedEnvironmentVariableProjectLink:SharedEnvironmentVariableProjectLink":
@@ -582,6 +681,10 @@ const _module = {
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupMember", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/accessGroupProject", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/aiGatewayApiKey", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/alertRule", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/alertRuleSlackNotification", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/alertRuleWebhookNotification", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/alias", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/attackChallengeMode", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/auditLogDrain", _module)
@@ -589,6 +692,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/blobObject", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobProjectConnection", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/blobStore", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/bulkRedirects", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/customAlertRule", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customCertificate", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customEnvironment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
@@ -605,14 +709,19 @@ pulumi.runtime.registerResourceModule("vercel", "index/featureFlagSegment", _mod
 pulumi.runtime.registerResourceModule("vercel", "index/firewallBypass", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/firewallConfig", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/integrationProjectAccess", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/kmsIssuer", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/kmsProjectGrant", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/kmsSigningKey", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembership", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/network", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthApp", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthAppClientSecret", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/oidcFederationPolicy", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentCheck", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
@@ -621,6 +730,8 @@ pulumi.runtime.registerResourceModule("vercel", "index/projectMembers", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectProtectionBypass", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectRollingRelease", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectRoute", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectTracing", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/shareableLink", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/sharedEnvironmentVariableProjectLink", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/teamConfig", _module)

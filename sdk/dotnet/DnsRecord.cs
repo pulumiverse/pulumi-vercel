@@ -15,7 +15,7 @@ namespace Pulumiverse.Vercel
     /// 
     /// DNS records are instructions that live in authoritative DNS servers and provide information about a domain.
     /// 
-    /// &gt; The `Value` field must be specified on all DNS record types except `SRV`. When using `SRV` DNS records, the `Srv` field must be specified.
+    /// &gt; The `Value` field must be specified on all DNS record types except `SRV` and `HTTPS`. When using `SRV` DNS records, the `Srv` field must be specified. When using `HTTPS` DNS records, the `Https` field must be specified.
     /// 
     /// For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/custom-domains#dns-records)
     /// 
@@ -99,6 +99,20 @@ namespace Pulumiverse.Vercel
     ///         },
     ///     });
     /// 
+    ///     var https = new Vercel.DnsRecord("https", new()
+    ///     {
+    ///         Domain = "example.com",
+    ///         Name = "subdomain",
+    ///         Type = "HTTPS",
+    ///         Ttl = 60,
+    ///         Https = new Vercel.Inputs.DnsRecordHttpsArgs
+    ///         {
+    ///             Priority = 1,
+    ///             Target = "example2.com.",
+    ///             Params = "alpn=h2,h3",
+    ///         },
+    ///     });
+    /// 
     ///     var txt = new Vercel.DnsRecord("txt", new()
     ///     {
     ///         Domain = "example.com",
@@ -149,6 +163,12 @@ namespace Pulumiverse.Vercel
         public Output<string> Domain { get; private set; } = null!;
 
         /// <summary>
+        /// Settings for an HTTPS record.
+        /// </summary>
+        [Output("https")]
+        public Output<Outputs.DnsRecordHttps?> Https { get; private set; } = null!;
+
+        /// <summary>
         /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         /// </summary>
         [Output("mxPriority")]
@@ -179,7 +199,7 @@ namespace Pulumiverse.Vercel
         public Output<int> Ttl { get; private set; } = null!;
 
         /// <summary>
-        /// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        /// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -257,6 +277,12 @@ namespace Pulumiverse.Vercel
         public Input<string> Domain { get; set; } = null!;
 
         /// <summary>
+        /// Settings for an HTTPS record.
+        /// </summary>
+        [Input("https")]
+        public Input<Inputs.DnsRecordHttpsArgs>? Https { get; set; }
+
+        /// <summary>
         /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         /// </summary>
         [Input("mxPriority")]
@@ -287,7 +313,7 @@ namespace Pulumiverse.Vercel
         public Input<int>? Ttl { get; set; }
 
         /// <summary>
-        /// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        /// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
@@ -326,6 +352,12 @@ namespace Pulumiverse.Vercel
         public Input<string>? Domain { get; set; }
 
         /// <summary>
+        /// Settings for an HTTPS record.
+        /// </summary>
+        [Input("https")]
+        public Input<Inputs.DnsRecordHttpsGetArgs>? Https { get; set; }
+
+        /// <summary>
         /// The priority of the MX record. The priority specifies the sequence that an email server receives emails. A smaller value indicates a higher priority.
         /// </summary>
         [Input("mxPriority")]
@@ -356,7 +388,7 @@ namespace Pulumiverse.Vercel
         public Input<int>? Ttl { get; set; }
 
         /// <summary>
-        /// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `MX`, `NS`, `SRV`, `TXT`.
+        /// The type of DNS record. Available types: `A`, `AAAA`, `ALIAS`, `CAA`, `CNAME`, `HTTPS`, `MX`, `NS`, `SRV`, `TXT`.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
