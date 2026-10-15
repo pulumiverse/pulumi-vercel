@@ -1,3 +1,0 @@
-name: vercel
-description: A Pulumi resource provider for vercel.
-language: nodejs
