@@ -35,7 +35,8 @@ import (
 //				return err
 //			}
 //			_, err = vercel.NewFirewallConfig(ctx, "example", &vercel.FirewallConfigArgs{
-//				ProjectId: example.ID(),
+//				ProjectId:    example.ID(),
+//				BotIdEnabled: pulumi.Bool(true),
 //				Rules: &vercel.FirewallConfigRulesArgs{
 //					Rules: vercel.FirewallConfigRulesRuleArray{
 //						&vercel.FirewallConfigRulesRuleArgs{
@@ -303,6 +304,8 @@ import (
 type FirewallConfig struct {
 	pulumi.CustomResourceState
 
+	// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+	BotIdEnabled pulumi.BoolOutput `pulumi:"botIdEnabled"`
 	// Whether firewall is enabled or not.
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
 	// IP rules to apply to the project.
@@ -350,6 +353,8 @@ func GetFirewallConfig(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering FirewallConfig resources.
 type firewallConfigState struct {
+	// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+	BotIdEnabled *bool `pulumi:"botIdEnabled"`
 	// Whether firewall is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
 	// IP rules to apply to the project.
@@ -365,6 +370,8 @@ type firewallConfigState struct {
 }
 
 type FirewallConfigState struct {
+	// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+	BotIdEnabled pulumi.BoolPtrInput
 	// Whether firewall is enabled or not.
 	Enabled pulumi.BoolPtrInput
 	// IP rules to apply to the project.
@@ -384,6 +391,8 @@ func (FirewallConfigState) ElementType() reflect.Type {
 }
 
 type firewallConfigArgs struct {
+	// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+	BotIdEnabled *bool `pulumi:"botIdEnabled"`
 	// Whether firewall is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
 	// IP rules to apply to the project.
@@ -400,6 +409,8 @@ type firewallConfigArgs struct {
 
 // The set of arguments for constructing a FirewallConfig resource.
 type FirewallConfigArgs struct {
+	// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+	BotIdEnabled pulumi.BoolPtrInput
 	// Whether firewall is enabled or not.
 	Enabled pulumi.BoolPtrInput
 	// IP rules to apply to the project.
@@ -499,6 +510,11 @@ func (o FirewallConfigOutput) ToFirewallConfigOutput() FirewallConfigOutput {
 
 func (o FirewallConfigOutput) ToFirewallConfigOutputWithContext(ctx context.Context) FirewallConfigOutput {
 	return o
+}
+
+// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+func (o FirewallConfigOutput) BotIdEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *FirewallConfig) pulumi.BoolOutput { return v.BotIdEnabled }).(pulumi.BoolOutput)
 }
 
 // Whether firewall is enabled or not.
