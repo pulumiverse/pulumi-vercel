@@ -18,6 +18,7 @@ import * as utilities from "./utilities";
  * const example = new vercel.Project("example", {name: "firewall-config-example"});
  * const exampleFirewallConfig = new vercel.FirewallConfig("example", {
  *     projectId: example.id,
+ *     botIdEnabled: true,
  *     rules: {
  *         rules: [
  *             {
@@ -263,6 +264,10 @@ export class FirewallConfig extends pulumi.CustomResource {
     }
 
     /**
+     * Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     */
+    declare public readonly botIdEnabled: pulumi.Output<boolean>;
+    /**
      * Whether firewall is enabled or not.
      */
     declare public readonly enabled: pulumi.Output<boolean>;
@@ -300,6 +305,7 @@ export class FirewallConfig extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as FirewallConfigState | undefined;
+            resourceInputs["botIdEnabled"] = state?.botIdEnabled;
             resourceInputs["enabled"] = state?.enabled;
             resourceInputs["ipRules"] = state?.ipRules;
             resourceInputs["managedRulesets"] = state?.managedRulesets;
@@ -311,6 +317,7 @@ export class FirewallConfig extends pulumi.CustomResource {
             if (args?.projectId === undefined && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
+            resourceInputs["botIdEnabled"] = args?.botIdEnabled;
             resourceInputs["enabled"] = args?.enabled;
             resourceInputs["ipRules"] = args?.ipRules;
             resourceInputs["managedRulesets"] = args?.managedRulesets;
@@ -327,6 +334,10 @@ export class FirewallConfig extends pulumi.CustomResource {
  * Input properties used for looking up and filtering FirewallConfig resources.
  */
 export interface FirewallConfigState {
+    /**
+     * Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     */
+    botIdEnabled?: pulumi.Input<boolean>;
     /**
      * Whether firewall is enabled or not.
      */
@@ -357,6 +368,10 @@ export interface FirewallConfigState {
  * The set of arguments for constructing a FirewallConfig resource.
  */
 export interface FirewallConfigArgs {
+    /**
+     * Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     */
+    botIdEnabled?: pulumi.Input<boolean>;
     /**
      * Whether firewall is enabled or not.
      */

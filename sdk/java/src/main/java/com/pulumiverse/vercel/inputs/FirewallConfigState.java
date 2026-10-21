@@ -20,6 +20,21 @@ public final class FirewallConfigState extends com.pulumi.resources.ResourceArgs
     public static final FirewallConfigState Empty = new FirewallConfigState();
 
     /**
+     * Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     * 
+     */
+    @Import(name="botIdEnabled")
+    private @Nullable Output<Boolean> botIdEnabled;
+
+    /**
+     * @return Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     * 
+     */
+    public Optional<Output<Boolean>> botIdEnabled() {
+        return Optional.ofNullable(this.botIdEnabled);
+    }
+
+    /**
      * Whether firewall is enabled or not.
      * 
      */
@@ -112,6 +127,7 @@ public final class FirewallConfigState extends com.pulumi.resources.ResourceArgs
     private FirewallConfigState() {}
 
     private FirewallConfigState(FirewallConfigState $) {
+        this.botIdEnabled = $.botIdEnabled;
         this.enabled = $.enabled;
         this.ipRules = $.ipRules;
         this.managedRulesets = $.managedRulesets;
@@ -136,6 +152,27 @@ public final class FirewallConfigState extends com.pulumi.resources.ResourceArgs
 
         public Builder(FirewallConfigState defaults) {
             $ = new FirewallConfigState(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param botIdEnabled Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder botIdEnabled(@Nullable Output<Boolean> botIdEnabled) {
+            $.botIdEnabled = botIdEnabled;
+            return this;
+        }
+
+        /**
+         * @param botIdEnabled Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder botIdEnabled(Boolean botIdEnabled) {
+            return botIdEnabled(Output.of(botIdEnabled));
         }
 
         /**

@@ -31,6 +31,7 @@ namespace Pulumiverse.Vercel
     ///     var exampleFirewallConfig = new Vercel.FirewallConfig("example", new()
     ///     {
     ///         ProjectId = example.Id,
+    ///         BotIdEnabled = true,
     ///         Rules = new Vercel.Inputs.FirewallConfigRulesArgs
     ///         {
     ///             Rules = new[]
@@ -360,6 +361,12 @@ namespace Pulumiverse.Vercel
     public partial class FirewallConfig : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `False`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+        /// </summary>
+        [Output("botIdEnabled")]
+        public Output<bool> BotIdEnabled { get; private set; } = null!;
+
+        /// <summary>
         /// Whether firewall is enabled or not.
         /// </summary>
         [Output("enabled")]
@@ -443,6 +450,12 @@ namespace Pulumiverse.Vercel
     public sealed class FirewallConfigArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `False`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+        /// </summary>
+        [Input("botIdEnabled")]
+        public Input<bool>? BotIdEnabled { get; set; }
+
+        /// <summary>
         /// Whether firewall is enabled or not.
         /// </summary>
         [Input("enabled")]
@@ -486,6 +499,12 @@ namespace Pulumiverse.Vercel
 
     public sealed class FirewallConfigState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `False`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+        /// </summary>
+        [Input("botIdEnabled")]
+        public Input<bool>? BotIdEnabled { get; set; }
+
         /// <summary>
         /// Whether firewall is enabled or not.
         /// </summary>

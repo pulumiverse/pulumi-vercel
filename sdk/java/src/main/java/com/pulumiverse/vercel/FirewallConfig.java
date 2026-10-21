@@ -67,6 +67,7 @@ import javax.annotation.Nullable;
  * 
  *         var exampleFirewallConfig = new FirewallConfig("exampleFirewallConfig", FirewallConfigArgs.builder()
  *             .projectId(example.id())
+ *             .botIdEnabled(true)
  *             .rules(FirewallConfigRulesArgs.builder()
  *                 .rules(                
  *                     FirewallConfigRulesRuleArgs.builder()
@@ -291,6 +292,20 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="vercel:index/firewallConfig:FirewallConfig")
 public class FirewallConfig extends com.pulumi.resources.CustomResource {
+    /**
+     * Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     * 
+     */
+    @Export(name="botIdEnabled", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> botIdEnabled;
+
+    /**
+     * @return Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+     * 
+     */
+    public Output<Boolean> botIdEnabled() {
+        return this.botIdEnabled;
+    }
     /**
      * Whether firewall is enabled or not.
      * 
