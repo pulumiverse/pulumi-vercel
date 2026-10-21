@@ -22,6 +22,7 @@ __all__ = ['FirewallConfigArgs', 'FirewallConfig']
 class FirewallConfigArgs:
     def __init__(__self__, *,
                  project_id: pulumi.Input[_builtins.str],
+                 bot_id_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ip_rules: Optional[pulumi.Input['FirewallConfigIpRulesArgs']] = None,
                  managed_rulesets: Optional[pulumi.Input['FirewallConfigManagedRulesetsArgs']] = None,
@@ -31,6 +32,7 @@ class FirewallConfigArgs:
         The set of arguments for constructing a FirewallConfig resource.
 
         :param pulumi.Input[_builtins.str] project_id: The ID of the project this configuration belongs to.
+        :param pulumi.Input[_builtins.bool] bot_id_enabled: Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
         :param pulumi.Input['FirewallConfigIpRulesArgs'] ip_rules: IP rules to apply to the project.
         :param pulumi.Input['FirewallConfigManagedRulesetsArgs'] managed_rulesets: The managed rulesets that are enabled.
@@ -38,6 +40,8 @@ class FirewallConfigArgs:
         :param pulumi.Input[_builtins.str] team_id: The ID of the team this project belongs to.
         """
         pulumi.set(__self__, "project_id", project_id)
+        if bot_id_enabled is not None:
+            pulumi.set(__self__, "bot_id_enabled", bot_id_enabled)
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
         if ip_rules is not None:
@@ -60,6 +64,18 @@ class FirewallConfigArgs:
     @project_id.setter
     def project_id(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "project_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="botIdEnabled")
+    def bot_id_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+        """
+        return pulumi.get(self, "bot_id_enabled")
+
+    @bot_id_enabled.setter
+    def bot_id_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "bot_id_enabled", value)
 
     @_builtins.property
     @pulumi.getter
@@ -125,6 +141,7 @@ class FirewallConfigArgs:
 @pulumi.input_type
 class _FirewallConfigState:
     def __init__(__self__, *,
+                 bot_id_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ip_rules: Optional[pulumi.Input['FirewallConfigIpRulesArgs']] = None,
                  managed_rulesets: Optional[pulumi.Input['FirewallConfigManagedRulesetsArgs']] = None,
@@ -134,6 +151,7 @@ class _FirewallConfigState:
         """
         Input properties used for looking up and filtering FirewallConfig resources.
 
+        :param pulumi.Input[_builtins.bool] bot_id_enabled: Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
         :param pulumi.Input['FirewallConfigIpRulesArgs'] ip_rules: IP rules to apply to the project.
         :param pulumi.Input['FirewallConfigManagedRulesetsArgs'] managed_rulesets: The managed rulesets that are enabled.
@@ -141,6 +159,8 @@ class _FirewallConfigState:
         :param pulumi.Input['FirewallConfigRulesArgs'] rules: Custom rules to apply to the project
         :param pulumi.Input[_builtins.str] team_id: The ID of the team this project belongs to.
         """
+        if bot_id_enabled is not None:
+            pulumi.set(__self__, "bot_id_enabled", bot_id_enabled)
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
         if ip_rules is not None:
@@ -153,6 +173,18 @@ class _FirewallConfigState:
             pulumi.set(__self__, "rules", rules)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
+
+    @_builtins.property
+    @pulumi.getter(name="botIdEnabled")
+    def bot_id_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+        """
+        return pulumi.get(self, "bot_id_enabled")
+
+    @bot_id_enabled.setter
+    def bot_id_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "bot_id_enabled", value)
 
     @_builtins.property
     @pulumi.getter
@@ -233,6 +265,7 @@ class FirewallConfig(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 bot_id_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ip_rules: Optional[pulumi.Input[Union['FirewallConfigIpRulesArgs', 'FirewallConfigIpRulesArgsDict']]] = None,
                  managed_rulesets: Optional[pulumi.Input[Union['FirewallConfigManagedRulesetsArgs', 'FirewallConfigManagedRulesetsArgsDict']]] = None,
@@ -252,6 +285,7 @@ class FirewallConfig(pulumi.CustomResource):
         example = vercel.Project("example", name="firewall-config-example")
         example_firewall_config = vercel.FirewallConfig("example",
             project_id=example.id,
+            bot_id_enabled=True,
             rules={
                 "rules": [
                     {
@@ -468,6 +502,7 @@ class FirewallConfig(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.bool] bot_id_enabled: Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
         :param pulumi.Input[Union['FirewallConfigIpRulesArgs', 'FirewallConfigIpRulesArgsDict']] ip_rules: IP rules to apply to the project.
         :param pulumi.Input[Union['FirewallConfigManagedRulesetsArgs', 'FirewallConfigManagedRulesetsArgsDict']] managed_rulesets: The managed rulesets that are enabled.
@@ -493,6 +528,7 @@ class FirewallConfig(pulumi.CustomResource):
         example = vercel.Project("example", name="firewall-config-example")
         example_firewall_config = vercel.FirewallConfig("example",
             project_id=example.id,
+            bot_id_enabled=True,
             rules={
                 "rules": [
                     {
@@ -722,6 +758,7 @@ class FirewallConfig(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 bot_id_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ip_rules: Optional[pulumi.Input[Union['FirewallConfigIpRulesArgs', 'FirewallConfigIpRulesArgsDict']]] = None,
                  managed_rulesets: Optional[pulumi.Input[Union['FirewallConfigManagedRulesetsArgs', 'FirewallConfigManagedRulesetsArgsDict']]] = None,
@@ -737,6 +774,7 @@ class FirewallConfig(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = FirewallConfigArgs.__new__(FirewallConfigArgs)
 
+            __props__.__dict__["bot_id_enabled"] = bot_id_enabled
             __props__.__dict__["enabled"] = enabled
             __props__.__dict__["ip_rules"] = ip_rules
             __props__.__dict__["managed_rulesets"] = managed_rulesets
@@ -755,6 +793,7 @@ class FirewallConfig(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            bot_id_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             ip_rules: Optional[pulumi.Input[Union['FirewallConfigIpRulesArgs', 'FirewallConfigIpRulesArgsDict']]] = None,
             managed_rulesets: Optional[pulumi.Input[Union['FirewallConfigManagedRulesetsArgs', 'FirewallConfigManagedRulesetsArgsDict']]] = None,
@@ -768,6 +807,7 @@ class FirewallConfig(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.bool] bot_id_enabled: Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
         :param pulumi.Input[_builtins.bool] enabled: Whether firewall is enabled or not.
         :param pulumi.Input[Union['FirewallConfigIpRulesArgs', 'FirewallConfigIpRulesArgsDict']] ip_rules: IP rules to apply to the project.
         :param pulumi.Input[Union['FirewallConfigManagedRulesetsArgs', 'FirewallConfigManagedRulesetsArgsDict']] managed_rulesets: The managed rulesets that are enabled.
@@ -779,6 +819,7 @@ class FirewallConfig(pulumi.CustomResource):
 
         __props__ = _FirewallConfigState.__new__(_FirewallConfigState)
 
+        __props__.__dict__["bot_id_enabled"] = bot_id_enabled
         __props__.__dict__["enabled"] = enabled
         __props__.__dict__["ip_rules"] = ip_rules
         __props__.__dict__["managed_rulesets"] = managed_rulesets
@@ -786,6 +827,14 @@ class FirewallConfig(pulumi.CustomResource):
         __props__.__dict__["rules"] = rules
         __props__.__dict__["team_id"] = team_id
         return FirewallConfig(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="botIdEnabled")
+    def bot_id_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable BotID Deep Analysis for this project. Requires a Pro or Enterprise plan and the BotID SDK integration. When `false`, BotID uses Basic checks. Per-route SDK configuration can override this setting. When omitted, preserves the current setting on updates; new configurations default to Basic.
+        """
+        return pulumi.get(self, "bot_id_enabled")
 
     @_builtins.property
     @pulumi.getter
