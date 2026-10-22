@@ -13,6 +13,22 @@ namespace Pulumiverse.Vercel
     /// <summary>
     /// Manages a link between a Vercel alert rule and one existing account webhook.
     /// 
+    /// &gt; **Deprecated** Alert rules were renamed to monitors. Use `vercel.MonitorWebhookNotification` instead. This resource will be removed in a future major version of this provider.
+    /// 
+    /// To migrate without recreating the resource, replace it with `vercel.MonitorWebhookNotification` and add a `Moved` block, for example:
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    /// });
+    /// ```
+    /// 
+    /// Rename the `AlertRuleId` argument to `MonitorId`.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
