@@ -13,6 +13,20 @@ namespace Pulumiverse.Vercel
     /// <summary>
     /// Creates a project-scoped custom Vercel alert rule using the Alerts v3 API. Supports threshold and anomaly conditions on a metric or same-event ratio. Custom alerts must be enabled for the team. Manage Slack and webhook links with `vercel.AlertRuleSlackNotification` and `vercel.AlertRuleWebhookNotification`.
     /// 
+    /// &gt; **Deprecated** Alert rules were renamed to monitors. Use `vercel.CustomMonitor` instead. This resource will be removed in a future major version of this provider.
+    /// 
+    /// To migrate without recreating the resource, replace it with `vercel.CustomMonitor` and add a `Moved` block, for example:
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    /// });
+    /// ```
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -158,7 +172,7 @@ namespace Pulumiverse.Vercel
         public Output<string> Severity { get; private set; } = null!;
 
         /// <summary>
-        /// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        /// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
@@ -268,7 +282,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _tags;
 
         /// <summary>
-        /// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        /// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         /// </summary>
         public InputList<string> Tags
         {
@@ -342,7 +356,7 @@ namespace Pulumiverse.Vercel
         private InputList<string>? _tags;
 
         /// <summary>
-        /// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        /// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         /// </summary>
         public InputList<string> Tags
         {

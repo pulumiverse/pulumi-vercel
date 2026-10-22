@@ -240,6 +240,114 @@ export interface CustomEnvironmentBranchTracking {
     type: string;
 }
 
+export interface CustomMonitorEvaluation {
+    /**
+     * The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+     */
+    query: outputs.CustomMonitorEvaluationQuery;
+    /**
+     * Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+     */
+    window: string;
+}
+
+export interface CustomMonitorEvaluationQuery {
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: string;
+    /**
+     * Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+     */
+    formulas?: {[key: string]: string};
+    /**
+     * Optional grouping dimension. Exactly one dimension is supported.
+     */
+    groupBies?: string[];
+    /**
+     * One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+     */
+    metrics: {[key: string]: outputs.CustomMonitorEvaluationQueryMetrics};
+    /**
+     * Exactly one output: the sole metric alias, or `formula` for a ratio.
+     */
+    outputs: string[];
+}
+
+export interface CustomMonitorEvaluationQueryMetrics {
+    /**
+     * Metric aggregation. Supported combinations depend on the metric.
+     */
+    aggregation: string;
+    /**
+     * Dimensions required by the unique aggregation.
+     */
+    dimensions?: string[];
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: string;
+    /**
+     * Semantic metric ID or custom metric name. Availability is validated by the API.
+     */
+    metric: string;
+    /**
+     * Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+     */
+    normalize?: string;
+    /**
+     * Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+     */
+    per?: string;
+}
+
+export interface CustomMonitorNotificationSettings {
+    enableTeamOwnerNotifications: boolean;
+    incidentIoRoutingKey?: string;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: string;
+}
+
+export interface CustomMonitorTrigger {
+    /**
+     * Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+     */
+    minimum?: outputs.CustomMonitorTriggerMinimum;
+    /**
+     * Required for threshold triggers; omitted for anomaly triggers.
+     */
+    operator?: string;
+    /**
+     * The query's single output alias.
+     */
+    output: string;
+    /**
+     * Required anomaly threshold in standard deviations, at least 0.1.
+     */
+    standardDeviations?: number;
+    /**
+     * Required numeric threshold for threshold triggers. Zero is supported.
+     */
+    threshold?: number;
+    /**
+     * The condition type: `threshold` or `anomaly`.
+     */
+    type: string;
+}
+
+export interface CustomMonitorTriggerMinimum {
+    /**
+     * The primitive metric alias, or ratio numerator alias.
+     */
+    output: string;
+    /**
+     * Non-negative floor below which the rule is not evaluated.
+     */
+    threshold: number;
+}
+
 export interface DeploymentProjectSettings {
     /**
      * The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
@@ -1552,6 +1660,34 @@ export interface MicrofrontendGroupDefaultApp {
      * The ID of the project.
      */
     projectId: string;
+}
+
+export interface MonitorNotificationSettings {
+    enableTeamOwnerNotifications: boolean;
+    incidentIoRoutingKey?: string;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: string;
+}
+
+export interface MonitorRuleScope {
+    /**
+     * The project IDs included in or excluded from a built-in rule.
+     */
+    projectIds?: string[];
+    type: string;
+}
+
+export interface MonitorTrigger {
+    /**
+     * A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+     */
+    filter?: string;
+    /**
+     * The built-in anomaly trigger type.
+     */
+    type: string;
 }
 
 export interface NetworkTimeouts {

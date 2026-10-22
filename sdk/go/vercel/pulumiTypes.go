@@ -2415,6 +2415,1072 @@ func (o CustomEnvironmentBranchTrackingPtrOutput) Type() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
+type CustomMonitorEvaluation struct {
+	// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+	Query CustomMonitorEvaluationQuery `pulumi:"query"`
+	// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+	Window string `pulumi:"window"`
+}
+
+// CustomMonitorEvaluationInput is an input type that accepts CustomMonitorEvaluationArgs and CustomMonitorEvaluationOutput values.
+// You can construct a concrete instance of `CustomMonitorEvaluationInput` via:
+//
+//	CustomMonitorEvaluationArgs{...}
+type CustomMonitorEvaluationInput interface {
+	pulumi.Input
+
+	ToCustomMonitorEvaluationOutput() CustomMonitorEvaluationOutput
+	ToCustomMonitorEvaluationOutputWithContext(context.Context) CustomMonitorEvaluationOutput
+}
+
+type CustomMonitorEvaluationArgs struct {
+	// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+	Query CustomMonitorEvaluationQueryInput `pulumi:"query"`
+	// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+	Window pulumi.StringInput `pulumi:"window"`
+}
+
+func (CustomMonitorEvaluationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorEvaluation)(nil)).Elem()
+}
+
+func (i CustomMonitorEvaluationArgs) ToCustomMonitorEvaluationOutput() CustomMonitorEvaluationOutput {
+	return i.ToCustomMonitorEvaluationOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorEvaluationArgs) ToCustomMonitorEvaluationOutputWithContext(ctx context.Context) CustomMonitorEvaluationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationOutput)
+}
+
+func (i CustomMonitorEvaluationArgs) ToCustomMonitorEvaluationPtrOutput() CustomMonitorEvaluationPtrOutput {
+	return i.ToCustomMonitorEvaluationPtrOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorEvaluationArgs) ToCustomMonitorEvaluationPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationOutput).ToCustomMonitorEvaluationPtrOutputWithContext(ctx)
+}
+
+// CustomMonitorEvaluationPtrInput is an input type that accepts CustomMonitorEvaluationArgs, CustomMonitorEvaluationPtr and CustomMonitorEvaluationPtrOutput values.
+// You can construct a concrete instance of `CustomMonitorEvaluationPtrInput` via:
+//
+//	        CustomMonitorEvaluationArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomMonitorEvaluationPtrInput interface {
+	pulumi.Input
+
+	ToCustomMonitorEvaluationPtrOutput() CustomMonitorEvaluationPtrOutput
+	ToCustomMonitorEvaluationPtrOutputWithContext(context.Context) CustomMonitorEvaluationPtrOutput
+}
+
+type customMonitorEvaluationPtrType CustomMonitorEvaluationArgs
+
+func CustomMonitorEvaluationPtr(v *CustomMonitorEvaluationArgs) CustomMonitorEvaluationPtrInput {
+	return (*customMonitorEvaluationPtrType)(v)
+}
+
+func (*customMonitorEvaluationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorEvaluation)(nil)).Elem()
+}
+
+func (i *customMonitorEvaluationPtrType) ToCustomMonitorEvaluationPtrOutput() CustomMonitorEvaluationPtrOutput {
+	return i.ToCustomMonitorEvaluationPtrOutputWithContext(context.Background())
+}
+
+func (i *customMonitorEvaluationPtrType) ToCustomMonitorEvaluationPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationPtrOutput)
+}
+
+type CustomMonitorEvaluationOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorEvaluationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorEvaluation)(nil)).Elem()
+}
+
+func (o CustomMonitorEvaluationOutput) ToCustomMonitorEvaluationOutput() CustomMonitorEvaluationOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationOutput) ToCustomMonitorEvaluationOutputWithContext(ctx context.Context) CustomMonitorEvaluationOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationOutput) ToCustomMonitorEvaluationPtrOutput() CustomMonitorEvaluationPtrOutput {
+	return o.ToCustomMonitorEvaluationPtrOutputWithContext(context.Background())
+}
+
+func (o CustomMonitorEvaluationOutput) ToCustomMonitorEvaluationPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomMonitorEvaluation) *CustomMonitorEvaluation {
+		return &v
+	}).(CustomMonitorEvaluationPtrOutput)
+}
+
+// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+func (o CustomMonitorEvaluationOutput) Query() CustomMonitorEvaluationQueryOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluation) CustomMonitorEvaluationQuery { return v.Query }).(CustomMonitorEvaluationQueryOutput)
+}
+
+// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+func (o CustomMonitorEvaluationOutput) Window() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluation) string { return v.Window }).(pulumi.StringOutput)
+}
+
+type CustomMonitorEvaluationPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorEvaluationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorEvaluation)(nil)).Elem()
+}
+
+func (o CustomMonitorEvaluationPtrOutput) ToCustomMonitorEvaluationPtrOutput() CustomMonitorEvaluationPtrOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationPtrOutput) ToCustomMonitorEvaluationPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationPtrOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationPtrOutput) Elem() CustomMonitorEvaluationOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluation) CustomMonitorEvaluation {
+		if v != nil {
+			return *v
+		}
+		var ret CustomMonitorEvaluation
+		return ret
+	}).(CustomMonitorEvaluationOutput)
+}
+
+// The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+func (o CustomMonitorEvaluationPtrOutput) Query() CustomMonitorEvaluationQueryPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluation) *CustomMonitorEvaluationQuery {
+		if v == nil {
+			return nil
+		}
+		return &v.Query
+	}).(CustomMonitorEvaluationQueryPtrOutput)
+}
+
+// Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+func (o CustomMonitorEvaluationPtrOutput) Window() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluation) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Window
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomMonitorEvaluationQuery struct {
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter *string `pulumi:"filter"`
+	// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+	Formulas map[string]string `pulumi:"formulas"`
+	// Optional grouping dimension. Exactly one dimension is supported.
+	GroupBies []string `pulumi:"groupBies"`
+	// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+	Metrics map[string]CustomMonitorEvaluationQueryMetrics `pulumi:"metrics"`
+	// Exactly one output: the sole metric alias, or `formula` for a ratio.
+	Outputs []string `pulumi:"outputs"`
+}
+
+// CustomMonitorEvaluationQueryInput is an input type that accepts CustomMonitorEvaluationQueryArgs and CustomMonitorEvaluationQueryOutput values.
+// You can construct a concrete instance of `CustomMonitorEvaluationQueryInput` via:
+//
+//	CustomMonitorEvaluationQueryArgs{...}
+type CustomMonitorEvaluationQueryInput interface {
+	pulumi.Input
+
+	ToCustomMonitorEvaluationQueryOutput() CustomMonitorEvaluationQueryOutput
+	ToCustomMonitorEvaluationQueryOutputWithContext(context.Context) CustomMonitorEvaluationQueryOutput
+}
+
+type CustomMonitorEvaluationQueryArgs struct {
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter pulumi.StringPtrInput `pulumi:"filter"`
+	// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+	Formulas pulumi.StringMapInput `pulumi:"formulas"`
+	// Optional grouping dimension. Exactly one dimension is supported.
+	GroupBies pulumi.StringArrayInput `pulumi:"groupBies"`
+	// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+	Metrics CustomMonitorEvaluationQueryMetricsMapInput `pulumi:"metrics"`
+	// Exactly one output: the sole metric alias, or `formula` for a ratio.
+	Outputs pulumi.StringArrayInput `pulumi:"outputs"`
+}
+
+func (CustomMonitorEvaluationQueryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorEvaluationQuery)(nil)).Elem()
+}
+
+func (i CustomMonitorEvaluationQueryArgs) ToCustomMonitorEvaluationQueryOutput() CustomMonitorEvaluationQueryOutput {
+	return i.ToCustomMonitorEvaluationQueryOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorEvaluationQueryArgs) ToCustomMonitorEvaluationQueryOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationQueryOutput)
+}
+
+func (i CustomMonitorEvaluationQueryArgs) ToCustomMonitorEvaluationQueryPtrOutput() CustomMonitorEvaluationQueryPtrOutput {
+	return i.ToCustomMonitorEvaluationQueryPtrOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorEvaluationQueryArgs) ToCustomMonitorEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationQueryOutput).ToCustomMonitorEvaluationQueryPtrOutputWithContext(ctx)
+}
+
+// CustomMonitorEvaluationQueryPtrInput is an input type that accepts CustomMonitorEvaluationQueryArgs, CustomMonitorEvaluationQueryPtr and CustomMonitorEvaluationQueryPtrOutput values.
+// You can construct a concrete instance of `CustomMonitorEvaluationQueryPtrInput` via:
+//
+//	        CustomMonitorEvaluationQueryArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomMonitorEvaluationQueryPtrInput interface {
+	pulumi.Input
+
+	ToCustomMonitorEvaluationQueryPtrOutput() CustomMonitorEvaluationQueryPtrOutput
+	ToCustomMonitorEvaluationQueryPtrOutputWithContext(context.Context) CustomMonitorEvaluationQueryPtrOutput
+}
+
+type customMonitorEvaluationQueryPtrType CustomMonitorEvaluationQueryArgs
+
+func CustomMonitorEvaluationQueryPtr(v *CustomMonitorEvaluationQueryArgs) CustomMonitorEvaluationQueryPtrInput {
+	return (*customMonitorEvaluationQueryPtrType)(v)
+}
+
+func (*customMonitorEvaluationQueryPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorEvaluationQuery)(nil)).Elem()
+}
+
+func (i *customMonitorEvaluationQueryPtrType) ToCustomMonitorEvaluationQueryPtrOutput() CustomMonitorEvaluationQueryPtrOutput {
+	return i.ToCustomMonitorEvaluationQueryPtrOutputWithContext(context.Background())
+}
+
+func (i *customMonitorEvaluationQueryPtrType) ToCustomMonitorEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationQueryPtrOutput)
+}
+
+type CustomMonitorEvaluationQueryOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorEvaluationQueryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorEvaluationQuery)(nil)).Elem()
+}
+
+func (o CustomMonitorEvaluationQueryOutput) ToCustomMonitorEvaluationQueryOutput() CustomMonitorEvaluationQueryOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryOutput) ToCustomMonitorEvaluationQueryOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryOutput) ToCustomMonitorEvaluationQueryPtrOutput() CustomMonitorEvaluationQueryPtrOutput {
+	return o.ToCustomMonitorEvaluationQueryPtrOutputWithContext(context.Background())
+}
+
+func (o CustomMonitorEvaluationQueryOutput) ToCustomMonitorEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomMonitorEvaluationQuery) *CustomMonitorEvaluationQuery {
+		return &v
+	}).(CustomMonitorEvaluationQueryPtrOutput)
+}
+
+// KQL filter. Syntax and metric dimensions are validated by the API.
+func (o CustomMonitorEvaluationQueryOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQuery) *string { return v.Filter }).(pulumi.StringPtrOutput)
+}
+
+// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+func (o CustomMonitorEvaluationQueryOutput) Formulas() pulumi.StringMapOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQuery) map[string]string { return v.Formulas }).(pulumi.StringMapOutput)
+}
+
+// Optional grouping dimension. Exactly one dimension is supported.
+func (o CustomMonitorEvaluationQueryOutput) GroupBies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQuery) []string { return v.GroupBies }).(pulumi.StringArrayOutput)
+}
+
+// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+func (o CustomMonitorEvaluationQueryOutput) Metrics() CustomMonitorEvaluationQueryMetricsMapOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQuery) map[string]CustomMonitorEvaluationQueryMetrics { return v.Metrics }).(CustomMonitorEvaluationQueryMetricsMapOutput)
+}
+
+// Exactly one output: the sole metric alias, or `formula` for a ratio.
+func (o CustomMonitorEvaluationQueryOutput) Outputs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQuery) []string { return v.Outputs }).(pulumi.StringArrayOutput)
+}
+
+type CustomMonitorEvaluationQueryPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorEvaluationQueryPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorEvaluationQuery)(nil)).Elem()
+}
+
+func (o CustomMonitorEvaluationQueryPtrOutput) ToCustomMonitorEvaluationQueryPtrOutput() CustomMonitorEvaluationQueryPtrOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryPtrOutput) ToCustomMonitorEvaluationQueryPtrOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryPtrOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryPtrOutput) Elem() CustomMonitorEvaluationQueryOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluationQuery) CustomMonitorEvaluationQuery {
+		if v != nil {
+			return *v
+		}
+		var ret CustomMonitorEvaluationQuery
+		return ret
+	}).(CustomMonitorEvaluationQueryOutput)
+}
+
+// KQL filter. Syntax and metric dimensions are validated by the API.
+func (o CustomMonitorEvaluationQueryPtrOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluationQuery) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Filter
+	}).(pulumi.StringPtrOutput)
+}
+
+// Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+func (o CustomMonitorEvaluationQueryPtrOutput) Formulas() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluationQuery) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Formulas
+	}).(pulumi.StringMapOutput)
+}
+
+// Optional grouping dimension. Exactly one dimension is supported.
+func (o CustomMonitorEvaluationQueryPtrOutput) GroupBies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluationQuery) []string {
+		if v == nil {
+			return nil
+		}
+		return v.GroupBies
+	}).(pulumi.StringArrayOutput)
+}
+
+// One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+func (o CustomMonitorEvaluationQueryPtrOutput) Metrics() CustomMonitorEvaluationQueryMetricsMapOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluationQuery) map[string]CustomMonitorEvaluationQueryMetrics {
+		if v == nil {
+			return nil
+		}
+		return v.Metrics
+	}).(CustomMonitorEvaluationQueryMetricsMapOutput)
+}
+
+// Exactly one output: the sole metric alias, or `formula` for a ratio.
+func (o CustomMonitorEvaluationQueryPtrOutput) Outputs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CustomMonitorEvaluationQuery) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Outputs
+	}).(pulumi.StringArrayOutput)
+}
+
+type CustomMonitorEvaluationQueryMetrics struct {
+	// Metric aggregation. Supported combinations depend on the metric.
+	Aggregation string `pulumi:"aggregation"`
+	// Dimensions required by the unique aggregation.
+	Dimensions []string `pulumi:"dimensions"`
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter *string `pulumi:"filter"`
+	// Semantic metric ID or custom metric name. Availability is validated by the API.
+	Metric string `pulumi:"metric"`
+	// Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+	Normalize *string `pulumi:"normalize"`
+	// Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+	Per *string `pulumi:"per"`
+}
+
+// CustomMonitorEvaluationQueryMetricsInput is an input type that accepts CustomMonitorEvaluationQueryMetricsArgs and CustomMonitorEvaluationQueryMetricsOutput values.
+// You can construct a concrete instance of `CustomMonitorEvaluationQueryMetricsInput` via:
+//
+//	CustomMonitorEvaluationQueryMetricsArgs{...}
+type CustomMonitorEvaluationQueryMetricsInput interface {
+	pulumi.Input
+
+	ToCustomMonitorEvaluationQueryMetricsOutput() CustomMonitorEvaluationQueryMetricsOutput
+	ToCustomMonitorEvaluationQueryMetricsOutputWithContext(context.Context) CustomMonitorEvaluationQueryMetricsOutput
+}
+
+type CustomMonitorEvaluationQueryMetricsArgs struct {
+	// Metric aggregation. Supported combinations depend on the metric.
+	Aggregation pulumi.StringInput `pulumi:"aggregation"`
+	// Dimensions required by the unique aggregation.
+	Dimensions pulumi.StringArrayInput `pulumi:"dimensions"`
+	// KQL filter. Syntax and metric dimensions are validated by the API.
+	Filter pulumi.StringPtrInput `pulumi:"filter"`
+	// Semantic metric ID or custom metric name. Availability is validated by the API.
+	Metric pulumi.StringInput `pulumi:"metric"`
+	// Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+	Normalize pulumi.StringPtrInput `pulumi:"normalize"`
+	// Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+	Per pulumi.StringPtrInput `pulumi:"per"`
+}
+
+func (CustomMonitorEvaluationQueryMetricsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (i CustomMonitorEvaluationQueryMetricsArgs) ToCustomMonitorEvaluationQueryMetricsOutput() CustomMonitorEvaluationQueryMetricsOutput {
+	return i.ToCustomMonitorEvaluationQueryMetricsOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorEvaluationQueryMetricsArgs) ToCustomMonitorEvaluationQueryMetricsOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryMetricsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationQueryMetricsOutput)
+}
+
+// CustomMonitorEvaluationQueryMetricsMapInput is an input type that accepts CustomMonitorEvaluationQueryMetricsMap and CustomMonitorEvaluationQueryMetricsMapOutput values.
+// You can construct a concrete instance of `CustomMonitorEvaluationQueryMetricsMapInput` via:
+//
+//	CustomMonitorEvaluationQueryMetricsMap{ "key": CustomMonitorEvaluationQueryMetricsArgs{...} }
+type CustomMonitorEvaluationQueryMetricsMapInput interface {
+	pulumi.Input
+
+	ToCustomMonitorEvaluationQueryMetricsMapOutput() CustomMonitorEvaluationQueryMetricsMapOutput
+	ToCustomMonitorEvaluationQueryMetricsMapOutputWithContext(context.Context) CustomMonitorEvaluationQueryMetricsMapOutput
+}
+
+type CustomMonitorEvaluationQueryMetricsMap map[string]CustomMonitorEvaluationQueryMetricsInput
+
+func (CustomMonitorEvaluationQueryMetricsMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]CustomMonitorEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (i CustomMonitorEvaluationQueryMetricsMap) ToCustomMonitorEvaluationQueryMetricsMapOutput() CustomMonitorEvaluationQueryMetricsMapOutput {
+	return i.ToCustomMonitorEvaluationQueryMetricsMapOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorEvaluationQueryMetricsMap) ToCustomMonitorEvaluationQueryMetricsMapOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryMetricsMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorEvaluationQueryMetricsMapOutput)
+}
+
+type CustomMonitorEvaluationQueryMetricsOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorEvaluationQueryMetricsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (o CustomMonitorEvaluationQueryMetricsOutput) ToCustomMonitorEvaluationQueryMetricsOutput() CustomMonitorEvaluationQueryMetricsOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryMetricsOutput) ToCustomMonitorEvaluationQueryMetricsOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryMetricsOutput {
+	return o
+}
+
+// Metric aggregation. Supported combinations depend on the metric.
+func (o CustomMonitorEvaluationQueryMetricsOutput) Aggregation() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQueryMetrics) string { return v.Aggregation }).(pulumi.StringOutput)
+}
+
+// Dimensions required by the unique aggregation.
+func (o CustomMonitorEvaluationQueryMetricsOutput) Dimensions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQueryMetrics) []string { return v.Dimensions }).(pulumi.StringArrayOutput)
+}
+
+// KQL filter. Syntax and metric dimensions are validated by the API.
+func (o CustomMonitorEvaluationQueryMetricsOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQueryMetrics) *string { return v.Filter }).(pulumi.StringPtrOutput)
+}
+
+// Semantic metric ID or custom metric name. Availability is validated by the API.
+func (o CustomMonitorEvaluationQueryMetricsOutput) Metric() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQueryMetrics) string { return v.Metric }).(pulumi.StringOutput)
+}
+
+// Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+func (o CustomMonitorEvaluationQueryMetricsOutput) Normalize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQueryMetrics) *string { return v.Normalize }).(pulumi.StringPtrOutput)
+}
+
+// Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+func (o CustomMonitorEvaluationQueryMetricsOutput) Per() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorEvaluationQueryMetrics) *string { return v.Per }).(pulumi.StringPtrOutput)
+}
+
+type CustomMonitorEvaluationQueryMetricsMapOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorEvaluationQueryMetricsMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]CustomMonitorEvaluationQueryMetrics)(nil)).Elem()
+}
+
+func (o CustomMonitorEvaluationQueryMetricsMapOutput) ToCustomMonitorEvaluationQueryMetricsMapOutput() CustomMonitorEvaluationQueryMetricsMapOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryMetricsMapOutput) ToCustomMonitorEvaluationQueryMetricsMapOutputWithContext(ctx context.Context) CustomMonitorEvaluationQueryMetricsMapOutput {
+	return o
+}
+
+func (o CustomMonitorEvaluationQueryMetricsMapOutput) MapIndex(k pulumi.StringInput) CustomMonitorEvaluationQueryMetricsOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CustomMonitorEvaluationQueryMetrics {
+		return vs[0].(map[string]CustomMonitorEvaluationQueryMetrics)[vs[1].(string)]
+	}).(CustomMonitorEvaluationQueryMetricsOutput)
+}
+
+type CustomMonitorNotificationSettings struct {
+	EnableTeamOwnerNotifications *bool   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         *string `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel *string `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+// CustomMonitorNotificationSettingsInput is an input type that accepts CustomMonitorNotificationSettingsArgs and CustomMonitorNotificationSettingsOutput values.
+// You can construct a concrete instance of `CustomMonitorNotificationSettingsInput` via:
+//
+//	CustomMonitorNotificationSettingsArgs{...}
+type CustomMonitorNotificationSettingsInput interface {
+	pulumi.Input
+
+	ToCustomMonitorNotificationSettingsOutput() CustomMonitorNotificationSettingsOutput
+	ToCustomMonitorNotificationSettingsOutputWithContext(context.Context) CustomMonitorNotificationSettingsOutput
+}
+
+type CustomMonitorNotificationSettingsArgs struct {
+	EnableTeamOwnerNotifications pulumi.BoolPtrInput   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         pulumi.StringPtrInput `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel pulumi.StringPtrInput `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+func (CustomMonitorNotificationSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorNotificationSettings)(nil)).Elem()
+}
+
+func (i CustomMonitorNotificationSettingsArgs) ToCustomMonitorNotificationSettingsOutput() CustomMonitorNotificationSettingsOutput {
+	return i.ToCustomMonitorNotificationSettingsOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorNotificationSettingsArgs) ToCustomMonitorNotificationSettingsOutputWithContext(ctx context.Context) CustomMonitorNotificationSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorNotificationSettingsOutput)
+}
+
+func (i CustomMonitorNotificationSettingsArgs) ToCustomMonitorNotificationSettingsPtrOutput() CustomMonitorNotificationSettingsPtrOutput {
+	return i.ToCustomMonitorNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorNotificationSettingsArgs) ToCustomMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomMonitorNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorNotificationSettingsOutput).ToCustomMonitorNotificationSettingsPtrOutputWithContext(ctx)
+}
+
+// CustomMonitorNotificationSettingsPtrInput is an input type that accepts CustomMonitorNotificationSettingsArgs, CustomMonitorNotificationSettingsPtr and CustomMonitorNotificationSettingsPtrOutput values.
+// You can construct a concrete instance of `CustomMonitorNotificationSettingsPtrInput` via:
+//
+//	        CustomMonitorNotificationSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomMonitorNotificationSettingsPtrInput interface {
+	pulumi.Input
+
+	ToCustomMonitorNotificationSettingsPtrOutput() CustomMonitorNotificationSettingsPtrOutput
+	ToCustomMonitorNotificationSettingsPtrOutputWithContext(context.Context) CustomMonitorNotificationSettingsPtrOutput
+}
+
+type customMonitorNotificationSettingsPtrType CustomMonitorNotificationSettingsArgs
+
+func CustomMonitorNotificationSettingsPtr(v *CustomMonitorNotificationSettingsArgs) CustomMonitorNotificationSettingsPtrInput {
+	return (*customMonitorNotificationSettingsPtrType)(v)
+}
+
+func (*customMonitorNotificationSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorNotificationSettings)(nil)).Elem()
+}
+
+func (i *customMonitorNotificationSettingsPtrType) ToCustomMonitorNotificationSettingsPtrOutput() CustomMonitorNotificationSettingsPtrOutput {
+	return i.ToCustomMonitorNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *customMonitorNotificationSettingsPtrType) ToCustomMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomMonitorNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorNotificationSettingsPtrOutput)
+}
+
+type CustomMonitorNotificationSettingsOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorNotificationSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorNotificationSettings)(nil)).Elem()
+}
+
+func (o CustomMonitorNotificationSettingsOutput) ToCustomMonitorNotificationSettingsOutput() CustomMonitorNotificationSettingsOutput {
+	return o
+}
+
+func (o CustomMonitorNotificationSettingsOutput) ToCustomMonitorNotificationSettingsOutputWithContext(ctx context.Context) CustomMonitorNotificationSettingsOutput {
+	return o
+}
+
+func (o CustomMonitorNotificationSettingsOutput) ToCustomMonitorNotificationSettingsPtrOutput() CustomMonitorNotificationSettingsPtrOutput {
+	return o.ToCustomMonitorNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o CustomMonitorNotificationSettingsOutput) ToCustomMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomMonitorNotificationSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomMonitorNotificationSettings) *CustomMonitorNotificationSettings {
+		return &v
+	}).(CustomMonitorNotificationSettingsPtrOutput)
+}
+
+func (o CustomMonitorNotificationSettingsOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CustomMonitorNotificationSettings) *bool { return v.EnableTeamOwnerNotifications }).(pulumi.BoolPtrOutput)
+}
+
+func (o CustomMonitorNotificationSettingsOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorNotificationSettings) *string { return v.IncidentIoRoutingKey }).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o CustomMonitorNotificationSettingsOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorNotificationSettings) *string { return v.VercelNotificationsMinimumSeverityLevel }).(pulumi.StringPtrOutput)
+}
+
+type CustomMonitorNotificationSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorNotificationSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorNotificationSettings)(nil)).Elem()
+}
+
+func (o CustomMonitorNotificationSettingsPtrOutput) ToCustomMonitorNotificationSettingsPtrOutput() CustomMonitorNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o CustomMonitorNotificationSettingsPtrOutput) ToCustomMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) CustomMonitorNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o CustomMonitorNotificationSettingsPtrOutput) Elem() CustomMonitorNotificationSettingsOutput {
+	return o.ApplyT(func(v *CustomMonitorNotificationSettings) CustomMonitorNotificationSettings {
+		if v != nil {
+			return *v
+		}
+		var ret CustomMonitorNotificationSettings
+		return ret
+	}).(CustomMonitorNotificationSettingsOutput)
+}
+
+func (o CustomMonitorNotificationSettingsPtrOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorNotificationSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableTeamOwnerNotifications
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o CustomMonitorNotificationSettingsPtrOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IncidentIoRoutingKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o CustomMonitorNotificationSettingsPtrOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VercelNotificationsMinimumSeverityLevel
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomMonitorTrigger struct {
+	// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+	Minimum *CustomMonitorTriggerMinimum `pulumi:"minimum"`
+	// Required for threshold triggers; omitted for anomaly triggers.
+	Operator *string `pulumi:"operator"`
+	// The query's single output alias.
+	Output string `pulumi:"output"`
+	// Required anomaly threshold in standard deviations, at least 0.1.
+	StandardDeviations *float64 `pulumi:"standardDeviations"`
+	// Required numeric threshold for threshold triggers. Zero is supported.
+	Threshold *float64 `pulumi:"threshold"`
+	// The condition type: `threshold` or `anomaly`.
+	Type string `pulumi:"type"`
+}
+
+// CustomMonitorTriggerInput is an input type that accepts CustomMonitorTriggerArgs and CustomMonitorTriggerOutput values.
+// You can construct a concrete instance of `CustomMonitorTriggerInput` via:
+//
+//	CustomMonitorTriggerArgs{...}
+type CustomMonitorTriggerInput interface {
+	pulumi.Input
+
+	ToCustomMonitorTriggerOutput() CustomMonitorTriggerOutput
+	ToCustomMonitorTriggerOutputWithContext(context.Context) CustomMonitorTriggerOutput
+}
+
+type CustomMonitorTriggerArgs struct {
+	// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+	Minimum CustomMonitorTriggerMinimumPtrInput `pulumi:"minimum"`
+	// Required for threshold triggers; omitted for anomaly triggers.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// The query's single output alias.
+	Output pulumi.StringInput `pulumi:"output"`
+	// Required anomaly threshold in standard deviations, at least 0.1.
+	StandardDeviations pulumi.Float64PtrInput `pulumi:"standardDeviations"`
+	// Required numeric threshold for threshold triggers. Zero is supported.
+	Threshold pulumi.Float64PtrInput `pulumi:"threshold"`
+	// The condition type: `threshold` or `anomaly`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (CustomMonitorTriggerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorTrigger)(nil)).Elem()
+}
+
+func (i CustomMonitorTriggerArgs) ToCustomMonitorTriggerOutput() CustomMonitorTriggerOutput {
+	return i.ToCustomMonitorTriggerOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorTriggerArgs) ToCustomMonitorTriggerOutputWithContext(ctx context.Context) CustomMonitorTriggerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorTriggerOutput)
+}
+
+func (i CustomMonitorTriggerArgs) ToCustomMonitorTriggerPtrOutput() CustomMonitorTriggerPtrOutput {
+	return i.ToCustomMonitorTriggerPtrOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorTriggerArgs) ToCustomMonitorTriggerPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorTriggerOutput).ToCustomMonitorTriggerPtrOutputWithContext(ctx)
+}
+
+// CustomMonitorTriggerPtrInput is an input type that accepts CustomMonitorTriggerArgs, CustomMonitorTriggerPtr and CustomMonitorTriggerPtrOutput values.
+// You can construct a concrete instance of `CustomMonitorTriggerPtrInput` via:
+//
+//	        CustomMonitorTriggerArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomMonitorTriggerPtrInput interface {
+	pulumi.Input
+
+	ToCustomMonitorTriggerPtrOutput() CustomMonitorTriggerPtrOutput
+	ToCustomMonitorTriggerPtrOutputWithContext(context.Context) CustomMonitorTriggerPtrOutput
+}
+
+type customMonitorTriggerPtrType CustomMonitorTriggerArgs
+
+func CustomMonitorTriggerPtr(v *CustomMonitorTriggerArgs) CustomMonitorTriggerPtrInput {
+	return (*customMonitorTriggerPtrType)(v)
+}
+
+func (*customMonitorTriggerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorTrigger)(nil)).Elem()
+}
+
+func (i *customMonitorTriggerPtrType) ToCustomMonitorTriggerPtrOutput() CustomMonitorTriggerPtrOutput {
+	return i.ToCustomMonitorTriggerPtrOutputWithContext(context.Background())
+}
+
+func (i *customMonitorTriggerPtrType) ToCustomMonitorTriggerPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorTriggerPtrOutput)
+}
+
+type CustomMonitorTriggerOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorTriggerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorTrigger)(nil)).Elem()
+}
+
+func (o CustomMonitorTriggerOutput) ToCustomMonitorTriggerOutput() CustomMonitorTriggerOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerOutput) ToCustomMonitorTriggerOutputWithContext(ctx context.Context) CustomMonitorTriggerOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerOutput) ToCustomMonitorTriggerPtrOutput() CustomMonitorTriggerPtrOutput {
+	return o.ToCustomMonitorTriggerPtrOutputWithContext(context.Background())
+}
+
+func (o CustomMonitorTriggerOutput) ToCustomMonitorTriggerPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomMonitorTrigger) *CustomMonitorTrigger {
+		return &v
+	}).(CustomMonitorTriggerPtrOutput)
+}
+
+// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+func (o CustomMonitorTriggerOutput) Minimum() CustomMonitorTriggerMinimumPtrOutput {
+	return o.ApplyT(func(v CustomMonitorTrigger) *CustomMonitorTriggerMinimum { return v.Minimum }).(CustomMonitorTriggerMinimumPtrOutput)
+}
+
+// Required for threshold triggers; omitted for anomaly triggers.
+func (o CustomMonitorTriggerOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomMonitorTrigger) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// The query's single output alias.
+func (o CustomMonitorTriggerOutput) Output() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomMonitorTrigger) string { return v.Output }).(pulumi.StringOutput)
+}
+
+// Required anomaly threshold in standard deviations, at least 0.1.
+func (o CustomMonitorTriggerOutput) StandardDeviations() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v CustomMonitorTrigger) *float64 { return v.StandardDeviations }).(pulumi.Float64PtrOutput)
+}
+
+// Required numeric threshold for threshold triggers. Zero is supported.
+func (o CustomMonitorTriggerOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v CustomMonitorTrigger) *float64 { return v.Threshold }).(pulumi.Float64PtrOutput)
+}
+
+// The condition type: `threshold` or `anomaly`.
+func (o CustomMonitorTriggerOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomMonitorTrigger) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type CustomMonitorTriggerPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorTriggerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorTrigger)(nil)).Elem()
+}
+
+func (o CustomMonitorTriggerPtrOutput) ToCustomMonitorTriggerPtrOutput() CustomMonitorTriggerPtrOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerPtrOutput) ToCustomMonitorTriggerPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerPtrOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerPtrOutput) Elem() CustomMonitorTriggerOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) CustomMonitorTrigger {
+		if v != nil {
+			return *v
+		}
+		var ret CustomMonitorTrigger
+		return ret
+	}).(CustomMonitorTriggerOutput)
+}
+
+// Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+func (o CustomMonitorTriggerPtrOutput) Minimum() CustomMonitorTriggerMinimumPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) *CustomMonitorTriggerMinimum {
+		if v == nil {
+			return nil
+		}
+		return v.Minimum
+	}).(CustomMonitorTriggerMinimumPtrOutput)
+}
+
+// Required for threshold triggers; omitted for anomaly triggers.
+func (o CustomMonitorTriggerPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+// The query's single output alias.
+func (o CustomMonitorTriggerPtrOutput) Output() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Output
+	}).(pulumi.StringPtrOutput)
+}
+
+// Required anomaly threshold in standard deviations, at least 0.1.
+func (o CustomMonitorTriggerPtrOutput) StandardDeviations() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.StandardDeviations
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Required numeric threshold for threshold triggers. Zero is supported.
+func (o CustomMonitorTriggerPtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+// The condition type: `threshold` or `anomaly`.
+func (o CustomMonitorTriggerPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTrigger) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomMonitorTriggerMinimum struct {
+	// The primitive metric alias, or ratio numerator alias.
+	Output string `pulumi:"output"`
+	// Non-negative floor below which the rule is not evaluated.
+	Threshold float64 `pulumi:"threshold"`
+}
+
+// CustomMonitorTriggerMinimumInput is an input type that accepts CustomMonitorTriggerMinimumArgs and CustomMonitorTriggerMinimumOutput values.
+// You can construct a concrete instance of `CustomMonitorTriggerMinimumInput` via:
+//
+//	CustomMonitorTriggerMinimumArgs{...}
+type CustomMonitorTriggerMinimumInput interface {
+	pulumi.Input
+
+	ToCustomMonitorTriggerMinimumOutput() CustomMonitorTriggerMinimumOutput
+	ToCustomMonitorTriggerMinimumOutputWithContext(context.Context) CustomMonitorTriggerMinimumOutput
+}
+
+type CustomMonitorTriggerMinimumArgs struct {
+	// The primitive metric alias, or ratio numerator alias.
+	Output pulumi.StringInput `pulumi:"output"`
+	// Non-negative floor below which the rule is not evaluated.
+	Threshold pulumi.Float64Input `pulumi:"threshold"`
+}
+
+func (CustomMonitorTriggerMinimumArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorTriggerMinimum)(nil)).Elem()
+}
+
+func (i CustomMonitorTriggerMinimumArgs) ToCustomMonitorTriggerMinimumOutput() CustomMonitorTriggerMinimumOutput {
+	return i.ToCustomMonitorTriggerMinimumOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorTriggerMinimumArgs) ToCustomMonitorTriggerMinimumOutputWithContext(ctx context.Context) CustomMonitorTriggerMinimumOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorTriggerMinimumOutput)
+}
+
+func (i CustomMonitorTriggerMinimumArgs) ToCustomMonitorTriggerMinimumPtrOutput() CustomMonitorTriggerMinimumPtrOutput {
+	return i.ToCustomMonitorTriggerMinimumPtrOutputWithContext(context.Background())
+}
+
+func (i CustomMonitorTriggerMinimumArgs) ToCustomMonitorTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerMinimumPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorTriggerMinimumOutput).ToCustomMonitorTriggerMinimumPtrOutputWithContext(ctx)
+}
+
+// CustomMonitorTriggerMinimumPtrInput is an input type that accepts CustomMonitorTriggerMinimumArgs, CustomMonitorTriggerMinimumPtr and CustomMonitorTriggerMinimumPtrOutput values.
+// You can construct a concrete instance of `CustomMonitorTriggerMinimumPtrInput` via:
+//
+//	        CustomMonitorTriggerMinimumArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomMonitorTriggerMinimumPtrInput interface {
+	pulumi.Input
+
+	ToCustomMonitorTriggerMinimumPtrOutput() CustomMonitorTriggerMinimumPtrOutput
+	ToCustomMonitorTriggerMinimumPtrOutputWithContext(context.Context) CustomMonitorTriggerMinimumPtrOutput
+}
+
+type customMonitorTriggerMinimumPtrType CustomMonitorTriggerMinimumArgs
+
+func CustomMonitorTriggerMinimumPtr(v *CustomMonitorTriggerMinimumArgs) CustomMonitorTriggerMinimumPtrInput {
+	return (*customMonitorTriggerMinimumPtrType)(v)
+}
+
+func (*customMonitorTriggerMinimumPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorTriggerMinimum)(nil)).Elem()
+}
+
+func (i *customMonitorTriggerMinimumPtrType) ToCustomMonitorTriggerMinimumPtrOutput() CustomMonitorTriggerMinimumPtrOutput {
+	return i.ToCustomMonitorTriggerMinimumPtrOutputWithContext(context.Background())
+}
+
+func (i *customMonitorTriggerMinimumPtrType) ToCustomMonitorTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerMinimumPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomMonitorTriggerMinimumPtrOutput)
+}
+
+type CustomMonitorTriggerMinimumOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorTriggerMinimumOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomMonitorTriggerMinimum)(nil)).Elem()
+}
+
+func (o CustomMonitorTriggerMinimumOutput) ToCustomMonitorTriggerMinimumOutput() CustomMonitorTriggerMinimumOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerMinimumOutput) ToCustomMonitorTriggerMinimumOutputWithContext(ctx context.Context) CustomMonitorTriggerMinimumOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerMinimumOutput) ToCustomMonitorTriggerMinimumPtrOutput() CustomMonitorTriggerMinimumPtrOutput {
+	return o.ToCustomMonitorTriggerMinimumPtrOutputWithContext(context.Background())
+}
+
+func (o CustomMonitorTriggerMinimumOutput) ToCustomMonitorTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerMinimumPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomMonitorTriggerMinimum) *CustomMonitorTriggerMinimum {
+		return &v
+	}).(CustomMonitorTriggerMinimumPtrOutput)
+}
+
+// The primitive metric alias, or ratio numerator alias.
+func (o CustomMonitorTriggerMinimumOutput) Output() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomMonitorTriggerMinimum) string { return v.Output }).(pulumi.StringOutput)
+}
+
+// Non-negative floor below which the rule is not evaluated.
+func (o CustomMonitorTriggerMinimumOutput) Threshold() pulumi.Float64Output {
+	return o.ApplyT(func(v CustomMonitorTriggerMinimum) float64 { return v.Threshold }).(pulumi.Float64Output)
+}
+
+type CustomMonitorTriggerMinimumPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomMonitorTriggerMinimumPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomMonitorTriggerMinimum)(nil)).Elem()
+}
+
+func (o CustomMonitorTriggerMinimumPtrOutput) ToCustomMonitorTriggerMinimumPtrOutput() CustomMonitorTriggerMinimumPtrOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerMinimumPtrOutput) ToCustomMonitorTriggerMinimumPtrOutputWithContext(ctx context.Context) CustomMonitorTriggerMinimumPtrOutput {
+	return o
+}
+
+func (o CustomMonitorTriggerMinimumPtrOutput) Elem() CustomMonitorTriggerMinimumOutput {
+	return o.ApplyT(func(v *CustomMonitorTriggerMinimum) CustomMonitorTriggerMinimum {
+		if v != nil {
+			return *v
+		}
+		var ret CustomMonitorTriggerMinimum
+		return ret
+	}).(CustomMonitorTriggerMinimumOutput)
+}
+
+// The primitive metric alias, or ratio numerator alias.
+func (o CustomMonitorTriggerMinimumPtrOutput) Output() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTriggerMinimum) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Output
+	}).(pulumi.StringPtrOutput)
+}
+
+// Non-negative floor below which the rule is not evaluated.
+func (o CustomMonitorTriggerMinimumPtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *CustomMonitorTriggerMinimum) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
 type DeploymentProjectSettings struct {
 	// The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
 	BuildCommand *string `pulumi:"buildCommand"`
@@ -8073,6 +9139,431 @@ func (o MicrofrontendGroupDefaultAppPtrOutput) ProjectId() pulumi.StringPtrOutpu
 		}
 		return &v.ProjectId
 	}).(pulumi.StringPtrOutput)
+}
+
+type MonitorNotificationSettings struct {
+	EnableTeamOwnerNotifications *bool   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         *string `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel *string `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+// MonitorNotificationSettingsInput is an input type that accepts MonitorNotificationSettingsArgs and MonitorNotificationSettingsOutput values.
+// You can construct a concrete instance of `MonitorNotificationSettingsInput` via:
+//
+//	MonitorNotificationSettingsArgs{...}
+type MonitorNotificationSettingsInput interface {
+	pulumi.Input
+
+	ToMonitorNotificationSettingsOutput() MonitorNotificationSettingsOutput
+	ToMonitorNotificationSettingsOutputWithContext(context.Context) MonitorNotificationSettingsOutput
+}
+
+type MonitorNotificationSettingsArgs struct {
+	EnableTeamOwnerNotifications pulumi.BoolPtrInput   `pulumi:"enableTeamOwnerNotifications"`
+	IncidentIoRoutingKey         pulumi.StringPtrInput `pulumi:"incidentIoRoutingKey"`
+	// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+	VercelNotificationsMinimumSeverityLevel pulumi.StringPtrInput `pulumi:"vercelNotificationsMinimumSeverityLevel"`
+}
+
+func (MonitorNotificationSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MonitorNotificationSettings)(nil)).Elem()
+}
+
+func (i MonitorNotificationSettingsArgs) ToMonitorNotificationSettingsOutput() MonitorNotificationSettingsOutput {
+	return i.ToMonitorNotificationSettingsOutputWithContext(context.Background())
+}
+
+func (i MonitorNotificationSettingsArgs) ToMonitorNotificationSettingsOutputWithContext(ctx context.Context) MonitorNotificationSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorNotificationSettingsOutput)
+}
+
+func (i MonitorNotificationSettingsArgs) ToMonitorNotificationSettingsPtrOutput() MonitorNotificationSettingsPtrOutput {
+	return i.ToMonitorNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i MonitorNotificationSettingsArgs) ToMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) MonitorNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorNotificationSettingsOutput).ToMonitorNotificationSettingsPtrOutputWithContext(ctx)
+}
+
+// MonitorNotificationSettingsPtrInput is an input type that accepts MonitorNotificationSettingsArgs, MonitorNotificationSettingsPtr and MonitorNotificationSettingsPtrOutput values.
+// You can construct a concrete instance of `MonitorNotificationSettingsPtrInput` via:
+//
+//	        MonitorNotificationSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type MonitorNotificationSettingsPtrInput interface {
+	pulumi.Input
+
+	ToMonitorNotificationSettingsPtrOutput() MonitorNotificationSettingsPtrOutput
+	ToMonitorNotificationSettingsPtrOutputWithContext(context.Context) MonitorNotificationSettingsPtrOutput
+}
+
+type monitorNotificationSettingsPtrType MonitorNotificationSettingsArgs
+
+func MonitorNotificationSettingsPtr(v *MonitorNotificationSettingsArgs) MonitorNotificationSettingsPtrInput {
+	return (*monitorNotificationSettingsPtrType)(v)
+}
+
+func (*monitorNotificationSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MonitorNotificationSettings)(nil)).Elem()
+}
+
+func (i *monitorNotificationSettingsPtrType) ToMonitorNotificationSettingsPtrOutput() MonitorNotificationSettingsPtrOutput {
+	return i.ToMonitorNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *monitorNotificationSettingsPtrType) ToMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) MonitorNotificationSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorNotificationSettingsPtrOutput)
+}
+
+type MonitorNotificationSettingsOutput struct{ *pulumi.OutputState }
+
+func (MonitorNotificationSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MonitorNotificationSettings)(nil)).Elem()
+}
+
+func (o MonitorNotificationSettingsOutput) ToMonitorNotificationSettingsOutput() MonitorNotificationSettingsOutput {
+	return o
+}
+
+func (o MonitorNotificationSettingsOutput) ToMonitorNotificationSettingsOutputWithContext(ctx context.Context) MonitorNotificationSettingsOutput {
+	return o
+}
+
+func (o MonitorNotificationSettingsOutput) ToMonitorNotificationSettingsPtrOutput() MonitorNotificationSettingsPtrOutput {
+	return o.ToMonitorNotificationSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o MonitorNotificationSettingsOutput) ToMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) MonitorNotificationSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MonitorNotificationSettings) *MonitorNotificationSettings {
+		return &v
+	}).(MonitorNotificationSettingsPtrOutput)
+}
+
+func (o MonitorNotificationSettingsOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MonitorNotificationSettings) *bool { return v.EnableTeamOwnerNotifications }).(pulumi.BoolPtrOutput)
+}
+
+func (o MonitorNotificationSettingsOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MonitorNotificationSettings) *string { return v.IncidentIoRoutingKey }).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o MonitorNotificationSettingsOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MonitorNotificationSettings) *string { return v.VercelNotificationsMinimumSeverityLevel }).(pulumi.StringPtrOutput)
+}
+
+type MonitorNotificationSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (MonitorNotificationSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MonitorNotificationSettings)(nil)).Elem()
+}
+
+func (o MonitorNotificationSettingsPtrOutput) ToMonitorNotificationSettingsPtrOutput() MonitorNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o MonitorNotificationSettingsPtrOutput) ToMonitorNotificationSettingsPtrOutputWithContext(ctx context.Context) MonitorNotificationSettingsPtrOutput {
+	return o
+}
+
+func (o MonitorNotificationSettingsPtrOutput) Elem() MonitorNotificationSettingsOutput {
+	return o.ApplyT(func(v *MonitorNotificationSettings) MonitorNotificationSettings {
+		if v != nil {
+			return *v
+		}
+		var ret MonitorNotificationSettings
+		return ret
+	}).(MonitorNotificationSettingsOutput)
+}
+
+func (o MonitorNotificationSettingsPtrOutput) EnableTeamOwnerNotifications() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MonitorNotificationSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableTeamOwnerNotifications
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o MonitorNotificationSettingsPtrOutput) IncidentIoRoutingKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MonitorNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IncidentIoRoutingKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+func (o MonitorNotificationSettingsPtrOutput) VercelNotificationsMinimumSeverityLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MonitorNotificationSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VercelNotificationsMinimumSeverityLevel
+	}).(pulumi.StringPtrOutput)
+}
+
+type MonitorRuleScope struct {
+	// The project IDs included in or excluded from a built-in rule.
+	ProjectIds []string `pulumi:"projectIds"`
+	Type       string   `pulumi:"type"`
+}
+
+// MonitorRuleScopeInput is an input type that accepts MonitorRuleScopeArgs and MonitorRuleScopeOutput values.
+// You can construct a concrete instance of `MonitorRuleScopeInput` via:
+//
+//	MonitorRuleScopeArgs{...}
+type MonitorRuleScopeInput interface {
+	pulumi.Input
+
+	ToMonitorRuleScopeOutput() MonitorRuleScopeOutput
+	ToMonitorRuleScopeOutputWithContext(context.Context) MonitorRuleScopeOutput
+}
+
+type MonitorRuleScopeArgs struct {
+	// The project IDs included in or excluded from a built-in rule.
+	ProjectIds pulumi.StringArrayInput `pulumi:"projectIds"`
+	Type       pulumi.StringInput      `pulumi:"type"`
+}
+
+func (MonitorRuleScopeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MonitorRuleScope)(nil)).Elem()
+}
+
+func (i MonitorRuleScopeArgs) ToMonitorRuleScopeOutput() MonitorRuleScopeOutput {
+	return i.ToMonitorRuleScopeOutputWithContext(context.Background())
+}
+
+func (i MonitorRuleScopeArgs) ToMonitorRuleScopeOutputWithContext(ctx context.Context) MonitorRuleScopeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorRuleScopeOutput)
+}
+
+func (i MonitorRuleScopeArgs) ToMonitorRuleScopePtrOutput() MonitorRuleScopePtrOutput {
+	return i.ToMonitorRuleScopePtrOutputWithContext(context.Background())
+}
+
+func (i MonitorRuleScopeArgs) ToMonitorRuleScopePtrOutputWithContext(ctx context.Context) MonitorRuleScopePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorRuleScopeOutput).ToMonitorRuleScopePtrOutputWithContext(ctx)
+}
+
+// MonitorRuleScopePtrInput is an input type that accepts MonitorRuleScopeArgs, MonitorRuleScopePtr and MonitorRuleScopePtrOutput values.
+// You can construct a concrete instance of `MonitorRuleScopePtrInput` via:
+//
+//	        MonitorRuleScopeArgs{...}
+//
+//	or:
+//
+//	        nil
+type MonitorRuleScopePtrInput interface {
+	pulumi.Input
+
+	ToMonitorRuleScopePtrOutput() MonitorRuleScopePtrOutput
+	ToMonitorRuleScopePtrOutputWithContext(context.Context) MonitorRuleScopePtrOutput
+}
+
+type monitorRuleScopePtrType MonitorRuleScopeArgs
+
+func MonitorRuleScopePtr(v *MonitorRuleScopeArgs) MonitorRuleScopePtrInput {
+	return (*monitorRuleScopePtrType)(v)
+}
+
+func (*monitorRuleScopePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MonitorRuleScope)(nil)).Elem()
+}
+
+func (i *monitorRuleScopePtrType) ToMonitorRuleScopePtrOutput() MonitorRuleScopePtrOutput {
+	return i.ToMonitorRuleScopePtrOutputWithContext(context.Background())
+}
+
+func (i *monitorRuleScopePtrType) ToMonitorRuleScopePtrOutputWithContext(ctx context.Context) MonitorRuleScopePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorRuleScopePtrOutput)
+}
+
+type MonitorRuleScopeOutput struct{ *pulumi.OutputState }
+
+func (MonitorRuleScopeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MonitorRuleScope)(nil)).Elem()
+}
+
+func (o MonitorRuleScopeOutput) ToMonitorRuleScopeOutput() MonitorRuleScopeOutput {
+	return o
+}
+
+func (o MonitorRuleScopeOutput) ToMonitorRuleScopeOutputWithContext(ctx context.Context) MonitorRuleScopeOutput {
+	return o
+}
+
+func (o MonitorRuleScopeOutput) ToMonitorRuleScopePtrOutput() MonitorRuleScopePtrOutput {
+	return o.ToMonitorRuleScopePtrOutputWithContext(context.Background())
+}
+
+func (o MonitorRuleScopeOutput) ToMonitorRuleScopePtrOutputWithContext(ctx context.Context) MonitorRuleScopePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MonitorRuleScope) *MonitorRuleScope {
+		return &v
+	}).(MonitorRuleScopePtrOutput)
+}
+
+// The project IDs included in or excluded from a built-in rule.
+func (o MonitorRuleScopeOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v MonitorRuleScope) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
+}
+
+func (o MonitorRuleScopeOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v MonitorRuleScope) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type MonitorRuleScopePtrOutput struct{ *pulumi.OutputState }
+
+func (MonitorRuleScopePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MonitorRuleScope)(nil)).Elem()
+}
+
+func (o MonitorRuleScopePtrOutput) ToMonitorRuleScopePtrOutput() MonitorRuleScopePtrOutput {
+	return o
+}
+
+func (o MonitorRuleScopePtrOutput) ToMonitorRuleScopePtrOutputWithContext(ctx context.Context) MonitorRuleScopePtrOutput {
+	return o
+}
+
+func (o MonitorRuleScopePtrOutput) Elem() MonitorRuleScopeOutput {
+	return o.ApplyT(func(v *MonitorRuleScope) MonitorRuleScope {
+		if v != nil {
+			return *v
+		}
+		var ret MonitorRuleScope
+		return ret
+	}).(MonitorRuleScopeOutput)
+}
+
+// The project IDs included in or excluded from a built-in rule.
+func (o MonitorRuleScopePtrOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *MonitorRuleScope) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ProjectIds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o MonitorRuleScopePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MonitorRuleScope) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type MonitorTrigger struct {
+	// A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+	Filter *string `pulumi:"filter"`
+	// The built-in anomaly trigger type.
+	Type string `pulumi:"type"`
+}
+
+// MonitorTriggerInput is an input type that accepts MonitorTriggerArgs and MonitorTriggerOutput values.
+// You can construct a concrete instance of `MonitorTriggerInput` via:
+//
+//	MonitorTriggerArgs{...}
+type MonitorTriggerInput interface {
+	pulumi.Input
+
+	ToMonitorTriggerOutput() MonitorTriggerOutput
+	ToMonitorTriggerOutputWithContext(context.Context) MonitorTriggerOutput
+}
+
+type MonitorTriggerArgs struct {
+	// A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+	Filter pulumi.StringPtrInput `pulumi:"filter"`
+	// The built-in anomaly trigger type.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (MonitorTriggerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MonitorTrigger)(nil)).Elem()
+}
+
+func (i MonitorTriggerArgs) ToMonitorTriggerOutput() MonitorTriggerOutput {
+	return i.ToMonitorTriggerOutputWithContext(context.Background())
+}
+
+func (i MonitorTriggerArgs) ToMonitorTriggerOutputWithContext(ctx context.Context) MonitorTriggerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorTriggerOutput)
+}
+
+// MonitorTriggerArrayInput is an input type that accepts MonitorTriggerArray and MonitorTriggerArrayOutput values.
+// You can construct a concrete instance of `MonitorTriggerArrayInput` via:
+//
+//	MonitorTriggerArray{ MonitorTriggerArgs{...} }
+type MonitorTriggerArrayInput interface {
+	pulumi.Input
+
+	ToMonitorTriggerArrayOutput() MonitorTriggerArrayOutput
+	ToMonitorTriggerArrayOutputWithContext(context.Context) MonitorTriggerArrayOutput
+}
+
+type MonitorTriggerArray []MonitorTriggerInput
+
+func (MonitorTriggerArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MonitorTrigger)(nil)).Elem()
+}
+
+func (i MonitorTriggerArray) ToMonitorTriggerArrayOutput() MonitorTriggerArrayOutput {
+	return i.ToMonitorTriggerArrayOutputWithContext(context.Background())
+}
+
+func (i MonitorTriggerArray) ToMonitorTriggerArrayOutputWithContext(ctx context.Context) MonitorTriggerArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MonitorTriggerArrayOutput)
+}
+
+type MonitorTriggerOutput struct{ *pulumi.OutputState }
+
+func (MonitorTriggerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MonitorTrigger)(nil)).Elem()
+}
+
+func (o MonitorTriggerOutput) ToMonitorTriggerOutput() MonitorTriggerOutput {
+	return o
+}
+
+func (o MonitorTriggerOutput) ToMonitorTriggerOutputWithContext(ctx context.Context) MonitorTriggerOutput {
+	return o
+}
+
+// A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+func (o MonitorTriggerOutput) Filter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MonitorTrigger) *string { return v.Filter }).(pulumi.StringPtrOutput)
+}
+
+// The built-in anomaly trigger type.
+func (o MonitorTriggerOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v MonitorTrigger) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type MonitorTriggerArrayOutput struct{ *pulumi.OutputState }
+
+func (MonitorTriggerArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MonitorTrigger)(nil)).Elem()
+}
+
+func (o MonitorTriggerArrayOutput) ToMonitorTriggerArrayOutput() MonitorTriggerArrayOutput {
+	return o
+}
+
+func (o MonitorTriggerArrayOutput) ToMonitorTriggerArrayOutputWithContext(ctx context.Context) MonitorTriggerArrayOutput {
+	return o
+}
+
+func (o MonitorTriggerArrayOutput) Index(i pulumi.IntInput) MonitorTriggerOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MonitorTrigger {
+		return vs[0].([]MonitorTrigger)[vs[1].(int)]
+	}).(MonitorTriggerOutput)
 }
 
 type NetworkTimeouts struct {
@@ -19231,6 +20722,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomAlertRuleTriggerMinimumPtrInput)(nil)).Elem(), CustomAlertRuleTriggerMinimumArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomEnvironmentBranchTrackingPtrInput)(nil)).Elem(), CustomEnvironmentBranchTrackingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorEvaluationInput)(nil)).Elem(), CustomMonitorEvaluationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorEvaluationPtrInput)(nil)).Elem(), CustomMonitorEvaluationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorEvaluationQueryInput)(nil)).Elem(), CustomMonitorEvaluationQueryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorEvaluationQueryPtrInput)(nil)).Elem(), CustomMonitorEvaluationQueryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorEvaluationQueryMetricsInput)(nil)).Elem(), CustomMonitorEvaluationQueryMetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorEvaluationQueryMetricsMapInput)(nil)).Elem(), CustomMonitorEvaluationQueryMetricsMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorNotificationSettingsInput)(nil)).Elem(), CustomMonitorNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorNotificationSettingsPtrInput)(nil)).Elem(), CustomMonitorNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorTriggerInput)(nil)).Elem(), CustomMonitorTriggerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorTriggerPtrInput)(nil)).Elem(), CustomMonitorTriggerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorTriggerMinimumInput)(nil)).Elem(), CustomMonitorTriggerMinimumArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomMonitorTriggerMinimumPtrInput)(nil)).Elem(), CustomMonitorTriggerMinimumArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentProjectSettingsPtrInput)(nil)).Elem(), DeploymentProjectSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsRecordHttpsInput)(nil)).Elem(), DnsRecordHttpsArgs{})
@@ -19302,6 +20805,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*KmsIssuerSigningKeyArrayInput)(nil)).Elem(), KmsIssuerSigningKeyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MonitorNotificationSettingsInput)(nil)).Elem(), MonitorNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MonitorNotificationSettingsPtrInput)(nil)).Elem(), MonitorNotificationSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MonitorRuleScopeInput)(nil)).Elem(), MonitorRuleScopeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MonitorRuleScopePtrInput)(nil)).Elem(), MonitorRuleScopeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MonitorTriggerInput)(nil)).Elem(), MonitorTriggerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MonitorTriggerArrayInput)(nil)).Elem(), MonitorTriggerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsInput)(nil)).Elem(), NetworkTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkTimeoutsPtrInput)(nil)).Elem(), NetworkTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OidcFederationPolicyClaimInput)(nil)).Elem(), OidcFederationPolicyClaimArgs{})
@@ -19493,6 +21002,18 @@ func init() {
 	pulumi.RegisterOutputType(CustomAlertRuleTriggerMinimumPtrOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingOutput{})
 	pulumi.RegisterOutputType(CustomEnvironmentBranchTrackingPtrOutput{})
+	pulumi.RegisterOutputType(CustomMonitorEvaluationOutput{})
+	pulumi.RegisterOutputType(CustomMonitorEvaluationPtrOutput{})
+	pulumi.RegisterOutputType(CustomMonitorEvaluationQueryOutput{})
+	pulumi.RegisterOutputType(CustomMonitorEvaluationQueryPtrOutput{})
+	pulumi.RegisterOutputType(CustomMonitorEvaluationQueryMetricsOutput{})
+	pulumi.RegisterOutputType(CustomMonitorEvaluationQueryMetricsMapOutput{})
+	pulumi.RegisterOutputType(CustomMonitorNotificationSettingsOutput{})
+	pulumi.RegisterOutputType(CustomMonitorNotificationSettingsPtrOutput{})
+	pulumi.RegisterOutputType(CustomMonitorTriggerOutput{})
+	pulumi.RegisterOutputType(CustomMonitorTriggerPtrOutput{})
+	pulumi.RegisterOutputType(CustomMonitorTriggerMinimumOutput{})
+	pulumi.RegisterOutputType(CustomMonitorTriggerMinimumPtrOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsOutput{})
 	pulumi.RegisterOutputType(DeploymentProjectSettingsPtrOutput{})
 	pulumi.RegisterOutputType(DnsRecordHttpsOutput{})
@@ -19564,6 +21085,12 @@ func init() {
 	pulumi.RegisterOutputType(KmsIssuerSigningKeyArrayOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
+	pulumi.RegisterOutputType(MonitorNotificationSettingsOutput{})
+	pulumi.RegisterOutputType(MonitorNotificationSettingsPtrOutput{})
+	pulumi.RegisterOutputType(MonitorRuleScopeOutput{})
+	pulumi.RegisterOutputType(MonitorRuleScopePtrOutput{})
+	pulumi.RegisterOutputType(MonitorTriggerOutput{})
+	pulumi.RegisterOutputType(MonitorTriggerArrayOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsOutput{})
 	pulumi.RegisterOutputType(NetworkTimeoutsPtrOutput{})
 	pulumi.RegisterOutputType(OidcFederationPolicyClaimOutput{})
