@@ -37,7 +37,7 @@ class AlertRuleArgs:
         :param pulumi.Input[_builtins.str] type: The alert rule type. Currently only `built-in` is supported.
         :param pulumi.Input[_builtins.str] name: A human-readable name for the alert rule.
         :param pulumi.Input['AlertRuleNotificationSettingsArgs'] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input[Sequence[pulumi.Input['AlertRuleTriggerArgs']]] triggers: The built-in anomaly triggers enabled for a built-in rule. A nonempty set is required when creating a rule. Omit this attribute to preserve a response-only legacy trigger mode after import.
         """
@@ -119,7 +119,7 @@ class AlertRuleArgs:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         """
         return pulumi.get(self, "tags")
 
@@ -176,7 +176,7 @@ class _AlertRuleState:
         :param pulumi.Input[_builtins.str] name: A human-readable name for the alert rule.
         :param pulumi.Input['AlertRuleNotificationSettingsArgs'] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
         :param pulumi.Input['AlertRuleRuleScopeArgs'] rule_scope: The projects affected by the rule. Use `all`, `include`, or `exclude`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input[_builtins.str] trigger_mode: The API trigger selection mode. `all` and an empty `selected` set are response-only legacy states; omit `triggers` to preserve either state after import.
         :param pulumi.Input[Sequence[pulumi.Input['AlertRuleTriggerArgs']]] triggers: The built-in anomaly triggers enabled for a built-in rule. A nonempty set is required when creating a rule. Omit this attribute to preserve a response-only legacy trigger mode after import.
@@ -284,7 +284,7 @@ class _AlertRuleState:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         """
         return pulumi.get(self, "tags")
 
@@ -371,6 +371,14 @@ class AlertRule(pulumi.CustomResource):
         """
         Creates a built-in Vercel alert rule using the Alerts v3 API. Built-in rules select anomaly triggers across a team scope. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
 
+        > **Deprecated** Alert rules were renamed to monitors. Use `Monitor` instead. This resource will be removed in a future major version of this provider.
+
+        To migrate without recreating the resource, replace it with `Monitor` and add a `moved` block, for example:
+
+        ```python
+        import pulumi
+        ```
+
         ## Example Usage
 
         ```python
@@ -452,7 +460,7 @@ class AlertRule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: A human-readable name for the alert rule.
         :param pulumi.Input[Union['AlertRuleNotificationSettingsArgs', 'AlertRuleNotificationSettingsArgsDict']] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
         :param pulumi.Input[Union['AlertRuleRuleScopeArgs', 'AlertRuleRuleScopeArgsDict']] rule_scope: The projects affected by the rule. Use `all`, `include`, or `exclude`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input[Sequence[pulumi.Input[Union['AlertRuleTriggerArgs', 'AlertRuleTriggerArgsDict']]]] triggers: The built-in anomaly triggers enabled for a built-in rule. A nonempty set is required when creating a rule. Omit this attribute to preserve a response-only legacy trigger mode after import.
         :param pulumi.Input[_builtins.str] type: The alert rule type. Currently only `built-in` is supported.
@@ -465,6 +473,14 @@ class AlertRule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Creates a built-in Vercel alert rule using the Alerts v3 API. Built-in rules select anomaly triggers across a team scope. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
+
+        > **Deprecated** Alert rules were renamed to monitors. Use `Monitor` instead. This resource will be removed in a future major version of this provider.
+
+        To migrate without recreating the resource, replace it with `Monitor` and add a `moved` block, for example:
+
+        ```python
+        import pulumi
+        ```
 
         ## Example Usage
 
@@ -626,7 +642,7 @@ class AlertRule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: A human-readable name for the alert rule.
         :param pulumi.Input[Union['AlertRuleNotificationSettingsArgs', 'AlertRuleNotificationSettingsArgsDict']] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
         :param pulumi.Input[Union['AlertRuleRuleScopeArgs', 'AlertRuleRuleScopeArgsDict']] rule_scope: The projects affected by the rule. Use `all`, `include`, or `exclude`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input[_builtins.str] trigger_mode: The API trigger selection mode. `all` and an empty `selected` set are response-only legacy states; omit `triggers` to preserve either state after import.
         :param pulumi.Input[Sequence[pulumi.Input[Union['AlertRuleTriggerArgs', 'AlertRuleTriggerArgsDict']]]] triggers: The built-in anomaly triggers enabled for a built-in rule. A nonempty set is required when creating a rule. Omit this attribute to preserve a response-only legacy trigger mode after import.
@@ -703,7 +719,7 @@ class AlertRule(pulumi.CustomResource):
     @pulumi.getter
     def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         """
         return pulumi.get(self, "tags")
 
