@@ -123,6 +123,48 @@ namespace Pulumiverse.Vercel
     /// });
     /// ```
     /// 
+    /// ### Vercel CI checks
+    /// 
+    /// Vercel CI checks select a deployment or filtered Turborepo task from a Vercel CI invocation. They require `requires = "none"` and cannot be rerequestable. Blocking checks use `blocks = "deployment-alias"`; `blocks = "none"` additionally requires the team's Vercel CI non-blocking checks feature flag. Creating these checks requires the corresponding Vercel CI feature flags for the team. The provider sets the API source origin and the `Turborepo` job automatically.
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var vercelCi = new Vercel.ProjectDeploymentCheck("vercel_ci", new()
+    ///     {
+    ///         ProjectId = example.Id,
+    ///         Name = "E2E tests",
+    ///         Requires = "none",
+    ///         Blocks = "deployment-alias",
+    ///         Targets = new[]
+    ///         {
+    ///             "production",
+    ///         },
+    ///         Source = new Vercel.Inputs.ProjectDeploymentCheckSourceArgs
+    ///         {
+    ///             Kind = "vercel",
+    ///             SubKind = "vercel-ci-check",
+    ///             Selection = new Vercel.Inputs.ProjectDeploymentCheckSourceSelectionArgs
+    ///             {
+    ///                 Kind = "turborepo",
+    ///                 Task = "e2e:ci",
+    ///                 Filters = new[]
+    ///                 {
+    ///                     "vercel-docs",
+    ///                 },
+    ///                 FailIfNoMatch = true,
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Choosing check behavior
     /// 
     /// - `Requires` selects when the check can run: `build-ready`, `deployment-url`, or `None`.
@@ -157,7 +199,7 @@ namespace Pulumiverse.Vercel
     /// 
     /// For Terraform 1.5 and later:
     /// 
-    /// Match `Name` and `Requires` to the existing check before applying. Omit `Source` to preserve an imported source, including Vercel-managed checks and Git-provider variants that this resource cannot create. Likewise, omit `Blocks` to preserve an API value outside the configurable `deployment-alias` and `None` values. Inspect the imported state with `terraform state show` before configuring additional fields.
+    /// Match `Name` and `Requires` to the existing check before applying. Omit `Source` to preserve an imported source that this resource cannot create, including native Vercel checks and Git-provider variants other than GitHub. Likewise, omit `Blocks` to preserve an API value outside the configurable `deployment-alias` and `None` values. Inspect the imported state with `terraform state show` before configuring additional fields.
     /// 
     /// A source is required for new checks. For an imported check with an omitted source, configuring a different source replaces it. Supply a writable source before changing `Requires` to `None`; response-only sources cannot be recreated by this resource.
     /// </summary>

@@ -17,6 +17,37 @@ import javax.annotation.Nullable;
 /**
  * Manages a link between a Vercel alert rule and one existing account webhook.
  * 
+ * &gt; **Deprecated** Alert rules were renamed to monitors. Use `vercel.MonitorWebhookNotification` instead. This resource will be removed in a future major version of this provider.
+ * 
+ * To migrate without recreating the resource, replace it with `vercel.MonitorWebhookNotification` and add a `moved` block, for example:
+ * 
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *     }
+ * }
+ * }
+ * </pre>
+ * 
+ * Rename the `alertRuleId` argument to `monitorId`.
+ * 
  * ## Example Usage
  * 
  * <pre>
