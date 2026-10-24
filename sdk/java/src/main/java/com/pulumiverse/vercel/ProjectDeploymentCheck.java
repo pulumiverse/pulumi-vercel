@@ -146,6 +146,57 @@ import javax.annotation.Nullable;
  * }
  * </pre>
  * 
+ * ### Vercel CI checks
+ * 
+ * Vercel CI checks select a deployment or filtered Turborepo task from a Vercel CI invocation. They require `requires = &#34;none&#34;` and cannot be rerequestable. Blocking checks use `blocks = &#34;deployment-alias&#34;`; `blocks = &#34;none&#34;` additionally requires the team&#39;s Vercel CI non-blocking checks feature flag. Creating these checks requires the corresponding Vercel CI feature flags for the team. The provider sets the API source origin and the `Turborepo` job automatically.
+ * 
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumiverse.vercel.ProjectDeploymentCheck;
+ * import com.pulumiverse.vercel.ProjectDeploymentCheckArgs;
+ * import com.pulumi.vercel.inputs.ProjectDeploymentCheckSourceArgs;
+ * import com.pulumi.vercel.inputs.ProjectDeploymentCheckSourceSelectionArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var vercelCi = new ProjectDeploymentCheck("vercelCi", ProjectDeploymentCheckArgs.builder()
+ *             .projectId(example.id())
+ *             .name("E2E tests")
+ *             .requires("none")
+ *             .blocks("deployment-alias")
+ *             .targets("production")
+ *             .source(ProjectDeploymentCheckSourceArgs.builder()
+ *                 .kind("vercel")
+ *                 .subKind("vercel-ci-check")
+ *                 .selection(ProjectDeploymentCheckSourceSelectionArgs.builder()
+ *                     .kind("turborepo")
+ *                     .task("e2e:ci")
+ *                     .filters("vercel-docs")
+ *                     .failIfNoMatch(true)
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * }
+ * </pre>
+ * 
  * ## Choosing check behavior
  * 
  * - `requires` selects when the check can run: `build-ready`, `deployment-url`, or `none`.
@@ -180,7 +231,7 @@ import javax.annotation.Nullable;
  * 
  * For Terraform 1.5 and later:
  * 
- * Match `name` and `requires` to the existing check before applying. Omit `source` to preserve an imported source, including Vercel-managed checks and Git-provider variants that this resource cannot create. Likewise, omit `blocks` to preserve an API value outside the configurable `deployment-alias` and `none` values. Inspect the imported state with `terraform state show` before configuring additional fields.
+ * Match `name` and `requires` to the existing check before applying. Omit `source` to preserve an imported source that this resource cannot create, including native Vercel checks and Git-provider variants other than GitHub. Likewise, omit `blocks` to preserve an API value outside the configurable `deployment-alias` and `none` values. Inspect the imported state with `terraform state show` before configuring additional fields.
  * 
  * A source is required for new checks. For an imported check with an omitted source, configuring a different source replaces it. Supply a writable source before changing `requires` to `none`; response-only sources cannot be recreated by this resource.
  * 
