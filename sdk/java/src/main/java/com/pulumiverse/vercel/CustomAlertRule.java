@@ -22,6 +22,35 @@ import javax.annotation.Nullable;
 /**
  * Creates a project-scoped custom Vercel alert rule using the Alerts v3 API. Supports threshold and anomaly conditions on a metric or same-event ratio. Custom alerts must be enabled for the team. Manage Slack and webhook links with `vercel.AlertRuleSlackNotification` and `vercel.AlertRuleWebhookNotification`.
  * 
+ * &gt; **Deprecated** Alert rules were renamed to monitors. Use `vercel.CustomMonitor` instead. This resource will be removed in a future major version of this provider.
+ * 
+ * To migrate without recreating the resource, replace it with `vercel.CustomMonitor` and add a `moved` block, for example:
+ * 
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *     }
+ * }
+ * }
+ * </pre>
+ * 
  * ## Example Usage
  * 
  * <pre>
@@ -229,14 +258,14 @@ public class CustomAlertRule extends com.pulumi.resources.CustomResource {
         return this.severity;
     }
     /**
-     * Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      * 
      */
     @Export(name="tags", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> tags;
 
     /**
-     * @return Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * @return Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      * 
      */
     public Output<Optional<List<String>>> tags() {

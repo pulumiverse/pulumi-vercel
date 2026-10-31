@@ -55,6 +55,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CustomCertificate{}
 	case "vercel:index/customEnvironment:CustomEnvironment":
 		r = &CustomEnvironment{}
+	case "vercel:index/customMonitor:CustomMonitor":
+		r = &CustomMonitor{}
 	case "vercel:index/deployment:Deployment":
 		r = &Deployment{}
 	case "vercel:index/deploymentProtectionException:DeploymentProtectionException":
@@ -95,6 +97,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MicrofrontendGroup{}
 	case "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership":
 		r = &MicrofrontendGroupMembership{}
+	case "vercel:index/monitor:Monitor":
+		r = &Monitor{}
+	case "vercel:index/monitorSlackNotification:MonitorSlackNotification":
+		r = &MonitorSlackNotification{}
+	case "vercel:index/monitorWebhookNotification:MonitorWebhookNotification":
+		r = &MonitorWebhookNotification{}
 	case "vercel:index/network:Network":
 		r = &Network{}
 	case "vercel:index/oauthApp:OauthApp":
@@ -265,6 +273,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/customMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/deployment",
 		&module{version},
 	)
@@ -361,6 +374,21 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/microfrontendGroupMembership",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/monitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/monitorSlackNotification",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/monitorWebhookNotification",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
