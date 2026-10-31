@@ -240,6 +240,114 @@ export interface CustomEnvironmentBranchTracking {
     type: pulumi.Input<string>;
 }
 
+export interface CustomMonitorEvaluation {
+    /**
+     * The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+     */
+    query: pulumi.Input<inputs.CustomMonitorEvaluationQuery>;
+    /**
+     * Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+     */
+    window: pulumi.Input<string>;
+}
+
+export interface CustomMonitorEvaluationQuery {
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: pulumi.Input<string>;
+    /**
+     * Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+     */
+    formulas?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Optional grouping dimension. Exactly one dimension is supported.
+     */
+    groupBies?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+     */
+    metrics: pulumi.Input<{[key: string]: pulumi.Input<inputs.CustomMonitorEvaluationQueryMetrics>}>;
+    /**
+     * Exactly one output: the sole metric alias, or `formula` for a ratio.
+     */
+    outputs: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface CustomMonitorEvaluationQueryMetrics {
+    /**
+     * Metric aggregation. Supported combinations depend on the metric.
+     */
+    aggregation: pulumi.Input<string>;
+    /**
+     * Dimensions required by the unique aggregation.
+     */
+    dimensions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * KQL filter. Syntax and metric dimensions are validated by the API.
+     */
+    filter?: pulumi.Input<string>;
+    /**
+     * Semantic metric ID or custom metric name. Availability is validated by the API.
+     */
+    metric: pulumi.Input<string>;
+    /**
+     * Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+     */
+    normalize?: pulumi.Input<string>;
+    /**
+     * Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+     */
+    per?: pulumi.Input<string>;
+}
+
+export interface CustomMonitorNotificationSettings {
+    enableTeamOwnerNotifications?: pulumi.Input<boolean>;
+    incidentIoRoutingKey?: pulumi.Input<string>;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: pulumi.Input<string>;
+}
+
+export interface CustomMonitorTrigger {
+    /**
+     * Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+     */
+    minimum?: pulumi.Input<inputs.CustomMonitorTriggerMinimum>;
+    /**
+     * Required for threshold triggers; omitted for anomaly triggers.
+     */
+    operator?: pulumi.Input<string>;
+    /**
+     * The query's single output alias.
+     */
+    output: pulumi.Input<string>;
+    /**
+     * Required anomaly threshold in standard deviations, at least 0.1.
+     */
+    standardDeviations?: pulumi.Input<number>;
+    /**
+     * Required numeric threshold for threshold triggers. Zero is supported.
+     */
+    threshold?: pulumi.Input<number>;
+    /**
+     * The condition type: `threshold` or `anomaly`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface CustomMonitorTriggerMinimum {
+    /**
+     * The primitive metric alias, or ratio numerator alias.
+     */
+    output: pulumi.Input<string>;
+    /**
+     * Non-negative floor below which the rule is not evaluated.
+     */
+    threshold: pulumi.Input<number>;
+}
+
 export interface DeploymentProjectSettings {
     /**
      * The build command for this deployment. If omitted, this value will be taken from the project or automatically detected.
@@ -727,6 +835,34 @@ export interface MicrofrontendGroupDefaultApp {
     projectId: pulumi.Input<string>;
 }
 
+export interface MonitorNotificationSettings {
+    enableTeamOwnerNotifications?: pulumi.Input<boolean>;
+    incidentIoRoutingKey?: pulumi.Input<string>;
+    /**
+     * Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+     */
+    vercelNotificationsMinimumSeverityLevel?: pulumi.Input<string>;
+}
+
+export interface MonitorRuleScope {
+    /**
+     * The project IDs included in or excluded from a built-in rule.
+     */
+    projectIds?: pulumi.Input<pulumi.Input<string>[]>;
+    type: pulumi.Input<string>;
+}
+
+export interface MonitorTrigger {
+    /**
+     * A KQL filter for `errorAnomaly` or `usageAnomaly`. See the trigger filter documentation above for supported fields and values.
+     */
+    filter?: pulumi.Input<string>;
+    /**
+     * The built-in anomaly trigger type.
+     */
+    type: pulumi.Input<string>;
+}
+
 export interface NetworkTimeouts {
     /**
      * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
@@ -773,17 +909,48 @@ export interface ProjectDeploymentCheckSource {
      */
     externalResourceId?: pulumi.Input<string>;
     /**
-     * The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     * The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      */
     kind: pulumi.Input<string>;
+    /**
+     * The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     */
+    origin?: pulumi.Input<string>;
     /**
      * The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
      */
     provider?: pulumi.Input<string>;
     /**
+     * Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+     */
+    selection?: pulumi.Input<inputs.ProjectDeploymentCheckSourceSelection>;
+    /**
+     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     */
+    subKind?: pulumi.Input<string>;
+    /**
      * The webhook ID for a `webhook` source.
      */
     webhookId?: pulumi.Input<string>;
+}
+
+export interface ProjectDeploymentCheckSourceSelection {
+    /**
+     * Whether the check fails when no Turborepo task matches the selection.
+     */
+    failIfNoMatch?: pulumi.Input<boolean>;
+    /**
+     * Turborepo package filters used to select task runs.
+     */
+    filters?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The selection kind: `deployment` or `turborepo`.
+     */
+    kind: pulumi.Input<string>;
+    /**
+     * The Turborepo task name.
+     */
+    task?: pulumi.Input<string>;
 }
 
 export interface ProjectDomainVerification {

@@ -40,7 +40,7 @@ class CustomAlertRuleArgs:
         :param pulumi.Input[_builtins.str] investigation_prompt: Optional guidance stored for agent investigations. The API currently stores this prompt without passing it to the investigation workflow. Removing it clears the stored prompt.
         :param pulumi.Input[_builtins.str] name: A human-readable name for the alert rule.
         :param pulumi.Input['CustomAlertRuleNotificationSettingsArgs'] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         """
         pulumi.set(__self__, "evaluation", evaluation)
@@ -146,7 +146,7 @@ class CustomAlertRuleArgs:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         """
         return pulumi.get(self, "tags")
 
@@ -191,7 +191,7 @@ class _CustomAlertRuleState:
         :param pulumi.Input['CustomAlertRuleNotificationSettingsArgs'] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
         :param pulumi.Input[_builtins.str] project_id: The project evaluated by this custom rule. Creating a rule or changing its query requires Observability Plus on this project.
         :param pulumi.Input[_builtins.str] severity: Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input['CustomAlertRuleTriggerArgs'] trigger: A fixed threshold or anomaly condition on the query output.
         :param pulumi.Input[_builtins.int] updated_at: Last update time as a Unix epoch timestamp in milliseconds.
@@ -307,7 +307,7 @@ class _CustomAlertRuleState:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         """
         return pulumi.get(self, "tags")
 
@@ -370,6 +370,14 @@ class CustomAlertRule(pulumi.CustomResource):
                  __props__=None):
         """
         Creates a project-scoped custom Vercel alert rule using the Alerts v3 API. Supports threshold and anomaly conditions on a metric or same-event ratio. Custom alerts must be enabled for the team. Manage Slack and webhook links with `AlertRuleSlackNotification` and `AlertRuleWebhookNotification`.
+
+        > **Deprecated** Alert rules were renamed to monitors. Use `CustomMonitor` instead. This resource will be removed in a future major version of this provider.
+
+        To migrate without recreating the resource, replace it with `CustomMonitor` and add a `moved` block, for example:
+
+        ```python
+        import pulumi
+        ```
 
         ## Example Usage
 
@@ -443,7 +451,7 @@ class CustomAlertRule(pulumi.CustomResource):
         :param pulumi.Input[Union['CustomAlertRuleNotificationSettingsArgs', 'CustomAlertRuleNotificationSettingsArgsDict']] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
         :param pulumi.Input[_builtins.str] project_id: The project evaluated by this custom rule. Creating a rule or changing its query requires Observability Plus on this project.
         :param pulumi.Input[_builtins.str] severity: Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input[Union['CustomAlertRuleTriggerArgs', 'CustomAlertRuleTriggerArgsDict']] trigger: A fixed threshold or anomaly condition on the query output.
         """
@@ -455,6 +463,14 @@ class CustomAlertRule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Creates a project-scoped custom Vercel alert rule using the Alerts v3 API. Supports threshold and anomaly conditions on a metric or same-event ratio. Custom alerts must be enabled for the team. Manage Slack and webhook links with `AlertRuleSlackNotification` and `AlertRuleWebhookNotification`.
+
+        > **Deprecated** Alert rules were renamed to monitors. Use `CustomMonitor` instead. This resource will be removed in a future major version of this provider.
+
+        To migrate without recreating the resource, replace it with `CustomMonitor` and add a `moved` block, for example:
+
+        ```python
+        import pulumi
+        ```
 
         ## Example Usage
 
@@ -607,7 +623,7 @@ class CustomAlertRule(pulumi.CustomResource):
         :param pulumi.Input[Union['CustomAlertRuleNotificationSettingsArgs', 'CustomAlertRuleNotificationSettingsArgsDict']] notification_settings: Notification delivery settings stored on the rule. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
         :param pulumi.Input[_builtins.str] project_id: The project evaluated by this custom rule. Creating a rule or changing its query requires Observability Plus on this project.
         :param pulumi.Input[_builtins.str] severity: Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
         :param pulumi.Input[Union['CustomAlertRuleTriggerArgs', 'CustomAlertRuleTriggerArgsDict']] trigger: A fixed threshold or anomaly condition on the query output.
         :param pulumi.Input[_builtins.int] updated_at: Last update time as a Unix epoch timestamp in milliseconds.
@@ -689,7 +705,7 @@ class CustomAlertRule(pulumi.CustomResource):
     @pulumi.getter
     def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+        Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
         """
         return pulumi.get(self, "tags")
 

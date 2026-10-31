@@ -5,6 +5,7 @@ package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumiverse.vercel.outputs.ProjectDeploymentCheckSourceSelection;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,15 +24,30 @@ public final class ProjectDeploymentCheckSource {
      */
     private @Nullable String externalResourceId;
     /**
-     * @return The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     * @return The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
     private String kind;
+    /**
+     * @return The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * 
+     */
+    private @Nullable String origin;
     /**
      * @return The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
      * 
      */
     private @Nullable String provider;
+    /**
+     * @return Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+     * 
+     */
+    private @Nullable ProjectDeploymentCheckSourceSelection selection;
+    /**
+     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * 
+     */
+    private @Nullable String subKind;
     /**
      * @return The webhook ID for a `webhook` source.
      * 
@@ -54,11 +70,18 @@ public final class ProjectDeploymentCheckSource {
         return Optional.ofNullable(this.externalResourceId);
     }
     /**
-     * @return The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     * @return The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
     public String kind() {
         return this.kind;
+    }
+    /**
+     * @return The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * 
+     */
+    public Optional<String> origin() {
+        return Optional.ofNullable(this.origin);
     }
     /**
      * @return The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
@@ -66,6 +89,20 @@ public final class ProjectDeploymentCheckSource {
      */
     public Optional<String> provider() {
         return Optional.ofNullable(this.provider);
+    }
+    /**
+     * @return Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+     * 
+     */
+    public Optional<ProjectDeploymentCheckSourceSelection> selection() {
+        return Optional.ofNullable(this.selection);
+    }
+    /**
+     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * 
+     */
+    public Optional<String> subKind() {
+        return Optional.ofNullable(this.subKind);
     }
     /**
      * @return The webhook ID for a `webhook` source.
@@ -87,7 +124,10 @@ public final class ProjectDeploymentCheckSource {
         private @Nullable String externalCheckName;
         private @Nullable String externalResourceId;
         private String kind;
+        private @Nullable String origin;
         private @Nullable String provider;
+        private @Nullable ProjectDeploymentCheckSourceSelection selection;
+        private @Nullable String subKind;
         private @Nullable String webhookId;
         public Builder() {}
         public Builder(ProjectDeploymentCheckSource defaults) {
@@ -95,7 +135,10 @@ public final class ProjectDeploymentCheckSource {
     	      this.externalCheckName = defaults.externalCheckName;
     	      this.externalResourceId = defaults.externalResourceId;
     	      this.kind = defaults.kind;
+    	      this.origin = defaults.origin;
     	      this.provider = defaults.provider;
+    	      this.selection = defaults.selection;
+    	      this.subKind = defaults.subKind;
     	      this.webhookId = defaults.webhookId;
         }
 
@@ -120,9 +163,27 @@ public final class ProjectDeploymentCheckSource {
             return this;
         }
         @CustomType.Setter
+        public Builder origin(@Nullable String origin) {
+
+            this.origin = origin;
+            return this;
+        }
+        @CustomType.Setter
         public Builder provider(@Nullable String provider) {
 
             this.provider = provider;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder selection(@Nullable ProjectDeploymentCheckSourceSelection selection) {
+
+            this.selection = selection;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder subKind(@Nullable String subKind) {
+
+            this.subKind = subKind;
             return this;
         }
         @CustomType.Setter
@@ -136,7 +197,10 @@ public final class ProjectDeploymentCheckSource {
             _resultValue.externalCheckName = externalCheckName;
             _resultValue.externalResourceId = externalResourceId;
             _resultValue.kind = kind;
+            _resultValue.origin = origin;
             _resultValue.provider = provider;
+            _resultValue.selection = selection;
+            _resultValue.subKind = subKind;
             _resultValue.webhookId = webhookId;
             return _resultValue;
         }

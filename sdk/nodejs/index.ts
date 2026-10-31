@@ -90,6 +90,11 @@ export type CustomEnvironment = import("./customEnvironment").CustomEnvironment;
 export const CustomEnvironment: typeof import("./customEnvironment").CustomEnvironment = null as any;
 utilities.lazyLoad(exports, ["CustomEnvironment"], () => require("./customEnvironment"));
 
+export { CustomMonitorArgs, CustomMonitorState } from "./customMonitor";
+export type CustomMonitor = import("./customMonitor").CustomMonitor;
+export const CustomMonitor: typeof import("./customMonitor").CustomMonitor = null as any;
+utilities.lazyLoad(exports, ["CustomMonitor"], () => require("./customMonitor"));
+
 export { DeploymentArgs, DeploymentState } from "./deployment";
 export type Deployment = import("./deployment").Deployment;
 export const Deployment: typeof import("./deployment").Deployment = null as any;
@@ -400,6 +405,21 @@ export type MicrofrontendGroupMembership = import("./microfrontendGroupMembershi
 export const MicrofrontendGroupMembership: typeof import("./microfrontendGroupMembership").MicrofrontendGroupMembership = null as any;
 utilities.lazyLoad(exports, ["MicrofrontendGroupMembership"], () => require("./microfrontendGroupMembership"));
 
+export { MonitorArgs, MonitorState } from "./monitor";
+export type Monitor = import("./monitor").Monitor;
+export const Monitor: typeof import("./monitor").Monitor = null as any;
+utilities.lazyLoad(exports, ["Monitor"], () => require("./monitor"));
+
+export { MonitorSlackNotificationArgs, MonitorSlackNotificationState } from "./monitorSlackNotification";
+export type MonitorSlackNotification = import("./monitorSlackNotification").MonitorSlackNotification;
+export const MonitorSlackNotification: typeof import("./monitorSlackNotification").MonitorSlackNotification = null as any;
+utilities.lazyLoad(exports, ["MonitorSlackNotification"], () => require("./monitorSlackNotification"));
+
+export { MonitorWebhookNotificationArgs, MonitorWebhookNotificationState } from "./monitorWebhookNotification";
+export type MonitorWebhookNotification = import("./monitorWebhookNotification").MonitorWebhookNotification;
+export const MonitorWebhookNotification: typeof import("./monitorWebhookNotification").MonitorWebhookNotification = null as any;
+utilities.lazyLoad(exports, ["MonitorWebhookNotification"], () => require("./monitorWebhookNotification"));
+
 export { NetworkArgs, NetworkState } from "./network";
 export type Network = import("./network").Network;
 export const Network: typeof import("./network").Network = null as any;
@@ -581,6 +601,8 @@ const _module = {
                 return new CustomCertificate(name, <any>undefined, { urn })
             case "vercel:index/customEnvironment:CustomEnvironment":
                 return new CustomEnvironment(name, <any>undefined, { urn })
+            case "vercel:index/customMonitor:CustomMonitor":
+                return new CustomMonitor(name, <any>undefined, { urn })
             case "vercel:index/deployment:Deployment":
                 return new Deployment(name, <any>undefined, { urn })
             case "vercel:index/deploymentProtectionException:DeploymentProtectionException":
@@ -621,6 +643,12 @@ const _module = {
                 return new MicrofrontendGroup(name, <any>undefined, { urn })
             case "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership":
                 return new MicrofrontendGroupMembership(name, <any>undefined, { urn })
+            case "vercel:index/monitor:Monitor":
+                return new Monitor(name, <any>undefined, { urn })
+            case "vercel:index/monitorSlackNotification:MonitorSlackNotification":
+                return new MonitorSlackNotification(name, <any>undefined, { urn })
+            case "vercel:index/monitorWebhookNotification:MonitorWebhookNotification":
+                return new MonitorWebhookNotification(name, <any>undefined, { urn })
             case "vercel:index/network:Network":
                 return new Network(name, <any>undefined, { urn })
             case "vercel:index/oauthApp:OauthApp":
@@ -695,6 +723,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/bulkRedirects", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customAlertRule", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customCertificate", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/customEnvironment", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/customMonitor", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deployment", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/deploymentProtectionException", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/dnsRecord", _module)
@@ -715,6 +744,9 @@ pulumi.runtime.registerResourceModule("vercel", "index/kmsSigningKey", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/logDrain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroup", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/microfrontendGroupMembership", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/monitor", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/monitorSlackNotification", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/monitorWebhookNotification", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/network", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthApp", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthAppClientSecret", _module)
