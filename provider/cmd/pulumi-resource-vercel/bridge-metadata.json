@@ -131,6 +131,38 @@
                 "current": "vercel:index/customEnvironment:CustomEnvironment",
                 "majorVersion": 5
             },
+            "vercel_custom_monitor": {
+                "current": "vercel:index/customMonitor:CustomMonitor",
+                "majorVersion": 5,
+                "fields": {
+                    "evaluation": {
+                        "fields": {
+                            "query": {
+                                "fields": {
+                                    "group_by": {
+                                        "maxItemsOne": false
+                                    },
+                                    "metrics": {
+                                        "elem": {
+                                            "fields": {
+                                                "dimensions": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "outputs": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_deployment": {
                 "current": "vercel:index/deployment:Deployment",
                 "majorVersion": 5,
@@ -312,6 +344,33 @@
                 "current": "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership",
                 "majorVersion": 5
             },
+            "vercel_monitor": {
+                "current": "vercel:index/monitor:Monitor",
+                "majorVersion": 5,
+                "fields": {
+                    "rule_scope": {
+                        "fields": {
+                            "project_ids": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "triggers": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "vercel_monitor_slack_notification": {
+                "current": "vercel:index/monitorSlackNotification:MonitorSlackNotification",
+                "majorVersion": 5
+            },
+            "vercel_monitor_webhook_notification": {
+                "current": "vercel:index/monitorWebhookNotification:MonitorWebhookNotification",
+                "majorVersion": 5
+            },
             "vercel_network": {
                 "current": "vercel:index/network:Network",
                 "majorVersion": 5,
@@ -475,6 +534,17 @@
                 "current": "vercel:index/projectDeploymentCheck:ProjectDeploymentCheck",
                 "majorVersion": 5,
                 "fields": {
+                    "source": {
+                        "fields": {
+                            "selection": {
+                                "fields": {
+                                    "filters": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "targets": {
                         "maxItemsOne": false
                     }
