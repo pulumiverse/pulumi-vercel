@@ -6,6 +6,7 @@ package com.pulumiverse.vercel.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumiverse.vercel.inputs.ProjectDeploymentCheckSourceSelectionArgs;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -47,18 +48,33 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
     }
 
     /**
-     * The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     * The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
     @Import(name="kind", required=true)
     private Output<String> kind;
 
     /**
-     * @return The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+     * @return The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
     public Output<String> kind() {
         return this.kind;
+    }
+
+    /**
+     * The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * 
+     */
+    @Import(name="origin")
+    private @Nullable Output<String> origin;
+
+    /**
+     * @return The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * 
+     */
+    public Optional<Output<String>> origin() {
+        return Optional.ofNullable(this.origin);
     }
 
     /**
@@ -74,6 +90,36 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
      */
     public Optional<Output<String>> provider() {
         return Optional.ofNullable(this.provider);
+    }
+
+    /**
+     * Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+     * 
+     */
+    @Import(name="selection")
+    private @Nullable Output<ProjectDeploymentCheckSourceSelectionArgs> selection;
+
+    /**
+     * @return Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+     * 
+     */
+    public Optional<Output<ProjectDeploymentCheckSourceSelectionArgs>> selection() {
+        return Optional.ofNullable(this.selection);
+    }
+
+    /**
+     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * 
+     */
+    @Import(name="subKind")
+    private @Nullable Output<String> subKind;
+
+    /**
+     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * 
+     */
+    public Optional<Output<String>> subKind() {
+        return Optional.ofNullable(this.subKind);
     }
 
     /**
@@ -97,7 +143,10 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         this.externalCheckName = $.externalCheckName;
         this.externalResourceId = $.externalResourceId;
         this.kind = $.kind;
+        this.origin = $.origin;
         this.provider = $.provider;
+        this.selection = $.selection;
+        this.subKind = $.subKind;
         this.webhookId = $.webhookId;
     }
 
@@ -162,7 +211,7 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
-         * @param kind The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+         * @param kind The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
          * 
          * @return builder
          * 
@@ -173,13 +222,34 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
-         * @param kind The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+         * @param kind The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
          * 
          * @return builder
          * 
          */
         public Builder kind(String kind) {
             return kind(Output.of(kind));
+        }
+
+        /**
+         * @param origin The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder origin(@Nullable Output<String> origin) {
+            $.origin = origin;
+            return this;
+        }
+
+        /**
+         * @param origin The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder origin(String origin) {
+            return origin(Output.of(origin));
         }
 
         /**
@@ -201,6 +271,48 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
          */
         public Builder provider(String provider) {
             return provider(Output.of(provider));
+        }
+
+        /**
+         * @param selection Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selection(@Nullable Output<ProjectDeploymentCheckSourceSelectionArgs> selection) {
+            $.selection = selection;
+            return this;
+        }
+
+        /**
+         * @param selection Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selection(ProjectDeploymentCheckSourceSelectionArgs selection) {
+            return selection(Output.of(selection));
+        }
+
+        /**
+         * @param subKind The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder subKind(@Nullable Output<String> subKind) {
+            $.subKind = subKind;
+            return this;
+        }
+
+        /**
+         * @param subKind The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder subKind(String subKind) {
+            return subKind(Output.of(subKind));
         }
 
         /**

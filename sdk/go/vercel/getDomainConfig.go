@@ -37,7 +37,9 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			//
 //			// "vercel_domain_config" Usage
+//			//
 //			exampleCom := vercel.GetDomainConfigOutput(ctx, vercel.GetDomainConfigOutputArgs{
 //				Domain:          pulumi.String("example.com"),
 //				ProjectIdOrName: myAwesomeProject.ID(),
@@ -46,7 +48,9 @@ import (
 //				Domain:          pulumi.String("www.example.com"),
 //				ProjectIdOrName: myAwesomeProject.ID(),
 //			}, nil)
+//			//
 //			// External DNS provider example
+//			//
 //			_, err = aws.NewRoute53Record(ctx, "example_com_a", &aws.Route53RecordArgs{
 //				ZoneId:  "...zone_id_from_somewhere...",
 //				Name:    exampleCom.Domain,

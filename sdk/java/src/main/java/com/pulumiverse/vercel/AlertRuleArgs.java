@@ -81,14 +81,14 @@ public final class AlertRuleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      * 
      */
     @Import(name="tags")
     private @Nullable Output<List<String>> tags;
 
     /**
-     * @return Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * @return Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      * 
      */
     public Optional<Output<List<String>>> tags() {
@@ -256,7 +256,7 @@ public final class AlertRuleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param tags Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+         * @param tags Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
          * 
          * @return builder
          * 
@@ -267,7 +267,7 @@ public final class AlertRuleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param tags Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+         * @param tags Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
          * 
          * @return builder
          * 
@@ -277,7 +277,7 @@ public final class AlertRuleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param tags Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+         * @param tags Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
          * 
          * @return builder
          * 

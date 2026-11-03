@@ -7,6 +7,16 @@ import * as utilities from "./utilities";
 /**
  * Manages a link between a Vercel alert rule and one existing account webhook.
  *
+ * > **Deprecated** Alert rules were renamed to monitors. Use `vercel.MonitorWebhookNotification` instead. This resource will be removed in a future major version of this provider.
+ *
+ * To migrate without recreating the resource, replace it with `vercel.MonitorWebhookNotification` and add a `moved` block, for example:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * ```
+ *
+ * Rename the `alertRuleId` argument to `monitorId`.
+ *
  * ## Example Usage
  *
  * ```typescript

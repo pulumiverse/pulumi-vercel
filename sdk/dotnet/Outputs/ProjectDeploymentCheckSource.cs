@@ -23,13 +23,25 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? ExternalResourceId;
         /// <summary>
-        /// The source kind. New checks support `git-provider`, `Integration`, and `Webhook`; `Vercel` is response-only.
+        /// The source kind. New checks support `git-provider`, `Integration`, `Webhook`, and `Vercel`.
         /// </summary>
         public readonly string Kind;
+        /// <summary>
+        /// The Vercel source origin. Vercel CI checks use `Api`; the provider supplies this value when omitted.
+        /// </summary>
+        public readonly string? Origin;
         /// <summary>
         /// The Git provider. New git-provider checks currently support `Github`; imported checks may report `Gitlab` or `Bitbucket`.
         /// </summary>
         public readonly string? Provider;
+        /// <summary>
+        /// Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+        /// </summary>
+        public readonly Outputs.ProjectDeploymentCheckSourceSelection? Selection;
+        /// <summary>
+        /// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+        /// </summary>
+        public readonly string? SubKind;
         /// <summary>
         /// The webhook ID for a `Webhook` source.
         /// </summary>
@@ -43,14 +55,23 @@ namespace Pulumiverse.Vercel.Outputs
 
             string kind,
 
+            string? origin,
+
             string? provider,
+
+            Outputs.ProjectDeploymentCheckSourceSelection? selection,
+
+            string? subKind,
 
             string? webhookId)
         {
             ExternalCheckName = externalCheckName;
             ExternalResourceId = externalResourceId;
             Kind = kind;
+            Origin = origin;
             Provider = provider;
+            Selection = selection;
+            SubKind = subKind;
             WebhookId = webhookId;
         }
     }

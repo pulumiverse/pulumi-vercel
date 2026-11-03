@@ -23,6 +23,7 @@ from .bulk_redirects import *
 from .custom_alert_rule import *
 from .custom_certificate import *
 from .custom_environment import *
+from .custom_monitor import *
 from .deployment import *
 from .deployment_protection_exception import *
 from .dns_record import *
@@ -85,6 +86,9 @@ from .kms_signing_key import *
 from .log_drain import *
 from .microfrontend_group import *
 from .microfrontend_group_membership import *
+from .monitor import *
+from .monitor_slack_notification import *
+from .monitor_webhook_notification import *
 from .network import *
 from .oauth_app import *
 from .oauth_app_client_secret import *
@@ -263,6 +267,14 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/customMonitor",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/customMonitor:CustomMonitor": "CustomMonitor"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/deployment",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -419,6 +431,30 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/microfrontendGroupMembership:MicrofrontendGroupMembership": "MicrofrontendGroupMembership"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/monitor",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/monitor:Monitor": "Monitor"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/monitorSlackNotification",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/monitorSlackNotification:MonitorSlackNotification": "MonitorSlackNotification"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/monitorWebhookNotification",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/monitorWebhookNotification:MonitorWebhookNotification": "MonitorWebhookNotification"
   }
  },
  {
