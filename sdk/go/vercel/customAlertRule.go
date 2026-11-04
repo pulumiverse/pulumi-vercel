@@ -14,6 +14,27 @@ import (
 
 // Creates a project-scoped custom Vercel alert rule using the Alerts v3 API. Supports threshold and anomaly conditions on a metric or same-event ratio. Custom alerts must be enabled for the team. Manage Slack and webhook links with `AlertRuleSlackNotification` and `AlertRuleWebhookNotification`.
 //
+// > **Deprecated** Alert rules were renamed to monitors. Use `CustomMonitor` instead. This resource will be removed in a future major version of this provider.
+//
+// To migrate without recreating the resource, replace it with `CustomMonitor` and add a `moved` block, for example:
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Example Usage
 //
 // ```go
@@ -133,7 +154,7 @@ type CustomAlertRule struct {
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
 	Severity pulumi.StringOutput `pulumi:"severity"`
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -199,7 +220,7 @@ type customAlertRuleState struct {
 	ProjectId *string `pulumi:"projectId"`
 	// Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
 	Severity *string `pulumi:"severity"`
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags []string `pulumi:"tags"`
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -224,7 +245,7 @@ type CustomAlertRuleState struct {
 	ProjectId pulumi.StringPtrInput
 	// Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
 	Severity pulumi.StringPtrInput
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags pulumi.StringArrayInput
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId pulumi.StringPtrInput
@@ -251,7 +272,7 @@ type customAlertRuleArgs struct {
 	ProjectId string `pulumi:"projectId"`
 	// Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
 	Severity string `pulumi:"severity"`
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags []string `pulumi:"tags"`
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -273,7 +294,7 @@ type CustomAlertRuleArgs struct {
 	ProjectId pulumi.StringInput
 	// Severity assigned when the rule triggers: `low`, `medium`, or `high`. Critical severity is assigned only by a completed agent investigation.
 	Severity pulumi.StringInput
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags pulumi.StringArrayInput
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId pulumi.StringPtrInput
@@ -403,7 +424,7 @@ func (o CustomAlertRuleOutput) Severity() pulumi.StringOutput {
 	return o.ApplyT(func(v *CustomAlertRule) pulumi.StringOutput { return v.Severity }).(pulumi.StringOutput)
 }
 
-// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 func (o CustomAlertRuleOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CustomAlertRule) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }

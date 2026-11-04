@@ -137,6 +137,52 @@ import (
 //
 // ```
 //
+// ### Vercel CI checks
+//
+// Vercel CI checks select a deployment or filtered Turborepo task from a Vercel CI invocation. They require `requires = "none"` and cannot be rerequestable. Blocking checks use `blocks = "deployment-alias"`; `blocks = "none"` additionally requires the team's Vercel CI non-blocking checks feature flag. Creating these checks requires the corresponding Vercel CI feature flags for the team. The provider sets the API source origin and the `Turborepo` job automatically.
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.NewProjectDeploymentCheck(ctx, "vercel_ci", &vercel.ProjectDeploymentCheckArgs{
+//				ProjectId: pulumi.Any(example.Id),
+//				Name:      pulumi.String("E2E tests"),
+//				Requires:  pulumi.String("none"),
+//				Blocks:    pulumi.String("deployment-alias"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//				Source: &vercel.ProjectDeploymentCheckSourceArgs{
+//					Kind:    pulumi.String("vercel"),
+//					SubKind: pulumi.String("vercel-ci-check"),
+//					Selection: &vercel.ProjectDeploymentCheckSourceSelectionArgs{
+//						Kind: pulumi.String("turborepo"),
+//						Task: pulumi.String("e2e:ci"),
+//						Filters: pulumi.StringArray{
+//							pulumi.String("vercel-docs"),
+//						},
+//						FailIfNoMatch: pulumi.Bool(true),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Choosing check behavior
 //
 // - `requires` selects when the check can run: `build-ready`, `deployment-url`, or `none`.
@@ -171,7 +217,7 @@ import (
 //
 // For Terraform 1.5 and later:
 //
-// Match `name` and `requires` to the existing check before applying. Omit `source` to preserve an imported source, including Vercel-managed checks and Git-provider variants that this resource cannot create. Likewise, omit `blocks` to preserve an API value outside the configurable `deployment-alias` and `none` values. Inspect the imported state with `terraform state show` before configuring additional fields.
+// Match `name` and `requires` to the existing check before applying. Omit `source` to preserve an imported source that this resource cannot create, including native Vercel checks and Git-provider variants other than GitHub. Likewise, omit `blocks` to preserve an API value outside the configurable `deployment-alias` and `none` values. Inspect the imported state with `terraform state show` before configuring additional fields.
 //
 // A source is required for new checks. For an imported check with an omitted source, configuring a different source replaces it. Supply a writable source before changing `requires` to `none`; response-only sources cannot be recreated by this resource.
 type ProjectDeploymentCheck struct {

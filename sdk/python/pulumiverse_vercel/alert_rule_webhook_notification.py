@@ -174,6 +174,16 @@ class AlertRuleWebhookNotification(pulumi.CustomResource):
         """
         Manages a link between a Vercel alert rule and one existing account webhook.
 
+        > **Deprecated** Alert rules were renamed to monitors. Use `MonitorWebhookNotification` instead. This resource will be removed in a future major version of this provider.
+
+        To migrate without recreating the resource, replace it with `MonitorWebhookNotification` and add a `moved` block, for example:
+
+        ```python
+        import pulumi
+        ```
+
+        Rename the `alert_rule_id` argument to `monitor_id`.
+
         ## Example Usage
 
         ```python
@@ -228,6 +238,16 @@ class AlertRuleWebhookNotification(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages a link between a Vercel alert rule and one existing account webhook.
+
+        > **Deprecated** Alert rules were renamed to monitors. Use `MonitorWebhookNotification` instead. This resource will be removed in a future major version of this provider.
+
+        To migrate without recreating the resource, replace it with `MonitorWebhookNotification` and add a `moved` block, for example:
+
+        ```python
+        import pulumi
+        ```
+
+        Rename the `alert_rule_id` argument to `monitor_id`.
 
         ## Example Usage
 

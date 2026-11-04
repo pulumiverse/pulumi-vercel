@@ -14,6 +14,27 @@ import (
 
 // Creates a built-in Vercel alert rule using the Alerts v3 API. Built-in rules select anomaly triggers across a team scope. Notification destination links are managed with the `AlertRuleSlackNotification` and `AlertRuleWebhookNotification` resources.
 //
+// > **Deprecated** Alert rules were renamed to monitors. Use `Monitor` instead. This resource will be removed in a future major version of this provider.
+//
+// To migrate without recreating the resource, replace it with `Monitor` and add a `moved` block, for example:
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Example Usage
 //
 // ```go
@@ -129,7 +150,7 @@ type AlertRule struct {
 	NotificationSettings AlertRuleNotificationSettingsOutput `pulumi:"notificationSettings"`
 	// The projects affected by the rule. Use `all`, `include`, or `exclude`.
 	RuleScope AlertRuleRuleScopeOutput `pulumi:"ruleScope"`
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
@@ -194,7 +215,7 @@ type alertRuleState struct {
 	NotificationSettings *AlertRuleNotificationSettings `pulumi:"notificationSettings"`
 	// The projects affected by the rule. Use `all`, `include`, or `exclude`.
 	RuleScope *AlertRuleRuleScope `pulumi:"ruleScope"`
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags []string `pulumi:"tags"`
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -221,7 +242,7 @@ type AlertRuleState struct {
 	NotificationSettings AlertRuleNotificationSettingsPtrInput
 	// The projects affected by the rule. Use `all`, `include`, or `exclude`.
 	RuleScope AlertRuleRuleScopePtrInput
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags pulumi.StringArrayInput
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId pulumi.StringPtrInput
@@ -248,7 +269,7 @@ type alertRuleArgs struct {
 	NotificationSettings *AlertRuleNotificationSettings `pulumi:"notificationSettings"`
 	// The projects affected by the rule. Use `all`, `include`, or `exclude`.
 	RuleScope AlertRuleRuleScope `pulumi:"ruleScope"`
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags []string `pulumi:"tags"`
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId *string `pulumi:"teamId"`
@@ -268,7 +289,7 @@ type AlertRuleArgs struct {
 	NotificationSettings AlertRuleNotificationSettingsPtrInput
 	// The projects affected by the rule. Use `all`, `include`, or `exclude`.
 	RuleScope AlertRuleRuleScopeInput
-	// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+	// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 	Tags pulumi.StringArrayInput
 	// The ID of the team that owns the alert rule. Required if a default team is not configured in the provider.
 	TeamId pulumi.StringPtrInput
@@ -395,7 +416,7 @@ func (o AlertRuleOutput) RuleScope() AlertRuleRuleScopeOutput {
 	return o.ApplyT(func(v *AlertRule) AlertRuleRuleScopeOutput { return v.RuleScope }).(AlertRuleRuleScopeOutput)
 }
 
-// Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+// Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
 func (o AlertRuleOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *AlertRule) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }

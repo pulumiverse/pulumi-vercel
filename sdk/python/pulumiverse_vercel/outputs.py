@@ -30,6 +30,12 @@ __all__ = [
     'CustomAlertRuleTrigger',
     'CustomAlertRuleTriggerMinimum',
     'CustomEnvironmentBranchTracking',
+    'CustomMonitorEvaluation',
+    'CustomMonitorEvaluationQuery',
+    'CustomMonitorEvaluationQueryMetrics',
+    'CustomMonitorNotificationSettings',
+    'CustomMonitorTrigger',
+    'CustomMonitorTriggerMinimum',
     'DeploymentProjectSettings',
     'DnsRecordHttps',
     'DnsRecordSrv',
@@ -66,11 +72,15 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroupCondition',
     'KmsIssuerSigningKey',
     'MicrofrontendGroupDefaultApp',
+    'MonitorNotificationSettings',
+    'MonitorRuleScope',
+    'MonitorTrigger',
     'NetworkTimeouts',
     'OidcFederationPolicyClaim',
     'OidcFederationPolicyClaimValue',
     'OidcFederationPolicyResources',
     'ProjectDeploymentCheckSource',
+    'ProjectDeploymentCheckSourceSelection',
     'ProjectDomainVerification',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
@@ -994,6 +1004,373 @@ class CustomEnvironmentBranchTracking(dict):
         How a branch name should be matched against the pattern. Must be one of 'startsWith', 'endsWith' or 'equals'.
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class CustomMonitorEvaluation(dict):
+    def __init__(__self__, *,
+                 query: 'outputs.CustomMonitorEvaluationQuery',
+                 window: _builtins.str):
+        """
+        :param 'CustomMonitorEvaluationQueryArgs' query: The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+        :param _builtins.str window: Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+        """
+        pulumi.set(__self__, "query", query)
+        pulumi.set(__self__, "window", window)
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> 'outputs.CustomMonitorEvaluationQuery':
+        """
+        The structured Alerts v3 query. Use one metric without formulas, or two metrics with a division formula named `formula`. Discover supported metrics with `vc metrics schema <metric-or-prefix>`.
+        """
+        return pulumi.get(self, "query")
+
+    @_builtins.property
+    @pulumi.getter
+    def window(self) -> _builtins.str:
+        """
+        Aggregation granularity and detection cadence: `5m`, `15m`, `1h`, or `1d`.
+        """
+        return pulumi.get(self, "window")
+
+
+@pulumi.output_type
+class CustomMonitorEvaluationQuery(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "groupBies":
+            suggest = "group_bies"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomMonitorEvaluationQuery. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomMonitorEvaluationQuery.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomMonitorEvaluationQuery.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 metrics: Mapping[str, 'outputs.CustomMonitorEvaluationQueryMetrics'],
+                 outputs: Sequence[_builtins.str],
+                 filter: Optional[_builtins.str] = None,
+                 formulas: Optional[Mapping[str, _builtins.str]] = None,
+                 group_bies: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param Mapping[str, 'CustomMonitorEvaluationQueryMetricsArgs'] metrics: One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+        :param Sequence[_builtins.str] outputs: Exactly one output: the sole metric alias, or `formula` for a ratio.
+        :param _builtins.str filter: KQL filter. Syntax and metric dimensions are validated by the API.
+        :param Mapping[str, _builtins.str] formulas: Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+        :param Sequence[_builtins.str] group_bies: Optional grouping dimension. Exactly one dimension is supported.
+        """
+        pulumi.set(__self__, "metrics", metrics)
+        pulumi.set(__self__, "outputs", outputs)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+        if formulas is not None:
+            pulumi.set(__self__, "formulas", formulas)
+        if group_bies is not None:
+            pulumi.set(__self__, "group_bies", group_bies)
+
+    @_builtins.property
+    @pulumi.getter
+    def metrics(self) -> Mapping[str, 'outputs.CustomMonitorEvaluationQueryMetrics']:
+        """
+        One or two metric selections keyed by caller-chosen aliases. The alias `formula` is reserved.
+        """
+        return pulumi.get(self, "metrics")
+
+    @_builtins.property
+    @pulumi.getter
+    def outputs(self) -> Sequence[_builtins.str]:
+        """
+        Exactly one output: the sole metric alias, or `formula` for a ratio.
+        """
+        return pulumi.get(self, "outputs")
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        KQL filter. Syntax and metric dimensions are validated by the API.
+        """
+        return pulumi.get(self, "filter")
+
+    @_builtins.property
+    @pulumi.getter
+    def formulas(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Optional division formula, keyed by `formula`, referencing the two metric aliases, for example `errors / requests`.
+        """
+        return pulumi.get(self, "formulas")
+
+    @_builtins.property
+    @pulumi.getter(name="groupBies")
+    def group_bies(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Optional grouping dimension. Exactly one dimension is supported.
+        """
+        return pulumi.get(self, "group_bies")
+
+
+@pulumi.output_type
+class CustomMonitorEvaluationQueryMetrics(dict):
+    def __init__(__self__, *,
+                 aggregation: _builtins.str,
+                 metric: _builtins.str,
+                 dimensions: Optional[Sequence[_builtins.str]] = None,
+                 filter: Optional[_builtins.str] = None,
+                 normalize: Optional[_builtins.str] = None,
+                 per: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str aggregation: Metric aggregation. Supported combinations depend on the metric.
+        :param _builtins.str metric: Semantic metric ID or custom metric name. Availability is validated by the API.
+        :param Sequence[_builtins.str] dimensions: Dimensions required by the unique aggregation.
+        :param _builtins.str filter: KQL filter. Syntax and metric dimensions are validated by the API.
+        :param _builtins.str normalize: Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+        :param _builtins.str per: Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+        """
+        pulumi.set(__self__, "aggregation", aggregation)
+        pulumi.set(__self__, "metric", metric)
+        if dimensions is not None:
+            pulumi.set(__self__, "dimensions", dimensions)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+        if normalize is not None:
+            pulumi.set(__self__, "normalize", normalize)
+        if per is not None:
+            pulumi.set(__self__, "per", per)
+
+    @_builtins.property
+    @pulumi.getter
+    def aggregation(self) -> _builtins.str:
+        """
+        Metric aggregation. Supported combinations depend on the metric.
+        """
+        return pulumi.get(self, "aggregation")
+
+    @_builtins.property
+    @pulumi.getter
+    def metric(self) -> _builtins.str:
+        """
+        Semantic metric ID or custom metric name. Availability is validated by the API.
+        """
+        return pulumi.get(self, "metric")
+
+    @_builtins.property
+    @pulumi.getter
+    def dimensions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Dimensions required by the unique aggregation.
+        """
+        return pulumi.get(self, "dimensions")
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        KQL filter. Syntax and metric dimensions are validated by the API.
+        """
+        return pulumi.get(self, "filter")
+
+    @_builtins.property
+    @pulumi.getter
+    def normalize(self) -> Optional[_builtins.str]:
+        """
+        Set to `percent` for percentage normalization. Only supported for count or sum; cannot be combined with per.
+        """
+        return pulumi.get(self, "normalize")
+
+    @_builtins.property
+    @pulumi.getter
+    def per(self) -> Optional[_builtins.str]:
+        """
+        Set to `second` for a per-second rate. Only supported for count or sum; cannot be combined with normalize.
+        """
+        return pulumi.get(self, "per")
+
+
+@pulumi.output_type
+class CustomMonitorNotificationSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "enableTeamOwnerNotifications":
+            suggest = "enable_team_owner_notifications"
+        elif key == "incidentIoRoutingKey":
+            suggest = "incident_io_routing_key"
+        elif key == "vercelNotificationsMinimumSeverityLevel":
+            suggest = "vercel_notifications_minimum_severity_level"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomMonitorNotificationSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomMonitorNotificationSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomMonitorNotificationSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enable_team_owner_notifications: Optional[_builtins.bool] = None,
+                 incident_io_routing_key: Optional[_builtins.str] = None,
+                 vercel_notifications_minimum_severity_level: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str vercel_notifications_minimum_severity_level: Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        if enable_team_owner_notifications is not None:
+            pulumi.set(__self__, "enable_team_owner_notifications", enable_team_owner_notifications)
+        if incident_io_routing_key is not None:
+            pulumi.set(__self__, "incident_io_routing_key", incident_io_routing_key)
+        if vercel_notifications_minimum_severity_level is not None:
+            pulumi.set(__self__, "vercel_notifications_minimum_severity_level", vercel_notifications_minimum_severity_level)
+
+    @_builtins.property
+    @pulumi.getter(name="enableTeamOwnerNotifications")
+    def enable_team_owner_notifications(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enable_team_owner_notifications")
+
+    @_builtins.property
+    @pulumi.getter(name="incidentIoRoutingKey")
+    def incident_io_routing_key(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "incident_io_routing_key")
+
+    @_builtins.property
+    @pulumi.getter(name="vercelNotificationsMinimumSeverityLevel")
+    def vercel_notifications_minimum_severity_level(self) -> Optional[_builtins.str]:
+        """
+        Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        return pulumi.get(self, "vercel_notifications_minimum_severity_level")
+
+
+@pulumi.output_type
+class CustomMonitorTrigger(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "standardDeviations":
+            suggest = "standard_deviations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomMonitorTrigger. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomMonitorTrigger.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomMonitorTrigger.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 output: _builtins.str,
+                 type: _builtins.str,
+                 minimum: Optional['outputs.CustomMonitorTriggerMinimum'] = None,
+                 operator: Optional[_builtins.str] = None,
+                 standard_deviations: Optional[_builtins.float] = None,
+                 threshold: Optional[_builtins.float] = None):
+        """
+        :param _builtins.str output: The query's single output alias.
+        :param _builtins.str type: The condition type: `threshold` or `anomaly`.
+        :param 'CustomMonitorTriggerMinimumArgs' minimum: Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+        :param _builtins.str operator: Required for threshold triggers; omitted for anomaly triggers.
+        :param _builtins.float standard_deviations: Required anomaly threshold in standard deviations, at least 0.1.
+        :param _builtins.float threshold: Required numeric threshold for threshold triggers. Zero is supported.
+        """
+        pulumi.set(__self__, "output", output)
+        pulumi.set(__self__, "type", type)
+        if minimum is not None:
+            pulumi.set(__self__, "minimum", minimum)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if standard_deviations is not None:
+            pulumi.set(__self__, "standard_deviations", standard_deviations)
+        if threshold is not None:
+            pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def output(self) -> _builtins.str:
+        """
+        The query's single output alias.
+        """
+        return pulumi.get(self, "output")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The condition type: `threshold` or `anomaly`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def minimum(self) -> Optional['outputs.CustomMonitorTriggerMinimum']:
+        """
+        Optional evaluation floor. Allowed for anomalies or ratio thresholds using `gt` or `gte`.
+        """
+        return pulumi.get(self, "minimum")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> Optional[_builtins.str]:
+        """
+        Required for threshold triggers; omitted for anomaly triggers.
+        """
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter(name="standardDeviations")
+    def standard_deviations(self) -> Optional[_builtins.float]:
+        """
+        Required anomaly threshold in standard deviations, at least 0.1.
+        """
+        return pulumi.get(self, "standard_deviations")
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> Optional[_builtins.float]:
+        """
+        Required numeric threshold for threshold triggers. Zero is supported.
+        """
+        return pulumi.get(self, "threshold")
+
+
+@pulumi.output_type
+class CustomMonitorTriggerMinimum(dict):
+    def __init__(__self__, *,
+                 output: _builtins.str,
+                 threshold: _builtins.float):
+        """
+        :param _builtins.str output: The primitive metric alias, or ratio numerator alias.
+        :param _builtins.float threshold: Non-negative floor below which the rule is not evaluated.
+        """
+        pulumi.set(__self__, "output", output)
+        pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def output(self) -> _builtins.str:
+        """
+        The primitive metric alias, or ratio numerator alias.
+        """
+        return pulumi.get(self, "output")
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> _builtins.float:
+        """
+        Non-negative floor below which the rule is not evaluated.
+        """
+        return pulumi.get(self, "threshold")
 
 
 @pulumi.output_type
@@ -2696,6 +3073,135 @@ class MicrofrontendGroupDefaultApp(dict):
 
 
 @pulumi.output_type
+class MonitorNotificationSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "enableTeamOwnerNotifications":
+            suggest = "enable_team_owner_notifications"
+        elif key == "incidentIoRoutingKey":
+            suggest = "incident_io_routing_key"
+        elif key == "vercelNotificationsMinimumSeverityLevel":
+            suggest = "vercel_notifications_minimum_severity_level"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MonitorNotificationSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MonitorNotificationSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MonitorNotificationSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enable_team_owner_notifications: Optional[_builtins.bool] = None,
+                 incident_io_routing_key: Optional[_builtins.str] = None,
+                 vercel_notifications_minimum_severity_level: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str vercel_notifications_minimum_severity_level: Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        if enable_team_owner_notifications is not None:
+            pulumi.set(__self__, "enable_team_owner_notifications", enable_team_owner_notifications)
+        if incident_io_routing_key is not None:
+            pulumi.set(__self__, "incident_io_routing_key", incident_io_routing_key)
+        if vercel_notifications_minimum_severity_level is not None:
+            pulumi.set(__self__, "vercel_notifications_minimum_severity_level", vercel_notifications_minimum_severity_level)
+
+    @_builtins.property
+    @pulumi.getter(name="enableTeamOwnerNotifications")
+    def enable_team_owner_notifications(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enable_team_owner_notifications")
+
+    @_builtins.property
+    @pulumi.getter(name="incidentIoRoutingKey")
+    def incident_io_routing_key(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "incident_io_routing_key")
+
+    @_builtins.property
+    @pulumi.getter(name="vercelNotificationsMinimumSeverityLevel")
+    def vercel_notifications_minimum_severity_level(self) -> Optional[_builtins.str]:
+        """
+        Set to `critical` to send Vercel notifications only for alerts classified as Critical. Omit to send Vercel notifications for every severity.
+        """
+        return pulumi.get(self, "vercel_notifications_minimum_severity_level")
+
+
+@pulumi.output_type
+class MonitorRuleScope(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectIds":
+            suggest = "project_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MonitorRuleScope. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MonitorRuleScope.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MonitorRuleScope.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 project_ids: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param Sequence[_builtins.str] project_ids: The project IDs included in or excluded from a built-in rule.
+        """
+        pulumi.set(__self__, "type", type)
+        if project_ids is not None:
+            pulumi.set(__self__, "project_ids", project_ids)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="projectIds")
+    def project_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        The project IDs included in or excluded from a built-in rule.
+        """
+        return pulumi.get(self, "project_ids")
+
+
+@pulumi.output_type
+class MonitorTrigger(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 filter: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The built-in anomaly trigger type.
+        :param _builtins.str filter: A KQL filter for `error_anomaly` or `usage_anomaly`. See the trigger filter documentation above for supported fields and values.
+        """
+        pulumi.set(__self__, "type", type)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The built-in anomaly trigger type.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        A KQL filter for `error_anomaly` or `usage_anomaly`. See the trigger filter documentation above for supported fields and values.
+        """
+        return pulumi.get(self, "filter")
+
+
+@pulumi.output_type
 class NetworkTimeouts(dict):
     def __init__(__self__, *,
                  create: Optional[_builtins.str] = None):
@@ -2817,6 +3323,8 @@ class ProjectDeploymentCheckSource(dict):
             suggest = "external_check_name"
         elif key == "externalResourceId":
             suggest = "external_resource_id"
+        elif key == "subKind":
+            suggest = "sub_kind"
         elif key == "webhookId":
             suggest = "webhook_id"
 
@@ -2835,13 +3343,19 @@ class ProjectDeploymentCheckSource(dict):
                  kind: _builtins.str,
                  external_check_name: Optional[_builtins.str] = None,
                  external_resource_id: Optional[_builtins.str] = None,
+                 origin: Optional[_builtins.str] = None,
                  provider: Optional[_builtins.str] = None,
+                 selection: Optional['outputs.ProjectDeploymentCheckSourceSelection'] = None,
+                 sub_kind: Optional[_builtins.str] = None,
                  webhook_id: Optional[_builtins.str] = None):
         """
-        :param _builtins.str kind: The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+        :param _builtins.str kind: The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
         :param _builtins.str external_check_name: The external check name. Required for a `git-provider` source.
         :param _builtins.str external_resource_id: An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
+        :param _builtins.str origin: The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
         :param _builtins.str provider: The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
+        :param 'ProjectDeploymentCheckSourceSelectionArgs' selection: Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+        :param _builtins.str sub_kind: The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
         :param _builtins.str webhook_id: The webhook ID for a `webhook` source.
         """
         pulumi.set(__self__, "kind", kind)
@@ -2849,8 +3363,14 @@ class ProjectDeploymentCheckSource(dict):
             pulumi.set(__self__, "external_check_name", external_check_name)
         if external_resource_id is not None:
             pulumi.set(__self__, "external_resource_id", external_resource_id)
+        if origin is not None:
+            pulumi.set(__self__, "origin", origin)
         if provider is not None:
             pulumi.set(__self__, "provider", provider)
+        if selection is not None:
+            pulumi.set(__self__, "selection", selection)
+        if sub_kind is not None:
+            pulumi.set(__self__, "sub_kind", sub_kind)
         if webhook_id is not None:
             pulumi.set(__self__, "webhook_id", webhook_id)
 
@@ -2858,7 +3378,7 @@ class ProjectDeploymentCheckSource(dict):
     @pulumi.getter
     def kind(self) -> _builtins.str:
         """
-        The source kind. New checks support `git-provider`, `integration`, and `webhook`; `vercel` is response-only.
+        The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
         """
         return pulumi.get(self, "kind")
 
@@ -2880,11 +3400,35 @@ class ProjectDeploymentCheckSource(dict):
 
     @_builtins.property
     @pulumi.getter
+    def origin(self) -> Optional[_builtins.str]:
+        """
+        The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+        """
+        return pulumi.get(self, "origin")
+
+    @_builtins.property
+    @pulumi.getter
     def provider(self) -> Optional[_builtins.str]:
         """
         The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
         """
         return pulumi.get(self, "provider")
+
+    @_builtins.property
+    @pulumi.getter
+    def selection(self) -> Optional['outputs.ProjectDeploymentCheckSourceSelection']:
+        """
+        Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
+        """
+        return pulumi.get(self, "selection")
+
+    @_builtins.property
+    @pulumi.getter(name="subKind")
+    def sub_kind(self) -> Optional[_builtins.str]:
+        """
+        The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+        """
+        return pulumi.get(self, "sub_kind")
 
     @_builtins.property
     @pulumi.getter(name="webhookId")
@@ -2893,6 +3437,77 @@ class ProjectDeploymentCheckSource(dict):
         The webhook ID for a `webhook` source.
         """
         return pulumi.get(self, "webhook_id")
+
+
+@pulumi.output_type
+class ProjectDeploymentCheckSourceSelection(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failIfNoMatch":
+            suggest = "fail_if_no_match"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectDeploymentCheckSourceSelection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectDeploymentCheckSourceSelection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectDeploymentCheckSourceSelection.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 kind: _builtins.str,
+                 fail_if_no_match: Optional[_builtins.bool] = None,
+                 filters: Optional[Sequence[_builtins.str]] = None,
+                 task: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str kind: The selection kind: `deployment` or `turborepo`.
+        :param _builtins.bool fail_if_no_match: Whether the check fails when no Turborepo task matches the selection.
+        :param Sequence[_builtins.str] filters: Turborepo package filters used to select task runs.
+        :param _builtins.str task: The Turborepo task name.
+        """
+        pulumi.set(__self__, "kind", kind)
+        if fail_if_no_match is not None:
+            pulumi.set(__self__, "fail_if_no_match", fail_if_no_match)
+        if filters is not None:
+            pulumi.set(__self__, "filters", filters)
+        if task is not None:
+            pulumi.set(__self__, "task", task)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> _builtins.str:
+        """
+        The selection kind: `deployment` or `turborepo`.
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter(name="failIfNoMatch")
+    def fail_if_no_match(self) -> Optional[_builtins.bool]:
+        """
+        Whether the check fails when no Turborepo task matches the selection.
+        """
+        return pulumi.get(self, "fail_if_no_match")
+
+    @_builtins.property
+    @pulumi.getter
+    def filters(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Turborepo package filters used to select task runs.
+        """
+        return pulumi.get(self, "filters")
+
+    @_builtins.property
+    @pulumi.getter
+    def task(self) -> Optional[_builtins.str]:
+        """
+        The Turborepo task name.
+        """
+        return pulumi.get(self, "task")
 
 
 @pulumi.output_type

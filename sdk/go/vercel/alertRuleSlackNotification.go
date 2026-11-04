@@ -14,6 +14,29 @@ import (
 
 // Manages a link between a Vercel alert rule and one Slack channel.
 //
+// > **Deprecated** Alert rules were renamed to monitors. Use `MonitorSlackNotification` instead. This resource will be removed in a future major version of this provider.
+//
+// To migrate without recreating the resource, replace it with `MonitorSlackNotification` and add a `moved` block, for example:
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// Rename the `alertRuleId` argument to `monitorId`.
+//
 // ## Example Usage
 //
 // ```go

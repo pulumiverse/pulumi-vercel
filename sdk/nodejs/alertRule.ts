@@ -9,6 +9,14 @@ import * as utilities from "./utilities";
 /**
  * Creates a built-in Vercel alert rule using the Alerts v3 API. Built-in rules select anomaly triggers across a team scope. Notification destination links are managed with the `vercel.AlertRuleSlackNotification` and `vercel.AlertRuleWebhookNotification` resources.
  *
+ * > **Deprecated** Alert rules were renamed to monitors. Use `vercel.Monitor` instead. This resource will be removed in a future major version of this provider.
+ *
+ * To migrate without recreating the resource, replace it with `vercel.Monitor` and add a `moved` block, for example:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * ```
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -137,7 +145,7 @@ export class AlertRule extends pulumi.CustomResource {
      */
     declare public readonly ruleScope: pulumi.Output<outputs.AlertRuleRuleScope>;
     /**
-     * Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      */
     declare public readonly tags: pulumi.Output<string[] | undefined>;
     /**
@@ -244,7 +252,7 @@ export interface AlertRuleState {
      */
     ruleScope?: pulumi.Input<inputs.AlertRuleRuleScope>;
     /**
-     * Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -290,7 +298,7 @@ export interface AlertRuleArgs {
      */
     ruleScope: pulumi.Input<inputs.AlertRuleRuleScope>;
     /**
-     * Up to 10 unique tags used to organize the rule. Removing all tags clears them.
+     * Up to 10 unique tags used to organize the rule. The provider adds `terraform-provider-vercel` when fewer than 10 user tags are configured. The provider-owned tag is hidden from Terraform state unless configured explicitly. Removing all user tags leaves only the provider-owned tag on the rule.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
