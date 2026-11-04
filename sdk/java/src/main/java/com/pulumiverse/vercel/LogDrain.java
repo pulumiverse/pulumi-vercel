@@ -11,6 +11,7 @@ import com.pulumiverse.vercel.LogDrainArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.LogDrainState;
 import java.lang.Double;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -26,60 +27,9 @@ import javax.annotation.Nullable;
  * 
  * Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel&#39;s log drains.
  * 
+ * &gt; **Note:** Write-Only argument `secretWo` is available in place of `secret` to keep the signing secret out of Terraform state. Use an ephemeral input to also keep the value out of saved plan configuration. Write-Only arguments require HashiCorp Terraform 1.11.0 or later.
+ * 
  * &gt; Only Pro and Enterprise teams can create Configurable Log Drains.
- * 
- * ## Example Usage
- * 
- * <pre>
- * {@code
- * package generated_program;
- * 
- * import com.pulumi.Context;
- * import com.pulumi.Pulumi;
- * import com.pulumi.core.Output;
- * import com.pulumi.vercel.VercelFunctions;
- * import com.pulumi.vercel.inputs.GetEndpointVerificationArgs;
- * import com.pulumiverse.vercel.Project;
- * import com.pulumiverse.vercel.ProjectArgs;
- * import com.pulumiverse.vercel.LogDrain;
- * import com.pulumiverse.vercel.LogDrainArgs;
- * import java.util.List;
- * import java.util.ArrayList;
- * import java.util.Map;
- * import java.io.File;
- * import java.nio.file.Files;
- * import java.nio.file.Paths;
- * 
- * public class App {
- *     public static void main(String[] args) {
- *         Pulumi.run(App::stack);
- *     }
- * 
- *     public static void stack(Context ctx) {
- *         // Use the vercel_endpoint_verification data source to work out the verification code needed to
- *         // verify the log drain endpoint.
- *         final var example = VercelFunctions.getEndpointVerification(GetEndpointVerificationArgs.builder()
- *             .build());
- * 
- *         var exampleProject = new Project("exampleProject", ProjectArgs.builder()
- *             .name("example")
- *             .build());
- * 
- *         var exampleLogDrain = new LogDrain("exampleLogDrain", LogDrainArgs.builder()
- *             .deliveryFormat("json")
- *             .environments("production")
- *             .headers(Map.of("some-key", "some-value"))
- *             .projectIds(exampleProject.id())
- *             .samplingRate(0.8)
- *             .secret("a_very_long_and_very_well_specified_secret")
- *             .sources("static")
- *             .endpoint("https://example.com/my-log-drain-endpoint")
- *             .build());
- * 
- *     }
- * }
- * }
- * </pre>
  * 
  * ## Import
  * 
@@ -93,12 +43,20 @@ import javax.annotation.Nullable;
  * $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
  * ```
  * 
- * Alternatively, you can import via the teamId and edge_config_id.
+ * Alternatively, you can import via the teamId and log_drain_id.
  * - teamId can be found in the team `settings` tab in the Vercel UI.
  * - logDrainId can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
  * 
  * ```sh
  * $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ * 
+ * Prefix either import format with &#34;write-only:&#34; to omit the existing signing
+ * secret from Terraform state. Configure secretWo after import. To replace the
+ * drain with that secret, also configure secretWoVersion or use -replace.
+ * 
+ * ```sh
+ * $ pulumi import vercel:index/logDrain:LogDrain example write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
  * ```
  * 
  */
@@ -203,18 +161,48 @@ public class LogDrain extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.samplingRate);
     }
     /**
-     * A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      * 
      */
     @Export(name="secret", refs={String.class}, tree="[0]")
     private Output<String> secret;
 
     /**
-     * @return A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * @return A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      * 
      */
     public Output<String> secret() {
         return this.secret;
+    }
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     * 
+     */
+    @Export(name="secretWo", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> secretWo;
+
+    /**
+     * @return **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     * 
+     */
+    public Output<Optional<String>> secretWo() {
+        return Codegen.optional(this.secretWo);
+    }
+    /**
+     * An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     * 
+     */
+    @Export(name="secretWoVersion", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> secretWoVersion;
+
+    /**
+     * @return An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     * 
+     */
+    public Output<Optional<Integer>> secretWoVersion() {
+        return Codegen.optional(this.secretWoVersion);
     }
     /**
      * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
@@ -287,7 +275,8 @@ public class LogDrain extends com.pulumi.resources.CustomResource {
             .pluginDownloadURL("github://api.github.com/pulumiverse")
             .additionalSecretOutputs(List.of(
                 "headers",
-                "secret"
+                "secret",
+                "secretWo"
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

@@ -4,6 +4,8 @@
 package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsAiBotsAiAssistants;
+import com.pulumiverse.vercel.outputs.FirewallConfigManagedRulesetsAiBotsAiCrawlers;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -12,15 +14,55 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class FirewallConfigManagedRulesetsAiBots {
+    /**
+     * @return Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+     * 
+     * @deprecated
+     * Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+     * 
+     */
+    @Deprecated /* Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories. */
     private @Nullable String action;
     private @Nullable Boolean active;
+    /**
+     * @return AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    private @Nullable FirewallConfigManagedRulesetsAiBotsAiAssistants aiAssistants;
+    /**
+     * @return AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    private @Nullable FirewallConfigManagedRulesetsAiBotsAiCrawlers aiCrawlers;
 
     private FirewallConfigManagedRulesetsAiBots() {}
+    /**
+     * @return Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+     * 
+     * @deprecated
+     * Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+     * 
+     */
+    @Deprecated /* Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories. */
     public Optional<String> action() {
         return Optional.ofNullable(this.action);
     }
     public Optional<Boolean> active() {
         return Optional.ofNullable(this.active);
+    }
+    /**
+     * @return AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    public Optional<FirewallConfigManagedRulesetsAiBotsAiAssistants> aiAssistants() {
+        return Optional.ofNullable(this.aiAssistants);
+    }
+    /**
+     * @return AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    public Optional<FirewallConfigManagedRulesetsAiBotsAiCrawlers> aiCrawlers() {
+        return Optional.ofNullable(this.aiCrawlers);
     }
 
     public static Builder builder() {
@@ -34,11 +76,15 @@ public final class FirewallConfigManagedRulesetsAiBots {
     public static final class Builder {
         private @Nullable String action;
         private @Nullable Boolean active;
+        private @Nullable FirewallConfigManagedRulesetsAiBotsAiAssistants aiAssistants;
+        private @Nullable FirewallConfigManagedRulesetsAiBotsAiCrawlers aiCrawlers;
         public Builder() {}
         public Builder(FirewallConfigManagedRulesetsAiBots defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.action = defaults.action;
     	      this.active = defaults.active;
+    	      this.aiAssistants = defaults.aiAssistants;
+    	      this.aiCrawlers = defaults.aiCrawlers;
         }
 
         @CustomType.Setter
@@ -53,10 +99,24 @@ public final class FirewallConfigManagedRulesetsAiBots {
             this.active = active;
             return this;
         }
+        @CustomType.Setter
+        public Builder aiAssistants(@Nullable FirewallConfigManagedRulesetsAiBotsAiAssistants aiAssistants) {
+
+            this.aiAssistants = aiAssistants;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder aiCrawlers(@Nullable FirewallConfigManagedRulesetsAiBotsAiCrawlers aiCrawlers) {
+
+            this.aiCrawlers = aiCrawlers;
+            return this;
+        }
         public FirewallConfigManagedRulesetsAiBots build() {
             final var _resultValue = new FirewallConfigManagedRulesetsAiBots();
             _resultValue.action = action;
             _resultValue.active = active;
+            _resultValue.aiAssistants = aiAssistants;
+            _resultValue.aiCrawlers = aiCrawlers;
             return _resultValue;
         }
     }

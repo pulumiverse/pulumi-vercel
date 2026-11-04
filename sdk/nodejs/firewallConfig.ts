@@ -202,8 +202,13 @@ import * as utilities from "./utilities";
  *             active: true,
  *         },
  *         aiBots: {
- *             action: "log",
  *             active: true,
+ *             aiCrawlers: {
+ *                 action: "deny",
+ *             },
+ *             aiAssistants: {
+ *                 action: "log",
+ *             },
  *         },
  *     },
  * });

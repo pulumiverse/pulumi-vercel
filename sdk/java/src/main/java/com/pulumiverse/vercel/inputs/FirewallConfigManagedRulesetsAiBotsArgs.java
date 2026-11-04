@@ -5,6 +5,8 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs;
+import com.pulumiverse.vercel.inputs.FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -16,9 +18,25 @@ public final class FirewallConfigManagedRulesetsAiBotsArgs extends com.pulumi.re
 
     public static final FirewallConfigManagedRulesetsAiBotsArgs Empty = new FirewallConfigManagedRulesetsAiBotsArgs();
 
+    /**
+     * Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+     * 
+     * @deprecated
+     * Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+     * 
+     */
+    @Deprecated /* Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories. */
     @Import(name="action")
     private @Nullable Output<String> action;
 
+    /**
+     * @return Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+     * 
+     * @deprecated
+     * Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+     * 
+     */
+    @Deprecated /* Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories. */
     public Optional<Output<String>> action() {
         return Optional.ofNullable(this.action);
     }
@@ -30,11 +48,43 @@ public final class FirewallConfigManagedRulesetsAiBotsArgs extends com.pulumi.re
         return Optional.ofNullable(this.active);
     }
 
+    /**
+     * AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    @Import(name="aiAssistants")
+    private @Nullable Output<FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs> aiAssistants;
+
+    /**
+     * @return AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    public Optional<Output<FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs>> aiAssistants() {
+        return Optional.ofNullable(this.aiAssistants);
+    }
+
+    /**
+     * AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    @Import(name="aiCrawlers")
+    private @Nullable Output<FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs> aiCrawlers;
+
+    /**
+     * @return AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+     * 
+     */
+    public Optional<Output<FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs>> aiCrawlers() {
+        return Optional.ofNullable(this.aiCrawlers);
+    }
+
     private FirewallConfigManagedRulesetsAiBotsArgs() {}
 
     private FirewallConfigManagedRulesetsAiBotsArgs(FirewallConfigManagedRulesetsAiBotsArgs $) {
         this.action = $.action;
         this.active = $.active;
+        this.aiAssistants = $.aiAssistants;
+        this.aiCrawlers = $.aiCrawlers;
     }
 
     public static Builder builder() {
@@ -55,11 +105,31 @@ public final class FirewallConfigManagedRulesetsAiBotsArgs extends com.pulumi.re
             $ = new FirewallConfigManagedRulesetsAiBotsArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param action Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+         * 
+         * @return builder
+         * 
+         * @deprecated
+         * Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+         * 
+         */
+        @Deprecated /* Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories. */
         public Builder action(@Nullable Output<String> action) {
             $.action = action;
             return this;
         }
 
+        /**
+         * @param action Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+         * 
+         * @return builder
+         * 
+         * @deprecated
+         * Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+         * 
+         */
+        @Deprecated /* Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories. */
         public Builder action(String action) {
             return action(Output.of(action));
         }
@@ -71,6 +141,48 @@ public final class FirewallConfigManagedRulesetsAiBotsArgs extends com.pulumi.re
 
         public Builder active(Boolean active) {
             return active(Output.of(active));
+        }
+
+        /**
+         * @param aiAssistants AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder aiAssistants(@Nullable Output<FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs> aiAssistants) {
+            $.aiAssistants = aiAssistants;
+            return this;
+        }
+
+        /**
+         * @param aiAssistants AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder aiAssistants(FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs aiAssistants) {
+            return aiAssistants(Output.of(aiAssistants));
+        }
+
+        /**
+         * @param aiCrawlers AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder aiCrawlers(@Nullable Output<FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs> aiCrawlers) {
+            $.aiCrawlers = aiCrawlers;
+            return this;
+        }
+
+        /**
+         * @param aiCrawlers AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder aiCrawlers(FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs aiCrawlers) {
+            return aiCrawlers(Output.of(aiCrawlers));
         }
 
         public FirewallConfigManagedRulesetsAiBotsArgs build() {

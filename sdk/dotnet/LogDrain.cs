@@ -19,53 +19,9 @@ namespace Pulumiverse.Vercel
     /// 
     /// Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
     /// 
+    /// &gt; **Note:** Write-Only argument `SecretWo` is available in place of `Secret` to keep the signing secret out of Terraform state. Use an ephemeral input to also keep the value out of saved plan configuration. Write-Only arguments require HashiCorp Terraform 1.11.0 or later.
+    /// 
     /// &gt; Only Pro and Enterprise teams can create Configurable Log Drains.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Vercel = Pulumiverse.Vercel;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // Use the vercel_endpoint_verification data source to work out the verification code needed to
-    ///     // verify the log drain endpoint.
-    ///     var example = Vercel.GetEndpointVerification.Invoke();
-    /// 
-    ///     var exampleProject = new Vercel.Project("example", new()
-    ///     {
-    ///         Name = "example",
-    ///     });
-    /// 
-    ///     var exampleLogDrain = new Vercel.LogDrain("example", new()
-    ///     {
-    ///         DeliveryFormat = "json",
-    ///         Environments = new[]
-    ///         {
-    ///             "production",
-    ///         },
-    ///         Headers = 
-    ///         {
-    ///             { "some-key", "some-value" },
-    ///         },
-    ///         ProjectIds = new[]
-    ///         {
-    ///             exampleProject.Id,
-    ///         },
-    ///         SamplingRate = 0.8,
-    ///         Secret = "a_very_long_and_very_well_specified_secret",
-    ///         Sources = new[]
-    ///         {
-    ///             "static",
-    ///         },
-    ///         Endpoint = "https://example.com/my-log-drain-endpoint",
-    ///     });
-    /// 
-    /// });
-    /// ```
     /// 
     /// ## Import
     /// 
@@ -79,12 +35,20 @@ namespace Pulumiverse.Vercel
     /// $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     /// ```
     /// 
-    /// Alternatively, you can import via the TeamId and edge_config_id.
+    /// Alternatively, you can import via the TeamId and log_drain_id.
     /// - TeamId can be found in the team `Settings` tab in the Vercel UI.
     /// - LogDrainId can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
     /// 
     /// ```sh
     /// $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /// ```
+    /// 
+    /// Prefix either import format with "write-only:" to omit the existing signing
+    /// secret from Terraform state. Configure SecretWo after import. To replace the
+    /// drain with that secret, also configure SecretWoVersion or use -replace.
+    /// 
+    /// ```sh
+    /// $ pulumi import vercel:index/logDrain:LogDrain example write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     /// ```
     /// </summary>
     [VercelResourceType("vercel:index/logDrain:LogDrain")]
@@ -133,10 +97,23 @@ namespace Pulumiverse.Vercel
         public Output<double?> SamplingRate { get; private set; } = null!;
 
         /// <summary>
-        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        /// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `SecretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         /// </summary>
         [Output("secret")]
         public Output<string> Secret { get; private set; } = null!;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        /// </summary>
+        [Output("secretWo")]
+        public Output<string?> SecretWo { get; private set; } = null!;
+
+        /// <summary>
+        /// An optional persisted, non-secret version used to rotate `SecretWo`. Incrementing this value replaces the Log Drain.
+        /// </summary>
+        [Output("secretWoVersion")]
+        public Output<int?> SecretWoVersion { get; private set; } = null!;
 
         /// <summary>
         /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda`, `Firewall`, and `Redirect`.
@@ -178,6 +155,7 @@ namespace Pulumiverse.Vercel
                 {
                     "headers",
                     "secret",
+                    "secretWo",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -270,7 +248,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _secret;
 
         /// <summary>
-        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        /// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `SecretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         /// </summary>
         public Input<string>? Secret
         {
@@ -281,6 +259,29 @@ namespace Pulumiverse.Vercel
                 _secret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        [Input("secretWo")]
+        private Input<string>? _secretWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        /// </summary>
+        public Input<string>? SecretWo
+        {
+            get => _secretWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _secretWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// An optional persisted, non-secret version used to rotate `SecretWo`. Incrementing this value replaces the Log Drain.
+        /// </summary>
+        [Input("secretWoVersion")]
+        public Input<int>? SecretWoVersion { get; set; }
 
         [Input("sources", required: true)]
         private InputList<string>? _sources;
@@ -376,7 +377,7 @@ namespace Pulumiverse.Vercel
         private Input<string>? _secret;
 
         /// <summary>
-        /// A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        /// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `SecretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         /// </summary>
         public Input<string>? Secret
         {
@@ -387,6 +388,29 @@ namespace Pulumiverse.Vercel
                 _secret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        [Input("secretWo")]
+        private Input<string>? _secretWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        /// </summary>
+        public Input<string>? SecretWo
+        {
+            get => _secretWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _secretWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// An optional persisted, non-secret version used to rotate `SecretWo`. Incrementing this value replaces the Log Drain.
+        /// </summary>
+        [Input("secretWoVersion")]
+        public Input<int>? SecretWoVersion { get; set; }
 
         [Input("sources")]
         private InputList<string>? _sources;

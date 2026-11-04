@@ -73,6 +73,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EdgeConfigToken{}
 	case "vercel:index/featureFlagConfig:FeatureFlagConfig":
 		r = &FeatureFlagConfig{}
+	case "vercel:index/featureFlagConnection:FeatureFlagConnection":
+		r = &FeatureFlagConnection{}
 	case "vercel:index/featureFlagDefinition:FeatureFlagDefinition":
 		r = &FeatureFlagDefinition{}
 	case "vercel:index/featureFlagSdkKey:FeatureFlagSdkKey":
@@ -314,6 +316,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/featureFlagConfig",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/featureFlagConnection",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

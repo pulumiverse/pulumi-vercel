@@ -5218,7 +5218,7 @@ func (o FirewallConfigIpRulesRuleArrayOutput) Index(i pulumi.IntInput) FirewallC
 }
 
 type FirewallConfigManagedRulesets struct {
-	// Enable the ai*bots managed ruleset and select action
+	// Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
 	AiBots *FirewallConfigManagedRulesetsAiBots `pulumi:"aiBots"`
 	// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
 	//
@@ -5242,7 +5242,7 @@ type FirewallConfigManagedRulesetsInput interface {
 }
 
 type FirewallConfigManagedRulesetsArgs struct {
-	// Enable the ai*bots managed ruleset and select action
+	// Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
 	AiBots FirewallConfigManagedRulesetsAiBotsPtrInput `pulumi:"aiBots"`
 	// DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
 	//
@@ -5331,7 +5331,7 @@ func (o FirewallConfigManagedRulesetsOutput) ToFirewallConfigManagedRulesetsPtrO
 	}).(FirewallConfigManagedRulesetsPtrOutput)
 }
 
-// Enable the ai*bots managed ruleset and select action
+// Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
 func (o FirewallConfigManagedRulesetsOutput) AiBots() FirewallConfigManagedRulesetsAiBotsPtrOutput {
 	return o.ApplyT(func(v FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsAiBots { return v.AiBots }).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
 }
@@ -5379,7 +5379,7 @@ func (o FirewallConfigManagedRulesetsPtrOutput) Elem() FirewallConfigManagedRule
 	}).(FirewallConfigManagedRulesetsOutput)
 }
 
-// Enable the ai*bots managed ruleset and select action
+// Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
 func (o FirewallConfigManagedRulesetsPtrOutput) AiBots() FirewallConfigManagedRulesetsAiBotsPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesets) *FirewallConfigManagedRulesetsAiBots {
 		if v == nil {
@@ -5422,8 +5422,15 @@ func (o FirewallConfigManagedRulesetsPtrOutput) Owasp() FirewallConfigManagedRul
 }
 
 type FirewallConfigManagedRulesetsAiBots struct {
+	// Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+	//
+	// Deprecated: Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
 	Action *string `pulumi:"action"`
 	Active *bool   `pulumi:"active"`
+	// AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+	AiAssistants *FirewallConfigManagedRulesetsAiBotsAiAssistants `pulumi:"aiAssistants"`
+	// AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+	AiCrawlers *FirewallConfigManagedRulesetsAiBotsAiCrawlers `pulumi:"aiCrawlers"`
 }
 
 // FirewallConfigManagedRulesetsAiBotsInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsArgs and FirewallConfigManagedRulesetsAiBotsOutput values.
@@ -5438,8 +5445,15 @@ type FirewallConfigManagedRulesetsAiBotsInput interface {
 }
 
 type FirewallConfigManagedRulesetsAiBotsArgs struct {
+	// Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+	//
+	// Deprecated: Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
 	Action pulumi.StringPtrInput `pulumi:"action"`
 	Active pulumi.BoolPtrInput   `pulumi:"active"`
+	// AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+	AiAssistants FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrInput `pulumi:"aiAssistants"`
+	// AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+	AiCrawlers FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrInput `pulumi:"aiCrawlers"`
 }
 
 func (FirewallConfigManagedRulesetsAiBotsArgs) ElementType() reflect.Type {
@@ -5519,12 +5533,29 @@ func (o FirewallConfigManagedRulesetsAiBotsOutput) ToFirewallConfigManagedRulese
 	}).(FirewallConfigManagedRulesetsAiBotsPtrOutput)
 }
 
+// Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+//
+// Deprecated: Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
 func (o FirewallConfigManagedRulesetsAiBotsOutput) Action() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBots) *string { return v.Action }).(pulumi.StringPtrOutput)
 }
 
 func (o FirewallConfigManagedRulesetsAiBotsOutput) Active() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBots) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+// AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+func (o FirewallConfigManagedRulesetsAiBotsOutput) AiAssistants() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBots) *FirewallConfigManagedRulesetsAiBotsAiAssistants {
+		return v.AiAssistants
+	}).(FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput)
+}
+
+// AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+func (o FirewallConfigManagedRulesetsAiBotsOutput) AiCrawlers() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBots) *FirewallConfigManagedRulesetsAiBotsAiCrawlers {
+		return v.AiCrawlers
+	}).(FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput)
 }
 
 type FirewallConfigManagedRulesetsAiBotsPtrOutput struct{ *pulumi.OutputState }
@@ -5551,6 +5582,9 @@ func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Elem() FirewallConfigManag
 	}).(FirewallConfigManagedRulesetsAiBotsOutput)
 }
 
+// Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+//
+// Deprecated: Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
 func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Action() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) *string {
 		if v == nil {
@@ -5562,6 +5596,338 @@ func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Action() pulumi.StringPtrO
 
 func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) Active() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+// AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) AiAssistants() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) *FirewallConfigManagedRulesetsAiBotsAiAssistants {
+		if v == nil {
+			return nil
+		}
+		return v.AiAssistants
+	}).(FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput)
+}
+
+// AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+func (o FirewallConfigManagedRulesetsAiBotsPtrOutput) AiCrawlers() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBots) *FirewallConfigManagedRulesetsAiBotsAiCrawlers {
+		if v == nil {
+			return nil
+		}
+		return v.AiCrawlers
+	}).(FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiAssistants struct {
+	// Action for this category. Either log or deny.
+	Action string `pulumi:"action"`
+	// Whether this category is active. Set to false to allow this category. Defaults to true.
+	Active *bool `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsAiBotsAiAssistantsInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs and FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsAiBotsAiAssistantsInput` via:
+//
+//	FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs{...}
+type FirewallConfigManagedRulesetsAiBotsAiAssistantsInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput
+	ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutputWithContext(context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs struct {
+	// Action for this category. Either log or deny.
+	Action pulumi.StringInput `pulumi:"action"`
+	// Whether this category is active. Set to false to allow this category. Defaults to true.
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiAssistants)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput)
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput).ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs, FirewallConfigManagedRulesetsAiBotsAiAssistantsPtr and FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput
+	ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput
+}
+
+type firewallConfigManagedRulesetsAiBotsAiAssistantsPtrType FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs
+
+func FirewallConfigManagedRulesetsAiBotsAiAssistantsPtr(v *FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs) FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrInput {
+	return (*firewallConfigManagedRulesetsAiBotsAiAssistantsPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsAiBotsAiAssistantsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsAiBotsAiAssistants)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsAiBotsAiAssistantsPtrType) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsAiBotsAiAssistantsPtrType) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiAssistants)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsAiBotsAiAssistants) *FirewallConfigManagedRulesetsAiBotsAiAssistants {
+		return &v
+	}).(FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput)
+}
+
+// Action for this category. Either log or deny.
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBotsAiAssistants) string { return v.Action }).(pulumi.StringOutput)
+}
+
+// Whether this category is active. Set to false to allow this category. Defaults to true.
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBotsAiAssistants) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsAiBotsAiAssistants)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput() FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput) ToFirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput) Elem() FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBotsAiAssistants) FirewallConfigManagedRulesetsAiBotsAiAssistants {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsAiBotsAiAssistants
+		return ret
+	}).(FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput)
+}
+
+// Action for this category. Either log or deny.
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBotsAiAssistants) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether this category is active. Set to false to allow this category. Defaults to true.
+func (o FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBotsAiAssistants) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiCrawlers struct {
+	// Action for this category. Either log or deny.
+	Action string `pulumi:"action"`
+	// Whether this category is active. Set to false to allow this category. Defaults to true.
+	Active *bool `pulumi:"active"`
+}
+
+// FirewallConfigManagedRulesetsAiBotsAiCrawlersInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs and FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsAiBotsAiCrawlersInput` via:
+//
+//	FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs{...}
+type FirewallConfigManagedRulesetsAiBotsAiCrawlersInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput
+	ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutputWithContext(context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs struct {
+	// Action for this category. Either log or deny.
+	Action pulumi.StringInput `pulumi:"action"`
+	// Whether this category is active. Set to false to allow this category. Defaults to true.
+	Active pulumi.BoolPtrInput `pulumi:"active"`
+}
+
+func (FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiCrawlers)(nil)).Elem()
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput)
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(context.Background())
+}
+
+func (i FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput).ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(ctx)
+}
+
+// FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrInput is an input type that accepts FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs, FirewallConfigManagedRulesetsAiBotsAiCrawlersPtr and FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput values.
+// You can construct a concrete instance of `FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrInput` via:
+//
+//	        FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs{...}
+//
+//	or:
+//
+//	        nil
+type FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrInput interface {
+	pulumi.Input
+
+	ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput
+	ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput
+}
+
+type firewallConfigManagedRulesetsAiBotsAiCrawlersPtrType FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs
+
+func FirewallConfigManagedRulesetsAiBotsAiCrawlersPtr(v *FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs) FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrInput {
+	return (*firewallConfigManagedRulesetsAiBotsAiCrawlersPtrType)(v)
+}
+
+func (*firewallConfigManagedRulesetsAiBotsAiCrawlersPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsAiBotsAiCrawlers)(nil)).Elem()
+}
+
+func (i *firewallConfigManagedRulesetsAiBotsAiCrawlersPtrType) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return i.ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(context.Background())
+}
+
+func (i *firewallConfigManagedRulesetsAiBotsAiCrawlersPtrType) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiCrawlers)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return o.ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(context.Background())
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FirewallConfigManagedRulesetsAiBotsAiCrawlers) *FirewallConfigManagedRulesetsAiBotsAiCrawlers {
+		return &v
+	}).(FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput)
+}
+
+// Action for this category. Either log or deny.
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBotsAiCrawlers) string { return v.Action }).(pulumi.StringOutput)
+}
+
+// Whether this category is active. Set to false to allow this category. Defaults to true.
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FirewallConfigManagedRulesetsAiBotsAiCrawlers) *bool { return v.Active }).(pulumi.BoolPtrOutput)
+}
+
+type FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput struct{ *pulumi.OutputState }
+
+func (FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FirewallConfigManagedRulesetsAiBotsAiCrawlers)(nil)).Elem()
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput() FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput) ToFirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutputWithContext(ctx context.Context) FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput {
+	return o
+}
+
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput) Elem() FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBotsAiCrawlers) FirewallConfigManagedRulesetsAiBotsAiCrawlers {
+		if v != nil {
+			return *v
+		}
+		var ret FirewallConfigManagedRulesetsAiBotsAiCrawlers
+		return ret
+	}).(FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput)
+}
+
+// Action for this category. Either log or deny.
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBotsAiCrawlers) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Action
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether this category is active. Set to false to allow this category. Defaults to true.
+func (o FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput) Active() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallConfigManagedRulesetsAiBotsAiCrawlers) *bool {
 		if v == nil {
 			return nil
 		}
@@ -21011,6 +21377,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiAssistantsInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiCrawlersInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotFilterPtrInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigManagedRulesetsBotProtectionInput)(nil)).Elem(), FirewallConfigManagedRulesetsBotProtectionArgs{})
@@ -21293,6 +21663,10 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsAiAssistantsOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsAiAssistantsPtrOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsAiCrawlersOutput{})
+	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsAiBotsAiCrawlersPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotFilterPtrOutput{})
 	pulumi.RegisterOutputType(FirewallConfigManagedRulesetsBotProtectionOutput{})

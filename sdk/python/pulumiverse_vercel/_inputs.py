@@ -81,6 +81,10 @@ __all__ = [
     'FirewallConfigManagedRulesetsArgsDict',
     'FirewallConfigManagedRulesetsAiBotsArgs',
     'FirewallConfigManagedRulesetsAiBotsArgsDict',
+    'FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs',
+    'FirewallConfigManagedRulesetsAiBotsAiAssistantsArgsDict',
+    'FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs',
+    'FirewallConfigManagedRulesetsAiBotsAiCrawlersArgsDict',
     'FirewallConfigManagedRulesetsBotFilterArgs',
     'FirewallConfigManagedRulesetsBotFilterArgsDict',
     'FirewallConfigManagedRulesetsBotProtectionArgs',
@@ -2674,7 +2678,7 @@ class FirewallConfigIpRulesRuleArgs:
 class FirewallConfigManagedRulesetsArgsDict(TypedDict):
     ai_bots: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgsDict']]
     """
-    Enable the ai*bots managed ruleset and select action
+    Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
     """
     bot_filter: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgsDict']]
     """
@@ -2697,7 +2701,7 @@ class FirewallConfigManagedRulesetsArgs:
                  bot_protection: Optional[pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgs']] = None,
                  owasp: Optional[pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs']] = None):
         """
-        :param pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs'] ai_bots: Enable the ai*bots managed ruleset and select action
+        :param pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs'] ai_bots: Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
         :param pulumi.Input['FirewallConfigManagedRulesetsBotFilterArgs'] bot_filter: DEPRECATED: Use bot*protection instead. This block will be removed in a future release.
         :param pulumi.Input['FirewallConfigManagedRulesetsBotProtectionArgs'] bot_protection: Enable the bot*protection managed ruleset and select action
         :param pulumi.Input['FirewallConfigManagedRulesetsOwaspArgs'] owasp: Enable the owasp managed rulesets and select ruleset behaviors
@@ -2718,7 +2722,7 @@ class FirewallConfigManagedRulesetsArgs:
     @pulumi.getter(name="aiBots")
     def ai_bots(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsArgs']]:
         """
-        Enable the ai*bots managed ruleset and select action
+        Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
         """
         return pulumi.get(self, "ai_bots")
 
@@ -2766,21 +2770,50 @@ class FirewallConfigManagedRulesetsArgs:
 
 class FirewallConfigManagedRulesetsAiBotsArgsDict(TypedDict):
     action: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+    """
     active: NotRequired[pulumi.Input[_builtins.bool]]
+    ai_assistants: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiAssistantsArgsDict']]
+    """
+    AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+    """
+    ai_crawlers: NotRequired[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiCrawlersArgsDict']]
+    """
+    AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+    """
 
 @pulumi.input_type
 class FirewallConfigManagedRulesetsAiBotsArgs:
     def __init__(__self__, *,
                  action: Optional[pulumi.Input[_builtins.str]] = None,
-                 active: Optional[pulumi.Input[_builtins.bool]] = None):
+                 active: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ai_assistants: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs']] = None,
+                 ai_crawlers: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs']] = None):
+        """
+        :param pulumi.Input[_builtins.str] action: Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+        :param pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs'] ai_assistants: AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+        :param pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs'] ai_crawlers: AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+        """
+        if action is not None:
+            warnings.warn("""Use ai_crawlers and ai_assistants rule groups instead. Remove action when migrating to those categories.""", DeprecationWarning)
+            pulumi.log.warn("""action is deprecated: Use ai_crawlers and ai_assistants rule groups instead. Remove action when migrating to those categories.""")
         if action is not None:
             pulumi.set(__self__, "action", action)
         if active is not None:
             pulumi.set(__self__, "active", active)
+        if ai_assistants is not None:
+            pulumi.set(__self__, "ai_assistants", ai_assistants)
+        if ai_crawlers is not None:
+            pulumi.set(__self__, "ai_crawlers", ai_crawlers)
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""Use ai_crawlers and ai_assistants rule groups instead. Remove action when migrating to those categories.""")
     def action(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+        """
         return pulumi.get(self, "action")
 
     @action.setter
@@ -2790,6 +2823,126 @@ class FirewallConfigManagedRulesetsAiBotsArgs:
     @_builtins.property
     @pulumi.getter
     def active(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        return pulumi.get(self, "active")
+
+    @active.setter
+    def active(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "active", value)
+
+    @_builtins.property
+    @pulumi.getter(name="aiAssistants")
+    def ai_assistants(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs']]:
+        """
+        AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+        """
+        return pulumi.get(self, "ai_assistants")
+
+    @ai_assistants.setter
+    def ai_assistants(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs']]):
+        pulumi.set(self, "ai_assistants", value)
+
+    @_builtins.property
+    @pulumi.getter(name="aiCrawlers")
+    def ai_crawlers(self) -> Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs']]:
+        """
+        AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+        """
+        return pulumi.get(self, "ai_crawlers")
+
+    @ai_crawlers.setter
+    def ai_crawlers(self, value: Optional[pulumi.Input['FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs']]):
+        pulumi.set(self, "ai_crawlers", value)
+
+
+class FirewallConfigManagedRulesetsAiBotsAiAssistantsArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    """
+    Action for this category. Either log or deny.
+    """
+    active: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether this category is active. Set to false to allow this category. Defaults to true.
+    """
+
+@pulumi.input_type
+class FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[_builtins.str],
+                 active: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] action: Action for this category. Either log or deny.
+        :param pulumi.Input[_builtins.bool] active: Whether this category is active. Set to false to allow this category. Defaults to true.
+        """
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[_builtins.str]:
+        """
+        Action for this category. Either log or deny.
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def active(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether this category is active. Set to false to allow this category. Defaults to true.
+        """
+        return pulumi.get(self, "active")
+
+    @active.setter
+    def active(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "active", value)
+
+
+class FirewallConfigManagedRulesetsAiBotsAiCrawlersArgsDict(TypedDict):
+    action: pulumi.Input[_builtins.str]
+    """
+    Action for this category. Either log or deny.
+    """
+    active: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether this category is active. Set to false to allow this category. Defaults to true.
+    """
+
+@pulumi.input_type
+class FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[_builtins.str],
+                 active: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] action: Action for this category. Either log or deny.
+        :param pulumi.Input[_builtins.bool] active: Whether this category is active. Set to false to allow this category. Defaults to true.
+        """
+        pulumi.set(__self__, "action", action)
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[_builtins.str]:
+        """
+        Action for this category. Either log or deny.
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def active(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether this category is active. Set to false to allow this category. Defaults to true.
+        """
         return pulumi.get(self, "active")
 
     @active.setter

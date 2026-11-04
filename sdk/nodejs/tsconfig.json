@@ -41,6 +41,7 @@
         "edgeConfigSchema.ts",
         "edgeConfigToken.ts",
         "featureFlagConfig.ts",
+        "featureFlagConnection.ts",
         "featureFlagDefinition.ts",
         "featureFlagSdkKey.ts",
         "featureFlagSegment.ts",

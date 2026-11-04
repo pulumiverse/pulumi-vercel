@@ -15,7 +15,7 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class FirewallConfigManagedRulesets
     {
         /// <summary>
-        /// Enable the ai*bots managed ruleset and select action
+        /// Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
         /// </summary>
         public readonly Outputs.FirewallConfigManagedRulesetsAiBots? AiBots;
         /// <summary>

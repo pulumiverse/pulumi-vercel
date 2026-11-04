@@ -13,11 +13,26 @@ namespace Pulumiverse.Vercel.Inputs
 
     public sealed class FirewallConfigManagedRulesetsAiBotsArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+        /// </summary>
         [Input("action")]
         public Input<string>? Action { get; set; }
 
         [Input("active")]
         public Input<bool>? Active { get; set; }
+
+        /// <summary>
+        /// AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+        /// </summary>
+        [Input("aiAssistants")]
+        public Input<Inputs.FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs>? AiAssistants { get; set; }
+
+        /// <summary>
+        /// AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+        /// </summary>
+        [Input("aiCrawlers")]
+        public Input<Inputs.FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs>? AiCrawlers { get; set; }
 
         public FirewallConfigManagedRulesetsAiBotsArgs()
         {

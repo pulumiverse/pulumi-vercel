@@ -139,28 +139,28 @@ public class EdgeConfigItem extends com.pulumi.resources.CustomResource {
         return this.teamId;
     }
     /**
-     * The value you want to assign to the key when using a string.
+     * The value you want to assign to the key when using a string. Changing this updates the item in place.
      * 
      */
     @Export(name="value", refs={String.class}, tree="[0]")
     private Output<String> value;
 
     /**
-     * @return The value you want to assign to the key when using a string.
+     * @return The value you want to assign to the key when using a string. Changing this updates the item in place.
      * 
      */
     public Output<String> value() {
         return this.value;
     }
     /**
-     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     * Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      * 
      */
     @Export(name="valueJson", refs={Object.class}, tree="[0]")
     private Output<Object> valueJson;
 
     /**
-     * @return Structured JSON value to assign to the key (object/array/number/bool/null).
+     * @return Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      * 
      */
     public Output<Object> valueJson() {

@@ -468,8 +468,13 @@ class FirewallConfig(pulumi.CustomResource):
                     "active": True,
                 },
                 "ai_bots": {
-                    "action": "log",
                     "active": True,
+                    "ai_crawlers": {
+                        "action": "deny",
+                    },
+                    "ai_assistants": {
+                        "action": "log",
+                    },
                 },
             })
         ip_example = vercel.Project("ip_example", name="firewall-ip-blocking-example")
@@ -711,8 +716,13 @@ class FirewallConfig(pulumi.CustomResource):
                     "active": True,
                 },
                 "ai_bots": {
-                    "action": "log",
                     "active": True,
+                    "ai_crawlers": {
+                        "action": "deny",
+                    },
+                    "ai_assistants": {
+                        "action": "log",
+                    },
                 },
             })
         ip_example = vercel.Project("ip_example", name="firewall-ip-blocking-example")

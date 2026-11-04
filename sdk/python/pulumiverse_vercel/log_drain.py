@@ -28,6 +28,8 @@ class LogDrainArgs:
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a LogDrain resource.
@@ -40,7 +42,10 @@ class LogDrainArgs:
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
-        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        :param pulumi.Input[_builtins.int] secret_wo_version: An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
         pulumi.set(__self__, "delivery_format", delivery_format)
@@ -57,6 +62,10 @@ class LogDrainArgs:
             pulumi.set(__self__, "sampling_rate", sampling_rate)
         if secret is not None:
             pulumi.set(__self__, "secret", secret)
+        if secret_wo is not None:
+            pulumi.set(__self__, "secret_wo", secret_wo)
+        if secret_wo_version is not None:
+            pulumi.set(__self__, "secret_wo_version", secret_wo_version)
         if team_id is not None:
             pulumi.set(__self__, "team_id", team_id)
 
@@ -160,13 +169,38 @@ class LogDrainArgs:
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         """
         return pulumi.get(self, "secret")
 
     @secret.setter
     def secret(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "secret", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secretWo")
+    def secret_wo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        """
+        return pulumi.get(self, "secret_wo")
+
+    @secret_wo.setter
+    def secret_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "secret_wo", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secretWoVersion")
+    def secret_wo_version(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
+        """
+        return pulumi.get(self, "secret_wo_version")
+
+    @secret_wo_version.setter
+    def secret_wo_version(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "secret_wo_version", value)
 
     @_builtins.property
     @pulumi.getter(name="teamId")
@@ -192,6 +226,8 @@ class _LogDrainState:
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
                  sources: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
@@ -204,7 +240,10 @@ class _LogDrainState:
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
-        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        :param pulumi.Input[_builtins.int] secret_wo_version: An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -224,6 +263,10 @@ class _LogDrainState:
             pulumi.set(__self__, "sampling_rate", sampling_rate)
         if secret is not None:
             pulumi.set(__self__, "secret", secret)
+        if secret_wo is not None:
+            pulumi.set(__self__, "secret_wo", secret_wo)
+        if secret_wo_version is not None:
+            pulumi.set(__self__, "secret_wo_version", secret_wo_version)
         if sources is not None:
             pulumi.set(__self__, "sources", sources)
         if team_id is not None:
@@ -317,13 +360,38 @@ class _LogDrainState:
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         """
         return pulumi.get(self, "secret")
 
     @secret.setter
     def secret(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "secret", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secretWo")
+    def secret_wo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        """
+        return pulumi.get(self, "secret_wo")
+
+    @secret_wo.setter
+    def secret_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "secret_wo", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secretWoVersion")
+    def secret_wo_version(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
+        """
+        return pulumi.get(self, "secret_wo_version")
+
+    @secret_wo_version.setter
+    def secret_wo_version(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "secret_wo_version", value)
 
     @_builtins.property
     @pulumi.getter
@@ -364,6 +432,8 @@ class LogDrain(pulumi.CustomResource):
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
                  sources: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
@@ -376,31 +446,9 @@ class LogDrain(pulumi.CustomResource):
 
         Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
 
+        > **Note:** Write-Only argument `secret_wo` is available in place of `secret` to keep the signing secret out of Terraform state. Use an ephemeral input to also keep the value out of saved plan configuration. Write-Only arguments require HashiCorp Terraform 1.11.0 or later.
+
         > Only Pro and Enterprise teams can create Configurable Log Drains.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_vercel as vercel
-        import pulumiverse_vercel as vercel
-
-        # Use the vercel_endpoint_verification data source to work out the verification code needed to
-        # verify the log drain endpoint.
-        example = vercel.get_endpoint_verification()
-        example_project = vercel.Project("example", name="example")
-        example_log_drain = vercel.LogDrain("example",
-            delivery_format="json",
-            environments=["production"],
-            headers={
-                "some-key": "some-value",
-            },
-            project_ids=[example_project.id],
-            sampling_rate=0.8,
-            secret="a_very_long_and_very_well_specified_secret",
-            sources=["static"],
-            endpoint="https://example.com/my-log-drain-endpoint")
-        ```
 
         ## Import
 
@@ -414,12 +462,20 @@ class LogDrain(pulumi.CustomResource):
         $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
-        Alternatively, you can import via the team_id and edge_config_id.
+        Alternatively, you can import via the team_id and log_drain_id.
         - team_id can be found in the team `settings` tab in the Vercel UI.
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
 
         ```sh
         $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Prefix either import format with "write-only:" to omit the existing signing
+        secret from Terraform state. Configure secret_wo after import. To replace the
+        drain with that secret, also configure secret_wo_version or use -replace.
+
+        ```sh
+        $ pulumi import vercel:index/logDrain:LogDrain example write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
 
@@ -432,7 +488,10 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
-        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        :param pulumi.Input[_builtins.int] secret_wo_version: An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -451,31 +510,9 @@ class LogDrain(pulumi.CustomResource):
 
         Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
 
+        > **Note:** Write-Only argument `secret_wo` is available in place of `secret` to keep the signing secret out of Terraform state. Use an ephemeral input to also keep the value out of saved plan configuration. Write-Only arguments require HashiCorp Terraform 1.11.0 or later.
+
         > Only Pro and Enterprise teams can create Configurable Log Drains.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_vercel as vercel
-        import pulumiverse_vercel as vercel
-
-        # Use the vercel_endpoint_verification data source to work out the verification code needed to
-        # verify the log drain endpoint.
-        example = vercel.get_endpoint_verification()
-        example_project = vercel.Project("example", name="example")
-        example_log_drain = vercel.LogDrain("example",
-            delivery_format="json",
-            environments=["production"],
-            headers={
-                "some-key": "some-value",
-            },
-            project_ids=[example_project.id],
-            sampling_rate=0.8,
-            secret="a_very_long_and_very_well_specified_secret",
-            sources=["static"],
-            endpoint="https://example.com/my-log-drain-endpoint")
-        ```
 
         ## Import
 
@@ -489,12 +526,20 @@ class LogDrain(pulumi.CustomResource):
         $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
-        Alternatively, you can import via the team_id and edge_config_id.
+        Alternatively, you can import via the team_id and log_drain_id.
         - team_id can be found in the team `settings` tab in the Vercel UI.
         - log_drain_id can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
 
         ```sh
         $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+
+        Prefix either import format with "write-only:" to omit the existing signing
+        secret from Terraform state. Configure secret_wo after import. To replace the
+        drain with that secret, also configure secret_wo_version or use -replace.
+
+        ```sh
+        $ pulumi import vercel:index/logDrain:LogDrain example write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         ```
 
 
@@ -521,6 +566,8 @@ class LogDrain(pulumi.CustomResource):
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
                  sources: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  team_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
@@ -546,11 +593,13 @@ class LogDrain(pulumi.CustomResource):
             __props__.__dict__["project_ids"] = project_ids
             __props__.__dict__["sampling_rate"] = sampling_rate
             __props__.__dict__["secret"] = None if secret is None else pulumi.Output.secret(secret)
+            __props__.__dict__["secret_wo"] = None if secret_wo is None else pulumi.Output.secret(secret_wo)
+            __props__.__dict__["secret_wo_version"] = secret_wo_version
             if sources is None and not opts.urn:
                 raise TypeError("Missing required property 'sources'")
             __props__.__dict__["sources"] = sources
             __props__.__dict__["team_id"] = team_id
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["headers", "secret"])
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["headers", "secret", "secretWo"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(LogDrain, __self__).__init__(
             'vercel:index/logDrain:LogDrain',
@@ -570,6 +619,8 @@ class LogDrain(pulumi.CustomResource):
             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
             secret: Optional[pulumi.Input[_builtins.str]] = None,
+            secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
+            secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
             sources: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             team_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'LogDrain':
         """
@@ -586,7 +637,10 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
         :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
-        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        :param pulumi.Input[_builtins.int] secret_wo_version: An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] sources: A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
         """
@@ -602,6 +656,8 @@ class LogDrain(pulumi.CustomResource):
         __props__.__dict__["project_ids"] = project_ids
         __props__.__dict__["sampling_rate"] = sampling_rate
         __props__.__dict__["secret"] = secret
+        __props__.__dict__["secret_wo"] = secret_wo
+        __props__.__dict__["secret_wo_version"] = secret_wo_version
         __props__.__dict__["sources"] = sources
         __props__.__dict__["team_id"] = team_id
         return LogDrain(resource_name, opts=opts, __props__=__props__)
@@ -666,9 +722,26 @@ class LogDrain(pulumi.CustomResource):
     @pulumi.getter
     def secret(self) -> pulumi.Output[_builtins.str]:
         """
-        A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+        A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         """
         return pulumi.get(self, "secret")
+
+    @_builtins.property
+    @pulumi.getter(name="secretWo")
+    def secret_wo(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+        """
+        return pulumi.get(self, "secret_wo")
+
+    @_builtins.property
+    @pulumi.getter(name="secretWoVersion")
+    def secret_wo_version(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        An optional persisted, non-secret version used to rotate `secret_wo`. Incrementing this value replaces the Log Drain.
+        """
+        return pulumi.get(self, "secret_wo_version")
 
     @_builtins.property
     @pulumi.getter

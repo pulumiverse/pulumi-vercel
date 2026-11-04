@@ -99,13 +99,13 @@ namespace Pulumiverse.Vercel
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// The value you want to assign to the key when using a string.
+        /// The value you want to assign to the key when using a string. Changing this updates the item in place.
         /// </summary>
         [Output("value")]
         public Output<string> Value { get; private set; } = null!;
 
         /// <summary>
-        /// Structured JSON value to assign to the key (object/array/number/bool/null).
+        /// Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         /// </summary>
         [Output("valueJson")]
         public Output<object> ValueJson { get; private set; } = null!;
@@ -176,13 +176,13 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// The value you want to assign to the key when using a string.
+        /// The value you want to assign to the key when using a string. Changing this updates the item in place.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
 
         /// <summary>
-        /// Structured JSON value to assign to the key (object/array/number/bool/null).
+        /// Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         /// </summary>
         [Input("valueJson")]
         public Input<object>? ValueJson { get; set; }
@@ -214,13 +214,13 @@ namespace Pulumiverse.Vercel
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// The value you want to assign to the key when using a string.
+        /// The value you want to assign to the key when using a string. Changing this updates the item in place.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
 
         /// <summary>
-        /// Structured JSON value to assign to the key (object/array/number/bool/null).
+        /// Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         /// </summary>
         [Input("valueJson")]
         public Input<object>? ValueJson { get; set; }
