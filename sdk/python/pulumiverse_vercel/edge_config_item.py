@@ -30,8 +30,8 @@ class EdgeConfigItemArgs:
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string.
-        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null).
+        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string. Changing this updates the item in place.
+        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         pulumi.set(__self__, "edge_config_id", edge_config_id)
         pulumi.set(__self__, "key", key)
@@ -82,7 +82,7 @@ class EdgeConfigItemArgs:
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The value you want to assign to the key when using a string.
+        The value you want to assign to the key when using a string. Changing this updates the item in place.
         """
         return pulumi.get(self, "value")
 
@@ -94,7 +94,7 @@ class EdgeConfigItemArgs:
     @pulumi.getter(name="valueJson")
     def value_json(self) -> Optional[Any]:
         """
-        Structured JSON value to assign to the key (object/array/number/bool/null).
+        Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         return pulumi.get(self, "value_json")
 
@@ -117,8 +117,8 @@ class _EdgeConfigItemState:
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string.
-        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null).
+        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string. Changing this updates the item in place.
+        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         if edge_config_id is not None:
             pulumi.set(__self__, "edge_config_id", edge_config_id)
@@ -171,7 +171,7 @@ class _EdgeConfigItemState:
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The value you want to assign to the key when using a string.
+        The value you want to assign to the key when using a string. Changing this updates the item in place.
         """
         return pulumi.get(self, "value")
 
@@ -183,7 +183,7 @@ class _EdgeConfigItemState:
     @pulumi.getter(name="valueJson")
     def value_json(self) -> Optional[Any]:
         """
-        Structured JSON value to assign to the key (object/array/number/bool/null).
+        Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         return pulumi.get(self, "value_json")
 
@@ -262,8 +262,8 @@ class EdgeConfigItem(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string.
-        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null).
+        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string. Changing this updates the item in place.
+        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         ...
     @overload
@@ -387,8 +387,8 @@ class EdgeConfigItem(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] edge_config_id: The ID of the Edge Config store.
         :param pulumi.Input[_builtins.str] key: The name of the key you want to add to or update within your Edge Config.
         :param pulumi.Input[_builtins.str] team_id: The ID of the team the Edge Config should exist under. Required when configuring a team resource if a default team has not been set in the provider.
-        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string.
-        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null).
+        :param pulumi.Input[_builtins.str] value: The value you want to assign to the key when using a string. Changing this updates the item in place.
+        :param Any value_json: Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -429,7 +429,7 @@ class EdgeConfigItem(pulumi.CustomResource):
     @pulumi.getter
     def value(self) -> pulumi.Output[_builtins.str]:
         """
-        The value you want to assign to the key when using a string.
+        The value you want to assign to the key when using a string. Changing this updates the item in place.
         """
         return pulumi.get(self, "value")
 
@@ -437,7 +437,7 @@ class EdgeConfigItem(pulumi.CustomResource):
     @pulumi.getter(name="valueJson")
     def value_json(self) -> pulumi.Output[Any]:
         """
-        Structured JSON value to assign to the key (object/array/number/bool/null).
+        Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
         """
         return pulumi.get(self, "value_json")
 

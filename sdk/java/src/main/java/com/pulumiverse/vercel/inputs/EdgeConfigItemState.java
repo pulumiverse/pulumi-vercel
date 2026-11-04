@@ -62,14 +62,14 @@ public final class EdgeConfigItemState extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * The value you want to assign to the key when using a string.
+     * The value you want to assign to the key when using a string. Changing this updates the item in place.
      * 
      */
     @Import(name="value")
     private @Nullable Output<String> value;
 
     /**
-     * @return The value you want to assign to the key when using a string.
+     * @return The value you want to assign to the key when using a string. Changing this updates the item in place.
      * 
      */
     public Optional<Output<String>> value() {
@@ -77,14 +77,14 @@ public final class EdgeConfigItemState extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     * Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      * 
      */
     @Import(name="valueJson")
     private @Nullable Output<Object> valueJson;
 
     /**
-     * @return Structured JSON value to assign to the key (object/array/number/bool/null).
+     * @return Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      * 
      */
     public Optional<Output<Object>> valueJson() {
@@ -183,7 +183,7 @@ public final class EdgeConfigItemState extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param value The value you want to assign to the key when using a string.
+         * @param value The value you want to assign to the key when using a string. Changing this updates the item in place.
          * 
          * @return builder
          * 
@@ -194,7 +194,7 @@ public final class EdgeConfigItemState extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param value The value you want to assign to the key when using a string.
+         * @param value The value you want to assign to the key when using a string. Changing this updates the item in place.
          * 
          * @return builder
          * 
@@ -204,7 +204,7 @@ public final class EdgeConfigItemState extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param valueJson Structured JSON value to assign to the key (object/array/number/bool/null).
+         * @param valueJson Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
          * 
          * @return builder
          * 
@@ -215,7 +215,7 @@ public final class EdgeConfigItemState extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param valueJson Structured JSON value to assign to the key (object/array/number/bool/null).
+         * @param valueJson Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
          * 
          * @return builder
          * 

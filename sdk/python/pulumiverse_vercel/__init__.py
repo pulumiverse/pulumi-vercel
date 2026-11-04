@@ -32,6 +32,7 @@ from .edge_config_item import *
 from .edge_config_schema import *
 from .edge_config_token import *
 from .feature_flag_config import *
+from .feature_flag_connection import *
 from .feature_flag_definition import *
 from .feature_flag_sdk_key import *
 from .feature_flag_segment import *
@@ -335,6 +336,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/featureFlagConfig:FeatureFlagConfig": "FeatureFlagConfig"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/featureFlagConnection",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/featureFlagConnection:FeatureFlagConnection": "FeatureFlagConnection"
   }
  },
  {

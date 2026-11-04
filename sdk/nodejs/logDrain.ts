@@ -13,31 +13,9 @@ import * as utilities from "./utilities";
  *
  * Teams on Pro and Enterprise plans can subscribe to log drains that are generic and configurable from the Vercel dashboard without creating an integration. This allows you to use a HTTP service to receive logs through Vercel's log drains.
  *
+ * > **Note:** Write-Only argument `secretWo` is available in place of `secret` to keep the signing secret out of Terraform state. Use an ephemeral input to also keep the value out of saved plan configuration. Write-Only arguments require HashiCorp Terraform 1.11.0 or later.
+ *
  * > Only Pro and Enterprise teams can create Configurable Log Drains.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as vercel from "@pulumiverse/vercel";
- *
- * // Use the vercel_endpoint_verification data source to work out the verification code needed to
- * // verify the log drain endpoint.
- * const example = vercel.getEndpointVerification({});
- * const exampleProject = new vercel.Project("example", {name: "example"});
- * const exampleLogDrain = new vercel.LogDrain("example", {
- *     deliveryFormat: "json",
- *     environments: ["production"],
- *     headers: {
- *         "some-key": "some-value",
- *     },
- *     projectIds: [exampleProject.id],
- *     samplingRate: 0.8,
- *     secret: "a_very_long_and_very_well_specified_secret",
- *     sources: ["static"],
- *     endpoint: "https://example.com/my-log-drain-endpoint",
- * });
- * ```
  *
  * ## Import
  *
@@ -51,12 +29,20 @@ import * as utilities from "./utilities";
  * $ pulumi import vercel:index/logDrain:LogDrain example ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
  * ```
  *
- * Alternatively, you can import via the teamId and edge_config_id.
+ * Alternatively, you can import via the teamId and log_drain_id.
  * - teamId can be found in the team `settings` tab in the Vercel UI.
  * - logDrainId can be found by querying the Vercel REST API (https://vercel.com/docs/rest-api/endpoints/logDrains#retrieves-a-list-of-all-the-log-drains).
  *
  * ```sh
  * $ pulumi import vercel:index/logDrain:LogDrain example team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * ```
+ *
+ * Prefix either import format with "write-only:" to omit the existing signing
+ * secret from Terraform state. Configure secretWo after import. To replace the
+ * drain with that secret, also configure secretWoVersion or use -replace.
+ *
+ * ```sh
+ * $ pulumi import vercel:index/logDrain:LogDrain example write-only:team_xxxxxxxxxxxxxxxxxxxxxxxx/ld_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
  * ```
  */
 export class LogDrain extends pulumi.CustomResource {
@@ -116,9 +102,18 @@ export class LogDrain extends pulumi.CustomResource {
      */
     declare public readonly samplingRate: pulumi.Output<number | undefined>;
     /**
-     * A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      */
     declare public readonly secret: pulumi.Output<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     */
+    declare public readonly secretWo: pulumi.Output<string | undefined>;
+    /**
+     * An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     */
+    declare public readonly secretWoVersion: pulumi.Output<number | undefined>;
     /**
      * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */
@@ -149,6 +144,8 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["projectIds"] = state?.projectIds;
             resourceInputs["samplingRate"] = state?.samplingRate;
             resourceInputs["secret"] = state?.secret;
+            resourceInputs["secretWo"] = state?.secretWo;
+            resourceInputs["secretWoVersion"] = state?.secretWoVersion;
             resourceInputs["sources"] = state?.sources;
             resourceInputs["teamId"] = state?.teamId;
         } else {
@@ -173,11 +170,13 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["projectIds"] = args?.projectIds;
             resourceInputs["samplingRate"] = args?.samplingRate;
             resourceInputs["secret"] = args?.secret ? pulumi.secret(args.secret) : undefined;
+            resourceInputs["secretWo"] = args?.secretWo ? pulumi.secret(args.secretWo) : undefined;
+            resourceInputs["secretWoVersion"] = args?.secretWoVersion;
             resourceInputs["sources"] = args?.sources;
             resourceInputs["teamId"] = args?.teamId;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["headers", "secret"] };
+        const secretOpts = { additionalSecretOutputs: ["headers", "secret", "secretWo"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(LogDrain.__pulumiType, name, resourceInputs, opts);
     }
@@ -216,9 +215,18 @@ export interface LogDrainState {
      */
     samplingRate?: pulumi.Input<number>;
     /**
-     * A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      */
     secret?: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     */
+    secretWo?: pulumi.Input<string>;
+    /**
+     * An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     */
+    secretWoVersion?: pulumi.Input<number>;
     /**
      * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */
@@ -262,9 +270,18 @@ export interface LogDrainArgs {
      */
     samplingRate?: pulumi.Input<number>;
     /**
-     * A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      */
     secret?: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     */
+    secretWo?: pulumi.Input<string>;
+    /**
+     * An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     */
+    secretWoVersion?: pulumi.Input<number>;
     /**
      * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */

@@ -312,8 +312,15 @@ namespace Pulumiverse.Vercel
     ///             },
     ///             AiBots = new Vercel.Inputs.FirewallConfigManagedRulesetsAiBotsArgs
     ///             {
-    ///                 Action = "log",
     ///                 Active = true,
+    ///                 AiCrawlers = new Vercel.Inputs.FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs
+    ///                 {
+    ///                     Action = "deny",
+    ///                 },
+    ///                 AiAssistants = new Vercel.Inputs.FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs
+    ///                 {
+    ///                     Action = "log",
+    ///                 },
     ///             },
     ///         },
     ///     });

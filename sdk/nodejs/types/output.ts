@@ -527,7 +527,7 @@ export interface FirewallConfigIpRulesRule {
 
 export interface FirewallConfigManagedRulesets {
     /**
-     * Enable the ai*bots managed ruleset and select action
+     * Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
      */
     aiBots?: outputs.FirewallConfigManagedRulesetsAiBots;
     /**
@@ -547,7 +547,42 @@ export interface FirewallConfigManagedRulesets {
 }
 
 export interface FirewallConfigManagedRulesetsAiBots {
+    /**
+     * Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+     *
+     * @deprecated Use aiCrawlers and aiAssistants rule groups instead. Remove action when migrating to those categories.
+     */
     action?: string;
+    active?: boolean;
+    /**
+     * AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+     */
+    aiAssistants?: outputs.FirewallConfigManagedRulesetsAiBotsAiAssistants;
+    /**
+     * AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+     */
+    aiCrawlers?: outputs.FirewallConfigManagedRulesetsAiBotsAiCrawlers;
+}
+
+export interface FirewallConfigManagedRulesetsAiBotsAiAssistants {
+    /**
+     * Action for this category. Either log or deny.
+     */
+    action: string;
+    /**
+     * Whether this category is active. Set to false to allow this category. Defaults to true.
+     */
+    active?: boolean;
+}
+
+export interface FirewallConfigManagedRulesetsAiBotsAiCrawlers {
+    /**
+     * Action for this category. Either log or deny.
+     */
+    action: string;
+    /**
+     * Whether this category is active. Set to false to allow this category. Defaults to true.
+     */
     active?: boolean;
 }
 

@@ -47,6 +47,8 @@ import javax.annotation.Nullable;
  * import com.pulumi.vercel.inputs.FirewallConfigManagedRulesetsOwaspGenArgs;
  * import com.pulumi.vercel.inputs.FirewallConfigManagedRulesetsBotProtectionArgs;
  * import com.pulumi.vercel.inputs.FirewallConfigManagedRulesetsAiBotsArgs;
+ * import com.pulumi.vercel.inputs.FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs;
+ * import com.pulumi.vercel.inputs.FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs;
  * import com.pulumi.vercel.inputs.FirewallConfigIpRulesArgs;
  * import java.util.List;
  * import java.util.ArrayList;
@@ -249,8 +251,13 @@ import javax.annotation.Nullable;
  *                     .active(true)
  *                     .build())
  *                 .aiBots(FirewallConfigManagedRulesetsAiBotsArgs.builder()
- *                     .action("log")
  *                     .active(true)
+ *                     .aiCrawlers(FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs.builder()
+ *                         .action("deny")
+ *                         .build())
+ *                     .aiAssistants(FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs.builder()
+ *                         .action("log")
+ *                         .build())
  *                     .build())
  *                 .build())
  *             .build());

@@ -254,8 +254,13 @@ import (
 //						Active: pulumi.Bool(true),
 //					},
 //					AiBots: &vercel.FirewallConfigManagedRulesetsAiBotsArgs{
-//						Action: pulumi.String("log"),
 //						Active: pulumi.Bool(true),
+//						AiCrawlers: &vercel.FirewallConfigManagedRulesetsAiBotsAiCrawlersArgs{
+//							Action: pulumi.String("deny"),
+//						},
+//						AiAssistants: &vercel.FirewallConfigManagedRulesetsAiBotsAiAssistantsArgs{
+//							Action: pulumi.String("log"),
+//						},
 //					},
 //				},
 //			})

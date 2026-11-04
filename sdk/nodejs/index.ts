@@ -135,6 +135,11 @@ export type FeatureFlagConfig = import("./featureFlagConfig").FeatureFlagConfig;
 export const FeatureFlagConfig: typeof import("./featureFlagConfig").FeatureFlagConfig = null as any;
 utilities.lazyLoad(exports, ["FeatureFlagConfig"], () => require("./featureFlagConfig"));
 
+export { FeatureFlagConnectionArgs, FeatureFlagConnectionState } from "./featureFlagConnection";
+export type FeatureFlagConnection = import("./featureFlagConnection").FeatureFlagConnection;
+export const FeatureFlagConnection: typeof import("./featureFlagConnection").FeatureFlagConnection = null as any;
+utilities.lazyLoad(exports, ["FeatureFlagConnection"], () => require("./featureFlagConnection"));
+
 export { FeatureFlagDefinitionArgs, FeatureFlagDefinitionState } from "./featureFlagDefinition";
 export type FeatureFlagDefinition = import("./featureFlagDefinition").FeatureFlagDefinition;
 export const FeatureFlagDefinition: typeof import("./featureFlagDefinition").FeatureFlagDefinition = null as any;
@@ -619,6 +624,8 @@ const _module = {
                 return new EdgeConfigToken(name, <any>undefined, { urn })
             case "vercel:index/featureFlagConfig:FeatureFlagConfig":
                 return new FeatureFlagConfig(name, <any>undefined, { urn })
+            case "vercel:index/featureFlagConnection:FeatureFlagConnection":
+                return new FeatureFlagConnection(name, <any>undefined, { urn })
             case "vercel:index/featureFlagDefinition:FeatureFlagDefinition":
                 return new FeatureFlagDefinition(name, <any>undefined, { urn })
             case "vercel:index/featureFlagSdkKey:FeatureFlagSdkKey":
@@ -732,6 +739,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigItem", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigSchema", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/edgeConfigToken", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/featureFlagConfig", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/featureFlagConnection", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/featureFlagDefinition", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/featureFlagSdkKey", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/featureFlagSegment", _module)

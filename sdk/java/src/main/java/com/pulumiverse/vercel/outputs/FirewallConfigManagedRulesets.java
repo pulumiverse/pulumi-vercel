@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class FirewallConfigManagedRulesets {
     /**
-     * @return Enable the ai*bots managed ruleset and select action
+     * @return Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
      * 
      */
     private @Nullable FirewallConfigManagedRulesetsAiBots aiBots;
@@ -41,7 +41,7 @@ public final class FirewallConfigManagedRulesets {
 
     private FirewallConfigManagedRulesets() {}
     /**
-     * @return Enable the ai*bots managed ruleset and select action
+     * @return Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
      * 
      */
     public Optional<FirewallConfigManagedRulesetsAiBots> aiBots() {

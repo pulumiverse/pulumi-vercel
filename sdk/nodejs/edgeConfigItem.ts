@@ -98,11 +98,11 @@ export class EdgeConfigItem extends pulumi.CustomResource {
      */
     declare public readonly teamId: pulumi.Output<string>;
     /**
-     * The value you want to assign to the key when using a string.
+     * The value you want to assign to the key when using a string. Changing this updates the item in place.
      */
     declare public readonly value: pulumi.Output<string>;
     /**
-     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     * Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      */
     declare public readonly valueJson: pulumi.Output<any>;
 
@@ -160,11 +160,11 @@ export interface EdgeConfigItemState {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value you want to assign to the key when using a string.
+     * The value you want to assign to the key when using a string. Changing this updates the item in place.
      */
     value?: pulumi.Input<string>;
     /**
-     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     * Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      */
     valueJson?: any;
 }
@@ -186,11 +186,11 @@ export interface EdgeConfigItemArgs {
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The value you want to assign to the key when using a string.
+     * The value you want to assign to the key when using a string. Changing this updates the item in place.
      */
     value?: pulumi.Input<string>;
     /**
-     * Structured JSON value to assign to the key (object/array/number/bool/null).
+     * Structured JSON value to assign to the key (object/array/number/bool/null). Changing this updates the item in place.
      */
     valueJson?: any;
 }

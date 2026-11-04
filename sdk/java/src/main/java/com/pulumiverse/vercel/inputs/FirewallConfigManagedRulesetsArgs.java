@@ -19,14 +19,14 @@ public final class FirewallConfigManagedRulesetsArgs extends com.pulumi.resource
     public static final FirewallConfigManagedRulesetsArgs Empty = new FirewallConfigManagedRulesetsArgs();
 
     /**
-     * Enable the ai*bots managed ruleset and select action
+     * Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
      * 
      */
     @Import(name="aiBots")
     private @Nullable Output<FirewallConfigManagedRulesetsAiBotsArgs> aiBots;
 
     /**
-     * @return Enable the ai*bots managed ruleset and select action
+     * @return Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
      * 
      */
     public Optional<Output<FirewallConfigManagedRulesetsAiBotsArgs>> aiBots() {
@@ -114,7 +114,7 @@ public final class FirewallConfigManagedRulesetsArgs extends com.pulumi.resource
         }
 
         /**
-         * @param aiBots Enable the ai*bots managed ruleset and select action
+         * @param aiBots Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
          * 
          * @return builder
          * 
@@ -125,7 +125,7 @@ public final class FirewallConfigManagedRulesetsArgs extends com.pulumi.resource
         }
 
         /**
-         * @param aiBots Enable the ai*bots managed ruleset and select action
+         * @param aiBots Configure AI Bots managed ruleset and block AI Crawlers or AI Assistants.
          * 
          * @return builder
          * 

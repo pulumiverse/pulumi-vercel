@@ -6,6 +6,7 @@ package com.pulumiverse.vercel.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import java.lang.Double;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -124,18 +125,50 @@ public final class LogDrainState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      * 
      */
     @Import(name="secret")
     private @Nullable Output<String> secret;
 
     /**
-     * @return A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+     * @return A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      * 
      */
     public Optional<Output<String>> secret() {
         return Optional.ofNullable(this.secret);
+    }
+
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     * 
+     */
+    @Import(name="secretWo")
+    private @Nullable Output<String> secretWo;
+
+    /**
+     * @return **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+     * 
+     */
+    public Optional<Output<String>> secretWo() {
+        return Optional.ofNullable(this.secretWo);
+    }
+
+    /**
+     * An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     * 
+     */
+    @Import(name="secretWoVersion")
+    private @Nullable Output<Integer> secretWoVersion;
+
+    /**
+     * @return An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+     * 
+     */
+    public Optional<Output<Integer>> secretWoVersion() {
+        return Optional.ofNullable(this.secretWoVersion);
     }
 
     /**
@@ -179,6 +212,8 @@ public final class LogDrainState extends com.pulumi.resources.ResourceArgs {
         this.projectIds = $.projectIds;
         this.samplingRate = $.samplingRate;
         this.secret = $.secret;
+        this.secretWo = $.secretWo;
+        this.secretWoVersion = $.secretWoVersion;
         this.sources = $.sources;
         this.teamId = $.teamId;
     }
@@ -369,7 +404,7 @@ public final class LogDrainState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param secret A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+         * @param secret A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
          * 
          * @return builder
          * 
@@ -380,13 +415,57 @@ public final class LogDrainState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param secret A custom secret to be used for signing log events. You can use this secret to verify that log events are coming from Vercel and are not tampered with. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
+         * @param secret A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
          * 
          * @return builder
          * 
          */
         public Builder secret(String secret) {
             return secret(Output.of(secret));
+        }
+
+        /**
+         * @param secretWo **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+         * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder secretWo(@Nullable Output<String> secretWo) {
+            $.secretWo = secretWo;
+            return this;
+        }
+
+        /**
+         * @param secretWo **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+         * A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder secretWo(String secretWo) {
+            return secretWo(Output.of(secretWo));
+        }
+
+        /**
+         * @param secretWoVersion An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder secretWoVersion(@Nullable Output<Integer> secretWoVersion) {
+            $.secretWoVersion = secretWoVersion;
+            return this;
+        }
+
+        /**
+         * @param secretWoVersion An optional persisted, non-secret version used to rotate `secretWo`. Incrementing this value replaces the Log Drain.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder secretWoVersion(Integer secretWoVersion) {
+            return secretWoVersion(Output.of(secretWoVersion));
         }
 
         /**

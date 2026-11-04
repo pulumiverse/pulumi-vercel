@@ -14,17 +14,34 @@ namespace Pulumiverse.Vercel.Outputs
     [OutputType]
     public sealed class FirewallConfigManagedRulesetsAiBots
     {
+        /// <summary>
+        /// Legacy action for the entire AI Bots ruleset. You should use ai*assistants and ai*crawlers rule groups below.
+        /// </summary>
         public readonly string? Action;
         public readonly bool? Active;
+        /// <summary>
+        /// AI bots that assist a user, such as search or fetching content. When only one category is set, the other defaults to active with action log.
+        /// </summary>
+        public readonly Outputs.FirewallConfigManagedRulesetsAiBotsAiAssistants? AiAssistants;
+        /// <summary>
+        /// AI bots that crawl content for indexing and training. When only one category is set, the other defaults to active with action log.
+        /// </summary>
+        public readonly Outputs.FirewallConfigManagedRulesetsAiBotsAiCrawlers? AiCrawlers;
 
         [OutputConstructor]
         private FirewallConfigManagedRulesetsAiBots(
             string? action,
 
-            bool? active)
+            bool? active,
+
+            Outputs.FirewallConfigManagedRulesetsAiBotsAiAssistants? aiAssistants,
+
+            Outputs.FirewallConfigManagedRulesetsAiBotsAiCrawlers? aiCrawlers)
         {
             Action = action;
             Active = active;
+            AiAssistants = aiAssistants;
+            AiCrawlers = aiCrawlers;
         }
     }
 }
