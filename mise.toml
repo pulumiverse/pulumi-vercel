@@ -1,4 +1,3 @@
-# Overrides for the generated .config/mise.toml, which ci-mgmt regenerates.
-# golangci-lint must be built with a Go version >= the one in provider/go.mod.
+# Overrides for the generated .config/mise.toml, which `make ci-mgmt` regenerates.
 [tools]
-golangci-lint = "2.15.0"
+"vfox-pulumi:pulumi/pulumi-converter-terraform" = "1.2.4"
