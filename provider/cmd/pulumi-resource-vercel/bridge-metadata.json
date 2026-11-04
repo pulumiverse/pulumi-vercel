@@ -200,6 +200,10 @@
                 "current": "vercel:index/featureFlagConfig:FeatureFlagConfig",
                 "majorVersion": 5
             },
+            "vercel_feature_flag_connection": {
+                "current": "vercel:index/featureFlagConnection:FeatureFlagConnection",
+                "majorVersion": 5
+            },
             "vercel_feature_flag_definition": {
                 "current": "vercel:index/featureFlagDefinition:FeatureFlagDefinition",
                 "majorVersion": 5,
