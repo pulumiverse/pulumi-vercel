@@ -233,14 +233,14 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Configuration for Git Comments.
+     * Configuration for Git Comments. When omitted, existing settings are preserved.
      * 
      */
     @Import(name="gitComments")
     private @Nullable Output<ProjectGitCommentsArgs> gitComments;
 
     /**
-     * @return Configuration for Git Comments.
+     * @return Configuration for Git Comments. When omitted, existing settings are preserved.
      * 
      */
     public Optional<Output<ProjectGitCommentsArgs>> gitComments() {
@@ -335,6 +335,36 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> installCommand() {
         return Optional.ofNullable(this.installCommand);
+    }
+
+    /**
+     * Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     * 
+     */
+    @Import(name="manageDeploymentProtection")
+    private @Nullable Output<Boolean> manageDeploymentProtection;
+
+    /**
+     * @return Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     * 
+     */
+    public Optional<Output<Boolean>> manageDeploymentProtection() {
+        return Optional.ofNullable(this.manageDeploymentProtection);
+    }
+
+    /**
+     * Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     * 
+     */
+    @Import(name="managePassport")
+    private @Nullable Output<Boolean> managePassport;
+
+    /**
+     * @return Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     * 
+     */
+    public Optional<Output<Boolean>> managePassport() {
+        return Optional.ofNullable(this.managePassport);
     }
 
     /**
@@ -714,6 +744,8 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         this.gitRepository = $.gitRepository;
         this.ignoreCommand = $.ignoreCommand;
         this.installCommand = $.installCommand;
+        this.manageDeploymentProtection = $.manageDeploymentProtection;
+        this.managePassport = $.managePassport;
         this.name = $.name;
         this.nodeVersion = $.nodeVersion;
         this.oidcTokenConfig = $.oidcTokenConfig;
@@ -1052,7 +1084,7 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gitComments Configuration for Git Comments.
+         * @param gitComments Configuration for Git Comments. When omitted, existing settings are preserved.
          * 
          * @return builder
          * 
@@ -1063,7 +1095,7 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gitComments Configuration for Git Comments.
+         * @param gitComments Configuration for Git Comments. When omitted, existing settings are preserved.
          * 
          * @return builder
          * 
@@ -1196,6 +1228,48 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder installCommand(String installCommand) {
             return installCommand(Output.of(installCommand));
+        }
+
+        /**
+         * @param manageDeploymentProtection Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder manageDeploymentProtection(@Nullable Output<Boolean> manageDeploymentProtection) {
+            $.manageDeploymentProtection = manageDeploymentProtection;
+            return this;
+        }
+
+        /**
+         * @param manageDeploymentProtection Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder manageDeploymentProtection(Boolean manageDeploymentProtection) {
+            return manageDeploymentProtection(Output.of(manageDeploymentProtection));
+        }
+
+        /**
+         * @param managePassport Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder managePassport(@Nullable Output<Boolean> managePassport) {
+            $.managePassport = managePassport;
+            return this;
+        }
+
+        /**
+         * @param managePassport Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder managePassport(Boolean managePassport) {
+            return managePassport(Output.of(managePassport));
         }
 
         /**

@@ -335,6 +335,9 @@
                     "project_ids": {
                         "maxItemsOne": false
                     },
+                    "sampling_rules": {
+                        "maxItemsOne": false
+                    },
                     "sources": {
                         "maxItemsOne": false
                     }
@@ -554,6 +557,19 @@
                     }
                 }
             },
+            "vercel_project_deployment_protection": {
+                "current": "vercel:index/projectDeploymentProtection:ProjectDeploymentProtection",
+                "majorVersion": 5,
+                "fields": {
+                    "trusted_ips": {
+                        "fields": {
+                            "addresses": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
+            },
             "vercel_project_deployment_retention": {
                 "current": "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention",
                 "majorVersion": 5
@@ -606,6 +622,10 @@
                         "maxItemsOne": false
                     }
                 }
+            },
+            "vercel_project_passport": {
+                "current": "vercel:index/projectPassport:ProjectPassport",
+                "majorVersion": 5
             },
             "vercel_project_protection_bypass": {
                 "current": "vercel:index/projectProtectionBypass:ProjectProtectionBypass",
@@ -918,6 +938,9 @@
                     "project_ids": {
                         "maxItemsOne": false
                     },
+                    "sampling_rules": {
+                        "maxItemsOne": false
+                    },
                     "sources": {
                         "maxItemsOne": false
                     }
@@ -1065,6 +1088,55 @@
                     }
                 }
             },
+            "vercel_project_protection_inventory": {
+                "current": "vercel:index/getProjectProtectionInventory:getProjectProtectionInventory",
+                "majorVersion": 5,
+                "fields": {
+                    "entries": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "claims": {
+                                    "elem": {
+                                        "maxItemsOne": false
+                                    }
+                                },
+                                "custom_allow": {
+                                    "maxItemsOne": false,
+                                    "elem": {
+                                        "fields": {
+                                            "from": {
+                                                "fields": {
+                                                    "slugs": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            },
+                                            "to": {
+                                                "fields": {
+                                                    "slugs": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "to": {
+                                    "fields": {
+                                        "slugs": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "incomplete_reasons": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "vercel_project_rolling_release": {
                 "current": "vercel:index/getProjectRollingRelease:getProjectRollingRelease",
                 "majorVersion": 5,
@@ -1106,6 +1178,10 @@
                         }
                     }
                 }
+            },
+            "vercel_projects": {
+                "current": "vercel:index/getProjects:getProjects",
+                "majorVersion": 5
             },
             "vercel_shareable_link": {
                 "current": "vercel:index/getShareableLink:getShareableLink",

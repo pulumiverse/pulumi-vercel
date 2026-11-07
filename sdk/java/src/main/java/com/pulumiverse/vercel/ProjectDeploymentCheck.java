@@ -197,6 +197,94 @@ import javax.annotation.Nullable;
  * }
  * </pre>
  * 
+ * ### Native Vercel checks
+ * 
+ * Native Vercel checks run first-party Vercel validations. The `flag-definitions-present` and `mfe-config-present` native checks require `requires = &#34;build-ready&#34;` and cannot be rerequestable. The provider supplies the API source origin by default.
+ * 
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumiverse.vercel.ProjectDeploymentCheck;
+ * import com.pulumiverse.vercel.ProjectDeploymentCheckArgs;
+ * import com.pulumi.vercel.inputs.ProjectDeploymentCheckSourceArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var nativeFlagDefinitions = new ProjectDeploymentCheck("nativeFlagDefinitions", ProjectDeploymentCheckArgs.builder()
+ *             .projectId(example.id())
+ *             .name("Flag Definitions Present")
+ *             .requires("build-ready")
+ *             .blocks("deployment-alias")
+ *             .targets(            
+ *                 "preview",
+ *                 "production")
+ *             .source(ProjectDeploymentCheckSourceArgs.builder()
+ *                 .kind("vercel")
+ *                 .subKind("vercel-native-check")
+ *                 .jobName("flag-definitions-present")
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * }
+ * </pre>
+ * 
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumiverse.vercel.ProjectDeploymentCheck;
+ * import com.pulumiverse.vercel.ProjectDeploymentCheckArgs;
+ * import com.pulumi.vercel.inputs.ProjectDeploymentCheckSourceArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var nativeMfeConfig = new ProjectDeploymentCheck("nativeMfeConfig", ProjectDeploymentCheckArgs.builder()
+ *             .projectId(example.id())
+ *             .name("Microfrontends Config Present")
+ *             .requires("build-ready")
+ *             .blocks("deployment-alias")
+ *             .targets("production")
+ *             .source(ProjectDeploymentCheckSourceArgs.builder()
+ *                 .kind("vercel")
+ *                 .subKind("vercel-native-check")
+ *                 .jobName("mfe-config-present")
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * }
+ * </pre>
+ * 
  * ## Choosing check behavior
  * 
  * - `requires` selects when the check can run: `build-ready`, `deployment-url`, or `none`.

@@ -32,7 +32,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
-//				Name: "my-existing-project",
+//				Name: pulumi.StringRef("my-existing-project"),
 //			}, nil)
 //			if err != nil {
 //				return err
@@ -56,8 +56,10 @@ func LookupProject(ctx *pulumi.Context, args *LookupProjectArgs, opts ...pulumi.
 type LookupProjectArgs struct {
 	// The build machine type to use for this project.
 	BuildMachineType *string `pulumi:"buildMachineType"`
-	// The name of the project.
-	Name string `pulumi:"name"`
+	// The stable ID of the project. Specify exactly one of name or id.
+	Id *string `pulumi:"id"`
+	// The name of the project. Specify exactly one of name or id.
+	Name *string `pulumi:"name"`
 	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
 	OnDemandConcurrentBuilds *bool `pulumi:"onDemandConcurrentBuilds"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
@@ -102,13 +104,13 @@ type LookupProjectResult struct {
 	GitProviderOptions GetProjectGitProviderOptions `pulumi:"gitProviderOptions"`
 	// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
 	GitRepository GetProjectGitRepository `pulumi:"gitRepository"`
-	// The ID of this resource.
+	// The stable ID of the project. Specify exactly one of name or id.
 	Id string `pulumi:"id"`
 	// When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
 	IgnoreCommand string `pulumi:"ignoreCommand"`
 	// The install command for this project. If omitted, this value will be automatically detected.
 	InstallCommand string `pulumi:"installCommand"`
-	// The name of the project.
+	// The name of the project. Specify exactly one of name or id.
 	Name string `pulumi:"name"`
 	// The version of Node.js that is used in the Build Step and for Serverless Functions.
 	NodeVersion string `pulumi:"nodeVersion"`
@@ -121,7 +123,7 @@ type LookupProjectResult struct {
 	// The output directory of the project. When null is used this value will be automatically detected.
 	OutputDirectory string `pulumi:"outputDirectory"`
 	// Passport configuration for the project.
-	Passport GetProjectPassport `pulumi:"passport"`
+	Passport GetProjectPassportType `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection GetProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Whether comments are enabled on your Preview Deployments.
@@ -179,8 +181,10 @@ func LookupProjectOutput(ctx *pulumi.Context, args LookupProjectOutputArgs, opts
 type LookupProjectOutputArgs struct {
 	// The build machine type to use for this project.
 	BuildMachineType pulumi.StringPtrInput `pulumi:"buildMachineType"`
-	// The name of the project.
-	Name pulumi.StringInput `pulumi:"name"`
+	// The stable ID of the project. Specify exactly one of name or id.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// The name of the project. Specify exactly one of name or id.
+	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
 	OnDemandConcurrentBuilds pulumi.BoolPtrInput `pulumi:"onDemandConcurrentBuilds"`
 	// The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
@@ -296,7 +300,7 @@ func (o LookupProjectResultOutput) GitRepository() GetProjectGitRepositoryOutput
 	return o.ApplyT(func(v LookupProjectResult) GetProjectGitRepository { return v.GitRepository }).(GetProjectGitRepositoryOutput)
 }
 
-// The ID of this resource.
+// The stable ID of the project. Specify exactly one of name or id.
 func (o LookupProjectResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.Id }).(pulumi.StringOutput)
 }
@@ -311,7 +315,7 @@ func (o LookupProjectResultOutput) InstallCommand() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.InstallCommand }).(pulumi.StringOutput)
 }
 
-// The name of the project.
+// The name of the project. Specify exactly one of name or id.
 func (o LookupProjectResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProjectResult) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -342,8 +346,8 @@ func (o LookupProjectResultOutput) OutputDirectory() pulumi.StringOutput {
 }
 
 // Passport configuration for the project.
-func (o LookupProjectResultOutput) Passport() GetProjectPassportOutput {
-	return o.ApplyT(func(v LookupProjectResult) GetProjectPassport { return v.Passport }).(GetProjectPassportOutput)
+func (o LookupProjectResultOutput) Passport() GetProjectPassportTypeOutput {
+	return o.ApplyT(func(v LookupProjectResult) GetProjectPassportType { return v.Passport }).(GetProjectPassportTypeOutput)
 }
 
 // Ensures visitors of your Preview Deployments must enter a password in order to gain access.

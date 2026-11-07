@@ -155,14 +155,14 @@ public class TeamConfig extends com.pulumi.resources.CustomResource {
         return this.defaultPassport;
     }
     /**
-     * A description of the team.
+     * A description of the team, up to 140 characters. Set to an empty string to clear it.
      * 
      */
     @Export(name="description", refs={String.class}, tree="[0]")
     private Output<String> description;
 
     /**
-     * @return A description of the team.
+     * @return A description of the team, up to 140 characters. Set to an empty string to clear it.
      * 
      */
     public Output<String> description() {

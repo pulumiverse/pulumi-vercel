@@ -115,6 +115,49 @@ import * as utilities from "./utilities";
  * });
  * ```
  *
+ * ### Native Vercel checks
+ *
+ * Native Vercel checks run first-party Vercel validations. The `flag-definitions-present` and `mfe-config-present` native checks require `requires = "build-ready"` and cannot be rerequestable. The provider supplies the API source origin by default.
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const nativeFlagDefinitions = new vercel.ProjectDeploymentCheck("native_flag_definitions", {
+ *     projectId: example.id,
+ *     name: "Flag Definitions Present",
+ *     requires: "build-ready",
+ *     blocks: "deployment-alias",
+ *     targets: [
+ *         "preview",
+ *         "production",
+ *     ],
+ *     source: {
+ *         kind: "vercel",
+ *         subKind: "vercel-native-check",
+ *         jobName: "flag-definitions-present",
+ *     },
+ * });
+ * ```
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as vercel from "@pulumiverse/vercel";
+ *
+ * const nativeMfeConfig = new vercel.ProjectDeploymentCheck("native_mfe_config", {
+ *     projectId: example.id,
+ *     name: "Microfrontends Config Present",
+ *     requires: "build-ready",
+ *     blocks: "deployment-alias",
+ *     targets: ["production"],
+ *     source: {
+ *         kind: "vercel",
+ *         subKind: "vercel-native-check",
+ *         jobName: "mfe-config-present",
+ *     },
+ * });
+ * ```
+ *
  * ## Choosing check behavior
  *
  * - `requires` selects when the check can run: `build-ready`, `deployment-url`, or `none`.

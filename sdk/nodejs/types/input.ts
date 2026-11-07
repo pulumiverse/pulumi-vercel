@@ -855,6 +855,21 @@ export interface KmsIssuerSigningKey {
     updatedAt?: pulumi.Input<string>;
 }
 
+export interface LogDrainSamplingRule {
+    /**
+     * Environment to apply this sampling rule to. Can be `production` or `preview`.
+     */
+    environment?: pulumi.Input<string>;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: pulumi.Input<number>;
+    /**
+     * Request path prefix to apply this sampling rule to. Omit to match any path.
+     */
+    requestPath?: pulumi.Input<string>;
+}
+
 export interface MicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -944,11 +959,15 @@ export interface ProjectDeploymentCheckSource {
      */
     externalResourceId?: pulumi.Input<string>;
     /**
+     * The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+     */
+    jobName?: pulumi.Input<string>;
+    /**
      * The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      */
     kind: pulumi.Input<string>;
     /**
-     * The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
      */
     origin?: pulumi.Input<string>;
     /**
@@ -960,7 +979,7 @@ export interface ProjectDeploymentCheckSource {
      */
     selection?: pulumi.Input<inputs.ProjectDeploymentCheckSourceSelection>;
     /**
-     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
      */
     subKind?: pulumi.Input<string>;
     /**
@@ -986,6 +1005,55 @@ export interface ProjectDeploymentCheckSourceSelection {
      * The Turborepo task name.
      */
     task?: pulumi.Input<string>;
+}
+
+export interface ProjectDeploymentProtectionPasswordProtection {
+    /**
+     * The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+     */
+    deploymentType: pulumi.Input<string>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+     */
+    passwordWo?: pulumi.Input<string>;
+    /**
+     * A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+     */
+    passwordWoVersion?: pulumi.Input<number>;
+}
+
+export interface ProjectDeploymentProtectionTrustedIps {
+    /**
+     * Allowed IPv4 addresses or CIDR ranges.
+     */
+    addresses: pulumi.Input<pulumi.Input<inputs.ProjectDeploymentProtectionTrustedIpsAddress>[]>;
+    /**
+     * The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+     */
+    deploymentType: pulumi.Input<string>;
+    /**
+     * The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+     */
+    protectionMode?: pulumi.Input<string>;
+}
+
+export interface ProjectDeploymentProtectionTrustedIpsAddress {
+    /**
+     * Optional description, up to 20 characters.
+     */
+    note?: pulumi.Input<string>;
+    /**
+     * An IPv4 address or CIDR range. IPv6 is not supported.
+     */
+    value: pulumi.Input<string>;
+}
+
+export interface ProjectDeploymentProtectionVercelAuthentication {
+    /**
+     * The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+     */
+    deploymentType: pulumi.Input<string>;
 }
 
 export interface ProjectDomainVerification {
@@ -1087,13 +1155,13 @@ export interface ProjectEnvironmentVariablesVariable {
 
 export interface ProjectGitComments {
     /**
-     * Whether Commit comments are enabled
+     * Whether Commit comments are enabled. Required when gitComments is configured.
      */
-    onCommit: pulumi.Input<boolean>;
+    onCommit?: pulumi.Input<boolean>;
     /**
-     * Whether Pull Request comments are enabled
+     * Whether Pull Request comments are enabled. Required when gitComments is configured.
      */
-    onPullRequest: pulumi.Input<boolean>;
+    onPullRequest?: pulumi.Input<boolean>;
 }
 
 export interface ProjectGitProviderOptions {
@@ -1214,7 +1282,7 @@ export interface ProjectPassport {
      */
     connectorId?: pulumi.Input<string>;
     /**
-     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      */
     deploymentType?: pulumi.Input<string>;
     /**
@@ -1524,7 +1592,7 @@ export interface TeamConfigDefaultPassport {
      */
     connectorId?: pulumi.Input<string>;
     /**
-     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      */
     deploymentType?: pulumi.Input<string>;
     /**

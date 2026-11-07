@@ -37,7 +37,7 @@ import (
 //			_, err = vercel.NewProject(ctx, "internal_app", &vercel.ProjectArgs{
 //				TeamId: pulumi.String(passport.TeamId),
 //				Name:   pulumi.String("internal-app"),
-//				Passport: &vercel.ProjectPassportArgs{
+//				Passport: &vercel.ProjectPassportTypeArgs{
 //					ConnectorId: pulumi.String(passport.Id),
 //				},
 //			})

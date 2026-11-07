@@ -48,6 +48,21 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
     }
 
     /**
+     * The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+     * 
+     */
+    @Import(name="jobName")
+    private @Nullable Output<String> jobName;
+
+    /**
+     * @return The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+     * 
+     */
+    public Optional<Output<String>> jobName() {
+        return Optional.ofNullable(this.jobName);
+    }
+
+    /**
      * The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
@@ -63,14 +78,14 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
     }
 
     /**
-     * The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
      * 
      */
     @Import(name="origin")
     private @Nullable Output<String> origin;
 
     /**
-     * @return The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * @return The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
      * 
      */
     public Optional<Output<String>> origin() {
@@ -108,14 +123,14 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
     }
 
     /**
-     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
      * 
      */
     @Import(name="subKind")
     private @Nullable Output<String> subKind;
 
     /**
-     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
      * 
      */
     public Optional<Output<String>> subKind() {
@@ -142,6 +157,7 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
     private ProjectDeploymentCheckSourceArgs(ProjectDeploymentCheckSourceArgs $) {
         this.externalCheckName = $.externalCheckName;
         this.externalResourceId = $.externalResourceId;
+        this.jobName = $.jobName;
         this.kind = $.kind;
         this.origin = $.origin;
         this.provider = $.provider;
@@ -211,6 +227,27 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
+         * @param jobName The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder jobName(@Nullable Output<String> jobName) {
+            $.jobName = jobName;
+            return this;
+        }
+
+        /**
+         * @param jobName The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder jobName(String jobName) {
+            return jobName(Output.of(jobName));
+        }
+
+        /**
          * @param kind The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
          * 
          * @return builder
@@ -232,7 +269,7 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
-         * @param origin The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+         * @param origin The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
          * 
          * @return builder
          * 
@@ -243,7 +280,7 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
-         * @param origin The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+         * @param origin The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
          * 
          * @return builder
          * 
@@ -295,7 +332,7 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
-         * @param subKind The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+         * @param subKind The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
          * 
          * @return builder
          * 
@@ -306,7 +343,7 @@ public final class ProjectDeploymentCheckSourceArgs extends com.pulumi.resources
         }
 
         /**
-         * @param subKind The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+         * @param subKind The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
          * 
          * @return builder
          * 

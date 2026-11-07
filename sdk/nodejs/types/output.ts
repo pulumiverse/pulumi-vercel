@@ -1115,6 +1115,21 @@ export interface GetKmsIssuerSigningKey {
     updatedAt: string;
 }
 
+export interface GetLogDrainSamplingRule {
+    /**
+     * Environment this sampling rule applies to.
+     */
+    environment: string;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: number;
+    /**
+     * Request path prefix this sampling rule applies to.
+     */
+    requestPath: string;
+}
+
 export interface GetMicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -1295,7 +1310,7 @@ export interface GetProjectPassport {
      */
     connectorId: string;
     /**
-     * The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+     * The deployment scope protected when Passport is enabled. Null when disabled.
      */
     deploymentType: string;
     /**
@@ -1309,6 +1324,145 @@ export interface GetProjectPasswordProtection {
      * The deployment environment that will be protected.
      */
     deploymentType: string;
+}
+
+export interface GetProjectProtectionInventoryEntry {
+    /**
+     * Alias hostname, without a query string, or null for project access.
+     */
+    alias: string;
+    /**
+     * Versioned fingerprint of the team, project, target, credential or subject, and access configuration. Changes when access changes.
+     */
+    approvalKey: string;
+    /**
+     * Required OIDC claims and accepted values for trusted-oidc access. Values are ORed within each claim; claims are ANDed.
+     */
+    claims: {[key: string]: string[]};
+    /**
+     * Integration configuration ID for integration-created automation access.
+     */
+    configurationId: string;
+    /**
+     * Creation time in Unix milliseconds, when returned by the API.
+     */
+    createdAt: number;
+    /**
+     * Creator ID, when returned by the API.
+     */
+    createdBy: string;
+    /**
+     * Custom environment rules for trusted-project access. Null uses defaults; an empty set explicitly denies access.
+     */
+    customAllows: outputs.GetProjectProtectionInventoryEntryCustomAllow[];
+    /**
+     * Expiry time in Unix seconds, or null when no expiry was returned.
+     */
+    expiresAt: number;
+    /**
+     * Whether this entry represents implicit self-access or a Vercel CI default rather than an explicit rule.
+     */
+    implicit: boolean;
+    /**
+     * Integration ID for integration-created automation access.
+     */
+    integrationId: string;
+    /**
+     * Whether an automation bypass is the deployment environment variable default. Omitted legacy values are interpreted as true. Null for other scopes.
+     */
+    isEnvVar: boolean;
+    /**
+     * OIDC issuer for trusted-oidc access.
+     */
+    issuer: string;
+    /**
+     * Last update time in Unix milliseconds, when returned by the API.
+     */
+    lastUpdatedAt: number;
+    /**
+     * Last updater ID, when returned by the API.
+     */
+    lastUpdatedBy: string;
+    /**
+     * Display note or Trusted Source label, when returned by the API. Not used for approval identity.
+     */
+    note: string;
+    /**
+     * Path prefix bypassed for OPTIONS requests, or null for other scopes.
+     */
+    pathPrefix: string;
+    /**
+     * API bypass scope, or options-allowlist, trusted-project, trusted-oidc, or vercel-ci-same-repository. Unrecognized API scopes are retained with unknown status.
+     */
+    scope: string;
+    /**
+     * active, expired, granted, requested, invited, disabled, or unknown. Active describes configuration, not whether protection currently applies to a URL. Invitations are not treated as confirmed grants.
+     */
+    status: string;
+    /**
+     * The user or email map key for individual access, or null for other scopes. Bearer map keys are never returned.
+     */
+    subject: string;
+    /**
+     * The project or alias ID owning this entry.
+     */
+    targetId: string;
+    /**
+     * The owner of the entry: project or alias.
+     */
+    targetType: string;
+    /**
+     * Allowed target environments for trusted-oidc access.
+     */
+    to: outputs.GetProjectProtectionInventoryEntryTo;
+    /**
+     * Source project ID for trusted-project access.
+     */
+    trustedProjectId: string;
+}
+
+export interface GetProjectProtectionInventoryEntryCustomAllow {
+    /**
+     * The source environments on the trusted project that are allowed to access the target environments.
+     */
+    from: outputs.GetProjectProtectionInventoryEntryCustomAllowFrom;
+    /**
+     * The target environments on this project that may be accessed.
+     */
+    to: outputs.GetProjectProtectionInventoryEntryCustomAllowTo;
+}
+
+export interface GetProjectProtectionInventoryEntryCustomAllowFrom {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs: string[];
+}
+
+export interface GetProjectProtectionInventoryEntryCustomAllowTo {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs: string[];
+}
+
+export interface GetProjectProtectionInventoryEntryTo {
+    /**
+     * Named environment preset. Currently only `all-custom` is supported.
+     */
+    preset: string;
+    /**
+     * System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+     */
+    slugs: string[];
 }
 
 export interface GetProjectResourceConfig {
@@ -1547,6 +1701,100 @@ export interface GetProjectVercelAuthentication {
     deploymentType: string;
 }
 
+export interface GetProjectsProjects {
+    /**
+     * The configured framework. Null when no framework is configured.
+     */
+    framework: string;
+    /**
+     * The connected Git repository. Null when no repository is connected.
+     */
+    gitRepository: outputs.GetProjectsProjectsGitRepository;
+    /**
+     * The project ID.
+     */
+    id: string;
+    /**
+     * The current project name.
+     */
+    name: string;
+    /**
+     * Passport configuration. Bypasses and exceptions can still allow access.
+     */
+    passport: outputs.GetProjectsProjectsPassport;
+    /**
+     * Password Protection configuration. Bypasses and exceptions can still allow access.
+     */
+    passwordProtection: outputs.GetProjectsProjectsPasswordProtection;
+    /**
+     * The owning team ID. Null for a personal project.
+     */
+    teamId: string;
+    /**
+     * Trusted IPs configuration. Bypasses and exceptions can still allow access.
+     */
+    trustedIps: outputs.GetProjectsProjectsTrustedIps;
+    /**
+     * Vercel Authentication configuration. Bypasses and exceptions can still allow access.
+     */
+    vercelAuthentication: outputs.GetProjectsProjectsVercelAuthentication;
+}
+
+export interface GetProjectsProjectsGitRepository {
+    /**
+     * The repository path, including its owner or namespace.
+     */
+    repo: string;
+    /**
+     * The Git provider: github, gitlab or bitbucket.
+     */
+    type: string;
+}
+
+export interface GetProjectsProjectsPassport {
+    /**
+     * The API deployment scope. Null when disabled.
+     */
+    deploymentType: string;
+    /**
+     * Whether this protection mechanism is configured.
+     */
+    enabled: boolean;
+}
+
+export interface GetProjectsProjectsPasswordProtection {
+    /**
+     * The API deployment scope. Null when disabled.
+     */
+    deploymentType: string;
+    /**
+     * Whether this protection mechanism is configured.
+     */
+    enabled: boolean;
+}
+
+export interface GetProjectsProjectsTrustedIps {
+    /**
+     * The API deployment scope. Null when disabled.
+     */
+    deploymentType: string;
+    /**
+     * Whether this protection mechanism is configured.
+     */
+    enabled: boolean;
+}
+
+export interface GetProjectsProjectsVercelAuthentication {
+    /**
+     * The API deployment scope. Null when disabled.
+     */
+    deploymentType: string;
+    /**
+     * Whether this protection mechanism is configured.
+     */
+    enabled: boolean;
+}
+
 export interface GetTeamConfigDefaultDeploymentProtection {
     /**
      * Default Vercel Authentication for new projects.
@@ -1567,7 +1815,7 @@ export interface GetTeamConfigDefaultPassport {
      */
     connectorId: string;
     /**
-     * The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+     * The deployment scope protected when Passport is enabled. Null when disabled.
      */
     deploymentType: string;
     /**
@@ -1682,6 +1930,21 @@ export interface KmsIssuerSigningKey {
     updatedAt: string;
 }
 
+export interface LogDrainSamplingRule {
+    /**
+     * Environment to apply this sampling rule to. Can be `production` or `preview`.
+     */
+    environment?: string;
+    /**
+     * Sampling rate from 0 to 1.
+     */
+    rate: number;
+    /**
+     * Request path prefix to apply this sampling rule to. Omit to match any path.
+     */
+    requestPath?: string;
+}
+
 export interface MicrofrontendGroupDefaultApp {
     /**
      * The default route for the project. Used for the screenshot of deployments.
@@ -1771,11 +2034,15 @@ export interface ProjectDeploymentCheckSource {
      */
     externalResourceId: string;
     /**
+     * The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+     */
+    jobName: string;
+    /**
      * The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      */
     kind: string;
     /**
-     * The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
      */
     origin: string;
     /**
@@ -1787,7 +2054,7 @@ export interface ProjectDeploymentCheckSource {
      */
     selection: outputs.ProjectDeploymentCheckSourceSelection;
     /**
-     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
      */
     subKind: string;
     /**
@@ -1813,6 +2080,55 @@ export interface ProjectDeploymentCheckSourceSelection {
      * The Turborepo task name.
      */
     task: string;
+}
+
+export interface ProjectDeploymentProtectionPasswordProtection {
+    /**
+     * The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+     */
+    deploymentType: string;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+     */
+    passwordWo?: string;
+    /**
+     * A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+     */
+    passwordWoVersion?: number;
+}
+
+export interface ProjectDeploymentProtectionTrustedIps {
+    /**
+     * Allowed IPv4 addresses or CIDR ranges.
+     */
+    addresses: outputs.ProjectDeploymentProtectionTrustedIpsAddress[];
+    /**
+     * The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+     */
+    deploymentType: string;
+    /**
+     * The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+     */
+    protectionMode: string;
+}
+
+export interface ProjectDeploymentProtectionTrustedIpsAddress {
+    /**
+     * Optional description, up to 20 characters.
+     */
+    note?: string;
+    /**
+     * An IPv4 address or CIDR range. IPv6 is not supported.
+     */
+    value: string;
+}
+
+export interface ProjectDeploymentProtectionVercelAuthentication {
+    /**
+     * The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+     */
+    deploymentType: string;
 }
 
 export interface ProjectDomainVerification {
@@ -1914,11 +2230,11 @@ export interface ProjectEnvironmentVariablesVariable {
 
 export interface ProjectGitComments {
     /**
-     * Whether Commit comments are enabled
+     * Whether Commit comments are enabled. Required when gitComments is configured.
      */
     onCommit: boolean;
     /**
-     * Whether Pull Request comments are enabled
+     * Whether Pull Request comments are enabled. Required when gitComments is configured.
      */
     onPullRequest: boolean;
 }
@@ -2041,7 +2357,7 @@ export interface ProjectPassport {
      */
     connectorId: string;
     /**
-     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      */
     deploymentType: string;
     /**
@@ -2351,7 +2667,7 @@ export interface TeamConfigDefaultPassport {
      */
     connectorId: string;
     /**
-     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      */
     deploymentType: string;
     /**

@@ -31,13 +31,13 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			parentMfeProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
-//				Name: "my parent project",
+//				Name: pulumi.StringRef("my parent project"),
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
 //			_, err = vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
-//				Name: "my child project",
+//				Name: pulumi.StringRef("my child project"),
 //			}, nil)
 //			if err != nil {
 //				return err

@@ -4,7 +4,6 @@
 package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.annotations.Import;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -32,18 +31,33 @@ public final class GetProjectPlainArgs extends com.pulumi.resources.InvokeArgs {
     }
 
     /**
-     * The name of the project.
+     * The stable ID of the project. Specify exactly one of name or id.
      * 
      */
-    @Import(name="name", required=true)
-    private String name;
+    @Import(name="id")
+    private @Nullable String id;
 
     /**
-     * @return The name of the project.
+     * @return The stable ID of the project. Specify exactly one of name or id.
      * 
      */
-    public String name() {
-        return this.name;
+    public Optional<String> id() {
+        return Optional.ofNullable(this.id);
+    }
+
+    /**
+     * The name of the project. Specify exactly one of name or id.
+     * 
+     */
+    @Import(name="name")
+    private @Nullable String name;
+
+    /**
+     * @return The name of the project. Specify exactly one of name or id.
+     * 
+     */
+    public Optional<String> name() {
+        return Optional.ofNullable(this.name);
     }
 
     /**
@@ -80,6 +94,7 @@ public final class GetProjectPlainArgs extends com.pulumi.resources.InvokeArgs {
 
     private GetProjectPlainArgs(GetProjectPlainArgs $) {
         this.buildMachineType = $.buildMachineType;
+        this.id = $.id;
         this.name = $.name;
         this.onDemandConcurrentBuilds = $.onDemandConcurrentBuilds;
         this.teamId = $.teamId;
@@ -115,12 +130,23 @@ public final class GetProjectPlainArgs extends com.pulumi.resources.InvokeArgs {
         }
 
         /**
-         * @param name The name of the project.
+         * @param id The stable ID of the project. Specify exactly one of name or id.
          * 
          * @return builder
          * 
          */
-        public Builder name(String name) {
+        public Builder id(@Nullable String id) {
+            $.id = id;
+            return this;
+        }
+
+        /**
+         * @param name The name of the project. Specify exactly one of name or id.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder name(@Nullable String name) {
             $.name = name;
             return this;
         }
@@ -148,9 +174,6 @@ public final class GetProjectPlainArgs extends com.pulumi.resources.InvokeArgs {
         }
 
         public GetProjectPlainArgs build() {
-            if ($.name == null) {
-                throw new MissingRequiredPropertyException("GetProjectPlainArgs", "name");
-            }
             return $;
         }
     }

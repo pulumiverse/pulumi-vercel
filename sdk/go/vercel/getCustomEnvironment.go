@@ -30,7 +30,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			example, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
-//				Name: "example-project-with-custom-env",
+//				Name: pulumi.StringRef("example-project-with-custom-env"),
 //			}, nil)
 //			if err != nil {
 //				return err
