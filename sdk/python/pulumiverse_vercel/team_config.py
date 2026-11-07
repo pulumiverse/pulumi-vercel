@@ -45,7 +45,7 @@ class TeamConfigArgs:
         :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input['TeamConfigDefaultDeploymentProtectionArgs'] default_deployment_protection: Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
         :param pulumi.Input['TeamConfigDefaultPassportArgs'] default_passport: Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-        :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] description: A description of the team, up to 140 characters. Set to an empty string to clear it.
         :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -149,7 +149,7 @@ class TeamConfigArgs:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A description of the team.
+        A description of the team, up to 140 characters. Set to an empty string to clear it.
         """
         return pulumi.get(self, "description")
 
@@ -331,7 +331,7 @@ class _TeamConfigState:
         :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input['TeamConfigDefaultDeploymentProtectionArgs'] default_deployment_protection: Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
         :param pulumi.Input['TeamConfigDefaultPassportArgs'] default_passport: Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-        :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] description: A description of the team, up to 140 characters. Set to an empty string to clear it.
         :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -438,7 +438,7 @@ class _TeamConfigState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A description of the team.
+        A description of the team, up to 140 characters. Set to an empty string to clear it.
         """
         return pulumi.get(self, "description")
 
@@ -679,7 +679,7 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[Union['TeamConfigDefaultDeploymentProtectionArgs', 'TeamConfigDefaultDeploymentProtectionArgsDict']] default_deployment_protection: Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
         :param pulumi.Input[Union['TeamConfigDefaultPassportArgs', 'TeamConfigDefaultPassportArgsDict']] default_passport: Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-        :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] description: A description of the team, up to 140 characters. Set to an empty string to clear it.
         :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -844,7 +844,7 @@ class TeamConfig(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] default_build_machine_type: The default build machine type for new projects. Must be one of "basic", "standard", "enhanced", "turbo", or "elastic".
         :param pulumi.Input[Union['TeamConfigDefaultDeploymentProtectionArgs', 'TeamConfigDefaultDeploymentProtectionArgsDict']] default_deployment_protection: Deployment Protection defaults copied to new projects. Existing projects are unaffected. Removing this attribute leaves the team default unchanged.
         :param pulumi.Input[Union['TeamConfigDefaultPassportArgs', 'TeamConfigDefaultPassportArgsDict']] default_passport: Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-        :param pulumi.Input[_builtins.str] description: A description of the team.
+        :param pulumi.Input[_builtins.str] description: A description of the team, up to 140 characters. Set to an empty string to clear it.
         :param pulumi.Input[_builtins.str] disjunctive_production_secret_policy: When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
         :param pulumi.Input[_builtins.str] email_domain: Hostname that'll be matched with emails on sign-up to automatically join the Team.
         :param pulumi.Input[_builtins.str] enable_preview_feedback: Enables the Vercel Toolbar on your preview deployments: one of on, off or default.
@@ -919,7 +919,7 @@ class TeamConfig(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[_builtins.str]:
         """
-        A description of the team.
+        A description of the team, up to 140 characters. Set to an empty string to clear it.
         """
         return pulumi.get(self, "description")
 

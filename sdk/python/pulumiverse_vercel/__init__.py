@@ -72,8 +72,10 @@ from .get_project import *
 from .get_project_deployment_retention import *
 from .get_project_directory import *
 from .get_project_members import *
+from .get_project_protection_inventory import *
 from .get_project_rolling_release import *
 from .get_project_routes import *
+from .get_projects import *
 from .get_shareable_link import *
 from .get_shared_environment_variable import *
 from .get_team_config import *
@@ -97,11 +99,13 @@ from .oidc_federation_policy import *
 from .project import *
 from .project_crons import *
 from .project_deployment_check import *
+from .project_deployment_protection import *
 from .project_deployment_retention import *
 from .project_domain import *
 from .project_environment_variable import *
 from .project_environment_variables import *
 from .project_members import *
+from .project_passport import *
 from .project_protection_bypass import *
 from .project_rolling_release import *
 from .project_route import *
@@ -524,6 +528,14 @@ _utilities.register(
  },
  {
   "pkg": "vercel",
+  "mod": "index/projectDeploymentProtection",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectDeploymentProtection:ProjectDeploymentProtection": "ProjectDeploymentProtection"
+  }
+ },
+ {
+  "pkg": "vercel",
   "mod": "index/projectDeploymentRetention",
   "fqn": "pulumiverse_vercel",
   "classes": {
@@ -560,6 +572,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/projectMembers:ProjectMembers": "ProjectMembers"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/projectPassport",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/projectPassport:ProjectPassport": "ProjectPassport"
   }
  },
  {

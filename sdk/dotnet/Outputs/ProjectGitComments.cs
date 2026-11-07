@@ -15,19 +15,19 @@ namespace Pulumiverse.Vercel.Outputs
     public sealed class ProjectGitComments
     {
         /// <summary>
-        /// Whether Commit comments are enabled
+        /// Whether Commit comments are enabled. Required when GitComments is configured.
         /// </summary>
-        public readonly bool OnCommit;
+        public readonly bool? OnCommit;
         /// <summary>
-        /// Whether Pull Request comments are enabled
+        /// Whether Pull Request comments are enabled. Required when GitComments is configured.
         /// </summary>
-        public readonly bool OnPullRequest;
+        public readonly bool? OnPullRequest;
 
         [OutputConstructor]
         private ProjectGitComments(
-            bool onCommit,
+            bool? onCommit,
 
-            bool onPullRequest)
+            bool? onPullRequest)
         {
             OnCommit = onCommit;
             OnPullRequest = onPullRequest;

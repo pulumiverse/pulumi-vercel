@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -82,9 +84,13 @@ export interface GetLogDrainResult {
      */
     readonly projectIds: string[];
     /**
-     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use samplingRules for the full configuration.
      */
     readonly samplingRate: number;
+    /**
+     * Ordered sampling rules for logs sent to this drain.
+     */
+    readonly samplingRules: outputs.GetLogDrainSamplingRule[];
     /**
      * A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      */

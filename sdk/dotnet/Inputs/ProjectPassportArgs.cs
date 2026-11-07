@@ -20,7 +20,7 @@ namespace Pulumiverse.Vercel.Inputs
         public Input<string>? ConnectorId { get; set; }
 
         /// <summary>
-        /// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        /// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
         /// </summary>
         [Input("deploymentType")]
         public Input<string>? DeploymentType { get; set; }

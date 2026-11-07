@@ -335,6 +335,11 @@ export const getProjectMembers: typeof import("./getProjectMembers").getProjectM
 export const getProjectMembersOutput: typeof import("./getProjectMembers").getProjectMembersOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectMembers","getProjectMembersOutput"], () => require("./getProjectMembers"));
 
+export { GetProjectProtectionInventoryArgs, GetProjectProtectionInventoryResult, GetProjectProtectionInventoryOutputArgs } from "./getProjectProtectionInventory";
+export const getProjectProtectionInventory: typeof import("./getProjectProtectionInventory").getProjectProtectionInventory = null as any;
+export const getProjectProtectionInventoryOutput: typeof import("./getProjectProtectionInventory").getProjectProtectionInventoryOutput = null as any;
+utilities.lazyLoad(exports, ["getProjectProtectionInventory","getProjectProtectionInventoryOutput"], () => require("./getProjectProtectionInventory"));
+
 export { GetProjectRollingReleaseArgs, GetProjectRollingReleaseResult, GetProjectRollingReleaseOutputArgs } from "./getProjectRollingRelease";
 export const getProjectRollingRelease: typeof import("./getProjectRollingRelease").getProjectRollingRelease = null as any;
 export const getProjectRollingReleaseOutput: typeof import("./getProjectRollingRelease").getProjectRollingReleaseOutput = null as any;
@@ -344,6 +349,11 @@ export { GetProjectRoutesArgs, GetProjectRoutesResult, GetProjectRoutesOutputArg
 export const getProjectRoutes: typeof import("./getProjectRoutes").getProjectRoutes = null as any;
 export const getProjectRoutesOutput: typeof import("./getProjectRoutes").getProjectRoutesOutput = null as any;
 utilities.lazyLoad(exports, ["getProjectRoutes","getProjectRoutesOutput"], () => require("./getProjectRoutes"));
+
+export { GetProjectsArgs, GetProjectsResult, GetProjectsOutputArgs } from "./getProjects";
+export const getProjects: typeof import("./getProjects").getProjects = null as any;
+export const getProjectsOutput: typeof import("./getProjects").getProjectsOutput = null as any;
+utilities.lazyLoad(exports, ["getProjects","getProjectsOutput"], () => require("./getProjects"));
 
 export { GetShareableLinkArgs, GetShareableLinkResult, GetShareableLinkOutputArgs } from "./getShareableLink";
 export const getShareableLink: typeof import("./getShareableLink").getShareableLink = null as any;
@@ -460,6 +470,11 @@ export type ProjectDeploymentCheck = import("./projectDeploymentCheck").ProjectD
 export const ProjectDeploymentCheck: typeof import("./projectDeploymentCheck").ProjectDeploymentCheck = null as any;
 utilities.lazyLoad(exports, ["ProjectDeploymentCheck"], () => require("./projectDeploymentCheck"));
 
+export { ProjectDeploymentProtectionArgs, ProjectDeploymentProtectionState } from "./projectDeploymentProtection";
+export type ProjectDeploymentProtection = import("./projectDeploymentProtection").ProjectDeploymentProtection;
+export const ProjectDeploymentProtection: typeof import("./projectDeploymentProtection").ProjectDeploymentProtection = null as any;
+utilities.lazyLoad(exports, ["ProjectDeploymentProtection"], () => require("./projectDeploymentProtection"));
+
 export { ProjectDeploymentRetentionArgs, ProjectDeploymentRetentionState } from "./projectDeploymentRetention";
 export type ProjectDeploymentRetention = import("./projectDeploymentRetention").ProjectDeploymentRetention;
 export const ProjectDeploymentRetention: typeof import("./projectDeploymentRetention").ProjectDeploymentRetention = null as any;
@@ -484,6 +499,11 @@ export { ProjectMembersArgs, ProjectMembersState } from "./projectMembers";
 export type ProjectMembers = import("./projectMembers").ProjectMembers;
 export const ProjectMembers: typeof import("./projectMembers").ProjectMembers = null as any;
 utilities.lazyLoad(exports, ["ProjectMembers"], () => require("./projectMembers"));
+
+export { ProjectPassportArgs, ProjectPassportState } from "./projectPassport";
+export type ProjectPassport = import("./projectPassport").ProjectPassport;
+export const ProjectPassport: typeof import("./projectPassport").ProjectPassport = null as any;
+utilities.lazyLoad(exports, ["ProjectPassport"], () => require("./projectPassport"));
 
 export { ProjectProtectionBypassArgs, ProjectProtectionBypassState } from "./projectProtectionBypass";
 export type ProjectProtectionBypass = import("./projectProtectionBypass").ProjectProtectionBypass;
@@ -670,6 +690,8 @@ const _module = {
                 return new ProjectCrons(name, <any>undefined, { urn })
             case "vercel:index/projectDeploymentCheck:ProjectDeploymentCheck":
                 return new ProjectDeploymentCheck(name, <any>undefined, { urn })
+            case "vercel:index/projectDeploymentProtection:ProjectDeploymentProtection":
+                return new ProjectDeploymentProtection(name, <any>undefined, { urn })
             case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
                 return new ProjectDeploymentRetention(name, <any>undefined, { urn })
             case "vercel:index/projectDomain:ProjectDomain":
@@ -680,6 +702,8 @@ const _module = {
                 return new ProjectEnvironmentVariables(name, <any>undefined, { urn })
             case "vercel:index/projectMembers:ProjectMembers":
                 return new ProjectMembers(name, <any>undefined, { urn })
+            case "vercel:index/projectPassport:ProjectPassport":
+                return new ProjectPassport(name, <any>undefined, { urn })
             case "vercel:index/projectProtectionBypass:ProjectProtectionBypass":
                 return new ProjectProtectionBypass(name, <any>undefined, { urn })
             case "vercel:index/projectRollingRelease:ProjectRollingRelease":
@@ -762,11 +786,13 @@ pulumi.runtime.registerResourceModule("vercel", "index/oidcFederationPolicy", _m
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentCheck", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentProtection", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentRetention", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDomain", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariable", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectEnvironmentVariables", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectMembers", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/projectPassport", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectProtectionBypass", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectRollingRelease", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectRoute", _module)

@@ -165,6 +165,69 @@ namespace Pulumiverse.Vercel
     /// });
     /// ```
     /// 
+    /// ### Native Vercel checks
+    /// 
+    /// Native Vercel checks run first-party Vercel validations. The `flag-definitions-present` and `mfe-config-present` native checks require `requires = "build-ready"` and cannot be rerequestable. The provider supplies the API source origin by default.
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var nativeFlagDefinitions = new Vercel.ProjectDeploymentCheck("native_flag_definitions", new()
+    ///     {
+    ///         ProjectId = example.Id,
+    ///         Name = "Flag Definitions Present",
+    ///         Requires = "build-ready",
+    ///         Blocks = "deployment-alias",
+    ///         Targets = new[]
+    ///         {
+    ///             "preview",
+    ///             "production",
+    ///         },
+    ///         Source = new Vercel.Inputs.ProjectDeploymentCheckSourceArgs
+    ///         {
+    ///             Kind = "vercel",
+    ///             SubKind = "vercel-native-check",
+    ///             JobName = "flag-definitions-present",
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Vercel = Pulumiverse.Vercel;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var nativeMfeConfig = new Vercel.ProjectDeploymentCheck("native_mfe_config", new()
+    ///     {
+    ///         ProjectId = example.Id,
+    ///         Name = "Microfrontends Config Present",
+    ///         Requires = "build-ready",
+    ///         Blocks = "deployment-alias",
+    ///         Targets = new[]
+    ///         {
+    ///             "production",
+    ///         },
+    ///         Source = new Vercel.Inputs.ProjectDeploymentCheckSourceArgs
+    ///         {
+    ///             Kind = "vercel",
+    ///             SubKind = "vercel-native-check",
+    ///             JobName = "mfe-config-present",
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Choosing check behavior
     /// 
     /// - `Requires` selects when the check can run: `build-ready`, `deployment-url`, or `None`.

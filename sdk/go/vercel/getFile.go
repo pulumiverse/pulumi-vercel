@@ -38,7 +38,7 @@ import (
 //				return err
 //			}
 //			exampleGetProject, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
-//				Name: "my-project",
+//				Name: pulumi.StringRef("my-project"),
 //			}, nil)
 //			if err != nil {
 //				return err

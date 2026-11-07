@@ -10,6 +10,7 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumiverse.vercel.LogDrainArgs;
 import com.pulumiverse.vercel.Utilities;
 import com.pulumiverse.vercel.inputs.LogDrainState;
+import com.pulumiverse.vercel.outputs.LogDrainSamplingRule;
 import java.lang.Double;
 import java.lang.Integer;
 import java.lang.String;
@@ -147,18 +148,32 @@ public class LogDrain extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.projectIds);
     }
     /**
-     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      * 
      */
     @Export(name="samplingRate", refs={Double.class}, tree="[0]")
     private Output</* @Nullable */ Double> samplingRate;
 
     /**
-     * @return A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * @return A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      * 
      */
     public Output<Optional<Double>> samplingRate() {
         return Codegen.optional(this.samplingRate);
+    }
+    /**
+     * Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     * 
+     */
+    @Export(name="samplingRules", refs={List.class,LogDrainSamplingRule.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<LogDrainSamplingRule>> samplingRules;
+
+    /**
+     * @return Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     * 
+     */
+    public Output<Optional<List<LogDrainSamplingRule>>> samplingRules() {
+        return Codegen.optional(this.samplingRules);
     }
     /**
      * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.

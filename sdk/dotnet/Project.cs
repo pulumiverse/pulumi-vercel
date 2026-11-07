@@ -129,6 +129,16 @@ namespace Pulumiverse.Vercel
     /// 
     /// ## Import
     /// 
+    /// ### Identity Schema
+    /// 
+    /// #### Required
+    /// 
+    /// - `ProjectId` (String) The stable project ID.
+    /// 
+    /// #### Optional
+    /// 
+    /// - `TeamId` (String) The owning team ID. Omit to use the provider's default team or personal account.
+    /// 
     /// The `pulumi import` command can be used, for example:
     /// 
     /// If importing into a personal account, or with a team configured on
@@ -229,10 +239,10 @@ namespace Pulumiverse.Vercel
         public Output<bool> FunctionFailover { get; private set; } = null!;
 
         /// <summary>
-        /// Configuration for Git Comments.
+        /// Configuration for Git Comments. When omitted, existing settings are preserved.
         /// </summary>
         [Output("gitComments")]
-        public Output<Outputs.ProjectGitComments?> GitComments { get; private set; } = null!;
+        public Output<Outputs.ProjectGitComments> GitComments { get; private set; } = null!;
 
         /// <summary>
         /// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `True`.
@@ -269,6 +279,18 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Output("installCommand")]
         public Output<string?> InstallCommand { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        /// </summary>
+        [Output("manageDeploymentProtection")]
+        public Output<bool> ManageDeploymentProtection { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+        /// </summary>
+        [Output("managePassport")]
+        public Output<bool> ManagePassport { get; private set; } = null!;
 
         /// <summary>
         /// The desired name for the project.
@@ -535,7 +557,7 @@ namespace Pulumiverse.Vercel
         public Input<bool>? FunctionFailover { get; set; }
 
         /// <summary>
-        /// Configuration for Git Comments.
+        /// Configuration for Git Comments. When omitted, existing settings are preserved.
         /// </summary>
         [Input("gitComments")]
         public Input<Inputs.ProjectGitCommentsArgs>? GitComments { get; set; }
@@ -575,6 +597,18 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("installCommand")]
         public Input<string>? InstallCommand { get; set; }
+
+        /// <summary>
+        /// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        /// </summary>
+        [Input("manageDeploymentProtection")]
+        public Input<bool>? ManageDeploymentProtection { get; set; }
+
+        /// <summary>
+        /// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+        /// </summary>
+        [Input("managePassport")]
+        public Input<bool>? ManagePassport { get; set; }
 
         /// <summary>
         /// The desired name for the project.
@@ -802,7 +836,7 @@ namespace Pulumiverse.Vercel
         public Input<bool>? FunctionFailover { get; set; }
 
         /// <summary>
-        /// Configuration for Git Comments.
+        /// Configuration for Git Comments. When omitted, existing settings are preserved.
         /// </summary>
         [Input("gitComments")]
         public Input<Inputs.ProjectGitCommentsGetArgs>? GitComments { get; set; }
@@ -842,6 +876,18 @@ namespace Pulumiverse.Vercel
         /// </summary>
         [Input("installCommand")]
         public Input<string>? InstallCommand { get; set; }
+
+        /// <summary>
+        /// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        /// </summary>
+        [Input("manageDeploymentProtection")]
+        public Input<bool>? ManageDeploymentProtection { get; set; }
+
+        /// <summary>
+        /// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+        /// </summary>
+        [Input("managePassport")]
+        public Input<bool>? ManagePassport { get; set; }
 
         /// <summary>
         /// The desired name for the project.

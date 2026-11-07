@@ -23,11 +23,15 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? ExternalResourceId;
         /// <summary>
+        /// The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+        /// </summary>
+        public readonly string? JobName;
+        /// <summary>
         /// The source kind. New checks support `git-provider`, `Integration`, `Webhook`, and `Vercel`.
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// The Vercel source origin. Vercel CI checks use `Api`; the provider supplies this value when omitted.
+        /// The Vercel source origin. Vercel CI and native checks use `Api`; the provider supplies this value when omitted.
         /// </summary>
         public readonly string? Origin;
         /// <summary>
@@ -39,7 +43,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly Outputs.ProjectDeploymentCheckSourceSelection? Selection;
         /// <summary>
-        /// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+        /// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
         /// </summary>
         public readonly string? SubKind;
         /// <summary>
@@ -52,6 +56,8 @@ namespace Pulumiverse.Vercel.Outputs
             string? externalCheckName,
 
             string? externalResourceId,
+
+            string? jobName,
 
             string kind,
 
@@ -67,6 +73,7 @@ namespace Pulumiverse.Vercel.Outputs
         {
             ExternalCheckName = externalCheckName;
             ExternalResourceId = externalResourceId;
+            JobName = jobName;
             Kind = kind;
             Origin = origin;
             Provider = provider;

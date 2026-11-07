@@ -91,10 +91,16 @@ namespace Pulumiverse.Vercel
         public Output<ImmutableArray<string>> ProjectIds { get; private set; } = null!;
 
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
         /// </summary>
         [Output("samplingRate")]
         public Output<double?> SamplingRate { get; private set; } = null!;
+
+        /// <summary>
+        /// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+        /// </summary>
+        [Output("samplingRules")]
+        public Output<ImmutableArray<Outputs.LogDrainSamplingRule>> SamplingRules { get; private set; } = null!;
 
         /// <summary>
         /// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `SecretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
@@ -239,10 +245,22 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
         /// </summary>
         [Input("samplingRate")]
         public Input<double>? SamplingRate { get; set; }
+
+        [Input("samplingRules")]
+        private InputList<Inputs.LogDrainSamplingRuleArgs>? _samplingRules;
+
+        /// <summary>
+        /// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+        /// </summary>
+        public InputList<Inputs.LogDrainSamplingRuleArgs> SamplingRules
+        {
+            get => _samplingRules ?? (_samplingRules = new InputList<Inputs.LogDrainSamplingRuleArgs>());
+            set => _samplingRules = value;
+        }
 
         [Input("secret")]
         private Input<string>? _secret;
@@ -368,10 +386,22 @@ namespace Pulumiverse.Vercel
         }
 
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
         /// </summary>
         [Input("samplingRate")]
         public Input<double>? SamplingRate { get; set; }
+
+        [Input("samplingRules")]
+        private InputList<Inputs.LogDrainSamplingRuleGetArgs>? _samplingRules;
+
+        /// <summary>
+        /// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+        /// </summary>
+        public InputList<Inputs.LogDrainSamplingRuleGetArgs> SamplingRules
+        {
+            get => _samplingRules ?? (_samplingRules = new InputList<Inputs.LogDrainSamplingRuleGetArgs>());
+            set => _samplingRules = value;
+        }
 
         [Input("secret")]
         private Input<string>? _secret;

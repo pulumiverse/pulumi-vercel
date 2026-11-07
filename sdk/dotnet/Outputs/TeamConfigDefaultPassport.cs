@@ -19,7 +19,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string? ConnectorId;
         /// <summary>
-        /// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        /// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
         /// </summary>
         public readonly string? DeploymentType;
         /// <summary>

@@ -124,6 +124,16 @@ import javax.annotation.Nullable;
  * 
  * ## Import
  * 
+ * ### Identity Schema
+ * 
+ * #### Required
+ * 
+ * - `projectId` (String) The stable project ID.
+ * 
+ * #### Optional
+ * 
+ * - `teamId` (String) The owning team ID. Omit to use the provider&#39;s default team or personal account.
+ * 
  * The `pulumi import` command can be used, for example:
  * 
  * If importing into a personal account, or with a team configured on
@@ -332,18 +342,18 @@ public class Project extends com.pulumi.resources.CustomResource {
         return this.functionFailover;
     }
     /**
-     * Configuration for Git Comments.
+     * Configuration for Git Comments. When omitted, existing settings are preserved.
      * 
      */
     @Export(name="gitComments", refs={ProjectGitComments.class}, tree="[0]")
-    private Output</* @Nullable */ ProjectGitComments> gitComments;
+    private Output<ProjectGitComments> gitComments;
 
     /**
-     * @return Configuration for Git Comments.
+     * @return Configuration for Git Comments. When omitted, existing settings are preserved.
      * 
      */
-    public Output<Optional<ProjectGitComments>> gitComments() {
-        return Codegen.optional(this.gitComments);
+    public Output<ProjectGitComments> gitComments() {
+        return this.gitComments;
     }
     /**
      * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
@@ -428,6 +438,34 @@ public class Project extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> installCommand() {
         return Codegen.optional(this.installCommand);
+    }
+    /**
+     * Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     * 
+     */
+    @Export(name="manageDeploymentProtection", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> manageDeploymentProtection;
+
+    /**
+     * @return Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     * 
+     */
+    public Output<Boolean> manageDeploymentProtection() {
+        return this.manageDeploymentProtection;
+    }
+    /**
+     * Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     * 
+     */
+    @Export(name="managePassport", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> managePassport;
+
+    /**
+     * @return Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     * 
+     */
+    public Output<Boolean> managePassport() {
+        return this.managePassport;
     }
     /**
      * The desired name for the project.

@@ -77,10 +77,14 @@ import com.pulumiverse.vercel.inputs.GetProjectDirectoryPlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectMembersArgs;
 import com.pulumiverse.vercel.inputs.GetProjectMembersPlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectPlainArgs;
+import com.pulumiverse.vercel.inputs.GetProjectProtectionInventoryArgs;
+import com.pulumiverse.vercel.inputs.GetProjectProtectionInventoryPlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRollingReleaseArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRollingReleasePlainArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRoutesArgs;
 import com.pulumiverse.vercel.inputs.GetProjectRoutesPlainArgs;
+import com.pulumiverse.vercel.inputs.GetProjectsArgs;
+import com.pulumiverse.vercel.inputs.GetProjectsPlainArgs;
 import com.pulumiverse.vercel.inputs.GetShareableLinkArgs;
 import com.pulumiverse.vercel.inputs.GetShareableLinkPlainArgs;
 import com.pulumiverse.vercel.inputs.GetSharedEnvironmentVariableArgs;
@@ -126,9 +130,11 @@ import com.pulumiverse.vercel.outputs.GetPrebuiltProjectResult;
 import com.pulumiverse.vercel.outputs.GetProjectDeploymentRetentionResult;
 import com.pulumiverse.vercel.outputs.GetProjectDirectoryResult;
 import com.pulumiverse.vercel.outputs.GetProjectMembersResult;
+import com.pulumiverse.vercel.outputs.GetProjectProtectionInventoryResult;
 import com.pulumiverse.vercel.outputs.GetProjectResult;
 import com.pulumiverse.vercel.outputs.GetProjectRollingReleaseResult;
 import com.pulumiverse.vercel.outputs.GetProjectRoutesResult;
+import com.pulumiverse.vercel.outputs.GetProjectsResult;
 import com.pulumiverse.vercel.outputs.GetShareableLinkResult;
 import com.pulumiverse.vercel.outputs.GetSharedEnvironmentVariableResult;
 import com.pulumiverse.vercel.outputs.GetTeamConfigResult;
@@ -7186,6 +7192,94 @@ public final class VercelFunctions {
      * </pre>
      * 
      */
+    public static Output<GetProjectResult> getProject() {
+        return getProject(GetProjectArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing project within Vercel.
+     * 
+     * A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
+     * 
+     * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("my-existing-project")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetProjectResult> getProjectPlain() {
+        return getProjectPlain(GetProjectPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Provides information about an existing project within Vercel.
+     * 
+     * A Project groups deployments and custom domains. To deploy on Vercel, you need a Project.
+     * 
+     * For more detailed information, please see the [Vercel documentation](https://vercel.com/docs/concepts/projects/overview).
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProject(GetProjectArgs.builder()
+     *             .name("my-existing-project")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
     public static Output<GetProjectResult> getProject(GetProjectArgs args) {
         return getProject(args, InvokeOptions.Empty);
     }
@@ -7871,6 +7965,456 @@ public final class VercelFunctions {
         return Deployment.getInstance().invokeAsync("vercel:index/getProjectMembers:getProjectMembers", TypeShape.of(GetProjectMembersResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Reads protection bypasses and access exceptions visible through the public project and alias APIs, without creating, adopting, or revoking them. Includes automation and integration bypasses, URL exceptions, shareable links, individual access, OPTIONS paths, and Trusted Sources, including implicit self-access and Vercel CI access. Bearer secrets and secret-bearing URLs are not stored in state.
+     * 
+     * This is a snapshot of visible configuration, not a guarantee that a deployment is protected. The public APIs do not establish coverage of deployment-owned access without alias records or guarantee complete visibility for the API token, so complete is currently always false. Missing access maps are reported in incomplete_reasons. Failed requests, invalid JSON, and unsupported Trusted Sources or OPTIONS fields fail the read instead of returning an empty inventory. Expired links, pending requests, invitations, and explicit empty Trusted Sources rules remain in the inventory.
+     * 
+     * For trusted-project entries, null customAllow means default matching-environment access (plus development to preview for self-access); an empty set means no access. Vercel CI same-repository access permits same-team CI to preview and production deployments built from the CI repository. This defaults to enabled when not stored. These defaults are access routes even when no explicit exception has been configured.
+     * 
+     * Approval keys identify the observed access configuration, including credential rotation, target identity, and rule changes. They exclude notes and audit timestamps. They are versioned SHA-256 fingerprints, not API IDs or credentials. Terraform postconditions can reject unapproved entries, but cannot prevent later dashboard changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *         ctx.export("protectionAccess", example.entries());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * ## Optional plan assertions
+     * 
+     * To reject visible entries that have not been approved, add a postcondition. Copy approved keys from a reviewed inventory into your configuration; do not build the approval list automatically from the same live inventory.
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var config = ctx.config();
+     *         final var approvedProtectionEntries = config.get("approvedProtectionEntries").orElse(List.of());
+     *         final var approved = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * This checks all reported entries, including expired links, pending requests, explicit denies and implicit defaults. It does not prove that no other access exists. To require full coverage too, add a separate postcondition with `condition = self.complete`; that condition currently always fails because public API coverage is incomplete.
+     * 
+     * These assertions fail during planning when the data source is read during planning. Keep project and team inputs known and avoid dependencies on pending changes, which can defer the read to apply. Use a normal plan with refresh enabled; this is an observation of current access, not continuous enforcement.
+     * 
+     */
+    public static Output<GetProjectProtectionInventoryResult> getProjectProtectionInventory(GetProjectProtectionInventoryArgs args) {
+        return getProjectProtectionInventory(args, InvokeOptions.Empty);
+    }
+    /**
+     * Reads protection bypasses and access exceptions visible through the public project and alias APIs, without creating, adopting, or revoking them. Includes automation and integration bypasses, URL exceptions, shareable links, individual access, OPTIONS paths, and Trusted Sources, including implicit self-access and Vercel CI access. Bearer secrets and secret-bearing URLs are not stored in state.
+     * 
+     * This is a snapshot of visible configuration, not a guarantee that a deployment is protected. The public APIs do not establish coverage of deployment-owned access without alias records or guarantee complete visibility for the API token, so complete is currently always false. Missing access maps are reported in incomplete_reasons. Failed requests, invalid JSON, and unsupported Trusted Sources or OPTIONS fields fail the read instead of returning an empty inventory. Expired links, pending requests, invitations, and explicit empty Trusted Sources rules remain in the inventory.
+     * 
+     * For trusted-project entries, null customAllow means default matching-environment access (plus development to preview for self-access); an empty set means no access. Vercel CI same-repository access permits same-team CI to preview and production deployments built from the CI repository. This defaults to enabled when not stored. These defaults are access routes even when no explicit exception has been configured.
+     * 
+     * Approval keys identify the observed access configuration, including credential rotation, target identity, and rule changes. They exclude notes and audit timestamps. They are versioned SHA-256 fingerprints, not API IDs or credentials. Terraform postconditions can reject unapproved entries, but cannot prevent later dashboard changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *         ctx.export("protectionAccess", example.entries());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * ## Optional plan assertions
+     * 
+     * To reject visible entries that have not been approved, add a postcondition. Copy approved keys from a reviewed inventory into your configuration; do not build the approval list automatically from the same live inventory.
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var config = ctx.config();
+     *         final var approvedProtectionEntries = config.get("approvedProtectionEntries").orElse(List.of());
+     *         final var approved = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * This checks all reported entries, including expired links, pending requests, explicit denies and implicit defaults. It does not prove that no other access exists. To require full coverage too, add a separate postcondition with `condition = self.complete`; that condition currently always fails because public API coverage is incomplete.
+     * 
+     * These assertions fail during planning when the data source is read during planning. Keep project and team inputs known and avoid dependencies on pending changes, which can defer the read to apply. Use a normal plan with refresh enabled; this is an observation of current access, not continuous enforcement.
+     * 
+     */
+    public static CompletableFuture<GetProjectProtectionInventoryResult> getProjectProtectionInventoryPlain(GetProjectProtectionInventoryPlainArgs args) {
+        return getProjectProtectionInventoryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Reads protection bypasses and access exceptions visible through the public project and alias APIs, without creating, adopting, or revoking them. Includes automation and integration bypasses, URL exceptions, shareable links, individual access, OPTIONS paths, and Trusted Sources, including implicit self-access and Vercel CI access. Bearer secrets and secret-bearing URLs are not stored in state.
+     * 
+     * This is a snapshot of visible configuration, not a guarantee that a deployment is protected. The public APIs do not establish coverage of deployment-owned access without alias records or guarantee complete visibility for the API token, so complete is currently always false. Missing access maps are reported in incomplete_reasons. Failed requests, invalid JSON, and unsupported Trusted Sources or OPTIONS fields fail the read instead of returning an empty inventory. Expired links, pending requests, invitations, and explicit empty Trusted Sources rules remain in the inventory.
+     * 
+     * For trusted-project entries, null customAllow means default matching-environment access (plus development to preview for self-access); an empty set means no access. Vercel CI same-repository access permits same-team CI to preview and production deployments built from the CI repository. This defaults to enabled when not stored. These defaults are access routes even when no explicit exception has been configured.
+     * 
+     * Approval keys identify the observed access configuration, including credential rotation, target identity, and rule changes. They exclude notes and audit timestamps. They are versioned SHA-256 fingerprints, not API IDs or credentials. Terraform postconditions can reject unapproved entries, but cannot prevent later dashboard changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *         ctx.export("protectionAccess", example.entries());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * ## Optional plan assertions
+     * 
+     * To reject visible entries that have not been approved, add a postcondition. Copy approved keys from a reviewed inventory into your configuration; do not build the approval list automatically from the same live inventory.
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var config = ctx.config();
+     *         final var approvedProtectionEntries = config.get("approvedProtectionEntries").orElse(List.of());
+     *         final var approved = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * This checks all reported entries, including expired links, pending requests, explicit denies and implicit defaults. It does not prove that no other access exists. To require full coverage too, add a separate postcondition with `condition = self.complete`; that condition currently always fails because public API coverage is incomplete.
+     * 
+     * These assertions fail during planning when the data source is read during planning. Keep project and team inputs known and avoid dependencies on pending changes, which can defer the read to apply. Use a normal plan with refresh enabled; this is an observation of current access, not continuous enforcement.
+     * 
+     */
+    public static Output<GetProjectProtectionInventoryResult> getProjectProtectionInventory(GetProjectProtectionInventoryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getProjectProtectionInventory:getProjectProtectionInventory", TypeShape.of(GetProjectProtectionInventoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Reads protection bypasses and access exceptions visible through the public project and alias APIs, without creating, adopting, or revoking them. Includes automation and integration bypasses, URL exceptions, shareable links, individual access, OPTIONS paths, and Trusted Sources, including implicit self-access and Vercel CI access. Bearer secrets and secret-bearing URLs are not stored in state.
+     * 
+     * This is a snapshot of visible configuration, not a guarantee that a deployment is protected. The public APIs do not establish coverage of deployment-owned access without alias records or guarantee complete visibility for the API token, so complete is currently always false. Missing access maps are reported in incomplete_reasons. Failed requests, invalid JSON, and unsupported Trusted Sources or OPTIONS fields fail the read instead of returning an empty inventory. Expired links, pending requests, invitations, and explicit empty Trusted Sources rules remain in the inventory.
+     * 
+     * For trusted-project entries, null customAllow means default matching-environment access (plus development to preview for self-access); an empty set means no access. Vercel CI same-repository access permits same-team CI to preview and production deployments built from the CI repository. This defaults to enabled when not stored. These defaults are access routes even when no explicit exception has been configured.
+     * 
+     * Approval keys identify the observed access configuration, including credential rotation, target identity, and rule changes. They exclude notes and audit timestamps. They are versioned SHA-256 fingerprints, not API IDs or credentials. Terraform postconditions can reject unapproved entries, but cannot prevent later dashboard changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *         ctx.export("protectionAccess", example.entries());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * ## Optional plan assertions
+     * 
+     * To reject visible entries that have not been approved, add a postcondition. Copy approved keys from a reviewed inventory into your configuration; do not build the approval list automatically from the same live inventory.
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var config = ctx.config();
+     *         final var approvedProtectionEntries = config.get("approvedProtectionEntries").orElse(List.of());
+     *         final var approved = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * This checks all reported entries, including expired links, pending requests, explicit denies and implicit defaults. It does not prove that no other access exists. To require full coverage too, add a separate postcondition with `condition = self.complete`; that condition currently always fails because public API coverage is incomplete.
+     * 
+     * These assertions fail during planning when the data source is read during planning. Keep project and team inputs known and avoid dependencies on pending changes, which can defer the read to apply. Use a normal plan with refresh enabled; this is an observation of current access, not continuous enforcement.
+     * 
+     */
+    public static Output<GetProjectProtectionInventoryResult> getProjectProtectionInventory(GetProjectProtectionInventoryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getProjectProtectionInventory:getProjectProtectionInventory", TypeShape.of(GetProjectProtectionInventoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Reads protection bypasses and access exceptions visible through the public project and alias APIs, without creating, adopting, or revoking them. Includes automation and integration bypasses, URL exceptions, shareable links, individual access, OPTIONS paths, and Trusted Sources, including implicit self-access and Vercel CI access. Bearer secrets and secret-bearing URLs are not stored in state.
+     * 
+     * This is a snapshot of visible configuration, not a guarantee that a deployment is protected. The public APIs do not establish coverage of deployment-owned access without alias records or guarantee complete visibility for the API token, so complete is currently always false. Missing access maps are reported in incomplete_reasons. Failed requests, invalid JSON, and unsupported Trusted Sources or OPTIONS fields fail the read instead of returning an empty inventory. Expired links, pending requests, invitations, and explicit empty Trusted Sources rules remain in the inventory.
+     * 
+     * For trusted-project entries, null customAllow means default matching-environment access (plus development to preview for self-access); an empty set means no access. Vercel CI same-repository access permits same-team CI to preview and production deployments built from the CI repository. This defaults to enabled when not stored. These defaults are access routes even when no explicit exception has been configured.
+     * 
+     * Approval keys identify the observed access configuration, including credential rotation, target identity, and rule changes. They exclude notes and audit timestamps. They are versioned SHA-256 fingerprints, not API IDs or credentials. Terraform postconditions can reject unapproved entries, but cannot prevent later dashboard changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *         ctx.export("protectionAccess", example.entries());
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * ## Optional plan assertions
+     * 
+     * To reject visible entries that have not been approved, add a postcondition. Copy approved keys from a reviewed inventory into your configuration; do not build the approval list automatically from the same live inventory.
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectProtectionInventoryArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var config = ctx.config();
+     *         final var approvedProtectionEntries = config.get("approvedProtectionEntries").orElse(List.of());
+     *         final var approved = VercelFunctions.getProjectProtectionInventory(GetProjectProtectionInventoryArgs.builder()
+     *             .projectId("prj_example")
+     *             .teamId("team_example")
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * This checks all reported entries, including expired links, pending requests, explicit denies and implicit defaults. It does not prove that no other access exists. To require full coverage too, add a separate postcondition with `condition = self.complete`; that condition currently always fails because public API coverage is incomplete.
+     * 
+     * These assertions fail during planning when the data source is read during planning. Keep project and team inputs known and avoid dependencies on pending changes, which can defer the read to apply. Use a normal plan with refresh enabled; this is an observation of current access, not continuous enforcement.
+     * 
+     */
+    public static CompletableFuture<GetProjectProtectionInventoryResult> getProjectProtectionInventoryPlain(GetProjectProtectionInventoryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getProjectProtectionInventory:getProjectProtectionInventory", TypeShape.of(GetProjectProtectionInventoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Data source for a Vercel project rolling release configuration.
      * 
      * This provider supports two to ten stages, including a non-final stage whose native rules identify the advancement type. This is a provider support restriction, not a claim that the REST API rejects every single-stage policy.
@@ -8349,6 +8893,363 @@ public final class VercelFunctions {
      */
     public static CompletableFuture<GetProjectRoutesResult> getProjectRoutesPlain(GetProjectRoutesPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("vercel:index/getProjectRoutes:getProjectRoutes", TypeShape.of(GetProjectRoutesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectsResult> getProjects() {
+        return getProjects(GetProjectsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetProjectsResult> getProjectsPlain() {
+        return getProjectsPlain(GetProjectsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectsResult> getProjects(GetProjectsArgs args) {
+        return getProjects(args, InvokeOptions.Empty);
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetProjectsResult> getProjectsPlain(GetProjectsPlainArgs args) {
+        return getProjectsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectsResult> getProjects(GetProjectsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getProjects:getProjects", TypeShape.of(GetProjectsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static Output<GetProjectsResult> getProjects(GetProjectsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("vercel:index/getProjects:getProjects", TypeShape.of(GetProjectsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Lists all projects visible to the authenticated user in the selected team or personal account. Uses the provider&#39;s default team unless teamId is set. All supplied filters must match. Protection filters describe configured settings, not effective access after bypasses or exceptions. Use protection filters for discovery and audits; using them as resource forEach keys can remove resources from configuration after protection changes.
+     * 
+     * ## Example Usage
+     * 
+     * <pre>
+     * {@code
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.vercel.VercelFunctions;
+     * import com.pulumi.vercel.inputs.GetProjectsArgs;
+     * import com.pulumi.std.StdFunctions;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         // Uses the default team configured on the provider.
+     *         final var nextjs = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .framework("nextjs")
+     *             .build());
+     * 
+     *         ctx.export("nextjsProjectIds", StdFunctions.keys(Map.of("input", nextjs.projects())).result());
+     *         // An explicit team_id overrides the provider's default team.
+     *         // Protection filters are useful for audits. Avoid using a changing protection
+     *         // state as the for_each selection for resources that change that protection.
+     *         final var withoutPassport = VercelFunctions.getProjects(GetProjectsArgs.builder()
+     *             .teamId("team_example")
+     *             .passportEnabled(false)
+     *             .build());
+     * 
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     */
+    public static CompletableFuture<GetProjectsResult> getProjectsPlain(GetProjectsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("vercel:index/getProjects:getProjects", TypeShape.of(GetProjectsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Reads an existing shareable link for a Vercel alias without creating or revoking it. Ordinary deployment URLs without an alias record are not supported. The secret and URL are sensitive but are stored in Terraform state.

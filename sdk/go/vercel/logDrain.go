@@ -66,8 +66,10 @@ type LogDrain struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds pulumi.StringArrayOutput `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
 	SamplingRate pulumi.Float64PtrOutput `pulumi:"samplingRate"`
+	// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+	SamplingRules LogDrainSamplingRuleArrayOutput `pulumi:"samplingRules"`
 	// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringOutput `pulumi:"secret"`
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
@@ -150,8 +152,10 @@ type logDrainState struct {
 	Name *string `pulumi:"name"`
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds []string `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
 	SamplingRate *float64 `pulumi:"samplingRate"`
+	// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+	SamplingRules []LogDrainSamplingRule `pulumi:"samplingRules"`
 	// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret *string `pulumi:"secret"`
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
@@ -178,8 +182,10 @@ type LogDrainState struct {
 	Name pulumi.StringPtrInput
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds pulumi.StringArrayInput
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
 	SamplingRate pulumi.Float64PtrInput
+	// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+	SamplingRules LogDrainSamplingRuleArrayInput
 	// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringPtrInput
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
@@ -210,8 +216,10 @@ type logDrainArgs struct {
 	Name *string `pulumi:"name"`
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds []string `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
 	SamplingRate *float64 `pulumi:"samplingRate"`
+	// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+	SamplingRules []LogDrainSamplingRule `pulumi:"samplingRules"`
 	// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret *string `pulumi:"secret"`
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
@@ -239,8 +247,10 @@ type LogDrainArgs struct {
 	Name pulumi.StringPtrInput
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds pulumi.StringArrayInput
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
 	SamplingRate pulumi.Float64PtrInput
+	// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+	SamplingRules LogDrainSamplingRuleArrayInput
 	// A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
 	Secret pulumi.StringPtrInput
 	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
@@ -371,9 +381,14 @@ func (o LogDrainOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.StringArrayOutput { return v.ProjectIds }).(pulumi.StringArrayOutput)
 }
 
-// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
 func (o LogDrainOutput) SamplingRate() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *LogDrain) pulumi.Float64PtrOutput { return v.SamplingRate }).(pulumi.Float64PtrOutput)
+}
+
+// Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+func (o LogDrainOutput) SamplingRules() LogDrainSamplingRuleArrayOutput {
+	return o.ApplyT(func(v *LogDrain) LogDrainSamplingRuleArrayOutput { return v.SamplingRules }).(LogDrainSamplingRuleArrayOutput)
 }
 
 // A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.

@@ -97,7 +97,7 @@ export class TeamConfig extends pulumi.CustomResource {
      */
     declare public readonly defaultPassport: pulumi.Output<outputs.TeamConfigDefaultPassport>;
     /**
-     * A description of the team.
+     * A description of the team, up to 140 characters. Set to an empty string to clear it.
      */
     declare public readonly description: pulumi.Output<string>;
     /**
@@ -235,7 +235,7 @@ export interface TeamConfigState {
      */
     defaultPassport?: pulumi.Input<inputs.TeamConfigDefaultPassport>;
     /**
-     * A description of the team.
+     * A description of the team, up to 140 characters. Set to an empty string to clear it.
      */
     description?: pulumi.Input<string>;
     /**
@@ -315,7 +315,7 @@ export interface TeamConfigArgs {
      */
     defaultPassport?: pulumi.Input<inputs.TeamConfigDefaultPassport>;
     /**
-     * A description of the team.
+     * A description of the team, up to 140 characters. Set to an empty string to clear it.
      */
     description?: pulumi.Input<string>;
     /**

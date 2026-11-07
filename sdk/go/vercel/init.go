@@ -119,6 +119,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectCrons{}
 	case "vercel:index/projectDeploymentCheck:ProjectDeploymentCheck":
 		r = &ProjectDeploymentCheck{}
+	case "vercel:index/projectDeploymentProtection:ProjectDeploymentProtection":
+		r = &ProjectDeploymentProtection{}
 	case "vercel:index/projectDeploymentRetention:ProjectDeploymentRetention":
 		r = &ProjectDeploymentRetention{}
 	case "vercel:index/projectDomain:ProjectDomain":
@@ -129,6 +131,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ProjectEnvironmentVariables{}
 	case "vercel:index/projectMembers:ProjectMembers":
 		r = &ProjectMembers{}
+	case "vercel:index/projectPassport:ProjectPassport":
+		r = &ProjectPassport{}
 	case "vercel:index/projectProtectionBypass:ProjectProtectionBypass":
 		r = &ProjectProtectionBypass{}
 	case "vercel:index/projectRollingRelease:ProjectRollingRelease":
@@ -435,6 +439,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"vercel",
+		"index/projectDeploymentProtection",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
 		"index/projectDeploymentRetention",
 		&module{version},
 	)
@@ -456,6 +465,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"vercel",
 		"index/projectMembers",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"vercel",
+		"index/projectPassport",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
