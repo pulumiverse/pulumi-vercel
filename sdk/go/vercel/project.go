@@ -121,6 +121,16 @@ import (
 //
 // ## Import
 //
+// ### Identity Schema
+//
+// #### Required
+//
+// - `projectId` (String) The stable project ID.
+//
+// #### Optional
+//
+// - `teamId` (String) The owning team ID. Omit to use the provider's default team or personal account.
+//
 // The `pulumi import` command can be used, for example:
 //
 // If importing into a personal account, or with a team configured on
@@ -169,8 +179,8 @@ type Project struct {
 	Framework pulumi.StringPtrOutput `pulumi:"framework"`
 	// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
 	FunctionFailover pulumi.BoolOutput `pulumi:"functionFailover"`
-	// Configuration for Git Comments.
-	GitComments ProjectGitCommentsPtrOutput `pulumi:"gitComments"`
+	// Configuration for Git Comments. When omitted, existing settings are preserved.
+	GitComments ProjectGitCommentsOutput `pulumi:"gitComments"`
 	// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
 	GitForkProtection pulumi.BoolOutput `pulumi:"gitForkProtection"`
 	// Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
@@ -183,6 +193,10 @@ type Project struct {
 	IgnoreCommand pulumi.StringPtrOutput `pulumi:"ignoreCommand"`
 	// The install command for this project. If omitted, this value will be automatically detected.
 	InstallCommand pulumi.StringPtrOutput `pulumi:"installCommand"`
+	// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+	ManageDeploymentProtection pulumi.BoolOutput `pulumi:"manageDeploymentProtection"`
+	// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+	ManagePassport pulumi.BoolOutput `pulumi:"managePassport"`
 	// The desired name for the project.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
@@ -196,7 +210,7 @@ type Project struct {
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrOutput `pulumi:"outputDirectory"`
 	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-	Passport ProjectPassportOutput `pulumi:"passport"`
+	Passport ProjectPassportTypeOutput `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection ProjectPasswordProtectionPtrOutput `pulumi:"passwordProtection"`
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -293,7 +307,7 @@ type projectState struct {
 	Framework *string `pulumi:"framework"`
 	// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
 	FunctionFailover *bool `pulumi:"functionFailover"`
-	// Configuration for Git Comments.
+	// Configuration for Git Comments. When omitted, existing settings are preserved.
 	GitComments *ProjectGitComments `pulumi:"gitComments"`
 	// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
 	GitForkProtection *bool `pulumi:"gitForkProtection"`
@@ -307,6 +321,10 @@ type projectState struct {
 	IgnoreCommand *string `pulumi:"ignoreCommand"`
 	// The install command for this project. If omitted, this value will be automatically detected.
 	InstallCommand *string `pulumi:"installCommand"`
+	// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+	ManageDeploymentProtection *bool `pulumi:"manageDeploymentProtection"`
+	// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+	ManagePassport *bool `pulumi:"managePassport"`
 	// The desired name for the project.
 	Name *string `pulumi:"name"`
 	// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
@@ -320,7 +338,7 @@ type projectState struct {
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
 	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-	Passport *ProjectPassport `pulumi:"passport"`
+	Passport *ProjectPassportType `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection *ProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -388,7 +406,7 @@ type ProjectState struct {
 	Framework pulumi.StringPtrInput
 	// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
 	FunctionFailover pulumi.BoolPtrInput
-	// Configuration for Git Comments.
+	// Configuration for Git Comments. When omitted, existing settings are preserved.
 	GitComments ProjectGitCommentsPtrInput
 	// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
 	GitForkProtection pulumi.BoolPtrInput
@@ -402,6 +420,10 @@ type ProjectState struct {
 	IgnoreCommand pulumi.StringPtrInput
 	// The install command for this project. If omitted, this value will be automatically detected.
 	InstallCommand pulumi.StringPtrInput
+	// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+	ManageDeploymentProtection pulumi.BoolPtrInput
+	// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+	ManagePassport pulumi.BoolPtrInput
 	// The desired name for the project.
 	Name pulumi.StringPtrInput
 	// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
@@ -415,7 +437,7 @@ type ProjectState struct {
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrInput
 	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-	Passport ProjectPassportPtrInput
+	Passport ProjectPassportTypePtrInput
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection ProjectPasswordProtectionPtrInput
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -487,7 +509,7 @@ type projectArgs struct {
 	Framework *string `pulumi:"framework"`
 	// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
 	FunctionFailover *bool `pulumi:"functionFailover"`
-	// Configuration for Git Comments.
+	// Configuration for Git Comments. When omitted, existing settings are preserved.
 	GitComments *ProjectGitComments `pulumi:"gitComments"`
 	// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
 	GitForkProtection *bool `pulumi:"gitForkProtection"`
@@ -501,6 +523,10 @@ type projectArgs struct {
 	IgnoreCommand *string `pulumi:"ignoreCommand"`
 	// The install command for this project. If omitted, this value will be automatically detected.
 	InstallCommand *string `pulumi:"installCommand"`
+	// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+	ManageDeploymentProtection *bool `pulumi:"manageDeploymentProtection"`
+	// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+	ManagePassport *bool `pulumi:"managePassport"`
 	// The desired name for the project.
 	Name *string `pulumi:"name"`
 	// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
@@ -514,7 +540,7 @@ type projectArgs struct {
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory *string `pulumi:"outputDirectory"`
 	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-	Passport *ProjectPassport `pulumi:"passport"`
+	Passport *ProjectPassportType `pulumi:"passport"`
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection *ProjectPasswordProtection `pulumi:"passwordProtection"`
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -583,7 +609,7 @@ type ProjectArgs struct {
 	Framework pulumi.StringPtrInput
 	// Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
 	FunctionFailover pulumi.BoolPtrInput
-	// Configuration for Git Comments.
+	// Configuration for Git Comments. When omitted, existing settings are preserved.
 	GitComments ProjectGitCommentsPtrInput
 	// Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
 	GitForkProtection pulumi.BoolPtrInput
@@ -597,6 +623,10 @@ type ProjectArgs struct {
 	IgnoreCommand pulumi.StringPtrInput
 	// The install command for this project. If omitted, this value will be automatically detected.
 	InstallCommand pulumi.StringPtrInput
+	// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+	ManageDeploymentProtection pulumi.BoolPtrInput
+	// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+	ManagePassport pulumi.BoolPtrInput
 	// The desired name for the project.
 	Name pulumi.StringPtrInput
 	// The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
@@ -610,7 +640,7 @@ type ProjectArgs struct {
 	// The output directory of the project. If omitted, this value will be automatically detected.
 	OutputDirectory pulumi.StringPtrInput
 	// Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-	Passport ProjectPassportPtrInput
+	Passport ProjectPassportTypePtrInput
 	// Ensures visitors of your Preview Deployments must enter a password in order to gain access.
 	PasswordProtection ProjectPasswordProtectionPtrInput
 	// Enables the Vercel Toolbar on your preview deployments.
@@ -803,9 +833,9 @@ func (o ProjectOutput) FunctionFailover() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.FunctionFailover }).(pulumi.BoolOutput)
 }
 
-// Configuration for Git Comments.
-func (o ProjectOutput) GitComments() ProjectGitCommentsPtrOutput {
-	return o.ApplyT(func(v *Project) ProjectGitCommentsPtrOutput { return v.GitComments }).(ProjectGitCommentsPtrOutput)
+// Configuration for Git Comments. When omitted, existing settings are preserved.
+func (o ProjectOutput) GitComments() ProjectGitCommentsOutput {
+	return o.ApplyT(func(v *Project) ProjectGitCommentsOutput { return v.GitComments }).(ProjectGitCommentsOutput)
 }
 
 // Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
@@ -836,6 +866,16 @@ func (o ProjectOutput) IgnoreCommand() pulumi.StringPtrOutput {
 // The install command for this project. If omitted, this value will be automatically detected.
 func (o ProjectOutput) InstallCommand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringPtrOutput { return v.InstallCommand }).(pulumi.StringPtrOutput)
+}
+
+// Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+func (o ProjectOutput) ManageDeploymentProtection() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.ManageDeploymentProtection }).(pulumi.BoolOutput)
+}
+
+// Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+func (o ProjectOutput) ManagePassport() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolOutput { return v.ManagePassport }).(pulumi.BoolOutput)
 }
 
 // The desired name for the project.
@@ -869,8 +909,8 @@ func (o ProjectOutput) OutputDirectory() pulumi.StringPtrOutput {
 }
 
 // Protect deployments with your own identity provider using an existing Vercel Connect OAuth application. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
-func (o ProjectOutput) Passport() ProjectPassportOutput {
-	return o.ApplyT(func(v *Project) ProjectPassportOutput { return v.Passport }).(ProjectPassportOutput)
+func (o ProjectOutput) Passport() ProjectPassportTypeOutput {
+	return o.ApplyT(func(v *Project) ProjectPassportTypeOutput { return v.Passport }).(ProjectPassportTypeOutput)
 }
 
 // Ensures visitors of your Preview Deployments must enter a password in order to gain access.

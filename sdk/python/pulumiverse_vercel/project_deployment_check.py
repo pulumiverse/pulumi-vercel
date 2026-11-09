@@ -442,6 +442,47 @@ class ProjectDeploymentCheck(pulumi.CustomResource):
             })
         ```
 
+        ### Native Vercel checks
+
+        Native Vercel checks run first-party Vercel validations. The `flag-definitions-present` and `mfe-config-present` native checks require `requires = "build-ready"` and cannot be rerequestable. The provider supplies the API source origin by default.
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        native_flag_definitions = vercel.ProjectDeploymentCheck("native_flag_definitions",
+            project_id=example["id"],
+            name="Flag Definitions Present",
+            requires="build-ready",
+            blocks="deployment-alias",
+            targets=[
+                "preview",
+                "production",
+            ],
+            source={
+                "kind": "vercel",
+                "sub_kind": "vercel-native-check",
+                "job_name": "flag-definitions-present",
+            })
+        ```
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        native_mfe_config = vercel.ProjectDeploymentCheck("native_mfe_config",
+            project_id=example["id"],
+            name="Microfrontends Config Present",
+            requires="build-ready",
+            blocks="deployment-alias",
+            targets=["production"],
+            source={
+                "kind": "vercel",
+                "sub_kind": "vercel-native-check",
+                "job_name": "mfe-config-present",
+            })
+        ```
+
         ## Choosing check behavior
 
         - `requires` selects when the check can run: `build-ready`, `deployment-url`, or `none`.
@@ -600,6 +641,47 @@ class ProjectDeploymentCheck(pulumi.CustomResource):
                     "filters": ["vercel-docs"],
                     "fail_if_no_match": True,
                 },
+            })
+        ```
+
+        ### Native Vercel checks
+
+        Native Vercel checks run first-party Vercel validations. The `flag-definitions-present` and `mfe-config-present` native checks require `requires = "build-ready"` and cannot be rerequestable. The provider supplies the API source origin by default.
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        native_flag_definitions = vercel.ProjectDeploymentCheck("native_flag_definitions",
+            project_id=example["id"],
+            name="Flag Definitions Present",
+            requires="build-ready",
+            blocks="deployment-alias",
+            targets=[
+                "preview",
+                "production",
+            ],
+            source={
+                "kind": "vercel",
+                "sub_kind": "vercel-native-check",
+                "job_name": "flag-definitions-present",
+            })
+        ```
+
+        ```python
+        import pulumi
+        import pulumiverse_vercel as vercel
+
+        native_mfe_config = vercel.ProjectDeploymentCheck("native_mfe_config",
+            project_id=example["id"],
+            name="Microfrontends Config Present",
+            requires="build-ready",
+            blocks="deployment-alias",
+            targets=["production"],
+            source={
+                "kind": "vercel",
+                "sub_kind": "vercel-native-check",
+                "job_name": "mfe-config-present",
             })
         ```
 

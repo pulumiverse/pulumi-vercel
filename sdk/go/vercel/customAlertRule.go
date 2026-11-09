@@ -50,7 +50,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			checkout, err := vercel.LookupProject(ctx, &vercel.LookupProjectArgs{
-//				Name: "checkout",
+//				Name: pulumi.StringRef("checkout"),
 //			}, nil)
 //			if err != nil {
 //				return err

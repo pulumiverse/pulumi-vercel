@@ -73,6 +73,7 @@ __all__ = [
     'FirewallConfigRulesRuleConditionGroup',
     'FirewallConfigRulesRuleConditionGroupCondition',
     'KmsIssuerSigningKey',
+    'LogDrainSamplingRule',
     'MicrofrontendGroupDefaultApp',
     'MonitorNotificationSettings',
     'MonitorRuleScope',
@@ -83,6 +84,10 @@ __all__ = [
     'OidcFederationPolicyResources',
     'ProjectDeploymentCheckSource',
     'ProjectDeploymentCheckSourceSelection',
+    'ProjectDeploymentProtectionPasswordProtection',
+    'ProjectDeploymentProtectionTrustedIps',
+    'ProjectDeploymentProtectionTrustedIpsAddress',
+    'ProjectDeploymentProtectionVercelAuthentication',
     'ProjectDomainVerification',
     'ProjectEnvironment',
     'ProjectEnvironmentVariablesVariable',
@@ -136,6 +141,7 @@ __all__ = [
     'GetFeatureFlagVariantResult',
     'GetKmsIssuerPolicyResult',
     'GetKmsIssuerSigningKeyResult',
+    'GetLogDrainSamplingRuleResult',
     'GetMicrofrontendGroupDefaultAppResult',
     'GetProjectEnvironmentResult',
     'GetProjectGitCommentsResult',
@@ -149,6 +155,11 @@ __all__ = [
     'GetProjectOptionsAllowlistPathResult',
     'GetProjectPassportResult',
     'GetProjectPasswordProtectionResult',
+    'GetProjectProtectionInventoryEntryResult',
+    'GetProjectProtectionInventoryEntryCustomAllowResult',
+    'GetProjectProtectionInventoryEntryCustomAllowFromResult',
+    'GetProjectProtectionInventoryEntryCustomAllowToResult',
+    'GetProjectProtectionInventoryEntryToResult',
     'GetProjectResourceConfigResult',
     'GetProjectRollingReleaseStageResult',
     'GetProjectRoutesRuleResult',
@@ -166,6 +177,12 @@ __all__ = [
     'GetProjectTrustedSourcesProjectCustomAllowFromResult',
     'GetProjectTrustedSourcesProjectCustomAllowToResult',
     'GetProjectVercelAuthenticationResult',
+    'GetProjectsProjectsResult',
+    'GetProjectsProjectsGitRepositoryResult',
+    'GetProjectsProjectsPassportResult',
+    'GetProjectsProjectsPasswordProtectionResult',
+    'GetProjectsProjectsTrustedIpsResult',
+    'GetProjectsProjectsVercelAuthenticationResult',
     'GetTeamConfigDefaultDeploymentProtectionResult',
     'GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationResult',
     'GetTeamConfigDefaultPassportResult',
@@ -3124,6 +3141,65 @@ class KmsIssuerSigningKey(dict):
 
 
 @pulumi.output_type
+class LogDrainSamplingRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestPath":
+            suggest = "request_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LogDrainSamplingRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LogDrainSamplingRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LogDrainSamplingRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rate: _builtins.float,
+                 environment: Optional[_builtins.str] = None,
+                 request_path: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float rate: Sampling rate from 0 to 1.
+        :param _builtins.str environment: Environment to apply this sampling rule to. Can be `production` or `preview`.
+        :param _builtins.str request_path: Request path prefix to apply this sampling rule to. Omit to match any path.
+        """
+        pulumi.set(__self__, "rate", rate)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
+        if request_path is not None:
+            pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> _builtins.float:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> Optional[_builtins.str]:
+        """
+        Environment to apply this sampling rule to. Can be `production` or `preview`.
+        """
+        return pulumi.get(self, "environment")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> Optional[_builtins.str]:
+        """
+        Request path prefix to apply this sampling rule to. Omit to match any path.
+        """
+        return pulumi.get(self, "request_path")
+
+
+@pulumi.output_type
 class MicrofrontendGroupDefaultApp(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -3435,6 +3511,8 @@ class ProjectDeploymentCheckSource(dict):
             suggest = "external_check_name"
         elif key == "externalResourceId":
             suggest = "external_resource_id"
+        elif key == "jobName":
+            suggest = "job_name"
         elif key == "subKind":
             suggest = "sub_kind"
         elif key == "webhookId":
@@ -3455,6 +3533,7 @@ class ProjectDeploymentCheckSource(dict):
                  kind: _builtins.str,
                  external_check_name: Optional[_builtins.str] = None,
                  external_resource_id: Optional[_builtins.str] = None,
+                 job_name: Optional[_builtins.str] = None,
                  origin: Optional[_builtins.str] = None,
                  provider: Optional[_builtins.str] = None,
                  selection: Optional['outputs.ProjectDeploymentCheckSourceSelection'] = None,
@@ -3464,10 +3543,11 @@ class ProjectDeploymentCheckSource(dict):
         :param _builtins.str kind: The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
         :param _builtins.str external_check_name: The external check name. Required for a `git-provider` source.
         :param _builtins.str external_resource_id: An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
-        :param _builtins.str origin: The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+        :param _builtins.str job_name: The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+        :param _builtins.str origin: The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
         :param _builtins.str provider: The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
         :param 'ProjectDeploymentCheckSourceSelectionArgs' selection: Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
-        :param _builtins.str sub_kind: The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+        :param _builtins.str sub_kind: The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
         :param _builtins.str webhook_id: The webhook ID for a `webhook` source.
         """
         pulumi.set(__self__, "kind", kind)
@@ -3475,6 +3555,8 @@ class ProjectDeploymentCheckSource(dict):
             pulumi.set(__self__, "external_check_name", external_check_name)
         if external_resource_id is not None:
             pulumi.set(__self__, "external_resource_id", external_resource_id)
+        if job_name is not None:
+            pulumi.set(__self__, "job_name", job_name)
         if origin is not None:
             pulumi.set(__self__, "origin", origin)
         if provider is not None:
@@ -3511,10 +3593,18 @@ class ProjectDeploymentCheckSource(dict):
         return pulumi.get(self, "external_resource_id")
 
     @_builtins.property
+    @pulumi.getter(name="jobName")
+    def job_name(self) -> Optional[_builtins.str]:
+        """
+        The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+        """
+        return pulumi.get(self, "job_name")
+
+    @_builtins.property
     @pulumi.getter
     def origin(self) -> Optional[_builtins.str]:
         """
-        The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+        The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
         """
         return pulumi.get(self, "origin")
 
@@ -3538,7 +3628,7 @@ class ProjectDeploymentCheckSource(dict):
     @pulumi.getter(name="subKind")
     def sub_kind(self) -> Optional[_builtins.str]:
         """
-        The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+        The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
         """
         return pulumi.get(self, "sub_kind")
 
@@ -3620,6 +3710,196 @@ class ProjectDeploymentCheckSourceSelection(dict):
         The Turborepo task name.
         """
         return pulumi.get(self, "task")
+
+
+@pulumi.output_type
+class ProjectDeploymentProtectionPasswordProtection(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "deploymentType":
+            suggest = "deployment_type"
+        elif key == "passwordWo":
+            suggest = "password_wo"
+        elif key == "passwordWoVersion":
+            suggest = "password_wo_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectDeploymentProtectionPasswordProtection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectDeploymentProtectionPasswordProtection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectDeploymentProtectionPasswordProtection.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str,
+                 password_wo: Optional[_builtins.str] = None,
+                 password_wo_version: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str deployment_type: The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+        :param _builtins.str password_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+        :param _builtins.int password_wo_version: A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        if password_wo is not None:
+            pulumi.set(__self__, "password_wo", password_wo)
+        if password_wo_version is not None:
+            pulumi.set(__self__, "password_wo_version", password_wo_version)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter(name="passwordWo")
+    def password_wo(self) -> Optional[_builtins.str]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+        """
+        return pulumi.get(self, "password_wo")
+
+    @_builtins.property
+    @pulumi.getter(name="passwordWoVersion")
+    def password_wo_version(self) -> Optional[_builtins.int]:
+        """
+        A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+        """
+        return pulumi.get(self, "password_wo_version")
+
+
+@pulumi.output_type
+class ProjectDeploymentProtectionTrustedIps(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "deploymentType":
+            suggest = "deployment_type"
+        elif key == "protectionMode":
+            suggest = "protection_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectDeploymentProtectionTrustedIps. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectDeploymentProtectionTrustedIps.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectDeploymentProtectionTrustedIps.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 addresses: Sequence['outputs.ProjectDeploymentProtectionTrustedIpsAddress'],
+                 deployment_type: _builtins.str,
+                 protection_mode: Optional[_builtins.str] = None):
+        """
+        :param Sequence['ProjectDeploymentProtectionTrustedIpsAddressArgs'] addresses: Allowed IPv4 addresses or CIDR ranges.
+        :param _builtins.str deployment_type: The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+        :param _builtins.str protection_mode: The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+        """
+        pulumi.set(__self__, "addresses", addresses)
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        if protection_mode is not None:
+            pulumi.set(__self__, "protection_mode", protection_mode)
+
+    @_builtins.property
+    @pulumi.getter
+    def addresses(self) -> Sequence['outputs.ProjectDeploymentProtectionTrustedIpsAddress']:
+        """
+        Allowed IPv4 addresses or CIDR ranges.
+        """
+        return pulumi.get(self, "addresses")
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter(name="protectionMode")
+    def protection_mode(self) -> Optional[_builtins.str]:
+        """
+        The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+        """
+        return pulumi.get(self, "protection_mode")
+
+
+@pulumi.output_type
+class ProjectDeploymentProtectionTrustedIpsAddress(dict):
+    def __init__(__self__, *,
+                 value: _builtins.str,
+                 note: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str value: An IPv4 address or CIDR range. IPv6 is not supported.
+        :param _builtins.str note: Optional description, up to 20 characters.
+        """
+        pulumi.set(__self__, "value", value)
+        if note is not None:
+            pulumi.set(__self__, "note", note)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        An IPv4 address or CIDR range. IPv6 is not supported.
+        """
+        return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter
+    def note(self) -> Optional[_builtins.str]:
+        """
+        Optional description, up to 20 characters.
+        """
+        return pulumi.get(self, "note")
+
+
+@pulumi.output_type
+class ProjectDeploymentProtectionVercelAuthentication(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "deploymentType":
+            suggest = "deployment_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectDeploymentProtectionVercelAuthentication. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectDeploymentProtectionVercelAuthentication.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectDeploymentProtectionVercelAuthentication.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str):
+        """
+        :param _builtins.str deployment_type: The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+        """
+        return pulumi.get(self, "deployment_type")
 
 
 @pulumi.output_type
@@ -3961,28 +4241,30 @@ class ProjectGitComments(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 on_commit: _builtins.bool,
-                 on_pull_request: _builtins.bool):
+                 on_commit: Optional[_builtins.bool] = None,
+                 on_pull_request: Optional[_builtins.bool] = None):
         """
-        :param _builtins.bool on_commit: Whether Commit comments are enabled
-        :param _builtins.bool on_pull_request: Whether Pull Request comments are enabled
+        :param _builtins.bool on_commit: Whether Commit comments are enabled. Required when git_comments is configured.
+        :param _builtins.bool on_pull_request: Whether Pull Request comments are enabled. Required when git_comments is configured.
         """
-        pulumi.set(__self__, "on_commit", on_commit)
-        pulumi.set(__self__, "on_pull_request", on_pull_request)
+        if on_commit is not None:
+            pulumi.set(__self__, "on_commit", on_commit)
+        if on_pull_request is not None:
+            pulumi.set(__self__, "on_pull_request", on_pull_request)
 
     @_builtins.property
     @pulumi.getter(name="onCommit")
-    def on_commit(self) -> _builtins.bool:
+    def on_commit(self) -> Optional[_builtins.bool]:
         """
-        Whether Commit comments are enabled
+        Whether Commit comments are enabled. Required when git_comments is configured.
         """
         return pulumi.get(self, "on_commit")
 
     @_builtins.property
     @pulumi.getter(name="onPullRequest")
-    def on_pull_request(self) -> _builtins.bool:
+    def on_pull_request(self) -> Optional[_builtins.bool]:
         """
-        Whether Pull Request comments are enabled
+        Whether Pull Request comments are enabled. Required when git_comments is configured.
         """
         return pulumi.get(self, "on_pull_request")
 
@@ -4420,7 +4702,7 @@ class ProjectPassport(dict):
                  enabled: Optional[_builtins.bool] = None):
         """
         :param _builtins.str connector_id: The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
-        :param _builtins.str deployment_type: Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        :param _builtins.str deployment_type: Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
         :param _builtins.bool enabled: Whether Passport is enabled. Defaults to true.
         """
         if connector_id is not None:
@@ -4442,7 +4724,7 @@ class ProjectPassport(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> Optional[_builtins.str]:
         """
-        Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -5535,7 +5817,7 @@ class TeamConfigDefaultPassport(dict):
                  enabled: Optional[_builtins.bool] = None):
         """
         :param _builtins.str connector_id: The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
-        :param _builtins.str deployment_type: Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        :param _builtins.str deployment_type: Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
         :param _builtins.bool enabled: Whether Passport is enabled. Defaults to true.
         """
         if connector_id is not None:
@@ -5557,7 +5839,7 @@ class TeamConfigDefaultPassport(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> Optional[_builtins.str]:
         """
-        Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+        Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -6613,6 +6895,46 @@ class GetKmsIssuerSigningKeyResult(dict):
 
 
 @pulumi.output_type
+class GetLogDrainSamplingRuleResult(dict):
+    def __init__(__self__, *,
+                 environment: _builtins.str,
+                 rate: _builtins.float,
+                 request_path: _builtins.str):
+        """
+        :param _builtins.str environment: Environment this sampling rule applies to.
+        :param _builtins.float rate: Sampling rate from 0 to 1.
+        :param _builtins.str request_path: Request path prefix this sampling rule applies to.
+        """
+        pulumi.set(__self__, "environment", environment)
+        pulumi.set(__self__, "rate", rate)
+        pulumi.set(__self__, "request_path", request_path)
+
+    @_builtins.property
+    @pulumi.getter
+    def environment(self) -> _builtins.str:
+        """
+        Environment this sampling rule applies to.
+        """
+        return pulumi.get(self, "environment")
+
+    @_builtins.property
+    @pulumi.getter
+    def rate(self) -> _builtins.float:
+        """
+        Sampling rate from 0 to 1.
+        """
+        return pulumi.get(self, "rate")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPath")
+    def request_path(self) -> _builtins.str:
+        """
+        Request path prefix this sampling rule applies to.
+        """
+        return pulumi.get(self, "request_path")
+
+
+@pulumi.output_type
 class GetMicrofrontendGroupDefaultAppResult(dict):
     def __init__(__self__, *,
                  default_route: _builtins.str,
@@ -7087,7 +7409,7 @@ class GetProjectPassportResult(dict):
                  enabled: _builtins.bool):
         """
         :param _builtins.str connector_id: The stable ID of the Vercel Connect OAuth application. Null when disabled.
-        :param _builtins.str deployment_type: The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        :param _builtins.str deployment_type: The deployment scope protected when Passport is enabled. Null when disabled.
         :param _builtins.bool enabled: Whether Passport is enabled.
         """
         pulumi.set(__self__, "connector_id", connector_id)
@@ -7106,7 +7428,7 @@ class GetProjectPassportResult(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> _builtins.str:
         """
-        The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        The deployment scope protected when Passport is enabled. Null when disabled.
         """
         return pulumi.get(self, "deployment_type")
 
@@ -7135,6 +7457,382 @@ class GetProjectPasswordProtectionResult(dict):
         The deployment environment that will be protected.
         """
         return pulumi.get(self, "deployment_type")
+
+
+@pulumi.output_type
+class GetProjectProtectionInventoryEntryResult(dict):
+    def __init__(__self__, *,
+                 alias: _builtins.str,
+                 approval_key: _builtins.str,
+                 claims: Mapping[str, Sequence[_builtins.str]],
+                 configuration_id: _builtins.str,
+                 created_at: _builtins.int,
+                 created_by: _builtins.str,
+                 custom_allows: Sequence['outputs.GetProjectProtectionInventoryEntryCustomAllowResult'],
+                 expires_at: _builtins.int,
+                 implicit: _builtins.bool,
+                 integration_id: _builtins.str,
+                 is_env_var: _builtins.bool,
+                 issuer: _builtins.str,
+                 last_updated_at: _builtins.int,
+                 last_updated_by: _builtins.str,
+                 note: _builtins.str,
+                 path_prefix: _builtins.str,
+                 scope: _builtins.str,
+                 status: _builtins.str,
+                 subject: _builtins.str,
+                 target_id: _builtins.str,
+                 target_type: _builtins.str,
+                 to: 'outputs.GetProjectProtectionInventoryEntryToResult',
+                 trusted_project_id: _builtins.str):
+        """
+        :param _builtins.str alias: Alias hostname, without a query string, or null for project access.
+        :param _builtins.str approval_key: Versioned fingerprint of the team, project, target, credential or subject, and access configuration. Changes when access changes.
+        :param Mapping[str, Sequence[_builtins.str]] claims: Required OIDC claims and accepted values for trusted-oidc access. Values are ORed within each claim; claims are ANDed.
+        :param _builtins.str configuration_id: Integration configuration ID for integration-created automation access.
+        :param _builtins.int created_at: Creation time in Unix milliseconds, when returned by the API.
+        :param _builtins.str created_by: Creator ID, when returned by the API.
+        :param Sequence['GetProjectProtectionInventoryEntryCustomAllowArgs'] custom_allows: Custom environment rules for trusted-project access. Null uses defaults; an empty set explicitly denies access.
+        :param _builtins.int expires_at: Expiry time in Unix seconds, or null when no expiry was returned.
+        :param _builtins.bool implicit: Whether this entry represents implicit self-access or a Vercel CI default rather than an explicit rule.
+        :param _builtins.str integration_id: Integration ID for integration-created automation access.
+        :param _builtins.bool is_env_var: Whether an automation bypass is the deployment environment variable default. Omitted legacy values are interpreted as true. Null for other scopes.
+        :param _builtins.str issuer: OIDC issuer for trusted-oidc access.
+        :param _builtins.int last_updated_at: Last update time in Unix milliseconds, when returned by the API.
+        :param _builtins.str last_updated_by: Last updater ID, when returned by the API.
+        :param _builtins.str note: Display note or Trusted Source label, when returned by the API. Not used for approval identity.
+        :param _builtins.str path_prefix: Path prefix bypassed for OPTIONS requests, or null for other scopes.
+        :param _builtins.str scope: API bypass scope, or options-allowlist, trusted-project, trusted-oidc, or vercel-ci-same-repository. Unrecognized API scopes are retained with unknown status.
+        :param _builtins.str status: active, expired, granted, requested, invited, disabled, or unknown. Active describes configuration, not whether protection currently applies to a URL. Invitations are not treated as confirmed grants.
+        :param _builtins.str subject: The user or email map key for individual access, or null for other scopes. Bearer map keys are never returned.
+        :param _builtins.str target_id: The project or alias ID owning this entry.
+        :param _builtins.str target_type: The owner of the entry: project or alias.
+        :param 'GetProjectProtectionInventoryEntryToArgs' to: Allowed target environments for trusted-oidc access.
+        :param _builtins.str trusted_project_id: Source project ID for trusted-project access.
+        """
+        pulumi.set(__self__, "alias", alias)
+        pulumi.set(__self__, "approval_key", approval_key)
+        pulumi.set(__self__, "claims", claims)
+        pulumi.set(__self__, "configuration_id", configuration_id)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "created_by", created_by)
+        pulumi.set(__self__, "custom_allows", custom_allows)
+        pulumi.set(__self__, "expires_at", expires_at)
+        pulumi.set(__self__, "implicit", implicit)
+        pulumi.set(__self__, "integration_id", integration_id)
+        pulumi.set(__self__, "is_env_var", is_env_var)
+        pulumi.set(__self__, "issuer", issuer)
+        pulumi.set(__self__, "last_updated_at", last_updated_at)
+        pulumi.set(__self__, "last_updated_by", last_updated_by)
+        pulumi.set(__self__, "note", note)
+        pulumi.set(__self__, "path_prefix", path_prefix)
+        pulumi.set(__self__, "scope", scope)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "subject", subject)
+        pulumi.set(__self__, "target_id", target_id)
+        pulumi.set(__self__, "target_type", target_type)
+        pulumi.set(__self__, "to", to)
+        pulumi.set(__self__, "trusted_project_id", trusted_project_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def alias(self) -> _builtins.str:
+        """
+        Alias hostname, without a query string, or null for project access.
+        """
+        return pulumi.get(self, "alias")
+
+    @_builtins.property
+    @pulumi.getter(name="approvalKey")
+    def approval_key(self) -> _builtins.str:
+        """
+        Versioned fingerprint of the team, project, target, credential or subject, and access configuration. Changes when access changes.
+        """
+        return pulumi.get(self, "approval_key")
+
+    @_builtins.property
+    @pulumi.getter
+    def claims(self) -> Mapping[str, Sequence[_builtins.str]]:
+        """
+        Required OIDC claims and accepted values for trusted-oidc access. Values are ORed within each claim; claims are ANDed.
+        """
+        return pulumi.get(self, "claims")
+
+    @_builtins.property
+    @pulumi.getter(name="configurationId")
+    def configuration_id(self) -> _builtins.str:
+        """
+        Integration configuration ID for integration-created automation access.
+        """
+        return pulumi.get(self, "configuration_id")
+
+    @_builtins.property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> _builtins.int:
+        """
+        Creation time in Unix milliseconds, when returned by the API.
+        """
+        return pulumi.get(self, "created_at")
+
+    @_builtins.property
+    @pulumi.getter(name="createdBy")
+    def created_by(self) -> _builtins.str:
+        """
+        Creator ID, when returned by the API.
+        """
+        return pulumi.get(self, "created_by")
+
+    @_builtins.property
+    @pulumi.getter(name="customAllows")
+    def custom_allows(self) -> Sequence['outputs.GetProjectProtectionInventoryEntryCustomAllowResult']:
+        """
+        Custom environment rules for trusted-project access. Null uses defaults; an empty set explicitly denies access.
+        """
+        return pulumi.get(self, "custom_allows")
+
+    @_builtins.property
+    @pulumi.getter(name="expiresAt")
+    def expires_at(self) -> _builtins.int:
+        """
+        Expiry time in Unix seconds, or null when no expiry was returned.
+        """
+        return pulumi.get(self, "expires_at")
+
+    @_builtins.property
+    @pulumi.getter
+    def implicit(self) -> _builtins.bool:
+        """
+        Whether this entry represents implicit self-access or a Vercel CI default rather than an explicit rule.
+        """
+        return pulumi.get(self, "implicit")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationId")
+    def integration_id(self) -> _builtins.str:
+        """
+        Integration ID for integration-created automation access.
+        """
+        return pulumi.get(self, "integration_id")
+
+    @_builtins.property
+    @pulumi.getter(name="isEnvVar")
+    def is_env_var(self) -> _builtins.bool:
+        """
+        Whether an automation bypass is the deployment environment variable default. Omitted legacy values are interpreted as true. Null for other scopes.
+        """
+        return pulumi.get(self, "is_env_var")
+
+    @_builtins.property
+    @pulumi.getter
+    def issuer(self) -> _builtins.str:
+        """
+        OIDC issuer for trusted-oidc access.
+        """
+        return pulumi.get(self, "issuer")
+
+    @_builtins.property
+    @pulumi.getter(name="lastUpdatedAt")
+    def last_updated_at(self) -> _builtins.int:
+        """
+        Last update time in Unix milliseconds, when returned by the API.
+        """
+        return pulumi.get(self, "last_updated_at")
+
+    @_builtins.property
+    @pulumi.getter(name="lastUpdatedBy")
+    def last_updated_by(self) -> _builtins.str:
+        """
+        Last updater ID, when returned by the API.
+        """
+        return pulumi.get(self, "last_updated_by")
+
+    @_builtins.property
+    @pulumi.getter
+    def note(self) -> _builtins.str:
+        """
+        Display note or Trusted Source label, when returned by the API. Not used for approval identity.
+        """
+        return pulumi.get(self, "note")
+
+    @_builtins.property
+    @pulumi.getter(name="pathPrefix")
+    def path_prefix(self) -> _builtins.str:
+        """
+        Path prefix bypassed for OPTIONS requests, or null for other scopes.
+        """
+        return pulumi.get(self, "path_prefix")
+
+    @_builtins.property
+    @pulumi.getter
+    def scope(self) -> _builtins.str:
+        """
+        API bypass scope, or options-allowlist, trusted-project, trusted-oidc, or vercel-ci-same-repository. Unrecognized API scopes are retained with unknown status.
+        """
+        return pulumi.get(self, "scope")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        active, expired, granted, requested, invited, disabled, or unknown. Active describes configuration, not whether protection currently applies to a URL. Invitations are not treated as confirmed grants.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def subject(self) -> _builtins.str:
+        """
+        The user or email map key for individual access, or null for other scopes. Bearer map keys are never returned.
+        """
+        return pulumi.get(self, "subject")
+
+    @_builtins.property
+    @pulumi.getter(name="targetId")
+    def target_id(self) -> _builtins.str:
+        """
+        The project or alias ID owning this entry.
+        """
+        return pulumi.get(self, "target_id")
+
+    @_builtins.property
+    @pulumi.getter(name="targetType")
+    def target_type(self) -> _builtins.str:
+        """
+        The owner of the entry: project or alias.
+        """
+        return pulumi.get(self, "target_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> 'outputs.GetProjectProtectionInventoryEntryToResult':
+        """
+        Allowed target environments for trusted-oidc access.
+        """
+        return pulumi.get(self, "to")
+
+    @_builtins.property
+    @pulumi.getter(name="trustedProjectId")
+    def trusted_project_id(self) -> _builtins.str:
+        """
+        Source project ID for trusted-project access.
+        """
+        return pulumi.get(self, "trusted_project_id")
+
+
+@pulumi.output_type
+class GetProjectProtectionInventoryEntryCustomAllowResult(dict):
+    def __init__(__self__, *,
+                 from_: 'outputs.GetProjectProtectionInventoryEntryCustomAllowFromResult',
+                 to: 'outputs.GetProjectProtectionInventoryEntryCustomAllowToResult'):
+        """
+        :param 'GetProjectProtectionInventoryEntryCustomAllowFromArgs' from_: The source environments on the trusted project that are allowed to access the target environments.
+        :param 'GetProjectProtectionInventoryEntryCustomAllowToArgs' to: The target environments on this project that may be accessed.
+        """
+        pulumi.set(__self__, "from_", from_)
+        pulumi.set(__self__, "to", to)
+
+    @_builtins.property
+    @pulumi.getter(name="from")
+    def from_(self) -> 'outputs.GetProjectProtectionInventoryEntryCustomAllowFromResult':
+        """
+        The source environments on the trusted project that are allowed to access the target environments.
+        """
+        return pulumi.get(self, "from_")
+
+    @_builtins.property
+    @pulumi.getter
+    def to(self) -> 'outputs.GetProjectProtectionInventoryEntryCustomAllowToResult':
+        """
+        The target environments on this project that may be accessed.
+        """
+        return pulumi.get(self, "to")
+
+
+@pulumi.output_type
+class GetProjectProtectionInventoryEntryCustomAllowFromResult(dict):
+    def __init__(__self__, *,
+                 preset: _builtins.str,
+                 slugs: Sequence[_builtins.str]):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        pulumi.set(__self__, "preset", preset)
+        pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> _builtins.str:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Sequence[_builtins.str]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+
+@pulumi.output_type
+class GetProjectProtectionInventoryEntryCustomAllowToResult(dict):
+    def __init__(__self__, *,
+                 preset: _builtins.str,
+                 slugs: Sequence[_builtins.str]):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        pulumi.set(__self__, "preset", preset)
+        pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> _builtins.str:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Sequence[_builtins.str]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
+
+
+@pulumi.output_type
+class GetProjectProtectionInventoryEntryToResult(dict):
+    def __init__(__self__, *,
+                 preset: _builtins.str,
+                 slugs: Sequence[_builtins.str]):
+        """
+        :param _builtins.str preset: Named environment preset. Currently only `all-custom` is supported.
+        :param Sequence[_builtins.str] slugs: System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        pulumi.set(__self__, "preset", preset)
+        pulumi.set(__self__, "slugs", slugs)
+
+    @_builtins.property
+    @pulumi.getter
+    def preset(self) -> _builtins.str:
+        """
+        Named environment preset. Currently only `all-custom` is supported.
+        """
+        return pulumi.get(self, "preset")
+
+    @_builtins.property
+    @pulumi.getter
+    def slugs(self) -> Sequence[_builtins.str]:
+        """
+        System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+        """
+        return pulumi.get(self, "slugs")
 
 
 @pulumi.output_type
@@ -7813,6 +8511,257 @@ class GetProjectVercelAuthenticationResult(dict):
 
 
 @pulumi.output_type
+class GetProjectsProjectsResult(dict):
+    def __init__(__self__, *,
+                 framework: _builtins.str,
+                 git_repository: 'outputs.GetProjectsProjectsGitRepositoryResult',
+                 id: _builtins.str,
+                 name: _builtins.str,
+                 passport: 'outputs.GetProjectsProjectsPassportResult',
+                 password_protection: 'outputs.GetProjectsProjectsPasswordProtectionResult',
+                 team_id: _builtins.str,
+                 trusted_ips: 'outputs.GetProjectsProjectsTrustedIpsResult',
+                 vercel_authentication: 'outputs.GetProjectsProjectsVercelAuthenticationResult'):
+        """
+        :param _builtins.str framework: The configured framework. Null when no framework is configured.
+        :param 'GetProjectsProjectsGitRepositoryArgs' git_repository: The connected Git repository. Null when no repository is connected.
+        :param _builtins.str id: The project ID.
+        :param _builtins.str name: The current project name.
+        :param 'GetProjectsProjectsPassportArgs' passport: Passport configuration. Bypasses and exceptions can still allow access.
+        :param 'GetProjectsProjectsPasswordProtectionArgs' password_protection: Password Protection configuration. Bypasses and exceptions can still allow access.
+        :param _builtins.str team_id: The owning team ID. Null for a personal project.
+        :param 'GetProjectsProjectsTrustedIpsArgs' trusted_ips: Trusted IPs configuration. Bypasses and exceptions can still allow access.
+        :param 'GetProjectsProjectsVercelAuthenticationArgs' vercel_authentication: Vercel Authentication configuration. Bypasses and exceptions can still allow access.
+        """
+        pulumi.set(__self__, "framework", framework)
+        pulumi.set(__self__, "git_repository", git_repository)
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "passport", passport)
+        pulumi.set(__self__, "password_protection", password_protection)
+        pulumi.set(__self__, "team_id", team_id)
+        pulumi.set(__self__, "trusted_ips", trusted_ips)
+        pulumi.set(__self__, "vercel_authentication", vercel_authentication)
+
+    @_builtins.property
+    @pulumi.getter
+    def framework(self) -> _builtins.str:
+        """
+        The configured framework. Null when no framework is configured.
+        """
+        return pulumi.get(self, "framework")
+
+    @_builtins.property
+    @pulumi.getter(name="gitRepository")
+    def git_repository(self) -> 'outputs.GetProjectsProjectsGitRepositoryResult':
+        """
+        The connected Git repository. Null when no repository is connected.
+        """
+        return pulumi.get(self, "git_repository")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The project ID.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The current project name.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def passport(self) -> 'outputs.GetProjectsProjectsPassportResult':
+        """
+        Passport configuration. Bypasses and exceptions can still allow access.
+        """
+        return pulumi.get(self, "passport")
+
+    @_builtins.property
+    @pulumi.getter(name="passwordProtection")
+    def password_protection(self) -> 'outputs.GetProjectsProjectsPasswordProtectionResult':
+        """
+        Password Protection configuration. Bypasses and exceptions can still allow access.
+        """
+        return pulumi.get(self, "password_protection")
+
+    @_builtins.property
+    @pulumi.getter(name="teamId")
+    def team_id(self) -> _builtins.str:
+        """
+        The owning team ID. Null for a personal project.
+        """
+        return pulumi.get(self, "team_id")
+
+    @_builtins.property
+    @pulumi.getter(name="trustedIps")
+    def trusted_ips(self) -> 'outputs.GetProjectsProjectsTrustedIpsResult':
+        """
+        Trusted IPs configuration. Bypasses and exceptions can still allow access.
+        """
+        return pulumi.get(self, "trusted_ips")
+
+    @_builtins.property
+    @pulumi.getter(name="vercelAuthentication")
+    def vercel_authentication(self) -> 'outputs.GetProjectsProjectsVercelAuthenticationResult':
+        """
+        Vercel Authentication configuration. Bypasses and exceptions can still allow access.
+        """
+        return pulumi.get(self, "vercel_authentication")
+
+
+@pulumi.output_type
+class GetProjectsProjectsGitRepositoryResult(dict):
+    def __init__(__self__, *,
+                 repo: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str repo: The repository path, including its owner or namespace.
+        :param _builtins.str type: The Git provider: github, gitlab or bitbucket.
+        """
+        pulumi.set(__self__, "repo", repo)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def repo(self) -> _builtins.str:
+        """
+        The repository path, including its owner or namespace.
+        """
+        return pulumi.get(self, "repo")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The Git provider: github, gitlab or bitbucket.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetProjectsProjectsPassportResult(dict):
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str deployment_type: The API deployment scope. Null when disabled.
+        :param _builtins.bool enabled: Whether this protection mechanism is configured.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The API deployment scope. Null when disabled.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether this protection mechanism is configured.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetProjectsProjectsPasswordProtectionResult(dict):
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str deployment_type: The API deployment scope. Null when disabled.
+        :param _builtins.bool enabled: Whether this protection mechanism is configured.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The API deployment scope. Null when disabled.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether this protection mechanism is configured.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetProjectsProjectsTrustedIpsResult(dict):
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str deployment_type: The API deployment scope. Null when disabled.
+        :param _builtins.bool enabled: Whether this protection mechanism is configured.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The API deployment scope. Null when disabled.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether this protection mechanism is configured.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class GetProjectsProjectsVercelAuthenticationResult(dict):
+    def __init__(__self__, *,
+                 deployment_type: _builtins.str,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.str deployment_type: The API deployment scope. Null when disabled.
+        :param _builtins.bool enabled: Whether this protection mechanism is configured.
+        """
+        pulumi.set(__self__, "deployment_type", deployment_type)
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="deploymentType")
+    def deployment_type(self) -> _builtins.str:
+        """
+        The API deployment scope. Null when disabled.
+        """
+        return pulumi.get(self, "deployment_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether this protection mechanism is configured.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
 class GetTeamConfigDefaultDeploymentProtectionResult(dict):
     def __init__(__self__, *,
                  vercel_authentication: 'outputs.GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationResult'):
@@ -7856,7 +8805,7 @@ class GetTeamConfigDefaultPassportResult(dict):
                  enabled: _builtins.bool):
         """
         :param _builtins.str connector_id: The stable ID of the Vercel Connect OAuth application. Null when disabled.
-        :param _builtins.str deployment_type: The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        :param _builtins.str deployment_type: The deployment scope protected when Passport is enabled. Null when disabled.
         :param _builtins.bool enabled: Whether Passport is enabled.
         """
         pulumi.set(__self__, "connector_id", connector_id)
@@ -7875,7 +8824,7 @@ class GetTeamConfigDefaultPassportResult(dict):
     @pulumi.getter(name="deploymentType")
     def deployment_type(self) -> _builtins.str:
         """
-        The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        The deployment scope protected when Passport is enabled. Null when disabled.
         """
         return pulumi.get(self, "deployment_type")
 

@@ -96,7 +96,7 @@ namespace Pulumiverse.Vercel
         public Output<Outputs.TeamConfigDefaultPassport> DefaultPassport { get; private set; } = null!;
 
         /// <summary>
-        /// A description of the team.
+        /// A description of the team, up to 140 characters. Set to an empty string to clear it.
         /// </summary>
         [Output("description")]
         public Output<string> Description { get; private set; } = null!;
@@ -261,7 +261,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.TeamConfigDefaultPassportArgs>? DefaultPassport { get; set; }
 
         /// <summary>
-        /// A description of the team.
+        /// A description of the team, up to 140 characters. Set to an empty string to clear it.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -377,7 +377,7 @@ namespace Pulumiverse.Vercel
         public Input<Inputs.TeamConfigDefaultPassportGetArgs>? DefaultPassport { get; set; }
 
         /// <summary>
-        /// A description of the team.
+        /// A description of the team, up to 140 characters. Set to an empty string to clear it.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }

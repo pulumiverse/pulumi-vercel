@@ -24,10 +24,12 @@ import * as utilities from "./utilities";
  * });
  * ```
  */
-export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectResult> {
+export function getProject(args?: GetProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectResult> {
+    args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("vercel:index/getProject:getProject", {
         "buildMachineType": args.buildMachineType,
+        "id": args.id,
         "name": args.name,
         "onDemandConcurrentBuilds": args.onDemandConcurrentBuilds,
         "teamId": args.teamId,
@@ -43,9 +45,13 @@ export interface GetProjectArgs {
      */
     buildMachineType?: string;
     /**
-     * The name of the project.
+     * The stable ID of the project. Specify exactly one of name or id.
      */
-    name: string;
+    id?: string;
+    /**
+     * The name of the project. Specify exactly one of name or id.
+     */
+    name?: string;
     /**
      * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
      */
@@ -133,7 +139,7 @@ export interface GetProjectResult {
      */
     readonly gitRepository: outputs.GetProjectGitRepository;
     /**
-     * The ID of this resource.
+     * The stable ID of the project. Specify exactly one of name or id.
      */
     readonly id: string;
     /**
@@ -145,7 +151,7 @@ export interface GetProjectResult {
      */
     readonly installCommand: string;
     /**
-     * The name of the project.
+     * The name of the project. Specify exactly one of name or id.
      */
     readonly name: string;
     /**
@@ -267,10 +273,12 @@ export interface GetProjectResult {
  * });
  * ```
  */
-export function getProjectOutput(args: GetProjectOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetProjectResult> {
+export function getProjectOutput(args?: GetProjectOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetProjectResult> {
+    args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("vercel:index/getProject:getProject", {
         "buildMachineType": args.buildMachineType,
+        "id": args.id,
         "name": args.name,
         "onDemandConcurrentBuilds": args.onDemandConcurrentBuilds,
         "teamId": args.teamId,
@@ -286,9 +294,13 @@ export interface GetProjectOutputArgs {
      */
     buildMachineType?: pulumi.Input<string>;
     /**
-     * The name of the project.
+     * The stable ID of the project. Specify exactly one of name or id.
      */
-    name: pulumi.Input<string>;
+    id?: pulumi.Input<string>;
+    /**
+     * The name of the project. Specify exactly one of name or id.
+     */
+    name?: pulumi.Input<string>;
     /**
      * Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
      */

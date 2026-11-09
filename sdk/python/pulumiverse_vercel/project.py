@@ -41,6 +41,8 @@ class ProjectArgs:
                  git_repository: Optional[pulumi.Input['ProjectGitRepositoryArgs']] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
+                 manage_deployment_protection: Optional[pulumi.Input[_builtins.bool]] = None,
+                 manage_passport: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  node_version: Optional[pulumi.Input[_builtins.str]] = None,
                  oidc_token_config: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']] = None,
@@ -79,13 +81,15 @@ class ProjectArgs:
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments.
+        :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments. When omitted, existing settings are preserved.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
         :param pulumi.Input['ProjectGitProviderOptionsArgs'] git_provider_options: Git provider options
         :param pulumi.Input['ProjectGitRepositoryArgs'] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[_builtins.bool] manage_deployment_protection: Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        :param pulumi.Input[_builtins.bool] manage_passport: Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
         :param pulumi.Input[_builtins.str] name: The desired name for the project.
         :param pulumi.Input[_builtins.str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input['ProjectOidcTokenConfigArgs'] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
@@ -152,6 +156,10 @@ class ProjectArgs:
             pulumi.set(__self__, "ignore_command", ignore_command)
         if install_command is not None:
             pulumi.set(__self__, "install_command", install_command)
+        if manage_deployment_protection is not None:
+            pulumi.set(__self__, "manage_deployment_protection", manage_deployment_protection)
+        if manage_passport is not None:
+            pulumi.set(__self__, "manage_passport", manage_passport)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if node_version is not None:
@@ -367,7 +375,7 @@ class ProjectArgs:
     @pulumi.getter(name="gitComments")
     def git_comments(self) -> Optional[pulumi.Input['ProjectGitCommentsArgs']]:
         """
-        Configuration for Git Comments.
+        Configuration for Git Comments. When omitted, existing settings are preserved.
         """
         return pulumi.get(self, "git_comments")
 
@@ -446,6 +454,30 @@ class ProjectArgs:
     @install_command.setter
     def install_command(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "install_command", value)
+
+    @_builtins.property
+    @pulumi.getter(name="manageDeploymentProtection")
+    def manage_deployment_protection(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        """
+        return pulumi.get(self, "manage_deployment_protection")
+
+    @manage_deployment_protection.setter
+    def manage_deployment_protection(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "manage_deployment_protection", value)
+
+    @_builtins.property
+    @pulumi.getter(name="managePassport")
+    def manage_passport(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+        """
+        return pulumi.get(self, "manage_passport")
+
+    @manage_passport.setter
+    def manage_passport(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "manage_passport", value)
 
     @_builtins.property
     @pulumi.getter
@@ -738,6 +770,8 @@ class _ProjectState:
                  git_repository: Optional[pulumi.Input['ProjectGitRepositoryArgs']] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
+                 manage_deployment_protection: Optional[pulumi.Input[_builtins.bool]] = None,
+                 manage_passport: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  node_version: Optional[pulumi.Input[_builtins.str]] = None,
                  oidc_token_config: Optional[pulumi.Input['ProjectOidcTokenConfigArgs']] = None,
@@ -776,13 +810,15 @@ class _ProjectState:
         :param pulumi.Input[Sequence[pulumi.Input['ProjectEnvironmentArgs']]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments.
+        :param pulumi.Input['ProjectGitCommentsArgs'] git_comments: Configuration for Git Comments. When omitted, existing settings are preserved.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
         :param pulumi.Input['ProjectGitProviderOptionsArgs'] git_provider_options: Git provider options
         :param pulumi.Input['ProjectGitRepositoryArgs'] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[_builtins.bool] manage_deployment_protection: Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        :param pulumi.Input[_builtins.bool] manage_passport: Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
         :param pulumi.Input[_builtins.str] name: The desired name for the project.
         :param pulumi.Input[_builtins.str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input['ProjectOidcTokenConfigArgs'] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
@@ -849,6 +885,10 @@ class _ProjectState:
             pulumi.set(__self__, "ignore_command", ignore_command)
         if install_command is not None:
             pulumi.set(__self__, "install_command", install_command)
+        if manage_deployment_protection is not None:
+            pulumi.set(__self__, "manage_deployment_protection", manage_deployment_protection)
+        if manage_passport is not None:
+            pulumi.set(__self__, "manage_passport", manage_passport)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if node_version is not None:
@@ -1064,7 +1104,7 @@ class _ProjectState:
     @pulumi.getter(name="gitComments")
     def git_comments(self) -> Optional[pulumi.Input['ProjectGitCommentsArgs']]:
         """
-        Configuration for Git Comments.
+        Configuration for Git Comments. When omitted, existing settings are preserved.
         """
         return pulumi.get(self, "git_comments")
 
@@ -1143,6 +1183,30 @@ class _ProjectState:
     @install_command.setter
     def install_command(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "install_command", value)
+
+    @_builtins.property
+    @pulumi.getter(name="manageDeploymentProtection")
+    def manage_deployment_protection(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        """
+        return pulumi.get(self, "manage_deployment_protection")
+
+    @manage_deployment_protection.setter
+    def manage_deployment_protection(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "manage_deployment_protection", value)
+
+    @_builtins.property
+    @pulumi.getter(name="managePassport")
+    def manage_passport(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+        """
+        return pulumi.get(self, "manage_passport")
+
+    @manage_passport.setter
+    def manage_passport(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "manage_passport", value)
 
     @_builtins.property
     @pulumi.getter
@@ -1438,6 +1502,8 @@ class Project(pulumi.CustomResource):
                  git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
+                 manage_deployment_protection: Optional[pulumi.Input[_builtins.bool]] = None,
+                 manage_passport: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  node_version: Optional[pulumi.Input[_builtins.str]] = None,
                  oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
@@ -1534,6 +1600,16 @@ class Project(pulumi.CustomResource):
 
         ## Import
 
+        ### Identity Schema
+
+        #### Required
+
+        - `project_id` (String) The stable project ID.
+
+        #### Optional
+
+        - `team_id` (String) The owning team ID. Omit to use the provider's default team or personal account.
+
         The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
@@ -1568,13 +1644,15 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
+        :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments. When omitted, existing settings are preserved.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
         :param pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']] git_provider_options: Git provider options
         :param pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[_builtins.bool] manage_deployment_protection: Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        :param pulumi.Input[_builtins.bool] manage_passport: Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
         :param pulumi.Input[_builtins.str] name: The desired name for the project.
         :param pulumi.Input[_builtins.str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
@@ -1677,6 +1755,16 @@ class Project(pulumi.CustomResource):
 
         ## Import
 
+        ### Identity Schema
+
+        #### Required
+
+        - `project_id` (String) The stable project ID.
+
+        #### Optional
+
+        - `team_id` (String) The owning team ID. Omit to use the provider's default team or personal account.
+
         The `pulumi import` command can be used, for example:
 
         If importing into a personal account, or with a team configured on
@@ -1731,6 +1819,8 @@ class Project(pulumi.CustomResource):
                  git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
                  ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
                  install_command: Optional[pulumi.Input[_builtins.str]] = None,
+                 manage_deployment_protection: Optional[pulumi.Input[_builtins.bool]] = None,
+                 manage_passport: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  node_version: Optional[pulumi.Input[_builtins.str]] = None,
                  oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
@@ -1782,6 +1872,8 @@ class Project(pulumi.CustomResource):
             __props__.__dict__["git_repository"] = git_repository
             __props__.__dict__["ignore_command"] = ignore_command
             __props__.__dict__["install_command"] = install_command
+            __props__.__dict__["manage_deployment_protection"] = manage_deployment_protection
+            __props__.__dict__["manage_passport"] = manage_passport
             __props__.__dict__["name"] = name
             __props__.__dict__["node_version"] = node_version
             __props__.__dict__["oidc_token_config"] = oidc_token_config
@@ -1834,6 +1926,8 @@ class Project(pulumi.CustomResource):
             git_repository: Optional[pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']]] = None,
             ignore_command: Optional[pulumi.Input[_builtins.str]] = None,
             install_command: Optional[pulumi.Input[_builtins.str]] = None,
+            manage_deployment_protection: Optional[pulumi.Input[_builtins.bool]] = None,
+            manage_passport: Optional[pulumi.Input[_builtins.bool]] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
             node_version: Optional[pulumi.Input[_builtins.str]] = None,
             oidc_token_config: Optional[pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']]] = None,
@@ -1876,13 +1970,15 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['ProjectEnvironmentArgs', 'ProjectEnvironmentArgsDict']]]] environments: A set of Environment Variables that should be configured for the project. Deprecated: use `ProjectEnvironmentVariables` or `ProjectEnvironmentVariable` instead. Retained for backwards compatibility.
         :param pulumi.Input[_builtins.str] framework: The framework that is being used for this project. If omitted, no framework is selected.
         :param pulumi.Input[_builtins.bool] function_failover: Automatically failover Serverless Functions to the nearest region. You can customize regions through vercel.json. A new Deployment is required for your changes to take effect.
-        :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments.
+        :param pulumi.Input[Union['ProjectGitCommentsArgs', 'ProjectGitCommentsArgsDict']] git_comments: Configuration for Git Comments. When omitted, existing settings are preserved.
         :param pulumi.Input[_builtins.bool] git_fork_protection: Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] git_lfs: Enables Git LFS support. Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
         :param pulumi.Input[Union['ProjectGitProviderOptionsArgs', 'ProjectGitProviderOptionsArgsDict']] git_provider_options: Git provider options
         :param pulumi.Input[Union['ProjectGitRepositoryArgs', 'ProjectGitRepositoryArgsDict']] git_repository: The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed. This requires the corresponding Vercel for [Github](https://vercel.com/docs/concepts/git/vercel-for-github), [Gitlab](https://vercel.com/docs/concepts/git/vercel-for-gitlab) or [Bitbucket](https://vercel.com/docs/concepts/git/vercel-for-bitbucket) plugins to be installed.
         :param pulumi.Input[_builtins.str] ignore_command: When a commit is pushed to the Git repository that is connected with your Project, its SHA will determine if a new Build has to be issued. If the SHA was deployed before, no new Build will be issued. You can customize this behavior with a command that exits with code 1 (new Build needed) or code 0.
         :param pulumi.Input[_builtins.str] install_command: The install command for this project. If omitted, this value will be automatically detected.
+        :param pulumi.Input[_builtins.bool] manage_deployment_protection: Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        :param pulumi.Input[_builtins.bool] manage_passport: Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
         :param pulumi.Input[_builtins.str] name: The desired name for the project.
         :param pulumi.Input[_builtins.str] node_version: The version of Node.js that is used in the Build Step and for Serverless Functions. A new Deployment is required for your changes to take effect.
         :param pulumi.Input[Union['ProjectOidcTokenConfigArgs', 'ProjectOidcTokenConfigArgsDict']] oidc_token_config: Configuration for OpenID Connect (OIDC) tokens.
@@ -1930,6 +2026,8 @@ class Project(pulumi.CustomResource):
         __props__.__dict__["git_repository"] = git_repository
         __props__.__dict__["ignore_command"] = ignore_command
         __props__.__dict__["install_command"] = install_command
+        __props__.__dict__["manage_deployment_protection"] = manage_deployment_protection
+        __props__.__dict__["manage_passport"] = manage_passport
         __props__.__dict__["name"] = name
         __props__.__dict__["node_version"] = node_version
         __props__.__dict__["oidc_token_config"] = oidc_token_config
@@ -2061,9 +2159,9 @@ class Project(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="gitComments")
-    def git_comments(self) -> pulumi.Output[Optional['outputs.ProjectGitComments']]:
+    def git_comments(self) -> pulumi.Output['outputs.ProjectGitComments']:
         """
-        Configuration for Git Comments.
+        Configuration for Git Comments. When omitted, existing settings are preserved.
         """
         return pulumi.get(self, "git_comments")
 
@@ -2114,6 +2212,22 @@ class Project(pulumi.CustomResource):
         The install command for this project. If omitted, this value will be automatically detected.
         """
         return pulumi.get(self, "install_command")
+
+    @_builtins.property
+    @pulumi.getter(name="manageDeploymentProtection")
+    def manage_deployment_protection(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+        """
+        return pulumi.get(self, "manage_deployment_protection")
+
+    @_builtins.property
+    @pulumi.getter(name="managePassport")
+    def manage_passport(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. Project still owns the project lifecycle.
+        """
+        return pulumi.get(self, "manage_passport")
 
     @_builtins.property
     @pulumi.getter

@@ -5,9 +5,10 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 public final class ProjectGitCommentsArgs extends com.pulumi.resources.ResourceArgs {
@@ -15,33 +16,33 @@ public final class ProjectGitCommentsArgs extends com.pulumi.resources.ResourceA
     public static final ProjectGitCommentsArgs Empty = new ProjectGitCommentsArgs();
 
     /**
-     * Whether Commit comments are enabled
+     * Whether Commit comments are enabled. Required when gitComments is configured.
      * 
      */
-    @Import(name="onCommit", required=true)
-    private Output<Boolean> onCommit;
+    @Import(name="onCommit")
+    private @Nullable Output<Boolean> onCommit;
 
     /**
-     * @return Whether Commit comments are enabled
+     * @return Whether Commit comments are enabled. Required when gitComments is configured.
      * 
      */
-    public Output<Boolean> onCommit() {
-        return this.onCommit;
+    public Optional<Output<Boolean>> onCommit() {
+        return Optional.ofNullable(this.onCommit);
     }
 
     /**
-     * Whether Pull Request comments are enabled
+     * Whether Pull Request comments are enabled. Required when gitComments is configured.
      * 
      */
-    @Import(name="onPullRequest", required=true)
-    private Output<Boolean> onPullRequest;
+    @Import(name="onPullRequest")
+    private @Nullable Output<Boolean> onPullRequest;
 
     /**
-     * @return Whether Pull Request comments are enabled
+     * @return Whether Pull Request comments are enabled. Required when gitComments is configured.
      * 
      */
-    public Output<Boolean> onPullRequest() {
-        return this.onPullRequest;
+    public Optional<Output<Boolean>> onPullRequest() {
+        return Optional.ofNullable(this.onPullRequest);
     }
 
     private ProjectGitCommentsArgs() {}
@@ -70,18 +71,18 @@ public final class ProjectGitCommentsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param onCommit Whether Commit comments are enabled
+         * @param onCommit Whether Commit comments are enabled. Required when gitComments is configured.
          * 
          * @return builder
          * 
          */
-        public Builder onCommit(Output<Boolean> onCommit) {
+        public Builder onCommit(@Nullable Output<Boolean> onCommit) {
             $.onCommit = onCommit;
             return this;
         }
 
         /**
-         * @param onCommit Whether Commit comments are enabled
+         * @param onCommit Whether Commit comments are enabled. Required when gitComments is configured.
          * 
          * @return builder
          * 
@@ -91,18 +92,18 @@ public final class ProjectGitCommentsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param onPullRequest Whether Pull Request comments are enabled
+         * @param onPullRequest Whether Pull Request comments are enabled. Required when gitComments is configured.
          * 
          * @return builder
          * 
          */
-        public Builder onPullRequest(Output<Boolean> onPullRequest) {
+        public Builder onPullRequest(@Nullable Output<Boolean> onPullRequest) {
             $.onPullRequest = onPullRequest;
             return this;
         }
 
         /**
-         * @param onPullRequest Whether Pull Request comments are enabled
+         * @param onPullRequest Whether Pull Request comments are enabled. Required when gitComments is configured.
          * 
          * @return builder
          * 
@@ -112,12 +113,6 @@ public final class ProjectGitCommentsArgs extends com.pulumi.resources.ResourceA
         }
 
         public ProjectGitCommentsArgs build() {
-            if ($.onCommit == null) {
-                throw new MissingRequiredPropertyException("ProjectGitCommentsArgs", "onCommit");
-            }
-            if ($.onPullRequest == null) {
-                throw new MissingRequiredPropertyException("ProjectGitCommentsArgs", "onPullRequest");
-            }
             return $;
         }
     }

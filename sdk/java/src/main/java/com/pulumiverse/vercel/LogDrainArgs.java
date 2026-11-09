@@ -6,6 +6,7 @@ package com.pulumiverse.vercel;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumiverse.vercel.inputs.LogDrainSamplingRuleArgs;
 import java.lang.Double;
 import java.lang.Integer;
 import java.lang.String;
@@ -111,18 +112,33 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      * 
      */
     @Import(name="samplingRate")
     private @Nullable Output<Double> samplingRate;
 
     /**
-     * @return A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * @return A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      * 
      */
     public Optional<Output<Double>> samplingRate() {
         return Optional.ofNullable(this.samplingRate);
+    }
+
+    /**
+     * Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     * 
+     */
+    @Import(name="samplingRules")
+    private @Nullable Output<List<LogDrainSamplingRuleArgs>> samplingRules;
+
+    /**
+     * @return Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     * 
+     */
+    public Optional<Output<List<LogDrainSamplingRuleArgs>>> samplingRules() {
+        return Optional.ofNullable(this.samplingRules);
     }
 
     /**
@@ -212,6 +228,7 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         this.name = $.name;
         this.projectIds = $.projectIds;
         this.samplingRate = $.samplingRate;
+        this.samplingRules = $.samplingRules;
         this.secret = $.secret;
         this.secretWo = $.secretWo;
         this.secretWoVersion = $.secretWoVersion;
@@ -384,7 +401,7 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param samplingRate A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+         * @param samplingRate A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
          * 
          * @return builder
          * 
@@ -395,13 +412,44 @@ public final class LogDrainArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param samplingRate A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+         * @param samplingRate A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
          * 
          * @return builder
          * 
          */
         public Builder samplingRate(Double samplingRate) {
             return samplingRate(Output.of(samplingRate));
+        }
+
+        /**
+         * @param samplingRules Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder samplingRules(@Nullable Output<List<LogDrainSamplingRuleArgs>> samplingRules) {
+            $.samplingRules = samplingRules;
+            return this;
+        }
+
+        /**
+         * @param samplingRules Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder samplingRules(List<LogDrainSamplingRuleArgs> samplingRules) {
+            return samplingRules(Output.of(samplingRules));
+        }
+
+        /**
+         * @param samplingRules Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder samplingRules(LogDrainSamplingRuleArgs... samplingRules) {
+            return samplingRules(List.of(samplingRules));
         }
 
         /**

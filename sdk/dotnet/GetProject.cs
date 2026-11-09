@@ -37,7 +37,7 @@ namespace Pulumiverse.Vercel
         /// });
         /// ```
         /// </summary>
-        public static Task<GetProjectResult> InvokeAsync(GetProjectArgs args, InvokeOptions? options = null)
+        public static Task<GetProjectResult> InvokeAsync(GetProjectArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("vercel:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Pulumiverse.Vercel
         /// });
         /// ```
         /// </summary>
-        public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs args, InvokeOptions? options = null)
+        public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProjectResult>("vercel:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());
 
         /// <summary>
@@ -107,10 +107,16 @@ namespace Pulumiverse.Vercel
         public string? BuildMachineType { get; set; }
 
         /// <summary>
-        /// The name of the project.
+        /// The stable ID of the project. Specify exactly one of name or id.
         /// </summary>
-        [Input("name", required: true)]
-        public string Name { get; set; } = null!;
+        [Input("id")]
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// The name of the project. Specify exactly one of name or id.
+        /// </summary>
+        [Input("name")]
+        public string? Name { get; set; }
 
         /// <summary>
         /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
@@ -139,10 +145,16 @@ namespace Pulumiverse.Vercel
         public Input<string>? BuildMachineType { get; set; }
 
         /// <summary>
-        /// The name of the project.
+        /// The stable ID of the project. Specify exactly one of name or id.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("id")]
+        public Input<string>? Id { get; set; }
+
+        /// <summary>
+        /// The name of the project. Specify exactly one of name or id.
+        /// </summary>
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         /// <summary>
         /// Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
@@ -239,7 +251,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly Outputs.GetProjectGitRepositoryResult GitRepository;
         /// <summary>
-        /// The ID of this resource.
+        /// The stable ID of the project. Specify exactly one of name or id.
         /// </summary>
         public readonly string Id;
         /// <summary>
@@ -251,7 +263,7 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly string InstallCommand;
         /// <summary>
-        /// The name of the project.
+        /// The name of the project. Specify exactly one of name or id.
         /// </summary>
         public readonly string Name;
         /// <summary>

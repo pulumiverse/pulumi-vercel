@@ -84,7 +84,7 @@ type TeamConfig struct {
 	DefaultDeploymentProtection TeamConfigDefaultDeploymentProtectionOutput `pulumi:"defaultDeploymentProtection"`
 	// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
 	DefaultPassport TeamConfigDefaultPassportOutput `pulumi:"defaultPassport"`
-	// A description of the team.
+	// A description of the team, up to 140 characters. Set to an empty string to clear it.
 	Description pulumi.StringOutput `pulumi:"description"`
 	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
 	DisjunctiveProductionSecretPolicy pulumi.StringOutput `pulumi:"disjunctiveProductionSecretPolicy"`
@@ -158,7 +158,7 @@ type teamConfigState struct {
 	DefaultDeploymentProtection *TeamConfigDefaultDeploymentProtection `pulumi:"defaultDeploymentProtection"`
 	// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
 	DefaultPassport *TeamConfigDefaultPassport `pulumi:"defaultPassport"`
-	// A description of the team.
+	// A description of the team, up to 140 characters. Set to an empty string to clear it.
 	Description *string `pulumi:"description"`
 	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
 	DisjunctiveProductionSecretPolicy *string `pulumi:"disjunctiveProductionSecretPolicy"`
@@ -199,7 +199,7 @@ type TeamConfigState struct {
 	DefaultDeploymentProtection TeamConfigDefaultDeploymentProtectionPtrInput
 	// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
 	DefaultPassport TeamConfigDefaultPassportPtrInput
-	// A description of the team.
+	// A description of the team, up to 140 characters. Set to an empty string to clear it.
 	Description pulumi.StringPtrInput
 	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
 	DisjunctiveProductionSecretPolicy pulumi.StringPtrInput
@@ -244,7 +244,7 @@ type teamConfigArgs struct {
 	DefaultDeploymentProtection *TeamConfigDefaultDeploymentProtection `pulumi:"defaultDeploymentProtection"`
 	// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
 	DefaultPassport *TeamConfigDefaultPassport `pulumi:"defaultPassport"`
-	// A description of the team.
+	// A description of the team, up to 140 characters. Set to an empty string to clear it.
 	Description *string `pulumi:"description"`
 	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
 	DisjunctiveProductionSecretPolicy *string `pulumi:"disjunctiveProductionSecretPolicy"`
@@ -284,7 +284,7 @@ type TeamConfigArgs struct {
 	DefaultDeploymentProtection TeamConfigDefaultDeploymentProtectionPtrInput
 	// Default Passport configuration for new projects. Existing projects keep their settings. Requires an eligible Enterprise plan and team owner permissions. Omit this attribute to preserve existing settings; set enabled to false to disable Passport. Disabling does not delete the Connect application or its project connections.
 	DefaultPassport TeamConfigDefaultPassportPtrInput
-	// A description of the team.
+	// A description of the team, up to 140 characters. Set to an empty string to clear it.
 	Description pulumi.StringPtrInput
 	// When enabled, secrets cannot be scoped to both Production and non-Production targets on the same environment variable. One of `on`, `off`, or `default`.
 	DisjunctiveProductionSecretPolicy pulumi.StringPtrInput
@@ -421,7 +421,7 @@ func (o TeamConfigOutput) DefaultPassport() TeamConfigDefaultPassportOutput {
 	return o.ApplyT(func(v *TeamConfig) TeamConfigDefaultPassportOutput { return v.DefaultPassport }).(TeamConfigDefaultPassportOutput)
 }
 
-// A description of the team.
+// A description of the team, up to 140 characters. Set to an empty string to clear it.
 func (o TeamConfigOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v *TeamConfig) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }

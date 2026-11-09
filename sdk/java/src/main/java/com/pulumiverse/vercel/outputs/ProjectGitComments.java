@@ -4,37 +4,38 @@
 package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class ProjectGitComments {
     /**
-     * @return Whether Commit comments are enabled
+     * @return Whether Commit comments are enabled. Required when gitComments is configured.
      * 
      */
-    private Boolean onCommit;
+    private @Nullable Boolean onCommit;
     /**
-     * @return Whether Pull Request comments are enabled
+     * @return Whether Pull Request comments are enabled. Required when gitComments is configured.
      * 
      */
-    private Boolean onPullRequest;
+    private @Nullable Boolean onPullRequest;
 
     private ProjectGitComments() {}
     /**
-     * @return Whether Commit comments are enabled
+     * @return Whether Commit comments are enabled. Required when gitComments is configured.
      * 
      */
-    public Boolean onCommit() {
-        return this.onCommit;
+    public Optional<Boolean> onCommit() {
+        return Optional.ofNullable(this.onCommit);
     }
     /**
-     * @return Whether Pull Request comments are enabled
+     * @return Whether Pull Request comments are enabled. Required when gitComments is configured.
      * 
      */
-    public Boolean onPullRequest() {
-        return this.onPullRequest;
+    public Optional<Boolean> onPullRequest() {
+        return Optional.ofNullable(this.onPullRequest);
     }
 
     public static Builder builder() {
@@ -46,8 +47,8 @@ public final class ProjectGitComments {
     }
     @CustomType.Builder
     public static final class Builder {
-        private Boolean onCommit;
-        private Boolean onPullRequest;
+        private @Nullable Boolean onCommit;
+        private @Nullable Boolean onPullRequest;
         public Builder() {}
         public Builder(ProjectGitComments defaults) {
     	      Objects.requireNonNull(defaults);
@@ -56,18 +57,14 @@ public final class ProjectGitComments {
         }
 
         @CustomType.Setter
-        public Builder onCommit(Boolean onCommit) {
-            if (onCommit == null) {
-              throw new MissingRequiredPropertyException("ProjectGitComments", "onCommit");
-            }
+        public Builder onCommit(@Nullable Boolean onCommit) {
+
             this.onCommit = onCommit;
             return this;
         }
         @CustomType.Setter
-        public Builder onPullRequest(Boolean onPullRequest) {
-            if (onPullRequest == null) {
-              throw new MissingRequiredPropertyException("ProjectGitComments", "onPullRequest");
-            }
+        public Builder onPullRequest(@Nullable Boolean onPullRequest) {
+
             this.onPullRequest = onPullRequest;
             return this;
         }

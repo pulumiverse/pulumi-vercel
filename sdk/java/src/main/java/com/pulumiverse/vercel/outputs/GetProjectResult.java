@@ -115,7 +115,7 @@ public final class GetProjectResult {
      */
     private GetProjectGitRepository gitRepository;
     /**
-     * @return The ID of this resource.
+     * @return The stable ID of the project. Specify exactly one of name or id.
      * 
      */
     private String id;
@@ -130,7 +130,7 @@ public final class GetProjectResult {
      */
     private String installCommand;
     /**
-     * @return The name of the project.
+     * @return The name of the project. Specify exactly one of name or id.
      * 
      */
     private String name;
@@ -394,7 +394,7 @@ public final class GetProjectResult {
         return this.gitRepository;
     }
     /**
-     * @return The ID of this resource.
+     * @return The stable ID of the project. Specify exactly one of name or id.
      * 
      */
     public String id() {
@@ -415,7 +415,7 @@ public final class GetProjectResult {
         return this.installCommand;
     }
     /**
-     * @return The name of the project.
+     * @return The name of the project. Specify exactly one of name or id.
      * 
      */
     public String name() {

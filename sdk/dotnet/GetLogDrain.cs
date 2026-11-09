@@ -183,9 +183,13 @@ namespace Pulumiverse.Vercel
         /// </summary>
         public readonly ImmutableArray<string> ProjectIds;
         /// <summary>
-        /// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        /// The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use SamplingRules for the full configuration.
         /// </summary>
         public readonly double SamplingRate;
+        /// <summary>
+        /// Ordered sampling rules for logs sent to this drain.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.GetLogDrainSamplingRuleResult> SamplingRules;
         /// <summary>
         /// A set of sources that the log drain should send logs for. Valid values are `Static`, `Edge`, `External`, `Build`, `Lambda`, `Firewall`, and `Redirect`.
         /// </summary>
@@ -213,6 +217,8 @@ namespace Pulumiverse.Vercel
 
             double samplingRate,
 
+            ImmutableArray<Outputs.GetLogDrainSamplingRuleResult> samplingRules,
+
             ImmutableArray<string> sources,
 
             string teamId)
@@ -225,6 +231,7 @@ namespace Pulumiverse.Vercel
             Name = name;
             ProjectIds = projectIds;
             SamplingRate = samplingRate;
+            SamplingRules = samplingRules;
             Sources = sources;
             TeamId = teamId;
         }
