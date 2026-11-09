@@ -312,7 +312,7 @@ class GetProjectResult:
     @pulumi.getter
     def id(self) -> _builtins.str:
         """
-        The ID of this resource.
+        The stable ID of the project. Specify exactly one of name or id.
         """
         return pulumi.get(self, "id")
 
@@ -336,7 +336,7 @@ class GetProjectResult:
     @pulumi.getter
     def name(self) -> _builtins.str:
         """
-        The name of the project.
+        The name of the project. Specify exactly one of name or id.
         """
         return pulumi.get(self, "name")
 
@@ -583,6 +583,7 @@ class AwaitableGetProjectResult(GetProjectResult):
 
 
 def get_project(build_machine_type: Optional[_builtins.str] = None,
+                id: Optional[_builtins.str] = None,
                 name: Optional[_builtins.str] = None,
                 on_demand_concurrent_builds: Optional[_builtins.bool] = None,
                 team_id: Optional[_builtins.str] = None,
@@ -605,12 +606,14 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
 
 
     :param _builtins.str build_machine_type: The build machine type to use for this project.
-    :param _builtins.str name: The name of the project.
+    :param _builtins.str id: The stable ID of the project. Specify exactly one of name or id.
+    :param _builtins.str name: The name of the project. Specify exactly one of name or id.
     :param _builtins.bool on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
     :param _builtins.str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['buildMachineType'] = build_machine_type
+    __args__['id'] = id
     __args__['name'] = name
     __args__['onDemandConcurrentBuilds'] = on_demand_concurrent_builds
     __args__['teamId'] = team_id
@@ -664,7 +667,8 @@ def get_project(build_machine_type: Optional[_builtins.str] = None,
         trusted_sources=pulumi.get(__ret__, 'trusted_sources'),
         vercel_authentication=pulumi.get(__ret__, 'vercel_authentication'))
 def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                       name: Optional[pulumi.Input[_builtins.str]] = None,
+                       id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+                       name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        on_demand_concurrent_builds: Optional[pulumi.Input[Optional[_builtins.bool]]] = None,
                        team_id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetProjectResult]:
@@ -686,12 +690,14 @@ def get_project_output(build_machine_type: Optional[pulumi.Input[Optional[_built
 
 
     :param _builtins.str build_machine_type: The build machine type to use for this project.
-    :param _builtins.str name: The name of the project.
+    :param _builtins.str id: The stable ID of the project. Specify exactly one of name or id.
+    :param _builtins.str name: The name of the project. Specify exactly one of name or id.
     :param _builtins.bool on_demand_concurrent_builds: Instantly scale build capacity to skip the queue, even if all build slots are in use. You can also choose a larger build machine; charges apply per minute if it exceeds your team's default.
     :param _builtins.str team_id: The team ID the project exists beneath. Required when configuring a team resource if a default team has not been set in the provider.
     """
     __args__ = dict()
     __args__['buildMachineType'] = build_machine_type
+    __args__['id'] = id
     __args__['name'] = name
     __args__['onDemandConcurrentBuilds'] = on_demand_concurrent_builds
     __args__['teamId'] = team_id

@@ -17,7 +17,7 @@ public final class GetProjectPassport {
      */
     private String connectorId;
     /**
-     * @return The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+     * @return The deployment scope protected when Passport is enabled. Null when disabled.
      * 
      */
     private String deploymentType;
@@ -36,7 +36,7 @@ public final class GetProjectPassport {
         return this.connectorId;
     }
     /**
-     * @return The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+     * @return The deployment scope protected when Passport is enabled. Null when disabled.
      * 
      */
     public String deploymentType() {

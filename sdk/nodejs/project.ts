@@ -82,6 +82,16 @@ import * as utilities from "./utilities";
  *
  * ## Import
  *
+ * ### Identity Schema
+ *
+ * #### Required
+ *
+ * - `projectId` (String) The stable project ID.
+ *
+ * #### Optional
+ *
+ * - `teamId` (String) The owning team ID. Omit to use the provider's default team or personal account.
+ *
  * The `pulumi import` command can be used, for example:
  *
  * If importing into a personal account, or with a team configured on
@@ -183,9 +193,9 @@ export class Project extends pulumi.CustomResource {
      */
     declare public readonly functionFailover: pulumi.Output<boolean>;
     /**
-     * Configuration for Git Comments.
+     * Configuration for Git Comments. When omitted, existing settings are preserved.
      */
-    declare public readonly gitComments: pulumi.Output<outputs.ProjectGitComments | undefined>;
+    declare public readonly gitComments: pulumi.Output<outputs.ProjectGitComments>;
     /**
      * Ensures that pull requests targeting your Git repository must be authorized by a member of your Team before deploying if your Project has Environment Variables or if the pull request includes a change to vercel.json. Defaults to `true`.
      */
@@ -210,6 +220,14 @@ export class Project extends pulumi.CustomResource {
      * The install command for this project. If omitted, this value will be automatically detected.
      */
     declare public readonly installCommand: pulumi.Output<string | undefined>;
+    /**
+     * Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     */
+    declare public readonly manageDeploymentProtection: pulumi.Output<boolean>;
+    /**
+     * Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     */
+    declare public readonly managePassport: pulumi.Output<boolean>;
     /**
      * The desired name for the project.
      */
@@ -338,6 +356,8 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["gitRepository"] = state?.gitRepository;
             resourceInputs["ignoreCommand"] = state?.ignoreCommand;
             resourceInputs["installCommand"] = state?.installCommand;
+            resourceInputs["manageDeploymentProtection"] = state?.manageDeploymentProtection;
+            resourceInputs["managePassport"] = state?.managePassport;
             resourceInputs["name"] = state?.name;
             resourceInputs["nodeVersion"] = state?.nodeVersion;
             resourceInputs["oidcTokenConfig"] = state?.oidcTokenConfig;
@@ -382,6 +402,8 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["gitRepository"] = args?.gitRepository;
             resourceInputs["ignoreCommand"] = args?.ignoreCommand;
             resourceInputs["installCommand"] = args?.installCommand;
+            resourceInputs["manageDeploymentProtection"] = args?.manageDeploymentProtection;
+            resourceInputs["managePassport"] = args?.managePassport;
             resourceInputs["name"] = args?.name;
             resourceInputs["nodeVersion"] = args?.nodeVersion;
             resourceInputs["oidcTokenConfig"] = args?.oidcTokenConfig;
@@ -469,7 +491,7 @@ export interface ProjectState {
      */
     functionFailover?: pulumi.Input<boolean>;
     /**
-     * Configuration for Git Comments.
+     * Configuration for Git Comments. When omitted, existing settings are preserved.
      */
     gitComments?: pulumi.Input<inputs.ProjectGitComments>;
     /**
@@ -496,6 +518,14 @@ export interface ProjectState {
      * The install command for this project. If omitted, this value will be automatically detected.
      */
     installCommand?: pulumi.Input<string>;
+    /**
+     * Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     */
+    manageDeploymentProtection?: pulumi.Input<boolean>;
+    /**
+     * Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     */
+    managePassport?: pulumi.Input<boolean>;
     /**
      * The desired name for the project.
      */
@@ -651,7 +681,7 @@ export interface ProjectArgs {
      */
     functionFailover?: pulumi.Input<boolean>;
     /**
-     * Configuration for Git Comments.
+     * Configuration for Git Comments. When omitted, existing settings are preserved.
      */
     gitComments?: pulumi.Input<inputs.ProjectGitComments>;
     /**
@@ -678,6 +708,14 @@ export interface ProjectArgs {
      * The install command for this project. If omitted, this value will be automatically detected.
      */
     installCommand?: pulumi.Input<string>;
+    /**
+     * Whether this resource manages Vercel Authentication, password protection, and Trusted IPs. Defaults to true. Set false and omit those inline attributes when using the standalone vercel*project*deployment_protection resource. All three fields are then omitted from project requests. Passport, bypasses, and the project lifecycle are unaffected.
+     */
+    manageDeploymentProtection?: pulumi.Input<boolean>;
+    /**
+     * Whether this resource manages Passport. Defaults to true. Set false and omit passport when using the standalone vercel*project*passport resource; project updates then never write Passport. This does not disable Passport. vercel.Project still owns the project lifecycle.
+     */
+    managePassport?: pulumi.Input<boolean>;
     /**
      * The desired name for the project.
      */

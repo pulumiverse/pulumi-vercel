@@ -82,14 +82,14 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * A description of the team.
+     * A description of the team, up to 140 characters. Set to an empty string to clear it.
      * 
      */
     @Import(name="description")
     private @Nullable Output<String> description;
 
     /**
-     * @return A description of the team.
+     * @return A description of the team, up to 140 characters. Set to an empty string to clear it.
      * 
      */
     public Optional<Output<String>> description() {
@@ -409,7 +409,7 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param description A description of the team.
+         * @param description A description of the team, up to 140 characters. Set to an empty string to clear it.
          * 
          * @return builder
          * 
@@ -420,7 +420,7 @@ public final class TeamConfigArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param description A description of the team.
+         * @param description A description of the team, up to 140 characters. Set to an empty string to clear it.
          * 
          * @return builder
          * 

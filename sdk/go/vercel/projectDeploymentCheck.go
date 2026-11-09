@@ -183,6 +183,81 @@ import (
 //
 // ```
 //
+// ### Native Vercel checks
+//
+// Native Vercel checks run first-party Vercel validations. The `flag-definitions-present` and `mfe-config-present` native checks require `requires = "build-ready"` and cannot be rerequestable. The provider supplies the API source origin by default.
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.NewProjectDeploymentCheck(ctx, "native_flag_definitions", &vercel.ProjectDeploymentCheckArgs{
+//				ProjectId: pulumi.Any(example.Id),
+//				Name:      pulumi.String("Flag Definitions Present"),
+//				Requires:  pulumi.String("build-ready"),
+//				Blocks:    pulumi.String("deployment-alias"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("preview"),
+//					pulumi.String("production"),
+//				},
+//				Source: &vercel.ProjectDeploymentCheckSourceArgs{
+//					Kind:    pulumi.String("vercel"),
+//					SubKind: pulumi.String("vercel-native-check"),
+//					JobName: pulumi.String("flag-definitions-present"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-vercel/sdk/v5/go/vercel"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := vercel.NewProjectDeploymentCheck(ctx, "native_mfe_config", &vercel.ProjectDeploymentCheckArgs{
+//				ProjectId: pulumi.Any(example.Id),
+//				Name:      pulumi.String("Microfrontends Config Present"),
+//				Requires:  pulumi.String("build-ready"),
+//				Blocks:    pulumi.String("deployment-alias"),
+//				Targets: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//				Source: &vercel.ProjectDeploymentCheckSourceArgs{
+//					Kind:    pulumi.String("vercel"),
+//					SubKind: pulumi.String("vercel-native-check"),
+//					JobName: pulumi.String("mfe-config-present"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Choosing check behavior
 //
 // - `requires` selects when the check can run: `build-ready`, `deployment-url`, or `none`.

@@ -24,12 +24,17 @@ public final class ProjectDeploymentCheckSource {
      */
     private @Nullable String externalResourceId;
     /**
+     * @return The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+     * 
+     */
+    private @Nullable String jobName;
+    /**
      * @return The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
     private String kind;
     /**
-     * @return The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * @return The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
      * 
      */
     private @Nullable String origin;
@@ -44,7 +49,7 @@ public final class ProjectDeploymentCheckSource {
      */
     private @Nullable ProjectDeploymentCheckSourceSelection selection;
     /**
-     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
      * 
      */
     private @Nullable String subKind;
@@ -70,6 +75,13 @@ public final class ProjectDeploymentCheckSource {
         return Optional.ofNullable(this.externalResourceId);
     }
     /**
+     * @return The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+     * 
+     */
+    public Optional<String> jobName() {
+        return Optional.ofNullable(this.jobName);
+    }
+    /**
      * @return The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
      * 
      */
@@ -77,7 +89,7 @@ public final class ProjectDeploymentCheckSource {
         return this.kind;
     }
     /**
-     * @return The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+     * @return The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
      * 
      */
     public Optional<String> origin() {
@@ -98,7 +110,7 @@ public final class ProjectDeploymentCheckSource {
         return Optional.ofNullable(this.selection);
     }
     /**
-     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+     * @return The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
      * 
      */
     public Optional<String> subKind() {
@@ -123,6 +135,7 @@ public final class ProjectDeploymentCheckSource {
     public static final class Builder {
         private @Nullable String externalCheckName;
         private @Nullable String externalResourceId;
+        private @Nullable String jobName;
         private String kind;
         private @Nullable String origin;
         private @Nullable String provider;
@@ -134,6 +147,7 @@ public final class ProjectDeploymentCheckSource {
     	      Objects.requireNonNull(defaults);
     	      this.externalCheckName = defaults.externalCheckName;
     	      this.externalResourceId = defaults.externalResourceId;
+    	      this.jobName = defaults.jobName;
     	      this.kind = defaults.kind;
     	      this.origin = defaults.origin;
     	      this.provider = defaults.provider;
@@ -152,6 +166,12 @@ public final class ProjectDeploymentCheckSource {
         public Builder externalResourceId(@Nullable String externalResourceId) {
 
             this.externalResourceId = externalResourceId;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder jobName(@Nullable String jobName) {
+
+            this.jobName = jobName;
             return this;
         }
         @CustomType.Setter
@@ -196,6 +216,7 @@ public final class ProjectDeploymentCheckSource {
             final var _resultValue = new ProjectDeploymentCheckSource();
             _resultValue.externalCheckName = externalCheckName;
             _resultValue.externalResourceId = externalResourceId;
+            _resultValue.jobName = jobName;
             _resultValue.kind = kind;
             _resultValue.origin = origin;
             _resultValue.provider = provider;

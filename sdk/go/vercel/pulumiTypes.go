@@ -9332,6 +9332,121 @@ func (o KmsIssuerSigningKeyArrayOutput) Index(i pulumi.IntInput) KmsIssuerSignin
 	}).(KmsIssuerSigningKeyOutput)
 }
 
+type LogDrainSamplingRule struct {
+	// Environment to apply this sampling rule to. Can be `production` or `preview`.
+	Environment *string `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate float64 `pulumi:"rate"`
+	// Request path prefix to apply this sampling rule to. Omit to match any path.
+	RequestPath *string `pulumi:"requestPath"`
+}
+
+// LogDrainSamplingRuleInput is an input type that accepts LogDrainSamplingRuleArgs and LogDrainSamplingRuleOutput values.
+// You can construct a concrete instance of `LogDrainSamplingRuleInput` via:
+//
+//	LogDrainSamplingRuleArgs{...}
+type LogDrainSamplingRuleInput interface {
+	pulumi.Input
+
+	ToLogDrainSamplingRuleOutput() LogDrainSamplingRuleOutput
+	ToLogDrainSamplingRuleOutputWithContext(context.Context) LogDrainSamplingRuleOutput
+}
+
+type LogDrainSamplingRuleArgs struct {
+	// Environment to apply this sampling rule to. Can be `production` or `preview`.
+	Environment pulumi.StringPtrInput `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate pulumi.Float64Input `pulumi:"rate"`
+	// Request path prefix to apply this sampling rule to. Omit to match any path.
+	RequestPath pulumi.StringPtrInput `pulumi:"requestPath"`
+}
+
+func (LogDrainSamplingRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LogDrainSamplingRule)(nil)).Elem()
+}
+
+func (i LogDrainSamplingRuleArgs) ToLogDrainSamplingRuleOutput() LogDrainSamplingRuleOutput {
+	return i.ToLogDrainSamplingRuleOutputWithContext(context.Background())
+}
+
+func (i LogDrainSamplingRuleArgs) ToLogDrainSamplingRuleOutputWithContext(ctx context.Context) LogDrainSamplingRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LogDrainSamplingRuleOutput)
+}
+
+// LogDrainSamplingRuleArrayInput is an input type that accepts LogDrainSamplingRuleArray and LogDrainSamplingRuleArrayOutput values.
+// You can construct a concrete instance of `LogDrainSamplingRuleArrayInput` via:
+//
+//	LogDrainSamplingRuleArray{ LogDrainSamplingRuleArgs{...} }
+type LogDrainSamplingRuleArrayInput interface {
+	pulumi.Input
+
+	ToLogDrainSamplingRuleArrayOutput() LogDrainSamplingRuleArrayOutput
+	ToLogDrainSamplingRuleArrayOutputWithContext(context.Context) LogDrainSamplingRuleArrayOutput
+}
+
+type LogDrainSamplingRuleArray []LogDrainSamplingRuleInput
+
+func (LogDrainSamplingRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LogDrainSamplingRule)(nil)).Elem()
+}
+
+func (i LogDrainSamplingRuleArray) ToLogDrainSamplingRuleArrayOutput() LogDrainSamplingRuleArrayOutput {
+	return i.ToLogDrainSamplingRuleArrayOutputWithContext(context.Background())
+}
+
+func (i LogDrainSamplingRuleArray) ToLogDrainSamplingRuleArrayOutputWithContext(ctx context.Context) LogDrainSamplingRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LogDrainSamplingRuleArrayOutput)
+}
+
+type LogDrainSamplingRuleOutput struct{ *pulumi.OutputState }
+
+func (LogDrainSamplingRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LogDrainSamplingRule)(nil)).Elem()
+}
+
+func (o LogDrainSamplingRuleOutput) ToLogDrainSamplingRuleOutput() LogDrainSamplingRuleOutput {
+	return o
+}
+
+func (o LogDrainSamplingRuleOutput) ToLogDrainSamplingRuleOutputWithContext(ctx context.Context) LogDrainSamplingRuleOutput {
+	return o
+}
+
+// Environment to apply this sampling rule to. Can be `production` or `preview`.
+func (o LogDrainSamplingRuleOutput) Environment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LogDrainSamplingRule) *string { return v.Environment }).(pulumi.StringPtrOutput)
+}
+
+// Sampling rate from 0 to 1.
+func (o LogDrainSamplingRuleOutput) Rate() pulumi.Float64Output {
+	return o.ApplyT(func(v LogDrainSamplingRule) float64 { return v.Rate }).(pulumi.Float64Output)
+}
+
+// Request path prefix to apply this sampling rule to. Omit to match any path.
+func (o LogDrainSamplingRuleOutput) RequestPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LogDrainSamplingRule) *string { return v.RequestPath }).(pulumi.StringPtrOutput)
+}
+
+type LogDrainSamplingRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (LogDrainSamplingRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LogDrainSamplingRule)(nil)).Elem()
+}
+
+func (o LogDrainSamplingRuleArrayOutput) ToLogDrainSamplingRuleArrayOutput() LogDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o LogDrainSamplingRuleArrayOutput) ToLogDrainSamplingRuleArrayOutputWithContext(ctx context.Context) LogDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o LogDrainSamplingRuleArrayOutput) Index(i pulumi.IntInput) LogDrainSamplingRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) LogDrainSamplingRule {
+		return vs[0].([]LogDrainSamplingRule)[vs[1].(int)]
+	}).(LogDrainSamplingRuleOutput)
+}
+
 type MicrofrontendGroupDefaultApp struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute *string `pulumi:"defaultRoute"`
@@ -10423,15 +10538,17 @@ type ProjectDeploymentCheckSource struct {
 	ExternalCheckName *string `pulumi:"externalCheckName"`
 	// An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
 	ExternalResourceId *string `pulumi:"externalResourceId"`
+	// The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+	JobName *string `pulumi:"jobName"`
 	// The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
 	Kind string `pulumi:"kind"`
-	// The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+	// The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
 	Origin *string `pulumi:"origin"`
 	// The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
 	Provider *string `pulumi:"provider"`
 	// Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
 	Selection *ProjectDeploymentCheckSourceSelection `pulumi:"selection"`
-	// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+	// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
 	SubKind *string `pulumi:"subKind"`
 	// The webhook ID for a `webhook` source.
 	WebhookId *string `pulumi:"webhookId"`
@@ -10453,15 +10570,17 @@ type ProjectDeploymentCheckSourceArgs struct {
 	ExternalCheckName pulumi.StringPtrInput `pulumi:"externalCheckName"`
 	// An optional external resource ID for an `integration` source. Creating integration checks requires an integration token; the API derives integration IDs from that token.
 	ExternalResourceId pulumi.StringPtrInput `pulumi:"externalResourceId"`
+	// The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+	JobName pulumi.StringPtrInput `pulumi:"jobName"`
 	// The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
 	Kind pulumi.StringInput `pulumi:"kind"`
-	// The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+	// The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
 	Origin pulumi.StringPtrInput `pulumi:"origin"`
 	// The Git provider. New git-provider checks currently support `github`; imported checks may report `gitlab` or `bitbucket`.
 	Provider pulumi.StringPtrInput `pulumi:"provider"`
 	// Selects the Vercel CI deployment or filtered Turborepo task that supplies the check.
 	Selection ProjectDeploymentCheckSourceSelectionPtrInput `pulumi:"selection"`
-	// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+	// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
 	SubKind pulumi.StringPtrInput `pulumi:"subKind"`
 	// The webhook ID for a `webhook` source.
 	WebhookId pulumi.StringPtrInput `pulumi:"webhookId"`
@@ -10554,12 +10673,17 @@ func (o ProjectDeploymentCheckSourceOutput) ExternalResourceId() pulumi.StringPt
 	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.ExternalResourceId }).(pulumi.StringPtrOutput)
 }
 
+// The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+func (o ProjectDeploymentCheckSourceOutput) JobName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.JobName }).(pulumi.StringPtrOutput)
+}
+
 // The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
 func (o ProjectDeploymentCheckSourceOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v ProjectDeploymentCheckSource) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+// The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
 func (o ProjectDeploymentCheckSourceOutput) Origin() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.Origin }).(pulumi.StringPtrOutput)
 }
@@ -10574,7 +10698,7 @@ func (o ProjectDeploymentCheckSourceOutput) Selection() ProjectDeploymentCheckSo
 	return o.ApplyT(func(v ProjectDeploymentCheckSource) *ProjectDeploymentCheckSourceSelection { return v.Selection }).(ProjectDeploymentCheckSourceSelectionPtrOutput)
 }
 
-// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
 func (o ProjectDeploymentCheckSourceOutput) SubKind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProjectDeploymentCheckSource) *string { return v.SubKind }).(pulumi.StringPtrOutput)
 }
@@ -10628,6 +10752,16 @@ func (o ProjectDeploymentCheckSourcePtrOutput) ExternalResourceId() pulumi.Strin
 	}).(pulumi.StringPtrOutput)
 }
 
+// The native Vercel check job name. Currently supported for `flag-definitions-present` and `mfe-config-present` checks.
+func (o ProjectDeploymentCheckSourcePtrOutput) JobName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.JobName
+	}).(pulumi.StringPtrOutput)
+}
+
 // The source kind. New checks support `git-provider`, `integration`, `webhook`, and `vercel`.
 func (o ProjectDeploymentCheckSourcePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
@@ -10638,7 +10772,7 @@ func (o ProjectDeploymentCheckSourcePtrOutput) Kind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The Vercel source origin. Vercel CI checks use `api`; the provider supplies this value when omitted.
+// The Vercel source origin. Vercel CI and native checks use `api`; the provider supplies this value when omitted.
 func (o ProjectDeploymentCheckSourcePtrOutput) Origin() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
 		if v == nil {
@@ -10668,7 +10802,7 @@ func (o ProjectDeploymentCheckSourcePtrOutput) Selection() ProjectDeploymentChec
 	}).(ProjectDeploymentCheckSourceSelectionPtrOutput)
 }
 
-// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check.
+// The Vercel source subtype. Set to `vercel-ci-check` for a Vercel CI check or `vercel-native-check` for a Vercel native check.
 func (o ProjectDeploymentCheckSourcePtrOutput) SubKind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProjectDeploymentCheckSource) *string {
 		if v == nil {
@@ -10879,6 +11013,605 @@ func (o ProjectDeploymentCheckSourceSelectionPtrOutput) Task() pulumi.StringPtrO
 			return nil
 		}
 		return v.Task
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProjectDeploymentProtectionPasswordProtection struct {
+	// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+	DeploymentType string `pulumi:"deploymentType"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+	PasswordWo *string `pulumi:"passwordWo"`
+	// A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+	PasswordWoVersion *int `pulumi:"passwordWoVersion"`
+}
+
+// ProjectDeploymentProtectionPasswordProtectionInput is an input type that accepts ProjectDeploymentProtectionPasswordProtectionArgs and ProjectDeploymentProtectionPasswordProtectionOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionPasswordProtectionInput` via:
+//
+//	ProjectDeploymentProtectionPasswordProtectionArgs{...}
+type ProjectDeploymentProtectionPasswordProtectionInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionPasswordProtectionOutput() ProjectDeploymentProtectionPasswordProtectionOutput
+	ToProjectDeploymentProtectionPasswordProtectionOutputWithContext(context.Context) ProjectDeploymentProtectionPasswordProtectionOutput
+}
+
+type ProjectDeploymentProtectionPasswordProtectionArgs struct {
+	// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+	PasswordWo pulumi.StringPtrInput `pulumi:"passwordWo"`
+	// A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+	PasswordWoVersion pulumi.IntPtrInput `pulumi:"passwordWoVersion"`
+}
+
+func (ProjectDeploymentProtectionPasswordProtectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionPasswordProtection)(nil)).Elem()
+}
+
+func (i ProjectDeploymentProtectionPasswordProtectionArgs) ToProjectDeploymentProtectionPasswordProtectionOutput() ProjectDeploymentProtectionPasswordProtectionOutput {
+	return i.ToProjectDeploymentProtectionPasswordProtectionOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionPasswordProtectionArgs) ToProjectDeploymentProtectionPasswordProtectionOutputWithContext(ctx context.Context) ProjectDeploymentProtectionPasswordProtectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionPasswordProtectionOutput)
+}
+
+func (i ProjectDeploymentProtectionPasswordProtectionArgs) ToProjectDeploymentProtectionPasswordProtectionPtrOutput() ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return i.ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionPasswordProtectionArgs) ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionPasswordProtectionOutput).ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(ctx)
+}
+
+// ProjectDeploymentProtectionPasswordProtectionPtrInput is an input type that accepts ProjectDeploymentProtectionPasswordProtectionArgs, ProjectDeploymentProtectionPasswordProtectionPtr and ProjectDeploymentProtectionPasswordProtectionPtrOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionPasswordProtectionPtrInput` via:
+//
+//	        ProjectDeploymentProtectionPasswordProtectionArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectDeploymentProtectionPasswordProtectionPtrInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionPasswordProtectionPtrOutput() ProjectDeploymentProtectionPasswordProtectionPtrOutput
+	ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(context.Context) ProjectDeploymentProtectionPasswordProtectionPtrOutput
+}
+
+type projectDeploymentProtectionPasswordProtectionPtrType ProjectDeploymentProtectionPasswordProtectionArgs
+
+func ProjectDeploymentProtectionPasswordProtectionPtr(v *ProjectDeploymentProtectionPasswordProtectionArgs) ProjectDeploymentProtectionPasswordProtectionPtrInput {
+	return (*projectDeploymentProtectionPasswordProtectionPtrType)(v)
+}
+
+func (*projectDeploymentProtectionPasswordProtectionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentProtectionPasswordProtection)(nil)).Elem()
+}
+
+func (i *projectDeploymentProtectionPasswordProtectionPtrType) ToProjectDeploymentProtectionPasswordProtectionPtrOutput() ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return i.ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(context.Background())
+}
+
+func (i *projectDeploymentProtectionPasswordProtectionPtrType) ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionPasswordProtectionPtrOutput)
+}
+
+type ProjectDeploymentProtectionPasswordProtectionOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionPasswordProtectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionPasswordProtection)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) ToProjectDeploymentProtectionPasswordProtectionOutput() ProjectDeploymentProtectionPasswordProtectionOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) ToProjectDeploymentProtectionPasswordProtectionOutputWithContext(ctx context.Context) ProjectDeploymentProtectionPasswordProtectionOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) ToProjectDeploymentProtectionPasswordProtectionPtrOutput() ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return o.ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectDeploymentProtectionPasswordProtection) *ProjectDeploymentProtectionPasswordProtection {
+		return &v
+	}).(ProjectDeploymentProtectionPasswordProtectionPtrOutput)
+}
+
+// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+// The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) PasswordWo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionPasswordProtection) *string { return v.PasswordWo }).(pulumi.StringPtrOutput)
+}
+
+// A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+func (o ProjectDeploymentProtectionPasswordProtectionOutput) PasswordWoVersion() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionPasswordProtection) *int { return v.PasswordWoVersion }).(pulumi.IntPtrOutput)
+}
+
+type ProjectDeploymentProtectionPasswordProtectionPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionPasswordProtectionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentProtectionPasswordProtection)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionPtrOutput) ToProjectDeploymentProtectionPasswordProtectionPtrOutput() ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionPtrOutput) ToProjectDeploymentProtectionPasswordProtectionPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionPasswordProtectionPtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionPasswordProtectionPtrOutput) Elem() ProjectDeploymentProtectionPasswordProtectionOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionPasswordProtection) ProjectDeploymentProtectionPasswordProtection {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectDeploymentProtectionPasswordProtection
+		return ret
+	}).(ProjectDeploymentProtectionPasswordProtectionOutput)
+}
+
+// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+func (o ProjectDeploymentProtectionPasswordProtectionPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionPasswordProtection) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
+// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+// The password, never stored in state. Use an ephemeral variable to keep it out of saved plans. Required when enabling previously disabled password protection. Existing passwords are preserved when omitted. Change password*wo*version to rotate it.
+func (o ProjectDeploymentProtectionPasswordProtectionPtrOutput) PasswordWo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionPasswordProtection) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PasswordWo
+	}).(pulumi.StringPtrOutput)
+}
+
+// A non-secret rotation counter. Set with password*wo and increment to send a new password; changing only password*wo does not trigger an update.
+func (o ProjectDeploymentProtectionPasswordProtectionPtrOutput) PasswordWoVersion() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionPasswordProtection) *int {
+		if v == nil {
+			return nil
+		}
+		return v.PasswordWoVersion
+	}).(pulumi.IntPtrOutput)
+}
+
+type ProjectDeploymentProtectionTrustedIps struct {
+	// Allowed IPv4 addresses or CIDR ranges.
+	Addresses []ProjectDeploymentProtectionTrustedIpsAddress `pulumi:"addresses"`
+	// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+	DeploymentType string `pulumi:"deploymentType"`
+	// The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+	ProtectionMode *string `pulumi:"protectionMode"`
+}
+
+// ProjectDeploymentProtectionTrustedIpsInput is an input type that accepts ProjectDeploymentProtectionTrustedIpsArgs and ProjectDeploymentProtectionTrustedIpsOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionTrustedIpsInput` via:
+//
+//	ProjectDeploymentProtectionTrustedIpsArgs{...}
+type ProjectDeploymentProtectionTrustedIpsInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionTrustedIpsOutput() ProjectDeploymentProtectionTrustedIpsOutput
+	ToProjectDeploymentProtectionTrustedIpsOutputWithContext(context.Context) ProjectDeploymentProtectionTrustedIpsOutput
+}
+
+type ProjectDeploymentProtectionTrustedIpsArgs struct {
+	// Allowed IPv4 addresses or CIDR ranges.
+	Addresses ProjectDeploymentProtectionTrustedIpsAddressArrayInput `pulumi:"addresses"`
+	// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+	ProtectionMode pulumi.StringPtrInput `pulumi:"protectionMode"`
+}
+
+func (ProjectDeploymentProtectionTrustedIpsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionTrustedIps)(nil)).Elem()
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsArgs) ToProjectDeploymentProtectionTrustedIpsOutput() ProjectDeploymentProtectionTrustedIpsOutput {
+	return i.ToProjectDeploymentProtectionTrustedIpsOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsArgs) ToProjectDeploymentProtectionTrustedIpsOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionTrustedIpsOutput)
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsArgs) ToProjectDeploymentProtectionTrustedIpsPtrOutput() ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return i.ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsArgs) ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionTrustedIpsOutput).ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(ctx)
+}
+
+// ProjectDeploymentProtectionTrustedIpsPtrInput is an input type that accepts ProjectDeploymentProtectionTrustedIpsArgs, ProjectDeploymentProtectionTrustedIpsPtr and ProjectDeploymentProtectionTrustedIpsPtrOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionTrustedIpsPtrInput` via:
+//
+//	        ProjectDeploymentProtectionTrustedIpsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectDeploymentProtectionTrustedIpsPtrInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionTrustedIpsPtrOutput() ProjectDeploymentProtectionTrustedIpsPtrOutput
+	ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(context.Context) ProjectDeploymentProtectionTrustedIpsPtrOutput
+}
+
+type projectDeploymentProtectionTrustedIpsPtrType ProjectDeploymentProtectionTrustedIpsArgs
+
+func ProjectDeploymentProtectionTrustedIpsPtr(v *ProjectDeploymentProtectionTrustedIpsArgs) ProjectDeploymentProtectionTrustedIpsPtrInput {
+	return (*projectDeploymentProtectionTrustedIpsPtrType)(v)
+}
+
+func (*projectDeploymentProtectionTrustedIpsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentProtectionTrustedIps)(nil)).Elem()
+}
+
+func (i *projectDeploymentProtectionTrustedIpsPtrType) ToProjectDeploymentProtectionTrustedIpsPtrOutput() ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return i.ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(context.Background())
+}
+
+func (i *projectDeploymentProtectionTrustedIpsPtrType) ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionTrustedIpsPtrOutput)
+}
+
+type ProjectDeploymentProtectionTrustedIpsOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionTrustedIpsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionTrustedIps)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsOutput) ToProjectDeploymentProtectionTrustedIpsOutput() ProjectDeploymentProtectionTrustedIpsOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsOutput) ToProjectDeploymentProtectionTrustedIpsOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsOutput) ToProjectDeploymentProtectionTrustedIpsPtrOutput() ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return o.ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsOutput) ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectDeploymentProtectionTrustedIps) *ProjectDeploymentProtectionTrustedIps {
+		return &v
+	}).(ProjectDeploymentProtectionTrustedIpsPtrOutput)
+}
+
+// Allowed IPv4 addresses or CIDR ranges.
+func (o ProjectDeploymentProtectionTrustedIpsOutput) Addresses() ProjectDeploymentProtectionTrustedIpsAddressArrayOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionTrustedIps) []ProjectDeploymentProtectionTrustedIpsAddress {
+		return v.Addresses
+	}).(ProjectDeploymentProtectionTrustedIpsAddressArrayOutput)
+}
+
+// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+func (o ProjectDeploymentProtectionTrustedIpsOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionTrustedIps) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+func (o ProjectDeploymentProtectionTrustedIpsOutput) ProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionTrustedIps) *string { return v.ProtectionMode }).(pulumi.StringPtrOutput)
+}
+
+type ProjectDeploymentProtectionTrustedIpsPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionTrustedIpsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentProtectionTrustedIps)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsPtrOutput) ToProjectDeploymentProtectionTrustedIpsPtrOutput() ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsPtrOutput) ToProjectDeploymentProtectionTrustedIpsPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsPtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsPtrOutput) Elem() ProjectDeploymentProtectionTrustedIpsOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionTrustedIps) ProjectDeploymentProtectionTrustedIps {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectDeploymentProtectionTrustedIps
+		return ret
+	}).(ProjectDeploymentProtectionTrustedIpsOutput)
+}
+
+// Allowed IPv4 addresses or CIDR ranges.
+func (o ProjectDeploymentProtectionTrustedIpsPtrOutput) Addresses() ProjectDeploymentProtectionTrustedIpsAddressArrayOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionTrustedIps) []ProjectDeploymentProtectionTrustedIpsAddress {
+		if v == nil {
+			return nil
+		}
+		return v.Addresses
+	}).(ProjectDeploymentProtectionTrustedIpsAddressArrayOutput)
+}
+
+// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+func (o ProjectDeploymentProtectionTrustedIpsPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionTrustedIps) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DeploymentType
+	}).(pulumi.StringPtrOutput)
+}
+
+// The API-reported Trusted IP mode: additional requires Trusted IPs alongside other protection; exclusive allows Trusted IPs as an alternative. The public PATCH schema does not expose mode updates, so this resource does not change it.
+func (o ProjectDeploymentProtectionTrustedIpsPtrOutput) ProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionTrustedIps) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ProtectionMode
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProjectDeploymentProtectionTrustedIpsAddress struct {
+	// Optional description, up to 20 characters.
+	Note *string `pulumi:"note"`
+	// An IPv4 address or CIDR range. IPv6 is not supported.
+	Value string `pulumi:"value"`
+}
+
+// ProjectDeploymentProtectionTrustedIpsAddressInput is an input type that accepts ProjectDeploymentProtectionTrustedIpsAddressArgs and ProjectDeploymentProtectionTrustedIpsAddressOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionTrustedIpsAddressInput` via:
+//
+//	ProjectDeploymentProtectionTrustedIpsAddressArgs{...}
+type ProjectDeploymentProtectionTrustedIpsAddressInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionTrustedIpsAddressOutput() ProjectDeploymentProtectionTrustedIpsAddressOutput
+	ToProjectDeploymentProtectionTrustedIpsAddressOutputWithContext(context.Context) ProjectDeploymentProtectionTrustedIpsAddressOutput
+}
+
+type ProjectDeploymentProtectionTrustedIpsAddressArgs struct {
+	// Optional description, up to 20 characters.
+	Note pulumi.StringPtrInput `pulumi:"note"`
+	// An IPv4 address or CIDR range. IPv6 is not supported.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ProjectDeploymentProtectionTrustedIpsAddressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionTrustedIpsAddress)(nil)).Elem()
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsAddressArgs) ToProjectDeploymentProtectionTrustedIpsAddressOutput() ProjectDeploymentProtectionTrustedIpsAddressOutput {
+	return i.ToProjectDeploymentProtectionTrustedIpsAddressOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsAddressArgs) ToProjectDeploymentProtectionTrustedIpsAddressOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsAddressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionTrustedIpsAddressOutput)
+}
+
+// ProjectDeploymentProtectionTrustedIpsAddressArrayInput is an input type that accepts ProjectDeploymentProtectionTrustedIpsAddressArray and ProjectDeploymentProtectionTrustedIpsAddressArrayOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionTrustedIpsAddressArrayInput` via:
+//
+//	ProjectDeploymentProtectionTrustedIpsAddressArray{ ProjectDeploymentProtectionTrustedIpsAddressArgs{...} }
+type ProjectDeploymentProtectionTrustedIpsAddressArrayInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionTrustedIpsAddressArrayOutput() ProjectDeploymentProtectionTrustedIpsAddressArrayOutput
+	ToProjectDeploymentProtectionTrustedIpsAddressArrayOutputWithContext(context.Context) ProjectDeploymentProtectionTrustedIpsAddressArrayOutput
+}
+
+type ProjectDeploymentProtectionTrustedIpsAddressArray []ProjectDeploymentProtectionTrustedIpsAddressInput
+
+func (ProjectDeploymentProtectionTrustedIpsAddressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectDeploymentProtectionTrustedIpsAddress)(nil)).Elem()
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsAddressArray) ToProjectDeploymentProtectionTrustedIpsAddressArrayOutput() ProjectDeploymentProtectionTrustedIpsAddressArrayOutput {
+	return i.ToProjectDeploymentProtectionTrustedIpsAddressArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionTrustedIpsAddressArray) ToProjectDeploymentProtectionTrustedIpsAddressArrayOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsAddressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionTrustedIpsAddressArrayOutput)
+}
+
+type ProjectDeploymentProtectionTrustedIpsAddressOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionTrustedIpsAddressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionTrustedIpsAddress)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsAddressOutput) ToProjectDeploymentProtectionTrustedIpsAddressOutput() ProjectDeploymentProtectionTrustedIpsAddressOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsAddressOutput) ToProjectDeploymentProtectionTrustedIpsAddressOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsAddressOutput {
+	return o
+}
+
+// Optional description, up to 20 characters.
+func (o ProjectDeploymentProtectionTrustedIpsAddressOutput) Note() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionTrustedIpsAddress) *string { return v.Note }).(pulumi.StringPtrOutput)
+}
+
+// An IPv4 address or CIDR range. IPv6 is not supported.
+func (o ProjectDeploymentProtectionTrustedIpsAddressOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionTrustedIpsAddress) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ProjectDeploymentProtectionTrustedIpsAddressArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionTrustedIpsAddressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectDeploymentProtectionTrustedIpsAddress)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsAddressArrayOutput) ToProjectDeploymentProtectionTrustedIpsAddressArrayOutput() ProjectDeploymentProtectionTrustedIpsAddressArrayOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsAddressArrayOutput) ToProjectDeploymentProtectionTrustedIpsAddressArrayOutputWithContext(ctx context.Context) ProjectDeploymentProtectionTrustedIpsAddressArrayOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionTrustedIpsAddressArrayOutput) Index(i pulumi.IntInput) ProjectDeploymentProtectionTrustedIpsAddressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectDeploymentProtectionTrustedIpsAddress {
+		return vs[0].([]ProjectDeploymentProtectionTrustedIpsAddress)[vs[1].(int)]
+	}).(ProjectDeploymentProtectionTrustedIpsAddressOutput)
+}
+
+type ProjectDeploymentProtectionVercelAuthentication struct {
+	// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+	DeploymentType string `pulumi:"deploymentType"`
+}
+
+// ProjectDeploymentProtectionVercelAuthenticationInput is an input type that accepts ProjectDeploymentProtectionVercelAuthenticationArgs and ProjectDeploymentProtectionVercelAuthenticationOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionVercelAuthenticationInput` via:
+//
+//	ProjectDeploymentProtectionVercelAuthenticationArgs{...}
+type ProjectDeploymentProtectionVercelAuthenticationInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionVercelAuthenticationOutput() ProjectDeploymentProtectionVercelAuthenticationOutput
+	ToProjectDeploymentProtectionVercelAuthenticationOutputWithContext(context.Context) ProjectDeploymentProtectionVercelAuthenticationOutput
+}
+
+type ProjectDeploymentProtectionVercelAuthenticationArgs struct {
+	// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+}
+
+func (ProjectDeploymentProtectionVercelAuthenticationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (i ProjectDeploymentProtectionVercelAuthenticationArgs) ToProjectDeploymentProtectionVercelAuthenticationOutput() ProjectDeploymentProtectionVercelAuthenticationOutput {
+	return i.ToProjectDeploymentProtectionVercelAuthenticationOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionVercelAuthenticationArgs) ToProjectDeploymentProtectionVercelAuthenticationOutputWithContext(ctx context.Context) ProjectDeploymentProtectionVercelAuthenticationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionVercelAuthenticationOutput)
+}
+
+func (i ProjectDeploymentProtectionVercelAuthenticationArgs) ToProjectDeploymentProtectionVercelAuthenticationPtrOutput() ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return i.ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (i ProjectDeploymentProtectionVercelAuthenticationArgs) ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionVercelAuthenticationOutput).ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx)
+}
+
+// ProjectDeploymentProtectionVercelAuthenticationPtrInput is an input type that accepts ProjectDeploymentProtectionVercelAuthenticationArgs, ProjectDeploymentProtectionVercelAuthenticationPtr and ProjectDeploymentProtectionVercelAuthenticationPtrOutput values.
+// You can construct a concrete instance of `ProjectDeploymentProtectionVercelAuthenticationPtrInput` via:
+//
+//	        ProjectDeploymentProtectionVercelAuthenticationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProjectDeploymentProtectionVercelAuthenticationPtrInput interface {
+	pulumi.Input
+
+	ToProjectDeploymentProtectionVercelAuthenticationPtrOutput() ProjectDeploymentProtectionVercelAuthenticationPtrOutput
+	ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Context) ProjectDeploymentProtectionVercelAuthenticationPtrOutput
+}
+
+type projectDeploymentProtectionVercelAuthenticationPtrType ProjectDeploymentProtectionVercelAuthenticationArgs
+
+func ProjectDeploymentProtectionVercelAuthenticationPtr(v *ProjectDeploymentProtectionVercelAuthenticationArgs) ProjectDeploymentProtectionVercelAuthenticationPtrInput {
+	return (*projectDeploymentProtectionVercelAuthenticationPtrType)(v)
+}
+
+func (*projectDeploymentProtectionVercelAuthenticationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (i *projectDeploymentProtectionVercelAuthenticationPtrType) ToProjectDeploymentProtectionVercelAuthenticationPtrOutput() ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return i.ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (i *projectDeploymentProtectionVercelAuthenticationPtrType) ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectDeploymentProtectionVercelAuthenticationPtrOutput)
+}
+
+type ProjectDeploymentProtectionVercelAuthenticationOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionVercelAuthenticationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationOutput) ToProjectDeploymentProtectionVercelAuthenticationOutput() ProjectDeploymentProtectionVercelAuthenticationOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationOutput) ToProjectDeploymentProtectionVercelAuthenticationOutputWithContext(ctx context.Context) ProjectDeploymentProtectionVercelAuthenticationOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationOutput) ToProjectDeploymentProtectionVercelAuthenticationPtrOutput() ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o.ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationOutput) ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectDeploymentProtectionVercelAuthentication) *ProjectDeploymentProtectionVercelAuthentication {
+		return &v
+	}).(ProjectDeploymentProtectionVercelAuthenticationPtrOutput)
+}
+
+// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+func (o ProjectDeploymentProtectionVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v ProjectDeploymentProtectionVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+type ProjectDeploymentProtectionVercelAuthenticationPtrOutput struct{ *pulumi.OutputState }
+
+func (ProjectDeploymentProtectionVercelAuthenticationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectDeploymentProtectionVercelAuthentication)(nil)).Elem()
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationPtrOutput) ToProjectDeploymentProtectionVercelAuthenticationPtrOutput() ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationPtrOutput) ToProjectDeploymentProtectionVercelAuthenticationPtrOutputWithContext(ctx context.Context) ProjectDeploymentProtectionVercelAuthenticationPtrOutput {
+	return o
+}
+
+func (o ProjectDeploymentProtectionVercelAuthenticationPtrOutput) Elem() ProjectDeploymentProtectionVercelAuthenticationOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionVercelAuthentication) ProjectDeploymentProtectionVercelAuthentication {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectDeploymentProtectionVercelAuthentication
+		return ret
+	}).(ProjectDeploymentProtectionVercelAuthenticationOutput)
+}
+
+// The deployment scope to protect, using API names: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Trusted IPs also supports production.
+func (o ProjectDeploymentProtectionVercelAuthenticationPtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectDeploymentProtectionVercelAuthentication) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DeploymentType
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -11345,10 +12078,10 @@ func (o ProjectEnvironmentVariablesVariableArrayOutput) Index(i pulumi.IntInput)
 }
 
 type ProjectGitComments struct {
-	// Whether Commit comments are enabled
-	OnCommit bool `pulumi:"onCommit"`
-	// Whether Pull Request comments are enabled
-	OnPullRequest bool `pulumi:"onPullRequest"`
+	// Whether Commit comments are enabled. Required when gitComments is configured.
+	OnCommit *bool `pulumi:"onCommit"`
+	// Whether Pull Request comments are enabled. Required when gitComments is configured.
+	OnPullRequest *bool `pulumi:"onPullRequest"`
 }
 
 // ProjectGitCommentsInput is an input type that accepts ProjectGitCommentsArgs and ProjectGitCommentsOutput values.
@@ -11363,10 +12096,10 @@ type ProjectGitCommentsInput interface {
 }
 
 type ProjectGitCommentsArgs struct {
-	// Whether Commit comments are enabled
-	OnCommit pulumi.BoolInput `pulumi:"onCommit"`
-	// Whether Pull Request comments are enabled
-	OnPullRequest pulumi.BoolInput `pulumi:"onPullRequest"`
+	// Whether Commit comments are enabled. Required when gitComments is configured.
+	OnCommit pulumi.BoolPtrInput `pulumi:"onCommit"`
+	// Whether Pull Request comments are enabled. Required when gitComments is configured.
+	OnPullRequest pulumi.BoolPtrInput `pulumi:"onPullRequest"`
 }
 
 func (ProjectGitCommentsArgs) ElementType() reflect.Type {
@@ -11446,14 +12179,14 @@ func (o ProjectGitCommentsOutput) ToProjectGitCommentsPtrOutputWithContext(ctx c
 	}).(ProjectGitCommentsPtrOutput)
 }
 
-// Whether Commit comments are enabled
-func (o ProjectGitCommentsOutput) OnCommit() pulumi.BoolOutput {
-	return o.ApplyT(func(v ProjectGitComments) bool { return v.OnCommit }).(pulumi.BoolOutput)
+// Whether Commit comments are enabled. Required when gitComments is configured.
+func (o ProjectGitCommentsOutput) OnCommit() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectGitComments) *bool { return v.OnCommit }).(pulumi.BoolPtrOutput)
 }
 
-// Whether Pull Request comments are enabled
-func (o ProjectGitCommentsOutput) OnPullRequest() pulumi.BoolOutput {
-	return o.ApplyT(func(v ProjectGitComments) bool { return v.OnPullRequest }).(pulumi.BoolOutput)
+// Whether Pull Request comments are enabled. Required when gitComments is configured.
+func (o ProjectGitCommentsOutput) OnPullRequest() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectGitComments) *bool { return v.OnPullRequest }).(pulumi.BoolPtrOutput)
 }
 
 type ProjectGitCommentsPtrOutput struct{ *pulumi.OutputState }
@@ -11480,23 +12213,23 @@ func (o ProjectGitCommentsPtrOutput) Elem() ProjectGitCommentsOutput {
 	}).(ProjectGitCommentsOutput)
 }
 
-// Whether Commit comments are enabled
+// Whether Commit comments are enabled. Required when gitComments is configured.
 func (o ProjectGitCommentsPtrOutput) OnCommit() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectGitComments) *bool {
 		if v == nil {
 			return nil
 		}
-		return &v.OnCommit
+		return v.OnCommit
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Whether Pull Request comments are enabled
+// Whether Pull Request comments are enabled. Required when gitComments is configured.
 func (o ProjectGitCommentsPtrOutput) OnPullRequest() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ProjectGitComments) *bool {
 		if v == nil {
 			return nil
 		}
-		return &v.OnPullRequest
+		return v.OnPullRequest
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -12684,154 +13417,154 @@ func (o ProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) Project
 	}).(ProjectOptionsAllowlistPathOutput)
 }
 
-type ProjectPassport struct {
+type ProjectPassportType struct {
 	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
 	ConnectorId *string `pulumi:"connectorId"`
-	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
 	DeploymentType *string `pulumi:"deploymentType"`
 	// Whether Passport is enabled. Defaults to true.
 	Enabled *bool `pulumi:"enabled"`
 }
 
-// ProjectPassportInput is an input type that accepts ProjectPassportArgs and ProjectPassportOutput values.
-// You can construct a concrete instance of `ProjectPassportInput` via:
+// ProjectPassportTypeInput is an input type that accepts ProjectPassportTypeArgs and ProjectPassportTypeOutput values.
+// You can construct a concrete instance of `ProjectPassportTypeInput` via:
 //
-//	ProjectPassportArgs{...}
-type ProjectPassportInput interface {
+//	ProjectPassportTypeArgs{...}
+type ProjectPassportTypeInput interface {
 	pulumi.Input
 
-	ToProjectPassportOutput() ProjectPassportOutput
-	ToProjectPassportOutputWithContext(context.Context) ProjectPassportOutput
+	ToProjectPassportTypeOutput() ProjectPassportTypeOutput
+	ToProjectPassportTypeOutputWithContext(context.Context) ProjectPassportTypeOutput
 }
 
-type ProjectPassportArgs struct {
+type ProjectPassportTypeArgs struct {
 	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
 	ConnectorId pulumi.StringPtrInput `pulumi:"connectorId"`
-	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
 	DeploymentType pulumi.StringPtrInput `pulumi:"deploymentType"`
 	// Whether Passport is enabled. Defaults to true.
 	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
 }
 
-func (ProjectPassportArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectPassport)(nil)).Elem()
+func (ProjectPassportTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectPassportType)(nil)).Elem()
 }
 
-func (i ProjectPassportArgs) ToProjectPassportOutput() ProjectPassportOutput {
-	return i.ToProjectPassportOutputWithContext(context.Background())
+func (i ProjectPassportTypeArgs) ToProjectPassportTypeOutput() ProjectPassportTypeOutput {
+	return i.ToProjectPassportTypeOutputWithContext(context.Background())
 }
 
-func (i ProjectPassportArgs) ToProjectPassportOutputWithContext(ctx context.Context) ProjectPassportOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportOutput)
+func (i ProjectPassportTypeArgs) ToProjectPassportTypeOutputWithContext(ctx context.Context) ProjectPassportTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportTypeOutput)
 }
 
-func (i ProjectPassportArgs) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
-	return i.ToProjectPassportPtrOutputWithContext(context.Background())
+func (i ProjectPassportTypeArgs) ToProjectPassportTypePtrOutput() ProjectPassportTypePtrOutput {
+	return i.ToProjectPassportTypePtrOutputWithContext(context.Background())
 }
 
-func (i ProjectPassportArgs) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportOutput).ToProjectPassportPtrOutputWithContext(ctx)
+func (i ProjectPassportTypeArgs) ToProjectPassportTypePtrOutputWithContext(ctx context.Context) ProjectPassportTypePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportTypeOutput).ToProjectPassportTypePtrOutputWithContext(ctx)
 }
 
-// ProjectPassportPtrInput is an input type that accepts ProjectPassportArgs, ProjectPassportPtr and ProjectPassportPtrOutput values.
-// You can construct a concrete instance of `ProjectPassportPtrInput` via:
+// ProjectPassportTypePtrInput is an input type that accepts ProjectPassportTypeArgs, ProjectPassportTypePtr and ProjectPassportTypePtrOutput values.
+// You can construct a concrete instance of `ProjectPassportTypePtrInput` via:
 //
-//	        ProjectPassportArgs{...}
+//	        ProjectPassportTypeArgs{...}
 //
 //	or:
 //
 //	        nil
-type ProjectPassportPtrInput interface {
+type ProjectPassportTypePtrInput interface {
 	pulumi.Input
 
-	ToProjectPassportPtrOutput() ProjectPassportPtrOutput
-	ToProjectPassportPtrOutputWithContext(context.Context) ProjectPassportPtrOutput
+	ToProjectPassportTypePtrOutput() ProjectPassportTypePtrOutput
+	ToProjectPassportTypePtrOutputWithContext(context.Context) ProjectPassportTypePtrOutput
 }
 
-type projectPassportPtrType ProjectPassportArgs
+type projectPassportTypePtrType ProjectPassportTypeArgs
 
-func ProjectPassportPtr(v *ProjectPassportArgs) ProjectPassportPtrInput {
-	return (*projectPassportPtrType)(v)
+func ProjectPassportTypePtr(v *ProjectPassportTypeArgs) ProjectPassportTypePtrInput {
+	return (*projectPassportTypePtrType)(v)
 }
 
-func (*projectPassportPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ProjectPassport)(nil)).Elem()
+func (*projectPassportTypePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectPassportType)(nil)).Elem()
 }
 
-func (i *projectPassportPtrType) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
-	return i.ToProjectPassportPtrOutputWithContext(context.Background())
+func (i *projectPassportTypePtrType) ToProjectPassportTypePtrOutput() ProjectPassportTypePtrOutput {
+	return i.ToProjectPassportTypePtrOutputWithContext(context.Background())
 }
 
-func (i *projectPassportPtrType) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportPtrOutput)
+func (i *projectPassportTypePtrType) ToProjectPassportTypePtrOutputWithContext(ctx context.Context) ProjectPassportTypePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectPassportTypePtrOutput)
 }
 
-type ProjectPassportOutput struct{ *pulumi.OutputState }
+type ProjectPassportTypeOutput struct{ *pulumi.OutputState }
 
-func (ProjectPassportOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectPassport)(nil)).Elem()
+func (ProjectPassportTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectPassportType)(nil)).Elem()
 }
 
-func (o ProjectPassportOutput) ToProjectPassportOutput() ProjectPassportOutput {
+func (o ProjectPassportTypeOutput) ToProjectPassportTypeOutput() ProjectPassportTypeOutput {
 	return o
 }
 
-func (o ProjectPassportOutput) ToProjectPassportOutputWithContext(ctx context.Context) ProjectPassportOutput {
+func (o ProjectPassportTypeOutput) ToProjectPassportTypeOutputWithContext(ctx context.Context) ProjectPassportTypeOutput {
 	return o
 }
 
-func (o ProjectPassportOutput) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
-	return o.ToProjectPassportPtrOutputWithContext(context.Background())
+func (o ProjectPassportTypeOutput) ToProjectPassportTypePtrOutput() ProjectPassportTypePtrOutput {
+	return o.ToProjectPassportTypePtrOutputWithContext(context.Background())
 }
 
-func (o ProjectPassportOutput) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectPassport) *ProjectPassport {
+func (o ProjectPassportTypeOutput) ToProjectPassportTypePtrOutputWithContext(ctx context.Context) ProjectPassportTypePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectPassportType) *ProjectPassportType {
 		return &v
-	}).(ProjectPassportPtrOutput)
+	}).(ProjectPassportTypePtrOutput)
 }
 
 // The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
-func (o ProjectPassportOutput) ConnectorId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ProjectPassport) *string { return v.ConnectorId }).(pulumi.StringPtrOutput)
+func (o ProjectPassportTypeOutput) ConnectorId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectPassportType) *string { return v.ConnectorId }).(pulumi.StringPtrOutput)
 }
 
-// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
-func (o ProjectPassportOutput) DeploymentType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ProjectPassport) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
+func (o ProjectPassportTypeOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProjectPassportType) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
 }
 
 // Whether Passport is enabled. Defaults to true.
-func (o ProjectPassportOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ProjectPassport) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+func (o ProjectPassportTypeOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ProjectPassportType) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
 
-type ProjectPassportPtrOutput struct{ *pulumi.OutputState }
+type ProjectPassportTypePtrOutput struct{ *pulumi.OutputState }
 
-func (ProjectPassportPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ProjectPassport)(nil)).Elem()
+func (ProjectPassportTypePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectPassportType)(nil)).Elem()
 }
 
-func (o ProjectPassportPtrOutput) ToProjectPassportPtrOutput() ProjectPassportPtrOutput {
+func (o ProjectPassportTypePtrOutput) ToProjectPassportTypePtrOutput() ProjectPassportTypePtrOutput {
 	return o
 }
 
-func (o ProjectPassportPtrOutput) ToProjectPassportPtrOutputWithContext(ctx context.Context) ProjectPassportPtrOutput {
+func (o ProjectPassportTypePtrOutput) ToProjectPassportTypePtrOutputWithContext(ctx context.Context) ProjectPassportTypePtrOutput {
 	return o
 }
 
-func (o ProjectPassportPtrOutput) Elem() ProjectPassportOutput {
-	return o.ApplyT(func(v *ProjectPassport) ProjectPassport {
+func (o ProjectPassportTypePtrOutput) Elem() ProjectPassportTypeOutput {
+	return o.ApplyT(func(v *ProjectPassportType) ProjectPassportType {
 		if v != nil {
 			return *v
 		}
-		var ret ProjectPassport
+		var ret ProjectPassportType
 		return ret
-	}).(ProjectPassportOutput)
+	}).(ProjectPassportTypeOutput)
 }
 
 // The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
-func (o ProjectPassportPtrOutput) ConnectorId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ProjectPassport) *string {
+func (o ProjectPassportTypePtrOutput) ConnectorId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectPassportType) *string {
 		if v == nil {
 			return nil
 		}
@@ -12839,9 +13572,9 @@ func (o ProjectPassportPtrOutput) ConnectorId() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
-func (o ProjectPassportPtrOutput) DeploymentType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ProjectPassport) *string {
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
+func (o ProjectPassportTypePtrOutput) DeploymentType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProjectPassportType) *string {
 		if v == nil {
 			return nil
 		}
@@ -12850,8 +13583,8 @@ func (o ProjectPassportPtrOutput) DeploymentType() pulumi.StringPtrOutput {
 }
 
 // Whether Passport is enabled. Defaults to true.
-func (o ProjectPassportPtrOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ProjectPassport) *bool {
+func (o ProjectPassportTypePtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ProjectPassportType) *bool {
 		if v == nil {
 			return nil
 		}
@@ -15621,7 +16354,7 @@ func (o TeamConfigDefaultDeploymentProtectionVercelAuthenticationPtrOutput) Depl
 type TeamConfigDefaultPassport struct {
 	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
 	ConnectorId *string `pulumi:"connectorId"`
-	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
 	DeploymentType *string `pulumi:"deploymentType"`
 	// Whether Passport is enabled. Defaults to true.
 	Enabled *bool `pulumi:"enabled"`
@@ -15641,7 +16374,7 @@ type TeamConfigDefaultPassportInput interface {
 type TeamConfigDefaultPassportArgs struct {
 	// The stable ID of an existing Vercel Connect OAuth application, available from the vercel*connect*application data source. Required when enabled; omit when disabled.
 	ConnectorId pulumi.StringPtrInput `pulumi:"connectorId"`
-	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+	// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
 	DeploymentType pulumi.StringPtrInput `pulumi:"deploymentType"`
 	// Whether Passport is enabled. Defaults to true.
 	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
@@ -15729,7 +16462,7 @@ func (o TeamConfigDefaultPassportOutput) ConnectorId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TeamConfigDefaultPassport) *string { return v.ConnectorId }).(pulumi.StringPtrOutput)
 }
 
-// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
 func (o TeamConfigDefaultPassportOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TeamConfigDefaultPassport) *string { return v.DeploymentType }).(pulumi.StringPtrOutput)
 }
@@ -15773,7 +16506,7 @@ func (o TeamConfigDefaultPassportPtrOutput) ConnectorId() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+// Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
 func (o TeamConfigDefaultPassportPtrOutput) DeploymentType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TeamConfigDefaultPassport) *string {
 		if v == nil {
@@ -17989,6 +18722,121 @@ func (o GetKmsIssuerSigningKeyArrayOutput) Index(i pulumi.IntInput) GetKmsIssuer
 	}).(GetKmsIssuerSigningKeyOutput)
 }
 
+type GetLogDrainSamplingRule struct {
+	// Environment this sampling rule applies to.
+	Environment string `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate float64 `pulumi:"rate"`
+	// Request path prefix this sampling rule applies to.
+	RequestPath string `pulumi:"requestPath"`
+}
+
+// GetLogDrainSamplingRuleInput is an input type that accepts GetLogDrainSamplingRuleArgs and GetLogDrainSamplingRuleOutput values.
+// You can construct a concrete instance of `GetLogDrainSamplingRuleInput` via:
+//
+//	GetLogDrainSamplingRuleArgs{...}
+type GetLogDrainSamplingRuleInput interface {
+	pulumi.Input
+
+	ToGetLogDrainSamplingRuleOutput() GetLogDrainSamplingRuleOutput
+	ToGetLogDrainSamplingRuleOutputWithContext(context.Context) GetLogDrainSamplingRuleOutput
+}
+
+type GetLogDrainSamplingRuleArgs struct {
+	// Environment this sampling rule applies to.
+	Environment pulumi.StringInput `pulumi:"environment"`
+	// Sampling rate from 0 to 1.
+	Rate pulumi.Float64Input `pulumi:"rate"`
+	// Request path prefix this sampling rule applies to.
+	RequestPath pulumi.StringInput `pulumi:"requestPath"`
+}
+
+func (GetLogDrainSamplingRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogDrainSamplingRule)(nil)).Elem()
+}
+
+func (i GetLogDrainSamplingRuleArgs) ToGetLogDrainSamplingRuleOutput() GetLogDrainSamplingRuleOutput {
+	return i.ToGetLogDrainSamplingRuleOutputWithContext(context.Background())
+}
+
+func (i GetLogDrainSamplingRuleArgs) ToGetLogDrainSamplingRuleOutputWithContext(ctx context.Context) GetLogDrainSamplingRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogDrainSamplingRuleOutput)
+}
+
+// GetLogDrainSamplingRuleArrayInput is an input type that accepts GetLogDrainSamplingRuleArray and GetLogDrainSamplingRuleArrayOutput values.
+// You can construct a concrete instance of `GetLogDrainSamplingRuleArrayInput` via:
+//
+//	GetLogDrainSamplingRuleArray{ GetLogDrainSamplingRuleArgs{...} }
+type GetLogDrainSamplingRuleArrayInput interface {
+	pulumi.Input
+
+	ToGetLogDrainSamplingRuleArrayOutput() GetLogDrainSamplingRuleArrayOutput
+	ToGetLogDrainSamplingRuleArrayOutputWithContext(context.Context) GetLogDrainSamplingRuleArrayOutput
+}
+
+type GetLogDrainSamplingRuleArray []GetLogDrainSamplingRuleInput
+
+func (GetLogDrainSamplingRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogDrainSamplingRule)(nil)).Elem()
+}
+
+func (i GetLogDrainSamplingRuleArray) ToGetLogDrainSamplingRuleArrayOutput() GetLogDrainSamplingRuleArrayOutput {
+	return i.ToGetLogDrainSamplingRuleArrayOutputWithContext(context.Background())
+}
+
+func (i GetLogDrainSamplingRuleArray) ToGetLogDrainSamplingRuleArrayOutputWithContext(ctx context.Context) GetLogDrainSamplingRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogDrainSamplingRuleArrayOutput)
+}
+
+type GetLogDrainSamplingRuleOutput struct{ *pulumi.OutputState }
+
+func (GetLogDrainSamplingRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogDrainSamplingRule)(nil)).Elem()
+}
+
+func (o GetLogDrainSamplingRuleOutput) ToGetLogDrainSamplingRuleOutput() GetLogDrainSamplingRuleOutput {
+	return o
+}
+
+func (o GetLogDrainSamplingRuleOutput) ToGetLogDrainSamplingRuleOutputWithContext(ctx context.Context) GetLogDrainSamplingRuleOutput {
+	return o
+}
+
+// Environment this sampling rule applies to.
+func (o GetLogDrainSamplingRuleOutput) Environment() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogDrainSamplingRule) string { return v.Environment }).(pulumi.StringOutput)
+}
+
+// Sampling rate from 0 to 1.
+func (o GetLogDrainSamplingRuleOutput) Rate() pulumi.Float64Output {
+	return o.ApplyT(func(v GetLogDrainSamplingRule) float64 { return v.Rate }).(pulumi.Float64Output)
+}
+
+// Request path prefix this sampling rule applies to.
+func (o GetLogDrainSamplingRuleOutput) RequestPath() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogDrainSamplingRule) string { return v.RequestPath }).(pulumi.StringOutput)
+}
+
+type GetLogDrainSamplingRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetLogDrainSamplingRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogDrainSamplingRule)(nil)).Elem()
+}
+
+func (o GetLogDrainSamplingRuleArrayOutput) ToGetLogDrainSamplingRuleArrayOutput() GetLogDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o GetLogDrainSamplingRuleArrayOutput) ToGetLogDrainSamplingRuleArrayOutputWithContext(ctx context.Context) GetLogDrainSamplingRuleArrayOutput {
+	return o
+}
+
+func (o GetLogDrainSamplingRuleArrayOutput) Index(i pulumi.IntInput) GetLogDrainSamplingRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetLogDrainSamplingRule {
+		return vs[0].([]GetLogDrainSamplingRule)[vs[1].(int)]
+	}).(GetLogDrainSamplingRuleOutput)
+}
+
 type GetMicrofrontendGroupDefaultApp struct {
 	// The default route for the project. Used for the screenshot of deployments.
 	DefaultRoute string `pulumi:"defaultRoute"`
@@ -18965,74 +19813,74 @@ func (o GetProjectOptionsAllowlistPathArrayOutput) Index(i pulumi.IntInput) GetP
 	}).(GetProjectOptionsAllowlistPathOutput)
 }
 
-type GetProjectPassport struct {
+type GetProjectPassportType struct {
 	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
 	ConnectorId string `pulumi:"connectorId"`
-	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	// The deployment scope protected when Passport is enabled. Null when disabled.
 	DeploymentType string `pulumi:"deploymentType"`
 	// Whether Passport is enabled.
 	Enabled bool `pulumi:"enabled"`
 }
 
-// GetProjectPassportInput is an input type that accepts GetProjectPassportArgs and GetProjectPassportOutput values.
-// You can construct a concrete instance of `GetProjectPassportInput` via:
+// GetProjectPassportTypeInput is an input type that accepts GetProjectPassportTypeArgs and GetProjectPassportTypeOutput values.
+// You can construct a concrete instance of `GetProjectPassportTypeInput` via:
 //
-//	GetProjectPassportArgs{...}
-type GetProjectPassportInput interface {
+//	GetProjectPassportTypeArgs{...}
+type GetProjectPassportTypeInput interface {
 	pulumi.Input
 
-	ToGetProjectPassportOutput() GetProjectPassportOutput
-	ToGetProjectPassportOutputWithContext(context.Context) GetProjectPassportOutput
+	ToGetProjectPassportTypeOutput() GetProjectPassportTypeOutput
+	ToGetProjectPassportTypeOutputWithContext(context.Context) GetProjectPassportTypeOutput
 }
 
-type GetProjectPassportArgs struct {
+type GetProjectPassportTypeArgs struct {
 	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
 	ConnectorId pulumi.StringInput `pulumi:"connectorId"`
-	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	// The deployment scope protected when Passport is enabled. Null when disabled.
 	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 	// Whether Passport is enabled.
 	Enabled pulumi.BoolInput `pulumi:"enabled"`
 }
 
-func (GetProjectPassportArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetProjectPassport)(nil)).Elem()
+func (GetProjectPassportTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectPassportType)(nil)).Elem()
 }
 
-func (i GetProjectPassportArgs) ToGetProjectPassportOutput() GetProjectPassportOutput {
-	return i.ToGetProjectPassportOutputWithContext(context.Background())
+func (i GetProjectPassportTypeArgs) ToGetProjectPassportTypeOutput() GetProjectPassportTypeOutput {
+	return i.ToGetProjectPassportTypeOutputWithContext(context.Background())
 }
 
-func (i GetProjectPassportArgs) ToGetProjectPassportOutputWithContext(ctx context.Context) GetProjectPassportOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPassportOutput)
+func (i GetProjectPassportTypeArgs) ToGetProjectPassportTypeOutputWithContext(ctx context.Context) GetProjectPassportTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectPassportTypeOutput)
 }
 
-type GetProjectPassportOutput struct{ *pulumi.OutputState }
+type GetProjectPassportTypeOutput struct{ *pulumi.OutputState }
 
-func (GetProjectPassportOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetProjectPassport)(nil)).Elem()
+func (GetProjectPassportTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectPassportType)(nil)).Elem()
 }
 
-func (o GetProjectPassportOutput) ToGetProjectPassportOutput() GetProjectPassportOutput {
+func (o GetProjectPassportTypeOutput) ToGetProjectPassportTypeOutput() GetProjectPassportTypeOutput {
 	return o
 }
 
-func (o GetProjectPassportOutput) ToGetProjectPassportOutputWithContext(ctx context.Context) GetProjectPassportOutput {
+func (o GetProjectPassportTypeOutput) ToGetProjectPassportTypeOutputWithContext(ctx context.Context) GetProjectPassportTypeOutput {
 	return o
 }
 
 // The stable ID of the Vercel Connect OAuth application. Null when disabled.
-func (o GetProjectPassportOutput) ConnectorId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetProjectPassport) string { return v.ConnectorId }).(pulumi.StringOutput)
+func (o GetProjectPassportTypeOutput) ConnectorId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectPassportType) string { return v.ConnectorId }).(pulumi.StringOutput)
 }
 
-// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
-func (o GetProjectPassportOutput) DeploymentType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetProjectPassport) string { return v.DeploymentType }).(pulumi.StringOutput)
+// The deployment scope protected when Passport is enabled. Null when disabled.
+func (o GetProjectPassportTypeOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectPassportType) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
 // Whether Passport is enabled.
-func (o GetProjectPassportOutput) Enabled() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetProjectPassport) bool { return v.Enabled }).(pulumi.BoolOutput)
+func (o GetProjectPassportTypeOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectPassportType) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
 type GetProjectPasswordProtection struct {
@@ -19085,6 +19933,596 @@ func (o GetProjectPasswordProtectionOutput) ToGetProjectPasswordProtectionOutput
 // The deployment environment that will be protected.
 func (o GetProjectPasswordProtectionOutput) DeploymentType() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+type GetProjectProtectionInventoryEntry struct {
+	// Alias hostname, without a query string, or null for project access.
+	Alias string `pulumi:"alias"`
+	// Versioned fingerprint of the team, project, target, credential or subject, and access configuration. Changes when access changes.
+	ApprovalKey string `pulumi:"approvalKey"`
+	// Required OIDC claims and accepted values for trusted-oidc access. Values are ORed within each claim; claims are ANDed.
+	Claims map[string][]string `pulumi:"claims"`
+	// Integration configuration ID for integration-created automation access.
+	ConfigurationId string `pulumi:"configurationId"`
+	// Creation time in Unix milliseconds, when returned by the API.
+	CreatedAt int `pulumi:"createdAt"`
+	// Creator ID, when returned by the API.
+	CreatedBy string `pulumi:"createdBy"`
+	// Custom environment rules for trusted-project access. Null uses defaults; an empty set explicitly denies access.
+	CustomAllows []GetProjectProtectionInventoryEntryCustomAllow `pulumi:"customAllows"`
+	// Expiry time in Unix seconds, or null when no expiry was returned.
+	ExpiresAt int `pulumi:"expiresAt"`
+	// Whether this entry represents implicit self-access or a Vercel CI default rather than an explicit rule.
+	Implicit bool `pulumi:"implicit"`
+	// Integration ID for integration-created automation access.
+	IntegrationId string `pulumi:"integrationId"`
+	// Whether an automation bypass is the deployment environment variable default. Omitted legacy values are interpreted as true. Null for other scopes.
+	IsEnvVar bool `pulumi:"isEnvVar"`
+	// OIDC issuer for trusted-oidc access.
+	Issuer string `pulumi:"issuer"`
+	// Last update time in Unix milliseconds, when returned by the API.
+	LastUpdatedAt int `pulumi:"lastUpdatedAt"`
+	// Last updater ID, when returned by the API.
+	LastUpdatedBy string `pulumi:"lastUpdatedBy"`
+	// Display note or Trusted Source label, when returned by the API. Not used for approval identity.
+	Note string `pulumi:"note"`
+	// Path prefix bypassed for OPTIONS requests, or null for other scopes.
+	PathPrefix string `pulumi:"pathPrefix"`
+	// API bypass scope, or options-allowlist, trusted-project, trusted-oidc, or vercel-ci-same-repository. Unrecognized API scopes are retained with unknown status.
+	Scope string `pulumi:"scope"`
+	// active, expired, granted, requested, invited, disabled, or unknown. Active describes configuration, not whether protection currently applies to a URL. Invitations are not treated as confirmed grants.
+	Status string `pulumi:"status"`
+	// The user or email map key for individual access, or null for other scopes. Bearer map keys are never returned.
+	Subject string `pulumi:"subject"`
+	// The project or alias ID owning this entry.
+	TargetId string `pulumi:"targetId"`
+	// The owner of the entry: project or alias.
+	TargetType string `pulumi:"targetType"`
+	// Allowed target environments for trusted-oidc access.
+	To GetProjectProtectionInventoryEntryTo `pulumi:"to"`
+	// Source project ID for trusted-project access.
+	TrustedProjectId string `pulumi:"trustedProjectId"`
+}
+
+// GetProjectProtectionInventoryEntryInput is an input type that accepts GetProjectProtectionInventoryEntryArgs and GetProjectProtectionInventoryEntryOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryInput` via:
+//
+//	GetProjectProtectionInventoryEntryArgs{...}
+type GetProjectProtectionInventoryEntryInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryOutput() GetProjectProtectionInventoryEntryOutput
+	ToGetProjectProtectionInventoryEntryOutputWithContext(context.Context) GetProjectProtectionInventoryEntryOutput
+}
+
+type GetProjectProtectionInventoryEntryArgs struct {
+	// Alias hostname, without a query string, or null for project access.
+	Alias pulumi.StringInput `pulumi:"alias"`
+	// Versioned fingerprint of the team, project, target, credential or subject, and access configuration. Changes when access changes.
+	ApprovalKey pulumi.StringInput `pulumi:"approvalKey"`
+	// Required OIDC claims and accepted values for trusted-oidc access. Values are ORed within each claim; claims are ANDed.
+	Claims pulumi.StringArrayMapInput `pulumi:"claims"`
+	// Integration configuration ID for integration-created automation access.
+	ConfigurationId pulumi.StringInput `pulumi:"configurationId"`
+	// Creation time in Unix milliseconds, when returned by the API.
+	CreatedAt pulumi.IntInput `pulumi:"createdAt"`
+	// Creator ID, when returned by the API.
+	CreatedBy pulumi.StringInput `pulumi:"createdBy"`
+	// Custom environment rules for trusted-project access. Null uses defaults; an empty set explicitly denies access.
+	CustomAllows GetProjectProtectionInventoryEntryCustomAllowArrayInput `pulumi:"customAllows"`
+	// Expiry time in Unix seconds, or null when no expiry was returned.
+	ExpiresAt pulumi.IntInput `pulumi:"expiresAt"`
+	// Whether this entry represents implicit self-access or a Vercel CI default rather than an explicit rule.
+	Implicit pulumi.BoolInput `pulumi:"implicit"`
+	// Integration ID for integration-created automation access.
+	IntegrationId pulumi.StringInput `pulumi:"integrationId"`
+	// Whether an automation bypass is the deployment environment variable default. Omitted legacy values are interpreted as true. Null for other scopes.
+	IsEnvVar pulumi.BoolInput `pulumi:"isEnvVar"`
+	// OIDC issuer for trusted-oidc access.
+	Issuer pulumi.StringInput `pulumi:"issuer"`
+	// Last update time in Unix milliseconds, when returned by the API.
+	LastUpdatedAt pulumi.IntInput `pulumi:"lastUpdatedAt"`
+	// Last updater ID, when returned by the API.
+	LastUpdatedBy pulumi.StringInput `pulumi:"lastUpdatedBy"`
+	// Display note or Trusted Source label, when returned by the API. Not used for approval identity.
+	Note pulumi.StringInput `pulumi:"note"`
+	// Path prefix bypassed for OPTIONS requests, or null for other scopes.
+	PathPrefix pulumi.StringInput `pulumi:"pathPrefix"`
+	// API bypass scope, or options-allowlist, trusted-project, trusted-oidc, or vercel-ci-same-repository. Unrecognized API scopes are retained with unknown status.
+	Scope pulumi.StringInput `pulumi:"scope"`
+	// active, expired, granted, requested, invited, disabled, or unknown. Active describes configuration, not whether protection currently applies to a URL. Invitations are not treated as confirmed grants.
+	Status pulumi.StringInput `pulumi:"status"`
+	// The user or email map key for individual access, or null for other scopes. Bearer map keys are never returned.
+	Subject pulumi.StringInput `pulumi:"subject"`
+	// The project or alias ID owning this entry.
+	TargetId pulumi.StringInput `pulumi:"targetId"`
+	// The owner of the entry: project or alias.
+	TargetType pulumi.StringInput `pulumi:"targetType"`
+	// Allowed target environments for trusted-oidc access.
+	To GetProjectProtectionInventoryEntryToInput `pulumi:"to"`
+	// Source project ID for trusted-project access.
+	TrustedProjectId pulumi.StringInput `pulumi:"trustedProjectId"`
+}
+
+func (GetProjectProtectionInventoryEntryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntry)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryArgs) ToGetProjectProtectionInventoryEntryOutput() GetProjectProtectionInventoryEntryOutput {
+	return i.ToGetProjectProtectionInventoryEntryOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryArgs) ToGetProjectProtectionInventoryEntryOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryOutput)
+}
+
+// GetProjectProtectionInventoryEntryArrayInput is an input type that accepts GetProjectProtectionInventoryEntryArray and GetProjectProtectionInventoryEntryArrayOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryArrayInput` via:
+//
+//	GetProjectProtectionInventoryEntryArray{ GetProjectProtectionInventoryEntryArgs{...} }
+type GetProjectProtectionInventoryEntryArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryArrayOutput() GetProjectProtectionInventoryEntryArrayOutput
+	ToGetProjectProtectionInventoryEntryArrayOutputWithContext(context.Context) GetProjectProtectionInventoryEntryArrayOutput
+}
+
+type GetProjectProtectionInventoryEntryArray []GetProjectProtectionInventoryEntryInput
+
+func (GetProjectProtectionInventoryEntryArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectProtectionInventoryEntry)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryArray) ToGetProjectProtectionInventoryEntryArrayOutput() GetProjectProtectionInventoryEntryArrayOutput {
+	return i.ToGetProjectProtectionInventoryEntryArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryArray) ToGetProjectProtectionInventoryEntryArrayOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryArrayOutput)
+}
+
+type GetProjectProtectionInventoryEntryOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntry)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryOutput) ToGetProjectProtectionInventoryEntryOutput() GetProjectProtectionInventoryEntryOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryOutput) ToGetProjectProtectionInventoryEntryOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryOutput {
+	return o
+}
+
+// Alias hostname, without a query string, or null for project access.
+func (o GetProjectProtectionInventoryEntryOutput) Alias() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.Alias }).(pulumi.StringOutput)
+}
+
+// Versioned fingerprint of the team, project, target, credential or subject, and access configuration. Changes when access changes.
+func (o GetProjectProtectionInventoryEntryOutput) ApprovalKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.ApprovalKey }).(pulumi.StringOutput)
+}
+
+// Required OIDC claims and accepted values for trusted-oidc access. Values are ORed within each claim; claims are ANDed.
+func (o GetProjectProtectionInventoryEntryOutput) Claims() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) map[string][]string { return v.Claims }).(pulumi.StringArrayMapOutput)
+}
+
+// Integration configuration ID for integration-created automation access.
+func (o GetProjectProtectionInventoryEntryOutput) ConfigurationId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.ConfigurationId }).(pulumi.StringOutput)
+}
+
+// Creation time in Unix milliseconds, when returned by the API.
+func (o GetProjectProtectionInventoryEntryOutput) CreatedAt() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) int { return v.CreatedAt }).(pulumi.IntOutput)
+}
+
+// Creator ID, when returned by the API.
+func (o GetProjectProtectionInventoryEntryOutput) CreatedBy() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.CreatedBy }).(pulumi.StringOutput)
+}
+
+// Custom environment rules for trusted-project access. Null uses defaults; an empty set explicitly denies access.
+func (o GetProjectProtectionInventoryEntryOutput) CustomAllows() GetProjectProtectionInventoryEntryCustomAllowArrayOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) []GetProjectProtectionInventoryEntryCustomAllow {
+		return v.CustomAllows
+	}).(GetProjectProtectionInventoryEntryCustomAllowArrayOutput)
+}
+
+// Expiry time in Unix seconds, or null when no expiry was returned.
+func (o GetProjectProtectionInventoryEntryOutput) ExpiresAt() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) int { return v.ExpiresAt }).(pulumi.IntOutput)
+}
+
+// Whether this entry represents implicit self-access or a Vercel CI default rather than an explicit rule.
+func (o GetProjectProtectionInventoryEntryOutput) Implicit() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) bool { return v.Implicit }).(pulumi.BoolOutput)
+}
+
+// Integration ID for integration-created automation access.
+func (o GetProjectProtectionInventoryEntryOutput) IntegrationId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.IntegrationId }).(pulumi.StringOutput)
+}
+
+// Whether an automation bypass is the deployment environment variable default. Omitted legacy values are interpreted as true. Null for other scopes.
+func (o GetProjectProtectionInventoryEntryOutput) IsEnvVar() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) bool { return v.IsEnvVar }).(pulumi.BoolOutput)
+}
+
+// OIDC issuer for trusted-oidc access.
+func (o GetProjectProtectionInventoryEntryOutput) Issuer() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.Issuer }).(pulumi.StringOutput)
+}
+
+// Last update time in Unix milliseconds, when returned by the API.
+func (o GetProjectProtectionInventoryEntryOutput) LastUpdatedAt() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) int { return v.LastUpdatedAt }).(pulumi.IntOutput)
+}
+
+// Last updater ID, when returned by the API.
+func (o GetProjectProtectionInventoryEntryOutput) LastUpdatedBy() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.LastUpdatedBy }).(pulumi.StringOutput)
+}
+
+// Display note or Trusted Source label, when returned by the API. Not used for approval identity.
+func (o GetProjectProtectionInventoryEntryOutput) Note() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.Note }).(pulumi.StringOutput)
+}
+
+// Path prefix bypassed for OPTIONS requests, or null for other scopes.
+func (o GetProjectProtectionInventoryEntryOutput) PathPrefix() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.PathPrefix }).(pulumi.StringOutput)
+}
+
+// API bypass scope, or options-allowlist, trusted-project, trusted-oidc, or vercel-ci-same-repository. Unrecognized API scopes are retained with unknown status.
+func (o GetProjectProtectionInventoryEntryOutput) Scope() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.Scope }).(pulumi.StringOutput)
+}
+
+// active, expired, granted, requested, invited, disabled, or unknown. Active describes configuration, not whether protection currently applies to a URL. Invitations are not treated as confirmed grants.
+func (o GetProjectProtectionInventoryEntryOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The user or email map key for individual access, or null for other scopes. Bearer map keys are never returned.
+func (o GetProjectProtectionInventoryEntryOutput) Subject() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.Subject }).(pulumi.StringOutput)
+}
+
+// The project or alias ID owning this entry.
+func (o GetProjectProtectionInventoryEntryOutput) TargetId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.TargetId }).(pulumi.StringOutput)
+}
+
+// The owner of the entry: project or alias.
+func (o GetProjectProtectionInventoryEntryOutput) TargetType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.TargetType }).(pulumi.StringOutput)
+}
+
+// Allowed target environments for trusted-oidc access.
+func (o GetProjectProtectionInventoryEntryOutput) To() GetProjectProtectionInventoryEntryToOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) GetProjectProtectionInventoryEntryTo { return v.To }).(GetProjectProtectionInventoryEntryToOutput)
+}
+
+// Source project ID for trusted-project access.
+func (o GetProjectProtectionInventoryEntryOutput) TrustedProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntry) string { return v.TrustedProjectId }).(pulumi.StringOutput)
+}
+
+type GetProjectProtectionInventoryEntryArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectProtectionInventoryEntry)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryArrayOutput) ToGetProjectProtectionInventoryEntryArrayOutput() GetProjectProtectionInventoryEntryArrayOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryArrayOutput) ToGetProjectProtectionInventoryEntryArrayOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryArrayOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryArrayOutput) Index(i pulumi.IntInput) GetProjectProtectionInventoryEntryOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectProtectionInventoryEntry {
+		return vs[0].([]GetProjectProtectionInventoryEntry)[vs[1].(int)]
+	}).(GetProjectProtectionInventoryEntryOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllow struct {
+	// The source environments on the trusted project that are allowed to access the target environments.
+	From GetProjectProtectionInventoryEntryCustomAllowFrom `pulumi:"from"`
+	// The target environments on this project that may be accessed.
+	To GetProjectProtectionInventoryEntryCustomAllowTo `pulumi:"to"`
+}
+
+// GetProjectProtectionInventoryEntryCustomAllowInput is an input type that accepts GetProjectProtectionInventoryEntryCustomAllowArgs and GetProjectProtectionInventoryEntryCustomAllowOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryCustomAllowInput` via:
+//
+//	GetProjectProtectionInventoryEntryCustomAllowArgs{...}
+type GetProjectProtectionInventoryEntryCustomAllowInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryCustomAllowOutput() GetProjectProtectionInventoryEntryCustomAllowOutput
+	ToGetProjectProtectionInventoryEntryCustomAllowOutputWithContext(context.Context) GetProjectProtectionInventoryEntryCustomAllowOutput
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowArgs struct {
+	// The source environments on the trusted project that are allowed to access the target environments.
+	From GetProjectProtectionInventoryEntryCustomAllowFromInput `pulumi:"from"`
+	// The target environments on this project that may be accessed.
+	To GetProjectProtectionInventoryEntryCustomAllowToInput `pulumi:"to"`
+}
+
+func (GetProjectProtectionInventoryEntryCustomAllowArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllow)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowArgs) ToGetProjectProtectionInventoryEntryCustomAllowOutput() GetProjectProtectionInventoryEntryCustomAllowOutput {
+	return i.ToGetProjectProtectionInventoryEntryCustomAllowOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowArgs) ToGetProjectProtectionInventoryEntryCustomAllowOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryCustomAllowOutput)
+}
+
+// GetProjectProtectionInventoryEntryCustomAllowArrayInput is an input type that accepts GetProjectProtectionInventoryEntryCustomAllowArray and GetProjectProtectionInventoryEntryCustomAllowArrayOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryCustomAllowArrayInput` via:
+//
+//	GetProjectProtectionInventoryEntryCustomAllowArray{ GetProjectProtectionInventoryEntryCustomAllowArgs{...} }
+type GetProjectProtectionInventoryEntryCustomAllowArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryCustomAllowArrayOutput() GetProjectProtectionInventoryEntryCustomAllowArrayOutput
+	ToGetProjectProtectionInventoryEntryCustomAllowArrayOutputWithContext(context.Context) GetProjectProtectionInventoryEntryCustomAllowArrayOutput
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowArray []GetProjectProtectionInventoryEntryCustomAllowInput
+
+func (GetProjectProtectionInventoryEntryCustomAllowArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectProtectionInventoryEntryCustomAllow)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowArray) ToGetProjectProtectionInventoryEntryCustomAllowArrayOutput() GetProjectProtectionInventoryEntryCustomAllowArrayOutput {
+	return i.ToGetProjectProtectionInventoryEntryCustomAllowArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowArray) ToGetProjectProtectionInventoryEntryCustomAllowArrayOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryCustomAllowArrayOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryCustomAllowOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllow)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowOutput) ToGetProjectProtectionInventoryEntryCustomAllowOutput() GetProjectProtectionInventoryEntryCustomAllowOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowOutput) ToGetProjectProtectionInventoryEntryCustomAllowOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowOutput {
+	return o
+}
+
+// The source environments on the trusted project that are allowed to access the target environments.
+func (o GetProjectProtectionInventoryEntryCustomAllowOutput) From() GetProjectProtectionInventoryEntryCustomAllowFromOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryCustomAllow) GetProjectProtectionInventoryEntryCustomAllowFrom {
+		return v.From
+	}).(GetProjectProtectionInventoryEntryCustomAllowFromOutput)
+}
+
+// The target environments on this project that may be accessed.
+func (o GetProjectProtectionInventoryEntryCustomAllowOutput) To() GetProjectProtectionInventoryEntryCustomAllowToOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryCustomAllow) GetProjectProtectionInventoryEntryCustomAllowTo {
+		return v.To
+	}).(GetProjectProtectionInventoryEntryCustomAllowToOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryCustomAllowArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectProtectionInventoryEntryCustomAllow)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowArrayOutput) ToGetProjectProtectionInventoryEntryCustomAllowArrayOutput() GetProjectProtectionInventoryEntryCustomAllowArrayOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowArrayOutput) ToGetProjectProtectionInventoryEntryCustomAllowArrayOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowArrayOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowArrayOutput) Index(i pulumi.IntInput) GetProjectProtectionInventoryEntryCustomAllowOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectProtectionInventoryEntryCustomAllow {
+		return vs[0].([]GetProjectProtectionInventoryEntryCustomAllow)[vs[1].(int)]
+	}).(GetProjectProtectionInventoryEntryCustomAllowOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowFrom struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// GetProjectProtectionInventoryEntryCustomAllowFromInput is an input type that accepts GetProjectProtectionInventoryEntryCustomAllowFromArgs and GetProjectProtectionInventoryEntryCustomAllowFromOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryCustomAllowFromInput` via:
+//
+//	GetProjectProtectionInventoryEntryCustomAllowFromArgs{...}
+type GetProjectProtectionInventoryEntryCustomAllowFromInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryCustomAllowFromOutput() GetProjectProtectionInventoryEntryCustomAllowFromOutput
+	ToGetProjectProtectionInventoryEntryCustomAllowFromOutputWithContext(context.Context) GetProjectProtectionInventoryEntryCustomAllowFromOutput
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowFromArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (GetProjectProtectionInventoryEntryCustomAllowFromArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowFrom)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowFromArgs) ToGetProjectProtectionInventoryEntryCustomAllowFromOutput() GetProjectProtectionInventoryEntryCustomAllowFromOutput {
+	return i.ToGetProjectProtectionInventoryEntryCustomAllowFromOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowFromArgs) ToGetProjectProtectionInventoryEntryCustomAllowFromOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowFromOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryCustomAllowFromOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowFromOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryCustomAllowFromOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowFrom)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowFromOutput) ToGetProjectProtectionInventoryEntryCustomAllowFromOutput() GetProjectProtectionInventoryEntryCustomAllowFromOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowFromOutput) ToGetProjectProtectionInventoryEntryCustomAllowFromOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowFromOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o GetProjectProtectionInventoryEntryCustomAllowFromOutput) Preset() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryCustomAllowFrom) string { return v.Preset }).(pulumi.StringOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o GetProjectProtectionInventoryEntryCustomAllowFromOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryCustomAllowFrom) []string { return v.Slugs }).(pulumi.StringArrayOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowTo struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// GetProjectProtectionInventoryEntryCustomAllowToInput is an input type that accepts GetProjectProtectionInventoryEntryCustomAllowToArgs and GetProjectProtectionInventoryEntryCustomAllowToOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryCustomAllowToInput` via:
+//
+//	GetProjectProtectionInventoryEntryCustomAllowToArgs{...}
+type GetProjectProtectionInventoryEntryCustomAllowToInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryCustomAllowToOutput() GetProjectProtectionInventoryEntryCustomAllowToOutput
+	ToGetProjectProtectionInventoryEntryCustomAllowToOutputWithContext(context.Context) GetProjectProtectionInventoryEntryCustomAllowToOutput
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowToArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (GetProjectProtectionInventoryEntryCustomAllowToArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowTo)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowToArgs) ToGetProjectProtectionInventoryEntryCustomAllowToOutput() GetProjectProtectionInventoryEntryCustomAllowToOutput {
+	return i.ToGetProjectProtectionInventoryEntryCustomAllowToOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryCustomAllowToArgs) ToGetProjectProtectionInventoryEntryCustomAllowToOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowToOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryCustomAllowToOutput)
+}
+
+type GetProjectProtectionInventoryEntryCustomAllowToOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryCustomAllowToOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowTo)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowToOutput) ToGetProjectProtectionInventoryEntryCustomAllowToOutput() GetProjectProtectionInventoryEntryCustomAllowToOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryCustomAllowToOutput) ToGetProjectProtectionInventoryEntryCustomAllowToOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryCustomAllowToOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o GetProjectProtectionInventoryEntryCustomAllowToOutput) Preset() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryCustomAllowTo) string { return v.Preset }).(pulumi.StringOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o GetProjectProtectionInventoryEntryCustomAllowToOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryCustomAllowTo) []string { return v.Slugs }).(pulumi.StringArrayOutput)
+}
+
+type GetProjectProtectionInventoryEntryTo struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset string `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs []string `pulumi:"slugs"`
+}
+
+// GetProjectProtectionInventoryEntryToInput is an input type that accepts GetProjectProtectionInventoryEntryToArgs and GetProjectProtectionInventoryEntryToOutput values.
+// You can construct a concrete instance of `GetProjectProtectionInventoryEntryToInput` via:
+//
+//	GetProjectProtectionInventoryEntryToArgs{...}
+type GetProjectProtectionInventoryEntryToInput interface {
+	pulumi.Input
+
+	ToGetProjectProtectionInventoryEntryToOutput() GetProjectProtectionInventoryEntryToOutput
+	ToGetProjectProtectionInventoryEntryToOutputWithContext(context.Context) GetProjectProtectionInventoryEntryToOutput
+}
+
+type GetProjectProtectionInventoryEntryToArgs struct {
+	// Named environment preset. Currently only `all-custom` is supported.
+	Preset pulumi.StringInput `pulumi:"preset"`
+	// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+	Slugs pulumi.StringArrayInput `pulumi:"slugs"`
+}
+
+func (GetProjectProtectionInventoryEntryToArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryTo)(nil)).Elem()
+}
+
+func (i GetProjectProtectionInventoryEntryToArgs) ToGetProjectProtectionInventoryEntryToOutput() GetProjectProtectionInventoryEntryToOutput {
+	return i.ToGetProjectProtectionInventoryEntryToOutputWithContext(context.Background())
+}
+
+func (i GetProjectProtectionInventoryEntryToArgs) ToGetProjectProtectionInventoryEntryToOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryToOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectProtectionInventoryEntryToOutput)
+}
+
+type GetProjectProtectionInventoryEntryToOutput struct{ *pulumi.OutputState }
+
+func (GetProjectProtectionInventoryEntryToOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectProtectionInventoryEntryTo)(nil)).Elem()
+}
+
+func (o GetProjectProtectionInventoryEntryToOutput) ToGetProjectProtectionInventoryEntryToOutput() GetProjectProtectionInventoryEntryToOutput {
+	return o
+}
+
+func (o GetProjectProtectionInventoryEntryToOutput) ToGetProjectProtectionInventoryEntryToOutputWithContext(ctx context.Context) GetProjectProtectionInventoryEntryToOutput {
+	return o
+}
+
+// Named environment preset. Currently only `all-custom` is supported.
+func (o GetProjectProtectionInventoryEntryToOutput) Preset() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryTo) string { return v.Preset }).(pulumi.StringOutput)
+}
+
+// System environment slugs (`production`, `preview`, `development`) or custom environment slugs.
+func (o GetProjectProtectionInventoryEntryToOutput) Slugs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetProjectProtectionInventoryEntryTo) []string { return v.Slugs }).(pulumi.StringArrayOutput)
 }
 
 type GetProjectResourceConfig struct {
@@ -20694,6 +22132,480 @@ func (o GetProjectVercelAuthenticationOutput) DeploymentType() pulumi.StringOutp
 	return o.ApplyT(func(v GetProjectVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
 
+type GetProjectsProjects struct {
+	// The configured framework. Null when no framework is configured.
+	Framework string `pulumi:"framework"`
+	// The connected Git repository. Null when no repository is connected.
+	GitRepository GetProjectsProjectsGitRepository `pulumi:"gitRepository"`
+	// The project ID.
+	Id string `pulumi:"id"`
+	// The current project name.
+	Name string `pulumi:"name"`
+	// Passport configuration. Bypasses and exceptions can still allow access.
+	Passport GetProjectsProjectsPassport `pulumi:"passport"`
+	// Password Protection configuration. Bypasses and exceptions can still allow access.
+	PasswordProtection GetProjectsProjectsPasswordProtection `pulumi:"passwordProtection"`
+	// The owning team ID. Null for a personal project.
+	TeamId string `pulumi:"teamId"`
+	// Trusted IPs configuration. Bypasses and exceptions can still allow access.
+	TrustedIps GetProjectsProjectsTrustedIps `pulumi:"trustedIps"`
+	// Vercel Authentication configuration. Bypasses and exceptions can still allow access.
+	VercelAuthentication GetProjectsProjectsVercelAuthentication `pulumi:"vercelAuthentication"`
+}
+
+// GetProjectsProjectsInput is an input type that accepts GetProjectsProjectsArgs and GetProjectsProjectsOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsInput` via:
+//
+//	GetProjectsProjectsArgs{...}
+type GetProjectsProjectsInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsOutput() GetProjectsProjectsOutput
+	ToGetProjectsProjectsOutputWithContext(context.Context) GetProjectsProjectsOutput
+}
+
+type GetProjectsProjectsArgs struct {
+	// The configured framework. Null when no framework is configured.
+	Framework pulumi.StringInput `pulumi:"framework"`
+	// The connected Git repository. Null when no repository is connected.
+	GitRepository GetProjectsProjectsGitRepositoryInput `pulumi:"gitRepository"`
+	// The project ID.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The current project name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Passport configuration. Bypasses and exceptions can still allow access.
+	Passport GetProjectsProjectsPassportInput `pulumi:"passport"`
+	// Password Protection configuration. Bypasses and exceptions can still allow access.
+	PasswordProtection GetProjectsProjectsPasswordProtectionInput `pulumi:"passwordProtection"`
+	// The owning team ID. Null for a personal project.
+	TeamId pulumi.StringInput `pulumi:"teamId"`
+	// Trusted IPs configuration. Bypasses and exceptions can still allow access.
+	TrustedIps GetProjectsProjectsTrustedIpsInput `pulumi:"trustedIps"`
+	// Vercel Authentication configuration. Bypasses and exceptions can still allow access.
+	VercelAuthentication GetProjectsProjectsVercelAuthenticationInput `pulumi:"vercelAuthentication"`
+}
+
+func (GetProjectsProjectsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjects)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsArgs) ToGetProjectsProjectsOutput() GetProjectsProjectsOutput {
+	return i.ToGetProjectsProjectsOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsArgs) ToGetProjectsProjectsOutputWithContext(ctx context.Context) GetProjectsProjectsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsOutput)
+}
+
+// GetProjectsProjectsMapInput is an input type that accepts GetProjectsProjectsMap and GetProjectsProjectsMapOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsMapInput` via:
+//
+//	GetProjectsProjectsMap{ "key": GetProjectsProjectsArgs{...} }
+type GetProjectsProjectsMapInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsMapOutput() GetProjectsProjectsMapOutput
+	ToGetProjectsProjectsMapOutputWithContext(context.Context) GetProjectsProjectsMapOutput
+}
+
+type GetProjectsProjectsMap map[string]GetProjectsProjectsInput
+
+func (GetProjectsProjectsMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]GetProjectsProjects)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsMap) ToGetProjectsProjectsMapOutput() GetProjectsProjectsMapOutput {
+	return i.ToGetProjectsProjectsMapOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsMap) ToGetProjectsProjectsMapOutputWithContext(ctx context.Context) GetProjectsProjectsMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsMapOutput)
+}
+
+type GetProjectsProjectsOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjects)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsOutput) ToGetProjectsProjectsOutput() GetProjectsProjectsOutput {
+	return o
+}
+
+func (o GetProjectsProjectsOutput) ToGetProjectsProjectsOutputWithContext(ctx context.Context) GetProjectsProjectsOutput {
+	return o
+}
+
+// The configured framework. Null when no framework is configured.
+func (o GetProjectsProjectsOutput) Framework() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjects) string { return v.Framework }).(pulumi.StringOutput)
+}
+
+// The connected Git repository. Null when no repository is connected.
+func (o GetProjectsProjectsOutput) GitRepository() GetProjectsProjectsGitRepositoryOutput {
+	return o.ApplyT(func(v GetProjectsProjects) GetProjectsProjectsGitRepository { return v.GitRepository }).(GetProjectsProjectsGitRepositoryOutput)
+}
+
+// The project ID.
+func (o GetProjectsProjectsOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjects) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The current project name.
+func (o GetProjectsProjectsOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjects) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Passport configuration. Bypasses and exceptions can still allow access.
+func (o GetProjectsProjectsOutput) Passport() GetProjectsProjectsPassportOutput {
+	return o.ApplyT(func(v GetProjectsProjects) GetProjectsProjectsPassport { return v.Passport }).(GetProjectsProjectsPassportOutput)
+}
+
+// Password Protection configuration. Bypasses and exceptions can still allow access.
+func (o GetProjectsProjectsOutput) PasswordProtection() GetProjectsProjectsPasswordProtectionOutput {
+	return o.ApplyT(func(v GetProjectsProjects) GetProjectsProjectsPasswordProtection { return v.PasswordProtection }).(GetProjectsProjectsPasswordProtectionOutput)
+}
+
+// The owning team ID. Null for a personal project.
+func (o GetProjectsProjectsOutput) TeamId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjects) string { return v.TeamId }).(pulumi.StringOutput)
+}
+
+// Trusted IPs configuration. Bypasses and exceptions can still allow access.
+func (o GetProjectsProjectsOutput) TrustedIps() GetProjectsProjectsTrustedIpsOutput {
+	return o.ApplyT(func(v GetProjectsProjects) GetProjectsProjectsTrustedIps { return v.TrustedIps }).(GetProjectsProjectsTrustedIpsOutput)
+}
+
+// Vercel Authentication configuration. Bypasses and exceptions can still allow access.
+func (o GetProjectsProjectsOutput) VercelAuthentication() GetProjectsProjectsVercelAuthenticationOutput {
+	return o.ApplyT(func(v GetProjectsProjects) GetProjectsProjectsVercelAuthentication { return v.VercelAuthentication }).(GetProjectsProjectsVercelAuthenticationOutput)
+}
+
+type GetProjectsProjectsMapOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]GetProjectsProjects)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsMapOutput) ToGetProjectsProjectsMapOutput() GetProjectsProjectsMapOutput {
+	return o
+}
+
+func (o GetProjectsProjectsMapOutput) ToGetProjectsProjectsMapOutputWithContext(ctx context.Context) GetProjectsProjectsMapOutput {
+	return o
+}
+
+func (o GetProjectsProjectsMapOutput) MapIndex(k pulumi.StringInput) GetProjectsProjectsOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) GetProjectsProjects {
+		return vs[0].(map[string]GetProjectsProjects)[vs[1].(string)]
+	}).(GetProjectsProjectsOutput)
+}
+
+type GetProjectsProjectsGitRepository struct {
+	// The repository path, including its owner or namespace.
+	Repo string `pulumi:"repo"`
+	// The Git provider: github, gitlab or bitbucket.
+	Type string `pulumi:"type"`
+}
+
+// GetProjectsProjectsGitRepositoryInput is an input type that accepts GetProjectsProjectsGitRepositoryArgs and GetProjectsProjectsGitRepositoryOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsGitRepositoryInput` via:
+//
+//	GetProjectsProjectsGitRepositoryArgs{...}
+type GetProjectsProjectsGitRepositoryInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsGitRepositoryOutput() GetProjectsProjectsGitRepositoryOutput
+	ToGetProjectsProjectsGitRepositoryOutputWithContext(context.Context) GetProjectsProjectsGitRepositoryOutput
+}
+
+type GetProjectsProjectsGitRepositoryArgs struct {
+	// The repository path, including its owner or namespace.
+	Repo pulumi.StringInput `pulumi:"repo"`
+	// The Git provider: github, gitlab or bitbucket.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (GetProjectsProjectsGitRepositoryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsGitRepository)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsGitRepositoryArgs) ToGetProjectsProjectsGitRepositoryOutput() GetProjectsProjectsGitRepositoryOutput {
+	return i.ToGetProjectsProjectsGitRepositoryOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsGitRepositoryArgs) ToGetProjectsProjectsGitRepositoryOutputWithContext(ctx context.Context) GetProjectsProjectsGitRepositoryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsGitRepositoryOutput)
+}
+
+type GetProjectsProjectsGitRepositoryOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsGitRepositoryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsGitRepository)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsGitRepositoryOutput) ToGetProjectsProjectsGitRepositoryOutput() GetProjectsProjectsGitRepositoryOutput {
+	return o
+}
+
+func (o GetProjectsProjectsGitRepositoryOutput) ToGetProjectsProjectsGitRepositoryOutputWithContext(ctx context.Context) GetProjectsProjectsGitRepositoryOutput {
+	return o
+}
+
+// The repository path, including its owner or namespace.
+func (o GetProjectsProjectsGitRepositoryOutput) Repo() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjectsGitRepository) string { return v.Repo }).(pulumi.StringOutput)
+}
+
+// The Git provider: github, gitlab or bitbucket.
+func (o GetProjectsProjectsGitRepositoryOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjectsGitRepository) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GetProjectsProjectsPassport struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetProjectsProjectsPassportInput is an input type that accepts GetProjectsProjectsPassportArgs and GetProjectsProjectsPassportOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsPassportInput` via:
+//
+//	GetProjectsProjectsPassportArgs{...}
+type GetProjectsProjectsPassportInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsPassportOutput() GetProjectsProjectsPassportOutput
+	ToGetProjectsProjectsPassportOutputWithContext(context.Context) GetProjectsProjectsPassportOutput
+}
+
+type GetProjectsProjectsPassportArgs struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetProjectsProjectsPassportArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsPassport)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsPassportArgs) ToGetProjectsProjectsPassportOutput() GetProjectsProjectsPassportOutput {
+	return i.ToGetProjectsProjectsPassportOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsPassportArgs) ToGetProjectsProjectsPassportOutputWithContext(ctx context.Context) GetProjectsProjectsPassportOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsPassportOutput)
+}
+
+type GetProjectsProjectsPassportOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsPassportOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsPassport)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsPassportOutput) ToGetProjectsProjectsPassportOutput() GetProjectsProjectsPassportOutput {
+	return o
+}
+
+func (o GetProjectsProjectsPassportOutput) ToGetProjectsProjectsPassportOutputWithContext(ctx context.Context) GetProjectsProjectsPassportOutput {
+	return o
+}
+
+// The API deployment scope. Null when disabled.
+func (o GetProjectsProjectsPassportOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjectsPassport) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether this protection mechanism is configured.
+func (o GetProjectsProjectsPassportOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectsProjectsPassport) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetProjectsProjectsPasswordProtection struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetProjectsProjectsPasswordProtectionInput is an input type that accepts GetProjectsProjectsPasswordProtectionArgs and GetProjectsProjectsPasswordProtectionOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsPasswordProtectionInput` via:
+//
+//	GetProjectsProjectsPasswordProtectionArgs{...}
+type GetProjectsProjectsPasswordProtectionInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsPasswordProtectionOutput() GetProjectsProjectsPasswordProtectionOutput
+	ToGetProjectsProjectsPasswordProtectionOutputWithContext(context.Context) GetProjectsProjectsPasswordProtectionOutput
+}
+
+type GetProjectsProjectsPasswordProtectionArgs struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetProjectsProjectsPasswordProtectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsPasswordProtection)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsPasswordProtectionArgs) ToGetProjectsProjectsPasswordProtectionOutput() GetProjectsProjectsPasswordProtectionOutput {
+	return i.ToGetProjectsProjectsPasswordProtectionOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsPasswordProtectionArgs) ToGetProjectsProjectsPasswordProtectionOutputWithContext(ctx context.Context) GetProjectsProjectsPasswordProtectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsPasswordProtectionOutput)
+}
+
+type GetProjectsProjectsPasswordProtectionOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsPasswordProtectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsPasswordProtection)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsPasswordProtectionOutput) ToGetProjectsProjectsPasswordProtectionOutput() GetProjectsProjectsPasswordProtectionOutput {
+	return o
+}
+
+func (o GetProjectsProjectsPasswordProtectionOutput) ToGetProjectsProjectsPasswordProtectionOutputWithContext(ctx context.Context) GetProjectsProjectsPasswordProtectionOutput {
+	return o
+}
+
+// The API deployment scope. Null when disabled.
+func (o GetProjectsProjectsPasswordProtectionOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjectsPasswordProtection) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether this protection mechanism is configured.
+func (o GetProjectsProjectsPasswordProtectionOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectsProjectsPasswordProtection) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetProjectsProjectsTrustedIps struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetProjectsProjectsTrustedIpsInput is an input type that accepts GetProjectsProjectsTrustedIpsArgs and GetProjectsProjectsTrustedIpsOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsTrustedIpsInput` via:
+//
+//	GetProjectsProjectsTrustedIpsArgs{...}
+type GetProjectsProjectsTrustedIpsInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsTrustedIpsOutput() GetProjectsProjectsTrustedIpsOutput
+	ToGetProjectsProjectsTrustedIpsOutputWithContext(context.Context) GetProjectsProjectsTrustedIpsOutput
+}
+
+type GetProjectsProjectsTrustedIpsArgs struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetProjectsProjectsTrustedIpsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsTrustedIps)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsTrustedIpsArgs) ToGetProjectsProjectsTrustedIpsOutput() GetProjectsProjectsTrustedIpsOutput {
+	return i.ToGetProjectsProjectsTrustedIpsOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsTrustedIpsArgs) ToGetProjectsProjectsTrustedIpsOutputWithContext(ctx context.Context) GetProjectsProjectsTrustedIpsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsTrustedIpsOutput)
+}
+
+type GetProjectsProjectsTrustedIpsOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsTrustedIpsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsTrustedIps)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsTrustedIpsOutput) ToGetProjectsProjectsTrustedIpsOutput() GetProjectsProjectsTrustedIpsOutput {
+	return o
+}
+
+func (o GetProjectsProjectsTrustedIpsOutput) ToGetProjectsProjectsTrustedIpsOutputWithContext(ctx context.Context) GetProjectsProjectsTrustedIpsOutput {
+	return o
+}
+
+// The API deployment scope. Null when disabled.
+func (o GetProjectsProjectsTrustedIpsOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjectsTrustedIps) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether this protection mechanism is configured.
+func (o GetProjectsProjectsTrustedIpsOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectsProjectsTrustedIps) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetProjectsProjectsVercelAuthentication struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType string `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetProjectsProjectsVercelAuthenticationInput is an input type that accepts GetProjectsProjectsVercelAuthenticationArgs and GetProjectsProjectsVercelAuthenticationOutput values.
+// You can construct a concrete instance of `GetProjectsProjectsVercelAuthenticationInput` via:
+//
+//	GetProjectsProjectsVercelAuthenticationArgs{...}
+type GetProjectsProjectsVercelAuthenticationInput interface {
+	pulumi.Input
+
+	ToGetProjectsProjectsVercelAuthenticationOutput() GetProjectsProjectsVercelAuthenticationOutput
+	ToGetProjectsProjectsVercelAuthenticationOutputWithContext(context.Context) GetProjectsProjectsVercelAuthenticationOutput
+}
+
+type GetProjectsProjectsVercelAuthenticationArgs struct {
+	// The API deployment scope. Null when disabled.
+	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
+	// Whether this protection mechanism is configured.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetProjectsProjectsVercelAuthenticationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsVercelAuthentication)(nil)).Elem()
+}
+
+func (i GetProjectsProjectsVercelAuthenticationArgs) ToGetProjectsProjectsVercelAuthenticationOutput() GetProjectsProjectsVercelAuthenticationOutput {
+	return i.ToGetProjectsProjectsVercelAuthenticationOutputWithContext(context.Background())
+}
+
+func (i GetProjectsProjectsVercelAuthenticationArgs) ToGetProjectsProjectsVercelAuthenticationOutputWithContext(ctx context.Context) GetProjectsProjectsVercelAuthenticationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectsProjectsVercelAuthenticationOutput)
+}
+
+type GetProjectsProjectsVercelAuthenticationOutput struct{ *pulumi.OutputState }
+
+func (GetProjectsProjectsVercelAuthenticationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProjectsProjectsVercelAuthentication)(nil)).Elem()
+}
+
+func (o GetProjectsProjectsVercelAuthenticationOutput) ToGetProjectsProjectsVercelAuthenticationOutput() GetProjectsProjectsVercelAuthenticationOutput {
+	return o
+}
+
+func (o GetProjectsProjectsVercelAuthenticationOutput) ToGetProjectsProjectsVercelAuthenticationOutputWithContext(ctx context.Context) GetProjectsProjectsVercelAuthenticationOutput {
+	return o
+}
+
+// The API deployment scope. Null when disabled.
+func (o GetProjectsProjectsVercelAuthenticationOutput) DeploymentType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProjectsProjectsVercelAuthentication) string { return v.DeploymentType }).(pulumi.StringOutput)
+}
+
+// Whether this protection mechanism is configured.
+func (o GetProjectsProjectsVercelAuthenticationOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetProjectsProjectsVercelAuthentication) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
 type GetTeamConfigDefaultDeploymentProtection struct {
 	// Default Vercel Authentication for new projects.
 	VercelAuthentication GetTeamConfigDefaultDeploymentProtectionVercelAuthentication `pulumi:"vercelAuthentication"`
@@ -20803,7 +22715,7 @@ func (o GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput) Depl
 type GetTeamConfigDefaultPassport struct {
 	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
 	ConnectorId string `pulumi:"connectorId"`
-	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	// The deployment scope protected when Passport is enabled. Null when disabled.
 	DeploymentType string `pulumi:"deploymentType"`
 	// Whether Passport is enabled.
 	Enabled bool `pulumi:"enabled"`
@@ -20823,7 +22735,7 @@ type GetTeamConfigDefaultPassportInput interface {
 type GetTeamConfigDefaultPassportArgs struct {
 	// The stable ID of the Vercel Connect OAuth application. Null when disabled.
 	ConnectorId pulumi.StringInput `pulumi:"connectorId"`
-	// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+	// The deployment scope protected when Passport is enabled. Null when disabled.
 	DeploymentType pulumi.StringInput `pulumi:"deploymentType"`
 	// Whether Passport is enabled.
 	Enabled pulumi.BoolInput `pulumi:"enabled"`
@@ -20860,7 +22772,7 @@ func (o GetTeamConfigDefaultPassportOutput) ConnectorId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetTeamConfigDefaultPassport) string { return v.ConnectorId }).(pulumi.StringOutput)
 }
 
-// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+// The deployment scope protected when Passport is enabled. Null when disabled.
 func (o GetTeamConfigDefaultPassportOutput) DeploymentType() pulumi.StringOutput {
 	return o.ApplyT(func(v GetTeamConfigDefaultPassport) string { return v.DeploymentType }).(pulumi.StringOutput)
 }
@@ -21424,6 +23336,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FirewallConfigRulesRuleConditionGroupConditionArrayInput)(nil)).Elem(), FirewallConfigRulesRuleConditionGroupConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KmsIssuerSigningKeyInput)(nil)).Elem(), KmsIssuerSigningKeyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KmsIssuerSigningKeyArrayInput)(nil)).Elem(), KmsIssuerSigningKeyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LogDrainSamplingRuleInput)(nil)).Elem(), LogDrainSamplingRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LogDrainSamplingRuleArrayInput)(nil)).Elem(), LogDrainSamplingRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MicrofrontendGroupDefaultAppPtrInput)(nil)).Elem(), MicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MonitorNotificationSettingsInput)(nil)).Elem(), MonitorNotificationSettingsArgs{})
@@ -21444,6 +23358,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentCheckSourcePtrInput)(nil)).Elem(), ProjectDeploymentCheckSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentCheckSourceSelectionInput)(nil)).Elem(), ProjectDeploymentCheckSourceSelectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentCheckSourceSelectionPtrInput)(nil)).Elem(), ProjectDeploymentCheckSourceSelectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionPasswordProtectionInput)(nil)).Elem(), ProjectDeploymentProtectionPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionPasswordProtectionPtrInput)(nil)).Elem(), ProjectDeploymentProtectionPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionTrustedIpsInput)(nil)).Elem(), ProjectDeploymentProtectionTrustedIpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionTrustedIpsPtrInput)(nil)).Elem(), ProjectDeploymentProtectionTrustedIpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionTrustedIpsAddressInput)(nil)).Elem(), ProjectDeploymentProtectionTrustedIpsAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionTrustedIpsAddressArrayInput)(nil)).Elem(), ProjectDeploymentProtectionTrustedIpsAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionVercelAuthenticationInput)(nil)).Elem(), ProjectDeploymentProtectionVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDeploymentProtectionVercelAuthenticationPtrInput)(nil)).Elem(), ProjectDeploymentProtectionVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationInput)(nil)).Elem(), ProjectDomainVerificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectDomainVerificationArrayInput)(nil)).Elem(), ProjectDomainVerificationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectEnvironmentInput)(nil)).Elem(), ProjectEnvironmentArgs{})
@@ -21468,8 +23390,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPtrInput)(nil)).Elem(), ProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathInput)(nil)).Elem(), ProjectOptionsAllowlistPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), ProjectOptionsAllowlistPathArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPassportInput)(nil)).Elem(), ProjectPassportArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPassportPtrInput)(nil)).Elem(), ProjectPassportArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPassportTypeInput)(nil)).Elem(), ProjectPassportTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPassportTypePtrInput)(nil)).Elem(), ProjectPassportTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectPasswordProtectionPtrInput)(nil)).Elem(), ProjectPasswordProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectResourceConfigInput)(nil)).Elem(), ProjectResourceConfigArgs{})
@@ -21543,6 +23465,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerPolicyArrayInput)(nil)).Elem(), GetKmsIssuerPolicyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerSigningKeyInput)(nil)).Elem(), GetKmsIssuerSigningKeyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetKmsIssuerSigningKeyArrayInput)(nil)).Elem(), GetKmsIssuerSigningKeyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogDrainSamplingRuleInput)(nil)).Elem(), GetLogDrainSamplingRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogDrainSamplingRuleArrayInput)(nil)).Elem(), GetLogDrainSamplingRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMicrofrontendGroupDefaultAppInput)(nil)).Elem(), GetMicrofrontendGroupDefaultAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentInput)(nil)).Elem(), GetProjectEnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectEnvironmentArrayInput)(nil)).Elem(), GetProjectEnvironmentArray{})
@@ -21558,8 +23482,15 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistInput)(nil)).Elem(), GetProjectOptionsAllowlistArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectOptionsAllowlistPathArrayInput)(nil)).Elem(), GetProjectOptionsAllowlistPathArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPassportInput)(nil)).Elem(), GetProjectPassportArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPassportTypeInput)(nil)).Elem(), GetProjectPassportTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectPasswordProtectionInput)(nil)).Elem(), GetProjectPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryInput)(nil)).Elem(), GetProjectProtectionInventoryEntryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryArrayInput)(nil)).Elem(), GetProjectProtectionInventoryEntryArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowInput)(nil)).Elem(), GetProjectProtectionInventoryEntryCustomAllowArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowArrayInput)(nil)).Elem(), GetProjectProtectionInventoryEntryCustomAllowArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowFromInput)(nil)).Elem(), GetProjectProtectionInventoryEntryCustomAllowFromArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryCustomAllowToInput)(nil)).Elem(), GetProjectProtectionInventoryEntryCustomAllowToArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectProtectionInventoryEntryToInput)(nil)).Elem(), GetProjectProtectionInventoryEntryToArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectResourceConfigInput)(nil)).Elem(), GetProjectResourceConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageInput)(nil)).Elem(), GetProjectRollingReleaseStageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectRollingReleaseStageArrayInput)(nil)).Elem(), GetProjectRollingReleaseStageArray{})
@@ -21586,6 +23517,13 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowFromInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowFromArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectTrustedSourcesProjectCustomAllowToInput)(nil)).Elem(), GetProjectTrustedSourcesProjectCustomAllowToArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectVercelAuthenticationInput)(nil)).Elem(), GetProjectVercelAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsInput)(nil)).Elem(), GetProjectsProjectsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsMapInput)(nil)).Elem(), GetProjectsProjectsMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsGitRepositoryInput)(nil)).Elem(), GetProjectsProjectsGitRepositoryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsPassportInput)(nil)).Elem(), GetProjectsProjectsPassportArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsPasswordProtectionInput)(nil)).Elem(), GetProjectsProjectsPasswordProtectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsTrustedIpsInput)(nil)).Elem(), GetProjectsProjectsTrustedIpsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectsProjectsVercelAuthenticationInput)(nil)).Elem(), GetProjectsProjectsVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtectionInput)(nil)).Elem(), GetTeamConfigDefaultDeploymentProtectionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationInput)(nil)).Elem(), GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTeamConfigDefaultPassportInput)(nil)).Elem(), GetTeamConfigDefaultPassportArgs{})
@@ -21710,6 +23648,8 @@ func init() {
 	pulumi.RegisterOutputType(FirewallConfigRulesRuleConditionGroupConditionArrayOutput{})
 	pulumi.RegisterOutputType(KmsIssuerSigningKeyOutput{})
 	pulumi.RegisterOutputType(KmsIssuerSigningKeyArrayOutput{})
+	pulumi.RegisterOutputType(LogDrainSamplingRuleOutput{})
+	pulumi.RegisterOutputType(LogDrainSamplingRuleArrayOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(MicrofrontendGroupDefaultAppPtrOutput{})
 	pulumi.RegisterOutputType(MonitorNotificationSettingsOutput{})
@@ -21730,6 +23670,14 @@ func init() {
 	pulumi.RegisterOutputType(ProjectDeploymentCheckSourcePtrOutput{})
 	pulumi.RegisterOutputType(ProjectDeploymentCheckSourceSelectionOutput{})
 	pulumi.RegisterOutputType(ProjectDeploymentCheckSourceSelectionPtrOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionPasswordProtectionOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionPasswordProtectionPtrOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionTrustedIpsOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionTrustedIpsPtrOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionTrustedIpsAddressOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionTrustedIpsAddressArrayOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionVercelAuthenticationOutput{})
+	pulumi.RegisterOutputType(ProjectDeploymentProtectionVercelAuthenticationPtrOutput{})
 	pulumi.RegisterOutputType(ProjectDomainVerificationOutput{})
 	pulumi.RegisterOutputType(ProjectDomainVerificationArrayOutput{})
 	pulumi.RegisterOutputType(ProjectEnvironmentOutput{})
@@ -21754,8 +23702,8 @@ func init() {
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPtrOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathOutput{})
 	pulumi.RegisterOutputType(ProjectOptionsAllowlistPathArrayOutput{})
-	pulumi.RegisterOutputType(ProjectPassportOutput{})
-	pulumi.RegisterOutputType(ProjectPassportPtrOutput{})
+	pulumi.RegisterOutputType(ProjectPassportTypeOutput{})
+	pulumi.RegisterOutputType(ProjectPassportTypePtrOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionOutput{})
 	pulumi.RegisterOutputType(ProjectPasswordProtectionPtrOutput{})
 	pulumi.RegisterOutputType(ProjectResourceConfigOutput{})
@@ -21829,6 +23777,8 @@ func init() {
 	pulumi.RegisterOutputType(GetKmsIssuerPolicyArrayOutput{})
 	pulumi.RegisterOutputType(GetKmsIssuerSigningKeyOutput{})
 	pulumi.RegisterOutputType(GetKmsIssuerSigningKeyArrayOutput{})
+	pulumi.RegisterOutputType(GetLogDrainSamplingRuleOutput{})
+	pulumi.RegisterOutputType(GetLogDrainSamplingRuleArrayOutput{})
 	pulumi.RegisterOutputType(GetMicrofrontendGroupDefaultAppOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentOutput{})
 	pulumi.RegisterOutputType(GetProjectEnvironmentArrayOutput{})
@@ -21844,8 +23794,15 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathOutput{})
 	pulumi.RegisterOutputType(GetProjectOptionsAllowlistPathArrayOutput{})
-	pulumi.RegisterOutputType(GetProjectPassportOutput{})
+	pulumi.RegisterOutputType(GetProjectPassportTypeOutput{})
 	pulumi.RegisterOutputType(GetProjectPasswordProtectionOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryCustomAllowOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryCustomAllowArrayOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryCustomAllowFromOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryCustomAllowToOutput{})
+	pulumi.RegisterOutputType(GetProjectProtectionInventoryEntryToOutput{})
 	pulumi.RegisterOutputType(GetProjectResourceConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectRollingReleaseStageOutput{})
 	pulumi.RegisterOutputType(GetProjectRollingReleaseStageArrayOutput{})
@@ -21872,6 +23829,13 @@ func init() {
 	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowFromOutput{})
 	pulumi.RegisterOutputType(GetProjectTrustedSourcesProjectCustomAllowToOutput{})
 	pulumi.RegisterOutputType(GetProjectVercelAuthenticationOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsMapOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsGitRepositoryOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsPassportOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsPasswordProtectionOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsTrustedIpsOutput{})
+	pulumi.RegisterOutputType(GetProjectsProjectsVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigDefaultDeploymentProtectionOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigDefaultDeploymentProtectionVercelAuthenticationOutput{})
 	pulumi.RegisterOutputType(GetTeamConfigDefaultPassportOutput{})

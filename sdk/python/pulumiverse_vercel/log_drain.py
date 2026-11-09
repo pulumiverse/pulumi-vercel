@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['LogDrainArgs', 'LogDrain']
 
@@ -27,6 +29,7 @@ class LogDrainArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
+                 sampling_rules: Optional[pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
@@ -41,7 +44,8 @@ class LogDrainArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
-        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
+        :param pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]] sampling_rules: Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
@@ -60,6 +64,8 @@ class LogDrainArgs:
             pulumi.set(__self__, "project_ids", project_ids)
         if sampling_rate is not None:
             pulumi.set(__self__, "sampling_rate", sampling_rate)
+        if sampling_rules is not None:
+            pulumi.set(__self__, "sampling_rules", sampling_rules)
         if secret is not None:
             pulumi.set(__self__, "secret", secret)
         if secret_wo is not None:
@@ -157,13 +163,25 @@ class LogDrainArgs:
     @pulumi.getter(name="samplingRate")
     def sampling_rate(self) -> Optional[pulumi.Input[_builtins.float]]:
         """
-        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
         """
         return pulumi.get(self, "sampling_rate")
 
     @sampling_rate.setter
     def sampling_rate(self, value: Optional[pulumi.Input[_builtins.float]]):
         pulumi.set(self, "sampling_rate", value)
+
+    @_builtins.property
+    @pulumi.getter(name="samplingRules")
+    def sampling_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]]]:
+        """
+        Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+        """
+        return pulumi.get(self, "sampling_rules")
+
+    @sampling_rules.setter
+    def sampling_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]]]):
+        pulumi.set(self, "sampling_rules", value)
 
     @_builtins.property
     @pulumi.getter
@@ -225,6 +243,7 @@ class _LogDrainState:
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
+                 sampling_rules: Optional[pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
@@ -239,7 +258,8 @@ class _LogDrainState:
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
-        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
+        :param pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]] sampling_rules: Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
@@ -261,6 +281,8 @@ class _LogDrainState:
             pulumi.set(__self__, "project_ids", project_ids)
         if sampling_rate is not None:
             pulumi.set(__self__, "sampling_rate", sampling_rate)
+        if sampling_rules is not None:
+            pulumi.set(__self__, "sampling_rules", sampling_rules)
         if secret is not None:
             pulumi.set(__self__, "secret", secret)
         if secret_wo is not None:
@@ -348,13 +370,25 @@ class _LogDrainState:
     @pulumi.getter(name="samplingRate")
     def sampling_rate(self) -> Optional[pulumi.Input[_builtins.float]]:
         """
-        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
         """
         return pulumi.get(self, "sampling_rate")
 
     @sampling_rate.setter
     def sampling_rate(self, value: Optional[pulumi.Input[_builtins.float]]):
         pulumi.set(self, "sampling_rate", value)
+
+    @_builtins.property
+    @pulumi.getter(name="samplingRules")
+    def sampling_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]]]:
+        """
+        Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+        """
+        return pulumi.get(self, "sampling_rules")
+
+    @sampling_rules.setter
+    def sampling_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['LogDrainSamplingRuleArgs']]]]):
+        pulumi.set(self, "sampling_rules", value)
 
     @_builtins.property
     @pulumi.getter
@@ -431,6 +465,7 @@ class LogDrain(pulumi.CustomResource):
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
+                 sampling_rules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['LogDrainSamplingRuleArgs', 'LogDrainSamplingRuleArgsDict']]]]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
@@ -487,7 +522,8 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
-        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['LogDrainSamplingRuleArgs', 'LogDrainSamplingRuleArgsDict']]]] sampling_rules: Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
@@ -565,6 +601,7 @@ class LogDrain(pulumi.CustomResource):
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
+                 sampling_rules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['LogDrainSamplingRuleArgs', 'LogDrainSamplingRuleArgsDict']]]]] = None,
                  secret: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
                  secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
@@ -592,6 +629,7 @@ class LogDrain(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["project_ids"] = project_ids
             __props__.__dict__["sampling_rate"] = sampling_rate
+            __props__.__dict__["sampling_rules"] = sampling_rules
             __props__.__dict__["secret"] = None if secret is None else pulumi.Output.secret(secret)
             __props__.__dict__["secret_wo"] = None if secret_wo is None else pulumi.Output.secret(secret_wo)
             __props__.__dict__["secret_wo_version"] = secret_wo_version
@@ -618,6 +656,7 @@ class LogDrain(pulumi.CustomResource):
             name: Optional[pulumi.Input[_builtins.str]] = None,
             project_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             sampling_rate: Optional[pulumi.Input[_builtins.float]] = None,
+            sampling_rules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['LogDrainSamplingRuleArgs', 'LogDrainSamplingRuleArgsDict']]]]] = None,
             secret: Optional[pulumi.Input[_builtins.str]] = None,
             secret_wo: Optional[pulumi.Input[_builtins.str]] = None,
             secret_wo_version: Optional[pulumi.Input[_builtins.int]] = None,
@@ -636,7 +675,8 @@ class LogDrain(pulumi.CustomResource):
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] headers: Custom headers to include in requests to the log drain endpoint.
         :param pulumi.Input[_builtins.str] name: A human-readable name for the log drain.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] project_ids: A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
-        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        :param pulumi.Input[_builtins.float] sampling_rate: A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['LogDrainSamplingRuleArgs', 'LogDrainSamplingRuleArgsDict']]]] sampling_rules: Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
         :param pulumi.Input[_builtins.str] secret: A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secret_wo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
         :param pulumi.Input[_builtins.str] secret_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                A write-only custom secret used to sign log events. The value is sent to Vercel during creation and is not persisted in state. Use an ephemeral input to also keep it out of saved plan configuration.
@@ -655,6 +695,7 @@ class LogDrain(pulumi.CustomResource):
         __props__.__dict__["name"] = name
         __props__.__dict__["project_ids"] = project_ids
         __props__.__dict__["sampling_rate"] = sampling_rate
+        __props__.__dict__["sampling_rules"] = sampling_rules
         __props__.__dict__["secret"] = secret
         __props__.__dict__["secret_wo"] = secret_wo
         __props__.__dict__["secret_wo_version"] = secret_wo_version
@@ -714,9 +755,17 @@ class LogDrain(pulumi.CustomResource):
     @pulumi.getter(name="samplingRate")
     def sampling_rate(self) -> pulumi.Output[Optional[_builtins.float]]:
         """
-        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
         """
         return pulumi.get(self, "sampling_rate")
+
+    @_builtins.property
+    @pulumi.getter(name="samplingRules")
+    def sampling_rules(self) -> pulumi.Output[Optional[Sequence['outputs.LogDrainSamplingRule']]]:
+        """
+        Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+        """
+        return pulumi.get(self, "sampling_rules")
 
     @_builtins.property
     @pulumi.getter

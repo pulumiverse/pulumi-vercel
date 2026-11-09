@@ -5,6 +5,7 @@ package com.pulumiverse.vercel.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumiverse.vercel.outputs.GetLogDrainSamplingRule;
 import java.lang.Double;
 import java.lang.String;
 import java.util.List;
@@ -49,10 +50,15 @@ public final class GetLogDrainResult {
      */
     private List<String> projectIds;
     /**
-     * @return A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * @return The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use samplingRules for the full configuration.
      * 
      */
     private Double samplingRate;
+    /**
+     * @return Ordered sampling rules for logs sent to this drain.
+     * 
+     */
+    private List<GetLogDrainSamplingRule> samplingRules;
     /**
      * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
      * 
@@ -115,11 +121,18 @@ public final class GetLogDrainResult {
         return this.projectIds;
     }
     /**
-     * @return A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * @return The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use samplingRules for the full configuration.
      * 
      */
     public Double samplingRate() {
         return this.samplingRate;
+    }
+    /**
+     * @return Ordered sampling rules for logs sent to this drain.
+     * 
+     */
+    public List<GetLogDrainSamplingRule> samplingRules() {
+        return this.samplingRules;
     }
     /**
      * @return A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
@@ -153,6 +166,7 @@ public final class GetLogDrainResult {
         private String name;
         private List<String> projectIds;
         private Double samplingRate;
+        private List<GetLogDrainSamplingRule> samplingRules;
         private List<String> sources;
         private String teamId;
         public Builder() {}
@@ -166,6 +180,7 @@ public final class GetLogDrainResult {
     	      this.name = defaults.name;
     	      this.projectIds = defaults.projectIds;
     	      this.samplingRate = defaults.samplingRate;
+    	      this.samplingRules = defaults.samplingRules;
     	      this.sources = defaults.sources;
     	      this.teamId = defaults.teamId;
         }
@@ -241,6 +256,17 @@ public final class GetLogDrainResult {
             return this;
         }
         @CustomType.Setter
+        public Builder samplingRules(List<GetLogDrainSamplingRule> samplingRules) {
+            if (samplingRules == null) {
+              throw new MissingRequiredPropertyException("GetLogDrainResult", "samplingRules");
+            }
+            this.samplingRules = samplingRules;
+            return this;
+        }
+        public Builder samplingRules(GetLogDrainSamplingRule... samplingRules) {
+            return samplingRules(List.of(samplingRules));
+        }
+        @CustomType.Setter
         public Builder sources(List<String> sources) {
             if (sources == null) {
               throw new MissingRequiredPropertyException("GetLogDrainResult", "sources");
@@ -269,6 +295,7 @@ public final class GetLogDrainResult {
             _resultValue.name = name;
             _resultValue.projectIds = projectIds;
             _resultValue.samplingRate = samplingRate;
+            _resultValue.samplingRules = samplingRules;
             _resultValue.sources = sources;
             _resultValue.teamId = teamId;
             return _resultValue;

@@ -5,7 +5,6 @@ package com.pulumiverse.vercel.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -33,18 +32,33 @@ public final class GetProjectArgs extends com.pulumi.resources.InvokeArgs {
     }
 
     /**
-     * The name of the project.
+     * The stable ID of the project. Specify exactly one of name or id.
      * 
      */
-    @Import(name="name", required=true)
-    private Output<String> name;
+    @Import(name="id")
+    private @Nullable Output<String> id;
 
     /**
-     * @return The name of the project.
+     * @return The stable ID of the project. Specify exactly one of name or id.
      * 
      */
-    public Output<String> name() {
-        return this.name;
+    public Optional<Output<String>> id() {
+        return Optional.ofNullable(this.id);
+    }
+
+    /**
+     * The name of the project. Specify exactly one of name or id.
+     * 
+     */
+    @Import(name="name")
+    private @Nullable Output<String> name;
+
+    /**
+     * @return The name of the project. Specify exactly one of name or id.
+     * 
+     */
+    public Optional<Output<String>> name() {
+        return Optional.ofNullable(this.name);
     }
 
     /**
@@ -81,6 +95,7 @@ public final class GetProjectArgs extends com.pulumi.resources.InvokeArgs {
 
     private GetProjectArgs(GetProjectArgs $) {
         this.buildMachineType = $.buildMachineType;
+        this.id = $.id;
         this.name = $.name;
         this.onDemandConcurrentBuilds = $.onDemandConcurrentBuilds;
         this.teamId = $.teamId;
@@ -126,18 +141,39 @@ public final class GetProjectArgs extends com.pulumi.resources.InvokeArgs {
         }
 
         /**
-         * @param name The name of the project.
+         * @param id The stable ID of the project. Specify exactly one of name or id.
          * 
          * @return builder
          * 
          */
-        public Builder name(Output<String> name) {
+        public Builder id(@Nullable Output<String> id) {
+            $.id = id;
+            return this;
+        }
+
+        /**
+         * @param id The stable ID of the project. Specify exactly one of name or id.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder id(String id) {
+            return id(Output.of(id));
+        }
+
+        /**
+         * @param name The name of the project. Specify exactly one of name or id.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder name(@Nullable Output<String> name) {
             $.name = name;
             return this;
         }
 
         /**
-         * @param name The name of the project.
+         * @param name The name of the project. Specify exactly one of name or id.
          * 
          * @return builder
          * 
@@ -189,9 +225,6 @@ public final class GetProjectArgs extends com.pulumi.resources.InvokeArgs {
         }
 
         public GetProjectArgs build() {
-            if ($.name == null) {
-                throw new MissingRequiredPropertyException("GetProjectArgs", "name");
-            }
             return $;
         }
     }

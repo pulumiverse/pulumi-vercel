@@ -78,8 +78,10 @@ type LookupLogDrainResult struct {
 	Name string `pulumi:"name"`
 	// A list of project IDs that the log drain should be associated with. Logs from these projects will be sent log events to the specified endpoint. If omitted, logs will be sent for all projects.
 	ProjectIds []string `pulumi:"projectIds"`
-	// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+	// The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use samplingRules for the full configuration.
 	SamplingRate float64 `pulumi:"samplingRate"`
+	// Ordered sampling rules for logs sent to this drain.
+	SamplingRules []GetLogDrainSamplingRule `pulumi:"samplingRules"`
 	// A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.
 	Sources []string `pulumi:"sources"`
 	// The ID of the team the Log Drain should exist under. Required when configuring a team resource if a default team has not been set in the provider.
@@ -159,9 +161,14 @@ func (o LookupLogDrainResultOutput) ProjectIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupLogDrainResult) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
 }
 
-// A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+// The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use samplingRules for the full configuration.
 func (o LookupLogDrainResultOutput) SamplingRate() pulumi.Float64Output {
 	return o.ApplyT(func(v LookupLogDrainResult) float64 { return v.SamplingRate }).(pulumi.Float64Output)
+}
+
+// Ordered sampling rules for logs sent to this drain.
+func (o LookupLogDrainResultOutput) SamplingRules() GetLogDrainSamplingRuleArrayOutput {
+	return o.ApplyT(func(v LookupLogDrainResult) []GetLogDrainSamplingRule { return v.SamplingRules }).(GetLogDrainSamplingRuleArrayOutput)
 }
 
 // A set of sources that the log drain should send logs for. Valid values are `static`, `edge`, `external`, `build`, `lambda`, `firewall`, and `redirect`.

@@ -18,7 +18,7 @@ public final class TeamConfigDefaultPassport {
      */
     private @Nullable String connectorId;
     /**
-     * @return Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * @return Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      * 
      */
     private @Nullable String deploymentType;
@@ -37,7 +37,7 @@ public final class TeamConfigDefaultPassport {
         return Optional.ofNullable(this.connectorId);
     }
     /**
-     * @return Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * @return Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      * 
      */
     public Optional<String> deploymentType() {

@@ -14,16 +14,16 @@ namespace Pulumiverse.Vercel.Inputs
     public sealed class ProjectGitCommentsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether Commit comments are enabled
+        /// Whether Commit comments are enabled. Required when GitComments is configured.
         /// </summary>
-        [Input("onCommit", required: true)]
-        public Input<bool> OnCommit { get; set; } = null!;
+        [Input("onCommit")]
+        public Input<bool>? OnCommit { get; set; }
 
         /// <summary>
-        /// Whether Pull Request comments are enabled
+        /// Whether Pull Request comments are enabled. Required when GitComments is configured.
         /// </summary>
-        [Input("onPullRequest", required: true)]
-        public Input<bool> OnPullRequest { get; set; } = null!;
+        [Input("onPullRequest")]
+        public Input<bool>? OnPullRequest { get; set; }
 
         public ProjectGitCommentsArgs()
         {

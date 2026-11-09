@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -98,9 +100,13 @@ export class LogDrain extends pulumi.CustomResource {
      */
     declare public readonly projectIds: pulumi.Output<string[] | undefined>;
     /**
-     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      */
     declare public readonly samplingRate: pulumi.Output<number | undefined>;
+    /**
+     * Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     */
+    declare public readonly samplingRules: pulumi.Output<outputs.LogDrainSamplingRule[] | undefined>;
     /**
      * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      */
@@ -143,6 +149,7 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["name"] = state?.name;
             resourceInputs["projectIds"] = state?.projectIds;
             resourceInputs["samplingRate"] = state?.samplingRate;
+            resourceInputs["samplingRules"] = state?.samplingRules;
             resourceInputs["secret"] = state?.secret;
             resourceInputs["secretWo"] = state?.secretWo;
             resourceInputs["secretWoVersion"] = state?.secretWoVersion;
@@ -169,6 +176,7 @@ export class LogDrain extends pulumi.CustomResource {
             resourceInputs["name"] = args?.name;
             resourceInputs["projectIds"] = args?.projectIds;
             resourceInputs["samplingRate"] = args?.samplingRate;
+            resourceInputs["samplingRules"] = args?.samplingRules;
             resourceInputs["secret"] = args?.secret ? pulumi.secret(args.secret) : undefined;
             resourceInputs["secretWo"] = args?.secretWo ? pulumi.secret(args.secretWo) : undefined;
             resourceInputs["secretWoVersion"] = args?.secretWoVersion;
@@ -211,9 +219,13 @@ export interface LogDrainState {
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      */
     samplingRate?: pulumi.Input<number>;
+    /**
+     * Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     */
+    samplingRules?: pulumi.Input<pulumi.Input<inputs.LogDrainSamplingRule>[]>;
     /**
      * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      */
@@ -266,9 +278,13 @@ export interface LogDrainArgs {
      */
     projectIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+     * A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent. Conflicts with sampling_rules.
      */
     samplingRate?: pulumi.Input<number>;
+    /**
+     * Ordered sampling rules for logs sent to this drain. The first matching rule applies; logs matching no rule are dropped. Conflicts with sampling_rate.
+     */
+    samplingRules?: pulumi.Input<pulumi.Input<inputs.LogDrainSamplingRule>[]>;
     /**
      * A custom secret to be used for signing log events. This value is persisted in Terraform state. Use `secretWo` to omit the signing secret from state. See https://vercel.com/docs/observability/log-drains/log-drains-reference#secure-log-drains for full info.
      */

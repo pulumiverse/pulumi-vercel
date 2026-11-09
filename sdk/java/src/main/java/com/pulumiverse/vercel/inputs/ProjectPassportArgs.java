@@ -32,14 +32,14 @@ public final class ProjectPassportArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      * 
      */
     @Import(name="deploymentType")
     private @Nullable Output<String> deploymentType;
 
     /**
-     * @return Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+     * @return Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
      * 
      */
     public Optional<Output<String>> deploymentType() {
@@ -109,7 +109,7 @@ public final class ProjectPassportArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param deploymentType Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+         * @param deploymentType Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
          * 
          * @return builder
          * 
@@ -120,7 +120,7 @@ public final class ProjectPassportArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param deploymentType Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all.
+         * @param deploymentType Deployments to protect: all, preview, prod*deployment*urls*and*all*previews, or all*except*custom*domains. Defaults to all when enabled; omit when disabled.
          * 
          * @return builder
          * 

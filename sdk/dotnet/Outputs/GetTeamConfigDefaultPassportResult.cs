@@ -19,7 +19,7 @@ namespace Pulumiverse.Vercel.Outputs
         /// </summary>
         public readonly string ConnectorId;
         /// <summary>
-        /// The deployment scope protected when Passport is enabled. Reports all when disabled as a default value; Passport does not protect any deployments when enabled is false.
+        /// The deployment scope protected when Passport is enabled. Null when disabled.
         /// </summary>
         public readonly string DeploymentType;
         /// <summary>

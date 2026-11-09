@@ -13,6 +13,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
 
 __all__ = [
     'GetLogDrainResult',
@@ -26,7 +27,7 @@ class GetLogDrainResult:
     """
     A collection of values returned by getLogDrain.
     """
-    def __init__(__self__, delivery_format=None, endpoint=None, environments=None, headers=None, id=None, name=None, project_ids=None, sampling_rate=None, sources=None, team_id=None):
+    def __init__(__self__, delivery_format=None, endpoint=None, environments=None, headers=None, id=None, name=None, project_ids=None, sampling_rate=None, sampling_rules=None, sources=None, team_id=None):
         if delivery_format and not isinstance(delivery_format, str):
             raise TypeError("Expected argument 'delivery_format' to be a str")
         pulumi.set(__self__, "delivery_format", delivery_format)
@@ -51,6 +52,9 @@ class GetLogDrainResult:
         if sampling_rate and not isinstance(sampling_rate, float):
             raise TypeError("Expected argument 'sampling_rate' to be a float")
         pulumi.set(__self__, "sampling_rate", sampling_rate)
+        if sampling_rules and not isinstance(sampling_rules, list):
+            raise TypeError("Expected argument 'sampling_rules' to be a list")
+        pulumi.set(__self__, "sampling_rules", sampling_rules)
         if sources and not isinstance(sources, list):
             raise TypeError("Expected argument 'sources' to be a list")
         pulumi.set(__self__, "sources", sources)
@@ -118,9 +122,17 @@ class GetLogDrainResult:
     @pulumi.getter(name="samplingRate")
     def sampling_rate(self) -> _builtins.float:
         """
-        A ratio of logs matching the sampling rate will be sent to your log drain. Should be a value between 0 and 1. If unspecified, all logs are sent.
+        The sampling rate when the drain has exactly one unconditional sampling rule. Null otherwise; use sampling_rules for the full configuration.
         """
         return pulumi.get(self, "sampling_rate")
+
+    @_builtins.property
+    @pulumi.getter(name="samplingRules")
+    def sampling_rules(self) -> Sequence['outputs.GetLogDrainSamplingRuleResult']:
+        """
+        Ordered sampling rules for logs sent to this drain.
+        """
+        return pulumi.get(self, "sampling_rules")
 
     @_builtins.property
     @pulumi.getter
@@ -153,6 +165,7 @@ class AwaitableGetLogDrainResult(GetLogDrainResult):
             name=self.name,
             project_ids=self.project_ids,
             sampling_rate=self.sampling_rate,
+            sampling_rules=self.sampling_rules,
             sources=self.sources,
             team_id=self.team_id)
 
@@ -198,6 +211,7 @@ def get_log_drain(endpoint: Optional[_builtins.str] = None,
         name=pulumi.get(__ret__, 'name'),
         project_ids=pulumi.get(__ret__, 'project_ids'),
         sampling_rate=pulumi.get(__ret__, 'sampling_rate'),
+        sampling_rules=pulumi.get(__ret__, 'sampling_rules'),
         sources=pulumi.get(__ret__, 'sources'),
         team_id=pulumi.get(__ret__, 'team_id'))
 def get_log_drain_output(endpoint: Optional[pulumi.Input[_builtins.str]] = None,
@@ -240,5 +254,6 @@ def get_log_drain_output(endpoint: Optional[pulumi.Input[_builtins.str]] = None,
         name=pulumi.get(__response__, 'name'),
         project_ids=pulumi.get(__response__, 'project_ids'),
         sampling_rate=pulumi.get(__response__, 'sampling_rate'),
+        sampling_rules=pulumi.get(__response__, 'sampling_rules'),
         sources=pulumi.get(__response__, 'sources'),
         team_id=pulumi.get(__response__, 'team_id')))
