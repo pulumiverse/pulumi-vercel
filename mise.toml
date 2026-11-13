@@ -1,4 +1,0 @@
-# Overrides for the generated .config/mise.toml, which ci-mgmt regenerates.
-# golangci-lint must be built with a Go version >= the one in provider/go.mod.
-[tools]
-golangci-lint = "2.15.0"
