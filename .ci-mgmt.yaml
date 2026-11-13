@@ -7,7 +7,6 @@ upstreamProviderOrg: vercel
 pulumiConvert: 1
 publish:
     cdn: false
-    sdk: all,!dotnet
 registryDocs: true
 publishRegistry: false
 goBuildParallelism: 2
