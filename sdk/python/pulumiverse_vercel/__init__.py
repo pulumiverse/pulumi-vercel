@@ -96,6 +96,7 @@ from .network import *
 from .oauth_app import *
 from .oauth_app_client_secret import *
 from .oidc_federation_policy import *
+from .organization_team import *
 from .project import *
 from .project_crons import *
 from .project_deployment_check import *
@@ -500,6 +501,14 @@ _utilities.register(
   "fqn": "pulumiverse_vercel",
   "classes": {
    "vercel:index/oidcFederationPolicy:OidcFederationPolicy": "OidcFederationPolicy"
+  }
+ },
+ {
+  "pkg": "vercel",
+  "mod": "index/organizationTeam",
+  "fqn": "pulumiverse_vercel",
+  "classes": {
+   "vercel:index/organizationTeam:OrganizationTeam": "OrganizationTeam"
   }
  },
  {

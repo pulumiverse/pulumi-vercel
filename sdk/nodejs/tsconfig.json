@@ -106,6 +106,7 @@
         "oauthApp.ts",
         "oauthAppClientSecret.ts",
         "oidcFederationPolicy.ts",
+        "organizationTeam.ts",
         "project.ts",
         "projectCrons.ts",
         "projectDeploymentCheck.ts",
