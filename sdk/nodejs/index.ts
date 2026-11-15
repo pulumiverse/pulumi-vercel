@@ -455,6 +455,11 @@ export type OidcFederationPolicy = import("./oidcFederationPolicy").OidcFederati
 export const OidcFederationPolicy: typeof import("./oidcFederationPolicy").OidcFederationPolicy = null as any;
 utilities.lazyLoad(exports, ["OidcFederationPolicy"], () => require("./oidcFederationPolicy"));
 
+export { OrganizationTeamArgs, OrganizationTeamState } from "./organizationTeam";
+export type OrganizationTeam = import("./organizationTeam").OrganizationTeam;
+export const OrganizationTeam: typeof import("./organizationTeam").OrganizationTeam = null as any;
+utilities.lazyLoad(exports, ["OrganizationTeam"], () => require("./organizationTeam"));
+
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
@@ -684,6 +689,8 @@ const _module = {
                 return new OauthAppClientSecret(name, <any>undefined, { urn })
             case "vercel:index/oidcFederationPolicy:OidcFederationPolicy":
                 return new OidcFederationPolicy(name, <any>undefined, { urn })
+            case "vercel:index/organizationTeam:OrganizationTeam":
+                return new OrganizationTeam(name, <any>undefined, { urn })
             case "vercel:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "vercel:index/projectCrons:ProjectCrons":
@@ -783,6 +790,7 @@ pulumi.runtime.registerResourceModule("vercel", "index/network", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthApp", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oauthAppClientSecret", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/oidcFederationPolicy", _module)
+pulumi.runtime.registerResourceModule("vercel", "index/organizationTeam", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/project", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectCrons", _module)
 pulumi.runtime.registerResourceModule("vercel", "index/projectDeploymentCheck", _module)
