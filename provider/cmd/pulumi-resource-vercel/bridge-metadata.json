@@ -435,6 +435,10 @@
                     }
                 }
             },
+            "vercel_organization_team": {
+                "current": "vercel:index/organizationTeam:OrganizationTeam",
+                "majorVersion": 5
+            },
             "vercel_project": {
                 "current": "vercel:index/project:Project",
                 "majorVersion": 5,
